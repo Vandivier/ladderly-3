@@ -14,8 +14,8 @@ type LoginFormProps = {
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+      <h1 className="text-gray-800 font-bold text-2xl mb-4">Login</h1>
 
       <Form
         submitText="Login"
@@ -39,12 +39,12 @@ export const LoginForm = (props: LoginFormProps) => {
       >
         <LabeledTextField name="email" label="Email" placeholder="Email" />
         <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
-        <div>
+        <div className="mt-4 text-right">
           <Link href={Routes.ForgotPasswordPage()}>Forgot your password?</Link>
         </div>
       </Form>
 
-      <div style={{ marginTop: "1rem" }}>
+      <div className="mt-4">
         Or <Link href={Routes.SignupPage()}>Sign Up</Link>
       </div>
     </div>
