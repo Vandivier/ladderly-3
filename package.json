@@ -4,12 +4,15 @@
   "scripts": {
     "dev": "blitz dev",
     "build": "blitz build",
+    "migrate": "npm run users:backup && blitz prisma migrate dev && npm run users:restore",
     "start": "blitz start",
     "studio": "blitz prisma studio",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "users:backup": "node scripts/backupUsers.js",
+    "users:restore": "node scripts/restoreUsers.js"
   },
   "prisma": {
     "schema": "db/schema.prisma"
@@ -30,7 +33,9 @@
     "@prisma/client": "4.6.1",
     "autoprefixer": "10.4.14",
     "blitz": "2.0.0-beta.29",
+    "dotenv": "16.3.1",
     "final-form": "4.20.9",
+    "fs-extra": "11.1.1",
     "next": "13.4.5",
     "postcss": "8.4.24",
     "prisma": "4.6.1",
