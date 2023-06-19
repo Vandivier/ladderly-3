@@ -35,11 +35,6 @@
   gap: 2rem;
 }
 
-.header h1 {
-  max-width: 620px;
-  align-self: center;
-}
-
 .body {
   composes: frost;
   border-radius: var(--border-radius);
@@ -90,6 +85,7 @@
 .code {
   display: flex;
   align-items: center;
+  margin: 0.5rem;
   gap: 0.5rem;
 }
 
@@ -107,11 +103,11 @@
   color: rgb(57, 33, 97);
 }
 
-.code pre {
+.code p {
   background: rgba(124, 58, 237, 12%);
   border-radius: 4px;
   padding: 0.7em 1.4em;
-  text-align: center;
+  text-align: left;
 }
 
 .code code {
@@ -123,11 +119,11 @@
 }
 
 .toastContainer {
-  border: 1px solid #edff;
-  padding: 0 1rem;
   background: #eeff;
+  border: 1px solid #edff;
   color: #62af;
-  text-align: center;
+  display: flex;
+  padding: 0.2rem 1.5rem;
 }
 
 .toastContainer strong {
@@ -215,19 +211,6 @@
   box-shadow: rgb(80 63 205 / 50%) 0px 1px 40px;
 }
 
-.loginButton {
-  composes: button;
-  background: rgb(248 250 252);
-  border: 1px solid rgb(231, 216, 246);
-  color: rgb(30 41 59);
-  text-shadow: none;
-}
-
-.loginButton:hover {
-  color: rgb(30 41 59);
-  text-shadow: none;
-}
-
 .card:hover .arrowIcon {
   color: #7450ec;
 }
@@ -273,15 +256,10 @@
   line-height: 1.5;
 }
 
-.logo {
-  flex: 1;
-  padding: 1rem 2rem;
-}
-
-.logo svg {
-  height: 100%;
-  width: 200px;
-  fill: #7450ec;
+.logo img {
+  border-radius: 16px;
+  box-shadow: rgba(117, 81, 236, 0.8) 3px 6px 18px;
+  margin: auto;
 }
 
 /* MOBILE */
