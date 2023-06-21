@@ -65,6 +65,17 @@ const Home: BlitzPage = () => {
 
               <h2 className="text-gray-800 font-bold text-2xl">Accelerate Your Tech Career</h2>
 
+              <h2 className="text-gray-800 font-bold text-2xl">
+                Recommended Next Steps: Complete the{" "}
+                <Link
+                  className="text-ladderly-pink font-bold text-2xl hover:underline"
+                  href={"/checklist"}
+                >
+                  Basic Checklist
+                </Link>
+                !
+              </h2>
+
               <div className={styles.buttonContainer}>
                 <Suspense fallback="Loading...">
                   <UserInfo />
