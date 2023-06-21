@@ -57,3 +57,4 @@ lib-cov
 
 # ignore physical backups of blitz db
 db/bak.users.json
+.vercel
