@@ -8,6 +8,7 @@ export const CreateChecklistItemSchema = z.object({
 })
 export const UpdateChecklistItemSchema = z.object({
   id: z.number(),
+  isComplete: z.boolean(),
   // template: __fieldName__: z.__zodType__(),
 })
 
