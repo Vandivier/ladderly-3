@@ -69,7 +69,7 @@ const Home: BlitzPage = () => {
                 Recommended Next Steps: Complete the{" "}
                 <Link
                   className="text-ladderly-pink font-bold text-2xl hover:underline"
-                  href={"/checklist"}
+                  href={"/checklists/my-basic-checklist"}
                 >
                   Basic Checklist
                 </Link>
