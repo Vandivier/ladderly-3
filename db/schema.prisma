@@ -22,8 +22,9 @@ model User {
   hashedPassword String?
   role           String   @default("USER")
 
-  tokens   Token[]
-  sessions Session[]
+  tokens         Token[]
+  sessions       Session[]
+  userChecklists UserChecklist[]
 }
 
 model Session {
@@ -64,3 +65,38 @@ model Token {
 // enum TokenType {
 //   RESET_PASSWORD
 // }
+
+model UserChecklist {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      Int
+  checklistId Int
+  isComplete  Boolean   @default(false)
+  user        User      @relation(fields: [userId], references: [id])
+  checklist   Checklist @relation(fields: [checklistId], references: [id])
+
+  @@unique([userId, checklistId])
+}
+
+model ChecklistItem {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  displayText String
+  isComplete  Boolean   @default(false)
+  checklist   Checklist @relation(fields: [checklistId], references: [id])
+  checklistId Int
+
+  @@unique([displayText, checklistId])
+}
+
+model Checklist {
+  id             Int             @id @default(autoincrement())
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  name           String
+  checklistItems ChecklistItem[]
+
+  userChecklists UserChecklist[]
+}
