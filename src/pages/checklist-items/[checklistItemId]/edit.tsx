@@ -39,11 +39,11 @@ export const EditChecklistItem = () => {
             submitText="Update ChecklistItem"
             schema={UpdateChecklistItemSchema}
             initialValues={checklistItem}
-            onSubmit={async (values) => {
+            onSubmit={async ({ isComplete }) => {
               try {
                 const updated = await updateChecklistItemMutation({
                   id: checklistItem.id,
-                  ...values,
+                  isComplete: isComplete,
                 })
                 await setQueryData(updated)
                 await router.push(Routes.ShowChecklistItemPage({ checklistItemId: updated.id }))

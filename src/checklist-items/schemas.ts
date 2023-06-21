@@ -1,6 +1,11 @@
 import { z } from "zod"
 
 export const CreateChecklistItemSchema = z.object({
+  checklist: z.object({
+    connect: z.object({
+      id: z.number(),
+    }),
+  }),
   displayText: z.string(),
   isComplete: z.boolean(),
   user: z.string(),

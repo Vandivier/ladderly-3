@@ -24,8 +24,8 @@ const ChecklistItems = ({ checklistItems, refetchChecklist }) => {
       {checklistItems.map((item) => (
         <li
           key={item.id}
-          onClick={() => {
-            handleItemClick(item.id, item.isComplete)
+          onClick={async () => {
+            await handleItemClick(item.id, item.isComplete)
           }}
         >
           <input type="checkbox" checked={item.isComplete} readOnly />

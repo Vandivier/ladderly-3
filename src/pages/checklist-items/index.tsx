@@ -31,7 +31,7 @@ export const ChecklistItemsList = () => {
                 checklistItemId: checklistItem.id,
               })}
             >
-              {checklistItem.name}
+              {checklistItem.displayText}
             </Link>
           </li>
         ))}
