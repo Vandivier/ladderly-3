@@ -13,18 +13,21 @@ generator client {
 // --------------------------------------
 
 model User {
-  id             Int      @id @default(autoincrement())
-  uuid           String   @default(uuid())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  name           String?
-  email          String   @unique
-  hashedPassword String?
-  role           String   @default("USER")
-
-  tokens         Token[]
-  sessions       Session[]
-  userChecklists UserChecklist[]
+  id                 Int                  @id @default(autoincrement())
+  uuid               String               @default(uuid())
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  name               String?
+  email              String               @unique
+  hashedPassword     String?
+  role               String               @default("USER")
+  stripeCustomerId   String?
+  tokens             Token[]
+  sessions           Session[]
+  userChecklists     UserChecklist[]
+  transactions       Transaction[]
+  subscriptions      Subscription[]
+  SubscriptionChange SubscriptionChange[]
 }
 
 model Session {
@@ -43,13 +46,11 @@ model Session {
 }
 
 model Token {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   hashedToken String
-  type        String
-  // See note below about TokenType enum
-  // type        TokenType
+  type        TokenType
   expiresAt   DateTime
   sentTo      String
 
@@ -59,12 +60,9 @@ model Token {
   @@unique([hashedToken, type])
 }
 
-// NOTE: It's highly recommended to use an enum for the token type
-//       but enums only work in Postgres.
-//       See: https://blitzjs.com/docs/database-overview#switch-to-postgre-sql
-// enum TokenType {
-//   RESET_PASSWORD
-// }
+enum TokenType {
+  RESET_PASSWORD
+}
 
 model UserChecklist {
   id          Int       @id @default(autoincrement())
@@ -99,4 +97,40 @@ model Checklist {
   checklistItems ChecklistItem[]
 
   userChecklists UserChecklist[]
+}
+
+model Subscription {
+  id                  Int                  @id @default(autoincrement())
+  userId              Int
+  user                User                 @relation(fields: [userId], references: [id])
+  tier                PaymentTierEnum      @default(FREE)
+  createdAt           DateTime             @default(now())
+  subscriptionChanges SubscriptionChange[]
+}
+
+model SubscriptionChange {
+  id             Int             @id @default(autoincrement())
+  userId         Int
+  user           User            @relation(fields: [userId], references: [id])
+  subscriptionId Int
+  subscription   Subscription    @relation(fields: [subscriptionId], references: [id])
+  previousTier   PaymentTierEnum
+  newTier        PaymentTierEnum
+  createdAt      DateTime        @default(now())
+}
+
+model Transaction {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id])
+  stripePaymentId String
+  description     String
+  amount          Float
+  createdAt       DateTime @default(now())
+}
+
+enum PaymentTierEnum {
+  FREE
+  PAY_WHAT_YOU_CAN
+  PREMIUM
 }
