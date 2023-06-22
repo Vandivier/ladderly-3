@@ -103,7 +103,7 @@ model Subscription {
   id                  Int                  @id @default(autoincrement())
   userId              Int
   user                User                 @relation(fields: [userId], references: [id])
-  tier                PaymentTierEnum
+  tier                PaymentTierEnum      @default(FREE)
   createdAt           DateTime             @default(now())
   subscriptionChanges SubscriptionChange[]
 }
