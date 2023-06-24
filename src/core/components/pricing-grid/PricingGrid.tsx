@@ -2,37 +2,12 @@ import React from "react"
 import Link from "next/link"
 import { Routes } from "@blitzjs/next"
 
-const tiers = [
+const plans = [
   {
-    name: "Forever Free Tier",
-    price: "Free",
-    benefits: [
-      "Open Source Curriculum",
-      "Basic Checklist",
-      "Access to the community",
-      "Periodic Coupons",
-    ],
-    buttonText: null,
-  },
-  {
-    name: "Pay What You Want Tier (as little as $1/mo)",
-    price: "$1/mo",
-    benefits: [
-      'Access to the "advanced checklist"',
-      "Ad-free experience",
-      "Priority communication and meeting scheduling",
-      "Limited time offer: complimentary 30-minute session and 50% off all additional sessions",
-      "Influence on the development roadmap",
-      "Contribute to the community bounty: No ads for all if the community subscription bounty is met",
-      "Discounts on all merchandise from the Coding Life Store, Ladderly IRL event tickets, and 1:1 sessions",
-    ],
-    buttonText: "Upgrade Now",
-  },
-  {
-    name: "Premium Tier ($30/mo + optional tips)",
+    name: "Premium",
     price: "$30/mo",
     benefits: [
-      'All benefits of the "Pay What You Want" tier',
+      'All "Pay What You Can" plan benefits',
       "Free access to all Ladderly In Real Life (IRL) events",
       "Accrue free session time and receive limited-edition seasonal merchandise",
       'Your subscription helps keep the cost extremely low ("pay what you want") for others',
@@ -42,7 +17,33 @@ const tiers = [
       "Contribute to the community bounty: No ads for all if the community subscription bounty is met",
       "(Coming Soon) 24/7 Access to the Ladderly Chatbot",
     ],
-    buttonText: "Upgrade Now",
+    buttonText: "Join Now",
+  },
+  {
+    name: "Pay What You Can",
+    price: "as little as $1/mo",
+    benefits: [
+      "Limited time offer: complimentary 30-minute session and 50% off all additional sessions",
+      "Ad-free experience",
+      "Priority support",
+      "Advanced Checklist Access (10 Additional Items)",
+      "Influence the development roadmap",
+      "Contribute to the community bounty: No ads for all if the community subscription bounty is met",
+      "Discounted Store and Expert Consultation Prices",
+    ],
+    buttonText: "Join Now",
+  },
+  {
+    name: "Free",
+    price: "$0",
+    benefits: [
+      "Open Source Curriculum",
+      "Standard Checklist",
+      "Access the Social Community",
+      "Schedule Expert Consultations",
+      "Store Access",
+    ],
+    buttonText: null,
   },
 ]
 
@@ -52,13 +53,13 @@ const PricingGrid: React.FC = () => {
       <h1 className="text-4xl mb-10 text-center font-bold">Pricing Plans</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tiers.map((tier, i) => (
+        {plans.map((plan, i) => (
           <div key={i} className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl mb-2 font-bold">{tier.name}</h2>
-            <p className="text-xl mb-4">{tier.price}</p>
+            <h2 className="text-2xl mb-2 font-bold">{plan.name}</h2>
+            <p className="text-xl mb-4">{plan.price}</p>
 
             <ul className="mb-4 space-y-2">
-              {tier.benefits.map((benefit, j) => (
+              {plan.benefits.map((benefit, j) => (
                 <li key={j} className="flex items-start">
                   <span className="mr-2">⭐</span>
                   <p className="text-left">{benefit}</p>
@@ -66,13 +67,18 @@ const PricingGrid: React.FC = () => {
               ))}
             </ul>
 
-            {tier.buttonText && (
+            {plan.buttonText && (
               <div>
                 <Link
                   href={Routes.SignupPage()}
-                  className="inline-block bg-ladderly-pink text-white px-6 py-2 rounded-lg text-lg font-bold transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+                  className="bg-ladderly-pink text-white px-6 py-2 rounded-lg text-lg font-bold transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+                  style={{
+                    display: "flex",
+                    margin: "1rem auto",
+                    width: "max-content",
+                  }}
                 >
-                  {tier.buttonText}
+                  {plan.buttonText}
                 </Link>
               </div>
             )}
