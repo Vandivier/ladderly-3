@@ -2,6 +2,9 @@ module.exports = {
   content: ["./{src,app,pages}/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundColor: {
+        frost: "rgba(255, 255, 255, 0.2)",
+      },
       backgroundImage: {
         "ladderly-gradient-white-violet":
           "linear-gradient(rgba(255, 255, 255, 0.62) 0%, #8155ff38 60.42%, #002fff5c 169%)",
@@ -10,6 +13,7 @@ module.exports = {
       },
       boxShadow: {
         "custom-purple": "rgba(117, 81, 236, 0.8) 3px 6px 18px",
+        frost: "0 4px 30px rgba(0, 0, 0, 0.1)",
       },
       colors: {
         "ladderly-tetrad-pink": "rgb(255, 85, 210)",
