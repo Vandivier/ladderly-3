@@ -69,7 +69,7 @@ const TopNavContent = () => {
         <Link href={Routes.LoginPage()} className="ml-6">
           <strong>Login</strong>
         </Link>
-        <Link href={Routes.LoginPage()} className="ml-6">
+        <Link href={Routes.SignupPage()} className="ml-6">
           <strong>Signup</strong>
         </Link>
       </p>
@@ -96,7 +96,7 @@ const Home: BlitzPage = () => {
       <div className={styles.globe} />
 
       <div className={styles.container}>
-        <div className={styles.toastContainer}>
+        <div className="bg-ladderly-off-white border border-ladderly-light-purple text-ladderly-teal flex py-1 px-4">
           <Suspense fallback="">
             <TopNavContent />
           </Suspense>
