@@ -52,7 +52,7 @@ const ChecklistQueryHandler: React.FC = () => {
 
 const MyBasicChecklist: BlitzPage = () => {
   return (
-    <Layout title="My Basic Checklist">
+    <Layout title="My Standard Checklist">
       <div className="relative min-h-screen">
         <nav className="bg-ladderly-off-white border border-ladderly-light-purple text-ladderly-teal flex py-1 px-4">
           <Link className="ml-auto text-gray-800 hover:text-ladderly-pink" href={Routes.Home()}>
@@ -61,7 +61,7 @@ const MyBasicChecklist: BlitzPage = () => {
         </nav>
         <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
           <div className="w-full max-w-md bg-white m-8 p-8 rounded-lg shadow-xl border border-gray-200">
-            <h1 className="text-gray-800 font-bold text-2xl mb-4">My Basic Checklist</h1>
+            <h1 className="text-gray-800 font-bold text-2xl mb-4">My Standard Checklist</h1>
             <Suspense fallback="Loading...">
               <ChecklistQueryHandler />
             </Suspense>

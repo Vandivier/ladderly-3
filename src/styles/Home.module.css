@@ -12,6 +12,11 @@
   justify-content: space-evenly;
 }
 
+.nextStepsCard {
+  margin: 0 auto 1rem;
+  width: 600px;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -20,17 +25,17 @@
 
 .header {
   display: flex;
-  flex-direction: column;
+  margin: auto;
   padding: 4rem 0rem 2rem 0rem;
   text-align: center;
-  gap: 2rem;
+  gap: 4rem;
 }
 
 .body {
   border-radius: var(--border-radius);
   display: flex;
   padding: 1rem;
-  width: 100%;
+  width: 450px;
   flex-direction: row;
   align-self: center;
   max-width: calc(min(var(--screen-width), 800px));
@@ -39,7 +44,6 @@
 .instructions {
   display: inline-flex;
   flex-direction: column;
-  padding: 1rem;
   width: 100%;
 }
 
@@ -68,8 +72,9 @@
   align-items: center;
 }
 
-.footer span {
-  margin-right: 0.2rem;
+.footer a,
+.footer p {
+  margin: auto 0.4rem;
 }
 
 .code {
@@ -201,50 +206,6 @@
   box-shadow: rgb(80 63 205 / 50%) 0px 1px 40px;
 }
 
-.card:hover .arrowIcon {
-  color: #7450ec;
-}
-
-.linkGrid {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.card {
-  padding: 1rem 0rem;
-  text-align: center;
-  color: inherit;
-  text-decoration: none;
-  border-radius: 10px;
-  border-bottom-left-radius: 0px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 200px;
-  min-width: 200px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #7450ec;
-  border-color: #7450ec;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
 .logo img {
   border-radius: 16px;
   box-shadow: rgba(117, 81, 236, 0.8) 3px 6px 18px;
@@ -253,19 +214,23 @@
 
 /* MOBILE */
 @media (max-width: 800px) {
-  .linkGrid {
-    width: 100%;
-  }
-
-  .card {
-    max-width: 100%;
-  }
-
   .body {
     flex-wrap: wrap;
   }
 
   .buttonContainer {
     flex-wrap: wrap;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .nextStepsCard {
+    width: 300px;
   }
 }
