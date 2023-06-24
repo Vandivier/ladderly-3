@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Suspense } from "react"
 import logout from "src/auth/mutations/logout"
+import PricingGrid from "src/core/components/pricing-grid/PricingGrid"
 import Layout from "src/core/layouts/Layout"
 import styles from "src/styles/Home.module.css"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
@@ -50,11 +51,16 @@ const Home: BlitzPage = () => {
       <div className={styles.globe} />
 
       <div className={styles.container}>
-        <p className={styles.toastContainer}>
-          <Link href={Routes.LoginPage()} className="ml-auto">
-            <strong>Login</strong>
-          </Link>
-        </p>
+        <div className={styles.toastContainer}>
+          <p style={{ marginLeft: "auto" }}>
+            <Link href={Routes.SettingsPage()} className="ml-6">
+              <strong>Settings</strong>
+            </Link>
+            <Link href={Routes.LoginPage()} className="ml-6">
+              <strong>Login</strong>
+            </Link>
+          </p>
+        </div>
 
         <main className={styles.main}>
           <div className={styles.wrapper}>
@@ -76,6 +82,19 @@ const Home: BlitzPage = () => {
                 !
               </h2>
 
+              <h2 className="text-gray-800 font-bold text-2xl">
+                Also:{" "}
+                <Link
+                  className="text-ladderly-pink font-bold text-2xl hover:underline"
+                  href={"/settings"}
+                >
+                  Consider a Premium Account
+                </Link>
+                !
+              </h2>
+
+              <PricingGrid />
+
               <div className={styles.buttonContainer}>
                 <Suspense fallback="Loading...">
                   <UserInfo />
@@ -83,7 +102,7 @@ const Home: BlitzPage = () => {
               </div>
             </div>
 
-            <div className={styles.body}>
+            <div className={`${styles.body} bg-frost`}>
               <div className={styles.instructions}>
                 <p>
                   <strong>Ladderly Helps You:</strong>
