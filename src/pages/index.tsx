@@ -124,16 +124,38 @@ const Home: BlitzPage = () => {
                     href={"/checklists/my-basic-checklist"}
                   >
                     Standard Checklist
-                  </Link>{" "}
-                  and{" "}
+                  </Link>
+                  ,{" "}
                   <Link
                     className="text-ladderly-pink font-bold text-2xl hover:underline"
                     href={"/settings"}
                   >
+                    {/* // TODO: This should just be a step of the standard checklist */}
                     Consider a Premium Account
                   </Link>
+                  , and{" "}
+                  <a className="text-ladderly-pink font-bold text-2xl hover:underline">
+                    Book an Expert Session
+                  </a>
                   !
                 </h2>
+              </div>
+
+              <div
+                className={`${styles.nextStepsCard} bg-white rounded-lg shadow-lg p-2`}
+                style={{ marginTop: "0.5rem" }}
+              >
+                <h3 className="text-gray-800 font-bold text-m">
+                  To support Ladderly's mission to provide low-cost education in STEM, consider{" "}
+                  <Link
+                    className="text-ladderly-pink font-bold text-m hover:underline"
+                    href={"https://buy.stripe.com/5kAg2vdWYa5pbC04gg"}
+                    target="_blank"
+                  >
+                    leaving a tip
+                  </Link>
+                  .
+                </h3>
               </div>
 
               <PricingGrid />

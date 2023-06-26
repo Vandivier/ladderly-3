@@ -13,14 +13,13 @@
 }
 
 .nextStepsCard {
-  margin: 0 auto 1rem;
+  margin: 0 auto;
   width: 600px;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
 .header {
