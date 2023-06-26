@@ -146,7 +146,7 @@ const Home: BlitzPage = () => {
                 style={{ marginTop: "0.5rem" }}
               >
                 <h3 className="text-gray-800 font-bold text-m">
-                  To support Ladderly's mission to provide low-cost education in STEM, consider{" "}
+                  To support Ladderly{"'"}s mission to provide low-cost education in STEM, consider{" "}
                   <Link
                     className="text-ladderly-pink font-bold text-m hover:underline"
                     href={"https://buy.stripe.com/5kAg2vdWYa5pbC04gg"}
