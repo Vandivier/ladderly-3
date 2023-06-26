@@ -18,6 +18,7 @@ const plans = [
       "(Coming Soon) 24/7 Access to the Ladderly Chatbot",
     ],
     buttonText: "Join Now",
+    link: "https://buy.stripe.com/fZe2bF4mo6Td7lK004",
   },
   {
     name: "Pay What You Can",
@@ -32,6 +33,7 @@ const plans = [
       "Discounted Store and Expert Consultation Prices",
     ],
     buttonText: "Join Now",
+    link: "https://buy.stripe.com/dR67vZbOQfpJ21qdQT",
   },
   {
     name: "Free",
@@ -67,16 +69,17 @@ const PricingGrid: React.FC = () => {
               ))}
             </ul>
 
-            {plan.buttonText && (
+            {plan.buttonText && plan.link && (
               <div>
                 <Link
-                  href={Routes.SignupPage()}
+                  href={plan.link}
                   className="bg-ladderly-pink text-white px-6 py-2 rounded-lg text-lg font-bold transition-all duration-300 ease-in-out hover:shadow-custom-purple"
                   style={{
                     display: "flex",
                     margin: "1rem auto",
                     width: "max-content",
                   }}
+                  target="_blank"
                 >
                   {plan.buttonText}
                 </Link>

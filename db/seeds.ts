@@ -5,7 +5,7 @@ const prisma = db
 const seed = async () => {
   const checklistItems = [
     "Joined the Discord, participating regularly and socially",
-    "Watched the Trial by Fire <https://www.youtube.com/watch?v=V7yeF9AaBxM> and reproduced it; I have a GitHub with a vanilla JS+HTML single-page blog hosted on GitHub pages",
+    "Watched the Trial by Fire (at https://www.youtube.com/watch?v=V7yeF9AaBxM) and reproduced it; I have a GitHub with a vanilla JS+HTML single-page blog hosted on GitHub pages",
     "I executed a substantive web dev program (coursera, codecademy pro front end, a reputable bootcamp, or a Ladderly mentorship)",
     "I have a portfolio with 4 projects including: vanilla js blog, next blog, a capstone that reflects my personal interests, and a portfolio site. All projects are publicly deployed and visible with public README files that describe them",
     "I have used the rect tool for flash card study and passed at least one quiz. I created at least one GitHub issue or PR on the repo to improve it. I reached out to the maintainers using Discord or other means if I didn't hear back on my PR or issue within a few days. I am an Open Source contributor!",

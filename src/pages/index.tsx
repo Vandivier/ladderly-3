@@ -116,7 +116,9 @@ const Home: BlitzPage = () => {
 
             <div>
               <div className={`${styles.nextStepsCard} bg-white rounded-lg shadow-lg p-6`}>
-                <h2 className="text-gray-800 font-bold text-2xl">Recommended Next Steps:</h2>
+                <h2 className="text-gray-800 font-bold text-2xl" style={{ marginBottom: "0.5rem" }}>
+                  Recommended Next Steps:
+                </h2>
                 <h2 className="text-gray-800 font-bold text-2xl">
                   Complete the{" "}
                   <Link
@@ -124,16 +126,35 @@ const Home: BlitzPage = () => {
                     href={"/checklists/my-basic-checklist"}
                   >
                     Standard Checklist
-                  </Link>{" "}
-                  and{" "}
+                  </Link>
+                  , <span className="font-bold text-2xl">consider one of the paid plans below</span>
+                  , and{" "}
                   <Link
                     className="text-ladderly-pink font-bold text-2xl hover:underline"
-                    href={"/settings"}
+                    href={"https://buy.stripe.com/cN2bMfbOQ2CX5dC7su"}
+                    target="_blank"
                   >
-                    Consider a Premium Account
+                    Book an Expert Session
                   </Link>
                   !
                 </h2>
+              </div>
+
+              <div
+                className={`${styles.nextStepsCard} bg-white rounded-lg shadow-lg p-2`}
+                style={{ marginTop: "0.5rem" }}
+              >
+                <h3 className="text-gray-800 font-bold text-m">
+                  To support Ladderly{"'"}s mission to provide low-cost education in STEM, consider{" "}
+                  <Link
+                    className="text-ladderly-pink font-bold text-m hover:underline"
+                    href={"https://buy.stripe.com/eVa9E72egelFfSgfYZ"}
+                    target="_blank"
+                  >
+                    leaving a tip
+                  </Link>
+                  .
+                </h3>
               </div>
 
               <PricingGrid />
