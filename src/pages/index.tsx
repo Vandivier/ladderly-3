@@ -116,7 +116,9 @@ const Home: BlitzPage = () => {
 
             <div>
               <div className={`${styles.nextStepsCard} bg-white rounded-lg shadow-lg p-6`}>
-                <h2 className="text-gray-800 font-bold text-2xl">Recommended Next Steps:</h2>
+                <h2 className="text-gray-800 font-bold text-2xl" style={{ marginBottom: "0.5rem" }}>
+                  Recommended Next Steps:
+                </h2>
                 <h2 className="text-gray-800 font-bold text-2xl">
                   Complete the{" "}
                   <Link
@@ -125,18 +127,15 @@ const Home: BlitzPage = () => {
                   >
                     Standard Checklist
                   </Link>
-                  ,{" "}
+                  , <span className="font-bold text-2xl">consider one of the paid plans below</span>
+                  , and{" "}
                   <Link
                     className="text-ladderly-pink font-bold text-2xl hover:underline"
-                    href={"/settings"}
+                    href={"https://buy.stripe.com/cN2bMfbOQ2CX5dC7su"}
+                    target="_blank"
                   >
-                    {/* // TODO: This should just be a step of the standard checklist */}
-                    Consider a Premium Account
-                  </Link>
-                  , and{" "}
-                  <a className="text-ladderly-pink font-bold text-2xl hover:underline">
                     Book an Expert Session
-                  </a>
+                  </Link>
                   !
                 </h2>
               </div>
@@ -149,7 +148,7 @@ const Home: BlitzPage = () => {
                   To support Ladderly{"'"}s mission to provide low-cost education in STEM, consider{" "}
                   <Link
                     className="text-ladderly-pink font-bold text-m hover:underline"
-                    href={"https://buy.stripe.com/5kAg2vdWYa5pbC04gg"}
+                    href={"https://buy.stripe.com/eVa9E72egelFfSgfYZ"}
                     target="_blank"
                   >
                     leaving a tip
