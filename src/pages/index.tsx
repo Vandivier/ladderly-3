@@ -83,7 +83,7 @@ const JoinNowCta = () => {
   return currentUser ? null : (
     <Link
       href={Routes.SignupPage()}
-      className="button border-ladderly-light-purple max-w-72 relative inline-flex h-12 w-48 flex-none cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-lg rounded-bl-none bg-ladderly-pink bg-gradient-to-t px-6 text-1.8rem text-sm text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+      className="button border-ladderly-light-purple max-w-72 relative inline-flex h-12 w-48 flex-none cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-lg rounded-bl-none bg-ladderly-pink bg-gradient-to-t px-6 text-1.8rem text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
     >
       <strong>Join Now</strong>
     </Link>

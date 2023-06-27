@@ -14,8 +14,8 @@ type LoginFormProps = {
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
   return (
-    <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-gray-800 font-bold text-2xl mb-4">Login</h1>
+    <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+      <h1 className="mb-4 text-2xl font-bold text-gray-800">Login</h1>
 
       <Form
         submitText="Login"
