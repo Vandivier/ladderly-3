@@ -15,8 +15,8 @@ export const SettingsList = () => {
   const [updateSetting] = useMutation(updateSettingMutation)
 
   return (
-    <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-gray-800 font-bold text-2xl mb-4">Edit Setting {setting.id}</h1>
+    <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+      <h1 className="mb-4 text-2xl font-bold text-gray-800">Edit Setting {setting.id}</h1>
       <pre>{JSON.stringify(setting, null, 2)}</pre>
       <Suspense fallback={<div>Loading...</div>}>
         <SettingForm
@@ -53,12 +53,12 @@ const SettingsPage = () => {
       </Head>
 
       <div className="relative min-h-screen">
-        <nav className="bg-ladderly-off-white border border-ladderly-light-purple text-ladderly-teal flex py-1 px-4">
+        <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-teal">
           <Link href={Routes.Home()} className="ml-auto text-gray-800 hover:text-ladderly-pink">
             Back to Home
           </Link>
         </nav>
-        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
           <Suspense fallback={<div>Loading...</div>}>
             <SettingsList />
           </Suspense>
