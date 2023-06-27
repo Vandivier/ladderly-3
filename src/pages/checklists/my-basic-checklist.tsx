@@ -25,7 +25,7 @@ const ChecklistItems = ({ checklistItems, refetchChecklist }) => {
     <ol className="list-decimal">
       {checklistItems.map((item) => (
         <li
-          className="hover:cursor-pointer mb-3"
+          className="mb-3 hover:cursor-pointer"
           key={item.id}
           onClick={async () => await handleItemClick(item.id, item.isComplete)}
         >
@@ -54,14 +54,14 @@ const MyBasicChecklist: BlitzPage = () => {
   return (
     <Layout title="My Standard Checklist">
       <div className="relative min-h-screen">
-        <nav className="bg-ladderly-off-white border border-ladderly-light-purple text-ladderly-teal flex py-1 px-4">
+        <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-teal">
           <Link className="ml-auto text-gray-800 hover:text-ladderly-pink" href={Routes.Home()}>
             Back to Home
           </Link>
         </nav>
-        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
-          <div className="w-full max-w-md bg-white m-8 p-8 rounded-lg shadow-xl border border-gray-200">
-            <h1 className="text-gray-800 font-bold text-2xl mb-4">My Standard Checklist</h1>
+        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
+          <div className="m-8 w-full max-w-md rounded-lg border border-gray-200 bg-white p-8 shadow-xl">
+            <h1 className="mb-4 text-2xl font-bold text-gray-800">My Standard Checklist</h1>
             <Suspense fallback="Loading...">
               <ChecklistQueryHandler />
             </Suspense>

@@ -51,14 +51,14 @@ const plans = [
 
 const PricingGrid: React.FC = () => {
   return (
-    <div className="bg-frost p-6 rounded-lg max-w-7xl mx-auto mt-10">
-      <h1 className="text-4xl mb-10 text-center font-bold">Pricing Plans</h1>
+    <div className="mx-auto mt-10 max-w-7xl rounded-lg bg-frost p-6">
+      <h1 className="mb-10 text-center text-4xl font-bold">Pricing Plans</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan, i) => (
-          <div key={i} className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl mb-2 font-bold">{plan.name}</h2>
-            <p className="text-xl mb-4">{plan.price}</p>
+          <div key={i} className="rounded-lg bg-white p-6 shadow-lg">
+            <h2 className="mb-2 text-2xl font-bold">{plan.name}</h2>
+            <p className="mb-4 text-xl">{plan.price}</p>
 
             <ul className="mb-4 space-y-2">
               {plan.benefits.map((benefit, j) => (
@@ -73,7 +73,7 @@ const PricingGrid: React.FC = () => {
               <div>
                 <Link
                   href={plan.link}
-                  className="bg-ladderly-pink text-white px-6 py-2 rounded-lg text-lg font-bold transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+                  className="rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
                   style={{
                     display: "flex",
                     margin: "1rem auto",

@@ -11,8 +11,8 @@ type SignupFormProps = {
 export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
   return (
-    <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-gray-800 font-bold text-2xl mb-4">Create an Account</h1>
+    <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+      <h1 className="mb-4 text-2xl font-bold text-gray-800">Create an Account</h1>
 
       <Form
         submitText="Create Account"
