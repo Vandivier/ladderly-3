@@ -20,7 +20,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Recommended Tools
 
-This app uses Tailwind, so we encourage you to install the Tailwind CSS IntelliSense VS Code plugin.
+The extensions listed in `./.vscode/extensions.json` are recommended.
 
 ## Environment Variables
 
