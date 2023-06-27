@@ -13,7 +13,7 @@ const LadderlyHelpsContentBlock = () => {
   return (
     <div className={`${styles.body} bg-frost`}>
       <div className={styles.instructions}>
-        <h2 className="text-gray-800 font-bold text-2xl">Ladderly Helps You:</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Ladderly Helps You:</h2>
 
         <div>
           <div className={styles.code}>
@@ -83,7 +83,7 @@ const JoinNowCta = () => {
   return currentUser ? null : (
     <Link
       href={Routes.SignupPage()}
-      className="button bg-gradient-to-t bg-ladderly-pink border-ladderly-light-purple text-1.8rem text-white px-6 h-12 w-48 max-w-72 relative inline-flex justify-center items-center flex-none select-none whitespace-nowrap rounded-lg rounded-bl-none text-sm transition-all duration-300 ease-in-out cursor-pointer hover:shadow-custom-purple"
+      className="button border-ladderly-light-purple max-w-72 relative inline-flex h-12 w-48 flex-none cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-lg rounded-bl-none bg-ladderly-pink bg-gradient-to-t px-6 text-1.8rem text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
     >
       <strong>Join Now</strong>
     </Link>
@@ -96,7 +96,7 @@ const Home: BlitzPage = () => {
       <div className={styles.globe} />
 
       <div className={styles.container}>
-        <div className="bg-ladderly-off-white border border-ladderly-light-purple text-ladderly-teal flex py-1 px-4">
+        <div className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-teal">
           <Suspense fallback="">
             <TopNavContent />
           </Suspense>
@@ -109,28 +109,28 @@ const Home: BlitzPage = () => {
                 <div className={styles.logo}>
                   <Image src="/logo.png" alt="Ladderly Logo" width={300} height={300} />
                 </div>
-                <h2 className="text-gray-800 font-bold text-2xl">Accelerate Your Tech Career</h2>
+                <h2 className="text-2xl font-bold text-gray-800">Accelerate Your Tech Career</h2>
               </div>
               <LadderlyHelpsContentBlock />
             </div>
 
             <div>
-              <div className={`${styles.nextStepsCard} bg-white rounded-lg shadow-lg p-6`}>
-                <h2 className="text-gray-800 font-bold text-2xl" style={{ marginBottom: "0.5rem" }}>
+              <div className={`${styles.nextStepsCard} rounded-lg bg-white p-6 shadow-lg`}>
+                <h2 className="text-2xl font-bold text-gray-800" style={{ marginBottom: "0.5rem" }}>
                   Recommended Next Steps:
                 </h2>
-                <h2 className="text-gray-800 font-bold text-2xl">
+                <h2 className="text-2xl font-bold text-gray-800">
                   Complete the{" "}
                   <Link
-                    className="text-ladderly-pink font-bold text-2xl hover:underline"
+                    className="text-2xl font-bold text-ladderly-pink hover:underline"
                     href={"/checklists/my-basic-checklist"}
                   >
                     Standard Checklist
                   </Link>
-                  , <span className="font-bold text-2xl">consider one of the paid plans below</span>
+                  , <span className="text-2xl font-bold">consider one of the paid plans below</span>
                   , and{" "}
                   <Link
-                    className="text-ladderly-pink font-bold text-2xl hover:underline"
+                    className="text-2xl font-bold text-ladderly-pink hover:underline"
                     href={"https://buy.stripe.com/cN2bMfbOQ2CX5dC7su"}
                     target="_blank"
                   >
@@ -141,13 +141,13 @@ const Home: BlitzPage = () => {
               </div>
 
               <div
-                className={`${styles.nextStepsCard} bg-white rounded-lg shadow-lg p-2`}
+                className={`${styles.nextStepsCard} rounded-lg bg-white p-2 shadow-lg`}
                 style={{ marginTop: "0.5rem" }}
               >
-                <h3 className="text-gray-800 font-bold text-m">
+                <h3 className="text-m font-bold text-gray-800">
                   To support Ladderly{"'"}s mission to provide low-cost education in STEM, consider{" "}
                   <Link
-                    className="text-ladderly-pink font-bold text-m hover:underline"
+                    className="text-m font-bold text-ladderly-pink hover:underline"
                     href={"https://buy.stripe.com/eVa9E72egelFfSgfYZ"}
                     target="_blank"
                   >

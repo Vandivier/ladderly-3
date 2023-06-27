@@ -10,12 +10,12 @@ const SignupPage: BlitzPage = () => {
   return (
     <Layout title="Sign Up">
       <div className="relative min-h-screen">
-        <nav className="bg-ladderly-off-white border border-ladderly-light-purple text-ladderly-teal flex py-1 px-4">
+        <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-teal">
           <Link href={Routes.Home()} className="ml-auto text-gray-800 hover:text-ladderly-pink">
             Back to Home
           </Link>
         </nav>
-        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
           <SignupForm onSuccess={() => router.push(Routes.Home())} />
         </div>
       </div>
