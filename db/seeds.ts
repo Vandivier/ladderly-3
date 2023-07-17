@@ -52,7 +52,9 @@ const seed = async () => {
           },
         })
 
-        console.log({ checklistItem: checklistItem })
+        if (checklistItem == null) {
+          console.warn(`Checklist item not found for checklist: ${name} item idx: ${i}`)
+        }
 
         if (checklistItem) {
           await prisma.checklistItem.update({
