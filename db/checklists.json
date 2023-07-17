@@ -1,7 +1,9 @@
 [
   {
     "name": "Programming Job Checklist",
+    "version": "2023-07-17T04:06:41.913Z",
     "items": [
+      "I have participated in Ladderly endorsed communities as recommended",
       "Joined the Discord, participating regularly and socially",
       "Watched the Trial by Fire (at https://www.youtube.com/watch?v=V7yeF9AaBxM) and reproduced it; I have a GitHub with a vanilla JS+HTML single-page blog hosted on GitHub pages",
       "I executed a substantive web dev program (coursera, codecademy pro front end, a reputable bootcamp, or a Ladderly mentorship)",
@@ -14,13 +16,13 @@
       "I have been following the 5 to 23 patterns article for at least two weeks",
       "After continuing the job search process for 2+ weeks (apply, follow up, keep coding, practicing for interviews) I have gotten at least one phone screening or I have reached out to a mentor to help investigate the lack of phone screening progress",
       "I have had a few interviews, obtained feedback, and incorporated that feedback to improve my job search going forward",
-      "I have participated in Ladderly endorsed communities as recommended",
       "I have reached out for help whenever needed in the Ladderly community, endorsed communities, and through independent outreach using social media and my personal social network",
       "I have landed a full time role involving coding!"
     ]
   },
   {
     "name": "Python Checklist",
+    "version": "2023-07-17T04:06:41.913Z",
     "items": [
       "Learn Numpy",
       "Learn Pandas",
