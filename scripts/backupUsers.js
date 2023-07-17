@@ -1,9 +1,9 @@
+const fs = require("fs-extra")
 const path = require("path")
 
 require("dotenv").config({ path: path.resolve(__dirname, "../.env.local") })
 
 const { PrismaClient } = require("@prisma/client")
-const fs = require("fs-extra")
 
 const prisma = new PrismaClient()
 
