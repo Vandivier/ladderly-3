@@ -12,6 +12,7 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "prepare": "husky install",
+    "checklists:backup": "node scripts/backupChecklists.js",
     "users:backup": "node scripts/backupUsers.js",
     "users:restore": "node scripts/restoreUsers.js"
   },
