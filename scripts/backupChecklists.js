@@ -18,15 +18,20 @@ const backup = async () => {
     const checklist = await prisma.checklist.findFirst({
       where: { name },
       orderBy: { createdAt: "desc" },
-      include: { checklistItems: true },
+      include: {
+        checklistItems: {
+          orderBy: {
+            displayIndex: "asc",
+          },
+        },
+      },
     })
     checklists.push(checklist)
   }
 
   const existingChecklistsRaw = fs.readFileSync(path.resolve(__dirname, "../db/checklists.json"))
-  const existingChecklists = JSON.parse(existingChecklistsRaw.toString())
+  let existingChecklists = JSON.parse(existingChecklistsRaw.toString())
   const existingChecklistNames = existingChecklists.map((checklist) => checklist.name)
-  const newChecklists = []
 
   const premiumChecklistsPath = path.resolve(__dirname, "../db/premium-checklists.json")
   let premiumChecklists = []
@@ -43,15 +48,19 @@ const backup = async () => {
     const checklistData = { name, version, items }
 
     if (existingChecklistNames.includes(name)) {
-      newChecklists.push(checklistData)
+      // Update existing checklist with latest version from database
+      existingChecklists = existingChecklists.map((checklist) =>
+        checklist.name === name ? checklistData : checklist
+      )
     } else {
+      // Add new checklists to the premium list
       premiumChecklists.push(checklistData)
     }
   }
 
   fs.writeFileSync(
     path.resolve(__dirname, "../db/checklists.json"),
-    JSON.stringify(newChecklists, null, 2)
+    JSON.stringify(existingChecklists, null, 2)
   )
   fs.writeFileSync(premiumChecklistsPath, JSON.stringify(premiumChecklists, null, 2))
 
