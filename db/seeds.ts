@@ -9,7 +9,14 @@ const seed = async () => {
   const files = ["./checklists.json", "./premium-checklists.json"]
 
   for (const file of files) {
-    const rawData = fs.readFileSync(path.resolve(__dirname, file))
+    const filePath = path.resolve(__dirname, file)
+
+    if (!fs.existsSync(filePath)) {
+      console.warn("File ${filePath} does not exist." + "\nContinuing to seed...")
+      continue
+    }
+
+    const rawData = fs.readFileSync(filePath)
     const checklists = JSON.parse(rawData.toString())
 
     for (const checklistData of checklists) {

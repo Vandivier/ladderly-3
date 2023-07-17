@@ -9,8 +9,9 @@ const prisma = new PrismaClient()
 
 async function backupUsers() {
   const users = await prisma.user.findMany()
-  await fs.writeJson("./db/bak.users.json", users)
-  console.log("Backup completed!")
+  const jsonUsers = JSON.stringify(users, null, 2)
+  await fs.writeFile("./db/bak.users.json", jsonUsers)
+  console.log(`Backup of ${users.length} users completed!`)
 }
 
 backupUsers()
