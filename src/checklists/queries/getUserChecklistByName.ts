@@ -1,35 +1,44 @@
 import { Ctx } from "@blitzjs/next"
 import { resolver } from "@blitzjs/rpc"
 import { AuthenticationError } from "blitz"
-import db from "db"
+import db, { Checklist, ChecklistItem, Prisma, UserChecklist } from "db"
 
-export default resolver.pipe(resolver.authorize(), async ({ name }: { name: string }, ctx: Ctx) => {
-  const { userId } = ctx.session
+type UserChecklistWithChecklistItems = UserChecklist & {
+  checklist: Checklist & { checklistItems: ChecklistItem[] }
+}
 
-  if (!userId) throw new AuthenticationError()
+export default resolver.pipe(
+  resolver.authorize(),
+  async ({ name }: { name: string }, ctx: Ctx): Promise<UserChecklistWithChecklistItems> => {
+    const { userId } = ctx.session
 
-  // Fetch the generic checklist.
-  const genericChecklist = await db.checklist.findFirst({
-    where: { name },
-  })
+    if (!userId) throw new AuthenticationError()
 
-  if (!genericChecklist) throw new Error("Generic checklist not found")
-
-  const userChecklist = await db.userChecklist.findFirst({
-    where: { userId, checklistId: genericChecklist.id },
-    include: { checklist: { include: { checklistItems: true } } },
-  })
-
-  if (!userChecklist) {
-    const newUserChecklist = await db.userChecklist.create({
-      data: {
-        userId,
-        checklistId: genericChecklist.id,
-      },
-      include: { checklist: { include: { checklistItems: true } } },
+    const genericChecklist = await db.checklist.findFirst({
+      where: { name },
     })
-    return newUserChecklist
-  }
 
-  return userChecklist
-})
+    if (!genericChecklist) throw new Error("Generic checklist not found")
+
+    const includeChecklistItems: Prisma.ChecklistInclude = {
+      checklistItems: { orderBy: { displayIndex: "asc" } },
+    }
+    const userChecklist = await db.userChecklist.findFirst({
+      where: { userId, checklistId: genericChecklist.id },
+      include: { checklist: { include: includeChecklistItems } },
+    })
+
+    if (!userChecklist) {
+      const newUserChecklist = await db.userChecklist.create({
+        data: {
+          userId,
+          checklistId: genericChecklist.id,
+        },
+        include: { checklist: { include: includeChecklistItems } },
+      })
+      return newUserChecklist as UserChecklistWithChecklistItems
+    }
+
+    return userChecklist as UserChecklistWithChecklistItems
+  }
+)
