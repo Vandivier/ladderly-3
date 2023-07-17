@@ -1,10 +1,11 @@
 import { z } from "zod"
 
 export const CreateChecklistSchema = z.object({
+  isComplete: z.boolean(),
+  item: z.string(),
   name: z.string(),
   user: z.string(),
-  item: z.string(),
-  isComplete: z.boolean(),
+  version: z.string(),
   // template: __fieldName__: z.__zodType__(),
 })
 export const UpdateChecklistSchema = z.object({
