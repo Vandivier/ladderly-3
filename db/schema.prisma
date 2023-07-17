@@ -79,13 +79,14 @@ model UserChecklist {
 }
 
 model ChecklistItem {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  displayText String
-  isComplete  Boolean   @default(false)
-  checklist   Checklist @relation(fields: [checklistId], references: [id])
-  checklistId Int
+  id           Int       @id @default(autoincrement())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  displayIndex Int
+  displayText  String
+  isComplete   Boolean   @default(false)
+  checklist    Checklist @relation(fields: [checklistId], references: [id])
+  checklistId  Int
 
   @@unique([displayText, checklistId])
 }
