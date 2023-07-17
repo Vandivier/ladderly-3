@@ -82,7 +82,7 @@ model ChecklistItem {
   id           Int       @id @default(autoincrement())
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  displayIndex Int
+  displayIndex Int?
   displayText  String
   isComplete   Boolean   @default(false)
   checklist    Checklist @relation(fields: [checklistId], references: [id])
