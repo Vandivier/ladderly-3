@@ -95,6 +95,7 @@ model Checklist {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   name           String
+  version        String
   checklistItems ChecklistItem[]
 
   userChecklists UserChecklist[]
