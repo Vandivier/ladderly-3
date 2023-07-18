@@ -10,13 +10,19 @@ The Ladderly Ecosystem is a community, a set of tools, and an educational progra
 
 ## Getting Started
 
-Run your app in the development mode.
+Install, seed, and run your app in the development mode.
 
-```
+```bash
+npm i
+npm run seed
 blitz dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Updating Checklists
+
+Just change the seed data and reseed with `npm run seed`
 
 ## Recommended Tools
 
