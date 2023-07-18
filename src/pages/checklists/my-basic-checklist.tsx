@@ -9,7 +9,7 @@ import Link from "next/link"
 import updateChecklistItem from "src/checklist-items/mutations/updateChecklistItem"
 import Layout from "src/core/layouts/Layout"
 
-const ChecklistItems = ({ checklistItems, refetchChecklist }) => {
+const ChecklistItemList = ({ checklistItems, refetchChecklist }) => {
   const [updateChecklistItemMutation] = useMutation(updateChecklistItem)
 
   const handleItemClick = async (id, isComplete) => {
@@ -43,7 +43,7 @@ const ChecklistQueryHandler: React.FC = () => {
   })
 
   return (
-    <ChecklistItems
+    <ChecklistItemList
       checklistItems={userChecklist.checklist.checklistItems}
       refetchChecklist={refetch}
     />

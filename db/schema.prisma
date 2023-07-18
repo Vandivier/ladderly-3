@@ -13,21 +13,22 @@ generator client {
 // --------------------------------------
 
 model User {
-  id                 Int                  @id @default(autoincrement())
-  uuid               String               @default(uuid())
   createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  name               String?
   email              String               @unique
   hashedPassword     String?
+  id                 Int                  @id @default(autoincrement())
+  name               String?
+  quizResults        QuizResult[]
   role               String               @default("USER")
-  stripeCustomerId   String?
-  tokens             Token[]
   sessions           Session[]
-  userChecklists     UserChecklist[]
-  transactions       Transaction[]
-  subscriptions      Subscription[]
+  stripeCustomerId   String?
   SubscriptionChange SubscriptionChange[]
+  subscriptions      Subscription[]
+  tokens             Token[]
+  transactions       Transaction[]
+  updatedAt          DateTime             @updatedAt
+  userChecklists     UserChecklist[]
+  uuid               String               @default(uuid())
 }
 
 model Session {
@@ -78,13 +79,14 @@ model UserChecklist {
 }
 
 model ChecklistItem {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  displayText String
-  isComplete  Boolean   @default(false)
-  checklist   Checklist @relation(fields: [checklistId], references: [id])
-  checklistId Int
+  id           Int       @id @default(autoincrement())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  displayIndex Int
+  displayText  String
+  isComplete   Boolean   @default(false)
+  checklist    Checklist @relation(fields: [checklistId], references: [id])
+  checklistId  Int
 
   @@unique([displayText, checklistId])
 }
@@ -94,6 +96,7 @@ model Checklist {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   name           String
+  version        String
   checklistItems ChecklistItem[]
 
   userChecklists UserChecklist[]
@@ -133,4 +136,74 @@ enum PaymentTierEnum {
   FREE
   PAY_WHAT_YOU_CAN
   PREMIUM
+}
+
+model FlashCard {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  frontText String
+  backText  String
+
+  sourcePlatformId   String
+  sourcePlatformName String
+  FlashCardDeck      FlashCardDeck? @relation(fields: [flashCardDeckId], references: [id])
+  flashCardDeckId    Int?
+}
+
+model PossibleAnswer {
+  id                 Int       @id @default(autoincrement())
+  inputId            String    @unique
+  text               String
+  quizItemId         Int
+  quizItem           QuizItem  @relation(fields: [quizItemId], references: [id], name: "PossibleAnswersToQuizItem")
+  isCorrectAnswerFor QuizItem? @relation("CorrectAnswerToQuizItem")
+  correctAnswerForId Int?
+}
+
+model QuizItem {
+  id              Int              @id @default(autoincrement())
+  inputId         String           @unique
+  questionText    String
+  possibleAnswers PossibleAnswer[] @relation("PossibleAnswersToQuizItem")
+  correctAnswer   PossibleAnswer?  @relation(fields: [correctAnswerId], references: [id], name: "CorrectAnswerToQuizItem")
+  correctAnswerId Int?             @unique
+  quiz            Quiz?            @relation(fields: [quizId], references: [id], name: "QuizItemsToQuiz")
+  quizId          Int
+}
+
+model Quiz {
+  id                 Int              @id @default(autoincrement())
+  inputId            String           @unique
+  name               String           @unique
+  quizItems          QuizItem[]       @relation("QuizItemsToQuiz")
+  sourcePlatformId   String
+  sourcePlatformName String
+  CurriculumUnit     CurriculumUnit[]
+  QuizResult         QuizResult[]
+}
+
+model CurriculumUnit {
+  id              Int           @id @default(autoincrement())
+  inputId         String        @unique
+  quiz            Quiz          @relation(fields: [quizId], references: [id])
+  quizId          Int
+  flashCardDeck   FlashCardDeck @relation(fields: [flashCardDeckId], references: [id])
+  flashCardDeckId Int
+}
+
+model FlashCardDeck {
+  id             Int              @id @default(autoincrement())
+  flashCards     FlashCard[]
+  CurriculumUnit CurriculumUnit[]
+}
+
+model QuizResult {
+  id     Int     @id @default(autoincrement())
+  passed Boolean
+  score  Float
+  quiz   Quiz    @relation(fields: [quizId], references: [id])
+  quizId Int
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int
 }

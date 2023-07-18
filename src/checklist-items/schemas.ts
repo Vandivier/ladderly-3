@@ -6,6 +6,7 @@ export const CreateChecklistItemSchema = z.object({
       id: z.number(),
     }),
   }),
+  displayIndex: z.number(),
   displayText: z.string(),
   isComplete: z.boolean(),
   user: z.string(),
