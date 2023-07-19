@@ -4,7 +4,7 @@ import { AuthenticationError } from "blitz"
 import db, { Subscription } from "db"
 import { z } from "zod"
 
-type Settings = {
+export type UserSettings = {
   nameFirst: string
   nameLast: string
   email: string
@@ -18,7 +18,7 @@ const GetSettings = z.object({})
 export default resolver.pipe(
   resolver.zod(GetSettings),
   resolver.authorize(),
-  async (_, ctx: Ctx): Promise<Settings> => {
+  async (_, ctx: Ctx): Promise<UserSettings> => {
     const userId = ctx.session.userId
     if (!userId) throw new AuthenticationError()
 

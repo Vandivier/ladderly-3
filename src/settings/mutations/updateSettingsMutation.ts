@@ -15,12 +15,14 @@ export default resolver.pipe(
     const user = await db.user.update({
       where: { id: userId },
       data: {
-        ...input,
-        email: input.email?.toLowerCase().trim(),
-        emailBackup: input.emailBackup?.toLowerCase().trim(),
-        emailStripe: input.emailStripe?.toLowerCase().trim(),
+        nameFirst: input.nameFirst?.trim() || "",
+        nameLast: input.nameLast?.trim() || "",
+        email: input.email?.toLowerCase().trim() || "",
+        emailBackup: input.emailBackup?.toLowerCase().trim() || "",
+        emailStripe: input.emailStripe?.toLowerCase().trim() || "",
       },
     })
+
     return user
   }
 )

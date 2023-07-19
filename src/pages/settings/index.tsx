@@ -3,15 +3,15 @@ import { FORM_ERROR } from "final-form"
 import Head from "next/head"
 import Layout from "src/core/layouts/Layout"
 import { SettingForm } from "src/settings/components/SettingForm"
-import getSettings from "src/settings/queries/getSettings"
+import getSettings, { UserSettings } from "src/settings/queries/getSettings"
 import updateSettingsMutation from "src/settings/mutations/updateSettingsMutation"
-import { useMutation, useQuery, invalidateQuery } from "@blitzjs/rpc"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import { Routes } from "@blitzjs/next"
 import { UpdateSettingsSchema } from "src/settings/schemas"
 
 export const SettingsList = () => {
-  const [setting] = useQuery(getSettings, {})
+  const [settings, { setQueryData }] = useQuery(getSettings, {})
   const [updateSettings] = useMutation(updateSettingsMutation)
 
   return (
@@ -24,15 +24,16 @@ export const SettingsList = () => {
           className="mt-4"
           submitText="Update Setting"
           schema={UpdateSettingsSchema}
-          initialValues={setting}
+          initialValues={settings}
           onSubmit={async (values) => {
             try {
-              const updated = await updateSettings({
+              const updatedUser = await updateSettings({
                 ...values,
               })
+              const updatedSettings: UserSettings = { ...settings, ...updatedUser }
 
-              await invalidateQuery(getSettings)
-              return updated
+              await setQueryData(updatedSettings)
+              alert("Updated succeeded.")
             } catch (error: any) {
               console.error(error)
               return {
