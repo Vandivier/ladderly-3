@@ -1,5 +1,6 @@
 import { BlitzPage, Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
+import { PaymentTierEnum } from "@prisma/client"
 import Image from "next/image"
 import Link from "next/link"
 import { Suspense } from "react"
@@ -8,6 +9,7 @@ import PricingGrid from "src/core/components/pricing-grid/PricingGrid"
 import Layout from "src/core/layouts/Layout"
 import styles from "src/styles/Home.module.css"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
+import useSubscriptionLevel from "src/users/hooks/useSubscriptionLevel"
 
 const LadderlyHelpsContentBlock = () => {
   return (
@@ -77,17 +79,27 @@ const TopNavContent = () => {
   }
 }
 
-const JoinNowCta = () => {
-  const currentUser = useCurrentUser()
+const AdvancedChecklistContentBlock = () => {
+  const { tier } = useSubscriptionLevel()
+  const isPaid = tier != PaymentTierEnum.FREE
 
-  return currentUser ? null : (
-    <Link
-      href={Routes.SignupPage()}
-      className="button border-ladderly-light-purple max-w-72 relative inline-flex h-12 w-48 flex-none cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-lg rounded-bl-none bg-ladderly-pink bg-gradient-to-t px-6 text-1.8rem text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+  return isPaid ? (
+    <div
+      className={`${styles.nextStepsCard} rounded-lg bg-white p-2 shadow-lg`}
+      style={{ marginTop: "0.5rem" }}
     >
-      <strong>Join Now</strong>
-    </Link>
-  )
+      <h3 className="text-m font-bold text-gray-800">
+        As a paid member, you can access the{" "}
+        <Link
+          className="text-m font-bold text-ladderly-pink hover:underline"
+          href={"/checklists/my-premium-checklist"}
+        >
+          Advanced Checklist
+        </Link>
+        !
+      </h3>
+    </div>
+  ) : null
 }
 
 const Home: BlitzPage = () => {
@@ -156,6 +168,10 @@ const Home: BlitzPage = () => {
                   .
                 </h3>
               </div>
+
+              <Suspense>
+                <AdvancedChecklistContentBlock />
+              </Suspense>
 
               <PricingGrid />
             </div>
