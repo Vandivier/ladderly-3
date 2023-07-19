@@ -75,7 +75,7 @@ const seed = async () => {
         if (checklistItem) {
           await prisma.checklistItem.update({
             where: { id: checklistItem.id },
-            data: { displayIndex: i },
+            data: { displayIndex: i, version: checklist.version },
           })
         } else {
           await prisma.checklistItem.create({
@@ -87,6 +87,7 @@ const seed = async () => {
               linkUri,
               isRequired,
               detailText,
+              version: checklist.version,
             },
           })
         }
