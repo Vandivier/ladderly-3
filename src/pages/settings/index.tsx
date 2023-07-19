@@ -11,14 +11,16 @@ import Link from "next/link"
 import { Routes } from "@blitzjs/next"
 
 export const SettingsList = () => {
-  const [setting] = useQuery(getSettings, {})
-  const [updateSetting] = useMutation(updateSettingMutation)
+  // const [setting] = useQuery(getSettings, {})
+  // const [updateSetting] = useMutation(updateSettingMutation)
 
   return (
     <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-      <h1 className="mb-4 text-2xl font-bold text-gray-800">Edit Setting {setting.id}</h1>
-      <pre>{JSON.stringify(setting, null, 2)}</pre>
-      <Suspense fallback={<div>Loading...</div>}>
+      <h1 className="mb-4 text-2xl font-bold text-gray-800">Edit Settings</h1>
+      <p>Please email john@ladderly.io to update your subscription tier.</p>
+
+      {/* TODO: fix #53 */}
+      {/* <Suspense fallback={<div>Loading...</div>}>
         <SettingForm
           submitText="Update Setting"
           // schema={UpdateSettingSchema}
@@ -40,7 +42,7 @@ export const SettingsList = () => {
             }
           }}
         />
-      </Suspense>
+      </Suspense> */}
     </div>
   )
 }
