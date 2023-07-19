@@ -108,7 +108,7 @@ const Home: BlitzPage = () => {
       <div className={styles.globe} />
 
       <div className={styles.container}>
-        <div className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-teal">
+        <div className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
           <Suspense fallback="">
             <TopNavContent />
           </Suspense>
