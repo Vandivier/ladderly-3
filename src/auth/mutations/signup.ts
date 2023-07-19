@@ -1,6 +1,6 @@
 import { SecurePassword } from "@blitzjs/auth/secure-password"
 import { resolver } from "@blitzjs/rpc"
-import db from "db"
+import db, { PaymentTierEnum } from "db"
 import { Role } from "types"
 import { Signup } from "../schemas"
 
@@ -9,6 +9,13 @@ export default resolver.pipe(resolver.zod(Signup), async ({ email, password }, c
   const user = await db.user.create({
     data: { email: email.toLowerCase().trim(), hashedPassword, role: "USER" },
     select: { id: true, email: true, role: true },
+  })
+
+  await db.subscription.create({
+    data: {
+      tier: PaymentTierEnum.FREE,
+      userId: user.id,
+    },
   })
 
   await ctx.session.$create({ userId: user.id, role: user.role as Role })

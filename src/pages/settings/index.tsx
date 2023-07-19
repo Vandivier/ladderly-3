@@ -3,37 +3,37 @@ import { FORM_ERROR } from "final-form"
 import Head from "next/head"
 import Layout from "src/core/layouts/Layout"
 import { SettingForm } from "src/settings/components/SettingForm"
-import getSettings from "src/settings/queries/getSettings"
-import updateSettingMutation from "src/settings/mutations/updateSettingMutation"
-import { useMutation, useQuery, invalidateQuery } from "@blitzjs/rpc"
-// import { UpdateSettingSchema } from "../validations"
+import getSettings, { UserSettings } from "src/settings/queries/getSettings"
+import updateSettingsMutation from "src/settings/mutations/updateSettingsMutation"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import { Routes } from "@blitzjs/next"
+import { UpdateSettingsSchema } from "src/settings/schemas"
 
 export const SettingsList = () => {
-  // const [setting] = useQuery(getSettings, {})
-  // const [updateSetting] = useMutation(updateSettingMutation)
+  const [settings, { setQueryData }] = useQuery(getSettings, {})
+  const [updateSettings] = useMutation(updateSettingsMutation)
 
   return (
     <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Edit Settings</h1>
       <p>Please email john@ladderly.io to update your subscription tier.</p>
 
-      {/* TODO: fix #53 */}
-      {/* <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         <SettingForm
+          className="mt-4"
           submitText="Update Setting"
-          // schema={UpdateSettingSchema}
-          initialValues={setting}
+          schema={UpdateSettingsSchema}
+          initialValues={settings}
           onSubmit={async (values) => {
             try {
-              const updated = await updateSetting({
-                id: setting.id,
+              const updatedUser = await updateSettings({
                 ...values,
               })
+              const updatedSettings: UserSettings = { ...settings, ...updatedUser }
 
-              await invalidateQuery(getSettings)
-              return updated
+              await setQueryData(updatedSettings)
+              alert("Updated succeeded.")
             } catch (error: any) {
               console.error(error)
               return {
@@ -42,7 +42,7 @@ export const SettingsList = () => {
             }
           }}
         />
-      </Suspense> */}
+      </Suspense>
     </div>
   )
 }
@@ -55,7 +55,7 @@ const SettingsPage = () => {
       </Head>
 
       <div className="relative min-h-screen">
-        <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-teal">
+        <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
           <Link href={Routes.Home()} className="ml-auto text-gray-800 hover:text-ladderly-pink">
             Back to Home
           </Link>
