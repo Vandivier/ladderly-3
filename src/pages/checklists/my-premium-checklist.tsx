@@ -67,7 +67,7 @@ const ChecklistItemList = ({
 
 const ChecklistQueryHandler: React.FC = () => {
   const [userChecklist, { refetch }] = useQuery(getUserChecklistByName, {
-    name: "Programming Job Checklist",
+    name: "Advanced Programming Job Checklist",
   })
 
   return (
@@ -78,9 +78,9 @@ const ChecklistQueryHandler: React.FC = () => {
   )
 }
 
-const MyBasicChecklist: BlitzPage = () => {
+const MyPremiumChecklist: BlitzPage = () => {
   return (
-    <Layout title="My Standard Checklist">
+    <Layout title="My Premium Checklist">
       <div className="relative min-h-screen">
         <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-teal">
           <Link className="ml-auto text-gray-800 hover:text-ladderly-pink" href={Routes.Home()}>
@@ -89,7 +89,7 @@ const MyBasicChecklist: BlitzPage = () => {
         </nav>
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
           <div className="m-8 w-full max-w-md rounded-lg border border-gray-200 bg-white p-8 shadow-xl">
-            <h1 className="mb-4 text-2xl font-bold text-gray-800">My Standard Checklist</h1>
+            <h1 className="mb-4 text-2xl font-bold text-gray-800">My Premium Checklist</h1>
             <Suspense fallback="Loading...">
               <ChecklistQueryHandler />
             </Suspense>
@@ -100,4 +100,4 @@ const MyBasicChecklist: BlitzPage = () => {
   )
 }
 
-export default MyBasicChecklist
+export default MyPremiumChecklist
