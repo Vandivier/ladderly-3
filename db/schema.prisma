@@ -79,18 +79,20 @@ model UserChecklist {
 }
 
 model ChecklistItem {
-  id           Int       @id @default(autoincrement())
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   displayIndex Int
   displayText  String
-  detailText   String    @default("")
-  isComplete   Boolean   @default(false)
-  isRequired   Boolean   @default(true)
-  linkText     String    @default("")
-  linkUri      String    @default("")
-  checklist    Checklist @relation(fields: [checklistId], references: [id])
-  checklistId  Int
+  detailText   String   @default("")
+  isComplete   Boolean  @default(false)
+  isRequired   Boolean  @default(true)
+  linkText     String   @default("")
+  linkUri      String   @default("")
+  version      String   @default("2023-07-18T00:00:00.517Z")
+
+  checklist   Checklist @relation(fields: [checklistId], references: [id])
+  checklistId Int
 
   @@unique([displayText, checklistId])
 }
