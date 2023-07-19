@@ -13,22 +13,27 @@ generator client {
 // --------------------------------------
 
 model User {
-  createdAt          DateTime             @default(now())
-  email              String               @unique
-  hashedPassword     String?
-  id                 Int                  @id @default(autoincrement())
-  name               String?
-  quizResults        QuizResult[]
-  role               String               @default("USER")
-  sessions           Session[]
-  stripeCustomerId   String?
-  SubscriptionChange SubscriptionChange[]
-  subscriptions      Subscription[]
-  tokens             Token[]
-  transactions       Transaction[]
-  updatedAt          DateTime             @updatedAt
-  userChecklists     UserChecklist[]
-  uuid               String               @default(uuid())
+  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  updatedAt DateTime @updatedAt
+
+  adminNotes     String  @default("")
+  email          String  @unique
+  emailBackup    String  @default("")
+  emailStripe    String  @default("")
+  hashedPassword String?
+  nameFirst      String  @default("")
+  nameLast       String  @default("")
+
+  quizResults         QuizResult[]
+  role                String               @default("USER")
+  sessions            Session[]
+  subscriptionChanges SubscriptionChange[]
+  subscriptions       Subscription[]
+  tokens              Token[]
+  transactions        Transaction[]
+  userChecklists      UserChecklist[]
+  uuid                String               @default(uuid())
 }
 
 model Session {
@@ -113,19 +118,21 @@ model Subscription {
   userId              Int
   user                User                 @relation(fields: [userId], references: [id])
   tier                PaymentTierEnum      @default(FREE)
+  type                String               @default("ACCOUNT_PLAN")
   createdAt           DateTime             @default(now())
   subscriptionChanges SubscriptionChange[]
 }
 
 model SubscriptionChange {
-  id             Int             @id @default(autoincrement())
-  userId         Int
-  user           User            @relation(fields: [userId], references: [id])
-  subscriptionId Int
-  subscription   Subscription    @relation(fields: [subscriptionId], references: [id])
-  previousTier   PaymentTierEnum
-  newTier        PaymentTierEnum
-  createdAt      DateTime        @default(now())
+  id                  Int             @id @default(autoincrement())
+  userId              Int
+  user                User            @relation(fields: [userId], references: [id])
+  subscriptionId      Int
+  subscription        Subscription    @relation(fields: [subscriptionId], references: [id])
+  previousTier        PaymentTierEnum
+  newTier             PaymentTierEnum
+  createdAt           DateTime        @default(now())
+  stripeTransactionId String?
 }
 
 model Transaction {
