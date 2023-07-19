@@ -43,17 +43,32 @@ const backup = async () => {
 
   for (const checklist of checklists) {
     const { name, version, checklistItems } = checklist
-    const items = checklistItems.map((item) => item.displayText)
+    const items = checklistItems.map((item) => {
+      if (
+        item.linkText === "" &&
+        item.linkUri === "" &&
+        item.isRequired === true &&
+        item.detailText === ""
+      ) {
+        return item.displayText
+      } else {
+        return {
+          detailText: item.detailText,
+          displayText: item.displayText,
+          isRequired: item.isRequired,
+          linkText: item.linkText,
+          linkUri: item.linkUri,
+        }
+      }
+    })
 
     const checklistData = { name, version, items }
 
     if (existingChecklistNames.includes(name)) {
-      // Update existing checklist with latest version from database
       existingChecklists = existingChecklists.map((checklist) =>
         checklist.name === name ? checklistData : checklist
       )
     } else {
-      // Add new checklists to the premium list
       premiumChecklists.push(checklistData)
     }
   }
