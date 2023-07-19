@@ -45,10 +45,26 @@ const seed = async () => {
       }
 
       for (let i = 0; i < items.length; i++) {
-        const item = items[i]
+        let itemData = items[i]
+        let displayText, linkText, linkUri, isRequired, detailText
+
+        if (typeof itemData === "string") {
+          displayText = itemData
+          linkText = ""
+          linkUri = ""
+          isRequired = true
+          detailText = ""
+        } else {
+          displayText = itemData.displayText
+          linkText = itemData.linkText || ""
+          linkUri = itemData.linkUri || ""
+          isRequired = itemData.isRequired === undefined ? true : itemData.isRequired
+          detailText = itemData.detailText || ""
+        }
+
         const checklistItem = await prisma.checklistItem.findFirst({
           where: {
-            AND: [{ checklistId: checklist.id }, { displayText: item }],
+            AND: [{ checklistId: checklist.id }, { displayText }],
           },
         })
 
@@ -64,9 +80,13 @@ const seed = async () => {
         } else {
           await prisma.checklistItem.create({
             data: {
-              displayText: item,
+              displayText,
               displayIndex: i,
               checklistId: checklist.id,
+              linkText,
+              linkUri,
+              isRequired,
+              detailText,
             },
           })
         }

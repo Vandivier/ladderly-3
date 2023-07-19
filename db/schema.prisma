@@ -84,7 +84,11 @@ model ChecklistItem {
   updatedAt    DateTime  @updatedAt
   displayIndex Int
   displayText  String
+  detailText   String    @default("")
   isComplete   Boolean   @default(false)
+  isRequired   Boolean   @default(true)
+  linkText     String    @default("")
+  linkUri      String    @default("")
   checklist    Checklist @relation(fields: [checklistId], references: [id])
   checklistId  Int
 
