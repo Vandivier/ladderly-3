@@ -1,24 +1,18 @@
 import React from "react"
 import { Form, FormProps } from "src/core/components/Form"
-import LabeledSelectField from "src/core/components/LabeledSelectField"
-
+import LabeledTextField from "src/core/components/LabeledTextField"
 import { z } from "zod"
-import { tierValidator } from "../mutations/updateSettingMutation"
-import { PaymentTierEnum } from "@prisma/client"
-export { FORM_ERROR } from "src/core/components/Form"
 
-export const SettingFormSchema = z.object({
-  tier: tierValidator,
-})
+export { FORM_ERROR } from "src/core/components/Form"
 
 export function SettingForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   return (
     <Form<S> {...props}>
-      <LabeledSelectField name="tier" label="Subscription Tier">
-        <option value={PaymentTierEnum.FREE}>Free</option>
-        <option value={PaymentTierEnum.PAY_WHAT_YOU_CAN}>Pay What You Can</option>
-        <option value={PaymentTierEnum.PREMIUM}>Premium</option>
-      </LabeledSelectField>
+      <LabeledTextField name="nameFirst" label="First Name" placeholder="First Name" />
+      <LabeledTextField name="nameLast" label="Last Name" placeholder="Last Name" />
+      <LabeledTextField name="email" label="Email" placeholder="Email" />
+      <LabeledTextField name="emailBackup" label="Backup Email" placeholder="Backup Email" />
+      <LabeledTextField name="emailStripe" label="Stripe Email" placeholder="Stripe Email" />
     </Form>
   )
 }

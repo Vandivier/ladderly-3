@@ -82,7 +82,7 @@ const MyPremiumChecklist: BlitzPage = () => {
   return (
     <Layout title="My Premium Checklist">
       <div className="relative min-h-screen">
-        <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-teal">
+        <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
           <Link className="ml-auto text-gray-800 hover:text-ladderly-pink" href={Routes.Home()}>
             Back to Home
           </Link>
