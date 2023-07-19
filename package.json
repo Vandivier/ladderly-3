@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "backup": "npm run checklists:backup && npm run users:backup",
-    "db:clean": "npm run backup && node scripts/deleteUnusedChecklists.js",
+    "db:clean": "npm run backup && node scripts/deleteUnusedChecklists.js && node scripts/deleteUnusedChecklistItems.js",
     "dev": "blitz dev",
     "build": "blitz prisma generate && blitz build",
     "migrate": "npm run users:backup && blitz prisma migrate dev && npm run users:restore",

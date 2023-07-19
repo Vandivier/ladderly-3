@@ -1,22 +1,26 @@
 [
   {
     "name": "Programming Job Checklist",
-    "version": "2023-07-18T00:00:00.517Z",
+    "version": "2023-07-19T05:40:33.654Z",
     "items": [
       {
         "detailText": "Social networking and social learning improve learning outcomes, motivation, and job search outcomes.",
         "displayText": "Joined ###LINK###, participating regularly and socially",
+        "isRequired": true,
         "linkText": "the Ladderly Discord",
         "linkUri": "https://www.youtube.com/watch?v=oHQiJ3kq52M"
       },
       {
         "detailText": "Search is a key developer skill that will enable you to solve errors, learn more effectively, and find job opportunities.",
         "displayText": "Watched ###LINK### and applied some of the lessons.",
+        "isRequired": true,
         "linkText": "Search Techniques for Coding",
         "linkUri": "https://www.youtube.com/watch?v=oHQiJ3kq52M"
       },
       {
+        "detailText": "",
         "displayText": "Watched ###LINK### and reproduced it; I have a GitHub portfolio with a Vanilla JS + HTML blog hosted on GitHub pages",
+        "isRequired": true,
         "linkText": "the Trial by Fire",
         "linkUri": "https://www.youtube.com/watch?v=V7yeF9AaBxM"
       },
@@ -28,8 +32,11 @@
       "I have attempted LinkedIn skill certs for HTML, CSS, JavaScript, TypeScript, React, and Git, and passed at least half of them. (There might be a separate responsive design one or also tailwind, bootstrap, material design, scss, or some others that should count)",
       "I have participated in Ladderly endorsed communities as recommended",
       {
+        "detailText": "",
         "displayText": "I have volunteered with a Ladderly endorsed community and listed the volunteer experience on my LinkedIn page",
-        "isRequired": false
+        "isRequired": false,
+        "linkText": "",
+        "linkUri": ""
       },
       "I have optimized my LinkedIn",
       "I have optimized my resume",
@@ -43,7 +50,7 @@
   },
   {
     "name": "Python Checklist",
-    "version": "2023-07-18T00:00:00.517Z",
+    "version": "2023-07-19T05:40:33.654Z",
     "items": [
       "Learn Numpy",
       "Learn Pandas",
