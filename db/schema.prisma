@@ -109,7 +109,6 @@ model ChecklistItem {
   displayIndex Int
   displayText  String
   detailText   String   @default("")
-  isComplete   Boolean? @default(false)
   isRequired   Boolean  @default(true)
   linkText     String   @default("")
   linkUri      String   @default("")
