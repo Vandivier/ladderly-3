@@ -7,11 +7,13 @@ import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { unified } from "unified"
 
+import styles from "./Blog.module.css"
+
 const BlogPost = ({ title, content }: { title: string; content: string }) => {
   return (
     <div>
       <h1>{title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div className={styles["blog-content"]} dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   )
 }
@@ -44,8 +46,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const htmlContent = await unified()
     .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeStringify)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 
   return {
