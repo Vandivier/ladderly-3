@@ -1,4 +1,5 @@
 import { AppProps, ErrorBoundary, ErrorComponent, ErrorFallbackProps } from "@blitzjs/next"
+import { Analytics } from "@vercel/analytics/react"
 import { AuthenticationError, AuthorizationError } from "blitz"
 import { GoogleAnalytics } from "nextjs-google-analytics"
 import React from "react"
@@ -35,6 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ErrorBoundary FallbackComponent={RootErrorFallback}>
         {getLayout(<Component {...pageProps} />)}
       </ErrorBoundary>
+      <Analytics />
     </>
   )
 }
