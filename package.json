@@ -5,7 +5,7 @@
     "backup": "npm run checklists:backup && npm run users:backup",
     "db:clean": "npm run backup && node scripts/deleteUnusedChecklists.js && node scripts/deleteUnusedChecklistItems.js",
     "dev": "blitz dev",
-    "build": "blitz prisma generate && blitz build",
+    "build": "node scripts/generate-sitemap.js && blitz prisma generate && blitz build",
     "migrate": "npm run users:backup && blitz prisma migrate dev && npm run users:restore",
     "seed": "blitz db seed",
     "seed:update-in-place": "blitz db seed -- --update-latest-checklist",
@@ -48,10 +48,14 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-final-form": "6.5.9",
+    "rehype-stringify": "9.0.3",
     "remark": "14.0.3",
     "remark-html": "15.0.2",
+    "remark-parse": "10.0.2",
+    "remark-rehype": "10.1.0",
     "secure-password": "4.0.0",
     "tailwindcss": "3.3.2",
+    "unified": "10.1.2",
     "zod": "3.20.2"
   },
   "devDependencies": {
