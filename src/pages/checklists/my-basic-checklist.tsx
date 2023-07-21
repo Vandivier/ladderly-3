@@ -6,9 +6,9 @@ import { Fragment, Suspense } from "react"
 
 import { Routes } from "@blitzjs/next"
 import Link from "next/link"
-import updateChecklistItem from "src/checklist-items/mutations/updateChecklistItem"
 import Layout from "src/core/layouts/Layout"
-import { ChecklistItem } from "db"
+import { UserChecklistItem } from "db"
+import updateUserChecklistItem from "src/user-checklist-items/mutations/updateUserChecklistItem"
 
 const MAGIC_LINK_SUBSTR = "###LINK###"
 
@@ -16,14 +16,14 @@ const ChecklistItemList = ({
   checklistItems,
   refetchChecklist,
 }: {
-  checklistItems: ChecklistItem[]
+  checklistItems: UserChecklistItem[]
   refetchChecklist: () => void
 }) => {
-  const [updateChecklistItemMutation] = useMutation(updateChecklistItem)
+  const [updateUserChecklistItemMutation] = useMutation(updateUserChecklistItem)
 
   const handleItemClick = async (id, isComplete) => {
     try {
-      await updateChecklistItemMutation({ id, isComplete: !isComplete })
+      await updateUserChecklistItemMutation({ id, isComplete: !isComplete })
       refetchChecklist()
     } catch (error) {
       alert("Error updating checklist item " + JSON.stringify(error, null, 2))
