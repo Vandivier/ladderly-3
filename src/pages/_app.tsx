@@ -1,10 +1,12 @@
-import { ErrorFallbackProps, ErrorComponent, ErrorBoundary, AppProps } from "@blitzjs/next"
+import { AppProps, ErrorBoundary, ErrorComponent, ErrorFallbackProps } from "@blitzjs/next"
+import { Analytics } from "@vercel/analytics/react"
 import { AuthenticationError, AuthorizationError } from "blitz"
+import { GoogleAnalytics } from "nextjs-google-analytics"
 import React from "react"
 import { withBlitz } from "src/blitz-client"
-import "src/styles/globals.css"
 
 import "src/core/styles/index.css"
+import "src/styles/globals.css"
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {
@@ -29,9 +31,13 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
 function MyApp({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
   return (
-    <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      {getLayout(<Component {...pageProps} />)}
-    </ErrorBoundary>
+    <>
+      <GoogleAnalytics trackPageViews />
+      <ErrorBoundary FallbackComponent={RootErrorFallback}>
+        {getLayout(<Component {...pageProps} />)}
+      </ErrorBoundary>
+      <Analytics />
+    </>
   )
 }
 
