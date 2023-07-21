@@ -119,9 +119,9 @@ model ChecklistItem {
   linkUri      String   @default("")
   version      String   @default("2023-07-18T00:00:00.517Z")
 
-  checklist         Checklist           @relation(fields: [checklistId], references: [id])
-  checklistId       Int
-  UserChecklistItem UserChecklistItem[]
+  checklist          Checklist           @relation(fields: [checklistId], references: [id])
+  checklistId        Int
+  userChecklistItems UserChecklistItem[]
 
   @@unique([displayText, checklistId])
 }
