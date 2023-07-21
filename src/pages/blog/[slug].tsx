@@ -1,10 +1,11 @@
-import { GetStaticPaths, GetStaticProps } from "next"
 import fs from "fs"
-import path from "path"
 import matter from "gray-matter"
-// import remark from "remark"
-import * as remark from "remark"
-import html from "remark-html"
+import { GetStaticPaths, GetStaticProps } from "next"
+import path from "path"
+import rehypeStringify from "rehype-stringify"
+import remarkParse from "remark-parse"
+import remarkRehype from "remark-rehype"
+import { unified } from "unified"
 
 const BlogPost = ({ title, content }: { title: string; content: string }) => {
   return (
@@ -17,11 +18,13 @@ const BlogPost = ({ title, content }: { title: string; content: string }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const files = fs.readdirSync(path.join("src/pages/blog"))
-  const paths = files.map((filename) => ({
-    params: {
-      slug: filename.replace(".md", ""),
-    },
-  }))
+  const paths = files
+    .filter((filename) => path.extname(filename) === ".md")
+    .map((filename) => ({
+      params: {
+        slug: filename.replace(".md", ""),
+      },
+    }))
 
   return {
     paths,
@@ -39,7 +42,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { data, content } = matter(markdownWithMetadata)
 
-  const htmlContent = await remark().use(html).process(content)
+  const htmlContent = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeStringify)
+    .process(content)
 
   return {
     props: {
