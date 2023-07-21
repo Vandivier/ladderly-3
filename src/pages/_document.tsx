@@ -1,5 +1,4 @@
 import Document, { Html, Main, NextScript, Head } from "next/document"
-import { GoogleAnalytics } from "nextjs-google-analytics"
 
 class MyDocument extends Document {
   render() {
@@ -7,7 +6,6 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head />
         <body>
-          <GoogleAnalytics trackPageViews />
           <Main />
           <NextScript />
         </body>
