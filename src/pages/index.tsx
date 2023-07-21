@@ -53,7 +53,7 @@ const LogoutButton = () => {
   )
 }
 
-const TopNavContent = () => {
+export const TopNavContent = () => {
   const currentUser = useCurrentUser()
 
   if (currentUser) {
