@@ -36,6 +36,7 @@
     "@blitzjs/next": "2.0.0-beta.29",
     "@blitzjs/rpc": "2.0.0-beta.29",
     "@prisma/client": "4.6.1",
+    "@vercel/analytics": "1.0.1",
     "autoprefixer": "10.4.14",
     "blitz": "2.0.0-beta.29",
     "dotenv": "16.3.1",
