@@ -1,0 +1,9 @@
+.blog-content ol {
+  list-style-type: decimal;
+  padding-left: 1em;
+}
+
+.blog-content ul {
+  list-style-type: disc;
+  padding-left: 1em;
+}
