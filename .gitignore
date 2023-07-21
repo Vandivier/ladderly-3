@@ -56,6 +56,6 @@ lib-cov
 .vscode-test
 
 # ignore physical backups of blitz db
-db/bak.users.json
+db/bak.user*.json
 db/premium-checklists.json
 .vercel
