@@ -1,44 +1,85 @@
 import { Ctx } from "@blitzjs/next"
 import { resolver } from "@blitzjs/rpc"
 import { AuthenticationError } from "blitz"
-import db, { Checklist, ChecklistItem, Prisma, UserChecklist } from "db"
+import db, { Checklist, ChecklistItem, Prisma, UserChecklist, UserChecklistItem } from "db"
 
-type UserChecklistWithChecklistItems = UserChecklist & {
-  checklist: Checklist & { checklistItems: ChecklistItem[] }
+export type UserChecklistItemWithChecklistItem = UserChecklistItem & {
+  checklistItem: ChecklistItem
+}
+
+export type UserChecklistWithChecklistItems = UserChecklist & {
+  userChecklistItems: (UserChecklistItem & {
+    checklistItem: ChecklistItem
+  })[]
+}
+
+export type UserChecklistByNameData = {
+  checklist: Checklist
+  userChecklistItemsWithChecklistItem: UserChecklistItemWithChecklistItem[]
+  userChecklistWithChecklistItems: UserChecklistWithChecklistItems
 }
 
 export default resolver.pipe(
   resolver.authorize(),
-  async ({ name }: { name: string }, ctx: Ctx): Promise<UserChecklistWithChecklistItems> => {
+  async ({ name }: { name: string }, ctx: Ctx): Promise<UserChecklistByNameData> => {
     const { userId } = ctx.session
 
     if (!userId) throw new AuthenticationError()
 
-    const genericChecklist = await db.checklist.findFirst({
+    const checklist = await db.checklist.findFirst({
+      include: { checklistItems: true },
       where: { name },
     })
 
-    if (!genericChecklist) throw new Error("Generic checklist not found")
-
-    const includeChecklistItems: Prisma.ChecklistInclude = {
-      checklistItems: { orderBy: { displayIndex: "asc" } },
+    if (!checklist) throw new Error("Checklist not found")
+    let userChecklistItems: UserChecklistItemWithChecklistItem[] = []
+    const userChecklistWhere: Prisma.UserChecklistWhereUniqueInput = {
+      userId_checklistId: { userId, checklistId: checklist.id },
     }
-    const userChecklist = await db.userChecklist.findFirst({
-      where: { userId, checklistId: genericChecklist.id },
-      include: { checklist: { include: includeChecklistItems } },
+
+    let userChecklist = await db.userChecklist.findUnique({
+      where: userChecklistWhere,
+      include: { userChecklistItems: { include: { checklistItem: true } } },
     })
 
     if (!userChecklist) {
-      const newUserChecklist = await db.userChecklist.create({
+      const newChecklist = await db.userChecklist.create({
         data: {
           userId,
-          checklistId: genericChecklist.id,
+          checklistId: checklist.id,
         },
-        include: { checklist: { include: includeChecklistItems } },
       })
-      return newUserChecklist as UserChecklistWithChecklistItems
+
+      for (let checklistItem of checklist.checklistItems) {
+        const data: Prisma.UserChecklistItemCreateInput = {
+          checklistItem: { connect: { id: checklistItem.id } },
+          isComplete: false,
+          user: { connect: { id: userId } },
+          userChecklist: { connect: { id: newChecklist.id } },
+        }
+
+        const userChecklistItem = await db.userChecklistItem.create({
+          data,
+        })
+
+        userChecklistItems.push({
+          ...userChecklistItem,
+          checklistItem,
+        })
+      }
+
+      userChecklist = { ...newChecklist, userChecklistItems }
+    } else {
+      userChecklistItems = userChecklist.userChecklistItems.map((item) => ({ ...item }))
     }
 
-    return userChecklist as UserChecklistWithChecklistItems
+    userChecklistItems.sort((a, b) => a.checklistItem.displayIndex - b.checklistItem.displayIndex)
+    const data: UserChecklistByNameData = {
+      checklist,
+      userChecklistItemsWithChecklistItem: userChecklistItems,
+      userChecklistWithChecklistItems: userChecklist,
+    }
+
+    return data
   }
 )
