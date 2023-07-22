@@ -26,7 +26,7 @@ model User {
   nameLast       String  @default("")
 
   quizResults         QuizResult[]
-  role                String               @default("USER")
+  role                RoleEnum             @default(USER)
   sessions            Session[]
   subscriptionChanges SubscriptionChange[]
   subscriptions       Subscription[]
@@ -34,6 +34,12 @@ model User {
   transactions        Transaction[]
   userChecklists      UserChecklist[]
   uuid                String               @default(uuid())
+  UserChecklistItem   UserChecklistItem[]
+}
+
+enum RoleEnum {
+  ADMIN
+  USER
 }
 
 model Session {
@@ -71,16 +77,34 @@ enum TokenType {
 }
 
 model UserChecklist {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  userId      Int
-  checklistId Int
-  isComplete  Boolean   @default(false)
-  user        User      @relation(fields: [userId], references: [id])
-  checklist   Checklist @relation(fields: [checklistId], references: [id])
+  id                 Int                 @id @default(autoincrement())
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  userId             Int
+  checklistId        Int
+  isComplete         Boolean             @default(false)
+  user               User                @relation(fields: [userId], references: [id])
+  checklist          Checklist           @relation(fields: [checklistId], references: [id])
+  userChecklistItems UserChecklistItem[]
 
   @@unique([userId, checklistId])
+}
+
+model UserChecklistItem {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  isComplete Boolean @default(false)
+
+  checklistItem   ChecklistItem @relation(fields: [checklistItemId], references: [id])
+  checklistItemId Int
+  userChecklist   UserChecklist @relation(fields: [userChecklistId], references: [id])
+  userChecklistId Int
+  user            User          @relation(fields: [userId], references: [id])
+  userId          Int
+
+  @@unique([userChecklistId, checklistItemId])
 }
 
 model ChecklistItem {
@@ -90,14 +114,14 @@ model ChecklistItem {
   displayIndex Int
   displayText  String
   detailText   String   @default("")
-  isComplete   Boolean  @default(false)
   isRequired   Boolean  @default(true)
   linkText     String   @default("")
   linkUri      String   @default("")
   version      String   @default("2023-07-18T00:00:00.517Z")
 
-  checklist   Checklist @relation(fields: [checklistId], references: [id])
-  checklistId Int
+  checklist          Checklist           @relation(fields: [checklistId], references: [id])
+  checklistId        Int
+  userChecklistItems UserChecklistItem[]
 
   @@unique([displayText, checklistId])
 }
@@ -109,7 +133,6 @@ model Checklist {
   name           String
   version        String
   checklistItems ChecklistItem[]
-
   userChecklists UserChecklist[]
 }
 

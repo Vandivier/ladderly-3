@@ -11,12 +11,6 @@ export function ChecklistForm<S extends z.ZodType<any, any>>(props: FormProps<S>
       <LabeledTextField name="name" label="Name" placeholder="Name" type="text" />
       <LabeledTextField name="user" label="User" placeholder="User" type="text" />
       <LabeledTextField name="item" label="Item" placeholder="Item" type="text" />
-      <LabeledTextField
-        name="isComplete"
-        label="Is Complete"
-        placeholder="Is Complete"
-        type="text"
-      />
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
     </Form>
   )

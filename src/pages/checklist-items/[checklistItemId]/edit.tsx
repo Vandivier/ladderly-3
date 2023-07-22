@@ -11,6 +11,7 @@ import { UpdateChecklistItemSchema } from "src/checklist-items/schemas"
 import getChecklistItem from "src/checklist-items/queries/getChecklistItem"
 import updateChecklistItem from "src/checklist-items/mutations/updateChecklistItem"
 import { ChecklistItemForm, FORM_ERROR } from "src/checklist-items/components/ChecklistItemForm"
+import { RoleEnum } from "db"
 
 export const EditChecklistItem = () => {
   const router = useRouter()
@@ -39,11 +40,10 @@ export const EditChecklistItem = () => {
             submitText="Update ChecklistItem"
             schema={UpdateChecklistItemSchema}
             initialValues={checklistItem}
-            onSubmit={async ({ isComplete }) => {
+            onSubmit={async ({}) => {
               try {
                 const updated = await updateChecklistItemMutation({
                   id: checklistItem.id,
-                  isComplete: isComplete,
                 })
                 await setQueryData(updated)
                 await router.push(Routes.ShowChecklistItemPage({ checklistItemId: updated.id }))
@@ -75,7 +75,7 @@ const EditChecklistItemPage = () => {
   )
 }
 
-EditChecklistItemPage.authenticate = true
+EditChecklistItemPage.authenticate = { role: RoleEnum.ADMIN }
 EditChecklistItemPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default EditChecklistItemPage
