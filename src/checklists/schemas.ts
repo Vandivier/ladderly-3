@@ -1,7 +1,6 @@
 import { z } from "zod"
 
 export const CreateChecklistSchema = z.object({
-  isComplete: z.boolean(),
   item: z.string(),
   name: z.string(),
   user: z.string(),

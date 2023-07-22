@@ -1,11 +1,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>
-            https://ladderly.io/.DS_Store
-        </loc>
-    </url>
-    <url>
-        <loc>
             https://ladderly.io/404
         </loc>
     </url>
