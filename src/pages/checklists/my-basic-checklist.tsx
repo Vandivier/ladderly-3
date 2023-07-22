@@ -1,22 +1,22 @@
-import getUserChecklistByName from "src/checklists/queries/getUserChecklistByName"
-
 import { BlitzPage } from "@blitzjs/auth"
+import { Routes } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
+import Link from "next/link"
 import { Fragment, Suspense } from "react"
 
-import { Routes } from "@blitzjs/next"
-import Link from "next/link"
+import getUserChecklistByName, {
+  UserChecklistItemWithChecklistItem,
+} from "src/checklists/queries/getUserChecklistByName"
 import Layout from "src/core/layouts/Layout"
-import { UserChecklistItem } from "db"
 import updateUserChecklistItem from "src/user-checklist-items/mutations/updateUserChecklistItem"
 
 const MAGIC_LINK_SUBSTR = "###LINK###"
 
-const ChecklistItemList = ({
-  checklistItems,
+const UserChecklistItemList = ({
+  items,
   refetchChecklist,
 }: {
-  checklistItems: UserChecklistItem[]
+  items: UserChecklistItemWithChecklistItem[]
   refetchChecklist: () => void
 }) => {
   const [updateUserChecklistItemMutation] = useMutation(updateUserChecklistItem)
@@ -32,47 +32,50 @@ const ChecklistItemList = ({
 
   return (
     <ol className="list-decimal">
-      {checklistItems.map((item) => (
-        <li
-          className="mb-3 hover:cursor-pointer"
-          key={item.id}
-          onClick={async () => await handleItemClick(item.id, item.isComplete)}
-        >
-          <input type="checkbox" checked={item.isComplete} readOnly className="mr-2" />
-          {item.displayText.split(MAGIC_LINK_SUBSTR).map((part, index, array) => {
-            if (item.linkText && item.linkUri && index < array.length - 1) {
-              return (
-                <Fragment key={index}>
-                  {part}
-                  <Link
-                    href={item.linkUri}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-bold hover:underline"
-                    onClick={(event) => event.stopPropagation()}
-                  >
-                    {item.linkText}
-                  </Link>
-                </Fragment>
-              )
-            } else {
-              return part
-            }
-          })}
-        </li>
-      ))}
+      {items.map((item) => {
+        const checklistItem = item.checklistItem
+        return (
+          <li
+            className="mb-3 hover:cursor-pointer"
+            key={item.id}
+            onClick={async () => await handleItemClick(item.id, item.isComplete)}
+          >
+            <input type="checkbox" checked={item.isComplete} readOnly className="mr-2" />
+            {checklistItem.displayText.split(MAGIC_LINK_SUBSTR).map((part, index, array) => {
+              if (checklistItem.linkText && checklistItem.linkUri && index < array.length - 1) {
+                return (
+                  <Fragment key={index}>
+                    {part}
+                    <Link
+                      href={checklistItem.linkUri}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-bold hover:underline"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      {checklistItem.linkText}
+                    </Link>
+                  </Fragment>
+                )
+              } else {
+                return part
+              }
+            })}
+          </li>
+        )
+      })}
     </ol>
   )
 }
 
 const ChecklistQueryHandler: React.FC = () => {
-  const [userChecklist, { refetch }] = useQuery(getUserChecklistByName, {
+  const [userChecklistData, { refetch }] = useQuery(getUserChecklistByName, {
     name: "Programming Job Checklist",
   })
 
   return (
-    <ChecklistItemList
-      checklistItems={userChecklist.checklist.checklistItems}
+    <UserChecklistItemList
+      items={userChecklistData.userChecklistItemsWithChecklistItem}
       refetchChecklist={refetch}
     />
   )

@@ -77,15 +77,15 @@ enum TokenType {
 }
 
 model UserChecklist {
-  id                Int                 @id @default(autoincrement())
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  userId            Int
-  checklistId       Int
-  isComplete        Boolean             @default(false)
-  user              User                @relation(fields: [userId], references: [id])
-  checklist         Checklist           @relation(fields: [checklistId], references: [id])
-  UserChecklistItem UserChecklistItem[]
+  id                 Int                 @id @default(autoincrement())
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  userId             Int
+  checklistId        Int
+  isComplete         Boolean             @default(false)
+  user               User                @relation(fields: [userId], references: [id])
+  checklist          Checklist           @relation(fields: [checklistId], references: [id])
+  userChecklistItems UserChecklistItem[]
 
   @@unique([userId, checklistId])
 }
