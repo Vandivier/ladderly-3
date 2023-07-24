@@ -8,7 +8,7 @@ readme = "README.md"
 packages = [{include = "youtube_transcriber"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 black = "^22.3.0"
 invoke = "^2.2.0"
 youtube-dl = "^2021.12.17"
