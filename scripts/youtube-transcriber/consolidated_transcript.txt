@@ -1,0 +1,288 @@
+
+URL: https://youtu.be/-bSi2DOjST8
+Title: #github #git #gitops #devops #versioncontrol #softwareengineer #programming #techtok #devtok #cstok
+Description: None
+Transcript:
+GitHub now has an early preview a
+powerful but simple feature keyboard
+shortcuts command K and then you can up
+and down arrow to navigate the menu
+without leaving your keyboard here I
+began to type token you can see it can
+give me three levels deep in the menu in
+a much more efficient manner
+
+URL: https://youtu.be/-ffV0YJ8Wi4
+Title: Let’s ship some features #livecoding #learntocode #programming #opensource #tech #softwareengineer #
+Description: None
+Transcript:
+I'll be live coding on these high
+priority issues open source later today
+follow my YouTube and hit the
+notification Bell to get alerted you can
+also join the Discord
+
+URL: https://youtu.be/-G6el6SI5Os
+Title: Artists can Code
+Description: None
+Transcript:
+here's my result from the rising test
+the interesting here is that my top
+scores are artistic and social and I'm a
+programmer so I hope this helps to break
+the stereotype that programming is like
+just for I don't know boring people or
+something
+
+URL: https://youtu.be/0uDEeDxQ57Q
+Title: Solving Problems is the Core Skill
+Description: None
+Transcript:
+video says it's not about JavaScript
+view reacts felt or the latest fancy
+framework it's about the problems you
+solve how you solve them how long does
+it take you to solve them hard to
+disagree I don't know if this is like
+feel good content or what but if you're
+trying to actually land a job
+scientifically prefer react to spell for
+example
+
+URL: https://youtu.be/0xpKTyaJHUc
+Title: Remix isn’t cool
+Description: None
+Transcript:
+react remix is a react framework that's
+been around for a year but it's been
+under a license now it's open source
+it's causing a bit of a splash so do I
+recommend you learn it the answer is no
+and fireship sums up my reason right
+here it only does SSR not the other
+render types
+
+URL: https://youtu.be/1jpYmw_RmdQ
+Title: Coding Bootcamps and Gender Diversity
+Description: None
+Transcript:
+why do we have high levels of gender
+diversity in coding boot camps but we
+don't have high levels in computer
+science programs I'm currently analyzing
+novel data one early finding is that
+women desire a programming career at
+about the same rate that men do so maybe
+CS curriculum is the problem instead of
+the occupation itself
+
+URL: https://youtu.be/1JTynN0UQp0
+Title: yo doodz the empire is chill
+Description: None
+Transcript:
+oh dudes the Empire's pretty chill maybe
+you could like join it or something
+
+URL: https://youtu.be/1KtcevQaa0o
+Title: How to Factor Bias out of Data
+Description: None
+Transcript:
+Bart Barkley Nas how do we Factor biases
+out of our data great question here are
+three answers so the first answer is
+that you constrain your interpretation
+so let's say that I want to survey all
+Americans and I want to know how they
+think about the latest movie I put a
+survey online oops what I didn't realize
+where I put the survey people can only
+create an account if they're age 18 or
+older so now I've biased my survey
+results to U.S adults rather than the
+whole US population one easy thing to do
+is just re-interpret the result don't
+claim that you're surveying all
+Americans just say this is the result
+for U.S adults
+the second approach is to modify your
+data by modify data we mean AD samples
+remove samples add variables or remove
+variables depending on certain
+analytical conditions any of those might
+be ideal in the specific case where we
+unintentionally just surveyed adults and
+we really wanted the opinions of the
+whole population the obvious thing to do
+here would be to specifically survey
+those under the age of 18 merge those
+data sets and now we hopefully have a
+representative data set in the age
+example adults would be called one
+strata and kids or those under the age
+of 18 would be another strata or
+subgroup so having some samples in each
+strata is not quite good enough to
+ensure a representative result you
+either need to have a large number of
+responses in each strata or a
+proportional number of results in each
+strata if you don't have either of those
+you can still make a estimate if you use
+a specific analytical model that
+accounts for heteroskedasticity
+so that would not be any statistical
+approach you need to be smart about
+which one you pick but you can still get
+a result it will just be like a much
+lower confidence result because if you
+interpret incorrectly or if you use the
+wrong interpretive model you will be
+over waiting
+um a particular group's voice compared
+to the general population how many
+samples is a large number um so we
+usually say the law of large numbers
+kicks in over 100 samples so the T
+distribution converges to the Z
+distribution it's like a technical uh
+statistical thing
+uh and really you want to have like at
+least 30 samples and then preferably
+over 100. under that you can still get a
+result it will just be a really low
+confidence result recommendation three
+is use multiple analytical approaches
+whether or not your data is biased
+having multiple analytical approaches
+ensures a robust result which is really
+really great it's going to give you more
+evidence for your causal theories it's
+going to be better for predictive
+performance it's really really great so
+ordinaryly squares is like pretty basic
+difference in means test pretty basic a
+lasso is really good for feature
+selection elastic net also Vector
+regression these are some good things
+you can check the p-value I like to look
+for a p-value under 0.5 which logically
+indicates that it's more likely that the
+effect is different from zero than that
+it's equal to zero so we're never really
+certain with Statistics but if five
+models say the sky is blue it's good
+evidence
+
+URL: https://youtu.be/2IASzZtfk0Q
+Title: FINE ILL RESTART THE COMP #coding #lol
+Description: None
+Transcript:
+but I am telling you right now that
+[ __ ] that [ __ ] back
+there is not real
+
+URL: https://youtu.be/4HoZ9iKpZNc
+Title: Claude: The Friendliest AI Robot #artificialintelligence #safety #notsus #lol
+Description: None
+Transcript:
+uh you're absolutely right my mistake I
+appreciate you pointing out the air and
+thank you for your feedback on the Emoji
+this is like the nicest robot
+this robot wouldn't nuke you right
+if this is the kind of AI we're dealing
+with
+it's seemingly safe now he might be
+polite and then stab me in the back I
+don't know
+
+URL: https://youtu.be/4MAhgWc6ONg
+Title: LinearModel for RFECV really just uses coefficient size without checking significance? Wow
+Description: None
+Transcript:
+foreign
+[Music]
+
+URL: https://youtu.be/5HHy8VM3zdQ
+Title: Discord is the new Social Networking
+Description: None
+Transcript:
+problem says your GitHub and Discord
+will bring you more opportunities than
+any resume ever will GitHub for your
+portfolio don't sleep on LinkedIn and
+then Discord for social networking
+Discord has been blowing up here's some
+servers you can join also check the pin
+comments and laterally in my bio also as
+a server
+
+URL: https://youtu.be/5vK_ZGx8f3w
+Title: is js a good language...?
+Description: None
+Transcript:
+unique excuse me Js is a good language
+JavaScript is a great language
+it can be misleading what are you
+talking about hold on gas is weird.com
+clearly documents all of the great
+things JavaScript does that other
+programming languages wish they could do
+so it doesn't need to be misleading just
+go study like for example true plus
+false what do you think it is or
+Exclamation point Exclamation point
+Exclamation point true you don't get mad
+when we do this in English when we say
+something and then we put like three
+exclamation points why are you mad at
+JavaScript that we're doing this English
+is great do you hate English I mean even
+in English we know there's a big
+difference between when something is
+true and when it's literally true in
+quotes right duh they're not the same
+thing duh JavaScript is just reflecting
+our shared reality
+JavaScript is so great you can divide by
+zero Hey mathematicians jealous much so
+anyway I'd appreciate it if you just
+take the word JavaScript and put some
+respect on the name you know
+
+URL: https://youtu.be/5ygMLZkNGCI
+Title: 3 Variable Selection Techniques
+Description: None
+Transcript:
+we have too many independent variables
+in your statistical model here are three
+approaches to select the best variables
+or features from that pool shrinkage
+methods like lasso Rich regression or
+elastic nut stepwise methods like
+backwards elimination or best subset
+selection
+
+URL: https://youtu.be/6Jad_JaGeVw
+Title: mobile purists hate him #lol
+Description: None
+Transcript:
+honestly I think Greek cuisine is better
+than Italian cuisine
+you know I I can't no you're not serious
+you cannot you can't
+I'm gonna say something
+
+URL: https://youtu.be/6NWmwriz7qo
+Title: Ladies: Consider Learning to Code!
+Description: None
+Transcript:
+stem is too broad if we care about
+closing the gender pay gap
+underrepresentation of women is
+specifically a problem in computer and
+Engineering related jobs and these jobs
+pay higher than the other jobs do too
+ladies please consider learning to code
+follow the page share the video Let's
+solve the page right now
