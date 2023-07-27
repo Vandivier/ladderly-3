@@ -1,0 +1,37 @@
+{
+  "id": "OHChPUF1J-0",
+  "url": "https://youtu.be/OHChPUF1J-0",
+  "title": "NPC Wants You to Code",
+  "description": null,
+  "publish_date": "2023-07-04T00:00:00",
+  "length": 12,
+  "views": 58,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "[Music]",
+      "start": 0.91,
+      "duration": 5.23
+    },
+    {
+      "text": "I should probably evangelize react first",
+      "start": 2.04,
+      "duration": 4.1
+    },
+    {
+      "text": "I should probably make a tick tock",
+      "start": 7.799,
+      "duration": 3.061
+    },
+    {
+      "text": "telling people to learn HTML CSS",
+      "start": 9.36,
+      "duration": 4.58
+    },
+    {
+      "text": "JavaScript and react",
+      "start": 10.86,
+      "duration": 3.08
+    }
+  ]
+}
