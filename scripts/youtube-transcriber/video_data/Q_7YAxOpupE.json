@@ -1,0 +1,172 @@
+{
+  "id": "Q_7YAxOpupE",
+  "url": "https://youtu.be/Q_7YAxOpupE",
+  "title": "Memorizing Stuff? (as a coder)",
+  "description": null,
+  "publish_date": "2023-06-03T00:00:00",
+  "length": 58,
+  "views": 6,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "in part one I said web developers should",
+      "start": 0.24,
+      "duration": 3.719
+    },
+    {
+      "text": "memorize a series of trusted information",
+      "start": 2.28,
+      "duration": 3.479
+    },
+    {
+      "text": "providers like the Mozilla developer",
+      "start": 3.959,
+      "duration": 3.181
+    },
+    {
+      "text": "Network and the react official",
+      "start": 5.759,
+      "duration": 3.42
+    },
+    {
+      "text": "documentation the other thing they",
+      "start": 7.14,
+      "duration": 3.419
+    },
+    {
+      "text": "should memorize is the basics of the",
+      "start": 9.179,
+      "duration": 3.061
+    },
+    {
+      "text": "document object model other than that",
+      "start": 10.559,
+      "duration": 3.54
+    },
+    {
+      "text": "trust muscle memory build a bunch of",
+      "start": 12.24,
+      "duration": 2.939
+    },
+    {
+      "text": "projects you're going to learn for",
+      "start": 14.099,
+      "duration": 3.421
+    },
+    {
+      "text": "example what are the CSS selectors that",
+      "start": 15.179,
+      "duration": 4.02
+    },
+    {
+      "text": "solves for actually making applications",
+      "start": 17.52,
+      "duration": 3.48
+    },
+    {
+      "text": "but there are a couple other goals one",
+      "start": 19.199,
+      "duration": 3.481
+    },
+    {
+      "text": "is like passing an interview so I'll",
+      "start": 21.0,
+      "duration": 3.48
+    },
+    {
+      "text": "give you a sample non-algorithmic",
+      "start": 22.68,
+      "duration": 3.42
+    },
+    {
+      "text": "interview question right after this",
+      "start": 24.48,
+      "duration": 3.6
+    },
+    {
+      "text": "follow for part three where there's",
+      "start": 26.1,
+      "duration": 3.96
+    },
+    {
+      "text": "another goal which is passing the",
+      "start": 28.08,
+      "duration": 3.599
+    },
+    {
+      "text": "LinkedIn skill assessments that's also",
+      "start": 30.06,
+      "duration": 2.94
+    },
+    {
+      "text": "pretty important sample interview",
+      "start": 31.679,
+      "duration": 3.841
+    },
+    {
+      "text": "question goes imagine a blank HTML page",
+      "start": 33.0,
+      "duration": 4.559
+    },
+    {
+      "text": "three buttons two of them are the same",
+      "start": 35.52,
+      "duration": 3.539
+    },
+    {
+      "text": "color third is a different color and",
+      "start": 37.559,
+      "duration": 3.781
+    },
+    {
+      "text": "four paragraphs that alternate whether",
+      "start": 39.059,
+      "duration": 4.201
+    },
+    {
+      "text": "they are bold or not so the question is",
+      "start": 41.34,
+      "duration": 4.02
+    },
+    {
+      "text": "give me two different ways to style each",
+      "start": 43.26,
+      "duration": 3.479
+    },
+    {
+      "text": "of these components which do you prefer",
+      "start": 45.36,
+      "duration": 3.66
+    },
+    {
+      "text": "and why now give me two ways that when I",
+      "start": 46.739,
+      "duration": 3.541
+    },
+    {
+      "text": "click the third button that it's a",
+      "start": 49.02,
+      "duration": 2.879
+    },
+    {
+      "text": "different color it will toggle the",
+      "start": 50.28,
+      "duration": 3.779
+    },
+    {
+      "text": "background color of the whole HTML page",
+      "start": 51.899,
+      "duration": 4.5
+    },
+    {
+      "text": "which of those two implementations you",
+      "start": 54.059,
+      "duration": 5.18
+    },
+    {
+      "text": "prefer and why",
+      "start": 56.399,
+      "duration": 2.84
+    }
+  ]
+}

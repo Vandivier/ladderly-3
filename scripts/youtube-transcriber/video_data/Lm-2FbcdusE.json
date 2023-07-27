@@ -1,0 +1,147 @@
+{
+  "id": "Lm-2FbcdusE",
+  "url": "https://youtu.be/Lm-2FbcdusE",
+  "title": "Frontend Big Tech Interviews #tech #techinterview #frontend #bigtech #techcareer",
+  "description": null,
+  "publish_date": "2023-06-06T00:00:00",
+  "length": 59,
+  "views": 8,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "this is a great question with front and",
+      "start": 0.299,
+      "duration": 3.301
+    },
+    {
+      "text": "style interview we mean using front-end",
+      "start": 2.1,
+      "duration": 3.239
+    },
+    {
+      "text": "Technologies basically web Technologies",
+      "start": 3.6,
+      "duration": 3.6
+    },
+    {
+      "text": "and the emphasis here is really just",
+      "start": 5.339,
+      "duration": 3.781
+    },
+    {
+      "text": "going to be JavaScript specific",
+      "start": 7.2,
+      "duration": 3.899
+    },
+    {
+      "text": "experience I had at Facebook I was asked",
+      "start": 9.12,
+      "duration": 3.78
+    },
+    {
+      "text": "to implement basically topological sort",
+      "start": 11.099,
+      "duration": 3.601
+    },
+    {
+      "text": "although they give they didn't say that",
+      "start": 12.9,
+      "duration": 3.84
+    },
+    {
+      "text": "but um as you work through the problem",
+      "start": 14.7,
+      "duration": 4.02
+    },
+    {
+      "text": "you figured out that you were trying to",
+      "start": 16.74,
+      "duration": 4.26
+    },
+    {
+      "text": "topologically sort promises",
+      "start": 18.72,
+      "duration": 4.58
+    },
+    {
+      "text": "so promises are specific to JavaScript",
+      "start": 21.0,
+      "duration": 4.56
+    },
+    {
+      "text": "the implementation",
+      "start": 23.3,
+      "duration": 4.84
+    },
+    {
+      "text": "using crutch API was JavaScript specific",
+      "start": 25.56,
+      "duration": 5.459
+    },
+    {
+      "text": "it involved Dom elements sometimes",
+      "start": 28.14,
+      "duration": 4.98
+    },
+    {
+      "text": "you'll get problems with dom elements",
+      "start": 31.019,
+      "duration": 4.501
+    },
+    {
+      "text": "and they'll often be your standard dsna",
+      "start": 33.12,
+      "duration": 5.939
+    },
+    {
+      "text": "leak code stuff kind of in Disguise so",
+      "start": 35.52,
+      "duration": 6.059
+    },
+    {
+      "text": "you might have string manipulation array",
+      "start": 39.059,
+      "duration": 5.82
+    },
+    {
+      "text": "manipulation sorting problems but you'll",
+      "start": 41.579,
+      "duration": 5.041
+    },
+    {
+      "text": "be using constructs that are sort of",
+      "start": 44.879,
+      "duration": 4.86
+    },
+    {
+      "text": "like front-end constructs like the Dom",
+      "start": 46.62,
+      "duration": 5.7
+    },
+    {
+      "text": "um Dom fragments promises stuff like",
+      "start": 49.739,
+      "duration": 4.561
+    },
+    {
+      "text": "that I would say my general advice these",
+      "start": 52.32,
+      "duration": 4.02
+    },
+    {
+      "text": "days is for big Tech like don't do the",
+      "start": 54.3,
+      "duration": 3.36
+    },
+    {
+      "text": "front install interview I think they're",
+      "start": 56.34,
+      "duration": 3.92
+    },
+    {
+      "text": "actually harder",
+      "start": 57.66,
+      "duration": 2.6
+    }
+  ]
+}

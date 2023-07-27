@@ -1,0 +1,22 @@
+{
+  "id": "4MAhgWc6ONg",
+  "url": "https://youtu.be/4MAhgWc6ONg",
+  "title": "LinearModel for RFECV really just uses coefficient size without checking significance? Wow",
+  "description": null,
+  "publish_date": "2023-07-10T00:00:00",
+  "length": 6,
+  "views": 323,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "foreign",
+      "start": 0.299,
+      "duration": 3.0
+    },
+    {
+      "text": "[Music]",
+      "start": 3.58,
+      "duration": 3.059
+    }
+  ]
+}

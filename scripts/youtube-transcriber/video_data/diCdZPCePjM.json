@@ -1,0 +1,47 @@
+{
+  "id": "diCdZPCePjM",
+  "url": "https://youtu.be/diCdZPCePjM",
+  "title": "JAIL for JavaScript",
+  "description": null,
+  "publish_date": "2023-06-03T00:00:00",
+  "length": 12,
+  "views": 4,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "something that makes no sense so",
+      "start": 0.14,
+      "duration": 4.139
+    },
+    {
+      "text": "in JavaScript Infinity is exactly equal",
+      "start": 2.24,
+      "duration": 3.66
+    },
+    {
+      "text": "to infinity even though that's not true",
+      "start": 4.279,
+      "duration": 3.841
+    },
+    {
+      "text": "in math and also null which is not even",
+      "start": 5.9,
+      "duration": 3.9
+    },
+    {
+      "text": "a number is greater than or equal to",
+      "start": 8.12,
+      "duration": 3.3
+    },
+    {
+      "text": "zero and it's also less than or equal to",
+      "start": 9.8,
+      "duration": 4.339
+    },
+    {
+      "text": "zero at the same time",
+      "start": 11.42,
+      "duration": 2.719
+    }
+  ]
+}

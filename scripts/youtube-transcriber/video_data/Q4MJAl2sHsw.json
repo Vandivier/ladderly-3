@@ -1,0 +1,52 @@
+{
+  "id": "Q4MJAl2sHsw",
+  "url": "https://youtu.be/Q4MJAl2sHsw",
+  "title": "#css #digitalart #gradient #art #css3 #webdev #codetok #javascript #html #devtok #devcrew #webdesign",
+  "description": null,
+  "publish_date": "2023-06-30T00:00:00",
+  "length": 15,
+  "views": 85,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "how do you prefer to use colors in your",
+      "start": 0.12,
+      "duration": 3.779
+    },
+    {
+      "text": "CSS do you like the color name the hex",
+      "start": 2.04,
+      "duration": 5.1
+    },
+    {
+      "text": "color RGB or hsl I prefer rgba this lets",
+      "start": 3.899,
+      "duration": 4.74
+    },
+    {
+      "text": "you access the color spectrum for red",
+      "start": 7.14,
+      "duration": 3.539
+    },
+    {
+      "text": "green blue and also transparency in the",
+      "start": 8.639,
+      "duration": 3.54
+    },
+    {
+      "text": "form of an alpha parameter so you can",
+      "start": 10.679,
+      "duration": 3.061
+    },
+    {
+      "text": "simultaneously gradient color and",
+      "start": 12.179,
+      "duration": 4.821
+    },
+    {
+      "text": "transparency or animate it",
+      "start": 13.74,
+      "duration": 3.26
+    }
+  ]
+}

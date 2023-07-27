@@ -1,0 +1,182 @@
+{
+  "id": "saTQr5jwa7Q",
+  "url": "https://youtu.be/saTQr5jwa7Q",
+  "title": "Why Frontend Programming?",
+  "description": null,
+  "publish_date": "2023-07-22T00:00:00",
+  "length": 59,
+  "views": 200,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "I specialize in teaching people how to",
+      "start": 0.13,
+      "duration": 2.88
+    },
+    {
+      "text": "break an attack and learn how to code",
+      "start": 1.99,
+      "duration": 3.0
+    },
+    {
+      "text": "follow my page if you're interested this",
+      "start": 3.01,
+      "duration": 3.9
+    },
+    {
+      "text": "commenter asks why I recommend front-end",
+      "start": 4.99,
+      "duration": 3.84
+    },
+    {
+      "text": "programming to that end great question a",
+      "start": 6.91,
+      "duration": 3.06
+    },
+    {
+      "text": "bunch of reasons I'll give you three",
+      "start": 8.83,
+      "duration": 3.54
+    },
+    {
+      "text": "first the mental model of a website what",
+      "start": 9.97,
+      "duration": 3.839
+    },
+    {
+      "text": "a good website looks like is really",
+      "start": 12.37,
+      "duration": 3.24
+    },
+    {
+      "text": "familiar to even non-technical people",
+      "start": 13.809,
+      "duration": 3.361
+    },
+    {
+      "text": "the main four branches of programming",
+      "start": 15.61,
+      "duration": 3.48
+    },
+    {
+      "text": "are front-end back-end devops and data",
+      "start": 17.17,
+      "duration": 3.779
+    },
+    {
+      "text": "analysis data analysis is kind of",
+      "start": 19.09,
+      "duration": 3.66
+    },
+    {
+      "text": "intuitive but devops is like totally",
+      "start": 20.949,
+      "duration": 3.721
+    },
+    {
+      "text": "foreign to the normal person if you say",
+      "start": 22.75,
+      "duration": 3.24
+    },
+    {
+      "text": "infrastructure they're thinking about",
+      "start": 24.67,
+      "duration": 3.42
+    },
+    {
+      "text": "like their house and then back end is",
+      "start": 25.99,
+      "duration": 3.84
+    },
+    {
+      "text": "really abstract and hard to visualize if",
+      "start": 28.09,
+      "duration": 3.06
+    },
+    {
+      "text": "you're not trained in thinking that way",
+      "start": 29.83,
+      "duration": 3.24
+    },
+    {
+      "text": "so building on that point too the",
+      "start": 31.15,
+      "duration": 3.3
+    },
+    {
+      "text": "alternatives to front end requires",
+      "start": 33.07,
+      "duration": 2.94
+    },
+    {
+      "text": "special training so you're not going to",
+      "start": 34.45,
+      "duration": 2.82
+    },
+    {
+      "text": "be a good data analysis you could",
+      "start": 36.01,
+      "duration": 3.06
+    },
+    {
+      "text": "actually be a little bit dangerous if",
+      "start": 37.27,
+      "duration": 3.12
+    },
+    {
+      "text": "you're a data analyst that doesn't know",
+      "start": 39.07,
+      "duration": 3.18
+    },
+    {
+      "text": "stats for example three is the level of",
+      "start": 40.39,
+      "duration": 3.54
+    },
+    {
+      "text": "difficulty of setup with front-end",
+      "start": 42.25,
+      "duration": 3.239
+    },
+    {
+      "text": "programming you already probably have",
+      "start": 43.93,
+      "duration": 2.94
+    },
+    {
+      "text": "the Chrome browser installed and you can",
+      "start": 45.489,
+      "duration": 3.421
+    },
+    {
+      "text": "get started sandbox in the Chrome Dev",
+      "start": 46.87,
+      "duration": 3.54
+    },
+    {
+      "text": "tools and you can also visit like",
+      "start": 48.91,
+      "duration": 4.02
+    },
+    {
+      "text": "w3schools and code in your browser other",
+      "start": 50.41,
+      "duration": 4.14
+    },
+    {
+      "text": "languages are growing and your ability",
+      "start": 52.93,
+      "duration": 3.359
+    },
+    {
+      "text": "to have like an in-browser experience",
+      "start": 54.55,
+      "duration": 6.38
+    },
+    {
+      "text": "but tools are rough outside of front end",
+      "start": 56.289,
+      "duration": 4.641
+    }
+  ]
+}

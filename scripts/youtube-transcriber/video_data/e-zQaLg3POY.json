@@ -1,0 +1,62 @@
+{
+  "id": "e-zQaLg3POY",
+  "url": "https://youtu.be/e-zQaLg3POY",
+  "title": "what is devops?",
+  "description": null,
+  "publish_date": "2023-07-23T00:00:00",
+  "length": 14,
+  "views": 200,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "Timmy Turner thanks for the question",
+      "start": 0.15,
+      "duration": 2.82
+    },
+    {
+      "text": "check Wikipedia if you want like a",
+      "start": 1.41,
+      "duration": 3.42
+    },
+    {
+      "text": "normal answer my answer is that these",
+      "start": 2.97,
+      "duration": 3.119
+    },
+    {
+      "text": "are specialists in the build and deploy",
+      "start": 4.83,
+      "duration": 3.3
+    },
+    {
+      "text": "steps of the sdlc so maintaining a",
+      "start": 6.089,
+      "duration": 3.3
+    },
+    {
+      "text": "deployment pipeline is bread and butter",
+      "start": 8.13,
+      "duration": 3.0
+    },
+    {
+      "text": "for devops after you write code it needs",
+      "start": 9.389,
+      "duration": 3.061
+    },
+    {
+      "text": "to go through some hoops before an end",
+      "start": 11.13,
+      "duration": 2.7
+    },
+    {
+      "text": "user can use it that's what they take",
+      "start": 12.45,
+      "duration": 3.62
+    },
+    {
+      "text": "care of",
+      "start": 13.83,
+      "duration": 2.24
+    }
+  ]
+}

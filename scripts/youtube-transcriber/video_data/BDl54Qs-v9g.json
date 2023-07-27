@@ -1,0 +1,57 @@
+{
+  "id": "BDl54Qs-v9g",
+  "url": "https://youtu.be/BDl54Qs-v9g",
+  "title": "#learntocode #devcrew #codetok #devtok #webdev #devops #webpack #techtok",
+  "description": null,
+  "publish_date": "2023-06-30T00:00:00",
+  "length": 15,
+  "views": 88,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "thanks for the question you don't need",
+      "start": 0.189,
+      "duration": 3.641
+    },
+    {
+      "text": "to understand webpack or Babel to get an",
+      "start": 2.21,
+      "duration": 3.299
+    },
+    {
+      "text": "entry-level job these are build tools",
+      "start": 3.83,
+      "duration": 3.12
+    },
+    {
+      "text": "and customizing that will be your scope",
+      "start": 5.509,
+      "duration": 2.821
+    },
+    {
+      "text": "at an intermediate to senior level",
+      "start": 6.95,
+      "duration": 3.72
+    },
+    {
+      "text": "create react app next Blitz these will",
+      "start": 8.33,
+      "duration": 4.08
+    },
+    {
+      "text": "have webpack configs for you if you just",
+      "start": 10.67,
+      "duration": 2.94
+    },
+    {
+      "text": "want to look at them one use case would",
+      "start": 12.41,
+      "duration": 4.34
+    },
+    {
+      "text": "be like inlining svgs",
+      "start": 13.61,
+      "duration": 3.14
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "5ygMLZkNGCI",
+  "url": "https://youtu.be/5ygMLZkNGCI",
+  "title": "3 Variable Selection Techniques",
+  "description": null,
+  "publish_date": "2023-07-17T00:00:00",
+  "length": 15,
+  "views": 100,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "we have too many independent variables",
+      "start": 0.51,
+      "duration": 3.78
+    },
+    {
+      "text": "in your statistical model here are three",
+      "start": 2.49,
+      "duration": 4.019
+    },
+    {
+      "text": "approaches to select the best variables",
+      "start": 4.29,
+      "duration": 3.96
+    },
+    {
+      "text": "or features from that pool shrinkage",
+      "start": 6.509,
+      "duration": 4.021
+    },
+    {
+      "text": "methods like lasso Rich regression or",
+      "start": 8.25,
+      "duration": 4.259
+    },
+    {
+      "text": "elastic nut stepwise methods like",
+      "start": 10.53,
+      "duration": 3.84
+    },
+    {
+      "text": "backwards elimination or best subset",
+      "start": 12.509,
+      "duration": 4.161
+    },
+    {
+      "text": "selection",
+      "start": 14.37,
+      "duration": 2.3
+    }
+  ]
+}

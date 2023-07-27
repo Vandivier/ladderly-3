@@ -1,0 +1,177 @@
+{
+  "id": "SYndmnz37gA",
+  "url": "https://youtu.be/SYndmnz37gA",
+  "title": "Incremental progress over waiting #softwareengineer #programming #sdlc #ladderly #design #tech",
+  "description": null,
+  "publish_date": "2023-06-02T00:00:00",
+  "length": 59,
+  "views": 28,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "Dynamic is better right so why didn't we",
+      "start": 0.17,
+      "duration": 3.36
+    },
+    {
+      "text": "just do that from the jump well there's",
+      "start": 2.21,
+      "duration": 2.879
+    },
+    {
+      "text": "a few reasons the first one is that",
+      "start": 3.53,
+      "duration": 3.18
+    },
+    {
+      "text": "Dynamic is just harder and more",
+      "start": 5.089,
+      "duration": 3.961
+    },
+    {
+      "text": "complicated to implement so developers",
+      "start": 6.71,
+      "duration": 4.44
+    },
+    {
+      "text": "can just wait to have anything or they",
+      "start": 9.05,
+      "duration": 3.299
+    },
+    {
+      "text": "can settle with something that's a",
+      "start": 11.15,
+      "duration": 2.58
+    },
+    {
+      "text": "little lower quality in the short term",
+      "start": 12.349,
+      "duration": 3.301
+    },
+    {
+      "text": "and then they can get the cool thing",
+      "start": 13.73,
+      "duration": 3.66
+    },
+    {
+      "text": "later so this is a really common",
+      "start": 15.65,
+      "duration": 3.24
+    },
+    {
+      "text": "trade-off the short-term long-term",
+      "start": 17.39,
+      "duration": 3.18
+    },
+    {
+      "text": "trade-off and it's frankly a very good",
+      "start": 18.89,
+      "duration": 3.6
+    },
+    {
+      "text": "solution to the iron triangle if you",
+      "start": 20.57,
+      "duration": 3.24
+    },
+    {
+      "text": "wait for an optimized solution before",
+      "start": 22.49,
+      "duration": 3.06
+    },
+    {
+      "text": "you get started this is an example of",
+      "start": 23.81,
+      "duration": 3.479
+    },
+    {
+      "text": "waterfall over agile and it's an",
+      "start": 25.55,
+      "duration": 3.84
+    },
+    {
+      "text": "anti-pattern for a number of reasons and",
+      "start": 27.289,
+      "duration": 4.201
+    },
+    {
+      "text": "software we say make it work then make",
+      "start": 29.39,
+      "duration": 4.079
+    },
+    {
+      "text": "it work better you want incremental",
+      "start": 31.49,
+      "duration": 3.659
+    },
+    {
+      "text": "progress with backwards compatibility",
+      "start": 33.469,
+      "duration": 4.261
+    },
+    {
+      "text": "over waiting speaking of backwards",
+      "start": 35.149,
+      "duration": 4.381
+    },
+    {
+      "text": "compatibility that's one of two powerful",
+      "start": 37.73,
+      "duration": 3.54
+    },
+    {
+      "text": "reasons that we should not update the",
+      "start": 39.53,
+      "duration": 4.5
+    },
+    {
+      "text": "meaning of BH in place in fact dbh is",
+      "start": 41.27,
+      "duration": 4.02
+    },
+    {
+      "text": "not going to be the only unit I hate to",
+      "start": 44.03,
+      "duration": 2.52
+    },
+    {
+      "text": "break it to you there's going to be a",
+      "start": 45.29,
+      "duration": 2.94
+    },
+    {
+      "text": "number of these because as you can see",
+      "start": 46.55,
+      "duration": 3.239
+    },
+    {
+      "text": "the differences in the browser",
+      "start": 48.23,
+      "duration": 3.599
+    },
+    {
+      "text": "specifications so this is actually a",
+      "start": 49.789,
+      "duration": 4.381
+    },
+    {
+      "text": "good reason to leave VH alone let those",
+      "start": 51.829,
+      "duration": 3.96
+    },
+    {
+      "text": "Legacy websites continue to work and",
+      "start": 54.17,
+      "duration": 3.36
+    },
+    {
+      "text": "then add these new ones on where time",
+      "start": 55.789,
+      "duration": 5.241
+    },
+    {
+      "text": "allows follow for coding stuff",
+      "start": 57.53,
+      "duration": 3.5
+    }
+  ]
+}
