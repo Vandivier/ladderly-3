@@ -1,0 +1,152 @@
+{
+  "id": "vAOQRUqVdTY",
+  "url": "https://youtu.be/vAOQRUqVdTY",
+  "title": "Coding Project Advice",
+  "description": null,
+  "publish_date": "2023-05-30T00:00:00",
+  "length": 59,
+  "views": 32,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "Tasha Davis thank you for the question I",
+      "start": 0.9,
+      "duration": 4.56
+    },
+    {
+      "text": "think smart people can disagree on this",
+      "start": 3.659,
+      "duration": 3.481
+    },
+    {
+      "text": "I think the real answer is it depends",
+      "start": 5.46,
+      "duration": 4.139
+    },
+    {
+      "text": "but my opinion would be that we want two",
+      "start": 7.14,
+      "duration": 4.8
+    },
+    {
+      "text": "projects that are similar and I'll tell",
+      "start": 9.599,
+      "duration": 5.341
+    },
+    {
+      "text": "you why as developers we like t-shaped",
+      "start": 11.94,
+      "duration": 4.259
+    },
+    {
+      "text": "skills",
+      "start": 14.94,
+      "duration": 3.179
+    },
+    {
+      "text": "we want you to be an expert in one",
+      "start": 16.199,
+      "duration": 4.861
+    },
+    {
+      "text": "subject matter and then have horizontal",
+      "start": 18.119,
+      "duration": 4.32
+    },
+    {
+      "text": "related information we don't want you to",
+      "start": 21.06,
+      "duration": 3.18
+    },
+    {
+      "text": "be a jack of all traits",
+      "start": 22.439,
+      "duration": 3.541
+    },
+    {
+      "text": "so what I would do somebody if I'm",
+      "start": 24.24,
+      "duration": 3.24
+    },
+    {
+      "text": "teaching them to code I'll have them do",
+      "start": 25.98,
+      "duration": 4.2
+    },
+    {
+      "text": "a web project with vanilla.js I'll have",
+      "start": 27.48,
+      "duration": 5.22
+    },
+    {
+      "text": "them do another web project and react",
+      "start": 30.18,
+      "duration": 5.28
+    },
+    {
+      "text": "and another one in react",
+      "start": 32.7,
+      "duration": 4.5
+    },
+    {
+      "text": "literally just practicing will make you",
+      "start": 35.46,
+      "duration": 4.38
+    },
+    {
+      "text": "that much better then okay maybe we try",
+      "start": 37.2,
+      "duration": 4.74
+    },
+    {
+      "text": "one in angular maybe we try one in view",
+      "start": 39.84,
+      "duration": 4.44
+    },
+    {
+      "text": "maybe we try to go full stack I think",
+      "start": 41.94,
+      "duration": 4.02
+    },
+    {
+      "text": "those are all good options to Branch out",
+      "start": 44.28,
+      "duration": 2.7
+    },
+    {
+      "text": "from there",
+      "start": 45.96,
+      "duration": 3.119
+    },
+    {
+      "text": "but I would say get your HTML JavaScript",
+      "start": 46.98,
+      "duration": 4.32
+    },
+    {
+      "text": "CSS down and then I would do two",
+      "start": 49.079,
+      "duration": 4.32
+    },
+    {
+      "text": "projects and react to really nail down",
+      "start": 51.3,
+      "duration": 4.68
+    },
+    {
+      "text": "how I'm using react you can use react",
+      "start": 53.399,
+      "duration": 4.621
+    },
+    {
+      "text": "with a lot of sibling libraries so",
+      "start": 55.98,
+      "duration": 4.88
+    },
+    {
+      "text": "practice combinations",
+      "start": 58.02,
+      "duration": 2.84
+    }
+  ]
+}

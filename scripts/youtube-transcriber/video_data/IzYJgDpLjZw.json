@@ -1,0 +1,67 @@
+{
+  "id": "IzYJgDpLjZw",
+  "url": "https://youtu.be/IzYJgDpLjZw",
+  "title": "#debugging #javascript #typescript #coding #howto #programming #learntocode #techtok #codetok #webde",
+  "description": null,
+  "publish_date": "2023-06-26T00:00:00",
+  "length": 15,
+  "views": 74,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "let's talk about debugging JavaScript",
+      "start": 0.26,
+      "duration": 3.179
+    },
+    {
+      "text": "consider the commented function in the",
+      "start": 2.0,
+      "duration": 2.7
+    },
+    {
+      "text": "middle of the screen this function",
+      "start": 3.439,
+      "duration": 2.521
+    },
+    {
+      "text": "doesn't work to give away the ending",
+      "start": 4.7,
+      "duration": 3.0
+    },
+    {
+      "text": "it's because get Elements by class name",
+      "start": 5.96,
+      "duration": 3.24
+    },
+    {
+      "text": "produces an array like object that",
+      "start": 7.7,
+      "duration": 2.819
+    },
+    {
+      "text": "doesn't have a style property what if",
+      "start": 9.2,
+      "duration": 2.16
+    },
+    {
+      "text": "you didn't know this how would you",
+      "start": 10.519,
+      "duration": 2.521
+    },
+    {
+      "text": "investigate try breaking that line into",
+      "start": 11.36,
+      "duration": 3.239
+    },
+    {
+      "text": "two lines and place a debugger at the",
+      "start": 13.04,
+      "duration": 3.679
+    },
+    {
+      "text": "top",
+      "start": 14.599,
+      "duration": 2.12
+    }
+  ]
+}

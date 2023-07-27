@@ -1,0 +1,1252 @@
+{
+  "id": "Unj5NLNTkLY",
+  "url": "https://youtu.be/Unj5NLNTkLY",
+  "title": "How To Install SuperAGI - Multiple Agents, GUI, Tools, and more!",
+  "description": null,
+  "publish_date": "2023-06-05T00:00:00",
+  "length": 482,
+  "views": 80714,
+  "channel": "Matthew Berman",
+  "transcript": [
+    {
+      "text": "this is super AGI it's essentially Auto",
+      "start": 0.24,
+      "duration": 6.539
+    },
+    {
+      "text": "GPT on steroids it can use tools it can",
+      "start": 3.48,
+      "duration": 5.82
+    },
+    {
+      "text": "run multiple agents in parallel it has a",
+      "start": 6.779,
+      "duration": 4.921
+    },
+    {
+      "text": "graphical user interface it's super easy",
+      "start": 9.3,
+      "duration": 4.2
+    },
+    {
+      "text": "to install and they're adding new",
+      "start": 11.7,
+      "duration": 4.08
+    },
+    {
+      "text": "functionality every single day welcome",
+      "start": 13.5,
+      "duration": 3.779
+    },
+    {
+      "text": "back in today's video I'm going to show",
+      "start": 15.78,
+      "duration": 3.6
+    },
+    {
+      "text": "you how to install super AGI and also",
+      "start": 17.279,
+      "duration": 3.481
+    },
+    {
+      "text": "how to use it it has a lot of",
+      "start": 19.38,
+      "duration": 2.7
+    },
+    {
+      "text": "functionality I'm going to show you",
+      "start": 20.76,
+      "duration": 2.939
+    },
+    {
+      "text": "around some of it and then I encourage",
+      "start": 22.08,
+      "duration": 3.42
+    },
+    {
+      "text": "you to play around with it let's go so",
+      "start": 23.699,
+      "duration": 3.9
+    },
+    {
+      "text": "this is the GitHub repo for super AGI",
+      "start": 25.5,
+      "duration": 4.38
+    },
+    {
+      "text": "it's by Transformer Optimus and it's",
+      "start": 27.599,
+      "duration": 3.961
+    },
+    {
+      "text": "currently on GitHub trending it has a",
+      "start": 29.88,
+      "duration": 3.12
+    },
+    {
+      "text": "lot of functionality let's review some",
+      "start": 31.56,
+      "duration": 2.7
+    },
+    {
+      "text": "of it really quick and then I'm going to",
+      "start": 33.0,
+      "duration": 3.18
+    },
+    {
+      "text": "get into the installation guide so first",
+      "start": 34.26,
+      "duration": 3.78
+    },
+    {
+      "text": "obviously you can provision spawn and",
+      "start": 36.18,
+      "duration": 3.84
+    },
+    {
+      "text": "deploy autonomous AI agents a couple",
+      "start": 38.04,
+      "duration": 3.9
+    },
+    {
+      "text": "things that it does better than Auto GPT",
+      "start": 40.02,
+      "duration": 4.559
+    },
+    {
+      "text": "is the fact that you can extend it with",
+      "start": 41.94,
+      "duration": 4.26
+    },
+    {
+      "text": "a bunch of different tools right out of",
+      "start": 44.579,
+      "duration": 3.66
+    },
+    {
+      "text": "the box it also has a graphical user",
+      "start": 46.2,
+      "duration": 3.839
+    },
+    {
+      "text": "interface and you can run agents",
+      "start": 48.239,
+      "duration": 3.361
+    },
+    {
+      "text": "concurrently here are some of the tools",
+      "start": 50.039,
+      "duration": 3.661
+    },
+    {
+      "text": "that it has so slack email Google search",
+      "start": 51.6,
+      "duration": 6.18
+    },
+    {
+      "text": "GitHub zapier Instagram and it's all",
+      "start": 53.7,
+      "duration": 5.879
+    },
+    {
+      "text": "wrapped up in a Docker image so it's",
+      "start": 57.78,
+      "duration": 3.54
+    },
+    {
+      "text": "super easy to install let me show you",
+      "start": 59.579,
+      "duration": 2.941
+    },
+    {
+      "text": "how to do that the first thing you're",
+      "start": 61.32,
+      "duration": 3.059
+    },
+    {
+      "text": "going to need to do is get Docker so go",
+      "start": 62.52,
+      "duration": 4.62
+    },
+    {
+      "text": "to docker.com download Docker install it",
+      "start": 64.379,
+      "duration": 4.621
+    },
+    {
+      "text": "and then have it up and running this is",
+      "start": 67.14,
+      "duration": 3.36
+    },
+    {
+      "text": "what it looks like and you could just",
+      "start": 69.0,
+      "duration": 3.18
+    },
+    {
+      "text": "keep that on in the background next",
+      "start": 70.5,
+      "duration": 3.299
+    },
+    {
+      "text": "we're going to open a visual studio code",
+      "start": 72.18,
+      "duration": 3.24
+    },
+    {
+      "text": "then we're going to click this little",
+      "start": 73.799,
+      "duration": 3.661
+    },
+    {
+      "text": "button in the top right that says toggle",
+      "start": 75.42,
+      "duration": 3.72
+    },
+    {
+      "text": "panel that'll open up our terminal",
+      "start": 77.46,
+      "duration": 4.019
+    },
+    {
+      "text": "within Visual Studio code next on the",
+      "start": 79.14,
+      "duration": 3.72
+    },
+    {
+      "text": "repo page we're going to click this",
+      "start": 81.479,
+      "duration": 2.941
+    },
+    {
+      "text": "little green code button and then we're",
+      "start": 82.86,
+      "duration": 3.78
+    },
+    {
+      "text": "going to copy the URL once the terminal",
+      "start": 84.42,
+      "duration": 4.5
+    },
+    {
+      "text": "opens up we're going to type CD change",
+      "start": 86.64,
+      "duration": 4.74
+    },
+    {
+      "text": "directory and change to our desktop from",
+      "start": 88.92,
+      "duration": 4.62
+    },
+    {
+      "text": "there we're going to type git clone and",
+      "start": 91.38,
+      "duration": 4.559
+    },
+    {
+      "text": "then paste that URL that we just copied",
+      "start": 93.54,
+      "duration": 4.259
+    },
+    {
+      "text": "hit enter and that'll clone it to our",
+      "start": 95.939,
+      "duration": 3.36
+    },
+    {
+      "text": "desktop then we're going to come up to",
+      "start": 97.799,
+      "duration": 3.121
+    },
+    {
+      "text": "this Explorer icon we're going to click",
+      "start": 99.299,
+      "duration": 3.421
+    },
+    {
+      "text": "it we're going to click open folder and",
+      "start": 100.92,
+      "duration": 4.14
+    },
+    {
+      "text": "then we're going to select Super AGI and",
+      "start": 102.72,
+      "duration": 4.439
+    },
+    {
+      "text": "click open then again in the top right",
+      "start": 105.06,
+      "duration": 4.14
+    },
+    {
+      "text": "we're going to toggle panel so that'll",
+      "start": 107.159,
+      "duration": 3.541
+    },
+    {
+      "text": "open up our terminal and while that's",
+      "start": 109.2,
+      "duration": 3.059
+    },
+    {
+      "text": "opening the next thing we're going to do",
+      "start": 110.7,
+      "duration": 4.22
+    },
+    {
+      "text": "is right click on config underscore",
+      "start": 112.259,
+      "duration": 5.341
+    },
+    {
+      "text": "template.yaml and we're going to rename",
+      "start": 114.92,
+      "duration": 5.519
+    },
+    {
+      "text": "it and we're just going to rename it",
+      "start": 117.6,
+      "duration": 4.68
+    },
+    {
+      "text": "fig.yaml and that's where we're going to",
+      "start": 120.439,
+      "duration": 4.0
+    },
+    {
+      "text": "store all our environment variables so",
+      "start": 122.28,
+      "duration": 3.06
+    },
+    {
+      "text": "this is where you're going to put your",
+      "start": 124.439,
+      "duration": 2.701
+    },
+    {
+      "text": "pine cone key your openai key your",
+      "start": 125.34,
+      "duration": 3.66
+    },
+    {
+      "text": "Google key everything anything else that",
+      "start": 127.14,
+      "duration": 3.899
+    },
+    {
+      "text": "you want to use this is where you put it",
+      "start": 129.0,
+      "duration": 3.66
+    },
+    {
+      "text": "so for example if you want to use email",
+      "start": 131.039,
+      "duration": 3.601
+    },
+    {
+      "text": "you can do it from here today we're just",
+      "start": 132.66,
+      "duration": 4.799
+    },
+    {
+      "text": "going to be using open AI Pinecone and",
+      "start": 134.64,
+      "duration": 4.26
+    },
+    {
+      "text": "Google search the next thing you're",
+      "start": 137.459,
+      "duration": 3.601
+    },
+    {
+      "text": "going to do is create an API key with",
+      "start": 138.9,
+      "duration": 4.02
+    },
+    {
+      "text": "open AI so if you don't already have an",
+      "start": 141.06,
+      "duration": 4.08
+    },
+    {
+      "text": "account sign up for openai then navigate",
+      "start": 142.92,
+      "duration": 3.14
+    },
+    {
+      "text": "to",
+      "start": 145.14,
+      "duration": 3.5
+    },
+    {
+      "text": "platform.openai.com account slash",
+      "start": 146.06,
+      "duration": 4.899
+    },
+    {
+      "text": "api-keys we're going to click create new",
+      "start": 148.64,
+      "duration": 3.819
+    },
+    {
+      "text": "key right here we're going to name it",
+      "start": 150.959,
+      "duration": 3.061
+    },
+    {
+      "text": "super2 because I already have a super",
+      "start": 152.459,
+      "duration": 3.241
+    },
+    {
+      "text": "then I'm just going to say create secret",
+      "start": 154.02,
+      "duration": 3.719
+    },
+    {
+      "text": "key I'm going to copy it and don't worry",
+      "start": 155.7,
+      "duration": 3.84
+    },
+    {
+      "text": "I'm going to revoke all of these Keys",
+      "start": 157.739,
+      "duration": 3.36
+    },
+    {
+      "text": "before publishing this video then I'm",
+      "start": 159.54,
+      "duration": 2.82
+    },
+    {
+      "text": "going to come back to the repo",
+      "start": 161.099,
+      "duration": 3.541
+    },
+    {
+      "text": "specifically the config.yaml file I'm",
+      "start": 162.36,
+      "duration": 3.72
+    },
+    {
+      "text": "going to find the open AI key right",
+      "start": 164.64,
+      "duration": 3.42
+    },
+    {
+      "text": "there and I'm going to paste it and save",
+      "start": 166.08,
+      "duration": 4.2
+    },
+    {
+      "text": "the next thing we need is a pine cone",
+      "start": 168.06,
+      "duration": 3.72
+    },
+    {
+      "text": "API key so if you're using a free",
+      "start": 170.28,
+      "duration": 3.36
+    },
+    {
+      "text": "Pinecone account you can only have one",
+      "start": 171.78,
+      "duration": 3.72
+    },
+    {
+      "text": "index at a time I've already created one",
+      "start": 173.64,
+      "duration": 3.06
+    },
+    {
+      "text": "so I'm going to go ahead and delete it",
+      "start": 175.5,
+      "duration": 2.94
+    },
+    {
+      "text": "and then on the left over here we're",
+      "start": 176.7,
+      "duration": 3.84
+    },
+    {
+      "text": "going to click API keys I'm going to",
+      "start": 178.44,
+      "duration": 4.32
+    },
+    {
+      "text": "click create new API key and then enter",
+      "start": 180.54,
+      "duration": 3.96
+    },
+    {
+      "text": "the key name I'm going to call it super2",
+      "start": 182.76,
+      "duration": 4.38
+    },
+    {
+      "text": "again create key I'll copy the key value",
+      "start": 184.5,
+      "duration": 4.44
+    },
+    {
+      "text": "we're going to switch back to visual",
+      "start": 187.14,
+      "duration": 3.66
+    },
+    {
+      "text": "studio code and then at the very top it",
+      "start": 188.94,
+      "duration": 3.659
+    },
+    {
+      "text": "says your Pinecone API key we're going",
+      "start": 190.8,
+      "duration": 3.54
+    },
+    {
+      "text": "to paste over that but we also need the",
+      "start": 192.599,
+      "duration": 3.601
+    },
+    {
+      "text": "Pinecone environment so if I switch back",
+      "start": 194.34,
+      "duration": 3.96
+    },
+    {
+      "text": "this is the Pinecone environment right",
+      "start": 196.2,
+      "duration": 3.78
+    },
+    {
+      "text": "there I'm going to copy that as well and",
+      "start": 198.3,
+      "duration": 3.719
+    },
+    {
+      "text": "I'm going to paste it and save the next",
+      "start": 199.98,
+      "duration": 3.36
+    },
+    {
+      "text": "thing we're going to do is get the",
+      "start": 202.019,
+      "duration": 3.241
+    },
+    {
+      "text": "Google API key so you're going to come",
+      "start": 203.34,
+      "duration": 4.2
+    },
+    {
+      "text": "to Google cloud services right here",
+      "start": 205.26,
+      "duration": 5.1
+    },
+    {
+      "text": "under API and services click it now I",
+      "start": 207.54,
+      "duration": 4.919
+    },
+    {
+      "text": "already have one called super AGI so I'm",
+      "start": 210.36,
+      "duration": 3.42
+    },
+    {
+      "text": "just going to use that again but if you",
+      "start": 212.459,
+      "duration": 2.461
+    },
+    {
+      "text": "don't you're going to click this and",
+      "start": 213.78,
+      "duration": 3.36
+    },
+    {
+      "text": "create a new project then up here you",
+      "start": 214.92,
+      "duration": 3.899
+    },
+    {
+      "text": "can search for different resources so",
+      "start": 217.14,
+      "duration": 4.739
+    },
+    {
+      "text": "you're going to type custom search API",
+      "start": 218.819,
+      "duration": 4.741
+    },
+    {
+      "text": "and then under Marketplace it says",
+      "start": 221.879,
+      "duration": 3.061
+    },
+    {
+      "text": "custom search API you're going to go",
+      "start": 223.56,
+      "duration": 3.12
+    },
+    {
+      "text": "ahead and click that manage create",
+      "start": 224.94,
+      "duration": 3.48
+    },
+    {
+      "text": "credentials and then you're just going",
+      "start": 226.68,
+      "duration": 3.54
+    },
+    {
+      "text": "to say custom search API right there",
+      "start": 228.42,
+      "duration": 3.959
+    },
+    {
+      "text": "we're going to use the application data",
+      "start": 230.22,
+      "duration": 4.14
+    },
+    {
+      "text": "option and no we're not using any of",
+      "start": 232.379,
+      "duration": 4.381
+    },
+    {
+      "text": "these then you click next then from here",
+      "start": 234.36,
+      "duration": 5.34
+    },
+    {
+      "text": "we're going to type super AGI it's going",
+      "start": 236.76,
+      "duration": 4.5
+    },
+    {
+      "text": "to create the service account ID",
+      "start": 239.7,
+      "duration": 3.36
+    },
+    {
+      "text": "automatically or can generate it and",
+      "start": 241.26,
+      "duration": 3.119
+    },
+    {
+      "text": "then you can have a description but you",
+      "start": 243.06,
+      "duration": 3.06
+    },
+    {
+      "text": "don't need it create and continue select",
+      "start": 244.379,
+      "duration": 3.061
+    },
+    {
+      "text": "a role this is optional we're going to",
+      "start": 246.12,
+      "duration": 3.36
+    },
+    {
+      "text": "skip over that and then Grant users",
+      "start": 247.44,
+      "duration": 3.96
+    },
+    {
+      "text": "access to this account and we don't need",
+      "start": 249.48,
+      "duration": 4.08
+    },
+    {
+      "text": "to do that either so I click done then",
+      "start": 251.4,
+      "duration": 3.66
+    },
+    {
+      "text": "on the left side we're going to click",
+      "start": 253.56,
+      "duration": 3.359
+    },
+    {
+      "text": "credentials at the top we're going to",
+      "start": 255.06,
+      "duration": 4.019
+    },
+    {
+      "text": "click create credentials and we need an",
+      "start": 256.919,
+      "duration": 4.44
+    },
+    {
+      "text": "API key it's creating one now I'm going",
+      "start": 259.079,
+      "duration": 4.021
+    },
+    {
+      "text": "to copy that close it we're going to",
+      "start": 261.359,
+      "duration": 3.78
+    },
+    {
+      "text": "switch back to the config.yaml file and",
+      "start": 263.1,
+      "duration": 3.539
+    },
+    {
+      "text": "we're going to place it right here over",
+      "start": 265.139,
+      "duration": 3.961
+    },
+    {
+      "text": "the Google API key then save the last",
+      "start": 266.639,
+      "duration": 4.56
+    },
+    {
+      "text": "thing we need is the search engine ID",
+      "start": 269.1,
+      "duration": 3.84
+    },
+    {
+      "text": "and you're going to get that from this",
+      "start": 271.199,
+      "duration": 3.841
+    },
+    {
+      "text": "programmable search engine website it's",
+      "start": 272.94,
+      "duration": 3.72
+    },
+    {
+      "text": "kind of weird that you need this but you",
+      "start": 275.04,
+      "duration": 3.36
+    },
+    {
+      "text": "do and I'm going to drop all these links",
+      "start": 276.66,
+      "duration": 3.599
+    },
+    {
+      "text": "in the description below so from here",
+      "start": 278.4,
+      "duration": 3.9
+    },
+    {
+      "text": "click get started I already have one",
+      "start": 280.259,
+      "duration": 3.781
+    },
+    {
+      "text": "super AGI but if you didn't you're going",
+      "start": 282.3,
+      "duration": 3.42
+    },
+    {
+      "text": "to click add you can add a search engine",
+      "start": 284.04,
+      "duration": 3.599
+    },
+    {
+      "text": "name and then just create it it's pretty",
+      "start": 285.72,
+      "duration": 3.12
+    },
+    {
+      "text": "straightforward but we're going to use",
+      "start": 287.639,
+      "duration": 3.361
+    },
+    {
+      "text": "our existing one super AGI right there",
+      "start": 288.84,
+      "duration": 4.2
+    },
+    {
+      "text": "and then we need this search engine ID",
+      "start": 291.0,
+      "duration": 3.54
+    },
+    {
+      "text": "I'm going to copy it we're going to",
+      "start": 293.04,
+      "duration": 4.2
+    },
+    {
+      "text": "switch back to the config.yaml file and",
+      "start": 294.54,
+      "duration": 5.4
+    },
+    {
+      "text": "place that right there click save now we",
+      "start": 297.24,
+      "duration": 4.44
+    },
+    {
+      "text": "we have everything we need now to",
+      "start": 299.94,
+      "duration": 3.6
+    },
+    {
+      "text": "install super AGI we need to do two",
+      "start": 301.68,
+      "duration": 3.36
+    },
+    {
+      "text": "things with Docker the first thing we",
+      "start": 303.54,
+      "duration": 4.379
+    },
+    {
+      "text": "need to do is type Docker Dash compose",
+      "start": 305.04,
+      "duration": 5.879
+    },
+    {
+      "text": "up Dash Dash build and then hit enter",
+      "start": 307.919,
+      "duration": 4.5
+    },
+    {
+      "text": "and that's going to build everything",
+      "start": 310.919,
+      "duration": 4.021
+    },
+    {
+      "text": "from our repository and again you do",
+      "start": 312.419,
+      "duration": 4.5
+    },
+    {
+      "text": "need Docker up and running for this to",
+      "start": 314.94,
+      "duration": 3.42
+    },
+    {
+      "text": "work the nice thing about Docker is",
+      "start": 316.919,
+      "duration": 3.301
+    },
+    {
+      "text": "you're likely not going to run into any",
+      "start": 318.36,
+      "duration": 3.6
+    },
+    {
+      "text": "of the Python versioning issues the",
+      "start": 320.22,
+      "duration": 3.9
+    },
+    {
+      "text": "module missing issues that I know so",
+      "start": 321.96,
+      "duration": 3.959
+    },
+    {
+      "text": "many of you ask about I run into that",
+      "start": 324.12,
+      "duration": 3.84
+    },
+    {
+      "text": "every single time so it's really nice",
+      "start": 325.919,
+      "duration": 3.361
+    },
+    {
+      "text": "that the engineers put this together",
+      "start": 327.96,
+      "duration": 3.239
+    },
+    {
+      "text": "okay this is what it looks like when",
+      "start": 329.28,
+      "duration": 4.139
+    },
+    {
+      "text": "it's up and running then the last thing",
+      "start": 331.199,
+      "duration": 3.961
+    },
+    {
+      "text": "we've got to do is just go to localhost",
+      "start": 333.419,
+      "duration": 4.101
+    },
+    {
+      "text": "so go to your browser type localhost",
+      "start": 335.16,
+      "duration": 5.52
+    },
+    {
+      "text": "colon 3000 and then hit enter and there",
+      "start": 337.52,
+      "duration": 5.679
+    },
+    {
+      "text": "it is here's super AGI this is what a",
+      "start": 340.68,
+      "duration": 3.9
+    },
+    {
+      "text": "fresh install looks like when you first",
+      "start": 343.199,
+      "duration": 3.301
+    },
+    {
+      "text": "get started so we're going to go over to",
+      "start": 344.58,
+      "duration": 3.959
+    },
+    {
+      "text": "this agents tab right here we're going",
+      "start": 346.5,
+      "duration": 3.66
+    },
+    {
+      "text": "to click create agent I'm going to say",
+      "start": 348.539,
+      "duration": 3.301
+    },
+    {
+      "text": "this is a test agent we do need a",
+      "start": 350.16,
+      "duration": 4.2
+    },
+    {
+      "text": "description so testing and then we can",
+      "start": 351.84,
+      "duration": 4.62
+    },
+    {
+      "text": "add one or many goals here so we're",
+      "start": 354.36,
+      "duration": 4.2
+    },
+    {
+      "text": "going to say research AI topics for",
+      "start": 356.46,
+      "duration": 3.78
+    },
+    {
+      "text": "YouTube videos that's the only goal that",
+      "start": 358.56,
+      "duration": 2.76
+    },
+    {
+      "text": "I'm going to give it and if you have",
+      "start": 360.24,
+      "duration": 3.6
+    },
+    {
+      "text": "gpt4 API access you can select it here",
+      "start": 361.32,
+      "duration": 4.26
+    },
+    {
+      "text": "but if not you can always go with GPT",
+      "start": 363.84,
+      "duration": 4.02
+    },
+    {
+      "text": "3.5 turbo so I'm going to go with turbo",
+      "start": 365.58,
+      "duration": 4.38
+    },
+    {
+      "text": "for now because it's really fast and",
+      "start": 367.86,
+      "duration": 4.38
+    },
+    {
+      "text": "here is where you select the tools so",
+      "start": 369.96,
+      "duration": 4.56
+    },
+    {
+      "text": "these are the tools that super AGI has",
+      "start": 372.24,
+      "duration": 4.38
+    },
+    {
+      "text": "to use let's look at them read email",
+      "start": 374.52,
+      "duration": 5.64
+    },
+    {
+      "text": "send email append file delete file the",
+      "start": 376.62,
+      "duration": 5.639
+    },
+    {
+      "text": "one that we definitely want is Google",
+      "start": 380.16,
+      "duration": 3.96
+    },
+    {
+      "text": "search read file and write file",
+      "start": 382.259,
+      "duration": 3.181
+    },
+    {
+      "text": "everything else I encourage you to play",
+      "start": 384.12,
+      "duration": 3.18
+    },
+    {
+      "text": "around with and find what works for you",
+      "start": 385.44,
+      "duration": 3.9
+    },
+    {
+      "text": "it also gives us some Advanced options",
+      "start": 387.3,
+      "duration": 3.48
+    },
+    {
+      "text": "but I'm not going to go through that now",
+      "start": 389.34,
+      "duration": 3.72
+    },
+    {
+      "text": "and the nice thing is super AGI seems to",
+      "start": 390.78,
+      "duration": 3.96
+    },
+    {
+      "text": "figure out what tools it needs as it",
+      "start": 393.06,
+      "duration": 3.12
+    },
+    {
+      "text": "goes then we click this button create",
+      "start": 394.74,
+      "duration": 3.42
+    },
+    {
+      "text": "and run and it starts there it's",
+      "start": 396.18,
+      "duration": 4.32
+    },
+    {
+      "text": "thinking it has all of the details of",
+      "start": 398.16,
+      "duration": 3.78
+    },
+    {
+      "text": "this agent and again the nice thing is",
+      "start": 400.5,
+      "duration": 3.06
+    },
+    {
+      "text": "you can have multiple agents running in",
+      "start": 401.94,
+      "duration": 3.12
+    },
+    {
+      "text": "parallel now if you want to see a little",
+      "start": 403.56,
+      "duration": 2.82
+    },
+    {
+      "text": "bit more information about what's going",
+      "start": 405.06,
+      "duration": 4.02
+    },
+    {
+      "text": "on switch back to visual studio code and",
+      "start": 406.38,
+      "duration": 4.319
+    },
+    {
+      "text": "you can actually look through the logs",
+      "start": 409.08,
+      "duration": 3.6
+    },
+    {
+      "text": "of what it's doing alright there it goes",
+      "start": 410.699,
+      "duration": 4.921
+    },
+    {
+      "text": "so I am a test agent my role is testing",
+      "start": 412.68,
+      "duration": 4.799
+    },
+    {
+      "text": "it gives a whole bunch of information I",
+      "start": 415.62,
+      "duration": 4.019
+    },
+    {
+      "text": "think this is all the prompts and if we",
+      "start": 417.479,
+      "duration": 3.901
+    },
+    {
+      "text": "scroll down here's the next thing it's",
+      "start": 419.639,
+      "duration": 3.78
+    },
+    {
+      "text": "going to do determine which next command",
+      "start": 421.38,
+      "duration": 4.08
+    },
+    {
+      "text": "to use and respond using the format",
+      "start": 423.419,
+      "duration": 4.021
+    },
+    {
+      "text": "specified above thoughts to achieve my",
+      "start": 425.46,
+      "duration": 4.079
+    },
+    {
+      "text": "goal I should start by performing a",
+      "start": 427.44,
+      "duration": 4.02
+    },
+    {
+      "text": "Google search to find relevant AI topics",
+      "start": 429.539,
+      "duration": 3.961
+    },
+    {
+      "text": "here's a Google search returned and then",
+      "start": 431.46,
+      "duration": 3.12
+    },
+    {
+      "text": "it gives us a bunch of information",
+      "start": 433.5,
+      "duration": 3.18
+    },
+    {
+      "text": "returned from the Google search and",
+      "start": 434.58,
+      "duration": 3.48
+    },
+    {
+      "text": "it'll continue on here's the next",
+      "start": 436.68,
+      "duration": 3.06
+    },
+    {
+      "text": "thought I should save the relevant",
+      "start": 438.06,
+      "duration": 2.88
+    },
+    {
+      "text": "information to a file for future",
+      "start": 439.74,
+      "duration": 3.359
+    },
+    {
+      "text": "reference plan save the AI topics to a",
+      "start": 440.94,
+      "duration": 4.86
+    },
+    {
+      "text": "file so it automatically grabs the tool",
+      "start": 443.099,
+      "duration": 5.281
+    },
+    {
+      "text": "write file and it wrote it to a file",
+      "start": 445.8,
+      "duration": 5.04
+    },
+    {
+      "text": "called AI underscore topics dot txt",
+      "start": 448.38,
+      "duration": 4.86
+    },
+    {
+      "text": "really really cool and it thinks it's",
+      "start": 450.84,
+      "duration": 4.259
+    },
+    {
+      "text": "finished since I have completed my goal",
+      "start": 453.24,
+      "duration": 3.48
+    },
+    {
+      "text": "of researching AI topics for YouTube",
+      "start": 455.099,
+      "duration": 3.421
+    },
+    {
+      "text": "videos I should use the Finish command",
+      "start": 456.72,
+      "duration": 4.02
+    },
+    {
+      "text": "it also includes criticism just like",
+      "start": 458.52,
+      "duration": 4.5
+    },
+    {
+      "text": "Auto GPT does so it's thinking and then",
+      "start": 460.74,
+      "duration": 4.079
+    },
+    {
+      "text": "also criticizing its own thoughts and",
+      "start": 463.02,
+      "duration": 3.959
+    },
+    {
+      "text": "planning around those criticisms so",
+      "start": 464.819,
+      "duration": 3.841
+    },
+    {
+      "text": "that's super AGI now you know how to",
+      "start": 466.979,
+      "duration": 3.481
+    },
+    {
+      "text": "install it and run it play around with",
+      "start": 468.66,
+      "duration": 3.18
+    },
+    {
+      "text": "it let me know what you think if you",
+      "start": 470.46,
+      "duration": 2.82
+    },
+    {
+      "text": "have any questions feel free to jump in",
+      "start": 471.84,
+      "duration": 2.759
+    },
+    {
+      "text": "our Discord I'm happy to answer",
+      "start": 473.28,
+      "duration": 3.06
+    },
+    {
+      "text": "questions there and let me know what you",
+      "start": 474.599,
+      "duration": 3.961
+    },
+    {
+      "text": "build with super AGI if you like this",
+      "start": 476.34,
+      "duration": 3.9
+    },
+    {
+      "text": "video please consider giving a like can",
+      "start": 478.56,
+      "duration": 5.24
+    },
+    {
+      "text": "subscribe and I'll see in the next one",
+      "start": 480.24,
+      "duration": 3.56
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "id": "nM_GL26W738",
+  "url": "https://youtu.be/nM_GL26W738",
+  "title": "Modified TDD is Best TDD",
+  "description": null,
+  "publish_date": "2023-07-21T00:00:00",
+  "length": 56,
+  "views": 35,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "I want to create a new component react",
+      "start": 0.1,
+      "duration": 3.42
+    },
+    {
+      "text": "but I want to do tdd so I start by",
+      "start": 1.66,
+      "duration": 3.42
+    },
+    {
+      "text": "making a unit test that references a",
+      "start": 3.52,
+      "duration": 3.839
+    },
+    {
+      "text": "component that doesn't exist fails stub",
+      "start": 5.08,
+      "duration": 4.439
+    },
+    {
+      "text": "the file and now the test passes I just",
+      "start": 7.359,
+      "duration": 3.961
+    },
+    {
+      "text": "made a tdd increment and I also just",
+      "start": 9.519,
+      "duration": 3.421
+    },
+    {
+      "text": "wasted a bunch of time but let's not",
+      "start": 11.32,
+      "duration": 3.12
+    },
+    {
+      "text": "stop there because every time that I do",
+      "start": 12.94,
+      "duration": 3.3
+    },
+    {
+      "text": "a new commit I need my test to pass",
+      "start": 14.44,
+      "duration": 3.96
+    },
+    {
+      "text": "right I don't realize that there are",
+      "start": 16.24,
+      "duration": 3.48
+    },
+    {
+      "text": "these like patterns and conventions",
+      "start": 18.4,
+      "duration": 3.24
+    },
+    {
+      "text": "embedded in other components how do I",
+      "start": 19.72,
+      "duration": 4.139
+    },
+    {
+      "text": "make an HTTP call what variables do I",
+      "start": 21.64,
+      "duration": 4.559
+    },
+    {
+      "text": "name how should I name my ID that I'm",
+      "start": 23.859,
+      "duration": 4.441
+    },
+    {
+      "text": "referencing uh used ref on the component",
+      "start": 26.199,
+      "duration": 4.981
+    },
+    {
+      "text": "so every time I write a test for these",
+      "start": 28.3,
+      "duration": 5.7
+    },
+    {
+      "text": "things I am assuming implementation and",
+      "start": 31.18,
+      "duration": 4.44
+    },
+    {
+      "text": "then that implementation turns out not",
+      "start": 34.0,
+      "duration": 3.84
+    },
+    {
+      "text": "to be correct so I have to refactor the",
+      "start": 35.62,
+      "duration": 4.56
+    },
+    {
+      "text": "component and the unit test doubling my",
+      "start": 37.84,
+      "duration": 4.379
+    },
+    {
+      "text": "LOE instead here's what I do I create",
+      "start": 40.18,
+      "duration": 3.78
+    },
+    {
+      "text": "the component and then I create the test",
+      "start": 42.219,
+      "duration": 3.36
+    },
+    {
+      "text": "and I just make sure everything works",
+      "start": 43.96,
+      "duration": 3.96
+    },
+    {
+      "text": "before I submit a PR at the end the",
+      "start": 45.579,
+      "duration": 3.66
+    },
+    {
+      "text": "result is the same you have a set of",
+      "start": 47.92,
+      "duration": 3.24
+    },
+    {
+      "text": "unit tests that pass but it's a lot less",
+      "start": 49.239,
+      "duration": 4.441
+    },
+    {
+      "text": "LOE in the middle so this is a modified",
+      "start": 51.16,
+      "duration": 4.2
+    },
+    {
+      "text": "tdd pattern that I suggest for",
+      "start": 53.68,
+      "duration": 3.98
+    },
+    {
+      "text": "Developers",
+      "start": 55.36,
+      "duration": 2.3
+    }
+  ]
+}

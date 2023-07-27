@@ -1,56 +1,53 @@
 import json
 import os
-import youtube_dl
+from pytube import Playlist, YouTube
 from youtube_transcript_api import YouTubeTranscriptApi
+from dotenv import load_dotenv
 
-# Set up output folder
+load_dotenv()
+playlist_url = os.getenv("youtube_playlist_url")
+should_bust_cache = os.getenv("should_bust_cache", "False").lower() == "true"
+
+if not playlist_url:
+    playlist_url = input("Enter YouTube playlist URL: ")
+
 output_dir = "video_data"
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
-# Get playlist URL
-playlist_url = input("Enter YouTube playlist URL: ")
+playlist = Playlist(playlist_url)
+for url in playlist.video_urls:
+    video_id = url.split("?v=")[1]
 
-# Use youtube_dl to extract video IDs
-ydl = youtube_dl.YoutubeDL({"verbose": True})
-playlist = ydl.extract_info(playlist_url, download=False)
+    # Check if we should bust cache
+    output_path = os.path.join(output_dir, f"{video_id}.json")
+    if not should_bust_cache and os.path.exists(output_path):
+        print(f"Skipping video {video_id} as it already exists in cache.")
+        continue
 
-video_ids = []
-for entry in playlist["entries"]:
-    video_ids.append(entry["id"])
+    yt = YouTube(url)
+    try:
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+    except:
+        print(
+            f"An error occurred when trying to get the transcript of the video: {url}"
+            "\nThe transcript may not exist."
+        )
+        transcript = None
 
-# Iterate through video IDs
-for video_id in video_ids:
-    # Get transcript
-    transcript = YouTubeTranscriptApi.get_transcript(video_id)
-
-    # Get additional metadata
-    ydl = youtube_dl.YoutubeDL({"verbose": True})
-    info = ydl.extract_info(f"http://youtu.be/{video_id}", download=False)
-
-    # Construct output dict
     video_data = {
         "id": video_id,
-        "url": f"http://youtu.be/{video_id}",
-        "playlist_url": playlist_url,
-        "title": info["title"],
-        "description": info["description"],
-        "publish_date": info["upload_date"],
-        "length": info["duration"],
-        "views": info["view_count"],
-        "likes": info["like_count"],
-        "dislikes": info["dislike_count"],
-        "comments": info["comment_count"],
-        "thumbnail": info["thumbnail"],
-        "tags": info["tags"],
-        "channel": info["channel"],
-        "category": info["categories"][0],
+        "url": f"https://youtu.be/{video_id}",
+        "title": yt.title,
+        "description": yt.description,
+        "publish_date": yt.publish_date.isoformat() if yt.publish_date else None,
+        "length": yt.length,
+        "views": yt.views,
+        "channel": yt.author,
         "transcript": transcript,
     }
 
-    # Write JSON file
     output_path = os.path.join(output_dir, f"{video_id}.json")
-
     with open(output_path, "w") as f:
         json.dump(video_data, f, indent=2)
 

@@ -1,0 +1,167 @@
+{
+  "id": "QbuFrN7iOQo",
+  "url": "https://youtu.be/QbuFrN7iOQo",
+  "title": "Python for DevOps?",
+  "description": null,
+  "publish_date": "2023-07-21T00:00:00",
+  "length": 59,
+  "views": 9,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "this user says python for devops I agree",
+      "start": 0.06,
+      "duration": 4.5
+    },
+    {
+      "text": "but it's not really clear-cut let me",
+      "start": 2.7,
+      "duration": 3.54
+    },
+    {
+      "text": "give you a few reasons why core skills",
+      "start": 4.56,
+      "duration": 3.84
+    },
+    {
+      "text": "and devops are going to be Docker and",
+      "start": 6.24,
+      "duration": 4.859
+    },
+    {
+      "text": "Bash and also infrastructure setting up",
+      "start": 8.4,
+      "duration": 4.56
+    },
+    {
+      "text": "infrastructure in some Cloud environment",
+      "start": 11.099,
+      "duration": 4.2
+    },
+    {
+      "text": "often AWS if you have those many",
+      "start": 12.96,
+      "duration": 4.02
+    },
+    {
+      "text": "companies don't care what programming",
+      "start": 15.299,
+      "duration": 3.181
+    },
+    {
+      "text": "language you have a background in but",
+      "start": 16.98,
+      "duration": 2.94
+    },
+    {
+      "text": "they do care that you have some",
+      "start": 18.48,
+      "duration": 3.78
+    },
+    {
+      "text": "programming background so I don't think",
+      "start": 19.92,
+      "duration": 4.199
+    },
+    {
+      "text": "any Juniors should be going directly",
+      "start": 22.26,
+      "duration": 3.42
+    },
+    {
+      "text": "into devops it's really hard to",
+      "start": 24.119,
+      "duration": 3.24
+    },
+    {
+      "text": "understand what's going on if you have",
+      "start": 25.68,
+      "duration": 4.38
+    },
+    {
+      "text": "no technical background so devops I see",
+      "start": 27.359,
+      "duration": 4.621
+    },
+    {
+      "text": "is an intermediate to senior plus role",
+      "start": 30.06,
+      "duration": 3.42
+    },
+    {
+      "text": "where usually you have some Junior",
+      "start": 31.98,
+      "duration": 3.72
+    },
+    {
+      "text": "experience programming something",
+      "start": 33.48,
+      "duration": 4.32
+    },
+    {
+      "text": "here you can see devops engineer it is a",
+      "start": 35.7,
+      "duration": 3.72
+    },
+    {
+      "text": "specialty so the job count is kind of",
+      "start": 37.8,
+      "duration": 3.36
+    },
+    {
+      "text": "low look at this top result here's the",
+      "start": 39.42,
+      "duration": 3.36
+    },
+    {
+      "text": "skills for the top result willing to do",
+      "start": 41.16,
+      "duration": 3.3
+    },
+    {
+      "text": "the job and learn they specify",
+      "start": 42.78,
+      "duration": 3.84
+    },
+    {
+      "text": "Technologies like Docker and AWS",
+      "start": 44.46,
+      "duration": 4.32
+    },
+    {
+      "text": "infrastructure but they don't specify a",
+      "start": 46.62,
+      "duration": 3.72
+    },
+    {
+      "text": "language it's really common not to",
+      "start": 48.78,
+      "duration": 3.119
+    },
+    {
+      "text": "specify a language for devops I went",
+      "start": 50.34,
+      "duration": 3.12
+    },
+    {
+      "text": "through the top 10 on indeed four",
+      "start": 51.899,
+      "duration": 4.081
+    },
+    {
+      "text": "specified some languages one was only",
+      "start": 53.46,
+      "duration": 4.8
+    },
+    {
+      "text": "JavaScript three were like python or",
+      "start": 55.98,
+      "duration": 5.12
+    },
+    {
+      "text": "Ruby or Java",
+      "start": 58.26,
+      "duration": 2.84
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "cs-8bUT_oPw",
+  "url": "https://youtu.be/cs-8bUT_oPw",
+  "title": "Do you need to know Promise vs Callback?",
+  "description": null,
+  "publish_date": "2023-07-17T00:00:00",
+  "length": 15,
+  "views": 1703,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "this Twitter user asks should an",
+      "start": 0.15,
+      "duration": 3.42
+    },
+    {
+      "text": "interviewee know the difference between",
+      "start": 2.129,
+      "duration": 3.301
+    },
+    {
+      "text": "a callback and a promise and understand",
+      "start": 3.57,
+      "duration": 4.38
+    },
+    {
+      "text": "how to permissify a callback I think yes",
+      "start": 5.43,
+      "duration": 4.02
+    },
+    {
+      "text": "the interviewee needs to know the",
+      "start": 7.95,
+      "duration": 3.6
+    },
+    {
+      "text": "difference they may not understand the",
+      "start": 9.45,
+      "duration": 3.84
+    },
+    {
+      "text": "word promisify but they should be able",
+      "start": 11.55,
+      "duration": 5.24
+    },
+    {
+      "text": "to work with you through that problem",
+      "start": 13.29,
+      "duration": 3.5
+    }
+  ]
+}

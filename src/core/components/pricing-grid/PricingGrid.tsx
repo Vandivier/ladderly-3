@@ -1,6 +1,5 @@
 import React from "react"
 import Link from "next/link"
-import { Routes } from "@blitzjs/next"
 
 const plans = [
   {
@@ -39,9 +38,13 @@ const plans = [
     name: "Free",
     price: "$0",
     benefits: [
-      "Open Source Curriculum",
+      {
+        text: "Open Source Curriculum",
+        url: "https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md",
+      },
       "Standard Checklist",
       "Access the Social Community",
+      { text: "24/7 Support with AI Chat", url: "https://www.youtube.com/watch?v=aC4_1mTa-aI" },
       "Schedule Expert Consultations",
       "Store Access",
     ],
@@ -64,7 +67,19 @@ const PricingGrid: React.FC = () => {
               {plan.benefits.map((benefit, j) => (
                 <li key={j} className="flex items-start">
                   <span className="mr-2">⭐</span>
-                  <p className="text-left">{benefit}</p>
+                  <p className="text-left">
+                    {typeof benefit === "string" ? (
+                      benefit
+                    ) : (
+                      <Link
+                        className="text-ladderly-violet-700 hover:underline"
+                        href={benefit.url}
+                        target="_blank"
+                      >
+                        {benefit.text}
+                      </Link>
+                    )}
+                  </p>
                 </li>
               ))}
             </ul>
