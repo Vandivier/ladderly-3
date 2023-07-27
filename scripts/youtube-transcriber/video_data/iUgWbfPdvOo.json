@@ -1,0 +1,62 @@
+{
+  "id": "iUgWbfPdvOo",
+  "url": "https://youtu.be/iUgWbfPdvOo",
+  "title": "#programming #softwareengineer #java #python #javascript #tech #devcrew #techtok #codetok",
+  "description": null,
+  "publish_date": "2023-07-01T00:00:00",
+  "length": 15,
+  "views": 304,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "Theos has anyone made a feature flag as",
+      "start": 0.22,
+      "duration": 3.54
+    },
+    {
+      "text": "a service startup yet Mark took the",
+      "start": 2.139,
+      "duration": 2.821
+    },
+    {
+      "text": "words out of my mouth mentioning launch",
+      "start": 3.76,
+      "duration": 2.999
+    },
+    {
+      "text": "Darkly what is a feature flag why would",
+      "start": 4.96,
+      "duration": 3.24
+    },
+    {
+      "text": "you want it so future flag is just a",
+      "start": 6.759,
+      "duration": 2.701
+    },
+    {
+      "text": "Boolean that tells the system whether or",
+      "start": 8.2,
+      "duration": 2.88
+    },
+    {
+      "text": "not to enable some code service model is",
+      "start": 9.46,
+      "duration": 2.94
+    },
+    {
+      "text": "nicer than environment variable because",
+      "start": 11.08,
+      "duration": 2.76
+    },
+    {
+      "text": "you have a runtime controller like an",
+      "start": 12.4,
+      "duration": 3.92
+    },
+    {
+      "text": "admin app",
+      "start": 13.84,
+      "duration": 2.48
+    }
+  ]
+}

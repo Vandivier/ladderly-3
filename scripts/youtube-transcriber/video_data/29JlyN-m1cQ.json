@@ -1,0 +1,462 @@
+{
+  "id": "29JlyN-m1cQ",
+  "url": "https://youtu.be/29JlyN-m1cQ",
+  "title": "Learn Redux in 3 Minutes",
+  "description": null,
+  "publish_date": "2023-06-16T00:00:00",
+  "length": 180,
+  "views": 13,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "learn react part five let's talk about",
+      "start": 0.12,
+      "duration": 3.96
+    },
+    {
+      "text": "Redux Redux is a global State manager",
+      "start": 1.92,
+      "duration": 3.72
+    },
+    {
+      "text": "that uses a special data structure",
+      "start": 4.08,
+      "duration": 3.779
+    },
+    {
+      "text": "called a store to manage state in Native",
+      "start": 5.64,
+      "duration": 3.959
+    },
+    {
+      "text": "react every component has its own State",
+      "start": 7.859,
+      "duration": 3.36
+    },
+    {
+      "text": "when we talk about application State",
+      "start": 9.599,
+      "duration": 3.12
+    },
+    {
+      "text": "what we're really talking about in",
+      "start": 11.219,
+      "duration": 3.781
+    },
+    {
+      "text": "Native react is properties being passed",
+      "start": 12.719,
+      "duration": 5.101
+    },
+    {
+      "text": "from parent to child and possibly from",
+      "start": 15.0,
+      "duration": 4.619
+    },
+    {
+      "text": "the very top level component all the way",
+      "start": 17.82,
+      "duration": 3.539
+    },
+    {
+      "text": "down to the very bottom level component",
+      "start": 19.619,
+      "duration": 3.781
+    },
+    {
+      "text": "a problem occurs because if I am in a",
+      "start": 21.359,
+      "duration": 3.66
+    },
+    {
+      "text": "particular child component and I have",
+      "start": 23.4,
+      "duration": 3.119
+    },
+    {
+      "text": "some error with some State that's coming",
+      "start": 25.019,
+      "duration": 3.361
+    },
+    {
+      "text": "from my parent I don't know if it came",
+      "start": 26.519,
+      "duration": 3.6
+    },
+    {
+      "text": "from my immediate parent my grandparent",
+      "start": 28.38,
+      "duration": 3.719
+    },
+    {
+      "text": "or an ancestor far up the tree",
+      "start": 30.119,
+      "duration": 3.841
+    },
+    {
+      "text": "potentially all the way to the top this",
+      "start": 32.099,
+      "duration": 3.781
+    },
+    {
+      "text": "makes debugging really hard it's also",
+      "start": 33.96,
+      "duration": 4.619
+    },
+    {
+      "text": "not ergonomic for developers to pass",
+      "start": 35.88,
+      "duration": 5.519
+    },
+    {
+      "text": "States sideways or oblique through the",
+      "start": 38.579,
+      "duration": 5.461
+    },
+    {
+      "text": "state tree or the component tree Redux",
+      "start": 41.399,
+      "duration": 4.561
+    },
+    {
+      "text": "solves all these problems with a global",
+      "start": 44.04,
+      "duration": 4.019
+    },
+    {
+      "text": "State container called a store",
+      "start": 45.96,
+      "duration": 4.14
+    },
+    {
+      "text": "components directly speak with the store",
+      "start": 48.059,
+      "duration": 4.621
+    },
+    {
+      "text": "and now debugging is easy you or just",
+      "start": 50.1,
+      "duration": 4.139
+    },
+    {
+      "text": "getting your state from your store and",
+      "start": 52.68,
+      "duration": 2.699
+    },
+    {
+      "text": "you can always just go right there and",
+      "start": 54.239,
+      "duration": 2.881
+    },
+    {
+      "text": "debug it you can choose to manage State",
+      "start": 55.379,
+      "duration": 3.601
+    },
+    {
+      "text": "globally with a global object just an",
+      "start": 57.12,
+      "duration": 3.779
+    },
+    {
+      "text": "object on the Windows scope Redux",
+      "start": 58.98,
+      "duration": 4.079
+    },
+    {
+      "text": "instead uses a store which is an object",
+      "start": 60.899,
+      "duration": 4.021
+    },
+    {
+      "text": "light data structure that includes",
+      "start": 63.059,
+      "duration": 4.501
+    },
+    {
+      "text": "functions to read and write data and",
+      "start": 64.92,
+      "duration": 4.62
+    },
+    {
+      "text": "it's also immutable how do you read and",
+      "start": 67.56,
+      "duration": 3.48
+    },
+    {
+      "text": "write data to an immutable object",
+      "start": 69.54,
+      "duration": 3.3
+    },
+    {
+      "text": "technically you can't so we don't call",
+      "start": 71.04,
+      "duration": 3.78
+    },
+    {
+      "text": "these functions Getters and Setters we",
+      "start": 72.84,
+      "duration": 4.319
+    },
+    {
+      "text": "call them selectors and reducers",
+      "start": 74.82,
+      "duration": 4.2
+    },
+    {
+      "text": "the reducer is actually a special",
+      "start": 77.159,
+      "duration": 3.6
+    },
+    {
+      "text": "Factory function whenever you run a",
+      "start": 79.02,
+      "duration": 3.18
+    },
+    {
+      "text": "reducer function it creates a whole new",
+      "start": 80.759,
+      "duration": 3.781
+    },
+    {
+      "text": "store and replaces the previous one it",
+      "start": 82.2,
+      "duration": 4.14
+    },
+    {
+      "text": "does not update the previous one by",
+      "start": 84.54,
+      "duration": 4.32
+    },
+    {
+      "text": "reference a selector selects values out",
+      "start": 86.34,
+      "duration": 4.139
+    },
+    {
+      "text": "very much just like a getter function",
+      "start": 88.86,
+      "duration": 3.78
+    },
+    {
+      "text": "selectors and reducers are two kinds of",
+      "start": 90.479,
+      "duration": 4.081
+    },
+    {
+      "text": "functions you can run on the store in",
+      "start": 92.64,
+      "duration": 3.479
+    },
+    {
+      "text": "general we just call them actions",
+      "start": 94.56,
+      "duration": 3.48
+    },
+    {
+      "text": "there's a third catch-all term which is",
+      "start": 96.119,
+      "duration": 3.241
+    },
+    {
+      "text": "middleware so you can do selector",
+      "start": 98.04,
+      "duration": 4.079
+    },
+    {
+      "text": "reducer in middleware using an immutable",
+      "start": 99.36,
+      "duration": 4.92
+    },
+    {
+      "text": "object that's replaced completely works",
+      "start": 102.119,
+      "duration": 4.68
+    },
+    {
+      "text": "well with reacts change detection it",
+      "start": 104.28,
+      "duration": 4.019
+    },
+    {
+      "text": "also enables features like time",
+      "start": 106.799,
+      "duration": 3.541
+    },
+    {
+      "text": "traveling because we can keep track of",
+      "start": 108.299,
+      "duration": 4.381
+    },
+    {
+      "text": "the transactions that is those functions",
+      "start": 110.34,
+      "duration": 4.02
+    },
+    {
+      "text": "which update the store and result in",
+      "start": 112.68,
+      "duration": 3.479
+    },
+    {
+      "text": "replacement of the store again really",
+      "start": 114.36,
+      "duration": 3.719
+    },
+    {
+      "text": "good for debugging because the store is",
+      "start": 116.159,
+      "duration": 3.361
+    },
+    {
+      "text": "constantly being replaced we can't",
+      "start": 118.079,
+      "duration": 3.36
+    },
+    {
+      "text": "maintain a buy reference relationship we",
+      "start": 119.52,
+      "duration": 4.26
+    },
+    {
+      "text": "need to maintain a by value relationship",
+      "start": 121.439,
+      "duration": 4.981
+    },
+    {
+      "text": "that's why selectors are functions you",
+      "start": 123.78,
+      "duration": 4.8
+    },
+    {
+      "text": "can select out the value on any instance",
+      "start": 126.42,
+      "duration": 4.74
+    },
+    {
+      "text": "and all of these actions selectors",
+      "start": 128.58,
+      "duration": 5.46
+    },
+    {
+      "text": "reducers and middleware are run in a",
+      "start": 131.16,
+      "duration": 4.92
+    },
+    {
+      "text": "queue and it's basically a callback",
+      "start": 134.04,
+      "duration": 4.08
+    },
+    {
+      "text": "queue and to place your function into",
+      "start": 136.08,
+      "duration": 4.32
+    },
+    {
+      "text": "the queue we call that dispatching so",
+      "start": 138.12,
+      "duration": 4.68
+    },
+    {
+      "text": "you're going to dispatch an action and",
+      "start": 140.4,
+      "duration": 3.3
+    },
+    {
+      "text": "all that means is that you're going to",
+      "start": 142.8,
+      "duration": 2.88
+    },
+    {
+      "text": "place one of these functions in a queue",
+      "start": 143.7,
+      "duration": 3.84
+    },
+    {
+      "text": "and it's going to run on the normal",
+      "start": 145.68,
+      "duration": 4.26
+    },
+    {
+      "text": "react change detection life cycle and",
+      "start": 147.54,
+      "duration": 3.779
+    },
+    {
+      "text": "that's it you now know the basics of",
+      "start": 149.94,
+      "duration": 4.439
+    },
+    {
+      "text": "Redux you can create your own global",
+      "start": 151.319,
+      "duration": 6.841
+    },
+    {
+      "text": "object and use object.freeze and you'll",
+      "start": 154.379,
+      "duration": 5.161
+    },
+    {
+      "text": "basically have a store the only",
+      "start": 158.16,
+      "duration": 4.32
+    },
+    {
+      "text": "difference is you won't have those Redux",
+      "start": 159.54,
+      "duration": 5.04
+    },
+    {
+      "text": "specific function names to replace your",
+      "start": 162.48,
+      "duration": 3.839
+    },
+    {
+      "text": "store but it's really very much doing",
+      "start": 164.58,
+      "duration": 3.239
+    },
+    {
+      "text": "the same thing last thing I would",
+      "start": 166.319,
+      "duration": 3.06
+    },
+    {
+      "text": "mention here is that there's one super",
+      "start": 167.819,
+      "duration": 3.06
+    },
+    {
+      "text": "special kind of middleware which is",
+      "start": 169.379,
+      "duration": 3.661
+    },
+    {
+      "text": "called a thunk callback functions are",
+      "start": 170.879,
+      "duration": 3.781
+    },
+    {
+      "text": "usually synchronous but the thunk will",
+      "start": 173.04,
+      "duration": 3.36
+    },
+    {
+      "text": "allow you to have an async callback so",
+      "start": 174.66,
+      "duration": 3.9
+    },
+    {
+      "text": "you can do HTTP requests and cache the",
+      "start": 176.4,
+      "duration": 4.88
+    },
+    {
+      "text": "results in your store",
+      "start": 178.56,
+      "duration": 2.72
+    }
+  ]
+}

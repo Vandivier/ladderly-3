@@ -1,0 +1,1257 @@
+{
+  "id": "1kU_ASADlPY",
+  "url": "https://youtu.be/1kU_ASADlPY",
+  "title": "Building a bot to scrape job data\u2026 How NOT to collect data",
+  "description": null,
+  "publish_date": "2021-11-15T00:00:00",
+  "length": 540,
+  "views": 69268,
+  "channel": "Luke Barousse",
+  "transcript": [
+    {
+      "text": "so i built a web scraper",
+      "start": 0.0,
+      "duration": 6.56
+    },
+    {
+      "text": "that logs into linkedin",
+      "start": 3.28,
+      "duration": 5.04
+    },
+    {
+      "text": "searches for jobs in the data science",
+      "start": 6.56,
+      "duration": 3.999
+    },
+    {
+      "text": "field",
+      "start": 8.32,
+      "duration": 4.319
+    },
+    {
+      "text": "and then scrapes this job description",
+      "start": 10.559,
+      "duration": 3.841
+    },
+    {
+      "text": "data",
+      "start": 12.639,
+      "duration": 3.441
+    },
+    {
+      "text": "everything was going fine until i woke",
+      "start": 14.4,
+      "duration": 3.52
+    },
+    {
+      "text": "up one morning to check on the status of",
+      "start": 16.08,
+      "duration": 3.84
+    },
+    {
+      "text": "my bot and found this",
+      "start": 17.92,
+      "duration": 4.32
+    },
+    {
+      "text": "so let's go over how i got here and how",
+      "start": 19.92,
+      "duration": 3.92
+    },
+    {
+      "text": "you can avoid this",
+      "start": 22.24,
+      "duration": 3.84
+    },
+    {
+      "text": "what up dead nerds i'm luke data analyst",
+      "start": 23.84,
+      "duration": 3.759
+    },
+    {
+      "text": "and my channel is all about tech and",
+      "start": 26.08,
+      "duration": 3.519
+    },
+    {
+      "text": "skills for data science and this video",
+      "start": 27.599,
+      "duration": 3.52
+    },
+    {
+      "text": "is part of a series where i'm going",
+      "start": 29.599,
+      "duration": 3.12
+    },
+    {
+      "text": "through and building a data science",
+      "start": 31.119,
+      "duration": 3.041
+    },
+    {
+      "text": "project in order to build up my",
+      "start": 32.719,
+      "duration": 3.68
+    },
+    {
+      "text": "portfolio in my last and also first",
+      "start": 34.16,
+      "duration": 4.8
+    },
+    {
+      "text": "video of the series i detail outlining a",
+      "start": 36.399,
+      "duration": 4.961
+    },
+    {
+      "text": "problem in order to get started with a",
+      "start": 38.96,
+      "duration": 3.759
+    },
+    {
+      "text": "data science project and the problem",
+      "start": 41.36,
+      "duration": 2.8
+    },
+    {
+      "text": "that i'm trying to solve that i feel",
+      "start": 42.719,
+      "duration": 3.761
+    },
+    {
+      "text": "like many of you can relate to is how to",
+      "start": 44.16,
+      "duration": 4.64
+    },
+    {
+      "text": "become a data analyst specifically i",
+      "start": 46.48,
+      "duration": 4.32
+    },
+    {
+      "text": "want to have more transparency around",
+      "start": 48.8,
+      "duration": 3.68
+    },
+    {
+      "text": "this and i'm going to be looking into",
+      "start": 50.8,
+      "duration": 3.599
+    },
+    {
+      "text": "things like what are skills required in",
+      "start": 52.48,
+      "duration": 4.719
+    },
+    {
+      "text": "this field and also what is the job",
+      "start": 54.399,
+      "duration": 4.48
+    },
+    {
+      "text": "market like so once you know the problem",
+      "start": 57.199,
+      "duration": 4.0
+    },
+    {
+      "text": "that you want to solve the next step is",
+      "start": 58.879,
+      "duration": 4.561
+    },
+    {
+      "text": "actually collecting the data and",
+      "start": 61.199,
+      "duration": 3.68
+    },
+    {
+      "text": "collecting the data can actually come",
+      "start": 63.44,
+      "duration": 3.359
+    },
+    {
+      "text": "from a lot of different sources so let's",
+      "start": 64.879,
+      "duration": 3.761
+    },
+    {
+      "text": "break this down first is around the",
+      "start": 66.799,
+      "duration": 4.161
+    },
+    {
+      "text": "availability of the data is it publicly",
+      "start": 68.64,
+      "duration": 4.4
+    },
+    {
+      "text": "available or do we have to sign in some",
+      "start": 70.96,
+      "duration": 4.08
+    },
+    {
+      "text": "service or go behind a paywall to access",
+      "start": 73.04,
+      "duration": 4.0
+    },
+    {
+      "text": "it and the other major aspect is whether",
+      "start": 75.04,
+      "duration": 3.36
+    },
+    {
+      "text": "it's clean or not",
+      "start": 77.04,
+      "duration": 3.28
+    },
+    {
+      "text": "if it's clean it's usually in the form",
+      "start": 78.4,
+      "duration": 4.32
+    },
+    {
+      "text": "of csvs or a database if it's not so",
+      "start": 80.32,
+      "duration": 4.64
+    },
+    {
+      "text": "clean it may be a multitude of data",
+      "start": 82.72,
+      "duration": 4.079
+    },
+    {
+      "text": "spread over web pages so i started in",
+      "start": 84.96,
+      "duration": 4.64
+    },
+    {
+      "text": "the easiest section looking for clean",
+      "start": 86.799,
+      "duration": 4.881
+    },
+    {
+      "text": "publicly available data so the main",
+      "start": 89.6,
+      "duration": 3.6
+    },
+    {
+      "text": "sites that i use to look for this kind",
+      "start": 91.68,
+      "duration": 4.88
+    },
+    {
+      "text": "of data are sites like kaggle google",
+      "start": 93.2,
+      "duration": 6.559
+    },
+    {
+      "text": "data.gov data.world and even some github",
+      "start": 96.56,
+      "duration": 5.28
+    },
+    {
+      "text": "locations although there was a lot of",
+      "start": 99.759,
+      "duration": 4.64
+    },
+    {
+      "text": "publicly available data around jobs",
+      "start": 101.84,
+      "duration": 4.559
+    },
+    {
+      "text": "there wasn't anything that actually",
+      "start": 104.399,
+      "duration": 3.601
+    },
+    {
+      "text": "provided the in-depth detail that i",
+      "start": 106.399,
+      "duration": 3.68
+    },
+    {
+      "text": "needed to solve my problem so i moved on",
+      "start": 108.0,
+      "duration": 4.64
+    },
+    {
+      "text": "to the next section of looking at clean",
+      "start": 110.079,
+      "duration": 4.641
+    },
+    {
+      "text": "data that is not necessarily publicly",
+      "start": 112.64,
+      "duration": 4.0
+    },
+    {
+      "text": "available and for this i think a good",
+      "start": 114.72,
+      "duration": 5.439
+    },
+    {
+      "text": "example are apis so what's an api in",
+      "start": 116.64,
+      "duration": 5.92
+    },
+    {
+      "text": "simple terms it involves using some code",
+      "start": 120.159,
+      "duration": 5.121
+    },
+    {
+      "text": "such as python to contact a server and",
+      "start": 122.56,
+      "duration": 4.559
+    },
+    {
+      "text": "then from there request the data that",
+      "start": 125.28,
+      "duration": 4.479
+    },
+    {
+      "text": "you want i consider this not public",
+      "start": 127.119,
+      "duration": 4.881
+    },
+    {
+      "text": "because typically an api requires you to",
+      "start": 129.759,
+      "duration": 4.48
+    },
+    {
+      "text": "go through some sort of authentication",
+      "start": 132.0,
+      "duration": 4.239
+    },
+    {
+      "text": "to approve and allow you to access that",
+      "start": 134.239,
+      "duration": 3.601
+    },
+    {
+      "text": "data if you're interested in learning",
+      "start": 136.239,
+      "duration": 4.161
+    },
+    {
+      "text": "more about using python to access apis i",
+      "start": 137.84,
+      "duration": 3.68
+    },
+    {
+      "text": "highly recommend you check out the",
+      "start": 140.4,
+      "duration": 2.96
+    },
+    {
+      "text": "python for everybody course as this",
+      "start": 141.52,
+      "duration": 3.92
+    },
+    {
+      "text": "provides an introduction to this so",
+      "start": 143.36,
+      "duration": 4.0
+    },
+    {
+      "text": "anyway back to the project i started to",
+      "start": 145.44,
+      "duration": 4.48
+    },
+    {
+      "text": "look into top websites that provided job",
+      "start": 147.36,
+      "duration": 5.12
+    },
+    {
+      "text": "data and whether they provided apis for",
+      "start": 149.92,
+      "duration": 4.319
+    },
+    {
+      "text": "this so i decided to look at some of the",
+      "start": 152.48,
+      "duration": 3.839
+    },
+    {
+      "text": "most popular job searching sites that",
+      "start": 154.239,
+      "duration": 4.881
+    },
+    {
+      "text": "include linkedin indeed monster",
+      "start": 156.319,
+      "duration": 5.2
+    },
+    {
+      "text": "glassdoor and even google jobs out of",
+      "start": 159.12,
+      "duration": 3.839
+    },
+    {
+      "text": "all these different websites that i",
+      "start": 161.519,
+      "duration": 4.481
+    },
+    {
+      "text": "looked in none of them really had an api",
+      "start": 162.959,
+      "duration": 6.0
+    },
+    {
+      "text": "to allow me to collect job data funny",
+      "start": 166.0,
+      "duration": 5.04
+    },
+    {
+      "text": "enough linkedin used to actually have an",
+      "start": 168.959,
+      "duration": 4.961
+    },
+    {
+      "text": "api to allow you to access this job data",
+      "start": 171.04,
+      "duration": 4.8
+    },
+    {
+      "text": "but has since deprecated it it turns out",
+      "start": 173.92,
+      "duration": 3.52
+    },
+    {
+      "text": "for good reason they didn't want anybody",
+      "start": 175.84,
+      "duration": 3.759
+    },
+    {
+      "text": "building a linkedin competitor all right",
+      "start": 177.44,
+      "duration": 4.079
+    },
+    {
+      "text": "the next section we'll look at quickly",
+      "start": 179.599,
+      "duration": 4.56
+    },
+    {
+      "text": "is data that is unclean and that is not",
+      "start": 181.519,
+      "duration": 5.201
+    },
+    {
+      "text": "publicly available as a data analyst i",
+      "start": 184.159,
+      "duration": 4.481
+    },
+    {
+      "text": "find that this is typically where i work",
+      "start": 186.72,
+      "duration": 4.239
+    },
+    {
+      "text": "in my normal day job in that i have",
+      "start": 188.64,
+      "duration": 4.959
+    },
+    {
+      "text": "access to data if you will on clean data",
+      "start": 190.959,
+      "duration": 4.64
+    },
+    {
+      "text": "within my company that's not publicly",
+      "start": 193.599,
+      "duration": 3.601
+    },
+    {
+      "text": "available that i have to actually",
+      "start": 195.599,
+      "duration": 4.0
+    },
+    {
+      "text": "aggregate and make usable unfortunately",
+      "start": 197.2,
+      "duration": 4.959
+    },
+    {
+      "text": "i don't work in linkedin or even google",
+      "start": 199.599,
+      "duration": 4.801
+    },
+    {
+      "text": "so this was an option for me so i moved",
+      "start": 202.159,
+      "duration": 4.881
+    },
+    {
+      "text": "to the last option and that is data that",
+      "start": 204.4,
+      "duration": 5.04
+    },
+    {
+      "text": "is not clean but that is public i like",
+      "start": 207.04,
+      "duration": 4.64
+    },
+    {
+      "text": "to think of this as all the publicly",
+      "start": 209.44,
+      "duration": 3.84
+    },
+    {
+      "text": "available data on the internet that you",
+      "start": 211.68,
+      "duration": 3.68
+    },
+    {
+      "text": "can access through web scraping or web",
+      "start": 213.28,
+      "duration": 4.56
+    },
+    {
+      "text": "crawling so for my project i felt that",
+      "start": 215.36,
+      "duration": 4.32
+    },
+    {
+      "text": "the best way to solve this problem was",
+      "start": 217.84,
+      "duration": 5.36
+    },
+    {
+      "text": "actually collecting job data around job",
+      "start": 219.68,
+      "duration": 6.0
+    },
+    {
+      "text": "postings and specifically i looked at",
+      "start": 223.2,
+      "duration": 4.16
+    },
+    {
+      "text": "all those websites that i previously",
+      "start": 225.68,
+      "duration": 3.68
+    },
+    {
+      "text": "mentioned and i decided to go with",
+      "start": 227.36,
+      "duration": 4.08
+    },
+    {
+      "text": "linkedin this is the social media",
+      "start": 229.36,
+      "duration": 4.0
+    },
+    {
+      "text": "platform that most of my subscribers are",
+      "start": 231.44,
+      "duration": 4.079
+    },
+    {
+      "text": "on when looking for a job so with",
+      "start": 233.36,
+      "duration": 3.519
+    },
+    {
+      "text": "linkedin they actually make it really",
+      "start": 235.519,
+      "duration": 2.881
+    },
+    {
+      "text": "simple you can go in and search a",
+      "start": 236.879,
+      "duration": 3.28
+    },
+    {
+      "text": "specific job title in a specific",
+      "start": 238.4,
+      "duration": 4.399
+    },
+    {
+      "text": "location and then get job postings",
+      "start": 240.159,
+      "duration": 4.561
+    },
+    {
+      "text": "around this so that's what i decided to",
+      "start": 242.799,
+      "duration": 3.761
+    },
+    {
+      "text": "do for this part of the project is build",
+      "start": 244.72,
+      "duration": 4.079
+    },
+    {
+      "text": "a web scraper to go in and scrape that",
+      "start": 246.56,
+      "duration": 4.8
+    },
+    {
+      "text": "data so over the course of a few days i",
+      "start": 248.799,
+      "duration": 4.241
+    },
+    {
+      "text": "worked to build a script for this",
+      "start": 251.36,
+      "duration": 3.36
+    },
+    {
+      "text": "purpose since i'm most familiar with",
+      "start": 253.04,
+      "duration": 4.159
+    },
+    {
+      "text": "python and feel it's a superior language",
+      "start": 254.72,
+      "duration": 4.32
+    },
+    {
+      "text": "i decided to go with this along with",
+      "start": 257.199,
+      "duration": 4.56
+    },
+    {
+      "text": "selenium a popular python library truth",
+      "start": 259.04,
+      "duration": 5.12
+    },
+    {
+      "text": "be told i'm no expert on web scraping so",
+      "start": 261.759,
+      "duration": 4.0
+    },
+    {
+      "text": "initially a lot of my time was spent",
+      "start": 264.16,
+      "duration": 3.28
+    },
+    {
+      "text": "learning the basics of web scraping with",
+      "start": 265.759,
+      "duration": 4.241
+    },
+    {
+      "text": "data cams course web scraping in python",
+      "start": 267.44,
+      "duration": 4.16
+    },
+    {
+      "text": "this course was great at getting me up",
+      "start": 270.0,
+      "duration": 3.52
+    },
+    {
+      "text": "to speed fast with the basics of web",
+      "start": 271.6,
+      "duration": 4.4
+    },
+    {
+      "text": "scraping and from there once i got into",
+      "start": 273.52,
+      "duration": 4.239
+    },
+    {
+      "text": "building the scraper i switched into",
+      "start": 276.0,
+      "duration": 3.919
+    },
+    {
+      "text": "using google to answer my questions and",
+      "start": 277.759,
+      "duration": 5.281
+    },
+    {
+      "text": "trust me i use google a lot so for the",
+      "start": 279.919,
+      "duration": 5.201
+    },
+    {
+      "text": "spot to make it easier to build i broke",
+      "start": 283.04,
+      "duration": 4.0
+    },
+    {
+      "text": "it up into sections of logging into",
+      "start": 285.12,
+      "duration": 4.16
+    },
+    {
+      "text": "linkedin with my login information",
+      "start": 287.04,
+      "duration": 4.32
+    },
+    {
+      "text": "navigating to the job search page and",
+      "start": 289.28,
+      "duration": 4.32
+    },
+    {
+      "text": "searching for data analyst jobs going",
+      "start": 291.36,
+      "duration": 3.92
+    },
+    {
+      "text": "through and then selecting each job",
+      "start": 293.6,
+      "duration": 3.76
+    },
+    {
+      "text": "posting in order to scrape the job data",
+      "start": 295.28,
+      "duration": 4.4
+    },
+    {
+      "text": "i wanted once all entries on a page were",
+      "start": 297.36,
+      "duration": 4.559
+    },
+    {
+      "text": "cycled through then selecting the next",
+      "start": 299.68,
+      "duration": 4.079
+    },
+    {
+      "text": "page and repeating this process for all",
+      "start": 301.919,
+      "duration": 4.56
+    },
+    {
+      "text": "remaining pages during this all the data",
+      "start": 303.759,
+      "duration": 5.121
+    },
+    {
+      "text": "is being saved to a daily csv file i",
+      "start": 306.479,
+      "duration": 4.641
+    },
+    {
+      "text": "wanted only the most recent job postings",
+      "start": 308.88,
+      "duration": 4.4
+    },
+    {
+      "text": "so the bot only searched for jobs posted",
+      "start": 311.12,
+      "duration": 5.04
+    },
+    {
+      "text": "in the last 24 hours i then used a cron",
+      "start": 313.28,
+      "duration": 5.04
+    },
+    {
+      "text": "job to run this script automatically",
+      "start": 316.16,
+      "duration": 4.72
+    },
+    {
+      "text": "every night so theoretically i was",
+      "start": 318.32,
+      "duration": 4.719
+    },
+    {
+      "text": "scraping all the jobs posted for data",
+      "start": 320.88,
+      "duration": 4.319
+    },
+    {
+      "text": "analysts anyway i do want to note some",
+      "start": 323.039,
+      "duration": 3.921
+    },
+    {
+      "text": "caveats about web scraping and some",
+      "start": 325.199,
+      "duration": 3.84
+    },
+    {
+      "text": "problems that i actually ran into first",
+      "start": 326.96,
+      "duration": 3.6
+    },
+    {
+      "text": "i noticed that i had to throttle the",
+      "start": 329.039,
+      "duration": 3.6
+    },
+    {
+      "text": "speed that i was actually scraping the",
+      "start": 330.56,
+      "duration": 4.16
+    },
+    {
+      "text": "data if i scraped it too fast i would",
+      "start": 332.639,
+      "duration": 4.881
+    },
+    {
+      "text": "get those prompts of an ru robot checks",
+      "start": 334.72,
+      "duration": 4.64
+    },
+    {
+      "text": "and i actually had to physically check",
+      "start": 337.52,
+      "duration": 3.76
+    },
+    {
+      "text": "this in order to continue so because of",
+      "start": 339.36,
+      "duration": 4.24
+    },
+    {
+      "text": "this it sometimes took as long as half a",
+      "start": 341.28,
+      "duration": 4.24
+    },
+    {
+      "text": "day just to pull all the data that i",
+      "start": 343.6,
+      "duration": 3.76
+    },
+    {
+      "text": "wanted the second other limitation was",
+      "start": 345.52,
+      "duration": 4.88
+    },
+    {
+      "text": "that linkedin only provides around 1 000",
+      "start": 347.36,
+      "duration": 5.6
+    },
+    {
+      "text": "job results with a job search even if",
+      "start": 350.4,
+      "duration": 4.32
+    },
+    {
+      "text": "there were hundreds of thousands of job",
+      "start": 352.96,
+      "duration": 4.16
+    },
+    {
+      "text": "postings i could only scrape a thousand",
+      "start": 354.72,
+      "duration": 4.319
+    },
+    {
+      "text": "jobs at a time and the final most",
+      "start": 357.12,
+      "duration": 4.32
+    },
+    {
+      "text": "annoying thing was that i had to log on",
+      "start": 359.039,
+      "duration": 4.561
+    },
+    {
+      "text": "to linkedin daily otherwise i would",
+      "start": 361.44,
+      "duration": 3.92
+    },
+    {
+      "text": "continue to get the are you a robot",
+      "start": 363.6,
+      "duration": 4.08
+    },
+    {
+      "text": "prompt and it would mess up my script so",
+      "start": 365.36,
+      "duration": 4.08
+    },
+    {
+      "text": "besides that everything seemed to be",
+      "start": 367.68,
+      "duration": 4.16
+    },
+    {
+      "text": "going fine with pulling this data i even",
+      "start": 369.44,
+      "duration": 4.96
+    },
+    {
+      "text": "made a video here where i dived into the",
+      "start": 371.84,
+      "duration": 4.799
+    },
+    {
+      "text": "initial data that i pulled in order to",
+      "start": 374.4,
+      "duration": 3.919
+    },
+    {
+      "text": "find out what skills were being",
+      "start": 376.639,
+      "duration": 3.441
+    },
+    {
+      "text": "requested of a data analyst so i was",
+      "start": 378.319,
+      "duration": 3.201
+    },
+    {
+      "text": "really optimistic of the data i was",
+      "start": 380.08,
+      "duration": 2.32
+    },
+    {
+      "text": "pulling",
+      "start": 381.52,
+      "duration": 2.399
+    },
+    {
+      "text": "and i was really hoping to just",
+      "start": 382.4,
+      "duration": 3.919
+    },
+    {
+      "text": "continuously pull this data infinitely",
+      "start": 383.919,
+      "duration": 4.641
+    },
+    {
+      "text": "into the future so that way i was always",
+      "start": 386.319,
+      "duration": 4.401
+    },
+    {
+      "text": "having the most up-to-date data on this",
+      "start": 388.56,
+      "duration": 4.56
+    },
+    {
+      "text": "field but one morning when i woke up to",
+      "start": 390.72,
+      "duration": 4.08
+    },
+    {
+      "text": "check on the status of my bot and i",
+      "start": 393.12,
+      "duration": 3.68
+    },
+    {
+      "text": "noticed that it wasn't pulling data i",
+      "start": 394.8,
+      "duration": 3.679
+    },
+    {
+      "text": "initially thought that this was caused",
+      "start": 396.8,
+      "duration": 3.36
+    },
+    {
+      "text": "by that third problem that outlined if",
+      "start": 398.479,
+      "duration": 3.921
+    },
+    {
+      "text": "not logging in daily so i went and",
+      "start": 400.16,
+      "duration": 4.479
+    },
+    {
+      "text": "actually tried to log into linkedin and",
+      "start": 402.4,
+      "duration": 4.32
+    },
+    {
+      "text": "when i went to the job postings i",
+      "start": 404.639,
+      "duration": 3.761
+    },
+    {
+      "text": "actually physically couldn't search for",
+      "start": 406.72,
+      "duration": 4.24
+    },
+    {
+      "text": "jobs anymore",
+      "start": 408.4,
+      "duration": 2.56
+    },
+    {
+      "text": "so apparently linkedin identified that i",
+      "start": 412.08,
+      "duration": 4.559
+    },
+    {
+      "text": "was a bot and thus restricted my access",
+      "start": 414.4,
+      "duration": 4.4
+    },
+    {
+      "text": "to no longer be able to",
+      "start": 416.639,
+      "duration": 4.241
+    },
+    {
+      "text": "access job data anymore i was a little",
+      "start": 418.8,
+      "duration": 5.36
+    },
+    {
+      "text": "pissed but full disclosure i did use a",
+      "start": 420.88,
+      "duration": 5.759
+    },
+    {
+      "text": "burner account so not typically not my",
+      "start": 424.16,
+      "duration": 4.96
+    },
+    {
+      "text": "actual linkedin login account i set up a",
+      "start": 426.639,
+      "duration": 5.041
+    },
+    {
+      "text": "fake account to actually log in",
+      "start": 429.12,
+      "duration": 3.84
+    },
+    {
+      "text": "in case potentially something like this",
+      "start": 431.68,
+      "duration": 2.88
+    },
+    {
+      "text": "happened but nonetheless i was still",
+      "start": 432.96,
+      "duration": 3.6
+    },
+    {
+      "text": "upset because they had restricted my",
+      "start": 434.56,
+      "duration": 4.56
+    },
+    {
+      "text": "access to looking for jobs so i decided",
+      "start": 436.56,
+      "duration": 5.44
+    },
+    {
+      "text": "to look more into if web scraping is",
+      "start": 439.12,
+      "duration": 6.0
+    },
+    {
+      "text": "legal and i found this 2019 a u.s",
+      "start": 442.0,
+      "duration": 4.8
+    },
+    {
+      "text": "circuit court ruled that web scraping",
+      "start": 445.12,
+      "duration": 4.639
+    },
+    {
+      "text": "public sites does not violate the law",
+      "start": 446.8,
+      "duration": 4.48
+    },
+    {
+      "text": "interesting enough this case was",
+      "start": 449.759,
+      "duration": 3.521
+    },
+    {
+      "text": "actually on linkedin being upset that",
+      "start": 451.28,
+      "duration": 4.4
+    },
+    {
+      "text": "another company hiq was scraping its",
+      "start": 453.28,
+      "duration": 4.319
+    },
+    {
+      "text": "publicly available data the court ruled",
+      "start": 455.68,
+      "duration": 3.88
+    },
+    {
+      "text": "that for publicly available",
+      "start": 457.599,
+      "duration": 4.641
+    },
+    {
+      "text": "non-copyrighted data users are allowed",
+      "start": 459.56,
+      "duration": 5.639
+    },
+    {
+      "text": "to do web scraping however the ruling",
+      "start": 462.24,
+      "duration": 5.359
+    },
+    {
+      "text": "excludes those sites that require some",
+      "start": 465.199,
+      "duration": 5.44
+    },
+    {
+      "text": "sort of authentication and that have you",
+      "start": 467.599,
+      "duration": 5.521
+    },
+    {
+      "text": "sign some sort of terms and conditions",
+      "start": 470.639,
+      "duration": 4.721
+    },
+    {
+      "text": "that basically forbid you from doing web",
+      "start": 473.12,
+      "duration": 4.32
+    },
+    {
+      "text": "script this year linkedin actually",
+      "start": 475.36,
+      "duration": 3.76
+    },
+    {
+      "text": "brought this case up to the supreme",
+      "start": 477.44,
+      "duration": 4.0
+    },
+    {
+      "text": "court and it ended up that the ruling",
+      "start": 479.12,
+      "duration": 4.56
+    },
+    {
+      "text": "was vacated meaning the ruling was made",
+      "start": 481.44,
+      "duration": 3.84
+    },
+    {
+      "text": "legally void",
+      "start": 483.68,
+      "duration": 4.32
+    },
+    {
+      "text": "and this case is actually now up for",
+      "start": 485.28,
+      "duration": 4.8
+    },
+    {
+      "text": "review again so after learning all this",
+      "start": 488.0,
+      "duration": 4.56
+    },
+    {
+      "text": "i decided to look into more of what is",
+      "start": 490.08,
+      "duration": 4.799
+    },
+    {
+      "text": "linkedin's terms and conditions on this",
+      "start": 492.56,
+      "duration": 4.4
+    },
+    {
+      "text": "and come to find out they actually",
+      "start": 494.879,
+      "duration": 4.561
+    },
+    {
+      "text": "specifically ban their members from",
+      "start": 496.96,
+      "duration": 4.32
+    },
+    {
+      "text": "scraping any data",
+      "start": 499.44,
+      "duration": 3.759
+    },
+    {
+      "text": "probably should have read that first so",
+      "start": 501.28,
+      "duration": 3.599
+    },
+    {
+      "text": "where is this project going now that i",
+      "start": 503.199,
+      "duration": 3.921
+    },
+    {
+      "text": "hit this road bump well i actually did",
+      "start": 504.879,
+      "duration": 5.201
+    },
+    {
+      "text": "find that this job data is available",
+      "start": 507.12,
+      "duration": 4.639
+    },
+    {
+      "text": "without you actually logging in or",
+      "start": 510.08,
+      "duration": 3.199
+    },
+    {
+      "text": "having to authenticate and agree to",
+      "start": 511.759,
+      "duration": 3.76
+    },
+    {
+      "text": "those terms and conditions of linkedin",
+      "start": 513.279,
+      "duration": 5.12
+    },
+    {
+      "text": "i'd have to redesign my bot in order to",
+      "start": 515.519,
+      "duration": 5.041
+    },
+    {
+      "text": "scrape this publicly available data if",
+      "start": 518.399,
+      "duration": 3.841
+    },
+    {
+      "text": "you will and also i'm not sure if i'm",
+      "start": 520.56,
+      "duration": 3.359
+    },
+    {
+      "text": "necessarily comfortable doing that just",
+      "start": 522.24,
+      "duration": 3.68
+    },
+    {
+      "text": "yet so i'm still thinking about it as",
+      "start": 523.919,
+      "duration": 3.36
+    },
+    {
+      "text": "always if you got value out of this",
+      "start": 525.92,
+      "duration": 4.0
+    },
+    {
+      "text": "video smash that like button with that",
+      "start": 527.279,
+      "duration": 6.12
+    },
+    {
+      "text": "see the next one",
+      "start": 529.92,
+      "duration": 3.479
+    },
+    {
+      "text": "[Music]",
+      "start": 533.89,
+      "duration": 7.71
+    },
+    {
+      "text": "you",
+      "start": 539.519,
+      "duration": 2.081
+    }
+  ]
+}

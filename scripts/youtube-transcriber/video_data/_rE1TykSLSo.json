@@ -1,0 +1,217 @@
+{
+  "id": "_rE1TykSLSo",
+  "url": "https://youtu.be/_rE1TykSLSo",
+  "title": "(The 6 Ways) Code Ninja Says: How to Leetcode",
+  "description": null,
+  "publish_date": "2023-06-08T00:00:00",
+  "length": 74,
+  "views": 16,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "for technical interview prep as a",
+      "start": 0.0,
+      "duration": 3.36
+    },
+    {
+      "text": "programmer I recommend the 5 to 23",
+      "start": 1.74,
+      "duration": 3.599
+    },
+    {
+      "text": "patterns over the blind 75 Link in the",
+      "start": 3.36,
+      "duration": 3.72
+    },
+    {
+      "text": "description this user is confused about",
+      "start": 5.339,
+      "duration": 3.601
+    },
+    {
+      "text": "the top 5 patterns they don't exist in",
+      "start": 7.08,
+      "duration": 3.9
+    },
+    {
+      "text": "the blind 75 so let's clarify what to do",
+      "start": 8.94,
+      "duration": 4.26
+    },
+    {
+      "text": "unlike the blind 75 which gives specific",
+      "start": 10.98,
+      "duration": 3.72
+    },
+    {
+      "text": "problems and therefore went out of date",
+      "start": 13.2,
+      "duration": 3.3
+    },
+    {
+      "text": "I don't do that I give you a process",
+      "start": 14.7,
+      "duration": 3.659
+    },
+    {
+      "text": "search leak code that way the advice is",
+      "start": 16.5,
+      "duration": 4.14
+    },
+    {
+      "text": "Evergreen so what search might you do so",
+      "start": 18.359,
+      "duration": 3.721
+    },
+    {
+      "text": "there are six problem picking patterns",
+      "start": 20.64,
+      "duration": 3.24
+    },
+    {
+      "text": "that I recommend this is a draft from a",
+      "start": 22.08,
+      "duration": 3.359
+    },
+    {
+      "text": "forthcoming article keep an eye out for",
+      "start": 23.88,
+      "duration": 3.54
+    },
+    {
+      "text": "that the first is to sort by frequency",
+      "start": 25.439,
+      "duration": 4.321
+    },
+    {
+      "text": "unfortunately this is behind a paywall",
+      "start": 27.42,
+      "duration": 4.38
+    },
+    {
+      "text": "in lead code the second is to sort by",
+      "start": 29.76,
+      "duration": 4.08
+    },
+    {
+      "text": "difficulty you can approximate this by",
+      "start": 31.8,
+      "duration": 3.84
+    },
+    {
+      "text": "sorting on the acceptance rate in leak",
+      "start": 33.84,
+      "duration": 3.6
+    },
+    {
+      "text": "code this is actually three picking",
+      "start": 35.64,
+      "duration": 2.88
+    },
+    {
+      "text": "patterns because you're going to pick",
+      "start": 37.44,
+      "duration": 2.939
+    },
+    {
+      "text": "the easiest and it's here the hardest in",
+      "start": 38.52,
+      "duration": 4.02
+    },
+    {
+      "text": "a tier if they're both too easy you need",
+      "start": 40.379,
+      "duration": 3.961
+    },
+    {
+      "text": "to move up a tier if the harder one is",
+      "start": 42.54,
+      "duration": 4.08
+    },
+    {
+      "text": "too hard you have created a difficulty",
+      "start": 44.34,
+      "duration": 4.62
+    },
+    {
+      "text": "window that you can bisect and calibrate",
+      "start": 46.62,
+      "duration": 3.36
+    },
+    {
+      "text": "internally",
+      "start": 48.96,
+      "duration": 2.759
+    },
+    {
+      "text": "third option is random selection if",
+      "start": 49.98,
+      "duration": 2.94
+    },
+    {
+      "text": "you're not sure it doesn't matter just",
+      "start": 51.719,
+      "duration": 3.901
+    },
+    {
+      "text": "flip a coin and last is to select from a",
+      "start": 52.92,
+      "duration": 4.68
+    },
+    {
+      "text": "standard Source like the blind 75 even",
+      "start": 55.62,
+      "duration": 3.779
+    },
+    {
+      "text": "though it's dated picking from these",
+      "start": 57.6,
+      "duration": 3.36
+    },
+    {
+      "text": "standard sources allows you to",
+      "start": 59.399,
+      "duration": 3.121
+    },
+    {
+      "text": "communicate with your peers maybe your",
+      "start": 60.96,
+      "duration": 3.48
+    },
+    {
+      "text": "friends doing that and you get to engage",
+      "start": 62.52,
+      "duration": 3.54
+    },
+    {
+      "text": "sort of a social community and it's",
+      "start": 64.44,
+      "duration": 3.48
+    },
+    {
+      "text": "beneficial for that reason if this",
+      "start": 66.06,
+      "duration": 3.419
+    },
+    {
+      "text": "information was helpful tap the like",
+      "start": 67.92,
+      "duration": 3.239
+    },
+    {
+      "text": "button for the YouTube algorithm be sure",
+      "start": 69.479,
+      "duration": 2.881
+    },
+    {
+      "text": "to share this with your friends",
+      "start": 71.159,
+      "duration": 4.701
+    },
+    {
+      "text": "subscribe and I'll see you soon",
+      "start": 72.36,
+      "duration": 3.5
+    }
+  ]
+}

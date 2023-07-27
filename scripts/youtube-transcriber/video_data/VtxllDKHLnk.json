@@ -1,0 +1,52 @@
+{
+  "id": "VtxllDKHLnk",
+  "url": "https://youtu.be/VtxllDKHLnk",
+  "title": "React Tip: Prefer Ternaries",
+  "description": null,
+  "publish_date": "2023-06-14T00:00:00",
+  "length": 15,
+  "views": 376,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "quick react tip there's a problem with",
+      "start": 0.45,
+      "duration": 4.139
+    },
+    {
+      "text": "the expression on the top line here and",
+      "start": 2.669,
+      "duration": 3.96
+    },
+    {
+      "text": "that is that if count Foo bars evaluates",
+      "start": 4.589,
+      "duration": 4.501
+    },
+    {
+      "text": "to zero it's true that it's not going to",
+      "start": 6.629,
+      "duration": 4.68
+    },
+    {
+      "text": "pass the short circuiting check but it's",
+      "start": 9.09,
+      "duration": 3.48
+    },
+    {
+      "text": "just going to return zero and you're",
+      "start": 11.309,
+      "duration": 3.12
+    },
+    {
+      "text": "going to end up with a rendered zero so",
+      "start": 12.57,
+      "duration": 4.46
+    },
+    {
+      "text": "use a ternary",
+      "start": 14.429,
+      "duration": 2.601
+    }
+  ]
+}

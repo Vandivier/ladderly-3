@@ -1,0 +1,1237 @@
+{
+  "id": "_A_Jpr9HkGA",
+  "url": "https://youtu.be/_A_Jpr9HkGA",
+  "title": "AI03: Build a Website with Midjourney, Figma & ChatGPT",
+  "description": null,
+  "publish_date": "2023-02-20T00:00:00",
+  "length": 641,
+  "views": 603654,
+  "channel": "CJ Gammon",
+  "transcript": [
+    {
+      "text": "let's build out another mid-journey",
+      "start": 0.48,
+      "duration": 4.26
+    },
+    {
+      "text": "design in HTML and CSS so we're going to",
+      "start": 2.22,
+      "duration": 4.5
+    },
+    {
+      "text": "build out this Carousel system first off",
+      "start": 4.74,
+      "duration": 4.02
+    },
+    {
+      "text": "in figma so the transitions between all",
+      "start": 6.72,
+      "duration": 3.54
+    },
+    {
+      "text": "the values and then we'll build it out",
+      "start": 8.76,
+      "duration": 3.78
+    },
+    {
+      "text": "in HTML",
+      "start": 10.26,
+      "duration": 4.32
+    },
+    {
+      "text": "so here's the image we generated in",
+      "start": 12.54,
+      "duration": 5.1
+    },
+    {
+      "text": "mid-journey we just did UI ux interface",
+      "start": 14.58,
+      "duration": 5.76
+    },
+    {
+      "text": "design we put in side by side so we got",
+      "start": 17.64,
+      "duration": 5.219
+    },
+    {
+      "text": "two of them and then we put B hands",
+      "start": 20.34,
+      "duration": 5.099
+    },
+    {
+      "text": "dribble beautiful color creative app",
+      "start": 22.859,
+      "duration": 3.84
+    },
+    {
+      "text": "Marketplace",
+      "start": 25.439,
+      "duration": 4.621
+    },
+    {
+      "text": "quality was set to 2 and stylized 1000",
+      "start": 26.699,
+      "duration": 6.721
+    },
+    {
+      "text": "and we were using version 4 of the model",
+      "start": 30.06,
+      "duration": 5.58
+    },
+    {
+      "text": "first we're going to open up figma and",
+      "start": 33.42,
+      "duration": 4.08
+    },
+    {
+      "text": "bring our image into it from mid-journey",
+      "start": 35.64,
+      "duration": 3.48
+    },
+    {
+      "text": "then we're going to create our frame and",
+      "start": 37.5,
+      "duration": 3.719
+    },
+    {
+      "text": "because this is a mobile UI we're just",
+      "start": 39.12,
+      "duration": 3.66
+    },
+    {
+      "text": "going to pick one of the iPhone presets",
+      "start": 41.219,
+      "duration": 3.36
+    },
+    {
+      "text": "then we're going to trace out some of",
+      "start": 42.78,
+      "duration": 4.439
+    },
+    {
+      "text": "the UI so if you press o for the ellipse",
+      "start": 44.579,
+      "duration": 5.761
+    },
+    {
+      "text": "tool and then hold option and shift you",
+      "start": 47.219,
+      "duration": 5.581
+    },
+    {
+      "text": "can draw out these perfect circles from",
+      "start": 50.34,
+      "duration": 4.26
+    },
+    {
+      "text": "Center then we're just going to",
+      "start": 52.8,
+      "duration": 3.96
+    },
+    {
+      "text": "duplicate that for each of the circles",
+      "start": 54.6,
+      "duration": 4.979
+    },
+    {
+      "text": "making sure that they're evenly spaced",
+      "start": 56.76,
+      "duration": 4.26
+    },
+    {
+      "text": "then we're just going to move them away",
+      "start": 59.579,
+      "duration": 3.841
+    },
+    {
+      "text": "so that we can pull the gradients using",
+      "start": 61.02,
+      "duration": 4.499
+    },
+    {
+      "text": "the Color Picker tool from each of the",
+      "start": 63.42,
+      "duration": 3.72
+    },
+    {
+      "text": "circles",
+      "start": 65.519,
+      "duration": 3.301
+    },
+    {
+      "text": "then we're just going to select them all",
+      "start": 67.14,
+      "duration": 5.18
+    },
+    {
+      "text": "and apply a drop shadow",
+      "start": 68.82,
+      "duration": 3.5
+    },
+    {
+      "text": "now that that's good we're going to go",
+      "start": 72.42,
+      "duration": 4.559
+    },
+    {
+      "text": "and put text in where we have text",
+      "start": 74.22,
+      "duration": 5.04
+    },
+    {
+      "text": "within our interface so we just match up",
+      "start": 76.979,
+      "duration": 4.441
+    },
+    {
+      "text": "all the colors and positioning and font",
+      "start": 79.26,
+      "duration": 5.34
+    },
+    {
+      "text": "sizes of the text within the UI we're",
+      "start": 81.42,
+      "duration": 4.5
+    },
+    {
+      "text": "also going to go through and Trace some",
+      "start": 84.6,
+      "duration": 5.059
+    },
+    {
+      "text": "of these pill shapes borders and lines",
+      "start": 85.92,
+      "duration": 3.739
+    },
+    {
+      "text": "now we can bring that into our frame and",
+      "start": 98.28,
+      "duration": 5.519
+    },
+    {
+      "text": "it's lining up pretty good next hit R to",
+      "start": 100.86,
+      "duration": 4.5
+    },
+    {
+      "text": "draw a rectangle for the header and",
+      "start": 103.799,
+      "duration": 3.601
+    },
+    {
+      "text": "we're just going to use it to get the",
+      "start": 105.36,
+      "duration": 4.86
+    },
+    {
+      "text": "gradient for that top portion",
+      "start": 107.4,
+      "duration": 4.44
+    },
+    {
+      "text": "now that that's in we're going to draw",
+      "start": 110.22,
+      "duration": 4.079
+    },
+    {
+      "text": "another rect to create the gradient on",
+      "start": 111.84,
+      "duration": 3.9
+    },
+    {
+      "text": "the left side so you'll see there's a",
+      "start": 114.299,
+      "duration": 3.301
+    },
+    {
+      "text": "little Shadow on top of everything we'll",
+      "start": 115.74,
+      "duration": 5.04
+    },
+    {
+      "text": "use a linear gradient for that",
+      "start": 117.6,
+      "duration": 5.159
+    },
+    {
+      "text": "next we're going to fix up these hero",
+      "start": 120.78,
+      "duration": 4.019
+    },
+    {
+      "text": "images so we're going to open the whole",
+      "start": 122.759,
+      "duration": 3.9
+    },
+    {
+      "text": "image up in Photoshop",
+      "start": 124.799,
+      "duration": 4.32
+    },
+    {
+      "text": "then we're going to select one of the",
+      "start": 126.659,
+      "duration": 5.641
+    },
+    {
+      "text": "hero images copy it and then create a",
+      "start": 129.119,
+      "duration": 5.76
+    },
+    {
+      "text": "new document and paste it inside then do",
+      "start": 132.3,
+      "duration": 6.019
+    },
+    {
+      "text": "the same thing for the other image",
+      "start": 134.879,
+      "duration": 3.44
+    },
+    {
+      "text": "now we're going to enlarge it by going",
+      "start": 138.599,
+      "duration": 5.28
+    },
+    {
+      "text": "to the menu item image choosing image",
+      "start": 140.58,
+      "duration": 4.739
+    },
+    {
+      "text": "size",
+      "start": 143.879,
+      "duration": 4.321
+    },
+    {
+      "text": "and we're going to set it to pixels",
+      "start": 145.319,
+      "duration": 6.0
+    },
+    {
+      "text": "and increase the size to 1024 so we're",
+      "start": 148.2,
+      "duration": 6.14
+    },
+    {
+      "text": "going to enlarge the image",
+      "start": 151.319,
+      "duration": 3.021
+    },
+    {
+      "text": "so now we're going to use the stability",
+      "start": 154.379,
+      "duration": 4.021
+    },
+    {
+      "text": "Photoshop plugin and we're going to",
+      "start": 155.94,
+      "duration": 7.04
+    },
+    {
+      "text": "write a prompt describing our image",
+      "start": 158.4,
+      "duration": 4.58
+    },
+    {
+      "text": "[Music]",
+      "start": 163.14,
+      "duration": 4.86
+    },
+    {
+      "text": "then we set the image width and height",
+      "start": 166.08,
+      "duration": 3.659
+    },
+    {
+      "text": "to 1024.",
+      "start": 168.0,
+      "duration": 3.959
+    },
+    {
+      "text": "make sure that include images selected",
+      "start": 169.739,
+      "duration": 3.961
+    },
+    {
+      "text": "adjust your number of images and then",
+      "start": 171.959,
+      "duration": 3.121
+    },
+    {
+      "text": "click dream",
+      "start": 173.7,
+      "duration": 3.66
+    },
+    {
+      "text": "once it's done click layer to insert it",
+      "start": 175.08,
+      "duration": 3.54
+    },
+    {
+      "text": "into the document and then you've got",
+      "start": 177.36,
+      "duration": 3.9
+    },
+    {
+      "text": "your new higher res image",
+      "start": 178.62,
+      "duration": 4.38
+    },
+    {
+      "text": "we can just go ahead and repeat these",
+      "start": 181.26,
+      "duration": 5.18
+    },
+    {
+      "text": "steps for the other hero image",
+      "start": 183.0,
+      "duration": 3.44
+    },
+    {
+      "text": "next we're going to create a mask so it",
+      "start": 189.12,
+      "duration": 4.259
+    },
+    {
+      "text": "fits in seamlessly with our content",
+      "start": 191.099,
+      "duration": 4.14
+    },
+    {
+      "text": "so we're going to choose the pen tool",
+      "start": 193.379,
+      "duration": 4.981
+    },
+    {
+      "text": "and draw a path around where we want",
+      "start": 195.239,
+      "duration": 5.961
+    },
+    {
+      "text": "clean hard edges",
+      "start": 198.36,
+      "duration": 5.84
+    },
+    {
+      "text": "foreign",
+      "start": 201.2,
+      "duration": 3.0
+    },
+    {
+      "text": "we're going to then right click that",
+      "start": 204.319,
+      "duration": 2.981
+    },
+    {
+      "text": "path",
+      "start": 206.34,
+      "duration": 4.38
+    },
+    {
+      "text": "and choose create Vector mask",
+      "start": 207.3,
+      "duration": 4.68
+    },
+    {
+      "text": "next we're going to click the mask",
+      "start": 210.72,
+      "duration": 4.08
+    },
+    {
+      "text": "button in the layers panel use the magic",
+      "start": 211.98,
+      "duration": 6.179
+    },
+    {
+      "text": "wand tool to select content",
+      "start": 214.8,
+      "duration": 6.6
+    },
+    {
+      "text": "on the perimeter of our image",
+      "start": 218.159,
+      "duration": 5.761
+    },
+    {
+      "text": "then we just select the mask and use our",
+      "start": 221.4,
+      "duration": 6.08
+    },
+    {
+      "text": "brush tool to paint it in Black",
+      "start": 223.92,
+      "duration": 3.56
+    },
+    {
+      "text": "next we make sure everything is",
+      "start": 231.5,
+      "duration": 4.42
+    },
+    {
+      "text": "deselected and we select our mask layer",
+      "start": 233.459,
+      "duration": 4.56
+    },
+    {
+      "text": "using a bigger brush and we're just",
+      "start": 235.92,
+      "duration": 4.92
+    },
+    {
+      "text": "going to paint a gradient around the",
+      "start": 238.019,
+      "duration": 5.161
+    },
+    {
+      "text": "image this will make it fade seamlessly",
+      "start": 240.84,
+      "duration": 4.619
+    },
+    {
+      "text": "into the rest of our content",
+      "start": 243.18,
+      "duration": 5.46
+    },
+    {
+      "text": "then we can just save it out as a PNG",
+      "start": 245.459,
+      "duration": 5.221
+    },
+    {
+      "text": "now we can place our image inside of",
+      "start": 248.64,
+      "duration": 4.56
+    },
+    {
+      "text": "figma and position it",
+      "start": 250.68,
+      "duration": 4.08
+    },
+    {
+      "text": "now we're going to start working on our",
+      "start": 253.2,
+      "duration": 3.18
+    },
+    {
+      "text": "Carousel so we're going to place the",
+      "start": 254.76,
+      "duration": 4.68
+    },
+    {
+      "text": "other image in there as well and offset",
+      "start": 256.38,
+      "duration": 6.02
+    },
+    {
+      "text": "it to the right",
+      "start": 259.44,
+      "duration": 2.96
+    },
+    {
+      "text": "then we simply duplicate our frame",
+      "start": 262.86,
+      "duration": 5.7
+    },
+    {
+      "text": "and select those two items and move them",
+      "start": 266.1,
+      "duration": 5.4
+    },
+    {
+      "text": "back to the left so that our new header",
+      "start": 268.56,
+      "duration": 5.16
+    },
+    {
+      "text": "image is in view next we're going to",
+      "start": 271.5,
+      "duration": 4.74
+    },
+    {
+      "text": "select the first header image we're",
+      "start": 273.72,
+      "duration": 4.8
+    },
+    {
+      "text": "going to go to prototype mode",
+      "start": 276.24,
+      "duration": 4.86
+    },
+    {
+      "text": "and add an interaction",
+      "start": 278.52,
+      "duration": 5.94
+    },
+    {
+      "text": "and we're going to say on drag navigate",
+      "start": 281.1,
+      "duration": 7.26
+    },
+    {
+      "text": "to the other frame make sure it's a",
+      "start": 284.46,
+      "duration": 5.519
+    },
+    {
+      "text": "smart animate",
+      "start": 288.36,
+      "duration": 3.24
+    },
+    {
+      "text": "then we're going to do the same thing to",
+      "start": 289.979,
+      "duration": 4.741
+    },
+    {
+      "text": "the other header frame in reverse",
+      "start": 291.6,
+      "duration": 5.34
+    },
+    {
+      "text": "so if we preview this as a prototype we",
+      "start": 294.72,
+      "duration": 3.84
+    },
+    {
+      "text": "should be able to swipe between the two",
+      "start": 296.94,
+      "duration": 4.4
+    },
+    {
+      "text": "header images",
+      "start": 298.56,
+      "duration": 2.78
+    },
+    {
+      "text": "so now we just need to go to the second",
+      "start": 301.919,
+      "duration": 3.72
+    },
+    {
+      "text": "frame and match all the colors of the",
+      "start": 303.36,
+      "duration": 4.58
+    },
+    {
+      "text": "other View",
+      "start": 305.639,
+      "duration": 2.301
+    },
+    {
+      "text": "now that that's done we can preview it",
+      "start": 311.34,
+      "duration": 5.34
+    },
+    {
+      "text": "and because we used auto animate it will",
+      "start": 313.68,
+      "duration": 5.76
+    },
+    {
+      "text": "automatically transition the colors",
+      "start": 316.68,
+      "duration": 6.2
+    },
+    {
+      "text": "between the two views",
+      "start": 319.44,
+      "duration": 3.44
+    },
+    {
+      "text": "so our figma prototype is pretty much",
+      "start": 322.919,
+      "duration": 3.181
+    },
+    {
+      "text": "done one other thing we can do is use",
+      "start": 324.6,
+      "duration": 4.2
+    },
+    {
+      "text": "the pen tool to trace this Vector shape",
+      "start": 326.1,
+      "duration": 4.8
+    },
+    {
+      "text": "within the background so we can export",
+      "start": 328.8,
+      "duration": 6.56
+    },
+    {
+      "text": "it as SVG and bring it into HTML",
+      "start": 330.9,
+      "duration": 4.46
+    },
+    {
+      "text": "doing this is really easy from figma you",
+      "start": 335.82,
+      "duration": 3.96
+    },
+    {
+      "text": "just right click on any element and",
+      "start": 338.22,
+      "duration": 3.66
+    },
+    {
+      "text": "choose copy paste as and you can choose",
+      "start": 339.78,
+      "duration": 4.859
+    },
+    {
+      "text": "CSS or SVG and it'll give you the code",
+      "start": 341.88,
+      "duration": 5.28
+    },
+    {
+      "text": "to paste directly where you need it so",
+      "start": 344.639,
+      "duration": 4.261
+    },
+    {
+      "text": "now we're ready to build up the HTML and",
+      "start": 347.16,
+      "duration": 3.12
+    },
+    {
+      "text": "CSS",
+      "start": 348.9,
+      "duration": 3.54
+    },
+    {
+      "text": "I'm actually going to use some AI tools",
+      "start": 350.28,
+      "duration": 4.32
+    },
+    {
+      "text": "to help with the process just to show",
+      "start": 352.44,
+      "duration": 4.259
+    },
+    {
+      "text": "how easy it is so I'm going to use chat",
+      "start": 354.6,
+      "duration": 4.62
+    },
+    {
+      "text": "GPT just to show you how you can use it",
+      "start": 356.699,
+      "duration": 5.521
+    },
+    {
+      "text": "to generate code quickly and easily",
+      "start": 359.22,
+      "duration": 5.699
+    },
+    {
+      "text": "so first thing we just need some HTML",
+      "start": 362.22,
+      "duration": 4.08
+    },
+    {
+      "text": "boilerplate so I'm just going to ask",
+      "start": 364.919,
+      "duration": 5.661
+    },
+    {
+      "text": "chatgpt to create boilerplate for us",
+      "start": 366.3,
+      "duration": 6.54
+    },
+    {
+      "text": "then we just copy and paste into our",
+      "start": 370.58,
+      "duration": 4.179
+    },
+    {
+      "text": "HTML file",
+      "start": 372.84,
+      "duration": 3.78
+    },
+    {
+      "text": "the neat thing about chat GPT is you can",
+      "start": 374.759,
+      "duration": 3.541
+    },
+    {
+      "text": "really just ask it for whatever you want",
+      "start": 376.62,
+      "duration": 4.56
+    },
+    {
+      "text": "like a script tag for CSS embed and",
+      "start": 378.3,
+      "duration": 4.92
+    },
+    {
+      "text": "it'll just give it to you and then we",
+      "start": 381.18,
+      "duration": 3.359
+    },
+    {
+      "text": "can just go ahead and hook everything up",
+      "start": 383.22,
+      "duration": 5.419
+    },
+    {
+      "text": "and test it out within the browser",
+      "start": 384.539,
+      "duration": 4.1
+    },
+    {
+      "text": "so now that we've got our boilerplate",
+      "start": 390.66,
+      "duration": 3.96
+    },
+    {
+      "text": "let's ask chat GPT to create a carousel",
+      "start": 392.22,
+      "duration": 6.319
+    },
+    {
+      "text": "using the green sock animation platform",
+      "start": 394.62,
+      "duration": 3.919
+    },
+    {
+      "text": "then we just copy in the HTML into our",
+      "start": 401.28,
+      "duration": 5.52
+    },
+    {
+      "text": "HTML document CSS and do our CSS and",
+      "start": 403.38,
+      "duration": 5.819
+    },
+    {
+      "text": "then the JavaScript",
+      "start": 406.8,
+      "duration": 4.08
+    },
+    {
+      "text": "then I'm just going to add some quick",
+      "start": 409.199,
+      "duration": 4.141
+    },
+    {
+      "text": "CSS to style the individual Carousel",
+      "start": 410.88,
+      "duration": 5.46
+    },
+    {
+      "text": "items so that we can see the difference",
+      "start": 413.34,
+      "duration": 5.34
+    },
+    {
+      "text": "I realized I forgot to import the green",
+      "start": 416.34,
+      "duration": 4.139
+    },
+    {
+      "text": "socket animation platform so let's just",
+      "start": 418.68,
+      "duration": 3.66
+    },
+    {
+      "text": "ask chat GPT for the script tag to",
+      "start": 420.479,
+      "duration": 4.141
+    },
+    {
+      "text": "import it",
+      "start": 422.34,
+      "duration": 4.5
+    },
+    {
+      "text": "so here we have a carousel at the top",
+      "start": 424.62,
+      "duration": 5.28
+    },
+    {
+      "text": "navigating automatically",
+      "start": 426.84,
+      "duration": 4.919
+    },
+    {
+      "text": "but we want it to be interactive so",
+      "start": 429.9,
+      "duration": 4.079
+    },
+    {
+      "text": "let's check GPT how we would allow the",
+      "start": 431.759,
+      "duration": 4.261
+    },
+    {
+      "text": "user to swipe between the different",
+      "start": 433.979,
+      "duration": 4.201
+    },
+    {
+      "text": "Carousel items",
+      "start": 436.02,
+      "duration": 3.78
+    },
+    {
+      "text": "here it didn't actually get what I",
+      "start": 438.18,
+      "duration": 3.78
+    },
+    {
+      "text": "wanted it was using the swipe direction",
+      "start": 439.8,
+      "duration": 4.32
+    },
+    {
+      "text": "to determine whether to play the",
+      "start": 441.96,
+      "duration": 4.679
+    },
+    {
+      "text": "animation forward or backwards",
+      "start": 444.12,
+      "duration": 5.519
+    },
+    {
+      "text": "but I wanted to clarify that I want to",
+      "start": 446.639,
+      "duration": 6.481
+    },
+    {
+      "text": "swipe one Carousel item at a time",
+      "start": 449.639,
+      "duration": 4.981
+    },
+    {
+      "text": "these results were much more aligned",
+      "start": 453.12,
+      "duration": 3.78
+    },
+    {
+      "text": "with what I was hoping for the only",
+      "start": 454.62,
+      "duration": 4.26
+    },
+    {
+      "text": "difference was that they used touch",
+      "start": 456.9,
+      "duration": 3.84
+    },
+    {
+      "text": "events and I wanted to use pointer",
+      "start": 458.88,
+      "duration": 4.02
+    },
+    {
+      "text": "events that worked on both desktop and",
+      "start": 460.74,
+      "duration": 4.34
+    },
+    {
+      "text": "mobile",
+      "start": 462.9,
+      "duration": 2.18
+    },
+    {
+      "text": "so then we can just take this code and",
+      "start": 466.5,
+      "duration": 3.479
+    },
+    {
+      "text": "copy and paste it into our JavaScript",
+      "start": 468.479,
+      "duration": 3.861
+    },
+    {
+      "text": "file",
+      "start": 469.979,
+      "duration": 2.361
+    },
+    {
+      "text": "now you'll see when I swipe left or",
+      "start": 473.099,
+      "duration": 4.261
+    },
+    {
+      "text": "right it'll navigate between the two",
+      "start": 475.319,
+      "duration": 4.461
+    },
+    {
+      "text": "items",
+      "start": 477.36,
+      "duration": 2.42
+    },
+    {
+      "text": "next we go into the HTML and replace the",
+      "start": 480.18,
+      "duration": 6.359
+    },
+    {
+      "text": "carousel items with the hero images",
+      "start": 483.18,
+      "duration": 5.579
+    },
+    {
+      "text": "I also tweaked some CSS so you can't",
+      "start": 486.539,
+      "duration": 5.16
+    },
+    {
+      "text": "select the image and adjusted the layout",
+      "start": 488.759,
+      "duration": 5.66
+    },
+    {
+      "text": "a little bit too",
+      "start": 491.699,
+      "duration": 2.72
+    },
+    {
+      "text": "next what I want to do is add a class to",
+      "start": 495.599,
+      "duration": 3.361
+    },
+    {
+      "text": "our body tag",
+      "start": 497.46,
+      "duration": 5.1
+    },
+    {
+      "text": "based on the page that we're on based on",
+      "start": 498.96,
+      "duration": 5.7
+    },
+    {
+      "text": "the carousel item that's currently in",
+      "start": 502.56,
+      "duration": 3.419
+    },
+    {
+      "text": "view",
+      "start": 504.66,
+      "duration": 3.42
+    },
+    {
+      "text": "this will allow us to update all the",
+      "start": 505.979,
+      "duration": 4.141
+    },
+    {
+      "text": "Styles within the page based on that",
+      "start": 508.08,
+      "duration": 3.6
+    },
+    {
+      "text": "specific class",
+      "start": 510.12,
+      "duration": 3.299
+    },
+    {
+      "text": "let me just paste that inside our",
+      "start": 511.68,
+      "duration": 3.599
+    },
+    {
+      "text": "JavaScript I did make a couple changes",
+      "start": 513.419,
+      "duration": 4.321
+    },
+    {
+      "text": "here so that it works with the current",
+      "start": 515.279,
+      "duration": 5.521
+    },
+    {
+      "text": "page variable that we already had in our",
+      "start": 517.74,
+      "duration": 4.14
+    },
+    {
+      "text": "code",
+      "start": 520.8,
+      "duration": 2.76
+    },
+    {
+      "text": "then we just need to make sure we call",
+      "start": 521.88,
+      "duration": 4.44
+    },
+    {
+      "text": "it every time the page changes and also",
+      "start": 523.56,
+      "duration": 5.36
+    },
+    {
+      "text": "initially",
+      "start": 526.32,
+      "duration": 2.6
+    },
+    {
+      "text": "so here you can see it working the class",
+      "start": 529.2,
+      "duration": 5.72
+    },
+    {
+      "text": "is changing every time we switch fuse",
+      "start": 531.18,
+      "duration": 3.74
+    },
+    {
+      "text": "so the next thing we're going to do is",
+      "start": 536.519,
+      "duration": 5.76
+    },
+    {
+      "text": "go into figma and copy the CSS gradient",
+      "start": 538.32,
+      "duration": 6.3
+    },
+    {
+      "text": "for the backgrounds and paste that into",
+      "start": 542.279,
+      "duration": 4.74
+    },
+    {
+      "text": "the classes for each of the separate",
+      "start": 544.62,
+      "duration": 3.54
+    },
+    {
+      "text": "pages",
+      "start": 547.019,
+      "duration": 3.601
+    },
+    {
+      "text": "this way it'll change when we transition",
+      "start": 548.16,
+      "duration": 4.92
+    },
+    {
+      "text": "between the carousel",
+      "start": 550.62,
+      "duration": 3.96
+    },
+    {
+      "text": "then we just repeat this for the other",
+      "start": 553.08,
+      "duration": 3.74
+    },
+    {
+      "text": "View",
+      "start": 554.58,
+      "duration": 2.24
+    },
+    {
+      "text": "[Music]",
+      "start": 557.81,
+      "duration": 4.45
+    },
+    {
+      "text": "so next we'll just go through and add",
+      "start": 560.459,
+      "duration": 3.901
+    },
+    {
+      "text": "these Circle items",
+      "start": 562.26,
+      "duration": 4.86
+    },
+    {
+      "text": "by copying pasting the CSS for those",
+      "start": 564.36,
+      "duration": 6.9
+    },
+    {
+      "text": "using flexbox to space them evenly",
+      "start": 567.12,
+      "duration": 5.64
+    },
+    {
+      "text": "then we just copy and paste each",
+      "start": 571.26,
+      "duration": 4.4
+    },
+    {
+      "text": "gradient from figma",
+      "start": 572.76,
+      "duration": 2.9
+    },
+    {
+      "text": "[Music]",
+      "start": 581.6,
+      "duration": 4.5
+    },
+    {
+      "text": "foreign",
+      "start": 583.92,
+      "duration": 2.18
+    },
+    {
+      "text": "the rest of it's really just going",
+      "start": 592.44,
+      "duration": 3.78
+    },
+    {
+      "text": "through creating all the markup and",
+      "start": 594.18,
+      "duration": 4.68
+    },
+    {
+      "text": "adjusting the CSS layout and then",
+      "start": 596.22,
+      "duration": 4.86
+    },
+    {
+      "text": "copying pasting variables from figma and",
+      "start": 598.86,
+      "duration": 5.78
+    },
+    {
+      "text": "bringing them back into the CSS",
+      "start": 601.08,
+      "duration": 3.56
+    },
+    {
+      "text": "foreign",
+      "start": 622.62,
+      "duration": 2.18
+    },
+    {
+      "text": "then after that you should have",
+      "start": 629.339,
+      "duration": 3.541
+    },
+    {
+      "text": "something that looks like this",
+      "start": 630.959,
+      "duration": 3.841
+    },
+    {
+      "text": "I know I glossed over a lot but I just",
+      "start": 632.88,
+      "duration": 3.06
+    },
+    {
+      "text": "wanted to give you an idea of the",
+      "start": 634.8,
+      "duration": 3.42
+    },
+    {
+      "text": "process here and the source is all up on",
+      "start": 635.94,
+      "duration": 3.839
+    },
+    {
+      "text": "GitHub so you can find the link in the",
+      "start": 638.22,
+      "duration": 3.86
+    },
+    {
+      "text": "description",
+      "start": 639.779,
+      "duration": 2.301
+    }
+  ]
+}

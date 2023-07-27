@@ -1,0 +1,157 @@
+{
+  "id": "YegE3su3Fc0",
+  "url": "https://youtu.be/YegE3su3Fc0",
+  "title": "Props in React.js (Learn React pt 7)",
+  "description": null,
+  "publish_date": "2023-06-20T00:00:00",
+  "length": 59,
+  "views": 40,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "learn react part seven let's talk about",
+      "start": 0.179,
+      "duration": 3.961
+    },
+    {
+      "text": "components and props so we previously",
+      "start": 1.979,
+      "duration": 4.081
+    },
+    {
+      "text": "talked about how jsx is a template",
+      "start": 4.14,
+      "duration": 3.959
+    },
+    {
+      "text": "syntax that produces HTML but it's",
+      "start": 6.06,
+      "duration": 4.38
+    },
+    {
+      "text": "written in JavaScript so at the top is a",
+      "start": 8.099,
+      "duration": 4.62
+    },
+    {
+      "text": "jsx element and it will produce an HTML",
+      "start": 10.44,
+      "duration": 4.02
+    },
+    {
+      "text": "element that's just a div react",
+      "start": 12.719,
+      "duration": 4.081
+    },
+    {
+      "text": "components are also represented as jsx",
+      "start": 14.46,
+      "duration": 4.14
+    },
+    {
+      "text": "you see const element equals welcome",
+      "start": 16.8,
+      "duration": 4.5
+    },
+    {
+      "text": "welcome is not defined in the HTML spec",
+      "start": 18.6,
+      "duration": 5.88
+    },
+    {
+      "text": "that is a custom user component in HTML",
+      "start": 21.3,
+      "duration": 5.16
+    },
+    {
+      "text": "you have attributes so name Sarah would",
+      "start": 24.48,
+      "duration": 4.139
+    },
+    {
+      "text": "be the name attribute and react these",
+      "start": 26.46,
+      "duration": 4.139
+    },
+    {
+      "text": "are props props is short for properties",
+      "start": 28.619,
+      "duration": 5.161
+    },
+    {
+      "text": "and they are written as attributes so",
+      "start": 30.599,
+      "duration": 4.681
+    },
+    {
+      "text": "how do we actually Define welcome you",
+      "start": 33.78,
+      "duration": 2.88
+    },
+    {
+      "text": "can Define it as a class I don't",
+      "start": 35.28,
+      "duration": 2.88
+    },
+    {
+      "text": "recommend that I recommend functional",
+      "start": 36.66,
+      "duration": 3.059
+    },
+    {
+      "text": "definition and what does functional",
+      "start": 38.16,
+      "duration": 3.12
+    },
+    {
+      "text": "definition mean at the bottom you can",
+      "start": 39.719,
+      "duration": 3.781
+    },
+    {
+      "text": "see it's literally a JavaScript function",
+      "start": 41.28,
+      "duration": 4.32
+    },
+    {
+      "text": "props are passed to this function just",
+      "start": 43.5,
+      "duration": 4.02
+    },
+    {
+      "text": "like arguments are passed to an ordinary",
+      "start": 45.6,
+      "duration": 4.32
+    },
+    {
+      "text": "JavaScript function so welcome with name",
+      "start": 47.52,
+      "duration": 5.34
+    },
+    {
+      "text": "of Sarah that would be an H1 hello Sarah",
+      "start": 49.92,
+      "duration": 5.159
+    },
+    {
+      "text": "in a more complicated component I could",
+      "start": 52.86,
+      "duration": 3.839
+    },
+    {
+      "text": "have special functions in style and they",
+      "start": 55.079,
+      "duration": 3.361
+    },
+    {
+      "text": "would be isolated to welcome instead of",
+      "start": 56.699,
+      "duration": 4.101
+    },
+    {
+      "text": "global",
+      "start": 58.44,
+      "duration": 2.36
+    }
+  ]
+}

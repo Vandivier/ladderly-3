@@ -1,0 +1,157 @@
+{
+  "id": "8iQsYjVaP2E",
+  "url": "https://youtu.be/8iQsYjVaP2E",
+  "title": "Learn JSX (Learn React pt 6)",
+  "description": null,
+  "publish_date": "2023-06-20T00:00:00",
+  "length": 59,
+  "views": 25,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "learn react part six let's talk about",
+      "start": 0.16,
+      "duration": 5.699
+    },
+    {
+      "text": "jsx jsx is a templating syntax templates",
+      "start": 2.02,
+      "duration": 5.879
+    },
+    {
+      "text": "are a cross framework concept so angular",
+      "start": 5.859,
+      "duration": 3.481
+    },
+    {
+      "text": "and view have templates even other",
+      "start": 7.899,
+      "duration": 3.721
+    },
+    {
+      "text": "programming languages like python has",
+      "start": 9.34,
+      "duration": 4.679
+    },
+    {
+      "text": "Django and floss templates jsx is a",
+      "start": 11.62,
+      "duration": 3.84
+    },
+    {
+      "text": "special templating syntax because you",
+      "start": 14.019,
+      "duration": 3.121
+    },
+    {
+      "text": "can do anything you can do with ordinary",
+      "start": 15.46,
+      "duration": 3.72
+    },
+    {
+      "text": "JavaScript with jsx here you can see",
+      "start": 17.14,
+      "duration": 4.08
+    },
+    {
+      "text": "element is a jsx element but it looks",
+      "start": 19.18,
+      "duration": 4.019
+    },
+    {
+      "text": "just like we're sort of returning HTML",
+      "start": 21.22,
+      "duration": 3.84
+    },
+    {
+      "text": "but notice that we have a name variable",
+      "start": 23.199,
+      "duration": 4.08
+    },
+    {
+      "text": "there so jsx is going to compile two",
+      "start": 25.06,
+      "duration": 4.379
+    },
+    {
+      "text": "HTML and the syntax itself looks a lot",
+      "start": 27.279,
+      "duration": 4.561
+    },
+    {
+      "text": "like HTML learning HTML is highly",
+      "start": 29.439,
+      "duration": 4.14
+    },
+    {
+      "text": "transferable to jsx that's one of the",
+      "start": 31.84,
+      "duration": 3.6
+    },
+    {
+      "text": "things that makes it attractive and you",
+      "start": 33.579,
+      "duration": 3.781
+    },
+    {
+      "text": "can see that element is directly passed",
+      "start": 35.44,
+      "duration": 3.959
+    },
+    {
+      "text": "into the react Dom renderer so react",
+      "start": 37.36,
+      "duration": 5.699
+    },
+    {
+      "text": "literally renders jsx into HTML so jsx",
+      "start": 39.399,
+      "duration": 5.48
+    },
+    {
+      "text": "is technically a syntactic sugar for",
+      "start": 43.059,
+      "duration": 3.621
+    },
+    {
+      "text": "react.createelement and",
+      "start": 44.879,
+      "duration": 3.581
+    },
+    {
+      "text": "react.createelement is the react",
+      "start": 46.68,
+      "duration": 4.32
+    },
+    {
+      "text": "framework specific counterpart to",
+      "start": 48.46,
+      "duration": 4.74
+    },
+    {
+      "text": "document.createelement so really jsx is",
+      "start": 51.0,
+      "duration": 3.52
+    },
+    {
+      "text": "just a convenient way to use the",
+      "start": 53.2,
+      "duration": 3.42
+    },
+    {
+      "text": "ordinary JavaScript document API",
+      "start": 54.52,
+      "duration": 4.019
+    },
+    {
+      "text": "elements a component fall to hear more",
+      "start": 56.62,
+      "duration": 4.459
+    },
+    {
+      "text": "about components",
+      "start": 58.539,
+      "duration": 2.54
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "id": "BFTSpQrOYQo",
+  "url": "https://youtu.be/BFTSpQrOYQo",
+  "title": "You should use CODE COMMENTS when...?",
+  "description": null,
+  "publish_date": "2023-05-23T00:00:00",
+  "length": 15,
+  "views": 32,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "let's talk about code comments you",
+      "start": 0.21,
+      "duration": 3.0
+    },
+    {
+      "text": "should comment when your code fails to",
+      "start": 1.829,
+      "duration": 3.18
+    },
+    {
+      "text": "document itself in this case a null",
+      "start": 3.21,
+      "duration": 3.48
+    },
+    {
+      "text": "response is truthy which is",
+      "start": 5.009,
+      "duration": 3.661
+    },
+    {
+      "text": "counter-intuitive and check name isn't",
+      "start": 6.69,
+      "duration": 4.079
+    },
+    {
+      "text": "obviously a Boolean anyway here we see",
+      "start": 8.67,
+      "duration": 3.839
+    },
+    {
+      "text": "the business rule clearly defined in a",
+      "start": 10.769,
+      "duration": 3.481
+    },
+    {
+      "text": "comment catches clear and bullying",
+      "start": 12.509,
+      "duration": 4.46
+    },
+    {
+      "text": "follows convention",
+      "start": 14.25,
+      "duration": 2.719
+    }
+  ]
+}

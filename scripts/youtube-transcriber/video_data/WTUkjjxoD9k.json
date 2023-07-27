@@ -1,0 +1,42 @@
+{
+  "id": "WTUkjjxoD9k",
+  "url": "https://youtu.be/WTUkjjxoD9k",
+  "title": "You\u2019re gonna get paid a lot to fix Jenkins jobs #softwareengineer",
+  "description": null,
+  "publish_date": "2023-05-15T00:00:00",
+  "length": 12,
+  "views": 354,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "day of life and the software engineer as",
+      "start": 0.27,
+      "duration": 4.68
+    },
+    {
+      "text": "a software engineer so I restarted my",
+      "start": 2.79,
+      "duration": 4.739
+    },
+    {
+      "text": "Jenkins job and it failed so I fixed it",
+      "start": 4.95,
+      "duration": 4.319
+    },
+    {
+      "text": "and I restarted it again and it failed",
+      "start": 7.529,
+      "duration": 3.301
+    },
+    {
+      "text": "for a different reason and I just did",
+      "start": 9.269,
+      "duration": 4.04
+    },
+    {
+      "text": "that all day",
+      "start": 10.83,
+      "duration": 2.479
+    }
+  ]
+}

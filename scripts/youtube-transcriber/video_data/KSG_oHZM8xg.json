@@ -1,0 +1,157 @@
+{
+  "id": "KSG_oHZM8xg",
+  "url": "https://youtu.be/KSG_oHZM8xg",
+  "title": "Learn HTML pt 1/5",
+  "description": null,
+  "publish_date": "2023-06-18T00:00:00",
+  "length": 59,
+  "views": 2,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "HTML part 105 you can learn the basics",
+      "start": 0.39,
+      "duration": 4.199
+    },
+    {
+      "text": "in half an hour at the top doctype",
+      "start": 2.73,
+      "duration": 3.299
+    },
+    {
+      "text": "simply tells your browser or other",
+      "start": 4.589,
+      "duration": 4.26
+    },
+    {
+      "text": "program that this file is an HTML file",
+      "start": 6.029,
+      "duration": 4.561
+    },
+    {
+      "text": "to the right of HTML is a character",
+      "start": 8.849,
+      "duration": 3.54
+    },
+    {
+      "text": "called a Chevron or an angle bracket",
+      "start": 10.59,
+      "duration": 4.08
+    },
+    {
+      "text": "there are left and right Chevrons left",
+      "start": 12.389,
+      "duration": 3.781
+    },
+    {
+      "text": "and right angle brackets when you have",
+      "start": 14.67,
+      "duration": 3.66
+    },
+    {
+      "text": "them together that's called a tag so at",
+      "start": 16.17,
+      "duration": 4.92
+    },
+    {
+      "text": "the top that is a DOT type tag some tags",
+      "start": 18.33,
+      "duration": 4.8
+    },
+    {
+      "text": "are self-closing some tags open and",
+      "start": 21.09,
+      "duration": 4.08
+    },
+    {
+      "text": "close and contain information like the",
+      "start": 23.13,
+      "duration": 4.979
+    },
+    {
+      "text": "H1 contains my first heading that's the",
+      "start": 25.17,
+      "duration": 4.26
+    },
+    {
+      "text": "heading it contains it and then it",
+      "start": 28.109,
+      "duration": 3.301
+    },
+    {
+      "text": "closes it you know it's closed tag",
+      "start": 29.43,
+      "duration": 3.719
+    },
+    {
+      "text": "because it has a slash there you might",
+      "start": 31.41,
+      "duration": 3.6
+    },
+    {
+      "text": "think hey it's an HTML file why do I",
+      "start": 33.149,
+      "duration": 4.201
+    },
+    {
+      "text": "have an HTML tag well in an HTML file",
+      "start": 35.01,
+      "duration": 4.139
+    },
+    {
+      "text": "you can put Javascript CSS and other",
+      "start": 37.35,
+      "duration": 4.08
+    },
+    {
+      "text": "stuff inside of it so that HTML",
+      "start": 39.149,
+      "duration": 4.68
+    },
+    {
+      "text": "indicates that this is actually HTML in",
+      "start": 41.43,
+      "duration": 4.559
+    },
+    {
+      "text": "your HTML as opposed to JavaScript in",
+      "start": 43.829,
+      "duration": 4.8
+    },
+    {
+      "text": "your HTML file last key part here body",
+      "start": 45.989,
+      "duration": 4.14
+    },
+    {
+      "text": "and head are the two main sections of",
+      "start": 48.629,
+      "duration": 3.781
+    },
+    {
+      "text": "any HTML document body is what shows on",
+      "start": 50.129,
+      "duration": 4.081
+    },
+    {
+      "text": "screen to the user head which is not",
+      "start": 52.41,
+      "duration": 3.96
+    },
+    {
+      "text": "here would contain metadata like the",
+      "start": 54.21,
+      "duration": 3.9
+    },
+    {
+      "text": "page title that would be used for like",
+      "start": 56.37,
+      "duration": 4.7
+    },
+    {
+      "text": "Google searches and stuff",
+      "start": 58.11,
+      "duration": 2.96
+    }
+  ]
+}
