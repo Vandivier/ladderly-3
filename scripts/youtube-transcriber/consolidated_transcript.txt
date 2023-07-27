@@ -13,7 +13,7 @@ give me three levels deep in the menu in
 a much more efficient manner
 
 URL: https://youtu.be/-ffV0YJ8Wi4
-Title: Let’s ship some features #livecoding #learntocode #programming #opensource #tech #softwareengineer #
+Title: Let's ship some features #livecoding #learntocode #programming #opensource #tech #softwareengineer #
 Description: None
 Transcript:
 I'll be live coding on these high
@@ -50,7 +50,7 @@ scientifically prefer react to spell for
 example
 
 URL: https://youtu.be/0xpKTyaJHUc
-Title: Remix isn’t cool
+Title: Remix isn't cool
 Description: None
 Transcript:
 react remix is a react framework that's
@@ -178,8 +178,46 @@ Title: FINE ILL RESTART THE COMP #coding #lol
 Description: None
 Transcript:
 but I am telling you right now that
-[ __ ] that [ __ ] back
+[Â __Â ] that [Â __Â ] back
 there is not real
+
+URL: https://youtu.be/2TsRXGdtHKU
+Title: Economics to Programming Transition
+Description: None
+Transcript:
+thanks for the question there's a few
+ways to answer this question one way is
+just you do the normal way forget that
+you're an economist and you learn to
+code like everybody else
+in that case I learned I recommend you
+learn HTML CSS JavaScript and react then
+maybe typescript if you go that way
+you'll probably be able to start coding
+as your job in like six months building
+websites I'm not sure are you American
+citizen because that is going to impact
+how much you can get paid and things
+like that in US you would probably make
+like at least 60 Grand doing that now if
+you are an economist then there are some
+more interesting things you could do the
+question is how much experience do you
+have and do you have a background in
+statistics so if you're an economist
+with couple years of experience I'm
+expecting you can do statistics with at
+least Excel if not stata or SPSS and
+hopefully you have some data
+visualization skills maybe you know
+Tableau for example in this case
+learning python would be a smart idea
+for you you can probably even use python
+in your current role for statistics then
+you can also get a data engineering role
+if you want to make a slow and steady
+transition you could get a job as a
+business analyst
 
 URL: https://youtu.be/4HoZ9iKpZNc
 Title: Claude: The Friendliest AI Robot #artificialintelligence #safety #notsus #lol
@@ -286,3 +324,1575 @@ pay higher than the other jobs do too
 ladies please consider learning to code
 follow the page share the video Let's
 solve the page right now
+
+URL: https://youtu.be/7utL07lleLM
+Title: Go Apply Already!
+Description: None
+Transcript:
+this person says I got my first job in
+Tech knowing only Java basic git and
+some database management you'll learn
+most of the stuff you need while working
+so apply so I agree if you're new to
+coding right let's avoid that problem of
+analysis paralysis and blocking yourself
+also how do you say this person's name
+and username
+
+URL: https://youtu.be/8RpF-7lbRF0
+Title: good things arent required and we should still do them #deep #mindset #whoa #philosophy #lol #jumpsc
+Description: None
+Transcript:
+so hear me out focusing on what's needed
+or required or necessary leads to
+limiting beliefs you should focus on
+good ideas over necessary ideas you
+don't need to learn to program you don't
+need a high quality of life you don't
+need a remote job but like you should do
+it it's like a great idea you might not
+need a jump scare
+
+URL: https://youtu.be/9C3O-Bcvw-Y
+Title: Competitive programming correlates negatively w job perf
+Description: None
+Transcript:
+being good at coding competitions
+correlates negatively with job
+performance I think this works as
+evidence for two conclusions one is that
+soft skills are really important not
+just to the interview but to your
+long-term success second algorithm
+interviews May select for some toxic
+incentives what do you take away from
+this
+
+URL: https://youtu.be/AD-uvb7UPyU
+Title: WHAT CODE PROJECTS???
+Description: None
+Transcript:
+problem with posts like these is that
+they beg the question okay there's 30
+ideas but I still want to know which one
+I should do and no junior is going to do
+30 projects for web do a Blog and a
+portfolio site then come up with an idea
+that's unique to you that being said
+codecademy is really great that's where
+I taught myself to code years ago
+enjoying their Facebook group here
+
+URL: https://youtu.be/aeuKSpQ2tsc
+Title: Punish Students for Copying Code?
+Description: None
+Transcript:
+so lovely's coding asks if you're a
+teacher Professor teaching programming
+would you punish students for copying
+code so I do teach people to code leave
+a comment if you're interested in
+learning to code but if you don't know
+what to do and if you don't go to Google
+within 10 seconds I'm offended being
+able to quickly identify and use quality
+reference code is a key skill
+
+URL: https://youtu.be/AQSv6zLUCR4
+Title: How Much Data Bias is Acceptable?
+Description: None
+Transcript:
+Jordan wonderful question what amount of
+data bias do you think is acceptable so
+for the general audience let me take a
+step back and Define what we even mean
+by bias bias here we're using a
+technical sense in terms of statistical
+bias in ordinary English a bias might
+refer to a tendency John you're always
+doing economic analysis are you biased
+towards economics and statistics that
+would be called a correlation or a
+tendency that in and of itself is not a
+bias a bias would be if your correlation
+was higher than it should be or lower
+than it should be if your measurement of
+correlation was incorrect or erroneous
+it would be biased but the correlation
+by itself totally fine in the technical
+sense here's another way that bias would
+basically not be acceptable and it's
+also not the technical definition of ice
+hey John we know that you have this
+conclusion that you already have in your
+mind and you're trying to sneak it in
+and you're just trying to put a veneer
+of Statistics over the top so in
+economics we would call that a moral
+hazard and that's distinct from a
+technical bias although in the normal
+English we kind of say hey you're biased
+and we're actually referring to that
+moral hazard so here are two examples of
+technical bias one would be omitted
+variable bias say I'm doing a regression
+between gender in the tech industry and
+I just do a simple regression one-on-one
+univariate regression but there's
+actually a bunch of other things that
+matter like for example personality or
+risk aversion
+um so if I leave those variables out if
+I omit them then the statistical
+coefficient of gender will be biased
+because it will be including some of
+those other effects that shouldn't be
+attributed to it another important
+technical bias is repeated measurement
+bias where if I run a survey on Monday
+Tuesday and Wednesday and I get 50
+responses each day and then I do a
+regression on them and I don't account
+for the fact that Jim responded on all
+three days and he actually got more
+votes as it were
+um then there's a bias where I'm
+actually over representing Jim's opinion
+and I'm not really getting the opinion
+of the general population so that would
+be a biased result so those are formal
+statistical biases there are also
+informal or domain-specific biases and
+economics this would include anti-market
+bias anti-innovation bias anti-foreign
+bias self-similarity bias
+so these are biases that are results of
+theories in your field and those biases
+are not statistical biases in the sense
+that your model is technically wrong
+what they mean is that there's a
+disproportionate impact between the
+expected result and The observed result
+so if I give somebody ten dollars and I
+observe how they spend it I'm gonna
+there's gonna be a systematic difference
+compared to if I just ask them by survey
+by questionnaire hey how would you spend
+ten dollars in economics we've observed
+that there's a theoretical bias there
+and specifically people respond by
+questionnaire that they're much more
+willing to spend money
+um than they in fact are When You
+observe them with their cash in their
+wallet so with all that background
+there's situations in which an optimal
+decision uses 100 biased data follow for
+part two I'll give you a specific
+example much more to talk about
+
+URL: https://youtu.be/ARXQKoeGePo
+Title: SWE Salary Calculator
+Description: None
+Transcript:
+attention software Engineers hired.com
+just released a new salary calculator
+just Google hired salary calculator
+you'll find it the bad news is it
+includes inflated salaries the good news
+is those salaries are accurate for the
+hired platform basically getting a job
+through hired can be hard but they pay
+well
+
+URL: https://youtu.be/AxAgDkGth3c
+Title: #reactjs #typescript #javascript #webdev #fullstack #devcrew #learntocode
+Description: None
+Transcript:
+Builder Tom thanks for the question so
+react is just a rendering Library Blitz
+is a opinionated full stack framework so
+Bliss is going to do things like routing
+for you out of the box in an opinionated
+way Blitz is a framework on top of
+next.js one of the unique opinions about
+Blitz is that it uses react query as
+opposed to Redux for State Management
+and uh like caching and HTTP requests
+and stuff like that Blitz also includes
+Prisma and typescript out of the box so
+here's the website check it out at the
+top we can see flight control that's
+another thing to mention Blitz has its
+own infrastructure that is purpose built
+to host Blitz that's a work in progress
+but it's called flight control it's
+going to be sort of like versel or
+Railway but specifically for Blitz and
+at the bottom we can see import Zod so
+that's another thing to mention so uh
+Blitz is also opinionated about your
+react form Library so that's another
+thing that you don't have to pick it
+comes picked for you recommend you
+follow Brandon AKA flybear on Twitter
+big fan of the guy
+
+URL: https://youtu.be/BcyBsuhWmgE
+Title: Learn to code with me on YouTube! #remotework #tech #educator
+Description: None
+Transcript:
+but the fire in your eyes
+[Music]
+
+URL: https://youtu.be/BLAy6TY139g
+Title: Check out these 5 other teaching influencers! #tech #coding #community
+Description: None
+Transcript:
+make sure you're getting your
+information from multiple sources my
+name is John I teach people to code with
+a free and open source curriculum called
+laterally in this video name dropping
+five other teaching influencers I look
+up to Brian Talbert on LinkedIn robots
+building education on Insta three others
+on screen follow for more
+
+URL: https://youtu.be/BtlvdUlqSL4
+Title: 2023 Mid-Year Pay Report
+Description: None
+Transcript:
+levels.fyi just released the 2023
+mid-year pay report link pinned in the
+comments the tldr here is that salaries
+are going back up the job market is
+starting to look better for programmers
+
+URL: https://youtu.be/bzYHQ0IM2yY
+Title: Keep it Simple: Learn React
+Description: None
+Transcript:
+where's the cheese in some of the sauce
+but there's no cheese on it it's under
+the sauce
+like I'm Italian and this is hurting me
+it's from Chicago but
+it's just Sauce Cheese is under the
+sauce
+
+URL: https://youtu.be/c4EU7_5AYB8
+Title: #workhard #persistence #careeradvice #careertiktok #grit #devcrew #learntocode
+Description: None
+Transcript:
+Jordan says don't expect to get a great
+job without great effort if it sounds
+easy then it's probably too good to be
+true this is why get rich quick scams
+are so successful
+
+URL: https://youtu.be/Cba9zYb2naQ
+Title: 3 Portfolio Projects that Matter (as a coder)
+Description: None
+Transcript:
+check out this 10 minute video from
+James Quick really great advice on how
+to build portfolio projects that matter
+a really great way to find projects that
+matter is build something you could use
+yourself if you're hunting for your
+first job here are three ideas that
+would apply to you a Blog a flashcard
+app and a portfolio app that points to
+those two
+
+URL: https://youtu.be/cs-8bUT_oPw
+Title: Do you need to know Promise vs Callback?
+Description: None
+Transcript:
+this Twitter user asks should an
+interviewee know the difference between
+a callback and a promise and understand
+how to permissify a callback I think yes
+the interviewee needs to know the
+difference they may not understand the
+word promisify but they should be able
+to work with you through that problem
+
+URL: https://youtu.be/cZ2ssaipqnw
+Title: Post-interview follow up guidance
+Description: None
+Transcript:
+HR says I'll get back to you the
+candidate says when just ghosts two tips
+for you getting feedback from HR after
+your interview first hold them
+accountable make sure during the
+interview they tell you or you ask when
+am I going to hear back from you then
+follow up on their timeline you're not
+pestering them you're in the driver's
+seat now you're holding them accountable
+for what they told you they would do
+second rule is three weeks three days if
+your interview was on a Friday don't
+follow up on a Monday give them at least
+three business days and in addition to a
+three business day space between emails
+one email a week is a good Pace don't do
+more than that unless you have a special
+reason like they told you to
+specifically with that pace of
+communication in mind if I haven't heard
+from you on the third week I'm moving on
+my job search should not be all about
+One employer specifically if my
+interview is on a Tuesday and I haven't
+heard from you by the next or the next
+Tuesday sure I'll fire out one more
+email but I'm moving on so I teach
+people to code and land their first
+programming job if you're interested
+follow my page this advice is somewhat
+tailored to such a candidate who's doing
+a large volume of applications needs to
+be judicious with their time
+
+URL: https://youtu.be/d7kFybN61Lk
+Title: (as a coder) removing interview stress
+Description: None
+Transcript:
+in today's market the companies need you
+more than you need them great point from
+Fong let me build on that with three
+more strategies that will help you
+relieve stress combat anxiety coming up
+to and through an interview overall
+strategy here is to make the interview
+be a good thing now that it's a good
+thing you want it to happen you're
+excited instead of this risky thing that
+you currently perceive it is that's
+triggering your anxiety number one a
+bunch of people are worried about in
+this interview I'm going to meet people
+I've never met before how is my first
+impression going to be isn't that risky
+actually it's a great social networking
+opportunity however the interview goes
+always finish up with something like
+this I've had a great time here it was a
+pleasure to meet you regardless of how
+this turns out I'd love to connect with
+you on LinkedIn do each and every
+interview is an opportunity to practice
+this unique skill of interviewing so
+whether or not they extend an offer you
+gained value just by going through the
+motions if you screwed up a question you
+got a great diagnostic on exactly what
+to practice three job searches and
+numbers games so whether this company
+makes an offer or not don't stress about
+that you do enough of these from a
+probability standpoint you're gonna get
+a job
+
+URL: https://youtu.be/dGBT19YOumI
+Title: 4 Ways to Collect Data
+Description: None
+Transcript:
+Bart barklington asks where do we find
+raw data how do we know how it was
+collected and how do we know if that
+data is biased great questions follow
+for a commentary on bias here I'll focus
+on data collection I would suggest four
+ways first is original data curation or
+collection you can use just a picture
+turn that into pixels that's data record
+audio that's data anything sensory that
+you can record questionnaires
+um I like to use SurveyMonkey and
+Mechanical Turk for participant
+recruitment so if you collect your own
+data you should document that and you
+know how it was collected second way is
+through public data set search so
+searching anything online Google is your
+friend there is a specific Google data
+set search as well it's really Nifty
+ideally the data set comes with
+documentation about how it was collected
+or there may be an Associated research
+paper with a methodology data
+description or similar section if you
+can't find any of that maybe don't use
+the data option three is contact the
+researcher who wrote the paper or the
+journal where it was published and ask
+for a copy of the data option four you
+can often purchase data I like statista
+for example
+
+URL: https://youtu.be/dnl2ha2ER1I
+Title: Guild Education and Other College Affordability Hacks
+Description: None
+Transcript:
+do we really need you to pay sixty
+thousand dollars this year sorry it's
+the lowest that we can go but what if I
+can play the tuba yo that's sick yeah we
+can give you like 60 off
+
+URL: https://youtu.be/DTgJ9U0dHm0
+Title: Idiots driving
+Description: None
+Transcript:
+chadstone says how hard is it
+for you idiots to not run into each
+other in the interstate just go straight
+Jesus this is not that complicated to
+which I reply it's really complicated
+
+URL: https://youtu.be/dX8zlMJSV7I
+Title: Learn Python from AlgoExpert?
+Description: None
+Transcript:
+Clement is the founder of algo expert
+and now he's teaching us how to become a
+self-talk programmer with a new python
+course the python course excludes data
+science so for me it's like chocolate
+chip cookies without the chocolate it is
+Affordable but I don't recommend it I'd
+stick with the codecademy front-end path
+
+URL: https://youtu.be/dZ8YGy2hfos
+Title: how we feel about jsx and tsx
+Description: None
+Transcript:
+are you a Nikki fan what am I a Nikki
+fan
+pull up in the Sri Lanka what
+[Applause]
+
+URL: https://youtu.be/e-zQaLg3POY
+Title: what is devops?
+Description: None
+Transcript:
+Timmy Turner thanks for the question
+check Wikipedia if you want like a
+normal answer my answer is that these
+are specialists in the build and deploy
+steps of the sdlc so maintaining a
+deployment pipeline is bread and butter
+for devops after you write code it needs
+to go through some hoops before an end
+user can use it that's what they take
+care of
+
+URL: https://youtu.be/E75zasfGhzw
+Title: Sign up for free and lmk your thoughts! #buildinpublic #programming #opensource #stem #coding #tech
+Description: None
+Transcript:
+open source stream update part 15 the
+streams are in a playlist on YouTube now
+we have the advanced checklist here's
+just two out of 10 of the items we have
+these beautiful clickable links as well
+in mailing a hiring manager 4.6 times
+more effective than emo alone you get
+these sort of tips in the advantage
+checklist on laterally
+
+URL: https://youtu.be/eiVsanWVC-Y
+Title: react or vuE??
+Description: None
+Transcript:
+so which framework would you recommend
+to someone who's trying to learn to code
+would you recommend react or angular or
+vui I mean vui sorry Bowie sorry Bowie I
+mean vui
+
+URL: https://youtu.be/EUMKWSR0MDI
+Title: Listing Contract work on LinkedIn
+Description: None
+Transcript:
+how do you list contract work to
+contract to hire work look at this Old
+Linkedin entry that I used to have how
+confusing is that I was contract to hire
+at saic then I went direct but that's
+not really communicated is it LinkedIn
+now lets you pick that you worked
+contract and it's much cleaner like the
+Amazon entry there
+
+URL: https://youtu.be/EwacSRgFRts
+Title: GPT-4 Killer? Claude is sturdy #llm #chatgpt #genai #machinelearning #ladderly
+Description: None
+Transcript:
+Claude is a new large language model who
+cares isn't gpt4 better the answer is no
+there are some tasks where Claude is
+better including academic paper and
+transcript summarization details in the
+video here Claude is not better at
+coding tested that in this video here
+follow for more
+
+URL: https://youtu.be/fAFPsj9sGis
+Title: #javascript #python #devcrew #webdev #php #programming #softwareengineer #datascience #opensource #j
+Description: None
+Transcript:
+daily reminder that react will provide
+you more job opportunities than python
+new day fresh search consistent data
+python is associated with a data science
+Niche unless you want to work in data
+science go for JavaScript but low-key
+either one of these would be more than
+twice as good as PHP
+
+URL: https://youtu.be/gEZ00UUWcbA
+Title: Efficient Bias
+Description: None
+Transcript:
+so how much database is acceptable part
+two this is the economic answer that's
+mathematically rigorous and that would
+be you should pay to improve your data
+quality until the marginal benefit is
+equal to the marginal cost when you
+reach that point where they're equal
+spending any more money is going to be a
+bad return on investment so you should
+use that money elsewhere so you
+shouldn't spend it further on data
+quality we don't have an infinite budget
+for data quality right and sometimes our
+budget is extremely limited sometimes
+our budget constrains us to a sample of
+one or even zero so a real example of
+this would be like a once in a lifetime
+investment opportunity invest now or
+you'll never get to invest again
+it'd be extremely risky but you still
+might go for it
+another example would be you're an
+employee and like you know you're kind
+of on the chopping block let's say
+um and it's like you have to make this
+high-stakes uh prediction you have to
+make it now you're in a boardroom
+meeting they're not going to let you go
+do more research you have to make a
+judgment call right now on the basis of
+the information you have
+but what if you have no direct samples
+of the question you're going to have to
+rely on kind of like intuitions or
+judgment calls or like related studies
+that you think might be related
+basically intuition which is arguably
+either a sample of one or a sample of
+zero so intuition does not have a value
+of zero but it's also full of biases
+right so the more objective data we can
+get the better and there is kind of an
+upper limit which is once you have
+measured the entire population like
+there's not much more
+um bias reduction you can do although
+you can still possibly improve your
+measurement approach so measurement bias
+is a thing so even if you've measured
+the entire population of samples
+if you measured it wrong you have a
+measurement bias so there are still
+opportunities to improve or if you've
+analyzed it you could have an analytical
+bias or a model bias
+so these are places where you can spend
+more time and effort to improve your
+measurement process your modeling
+process your analytical process
+but whether we're talking about time or
+whether we're talking about dollars
+you're having to spend right and we're
+constrained on all these fronts the last
+thing I would say here is that when we
+talk about the marginal benefit and the
+marginal cost costs and benefits are
+both subjective so in economics We Care
+not just about dollars we're not Finance
+guys we're not accountants we're
+economists right we're higher than that
+we're better
+so we care about subjective value and
+utility
+so if your employee base at your company
+is sort of emotionally invested like
+they're really personally interested in
+a diversity initiative you're going to
+want to count that as an additional
+benefit to investing in diversity right
+and you can actually capture this if you
+dig in and measure it properly there
+will be benefits to retention and
+employee satisfaction and so forth so be
+sure that you're counting those what we
+call non-pecuniary or non-dollar
+benefits as well on both the cost side
+and the benefit side and don't forget
+opportunity cost don't forget that one
+right I wouldn't be an economist if I
+didn't mention that too
+sum it all up one more time invest until
+MB equals MC
+
+URL: https://youtu.be/GhaVkRjV5Y4
+Title: Why write tests
+Description: None
+Transcript:
+yeah hey yeah
+[Music]
+
+URL: https://youtu.be/Grptb4MVpEE
+Title: Specific advice to help you land a coding role in under 25 min #tech #coding #remotework #reaction #
+Description: None
+Transcript:
+today we are reacting to developer
+roadmaps roadmap.sh this is the sixth
+most starved project on GitHub uh where
+do you go through it step by step and
+compare it to laterally
+by the way here's laterally laterally as
+an open source learning uh like
+educational system
+so kind of an alternative to free code
+Camp the first impression is that
+there's way too much here if someone
+asks you hey I'd like to learn to code
+what should I do sending them here
+would seem to be confusing what I would
+prefer instead is right out of the gate
+it should suggest a path I recommend you
+learn react not Python and that is a
+stepping stone towards becoming a full
+stack developer
+
+URL: https://youtu.be/gYNrIaX0nk8
+Title: Css turkey #lol
+Description: None
+Transcript:
+I want to make a relevant addition to my
+web portfolio and it's Thanksgiving so
+let's make a turkey as a web developer I
+know that a turkey will be drawn with
+HTML and CSS so I Google CSS turkey I
+found a few results and checked them out
+but I'm really happy with the top result
+so this is what it looks like so I copy
+it and I put it in my GitHub portfolio
+and deploy it to GitHub Pages at this
+point it's basically someone else's work
+which is not really a plagiarism issue
+in programming it's just that it doesn't
+demonstrate any of my skill so how can I
+change this turkey this collection of
+HTML elements in a way that demonstrates
+my skill well I think the tips of the
+feathers can change colors so I'll make
+that Dynamic and add some JavaScript you
+can't see it in this picture but the
+eyes are doing this weird googly thing
+I'll take that away because it's
+annoying and then I can also add some
+audio so when you click it I'll make it
+squawk so here's the final result I live
+coded the whole thing I'll put a link to
+this and a link to the YouTube video in
+the comments be sure to follow my page
+if you want to learn to code you can
+totally do it drop a comment if there's
+anything I can answer for you
+
+URL: https://youtu.be/HqJUePwSuQM
+Title: Ninja Creami just arrived!!!
+Description: None
+Transcript:
+all I ever wanted was a rolly rolly
+
+URL: https://youtu.be/HZCT_4R4CHw
+Title: Don't seek the bare minimum #careeradvice #coding
+Description: None
+Transcript:
+a college degree is not required to land
+a programming role but it's very helpful
+full stack typescript competency not
+required very helpful lead code
+competency not required super helpful
+stop asking what's required start asking
+what's a good return on investment to my
+time and effort
+
+URL: https://youtu.be/IDpqEdKLYfM
+Title: Triple Your Income!?
+Description: None
+Transcript:
+today I got my first full paycheck as a
+software engineer when I tell you that I
+burst into tears of the amount I'm being
+serious I've tripled my take-home pay
+from my last position for those still
+deep in your job search keep at it it is
+so so worth it I love stories like this
+and this could be you follow if you want
+to learn to code
+
+URL: https://youtu.be/IE0DAZ3zItQ
+Title: .NET vs React.js
+Description: None
+Transcript:
+hey Domi thanks for the question I
+personally don't enjoy.net
+um you can see Google Trends react wins
+here's the 2021 stack Overflow developer
+survey like react wins by a mile it's
+like more than double.net but I guess
+like.net beats spring
+
+URL: https://youtu.be/iwrSacjFn-Q
+Title: brace for lots of rejection letters
+Description: None
+Transcript:
+this commenter is so right thanks for
+the comment this is kind of true for
+college grads but it's really really
+true for self-taught developers blast
+out at least 50 applications every week
+leverage services like the ladders to
+help automate that by week six you
+should have gotten several responses in
+at least one fund screening
+
+URL: https://youtu.be/j48lNLF-iEU
+Title: React vs Python Which One Should You Learn for Your First Job #careeradvice #coding
+Description: None
+Transcript:
+xjs over Django react over python unless
+you want to be a data analyst then go
+Learn Python but also if you're a data
+analyst you shouldn't you shouldn't be
+learning Django you should be learning
+like num like numpy
+
+URL: https://youtu.be/JdaTcDFxlak
+Title: MGK React Coding Tattoo??
+Description: None
+Transcript:
+and number two we have emotional
+slightly malnourishment okay hear me out
+I think these are the same type of guy
+you see MGK's throat I think he has a
+react tattoo so this is the react logo
+and the first guy was at a computer so I
+think they're both web developers so new
+reason to learn react you can be famous
+like MGK
+
+URL: https://youtu.be/JW5X3Zql154
+Title: 3 Ways for Employers to Increase Labor Diversity
+Description: None
+Transcript:
+if you're a tech employer interested in
+increasing the diversity of your labor
+pool here's three things you can do
+first partner with and sponsor events
+for an existing organization there's a
+bunch of great ones I like girls who
+code two support remote and part-time
+work this disproportionately benefits
+women third drop CS
+
+URL: https://youtu.be/JyJsBVZCJo4
+Title: Why JavaScript is THE best programming language...period!
+Description: None
+Transcript:
+thanks Josh this guy gets it so
+JavaScript is so great JavaScript
+JavaScript JavaScript if you say three
+times fast and click your heels an
+infinite Loop appears you can't do that
+with other programming languages Let me
+give you three more reasons in addition
+to my bulletproof argument from the last
+video why JavaScript is so great first
+of all it's the most popular programming
+languages everyone knows it yeah I
+realize it's not really taught in
+computer science programs why do you
+think because the professors were never
+popular they were like nerds they don't
+want you to be popular so they teach you
+stuff that's not popular reason number
+two it's used in the browsers in all of
+the websites do you use websites I use
+websites websites are great everyone
+knows that websites are things that we
+use so I don't know exactly who decided
+that JavaScript would be used there I
+just kind of have a trust that whatever
+decision criteria they had it was real
+it was perfect like what could be wrong
+with that because we all use it
+therefore it's great so thanks
+
+URL: https://youtu.be/k43uS4DgXHc
+Title: #socialimpact #faang #tech #techtok #devcrew #cstok #smallbusiness #bigtech #programming #opensource
+Description: None
+Transcript:
+if you work as a software engineer for
+one of those big companies tell us why I
+love this question I currently work as a
+software engineer at one of those big
+companies but I've run the gamut I've
+been the only software engineer at a
+micro size startup that went under I've
+been one of a few in a small mid-sized
+company that was acquired the ability to
+personally make a Major Impact at a
+small firm is real you can influence
+major decisions and be credited for
+thousands of percents of increase in
+technical metrics go zero to one in
+Peter Thiel terminology but you can also
+be held liable for a failure to produce
+right so can you make a bigger social
+contribution through a major Tech firm
+compared to a small company the answer
+is absolutely yes so think about the
+total addressable Market suppose that
+you increase user Happiness by 0.5
+percent over millions over billions of
+users that could easily beat a small
+company 10xing the other approach is to
+make bank and give to charity and
+earnings at Big end is big
+
+URL: https://youtu.be/k8D2ma9lvK8
+Title: The Tech Talent Shortage is an Employer Myth
+Description: None
+Transcript:
+unpopular opinion coming at you from the
+CEO of minty beans the tech Talent
+shortage is actually an unwillingness to
+hire and train Junior developers there
+is a glut of talented Juniors out there
+the way to fix the talent shortage is to
+change your hiring and team strategy
+
+URL: https://youtu.be/kmFG0AbMFxw
+Title: connect over follow on LinkedIn
+Description: None
+Transcript:
+Taylor says LinkedIn moved from
+connecting with people to following
+people you need to try to connect with
+people because if you follow someone
+they did not see your content if you
+connect with someone they automatically
+start seeing your content same goes for
+Twitter Etc a follow is not social
+networking get out there and actually
+talk to people but yeah keep an eye on
+the LinkedIn button default
+
+URL: https://youtu.be/KvfPOPO6bP0
+Title: take these skill assessments to get a coding job
+Description: None
+Transcript:
+let's talk about skill assessments take
+LinkedIn indeed.com and pluralsight
+skill IQ they're all free take
+pluralsight skill IQ first you want to
+get proficient or better you can take
+this one over and over even if you fail
+indeed LinkedIn have six month cooldown
+after fail get assessed for HTML CSS
+JavaScript and react
+
+URL: https://youtu.be/LuFttXwJXWs
+Title: Start with JavaScript, not C++
+Description: None
+Transcript:
+faheem says if I had to start my
+programming Journey over again I would
+start with JavaScript not C plus plus
+also I would stay away from learning PHP
+so fahim's report is consistent with
+stack Overflow developer survey most
+developers don't like C plus or PHP
+
+URL: https://youtu.be/m3As0-kfPE0
+Title: new tech alert
+Description: None
+Transcript:
+new technology alert react preview is an
+alternative storybook with near zero
+configuration storybook is a really
+great component browser it'll help you
+build an in-house component Library it
+does require a bit of setup though react
+preview integrates directly to vs code
+found this through stack share weekly
+follow for more
+
+URL: https://youtu.be/Mb1YZ3ThTwk
+Title: selection bias be like
+Description: None
+Transcript:
+nanu asked which platform do you use the
+most on Twitter this is a Twitter survey
+to which I responded selection bias be
+like
+
+URL: https://youtu.be/Mb3MZx5KyK0
+Title: Coding meme gang #lol #python #programming #tech
+Description: None
+Transcript:
+all I ever wanted was a
+
+URL: https://youtu.be/MkoTiUUXm0M
+Title: Why is it a hard decision #coding #stem #remotejobs
+Description: None
+Transcript:
+Meyer type
+um
+I'd do it
+thank you
+
+URL: https://youtu.be/nM_GL26W738
+Title: Modified TDD is Best TDD
+Description: None
+Transcript:
+I want to create a new component react
+but I want to do tdd so I start by
+making a unit test that references a
+component that doesn't exist fails stub
+the file and now the test passes I just
+made a tdd increment and I also just
+wasted a bunch of time but let's not
+stop there because every time that I do
+a new commit I need my test to pass
+right I don't realize that there are
+these like patterns and conventions
+embedded in other components how do I
+make an HTTP call what variables do I
+name how should I name my ID that I'm
+referencing uh used ref on the component
+so every time I write a test for these
+things I am assuming implementation and
+then that implementation turns out not
+to be correct so I have to refactor the
+component and the unit test doubling my
+LOE instead here's what I do I create
+the component and then I create the test
+and I just make sure everything works
+before I submit a PR at the end the
+result is the same you have a set of
+unit tests that pass but it's a lot less
+LOE in the middle so this is a modified
+tdd pattern that I suggest for
+Developers
+
+URL: https://youtu.be/nYR-pp5x7fw
+Title: Starboi and The Book of Wins
+Description: None
+Transcript:
+Lord says be intentional when it comes
+to seeking the challenging tasks and
+opportunities where you can deliver a
+win every good developer should keep a
+book of wins I think it's great advice
+and I recommend you organize your
+stories about winning according to the
+star or store method check out this open
+source project that exists for just that
+purpose
+
+URL: https://youtu.be/O4YPS1xa3aI
+Title: Golang is not in high demand
+Description: None
+Transcript:
+as a developer I'm a big fan of golang
+but I think our perception of demand
+gets off sometimes here's the number of
+jobs for going and here's JavaScript
+it's more than 10x
+
+URL: https://youtu.be/OHChPUF1J-0
+Title: NPC Wants You to Code
+Description: None
+Transcript:
+[Music]
+I should probably evangelize react first
+I should probably make a tick tock
+telling people to learn HTML CSS
+JavaScript and react
+
+URL: https://youtu.be/ONNitTDYpZQ
+Title: Operating System Comparison
+Description: None
+Transcript:
+Windows Linux and Mac are the big three
+operating systems Windows is common
+among PC users Mac is common among
+creatives and Linux is common for
+servers Windows and Mac are paid so in
+there you get customer support when you
+need it Linux is centered around open
+source maintainers can be rough
+sometimes for example the creator of
+Riser FS killed his wife
+
+URL: https://youtu.be/OUgU-tEzGzU
+Title: Perchance do you have a CS degree tho #jobsearch #programminghumor #lol #tech #stem
+Description: None
+Transcript:
+you're the most beautiful funny loving
+girl I've ever met
+um you're perfect
+but I want to see if I can try and find
+someone better um
+
+URL: https://youtu.be/p4LhREXNQcw
+Title: Coding protip #learntocode #programming #codingmemes
+Description: None
+Transcript:
+in my face
+[Music]
+
+URL: https://youtu.be/PHotgN95wa0
+Title: #learnontiktok #competitivegaming #learntocode #programming #cstok #college #softwareengineer #devcr
+Description: None
+Transcript:
+so about 75 percent of developers
+worldwide have the equivalent of a 40
+degree or better and about 75 percent of
+those with a four-year degree majored in
+a field related to programming sources
+stock overflow 2020 but it's been
+consistent over the past decade my
+question is does the U.S follow or
+differ from this International Norm
+
+URL: https://youtu.be/PRApDfCuTXM
+Title: Most used Linux commands
+Description: None
+Transcript:
+Monday Tuesday Wednesday Thursday
+Fridays
+
+URL: https://youtu.be/pRhrWzAoHZw
+Title: Surprising History of Core.js
+Description: None
+Transcript:
+nacho says I think the creator of
+core.js has been looking for a job for
+years now it's crazy how many times this
+announcement has been shown on
+everyone's terminals core.js gets 34
+million downloads per week how does he
+not have a job yet the answer is because
+he's in jail for manslaughter
+
+URL: https://youtu.be/pXILgQBnPtY
+Title: Learn Git as a Newbie?
+Description: None
+Transcript:
+Seguin asked would you tell a newbie
+developer to learn git and GitHub first
+or it doesn't really matter when they
+learn them let me know your thoughts my
+answer is kind of both the sooner you
+can work with GitHub the sooner you can
+provably document your experience coding
+and build your portfolio months of
+experience is important but it's not the
+most important
+
+URL: https://youtu.be/QbuFrN7iOQo
+Title: Python for DevOps?
+Description: None
+Transcript:
+this user says python for devops I agree
+but it's not really clear-cut let me
+give you a few reasons why core skills
+and devops are going to be Docker and
+Bash and also infrastructure setting up
+infrastructure in some Cloud environment
+often AWS if you have those many
+companies don't care what programming
+language you have a background in but
+they do care that you have some
+programming background so I don't think
+any Juniors should be going directly
+into devops it's really hard to
+understand what's going on if you have
+no technical background so devops I see
+is an intermediate to senior plus role
+where usually you have some Junior
+experience programming something
+here you can see devops engineer it is a
+specialty so the job count is kind of
+low look at this top result here's the
+skills for the top result willing to do
+the job and learn they specify
+Technologies like Docker and AWS
+infrastructure but they don't specify a
+language it's really common not to
+specify a language for devops I went
+through the top 10 on indeed four
+specified some languages one was only
+JavaScript three were like python or
+Ruby or Java
+
+URL: https://youtu.be/RdGVh-50F-g
+Title: selection bias evrtym
+Description: None
+Transcript:
+bro
+[Music]
+
+URL: https://youtu.be/RhyJLSjjnw4
+Title: Using Twitter for Programming References
+Description: None
+Transcript:
+so you're a self-taught developer and
+you want some references because you're
+applying to jobs go to Twitter and type
+in computer programming find people who
+are tweeting about it and ask for a
+portfolio review incorporate recommended
+changes and a follow-up DM ask for their
+email for use in your job search
+
+URL: https://youtu.be/R_Z1TxHD9oM
+Title: How do you pronounce JSON?
+Description: None
+Transcript:
+Scott bromander asks how do you
+pronounce Jason do you just say Jason or
+do you say Json to which I had to reply
+hello
+
+URL: https://youtu.be/s0h9c8rLUig
+Title: #learntocode #devcrew #programming #techtok #devtok #cstok #howto #learnontiktok #coding #softwareen
+Description: None
+Transcript:
+hey thanks for the comment I disagree I
+think it's easier to get a job if you
+know react would love to see your data
+here's mine 90 000 jobs for c-sharp
+available on indeed.com today over 140k
+for reactor JavaScript you'll also be
+qualified for angular roles and
+thousands of others that aren't counted
+here
+
+URL: https://youtu.be/saTQr5jwa7Q
+Title: Why Frontend Programming?
+Description: None
+Transcript:
+I specialize in teaching people how to
+break an attack and learn how to code
+follow my page if you're interested this
+commenter asks why I recommend front-end
+programming to that end great question a
+bunch of reasons I'll give you three
+first the mental model of a website what
+a good website looks like is really
+familiar to even non-technical people
+the main four branches of programming
+are front-end back-end devops and data
+analysis data analysis is kind of
+intuitive but devops is like totally
+foreign to the normal person if you say
+infrastructure they're thinking about
+like their house and then back end is
+really abstract and hard to visualize if
+you're not trained in thinking that way
+so building on that point too the
+alternatives to front end requires
+special training so you're not going to
+be a good data analysis you could
+actually be a little bit dangerous if
+you're a data analyst that doesn't know
+stats for example three is the level of
+difficulty of setup with front-end
+programming you already probably have
+the Chrome browser installed and you can
+get started sandbox in the Chrome Dev
+tools and you can also visit like
+w3schools and code in your browser other
+languages are growing and your ability
+to have like an in-browser experience
+but tools are rough outside of front end
+
+URL: https://youtu.be/sMJrhzewVyc
+Title: The Hardest Part of React.js
+Description: None
+Transcript:
+Tech rally says for people learning
+react what is the hardest part to
+understand Kevin says I'd say the
+hardest part is when you're trying to
+understand props or certain hooks like
+use context you use memo so I agree
+would like to know what you think I
+think the four key concepts are State
+props Hooks and jsx
+
+URL: https://youtu.be/THIK5QOmCsk
+Title: Benefits are solid, come join! #coding #tech #remotework #softwareengineer #programming #career
+Description: None
+Transcript:
+start is hiring for a number of software
+engineering roles mid-level up to
+distinguished also some analysts and
+product roles check out upstart.com
+career open roles and reach out to me on
+LinkedIn if you're a match for one of
+these
+
+URL: https://youtu.be/tPkdee1Zw_w
+Title: Coding Project Organization
+Description: None
+Transcript:
+Devin asked is your project file
+structure organized by feature or file
+type I said by page is better than by
+feature she asked me to clarify what I
+do with my models and stores feel free
+to pause and read the details basically
+my stores are API driven Blitz and next
+to this out of the box pin comment for
+more details
+
+URL: https://youtu.be/Trdjd2Q_6l0
+Title: LinkedIn Skill Assessment Worth It?
+Description: None
+Transcript:
+Albert's asking if LinkedIn skill
+assessments and so forth are actually
+worth it thanks for the question so if
+you do well here are three things that
+will happen technically basically if you
+want a job that keeps using the skill it
+could possibly be helpful I think the
+value is actually much higher for new
+developers trying to get that first job
+for these reasons
+
+URL: https://youtu.be/uaYuKeIDgY8
+Title: #learntocode #webdev #devcrew #careeradvice #cstok #github #devcrew #codetok #devtok #python #java #
+Description: None
+Transcript:
+Chris asks what advice would you give
+someone trying to get a career in Tech
+real tough monkey drop knowledge learn
+the fundamentals stick to your goal be
+consistent build a habit keep on
+learning and improving I agree 100 only
+thing I would add is make sure you get
+GitHub early so that you get all of
+those commits on your record
+
+URL: https://youtu.be/UHzdSNZeldY
+Title: Juniors are Smart, Seniors Don't Know Everything
+Description: None
+Transcript:
+Kevin is an engineer at Google he says
+I've never met a senior engineer who's
+had all the answers I've never met a
+junior engineer who's had nothing to
+contribute I think engineers at all
+levels have a tendency to self-censor
+and defer to Authority you don't want to
+be arguing with the smart person right
+but go ahead and speak up just do it
+with empathy and humility
+
+URL: https://youtu.be/uQBm70l2y3w
+Title: Big Tech Doesn't Copy from Stack Overflow
+Description: None
+Transcript:
+[Music]
+y'all the top tier top companies are not
+doing this Fang manga Mama whatever
+you're calling it now big in copying
+code directly from stack Overflow is
+really discouraged it's all about that
+import statement make the component
+Library team do it
+
+URL: https://youtu.be/uR2aeXUdlr4
+Title: intermediate lvl developer advice
+Description: None
+Transcript:
+intermediate level developers this is
+for you so you've gotten the basics of
+HTML CSS JavaScript and react down
+you're ready to take it to the next
+level with typescript my number one
+resource for you very happy to recommend
+Ben Awad the boy has more failed to
+Ocean I mean full stock react tutorial
+link pin in the comments
+
+URL: https://youtu.be/wfHdJJoxq1Y
+Title: Stolen Turkey Code Microproject
+Description: None
+Transcript:
+Stone turkey is a micro project webpage
+written in HTML CSS and vanilla
+JavaScript it's open source you can
+check it out on my GitHub repository
+just search for VanDevere you can click
+the turkey and make it squawk and change
+the tail feather colors it's pretty cool
+go check it out
+
+URL: https://youtu.be/wFna3BiJ8fI
+Title: Java vs JavaScript
+Description: None
+Transcript:
+Alex thanks for the question there are a
+ton of differences I'll just give you
+three and before I start let me say that
+this is one of those brightline tests
+that programmers use to determine
+whether or not you're like a programmer
+or not so non-technical folks get this
+mixed up all the time another one of
+these brightline tests would be saying
+HTML is a programming language which
+it's not so HTML stands for hypertext
+markup language so it's a language right
+and it's a language used by programs
+therefore it's a programming language
+right actually no and so that's
+something that a lot of non-technical
+people think but programmers know it's
+not touring complete so it's not what we
+mean when we say that we're writing
+programs we can't use it anyway three
+main differences Java is strongly typed
+it is pre-compiled often manually
+compiled and it is a server-side
+language in contrast JavaScript is
+dynamically typed it is just in time
+compiled and it runs full stack on the
+server and in the browser it's notable
+that it's the only programming language
+used in websites
+
+URL: https://youtu.be/wJXcgSXgcok
+Title: What makes programming hard for beginners?
+Description: None
+Transcript:
+then I asked what makes programming hard
+for beginners I said gatekeeping and
+non-specific advice like the best
+language depends if your goal is to land
+a job as quickly as possible I strongly
+recommend learning react but what would
+you say in answer to this question
+
+URL: https://youtu.be/WMgKiGOSe5o
+Title: Release Note: The Trial by Fire
+Description: None
+Transcript:
+if you want to learn to code pretty cool
+news today I'm releasing the trial by
+fire which is a quick 45 minute lesson
+where I fly through HTML CSS JavaScript
+give you the big picture in a short
+amount of time
+sign up link in my bio laterally.io and
+you can view that lesson for free
+
+URL: https://youtu.be/XZAQBWQuMi4
+Title: Always be learning #openminded #humility
+Description: None
+Transcript:
+[Music]
+you can learn
+
+URL: https://youtu.be/YjYr4EVHpjU
+Title: Haskell is functional? Say less #coolstory #programmerhumor #codingmemes #lol #tech
+Description: None
+Transcript:
+foreign
+[Music]
+
+URL: https://youtu.be/YT-9XXhMdyo
+Title: 13 Learning Tips pt 1: Start with the Stuff!
+Description: None
+Transcript:
+13 learning tips part one of three start
+with the stuff some people think I need
+to get my life perfect before I can
+learn no start with the thing that you
+want to learn it might end up being
+really easy you might be able to knock
+it out without making any big life
+changes if you do need to change your
+life
+running into a concrete problem when
+you're learning is going to tell you the
+concrete way to update your life so
+start by starting to learn today and you
+can work on yourself later so what do
+you want to learn you want to learn
+whatever is going to maximize your
+return on investment for time and effort
+for a lot of people that's learning to
+code this can unlock a high paying
+remote career and you can do this with
+Alternative Learning you don't
+necessarily need a college degree so if
+you're going to learn to code what
+curriculum you need an evidenced based
+curriculum that means something that's
+Project based it's going to be full
+stack that's going to unlock the
+majority of programming jobs if you're
+looking at a coding boot camp in
+particular check out course report 4.25
+or higher rating with a minimum of 400
+reviews that's part one of three come
+back and I'll tell you how you can
+improve your lifestyle and get connected
+to learn better
+
+URL: https://youtu.be/YVGPnwTNDo8
+Title: #frontenddeveloper #webdev #cstok #learntocode #selftaught #programming #softwareengineer #softwared
+Description: None
+Transcript:
+new resource alert Clement has announced
+front-endexpert.io which will help you
+succeed at front-end interviews at
+Google meta and so on Clement is the
+founder of algo expert which I've
+recommended for years so I'm going to
+try this out and I encourage you to try
+it out too
+
+URL: https://youtu.be/ZdlM1mErFFU
+Title: #cstok #programming #opensource #research #codetok #devtok #devcrew #givingback #community
+Description: None
+Transcript:
+and Dev I love this as an academic
+practice citing our sources is the least
+we can do but let's talk about three
+other ways that we can recognize give
+credit and support those creators who
+wrote the code that we're using for
+reference quick aside Dr David Friedman
+The Economist in front of us during this
+video said when you are young you worry
+about people stealing your ideas when
+you're old you worry about people not
+stealing your ideas so option one is
+uploading stack Overflow answers or
+upvoting Reddit answers or starring your
+GitHub repo giving that sort of vote to
+whatever answer helped you number two if
+you want to go the extra mile if a
+framework or if a library really helped
+you go to social media tweet about it
+post about it reach out to the author
+and thank them number three is an open
+source maintainer myself if you really
+want to do me proud contribute back to
+my repo open a pull request or create a
+new project using my code and grow the
+community in further and add new
+products into the community I would be
+so proud close with another fun quote
+Professor nostein from Yale if you copy
+from one book that's plagiarism if you
+copy from many that's research
+
+URL: https://youtu.be/ZlicnHJTmD4
+Title: Word
+Description: None
+Transcript:
+[Music]
+move to the left a little wire
+
+URL: https://youtu.be/ZYCEVxkOgh4
+Title: Do you really need Kafka?
+Description: None
+Transcript:
+11 best practices for data Engineers
+that's a document from Snowflake the
+data Lake company out of that document I
+now quote modern ETL enables you to
+accomplish your stream processing using
+direct SQL rather than Kafka so ouch to
+a Kafka fan like me but be mindful not
+to over engineer if you don't need Kafka
+
+URL: https://youtu.be/_60TT62Wf0g
+Title: #reactjs #javascript #fullstackdeveloper #programming #typescript #devcrew #techtok #webdev #opensou
+Description: None
+Transcript:
+software developer cool content alert
+blitz.js is my favorite full stack
+framework and Brandon that's the guy in
+the lower right of the screen released a
+20 minute intro to blitz.js you can see
+some of the things it does out of the
+box for you on the screen there but this
+is just the tip of the iceberg
+
+URL: https://youtu.be/_A_VjPkt9W8
+Title: "Can you hop on a quick call?"
+Description: None
+Transcript:
+[Music]
+I'm in harmony
+[Music]
+
+URL: https://youtu.be/_lqiBMeUzrs
+Title: Securing the bag with Stripe #ladderly #opensource #livecoding #buildinpublic #tech #programming
+Description: None
+Transcript:
+building laterally in public new feature
+update today we're on the settings page
+you can add a backup email stripe email
+first name last name this allows you to
+pay for a laterally premium account
+using a stripe account with a different
+email shoot me an email if you have any
+questions
+
+URL: https://youtu.be/_vqgowHhtgs
+Title: Best Way to Learn React: 3 Projects and You're In!
+Description: None
+Transcript:
+Wayfarer thanks for the question as a
+reminder for those new decoding I
+recommend free code Camp code academy
+and laterally if you're already Adept
+just make some projects and use the docs
+react docs are some of the best in the
+industry hit up GitHub make a few simple
+projects three strikes and you're out
+three projects and you're in

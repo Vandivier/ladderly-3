@@ -28,27 +28,43 @@ class VideoData(TypedDict):
 data_dir = "video_data"
 output_file = "consolidated_transcript.txt"
 
-if not os.path.exists(data_dir):
-    print(f"The directory containing raw transcripts does not exist: {data_dir}")
-    exit(1)
 
-with open(output_file, "w") as out_f:
-    for filename in os.listdir(data_dir):
-        if filename.endswith(".json"):
-            with open(os.path.join(data_dir, filename), "r") as in_f:
-                video_data: VideoData = json.load(in_f)
+def replace_smart_quotes(s):
+    s = s.replace("\u2018", "'").replace("\u2019", "'")
+    s = s.replace("\u201c", '"').replace("\u201d", '"')
+    return s
 
-                if not video_data["transcript"]:
-                    continue
 
-                transcript = "\n".join(
-                    [segment["text"] for segment in video_data["transcript"]]
-                )
+def main():
+    if not os.path.exists(data_dir):
+        print(f"The directory containing raw transcripts does not exist: {data_dir}")
+        exit(1)
 
-                out_f.write(f"\nURL: {video_data['url']}\n")
-                out_f.write(f"Title: {video_data['title']}\n")
-                out_f.write(f"Description: {video_data['description']}\n")
-                out_f.write("Transcript:\n")
-                out_f.write(transcript + "\n")
+    with open(output_file, "w", encoding="utf-8") as out_f:
+        for filename in os.listdir(data_dir):
+            if filename.endswith(".json"):
+                with open(os.path.join(data_dir, filename), "r") as in_f:
+                    video_data: VideoData = json.load(in_f)
 
-print(f"Consolidated transcript written to {output_file}")
+                    if not video_data["transcript"]:
+                        continue
+
+                    transcript = "\n".join(
+                        [segment["text"] for segment in video_data["transcript"]]
+                    )
+
+                    out_f.write(replace_smart_quotes(f"\nURL: {video_data['url']}\n"))
+                    out_f.write(replace_smart_quotes(f"Title: {video_data['title']}\n"))
+                    out_f.write(
+                        replace_smart_quotes(
+                            f"Description: {video_data['description']}\n"
+                        )
+                    )
+                    out_f.write("Transcript:\n")
+                    out_f.write(replace_smart_quotes(transcript + "\n"))
+
+    print(f"Consolidated transcript written to {output_file}")
+
+
+if __name__ == "__main__":
+    main()
