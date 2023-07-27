@@ -35,10 +35,17 @@ def replace_smart_quotes(s):
     return s
 
 
+def remove_hashtags(title):
+    return " ".join(word for word in title.split() if not word.startswith("#"))
+
+
 def main():
     if not os.path.exists(data_dir):
         print(f"The directory containing raw transcripts does not exist: {data_dir}")
         exit(1)
+
+    with open("low_value_transcript_urls.json", "r") as low_value_urls_file:
+        low_value_urls = json.load(low_value_urls_file)
 
     with open(output_file, "w", encoding="utf-8") as out_f:
         for filename in os.listdir(data_dir):
@@ -46,7 +53,10 @@ def main():
                 with open(os.path.join(data_dir, filename), "r") as in_f:
                     video_data: VideoData = json.load(in_f)
 
-                    if not video_data["transcript"]:
+                    if (
+                        not video_data["transcript"]
+                        or video_data["url"] in low_value_urls
+                    ):
                         continue
 
                     transcript = "\n".join(
@@ -54,12 +64,16 @@ def main():
                     )
 
                     out_f.write(replace_smart_quotes(f"\nURL: {video_data['url']}\n"))
-                    out_f.write(replace_smart_quotes(f"Title: {video_data['title']}\n"))
-                    out_f.write(
-                        replace_smart_quotes(
-                            f"Description: {video_data['description']}\n"
+                    title = remove_hashtags(video_data["title"])
+                    title = title.strip()
+                    if title:
+                        out_f.write(replace_smart_quotes(f"Title: {title}\n"))
+                    if video_data["description"]:
+                        out_f.write(
+                            replace_smart_quotes(
+                                f"Description: {video_data['description']}\n"
+                            )
                         )
-                    )
                     out_f.write("Transcript:\n")
                     out_f.write(replace_smart_quotes(transcript + "\n"))
 
