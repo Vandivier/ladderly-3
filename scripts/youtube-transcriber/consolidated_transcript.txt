@@ -371,12 +371,6 @@ appreciate what react does and then
 switch into typescript as soon as you
 can
 
-URL: https://youtu.be/bi4P9Pw4gw0
-Transcript:
-background
-[Music]
-and she said
-
 URL: https://youtu.be/pk2or9pCl0o
 Title: 6x Cheaper than Midjourney!!
 Transcript:
@@ -1270,11 +1264,6 @@ lessons from this one is imposter
 syndrome affects all levels from Junior
 to CEO two is making mistakes is normal
 don't beat yourself up over it
-
-URL: https://youtu.be/JzorWUkjLMo
-Transcript:
-[Music]
-thank you
 
 URL: https://youtu.be/8xj0QAdfAZ4
 Title: 7 ways coding is actually fun
@@ -2893,15 +2882,6 @@ object type information let's be precise
 last show Alternatives and why they
 don't work
 
-URL: https://youtu.be/T0aiOt9f34I
-Title: it was a different time lol
-Transcript:
-why do I want to work here
-um
-I don't I do know how to make websites
-with reacto
-oh I got the job okay great
-
 URL: https://youtu.be/Q_7YAxOpupE
 Title: Memorizing Stuff? (as a coder)
 Transcript:
@@ -3048,12 +3028,6 @@ hook and a functional component come on
 first of all I'm a real programmer I use
 oop I'm not a functional programmer so I
 stick with react 15.
-
-URL: https://youtu.be/JS5-LVpJb-M
-Title: Whacha looking at baby?
-Transcript:
-[Music]
-in the making
 
 URL: https://youtu.be/fAFPsj9sGis
 Transcript:
@@ -4427,12 +4401,6 @@ GitHub pages that links to your LinkedIn
 and all of your other social media
 thanks for watching
 
-URL: https://youtu.be/mZN0BZsS92g
-Title: Time to automate ur life away
-Transcript:
-did you pray today
-[Music]
-
 URL: https://youtu.be/KSG_oHZM8xg
 Title: Learn HTML pt 1/5
 Transcript:
@@ -4639,26 +4607,6 @@ just your personal data right so they
 say slight hiring gains to close the
 year about 10 down year over year
 
-URL: https://youtu.be/v3bxeLoEHb4
-Title: vs vs Odin Project
-Transcript:
-oh my God
-[Music]
-
-URL: https://youtu.be/hEFHrq4StfM
-Title: is a useful and natural layer to learn on top of and
-Transcript:
-like you have a cupcake I like you have
-a cupcake
-[Music]
-you have a cup
-
-URL: https://youtu.be/zzewCHhXB1k
-Title: You vs ChatGPT 🤖 🤯
-Transcript:
-[Music]
-we'll be safe foreign
-
 URL: https://youtu.be/kmFG0AbMFxw
 Title: connect over follow on LinkedIn
 Transcript:
@@ -4785,11 +4733,6 @@ learning we know team-based learning
 works but what about isolating the
 emotional component check this article
 in the description
-
-URL: https://youtu.be/AuK3sB0gs6c
-Title: If u don't know what a gh url is then no I won't be referring u lol
-Transcript:
-you pick up performing for free
 
 URL: https://youtu.be/dLXVDWOh0Vs
 Title: Best Agency for Content Creators?
@@ -5242,11 +5185,6 @@ bunch of great ones I like girls who
 code two support remote and part-time
 work this disproportionately benefits
 women third drop CS
-
-URL: https://youtu.be/KXsIVAojt3Q
-Transcript:
-remember
-[Music]
 
 URL: https://youtu.be/SsPD3WvPO2Y
 Title: Learning apparently helps with too in addition to helping you flat out land
@@ -6303,11 +6241,6 @@ Mark lines up with Peak productivity and
 that was twice as fast for internet as
 electricity
 
-URL: https://youtu.be/jG9DxmOQJ6o
-Title: GitHub vs Vercel: Where to Deploy?
-Transcript:
-the baby
-
 URL: https://youtu.be/8ivgdcbc5V4
 Transcript:
 crash course and effort estimation for
@@ -6607,12 +6540,6 @@ job and they're more expensive than
 average instead check out springboard or
 similar places with lower cost and a job
 guarantee
-
-URL: https://youtu.be/ltDrVTmbRNE
-Title: I only work for GOOD companies
-Transcript:
-sorry I said I must have I must have
-heard you wrong
 
 URL: https://youtu.be/9x5djkog1xI
 Title: Austrian Alternatives to Conventional Economic Statistics | Jonathan Newman
@@ -7906,17 +7833,6 @@ no other vendors could support these
 open source features in the future the
 fact that Russell does it today it makes
 them cool not bad
-
-URL: https://youtu.be/cjX6E_a0xis
-Title: 🧊 🥶 🥶
-Transcript:
-when to quit right and then there's this
-idea of the so-called Lean Startup
-um and the idea of being startup is you
-run an experiment and if it doesn't work
-you basically just like stop and you
-figure out a different idea and you know
-we used to call that up
 
 URL: https://youtu.be/kFSfF4ZD4oc
 Title: Stay tuned to learn more about what my team is building
