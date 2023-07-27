@@ -1,0 +1,162 @@
+{
+  "id": "12aoOgzfbX4",
+  "url": "https://youtu.be/12aoOgzfbX4",
+  "title": "Big Tech and Small Business optimize differently #systemdesign #softwareengineer #programming #techi",
+  "description": null,
+  "publish_date": "2023-05-02T00:00:00",
+  "length": 60,
+  "views": 67,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "big Tech system design Pro tips stay to",
+      "start": 0.16,
+      "duration": 3.96
+    },
+    {
+      "text": "the end we are often faced with",
+      "start": 2.379,
+      "duration": 3.601
+    },
+    {
+      "text": "trade-offs in project management and in",
+      "start": 4.12,
+      "duration": 3.48
+    },
+    {
+      "text": "system design and the so-called iron",
+      "start": 5.98,
+      "duration": 3.78
+    },
+    {
+      "text": "Triangle pictured in front of us is a",
+      "start": 7.6,
+      "duration": 3.48
+    },
+    {
+      "text": "common mental model to help us think",
+      "start": 9.76,
+      "duration": 3.06
+    },
+    {
+      "text": "through those trade-offs let me",
+      "start": 11.08,
+      "duration": 3.42
+    },
+    {
+      "text": "illustrate with a recent example from my",
+      "start": 12.82,
+      "duration": 3.78
+    },
+    {
+      "text": "own work so I recently designed a",
+      "start": 14.5,
+      "duration": 4.02
+    },
+    {
+      "text": "microservice that empowers our data",
+      "start": 16.6,
+      "duration": 4.98
+    },
+    {
+      "text": "analyst to model changes to pricings of",
+      "start": 18.52,
+      "duration": 5.82
+    },
+    {
+      "text": "certain products and then understand the",
+      "start": 21.58,
+      "duration": 4.68
+    },
+    {
+      "text": "impact to the bottom line beforehand",
+      "start": 24.34,
+      "duration": 3.96
+    },
+    {
+      "text": "whereas previously they would have to",
+      "start": 26.26,
+      "duration": 4.08
+    },
+    {
+      "text": "ship and then do some a b testing and",
+      "start": 28.3,
+      "duration": 4.319
+    },
+    {
+      "text": "prod and do analysis on production data",
+      "start": 30.34,
+      "duration": 4.8
+    },
+    {
+      "text": "the analysts already had certain scripts",
+      "start": 32.619,
+      "duration": 4.62
+    },
+    {
+      "text": "that expected a certain table structure",
+      "start": 35.14,
+      "duration": 4.38
+    },
+    {
+      "text": "so to support that and facilitate their",
+      "start": 37.239,
+      "duration": 4.32
+    },
+    {
+      "text": "experience I preserved that table",
+      "start": 39.52,
+      "duration": 3.48
+    },
+    {
+      "text": "structure even though a cleaner",
+      "start": 41.559,
+      "duration": 2.701
+    },
+    {
+      "text": "structure would have been faster and",
+      "start": 43.0,
+      "duration": 3.18
+    },
+    {
+      "text": "cheaper this example illustrates the pro",
+      "start": 44.26,
+      "duration": 3.779
+    },
+    {
+      "text": "tip which is that in big Tech we want to",
+      "start": 46.18,
+      "duration": 4.26
+    },
+    {
+      "text": "prioritize adoption and user experience",
+      "start": 48.039,
+      "duration": 4.921
+    },
+    {
+      "text": "even when it's expensive as long as we",
+      "start": 50.44,
+      "duration": 4.139
+    },
+    {
+      "text": "can contain that expense to the short",
+      "start": 52.96,
+      "duration": 3.599
+    },
+    {
+      "text": "run in the long run we can drive down",
+      "start": 54.579,
+      "duration": 3.721
+    },
+    {
+      "text": "costs and alter the experience after",
+      "start": 56.559,
+      "duration": 4.701
+    },
+    {
+      "text": "adoption is achieved",
+      "start": 58.3,
+      "duration": 2.96
+    }
+  ]
+}

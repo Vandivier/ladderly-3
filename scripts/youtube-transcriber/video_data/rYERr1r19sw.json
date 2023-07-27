@@ -1,0 +1,152 @@
+{
+  "id": "rYERr1r19sw",
+  "url": "https://youtu.be/rYERr1r19sw",
+  "title": "Is Drizzle ORM the new hotness? Nope #typescript #softwareengineer #programming #javascript #fullsta",
+  "description": null,
+  "publish_date": "2023-04-17T00:00:00",
+  "length": 59,
+  "views": 517,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "five reasons I prefer Prisma orm over",
+      "start": 0.31,
+      "duration": 5.88
+    },
+    {
+      "text": "drizzle orm in 2023 reason number one",
+      "start": 3.429,
+      "duration": 6.0
+    },
+    {
+      "text": "drizzle is a sequel first orn two sub",
+      "start": 6.19,
+      "duration": 4.68
+    },
+    {
+      "text": "problems under this number one it",
+      "start": 9.429,
+      "duration": 3.0
+    },
+    {
+      "text": "basically defeats the purpose of having",
+      "start": 10.87,
+      "duration": 4.559
+    },
+    {
+      "text": "an orm orm's abstract sequel away so you",
+      "start": 12.429,
+      "duration": 4.501
+    },
+    {
+      "text": "can just program in your programming",
+      "start": 15.429,
+      "duration": 3.961
+    },
+    {
+      "text": "language two by encouraging writing SQL",
+      "start": 16.93,
+      "duration": 4.5
+    },
+    {
+      "text": "you might end up writing SQL which is a",
+      "start": 19.39,
+      "duration": 4.08
+    },
+    {
+      "text": "bad security practice reason number two",
+      "start": 21.43,
+      "duration": 4.5
+    },
+    {
+      "text": "it's still an alpha contrast this with",
+      "start": 23.47,
+      "duration": 4.319
+    },
+    {
+      "text": "Prisma which is highly mature reason",
+      "start": 25.93,
+      "duration": 3.9
+    },
+    {
+      "text": "number three only four thousand stars on",
+      "start": 27.789,
+      "duration": 4.261
+    },
+    {
+      "text": "GitHub contrast that with over 30 000",
+      "start": 29.83,
+      "duration": 4.139
+    },
+    {
+      "text": "stars for Prisma this is not a vanity",
+      "start": 32.05,
+      "duration": 3.419
+    },
+    {
+      "text": "metric this correlates with employer",
+      "start": 33.969,
+      "duration": 3.721
+    },
+    {
+      "text": "awareness and Industry adoption you want",
+      "start": 35.469,
+      "duration": 3.36
+    },
+    {
+      "text": "to know skills that people are actually",
+      "start": 37.69,
+      "duration": 2.4
+    },
+    {
+      "text": "going to use you don't want to chase",
+      "start": 38.829,
+      "duration": 3.3
+    },
+    {
+      "text": "shiny objects that's reason number four",
+      "start": 40.09,
+      "duration": 3.78
+    },
+    {
+      "text": "if everyone's talking about it right now",
+      "start": 42.129,
+      "duration": 4.081
+    },
+    {
+      "text": "it just got released always be skeptical",
+      "start": 43.87,
+      "duration": 4.619
+    },
+    {
+      "text": "in general of shiny objects number five",
+      "start": 46.21,
+      "duration": 4.32
+    },
+    {
+      "text": "Prisma is still the default database",
+      "start": 48.489,
+      "duration": 4.5
+    },
+    {
+      "text": "client for Blitz Blitz is tried and true",
+      "start": 50.53,
+      "duration": 3.959
+    },
+    {
+      "text": "it handles my whole stack I'm not going",
+      "start": 52.989,
+      "duration": 4.14
+    },
+    {
+      "text": "to overturn it for a new unstable shiny",
+      "start": 54.489,
+      "duration": 6.741
+    },
+    {
+      "text": "object follow for more code and stuff",
+      "start": 57.129,
+      "duration": 4.101
+    }
+  ]
+}

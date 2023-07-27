@@ -1,0 +1,162 @@
+{
+  "id": "gPmIGWx4qa8",
+  "url": "https://youtu.be/gPmIGWx4qa8",
+  "title": "Accessibility in HTML",
+  "description": null,
+  "publish_date": "2023-06-19T00:00:00",
+  "length": 59,
+  "views": 46,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "HTML 505 let's talk about accessibility",
+      "start": 0.089,
+      "duration": 4.44
+    },
+    {
+      "text": "most HTML techniques for accessibility",
+      "start": 2.669,
+      "duration": 3.301
+    },
+    {
+      "text": "have already been covered in Parts one",
+      "start": 4.529,
+      "duration": 3.54
+    },
+    {
+      "text": "through four for example here we can see",
+      "start": 5.97,
+      "duration": 5.04
+    },
+    {
+      "text": "that semantic HTML is accessible HTML",
+      "start": 8.069,
+      "duration": 4.381
+    },
+    {
+      "text": "the text in front of us notes that we",
+      "start": 11.01,
+      "duration": 3.24
+    },
+    {
+      "text": "could use CSS and JavaScript to make an",
+      "start": 12.45,
+      "duration": 3.24
+    },
+    {
+      "text": "ordinary div accessible this is",
+      "start": 14.25,
+      "duration": 3.06
+    },
+    {
+      "text": "important the concept of accessibility",
+      "start": 15.69,
+      "duration": 4.14
+    },
+    {
+      "text": "stretches across HTML into CSS and",
+      "start": 17.31,
+      "duration": 4.74
+    },
+    {
+      "text": "JavaScript however practically we want",
+      "start": 19.83,
+      "duration": 4.14
+    },
+    {
+      "text": "to use semantic tags like button because",
+      "start": 22.05,
+      "duration": 3.899
+    },
+    {
+      "text": "a lot of the accessibility is built in",
+      "start": 23.97,
+      "duration": 3.78
+    },
+    {
+      "text": "for free you can see at the bottom being",
+      "start": 25.949,
+      "duration": 3.721
+    },
+    {
+      "text": "able to Tab and hit the enter key to",
+      "start": 27.75,
+      "duration": 3.84
+    },
+    {
+      "text": "activate a button or link is built into",
+      "start": 29.67,
+      "duration": 4.2
+    },
+    {
+      "text": "HTML for free here's an example of using",
+      "start": 31.59,
+      "duration": 4.08
+    },
+    {
+      "text": "plain old semantic HTML and it results",
+      "start": 33.87,
+      "duration": 4.02
+    },
+    {
+      "text": "in accessibility here we have an ordered",
+      "start": 35.67,
+      "duration": 5.1
+    },
+    {
+      "text": "list here is a list for you to read a",
+      "start": 37.89,
+      "duration": 4.8
+    },
+    {
+      "text": "screen reader is able to understand that",
+      "start": 40.77,
+      "duration": 4.08
+    },
+    {
+      "text": "this is a list and it will describe to a",
+      "start": 42.69,
+      "duration": 4.32
+    },
+    {
+      "text": "non-sighted user that this is an ordered",
+      "start": 44.85,
+      "duration": 4.02
+    },
+    {
+      "text": "list that's really the key about what we",
+      "start": 47.01,
+      "duration": 4.139
+    },
+    {
+      "text": "mean with accessibility is making our",
+      "start": 48.87,
+      "duration": 4.2
+    },
+    {
+      "text": "website accessible to non-traditional",
+      "start": 51.149,
+      "duration": 4.081
+    },
+    {
+      "text": "users including differently abled users",
+      "start": 53.07,
+      "duration": 4.68
+    },
+    {
+      "text": "in particular site impaired users Aria",
+      "start": 55.23,
+      "duration": 3.78
+    },
+    {
+      "text": "attributes are extremely important as",
+      "start": 57.75,
+      "duration": 3.379
+    },
+    {
+      "text": "well",
+      "start": 59.01,
+      "duration": 2.119
+    }
+  ]
+}

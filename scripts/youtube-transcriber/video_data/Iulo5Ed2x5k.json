@@ -1,0 +1,62 @@
+{
+  "id": "Iulo5Ed2x5k",
+  "url": "https://youtu.be/Iulo5Ed2x5k",
+  "title": "#data #dataanalysis #regression #datascience #research #python #econometrics #psychometrics #machine",
+  "description": null,
+  "publish_date": "2023-07-01T00:00:00",
+  "length": 15,
+  "views": 87,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "bro got like 93 variables trying to make",
+      "start": 0.089,
+      "duration": 3.241
+    },
+    {
+      "text": "an ordinary least squares model how do I",
+      "start": 1.89,
+      "duration": 2.58
+    },
+    {
+      "text": "know which ones matter why don't you",
+      "start": 3.33,
+      "duration": 2.4
+    },
+    {
+      "text": "just test all of them just drop them in",
+      "start": 4.47,
+      "duration": 2.52
+    },
+    {
+      "text": "the same model concurrently and drop the",
+      "start": 5.73,
+      "duration": 2.94
+    },
+    {
+      "text": "ones that have a low SP value bet so I",
+      "start": 6.99,
+      "duration": 3.0
+    },
+    {
+      "text": "just stopped when all the variables are",
+      "start": 8.67,
+      "duration": 3.06
+    },
+    {
+      "text": "under P dot one or what I mean if you're",
+      "start": 9.99,
+      "duration": 3.18
+    },
+    {
+      "text": "a boomer maximize your adjusted r",
+      "start": 11.73,
+      "duration": 5.239
+    },
+    {
+      "text": "squared or check the AIC or the b i c",
+      "start": 13.17,
+      "duration": 3.799
+    }
+  ]
+}

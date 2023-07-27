@@ -1,0 +1,52 @@
+{
+  "id": "u_ljoLlVxPM",
+  "url": "https://youtu.be/u_ljoLlVxPM",
+  "title": "Learn HTML part 4",
+  "description": null,
+  "publish_date": "2023-06-19T00:00:00",
+  "length": 15,
+  "views": 31,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "learn HTML part four or five let's talk",
+      "start": 0.29,
+      "duration": 3.659
+    },
+    {
+      "text": "about forms so you can think about like",
+      "start": 2.45,
+      "duration": 3.18
+    },
+    {
+      "text": "a sign up form it's just a collection of",
+      "start": 3.949,
+      "duration": 3.421
+    },
+    {
+      "text": "inputs you might have a name username",
+      "start": 5.63,
+      "duration": 4.32
+    },
+    {
+      "text": "password your mailing address you can",
+      "start": 7.37,
+      "duration": 4.2
+    },
+    {
+      "text": "have all kinds of inputs like a checkbox",
+      "start": 9.95,
+      "duration": 3.72
+    },
+    {
+      "text": "or a radio box this video is mostly a",
+      "start": 11.57,
+      "duration": 5.42
+    },
+    {
+      "text": "call out you need to study forms",
+      "start": 13.67,
+      "duration": 3.32
+    }
+  ]
+}

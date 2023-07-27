@@ -1,0 +1,52 @@
+{
+  "id": "rfWTaDNtyCA",
+  "url": "https://youtu.be/rfWTaDNtyCA",
+  "title": "#learntocode #todayilearned #programming #softwareengineer #opensource #coding #techtok #codetok #cs",
+  "description": null,
+  "publish_date": "2023-06-25T00:00:00",
+  "length": 15,
+  "views": 1456,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "one of the hardest parts of learning to",
+      "start": 0.17,
+      "duration": 3.54
+    },
+    {
+      "text": "code is picking up the vocabulary here",
+      "start": 1.73,
+      "duration": 4.08
+    },
+    {
+      "text": "are several case namings camel cases for",
+      "start": 3.71,
+      "duration": 3.96
+    },
+    {
+      "text": "ordinary JavaScript variables Pascal",
+      "start": 5.81,
+      "duration": 3.48
+    },
+    {
+      "text": "case is used to name react components",
+      "start": 7.67,
+      "duration": 3.719
+    },
+    {
+      "text": "classes and types Kebab case for CSS",
+      "start": 9.29,
+      "duration": 4.139
+    },
+    {
+      "text": "classes in a case and SQL and Python's",
+      "start": 11.389,
+      "duration": 5.54
+    },
+    {
+      "text": "screaming snake case for constants",
+      "start": 13.429,
+      "duration": 3.5
+    }
+  ]
+}
