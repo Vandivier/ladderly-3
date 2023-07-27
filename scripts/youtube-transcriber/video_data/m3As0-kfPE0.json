@@ -1,0 +1,57 @@
+{
+  "id": "m3As0-kfPE0",
+  "url": "https://youtu.be/m3As0-kfPE0",
+  "title": "new tech alert",
+  "description": null,
+  "publish_date": "2023-07-08T00:00:00",
+  "length": 15,
+  "views": 17,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "new technology alert react preview is an",
+      "start": 0.21,
+      "duration": 4.44
+    },
+    {
+      "text": "alternative storybook with near zero",
+      "start": 2.85,
+      "duration": 3.42
+    },
+    {
+      "text": "configuration storybook is a really",
+      "start": 4.65,
+      "duration": 2.999
+    },
+    {
+      "text": "great component browser it'll help you",
+      "start": 6.27,
+      "duration": 3.06
+    },
+    {
+      "text": "build an in-house component Library it",
+      "start": 7.649,
+      "duration": 3.421
+    },
+    {
+      "text": "does require a bit of setup though react",
+      "start": 9.33,
+      "duration": 3.24
+    },
+    {
+      "text": "preview integrates directly to vs code",
+      "start": 11.07,
+      "duration": 2.88
+    },
+    {
+      "text": "found this through stack share weekly",
+      "start": 12.57,
+      "duration": 4.04
+    },
+    {
+      "text": "follow for more",
+      "start": 13.95,
+      "duration": 2.66
+    }
+  ]
+}

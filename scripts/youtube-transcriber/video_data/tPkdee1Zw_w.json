@@ -1,0 +1,57 @@
+{
+  "id": "tPkdee1Zw_w",
+  "url": "https://youtu.be/tPkdee1Zw_w",
+  "title": "Coding Project Organization",
+  "description": null,
+  "publish_date": "2023-07-22T00:00:00",
+  "length": 15,
+  "views": 418,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "Devin asked is your project file",
+      "start": 0.26,
+      "duration": 3.48
+    },
+    {
+      "text": "structure organized by feature or file",
+      "start": 2.06,
+      "duration": 3.36
+    },
+    {
+      "text": "type I said by page is better than by",
+      "start": 3.74,
+      "duration": 3.72
+    },
+    {
+      "text": "feature she asked me to clarify what I",
+      "start": 5.42,
+      "duration": 3.78
+    },
+    {
+      "text": "do with my models and stores feel free",
+      "start": 7.46,
+      "duration": 3.3
+    },
+    {
+      "text": "to pause and read the details basically",
+      "start": 9.2,
+      "duration": 3.96
+    },
+    {
+      "text": "my stores are API driven Blitz and next",
+      "start": 10.76,
+      "duration": 3.839
+    },
+    {
+      "text": "to this out of the box pin comment for",
+      "start": 13.16,
+      "duration": 3.8
+    },
+    {
+      "text": "more details",
+      "start": 14.599,
+      "duration": 2.361
+    }
+  ]
+}

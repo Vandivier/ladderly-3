@@ -1,0 +1,452 @@
+{
+  "id": "AQSv6zLUCR4",
+  "url": "https://youtu.be/AQSv6zLUCR4",
+  "title": "How Much Data Bias is Acceptable?",
+  "description": null,
+  "publish_date": "2023-07-18T00:00:00",
+  "length": 180,
+  "views": 2,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "Jordan wonderful question what amount of",
+      "start": 0.24,
+      "duration": 3.6
+    },
+    {
+      "text": "data bias do you think is acceptable so",
+      "start": 2.1,
+      "duration": 3.06
+    },
+    {
+      "text": "for the general audience let me take a",
+      "start": 3.84,
+      "duration": 2.82
+    },
+    {
+      "text": "step back and Define what we even mean",
+      "start": 5.16,
+      "duration": 3.54
+    },
+    {
+      "text": "by bias bias here we're using a",
+      "start": 6.66,
+      "duration": 4.019
+    },
+    {
+      "text": "technical sense in terms of statistical",
+      "start": 8.7,
+      "duration": 4.14
+    },
+    {
+      "text": "bias in ordinary English a bias might",
+      "start": 10.679,
+      "duration": 4.141
+    },
+    {
+      "text": "refer to a tendency John you're always",
+      "start": 12.84,
+      "duration": 4.14
+    },
+    {
+      "text": "doing economic analysis are you biased",
+      "start": 14.82,
+      "duration": 4.92
+    },
+    {
+      "text": "towards economics and statistics that",
+      "start": 16.98,
+      "duration": 4.32
+    },
+    {
+      "text": "would be called a correlation or a",
+      "start": 19.74,
+      "duration": 3.72
+    },
+    {
+      "text": "tendency that in and of itself is not a",
+      "start": 21.3,
+      "duration": 4.44
+    },
+    {
+      "text": "bias a bias would be if your correlation",
+      "start": 23.46,
+      "duration": 4.319
+    },
+    {
+      "text": "was higher than it should be or lower",
+      "start": 25.74,
+      "duration": 4.26
+    },
+    {
+      "text": "than it should be if your measurement of",
+      "start": 27.779,
+      "duration": 4.741
+    },
+    {
+      "text": "correlation was incorrect or erroneous",
+      "start": 30.0,
+      "duration": 4.62
+    },
+    {
+      "text": "it would be biased but the correlation",
+      "start": 32.52,
+      "duration": 3.96
+    },
+    {
+      "text": "by itself totally fine in the technical",
+      "start": 34.62,
+      "duration": 3.9
+    },
+    {
+      "text": "sense here's another way that bias would",
+      "start": 36.48,
+      "duration": 3.72
+    },
+    {
+      "text": "basically not be acceptable and it's",
+      "start": 38.52,
+      "duration": 3.359
+    },
+    {
+      "text": "also not the technical definition of ice",
+      "start": 40.2,
+      "duration": 3.9
+    },
+    {
+      "text": "hey John we know that you have this",
+      "start": 41.879,
+      "duration": 4.081
+    },
+    {
+      "text": "conclusion that you already have in your",
+      "start": 44.1,
+      "duration": 3.72
+    },
+    {
+      "text": "mind and you're trying to sneak it in",
+      "start": 45.96,
+      "duration": 3.119
+    },
+    {
+      "text": "and you're just trying to put a veneer",
+      "start": 47.82,
+      "duration": 3.899
+    },
+    {
+      "text": "of Statistics over the top so in",
+      "start": 49.079,
+      "duration": 4.621
+    },
+    {
+      "text": "economics we would call that a moral",
+      "start": 51.719,
+      "duration": 3.84
+    },
+    {
+      "text": "hazard and that's distinct from a",
+      "start": 53.7,
+      "duration": 3.539
+    },
+    {
+      "text": "technical bias although in the normal",
+      "start": 55.559,
+      "duration": 3.781
+    },
+    {
+      "text": "English we kind of say hey you're biased",
+      "start": 57.239,
+      "duration": 3.361
+    },
+    {
+      "text": "and we're actually referring to that",
+      "start": 59.34,
+      "duration": 4.019
+    },
+    {
+      "text": "moral hazard so here are two examples of",
+      "start": 60.6,
+      "duration": 4.739
+    },
+    {
+      "text": "technical bias one would be omitted",
+      "start": 63.359,
+      "duration": 4.321
+    },
+    {
+      "text": "variable bias say I'm doing a regression",
+      "start": 65.339,
+      "duration": 4.921
+    },
+    {
+      "text": "between gender in the tech industry and",
+      "start": 67.68,
+      "duration": 4.619
+    },
+    {
+      "text": "I just do a simple regression one-on-one",
+      "start": 70.26,
+      "duration": 3.899
+    },
+    {
+      "text": "univariate regression but there's",
+      "start": 72.299,
+      "duration": 3.541
+    },
+    {
+      "text": "actually a bunch of other things that",
+      "start": 74.159,
+      "duration": 4.621
+    },
+    {
+      "text": "matter like for example personality or",
+      "start": 75.84,
+      "duration": 5.52
+    },
+    {
+      "text": "risk aversion",
+      "start": 78.78,
+      "duration": 4.56
+    },
+    {
+      "text": "um so if I leave those variables out if",
+      "start": 81.36,
+      "duration": 4.259
+    },
+    {
+      "text": "I omit them then the statistical",
+      "start": 83.34,
+      "duration": 4.98
+    },
+    {
+      "text": "coefficient of gender will be biased",
+      "start": 85.619,
+      "duration": 4.68
+    },
+    {
+      "text": "because it will be including some of",
+      "start": 88.32,
+      "duration": 3.299
+    },
+    {
+      "text": "those other effects that shouldn't be",
+      "start": 90.299,
+      "duration": 2.761
+    },
+    {
+      "text": "attributed to it another important",
+      "start": 91.619,
+      "duration": 3.061
+    },
+    {
+      "text": "technical bias is repeated measurement",
+      "start": 93.06,
+      "duration": 4.199
+    },
+    {
+      "text": "bias where if I run a survey on Monday",
+      "start": 94.68,
+      "duration": 4.439
+    },
+    {
+      "text": "Tuesday and Wednesday and I get 50",
+      "start": 97.259,
+      "duration": 4.381
+    },
+    {
+      "text": "responses each day and then I do a",
+      "start": 99.119,
+      "duration": 3.96
+    },
+    {
+      "text": "regression on them and I don't account",
+      "start": 101.64,
+      "duration": 4.56
+    },
+    {
+      "text": "for the fact that Jim responded on all",
+      "start": 103.079,
+      "duration": 4.801
+    },
+    {
+      "text": "three days and he actually got more",
+      "start": 106.2,
+      "duration": 3.66
+    },
+    {
+      "text": "votes as it were",
+      "start": 107.88,
+      "duration": 3.36
+    },
+    {
+      "text": "um then there's a bias where I'm",
+      "start": 109.86,
+      "duration": 4.14
+    },
+    {
+      "text": "actually over representing Jim's opinion",
+      "start": 111.24,
+      "duration": 4.739
+    },
+    {
+      "text": "and I'm not really getting the opinion",
+      "start": 114.0,
+      "duration": 3.479
+    },
+    {
+      "text": "of the general population so that would",
+      "start": 115.979,
+      "duration": 3.361
+    },
+    {
+      "text": "be a biased result so those are formal",
+      "start": 117.479,
+      "duration": 3.541
+    },
+    {
+      "text": "statistical biases there are also",
+      "start": 119.34,
+      "duration": 4.8
+    },
+    {
+      "text": "informal or domain-specific biases and",
+      "start": 121.02,
+      "duration": 5.58
+    },
+    {
+      "text": "economics this would include anti-market",
+      "start": 124.14,
+      "duration": 5.52
+    },
+    {
+      "text": "bias anti-innovation bias anti-foreign",
+      "start": 126.6,
+      "duration": 5.88
+    },
+    {
+      "text": "bias self-similarity bias",
+      "start": 129.66,
+      "duration": 6.06
+    },
+    {
+      "text": "so these are biases that are results of",
+      "start": 132.48,
+      "duration": 5.82
+    },
+    {
+      "text": "theories in your field and those biases",
+      "start": 135.72,
+      "duration": 4.44
+    },
+    {
+      "text": "are not statistical biases in the sense",
+      "start": 138.3,
+      "duration": 3.24
+    },
+    {
+      "text": "that your model is technically wrong",
+      "start": 140.16,
+      "duration": 3.299
+    },
+    {
+      "text": "what they mean is that there's a",
+      "start": 141.54,
+      "duration": 3.48
+    },
+    {
+      "text": "disproportionate impact between the",
+      "start": 143.459,
+      "duration": 2.941
+    },
+    {
+      "text": "expected result and The observed result",
+      "start": 145.02,
+      "duration": 5.88
+    },
+    {
+      "text": "so if I give somebody ten dollars and I",
+      "start": 146.4,
+      "duration": 6.839
+    },
+    {
+      "text": "observe how they spend it I'm gonna",
+      "start": 150.9,
+      "duration": 3.66
+    },
+    {
+      "text": "there's gonna be a systematic difference",
+      "start": 153.239,
+      "duration": 3.961
+    },
+    {
+      "text": "compared to if I just ask them by survey",
+      "start": 154.56,
+      "duration": 4.62
+    },
+    {
+      "text": "by questionnaire hey how would you spend",
+      "start": 157.2,
+      "duration": 4.2
+    },
+    {
+      "text": "ten dollars in economics we've observed",
+      "start": 159.18,
+      "duration": 4.199
+    },
+    {
+      "text": "that there's a theoretical bias there",
+      "start": 161.4,
+      "duration": 4.44
+    },
+    {
+      "text": "and specifically people respond by",
+      "start": 163.379,
+      "duration": 4.08
+    },
+    {
+      "text": "questionnaire that they're much more",
+      "start": 165.84,
+      "duration": 3.24
+    },
+    {
+      "text": "willing to spend money",
+      "start": 167.459,
+      "duration": 2.761
+    },
+    {
+      "text": "um than they in fact are When You",
+      "start": 169.08,
+      "duration": 2.58
+    },
+    {
+      "text": "observe them with their cash in their",
+      "start": 170.22,
+      "duration": 2.58
+    },
+    {
+      "text": "wallet so with all that background",
+      "start": 171.66,
+      "duration": 2.939
+    },
+    {
+      "text": "there's situations in which an optimal",
+      "start": 172.8,
+      "duration": 4.92
+    },
+    {
+      "text": "decision uses 100 biased data follow for",
+      "start": 174.599,
+      "duration": 4.261
+    },
+    {
+      "text": "part two I'll give you a specific",
+      "start": 177.72,
+      "duration": 4.28
+    },
+    {
+      "text": "example much more to talk about",
+      "start": 178.86,
+      "duration": 3.14
+    }
+  ]
+}
