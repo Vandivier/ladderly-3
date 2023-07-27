@@ -1,0 +1,472 @@
+{
+  "id": "gEZ00UUWcbA",
+  "url": "https://youtu.be/gEZ00UUWcbA",
+  "title": "Efficient Bias",
+  "description": null,
+  "publish_date": "2023-07-18T00:00:00",
+  "length": 180,
+  "views": 5,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "so how much database is acceptable part",
+      "start": 0.06,
+      "duration": 5.759
+    },
+    {
+      "text": "two this is the economic answer that's",
+      "start": 2.399,
+      "duration": 4.98
+    },
+    {
+      "text": "mathematically rigorous and that would",
+      "start": 5.819,
+      "duration": 3.961
+    },
+    {
+      "text": "be you should pay to improve your data",
+      "start": 7.379,
+      "duration": 4.921
+    },
+    {
+      "text": "quality until the marginal benefit is",
+      "start": 9.78,
+      "duration": 4.68
+    },
+    {
+      "text": "equal to the marginal cost when you",
+      "start": 12.3,
+      "duration": 3.48
+    },
+    {
+      "text": "reach that point where they're equal",
+      "start": 14.46,
+      "duration": 3.72
+    },
+    {
+      "text": "spending any more money is going to be a",
+      "start": 15.78,
+      "duration": 4.32
+    },
+    {
+      "text": "bad return on investment so you should",
+      "start": 18.18,
+      "duration": 3.06
+    },
+    {
+      "text": "use that money elsewhere so you",
+      "start": 20.1,
+      "duration": 2.64
+    },
+    {
+      "text": "shouldn't spend it further on data",
+      "start": 21.24,
+      "duration": 3.24
+    },
+    {
+      "text": "quality we don't have an infinite budget",
+      "start": 22.74,
+      "duration": 3.6
+    },
+    {
+      "text": "for data quality right and sometimes our",
+      "start": 24.48,
+      "duration": 4.08
+    },
+    {
+      "text": "budget is extremely limited sometimes",
+      "start": 26.34,
+      "duration": 4.14
+    },
+    {
+      "text": "our budget constrains us to a sample of",
+      "start": 28.56,
+      "duration": 4.08
+    },
+    {
+      "text": "one or even zero so a real example of",
+      "start": 30.48,
+      "duration": 3.66
+    },
+    {
+      "text": "this would be like a once in a lifetime",
+      "start": 32.64,
+      "duration": 3.66
+    },
+    {
+      "text": "investment opportunity invest now or",
+      "start": 34.14,
+      "duration": 4.14
+    },
+    {
+      "text": "you'll never get to invest again",
+      "start": 36.3,
+      "duration": 3.779
+    },
+    {
+      "text": "it'd be extremely risky but you still",
+      "start": 38.28,
+      "duration": 3.48
+    },
+    {
+      "text": "might go for it",
+      "start": 40.079,
+      "duration": 3.241
+    },
+    {
+      "text": "another example would be you're an",
+      "start": 41.76,
+      "duration": 3.6
+    },
+    {
+      "text": "employee and like you know you're kind",
+      "start": 43.32,
+      "duration": 4.559
+    },
+    {
+      "text": "of on the chopping block let's say",
+      "start": 45.36,
+      "duration": 4.74
+    },
+    {
+      "text": "um and it's like you have to make this",
+      "start": 47.879,
+      "duration": 4.141
+    },
+    {
+      "text": "high-stakes uh prediction you have to",
+      "start": 50.1,
+      "duration": 3.18
+    },
+    {
+      "text": "make it now you're in a boardroom",
+      "start": 52.02,
+      "duration": 2.4
+    },
+    {
+      "text": "meeting they're not going to let you go",
+      "start": 53.28,
+      "duration": 2.64
+    },
+    {
+      "text": "do more research you have to make a",
+      "start": 54.42,
+      "duration": 3.299
+    },
+    {
+      "text": "judgment call right now on the basis of",
+      "start": 55.92,
+      "duration": 3.299
+    },
+    {
+      "text": "the information you have",
+      "start": 57.719,
+      "duration": 3.901
+    },
+    {
+      "text": "but what if you have no direct samples",
+      "start": 59.219,
+      "duration": 4.02
+    },
+    {
+      "text": "of the question you're going to have to",
+      "start": 61.62,
+      "duration": 4.56
+    },
+    {
+      "text": "rely on kind of like intuitions or",
+      "start": 63.239,
+      "duration": 4.861
+    },
+    {
+      "text": "judgment calls or like related studies",
+      "start": 66.18,
+      "duration": 3.6
+    },
+    {
+      "text": "that you think might be related",
+      "start": 68.1,
+      "duration": 4.32
+    },
+    {
+      "text": "basically intuition which is arguably",
+      "start": 69.78,
+      "duration": 4.44
+    },
+    {
+      "text": "either a sample of one or a sample of",
+      "start": 72.42,
+      "duration": 4.019
+    },
+    {
+      "text": "zero so intuition does not have a value",
+      "start": 74.22,
+      "duration": 4.98
+    },
+    {
+      "text": "of zero but it's also full of biases",
+      "start": 76.439,
+      "duration": 4.921
+    },
+    {
+      "text": "right so the more objective data we can",
+      "start": 79.2,
+      "duration": 4.26
+    },
+    {
+      "text": "get the better and there is kind of an",
+      "start": 81.36,
+      "duration": 3.78
+    },
+    {
+      "text": "upper limit which is once you have",
+      "start": 83.46,
+      "duration": 3.6
+    },
+    {
+      "text": "measured the entire population like",
+      "start": 85.14,
+      "duration": 4.14
+    },
+    {
+      "text": "there's not much more",
+      "start": 87.06,
+      "duration": 3.72
+    },
+    {
+      "text": "um bias reduction you can do although",
+      "start": 89.28,
+      "duration": 3.6
+    },
+    {
+      "text": "you can still possibly improve your",
+      "start": 90.78,
+      "duration": 5.04
+    },
+    {
+      "text": "measurement approach so measurement bias",
+      "start": 92.88,
+      "duration": 4.919
+    },
+    {
+      "text": "is a thing so even if you've measured",
+      "start": 95.82,
+      "duration": 4.14
+    },
+    {
+      "text": "the entire population of samples",
+      "start": 97.799,
+      "duration": 3.661
+    },
+    {
+      "text": "if you measured it wrong you have a",
+      "start": 99.96,
+      "duration": 2.64
+    },
+    {
+      "text": "measurement bias so there are still",
+      "start": 101.46,
+      "duration": 2.699
+    },
+    {
+      "text": "opportunities to improve or if you've",
+      "start": 102.6,
+      "duration": 3.3
+    },
+    {
+      "text": "analyzed it you could have an analytical",
+      "start": 104.159,
+      "duration": 4.021
+    },
+    {
+      "text": "bias or a model bias",
+      "start": 105.9,
+      "duration": 4.2
+    },
+    {
+      "text": "so these are places where you can spend",
+      "start": 108.18,
+      "duration": 3.479
+    },
+    {
+      "text": "more time and effort to improve your",
+      "start": 110.1,
+      "duration": 2.94
+    },
+    {
+      "text": "measurement process your modeling",
+      "start": 111.659,
+      "duration": 3.661
+    },
+    {
+      "text": "process your analytical process",
+      "start": 113.04,
+      "duration": 4.14
+    },
+    {
+      "text": "but whether we're talking about time or",
+      "start": 115.32,
+      "duration": 3.18
+    },
+    {
+      "text": "whether we're talking about dollars",
+      "start": 117.18,
+      "duration": 3.18
+    },
+    {
+      "text": "you're having to spend right and we're",
+      "start": 118.5,
+      "duration": 3.72
+    },
+    {
+      "text": "constrained on all these fronts the last",
+      "start": 120.36,
+      "duration": 3.24
+    },
+    {
+      "text": "thing I would say here is that when we",
+      "start": 122.22,
+      "duration": 2.999
+    },
+    {
+      "text": "talk about the marginal benefit and the",
+      "start": 123.6,
+      "duration": 4.019
+    },
+    {
+      "text": "marginal cost costs and benefits are",
+      "start": 125.219,
+      "duration": 4.981
+    },
+    {
+      "text": "both subjective so in economics We Care",
+      "start": 127.619,
+      "duration": 4.921
+    },
+    {
+      "text": "not just about dollars we're not Finance",
+      "start": 130.2,
+      "duration": 3.66
+    },
+    {
+      "text": "guys we're not accountants we're",
+      "start": 132.54,
+      "duration": 2.94
+    },
+    {
+      "text": "economists right we're higher than that",
+      "start": 133.86,
+      "duration": 2.879
+    },
+    {
+      "text": "we're better",
+      "start": 135.48,
+      "duration": 3.72
+    },
+    {
+      "text": "so we care about subjective value and",
+      "start": 136.739,
+      "duration": 3.541
+    },
+    {
+      "text": "utility",
+      "start": 139.2,
+      "duration": 3.5
+    },
+    {
+      "text": "so if your employee base at your company",
+      "start": 140.28,
+      "duration": 4.98
+    },
+    {
+      "text": "is sort of emotionally invested like",
+      "start": 142.7,
+      "duration": 4.66
+    },
+    {
+      "text": "they're really personally interested in",
+      "start": 145.26,
+      "duration": 3.96
+    },
+    {
+      "text": "a diversity initiative you're going to",
+      "start": 147.36,
+      "duration": 3.48
+    },
+    {
+      "text": "want to count that as an additional",
+      "start": 149.22,
+      "duration": 3.48
+    },
+    {
+      "text": "benefit to investing in diversity right",
+      "start": 150.84,
+      "duration": 3.96
+    },
+    {
+      "text": "and you can actually capture this if you",
+      "start": 152.7,
+      "duration": 3.72
+    },
+    {
+      "text": "dig in and measure it properly there",
+      "start": 154.8,
+      "duration": 3.54
+    },
+    {
+      "text": "will be benefits to retention and",
+      "start": 156.42,
+      "duration": 4.26
+    },
+    {
+      "text": "employee satisfaction and so forth so be",
+      "start": 158.34,
+      "duration": 3.479
+    },
+    {
+      "text": "sure that you're counting those what we",
+      "start": 160.68,
+      "duration": 4.139
+    },
+    {
+      "text": "call non-pecuniary or non-dollar",
+      "start": 161.819,
+      "duration": 5.881
+    },
+    {
+      "text": "benefits as well on both the cost side",
+      "start": 164.819,
+      "duration": 5.721
+    },
+    {
+      "text": "and the benefit side and don't forget",
+      "start": 167.7,
+      "duration": 5.28
+    },
+    {
+      "text": "opportunity cost don't forget that one",
+      "start": 170.54,
+      "duration": 4.24
+    },
+    {
+      "text": "right I wouldn't be an economist if I",
+      "start": 172.98,
+      "duration": 3.119
+    },
+    {
+      "text": "didn't mention that too",
+      "start": 174.78,
+      "duration": 4.08
+    },
+    {
+      "text": "sum it all up one more time invest until",
+      "start": 176.099,
+      "duration": 5.72
+    },
+    {
+      "text": "MB equals MC",
+      "start": 178.86,
+      "duration": 2.959
+    }
+  ]
+}
