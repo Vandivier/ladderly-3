@@ -79,6 +79,18 @@ def main():
 
     print(f"Consolidated transcript written to {output_file}")
 
+    file_info = os.stat(output_file)
+    file_size_MB = file_info.st_size / 1024 / 1024
+    print(f"File size: {file_size_MB:.2f} MB")
+
+    with open(output_file, "r", encoding="utf-8") as f:
+        text = f.read()
+    char_count = len(text)
+    print(f"Character count: {char_count}")
+
+    token_count_estimate = char_count // 4
+    print(f"Estimated token count: {token_count_estimate}")
+
 
 if __name__ == "__main__":
     main()
