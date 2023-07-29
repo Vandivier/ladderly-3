@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import React from "react"
 import { Fragment, Suspense } from "react"
+import getNewestChecklistByCurrentUserChecklist from "src/checklists/queries/getNewestChecklistByCurrentUserChecklist"
 
 import getUserChecklistByName, {
   UserChecklistItemWithChecklistItem,
@@ -70,7 +71,31 @@ const UserChecklistItemList = ({
   )
 }
 
-const ChecklistQueryHandler: React.FC = () => {
+const NewestChecklistQueryHandler: React.FC = () => {
+  const [checklist, { refetchChecklist }] = useQuery(getNewestChecklistByCurrentUserChecklist, {
+    name: "Programming Job Checklist",
+  })
+  const [userChecklistData, { refetchUserChecklistData }] = useQuery(getUserChecklistByName, {
+    name: "Programming Job Checklist",
+  })
+  const [showToast, setShowToast] = React.useState(true)
+  const shouldShowToastFr =
+    checklist && showToast && checklist.version !== userChecklistData.checklist.version
+
+  const handleToastClick = () => {
+    setShowToast(false)
+  }
+
+  return shouldShowToastFr ? (
+    <LadderlyToast
+      message="A New Checklist Version is Available."
+      onClick={handleToastClick}
+      onClose={handleToastClick}
+    />
+  ) : null
+}
+
+const ChecklistItemQueryHandler: React.FC = () => {
   const [userChecklistData, { refetch }] = useQuery(getUserChecklistByName, {
     name: "Programming Job Checklist",
   })
@@ -84,12 +109,6 @@ const ChecklistQueryHandler: React.FC = () => {
 }
 
 const MyBasicChecklist: BlitzPage = () => {
-  const [showToast, setShowToast] = React.useState(true)
-
-  const handleToastClick = () => {
-    setShowToast(false)
-  }
-
   return (
     <Layout title="My Standard Checklist">
       <div className="relative min-h-screen">
@@ -99,19 +118,15 @@ const MyBasicChecklist: BlitzPage = () => {
           </Link>
         </nav>
 
-        {showToast ? (
-          <LadderlyToast
-            message="A New Checklist Version is Available."
-            onClick={handleToastClick}
-            onClose={handleToastClick}
-          />
-        ) : null}
+        <Suspense>
+          <NewestChecklistQueryHandler />
+        </Suspense>
 
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
           <div className="m-8 w-full max-w-md rounded-lg border border-gray-200 bg-white p-8 shadow-xl">
             <h1 className="mb-4 text-2xl font-bold text-gray-800">My Standard Checklist</h1>
             <Suspense fallback="Loading...">
-              <ChecklistQueryHandler />
+              <ChecklistItemQueryHandler />
             </Suspense>
           </div>
         </div>
