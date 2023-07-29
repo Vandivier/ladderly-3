@@ -2,11 +2,13 @@ import { BlitzPage } from "@blitzjs/auth"
 import { Routes } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
+import React from "react"
 import { Fragment, Suspense } from "react"
 
 import getUserChecklistByName, {
   UserChecklistItemWithChecklistItem,
 } from "src/checklists/queries/getUserChecklistByName"
+import { LadderlyToast } from "src/core/components/LadderlyToast"
 import Layout from "src/core/layouts/Layout"
 import updateUserChecklistItem from "src/user-checklist-items/mutations/updateUserChecklistItem"
 
@@ -82,6 +84,12 @@ const ChecklistQueryHandler: React.FC = () => {
 }
 
 const MyBasicChecklist: BlitzPage = () => {
+  const [showToast, setShowToast] = React.useState(true)
+
+  const handleToastClick = () => {
+    setShowToast(false)
+  }
+
   return (
     <Layout title="My Standard Checklist">
       <div className="relative min-h-screen">
@@ -90,6 +98,15 @@ const MyBasicChecklist: BlitzPage = () => {
             Back to Home
           </Link>
         </nav>
+
+        {showToast ? (
+          <LadderlyToast
+            message="A New Checklist Version is Available."
+            onClick={handleToastClick}
+            onClose={handleToastClick}
+          />
+        ) : null}
+
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
           <div className="m-8 w-full max-w-md rounded-lg border border-gray-200 bg-white p-8 shadow-xl">
             <h1 className="mb-4 text-2xl font-bold text-gray-800">My Standard Checklist</h1>
