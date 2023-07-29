@@ -21,15 +21,32 @@ export type UserChecklistByNameData = {
 
 export default resolver.pipe(
   resolver.authorize(),
-  async ({ name }: { name: string }, ctx: Ctx): Promise<UserChecklistByNameData> => {
+  async (
+    { name, version }: { name: string; version?: string },
+    ctx: Ctx
+  ): Promise<UserChecklistByNameData> => {
     const { userId } = ctx.session
 
     if (!userId) throw new AuthenticationError()
 
-    const checklist = await db.checklist.findFirst({
-      include: { checklistItems: true },
-      where: { name },
-    })
+    let checklist
+    if (version) {
+      checklist = await db.checklist.findFirst({
+        include: { checklistItems: true },
+        where: {
+          name,
+          version,
+        },
+      })
+    } else {
+      const checklists = await db.checklist.findMany({
+        where: { name },
+      })
+
+      checklist = checklists.sort(
+        (a, b) => new Date(b.version).getTime() - new Date(a.version).getTime()
+      )[0]
+    }
 
     if (!checklist) throw new Error("Checklist not found")
     let userChecklistItems: UserChecklistItemWithChecklistItem[] = []
