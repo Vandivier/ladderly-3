@@ -2,13 +2,12 @@ import { BlitzPage } from "@blitzjs/auth"
 import { Routes } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
-import React from "react"
-import { Fragment, Suspense } from "react"
-import getNewestChecklistByCurrentUserChecklist from "src/checklists/queries/getNewestChecklistByCurrentUserChecklist"
+import React, { Fragment, Suspense } from "react"
 
+import getNewestChecklistByName from "src/checklists/queries/getNewestChecklistByName"
 import getUserChecklistByName, {
   UserChecklistItemWithChecklistItem,
-} from "src/checklists/queries/getUserChecklistByName"
+} from "src/user-checklists/queries/getUserChecklistByName"
 import { LadderlyToast } from "src/core/components/LadderlyToast"
 import Layout from "src/core/layouts/Layout"
 import updateUserChecklistItem from "src/user-checklist-items/mutations/updateUserChecklistItem"
@@ -72,25 +71,37 @@ const UserChecklistItemList = ({
 }
 
 const NewestChecklistQueryHandler: React.FC = () => {
-  const [checklist, { refetchChecklist }] = useQuery(getNewestChecklistByCurrentUserChecklist, {
+  const [checklist] = useQuery(getNewestChecklistByName, {
     name: "Programming Job Checklist",
   })
   const [userChecklistData, { refetchUserChecklistData }] = useQuery(getUserChecklistByName, {
     name: "Programming Job Checklist",
   })
   const [showToast, setShowToast] = React.useState(true)
-  const shouldShowToastFr =
-    checklist && showToast && checklist.version !== userChecklistData.checklist.version
+  const [toastMessage, setToastMessage] = React.useState("A New Checklist Version is Available.")
+  const shouldShowToastFr = showToast && checklist?.version !== userChecklistData.checklist.version
+  debugger
+  const handleToastConfirmClick = async () => {
+    setToastMessage("Update in progress...")
 
-  const handleToastClick = () => {
+    try {
+      //   await updateUserChecklistItemMutation({ id, isComplete: !isComplete })
+      //   refetchUserChecklistData()
+      //   setShowToast(false)
+    } catch (error) {
+      alert("Error updating checklist items.")
+    }
+  }
+
+  const handleToastCloseClick = () => {
     setShowToast(false)
   }
 
   return shouldShowToastFr ? (
     <LadderlyToast
-      message="A New Checklist Version is Available."
-      onClick={handleToastClick}
-      onClose={handleToastClick}
+      message={toastMessage}
+      onClick={handleToastConfirmClick}
+      onClose={handleToastCloseClick}
     />
   ) : null
 }

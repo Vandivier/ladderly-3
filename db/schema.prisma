@@ -117,7 +117,10 @@ model ChecklistItem {
   isRequired   Boolean  @default(true)
   linkText     String   @default("")
   linkUri      String   @default("")
-  version      String   @default("2023-07-18T00:00:00.517Z")
+
+  // currently, versions are ISO
+  // so we can sort lexicographically
+  version String @default("2023-07-18T00:00:00.517Z")
 
   checklist          Checklist           @relation(fields: [checklistId], references: [id])
   checklistId        Int
