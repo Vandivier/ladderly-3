@@ -14,12 +14,26 @@ export const LadderlyToast: React.FC<ToastProps> = ({
   onClose,
 }) => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === "Enter") {
       onClick()
     } else if (event.key === "Escape") {
       if (typeof onClose === "function") {
         onClose()
       }
+    }
+  }
+
+  const handleDismissClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    if (typeof onClose === "function") {
+      onClose()
+    }
+  }
+
+  const handleDismissKeyDown = (event: React.KeyboardEvent) => {
+    event.stopPropagation()
+    if (typeof onClose === "function" && event.key === "Enter") {
+      onClose()
     }
   }
 
@@ -33,7 +47,11 @@ export const LadderlyToast: React.FC<ToastProps> = ({
     >
       <div>{message}</div>
       {onClose ? (
-        <button onClick={onClose} className="rounded-lg border bg-white p-2 font-bold">
+        <button
+          onClick={handleDismissClick}
+          onKeyDown={handleDismissKeyDown}
+          className="rounded-lg border bg-white p-2 font-bold"
+        >
           Dismiss
         </button>
       ) : null}
