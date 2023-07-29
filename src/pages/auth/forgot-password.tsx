@@ -1,4 +1,3 @@
-import { useRouter } from "next/router"
 import Layout from "src/core/layouts/Layout"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "src/core/components/Form"
@@ -10,7 +9,6 @@ import Link from "next/link"
 
 const ForgotPasswordPage: BlitzPage = () => {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
-  const router = useRouter()
 
   return (
     <Layout title="Forgot Your Password?">

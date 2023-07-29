@@ -4,13 +4,12 @@ import { useMutation, useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import React, { Fragment, Suspense } from "react"
 
-import getNewestChecklistByName from "src/checklists/queries/getNewestChecklistByName"
-import getUserChecklistByName, {
-  UserChecklistItemWithChecklistItem,
-} from "src/user-checklists/queries/getUserChecklistByName"
 import { LadderlyToast } from "src/core/components/LadderlyToast"
 import Layout from "src/core/layouts/Layout"
 import updateUserChecklistItem from "src/user-checklist-items/mutations/updateUserChecklistItem"
+import createUserChecklist from "src/user-checklists/mutations/createUserChecklist"
+import getLatestUserChecklistByName from "src/user-checklists/queries/getLatestUserChecklistByName"
+import { UserChecklistItemWithChecklistItem } from "src/user-checklists/schemas"
 
 const MAGIC_LINK_SUBSTR = "###LINK###"
 
@@ -19,14 +18,14 @@ const UserChecklistItemList = ({
   refetchChecklist,
 }: {
   items: UserChecklistItemWithChecklistItem[]
-  refetchChecklist: () => void
+  refetchChecklist: () => Promise<any>
 }) => {
   const [updateUserChecklistItemMutation] = useMutation(updateUserChecklistItem)
 
   const handleItemClick = async (id, isComplete) => {
     try {
       await updateUserChecklistItemMutation({ id, isComplete: !isComplete })
-      refetchChecklist()
+      await refetchChecklist()
     } catch (error) {
       alert("Error updating checklist item " + JSON.stringify(error, null, 2))
     }
@@ -71,23 +70,22 @@ const UserChecklistItemList = ({
 }
 
 const NewestChecklistQueryHandler: React.FC = () => {
-  const [checklist] = useQuery(getNewestChecklistByName, {
+  const [createUserChecklistMutation] = useMutation(createUserChecklist)
+  const [userChecklistData, { refetch }] = useQuery(getLatestUserChecklistByName, {
     name: "Programming Job Checklist",
   })
-  const [userChecklistData, { refetchUserChecklistData }] = useQuery(getUserChecklistByName, {
-    name: "Programming Job Checklist",
-  })
-  const [showToast, setShowToast] = React.useState(true)
+  const [showToast, setShowToast] = React.useState(userChecklistData?.isLatestVersion!)
   const [toastMessage, setToastMessage] = React.useState("A New Checklist Version is Available.")
-  const shouldShowToastFr = showToast && checklist?.version !== userChecklistData.checklist.version
-  debugger
+
   const handleToastConfirmClick = async () => {
+    const checklistId = userChecklistData?.latestChecklist?.id
+    if (!checklistId) return
     setToastMessage("Update in progress...")
 
     try {
-      //   await updateUserChecklistItemMutation({ id, isComplete: !isComplete })
-      //   refetchUserChecklistData()
-      //   setShowToast(false)
+      await createUserChecklistMutation({ checklistId })
+      await refetch()
+      setShowToast(false)
     } catch (error) {
       alert("Error updating checklist items.")
     }
@@ -97,7 +95,7 @@ const NewestChecklistQueryHandler: React.FC = () => {
     setShowToast(false)
   }
 
-  return shouldShowToastFr ? (
+  return showToast ? (
     <LadderlyToast
       message={toastMessage}
       onClick={handleToastConfirmClick}
@@ -107,16 +105,16 @@ const NewestChecklistQueryHandler: React.FC = () => {
 }
 
 const ChecklistItemQueryHandler: React.FC = () => {
-  const [userChecklistData, { refetch }] = useQuery(getUserChecklistByName, {
+  const [currUserChecklistData, { refetch }] = useQuery(getLatestUserChecklistByName, {
     name: "Programming Job Checklist",
   })
 
-  return (
+  return currUserChecklistData ? (
     <UserChecklistItemList
-      items={userChecklistData.userChecklistItemsWithChecklistItem}
+      items={currUserChecklistData.userChecklistWithChecklistItems.userChecklistItems}
       refetchChecklist={refetch}
     />
-  )
+  ) : null
 }
 
 const MyBasicChecklist: BlitzPage = () => {
