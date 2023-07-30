@@ -59,3 +59,6 @@ lib-cov
 db/bak.user*.json
 db/premium-checklists.json
 .vercel
+
+
+stripe_paymen*.json
