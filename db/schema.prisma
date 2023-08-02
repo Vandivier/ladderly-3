@@ -25,6 +25,7 @@ model User {
   nameFirst      String  @default("")
   nameLast       String  @default("")
 
+  hasOpenToWork           Boolean @default(false)
   hasPublicProfileEnabled Boolean @default(false)
   hasShoutOutsEnabled     Boolean @default(false)
 
