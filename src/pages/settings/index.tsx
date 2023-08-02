@@ -1,13 +1,14 @@
-import { Suspense } from "react"
+import { Routes } from "@blitzjs/next"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import { FORM_ERROR } from "final-form"
 import Head from "next/head"
+import Link from "next/link"
+import { Suspense } from "react"
+
 import Layout from "src/core/layouts/Layout"
 import { SettingForm } from "src/settings/components/SettingForm"
-import getSettings, { UserSettings } from "src/settings/queries/getSettings"
 import updateSettingsMutation from "src/settings/mutations/updateSettingsMutation"
-import { useMutation, useQuery } from "@blitzjs/rpc"
-import Link from "next/link"
-import { Routes } from "@blitzjs/next"
+import getSettings, { UserSettings } from "src/settings/queries/getSettings"
 import { UpdateSettingsSchema } from "src/settings/schemas"
 
 export const SettingsList = () => {
@@ -16,24 +17,25 @@ export const SettingsList = () => {
 
   return (
     <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-      <h1 className="mb-4 text-2xl font-bold text-gray-800">Edit Settings</h1>
+      <h1 className="mb-4 text-2xl font-bold text-gray-800">Edit Settings & Profile</h1>
       <p>Please email john@ladderly.io to update your subscription tier.</p>
 
       <Suspense>
         <SettingForm
           className="mt-4"
-          submitText="Update Setting"
+          submitText="Update Settings & Profile"
           schema={UpdateSettingsSchema}
           initialValues={settings}
           onSubmit={async (values) => {
             try {
-              const updatedUser = await updateSettings({
-                ...values,
-              })
-              const updatedSettings: UserSettings = { ...settings, ...updatedUser }
+              const updatedSettings = await updateSettings(values)
+              const updatedUserSettings: UserSettings = {
+                ...settings,
+                ...updatedSettings,
+              }
 
-              await setQueryData(updatedSettings)
-              alert("Updated succeeded.")
+              await setQueryData(updatedUserSettings)
+              alert("Updated successfully.")
             } catch (error: any) {
               console.error(error)
               return {
