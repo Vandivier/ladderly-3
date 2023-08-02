@@ -25,6 +25,9 @@ model User {
   nameFirst      String  @default("")
   nameLast       String  @default("")
 
+  hasPublicProfileEnabled Boolean @default(false)
+  hasShoutOutsEnabled     Boolean @default(false)
+
   quizResults         QuizResult[]
   role                RoleEnum             @default(USER)
   sessions            Session[]
@@ -34,7 +37,7 @@ model User {
   transactions        Transaction[]
   userChecklists      UserChecklist[]
   uuid                String               @default(uuid())
-  UserChecklistItem   UserChecklistItem[]
+  userChecklistItems  UserChecklistItem[]
 }
 
 enum RoleEnum {
