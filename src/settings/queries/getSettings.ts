@@ -10,6 +10,14 @@ export type UserSettings = {
   email: string
   emailBackup: string
   emailStripe: string
+  hasPublicProfileEnabled: boolean
+  hasShoutOutsEnabled: boolean
+  hasOpenToWork: boolean
+  profileBlurb: string | null
+  profileContactEmail: string | null
+  profileGitHubUri: string | null
+  profileHomepageUri: string | null
+  profileLinkedInUri: string | null
   subscription: Subscription
 }
 
@@ -32,6 +40,14 @@ export default resolver.pipe(
             email: true,
             emailBackup: true,
             emailStripe: true,
+            hasPublicProfileEnabled: true,
+            hasShoutOutsEnabled: true,
+            hasOpenToWork: true,
+            profileBlurb: true,
+            profileContactEmail: true,
+            profileGitHubUri: true,
+            profileHomepageUri: true,
+            profileLinkedInUri: true,
           },
         },
         subscriptionChanges: true,
@@ -48,6 +64,14 @@ export default resolver.pipe(
       email: subscription.user.email,
       emailBackup: subscription.user.emailBackup,
       emailStripe: subscription.user.emailStripe,
+      hasPublicProfileEnabled: subscription.user.hasPublicProfileEnabled,
+      hasShoutOutsEnabled: subscription.user.hasShoutOutsEnabled,
+      hasOpenToWork: subscription.user.hasOpenToWork,
+      profileBlurb: subscription.user.profileBlurb,
+      profileContactEmail: subscription.user.profileContactEmail,
+      profileGitHubUri: subscription.user.profileGitHubUri,
+      profileHomepageUri: subscription.user.profileHomepageUri,
+      profileLinkedInUri: subscription.user.profileLinkedInUri,
       subscription: subscription,
     }
   }
