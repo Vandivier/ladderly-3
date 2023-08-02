@@ -4,6 +4,7 @@ import { PaymentTierEnum } from "@prisma/client"
 import Image from "next/image"
 import Link from "next/link"
 import { Suspense } from "react"
+
 import logout from "src/auth/mutations/logout"
 import PricingGrid from "src/core/components/pricing-grid/PricingGrid"
 import Layout from "src/core/layouts/Layout"
@@ -62,7 +63,7 @@ export const TopNavContent = () => {
         <Link href={Routes.BlogIndex()} className="ml-6">
           <strong>Blog</strong>
         </Link>
-        <Link href={Routes.UsersPage()} className="ml-6">
+        <Link href={Routes.CommunityPage()} className="ml-6">
           <strong>Community Directory</strong>
         </Link>
         <Link href={Routes.SettingsPage()} className="ml-6">
@@ -77,7 +78,7 @@ export const TopNavContent = () => {
         <Link href={Routes.BlogIndex()} className="ml-6">
           <strong>Blog</strong>
         </Link>
-        <Link href={Routes.UsersPage()} className="ml-6">
+        <Link href={Routes.CommunityPage()} className="ml-6">
           <strong>Community Directory</strong>
         </Link>
         <Link href={Routes.LoginPage()} className="ml-6">

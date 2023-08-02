@@ -47,7 +47,7 @@ export const UsersList = () => {
   )
 }
 
-const UsersPage: BlitzPage = () => {
+const CommunityPage: BlitzPage = () => {
   return (
     <Layout title="Users">
       <div className="relative min-h-screen">
@@ -70,4 +70,4 @@ const UsersPage: BlitzPage = () => {
   )
 }
 
-export default UsersPage
+export default CommunityPage
