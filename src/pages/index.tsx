@@ -62,6 +62,9 @@ export const TopNavContent = () => {
         <Link href={Routes.BlogIndex()} className="ml-6">
           <strong>Blog</strong>
         </Link>
+        <Link href={Routes.UsersPage()} className="ml-6">
+          <strong>User Directory</strong>
+        </Link>
         <Link href={Routes.SettingsPage()} className="ml-6">
           <strong>Settings</strong>
         </Link>
@@ -73,6 +76,9 @@ export const TopNavContent = () => {
       <p style={{ marginLeft: "auto" }}>
         <Link href={Routes.BlogIndex()} className="ml-6">
           <strong>Blog</strong>
+        </Link>
+        <Link href={Routes.UsersPage()} className="ml-6">
+          <strong>User Directory</strong>
         </Link>
         <Link href={Routes.LoginPage()} className="ml-6">
           <strong>Login</strong>
