@@ -29,6 +29,12 @@ model User {
   hasPublicProfileEnabled Boolean @default(false)
   hasShoutOutsEnabled     Boolean @default(false)
 
+  profileBlurb        String?
+  profileContactEmail String?
+  profileGitHubUri    String?
+  profileHomepageUri  String?
+  profileLinkedInUri  String?
+
   quizResults         QuizResult[]
   role                RoleEnum             @default(USER)
   sessions            Session[]
