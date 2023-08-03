@@ -64,7 +64,7 @@ export const TopNavContent = () => {
           <strong>Blog</strong>
         </Link>
         <Link href={Routes.CommunityPage()} className="ml-6">
-          <strong>Community Directory</strong>
+          <strong>Community</strong>
         </Link>
         <Link href={Routes.SettingsPage()} className="ml-6">
           <strong>Settings</strong>
@@ -79,7 +79,7 @@ export const TopNavContent = () => {
           <strong>Blog</strong>
         </Link>
         <Link href={Routes.CommunityPage()} className="ml-6">
-          <strong>Community Directory</strong>
+          <strong>Community</strong>
         </Link>
         <Link href={Routes.LoginPage()} className="ml-6">
           <strong>Login</strong>

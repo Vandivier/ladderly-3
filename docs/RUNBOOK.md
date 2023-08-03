@@ -23,7 +23,7 @@ Note that UserChecklistItems exist distinctly and by design. If we are going to 
 As a manual batch:
 
 1. Open the Stripe payments table
-2. Copy the content of `scripts/stripeTableScrape.js` and paste into the web console
+2. Copy the content of `scripts/tableScraperStripe.js` and paste into the web console
 3. Save the result at `scripts/stripe_payments.json`
 4. Run `scripts/updateUserSubscriptions.js`
 
