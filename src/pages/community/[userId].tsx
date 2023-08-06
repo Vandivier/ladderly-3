@@ -1,10 +1,10 @@
 import { useParams } from "@blitzjs/next"
 import { useQuery } from "@blitzjs/rpc"
 import { Suspense } from "react"
-import styles from "src/styles/Home.module.css"
 
 import getUser from "src/users/queries/getUser"
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import { LargeCard } from "src/core/components/LargeCard"
 
 const UserProfile = () => {
   const { userId } = useParams()
@@ -43,9 +43,11 @@ const UserProfile = () => {
 const ShowUserPage = () => {
   return (
     <LadderlyPageWrapper title="Ladderly | Community">
-      <Suspense fallback={<div>Loading...</div>}>
-        <UserProfile />
-      </Suspense>
+      <LargeCard>
+        <Suspense fallback={<div>Loading...</div>}>
+          <UserProfile />
+        </Suspense>
+      </LargeCard>
     </LadderlyPageWrapper>
   )
 }
