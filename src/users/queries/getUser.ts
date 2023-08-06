@@ -1,9 +1,12 @@
+import { Ctx } from "@blitzjs/next"
 import { resolver } from "@blitzjs/rpc"
+import { AuthorizationError, NotFoundError } from "blitz"
 import db from "db"
 
 // TODO: if user allows it, even not-logged-in viewers can see some of their info
 //    eg, in the case of public profiles
-export default resolver.pipe(resolver.authorize(), async ({ id }: { id: number }) => {
+export default resolver.pipe(resolver.authorize(), async ({ id }: { id: number }, ctx: Ctx) => {
+  const isOwnData = ctx.session.userId === id
   const user = await db.user.findUnique({
     where: { id },
     select: {
@@ -34,7 +37,10 @@ export default resolver.pipe(resolver.authorize(), async ({ id }: { id: number }
     },
   })
 
-  if (!user) throw new Error("User not found")
+  if (!user) throw new NotFoundError("User not found")
+  if (user && !isOwnData && !user.hasPublicProfileEnabled) {
+    throw new AuthorizationError("You do not have permission to view this user data.")
+  }
 
   return user
 })
