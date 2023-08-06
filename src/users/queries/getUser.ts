@@ -30,10 +30,10 @@ export default resolver.pipe(resolver.authorize(), async ({ id }: { id: number }
         orderBy: { createdAt: "desc" },
         select: {
           id: true,
+          checklist: true,
           createdAt: true,
-          updatedAt: true,
-          checklistId: true,
           isComplete: true,
+          updatedAt: true,
         },
       },
     },
