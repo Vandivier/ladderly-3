@@ -1,15 +1,17 @@
 import { useParams } from "@blitzjs/next"
 import { useQuery } from "@blitzjs/rpc"
 import { Suspense } from "react"
+import styles from "src/styles/Home.module.css"
 
 import getUser from "src/users/queries/getUser"
+import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
 const UserProfile = () => {
   const { userId } = useParams()
   const [user] = useQuery(getUser, { id: Number(userId) })
 
   return (
-    <div>
+    <main>
       <h1>
         {user.nameFirst} {user.nameLast}
       </h1>
@@ -34,17 +36,17 @@ const UserProfile = () => {
       ) : (
         <p>This user has not completed any checklists.</p>
       )}
-    </div>
+    </main>
   )
 }
 
 const ShowUserPage = () => {
   return (
-    <div>
+    <LadderlyPageWrapper title="Ladderly | Community">
       <Suspense fallback={<div>Loading...</div>}>
         <UserProfile />
       </Suspense>
-    </div>
+    </LadderlyPageWrapper>
   )
 }
 

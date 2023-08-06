@@ -63,9 +63,7 @@ const AdvancedChecklistContentBlock = () => {
 const Home: BlitzPage = () => {
   return (
     <LadderlyPageWrapper title="Home">
-      <div className={styles.globe} />
-
-      <main className={styles.main}>
+      <main style={{ padding: "0rem 1rem" }}>
         <div className={styles.wrapper}>
           <div className={styles.header}>
             <div>

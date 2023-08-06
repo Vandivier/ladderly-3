@@ -78,6 +78,8 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({ children, title }) 
         </React.Suspense>
       </div>
 
+      <div className={styles.globe} />
+
       {children}
 
       <footer className={styles.footer}>
