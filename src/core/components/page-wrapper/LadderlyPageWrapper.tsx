@@ -8,11 +8,7 @@ import { TopNav } from "./TopNav"
 export const LadderlyPageWrapper: React.FC<LayoutProps> = ({ children, title }) => (
   <Layout title={title}>
     <div className={styles.container}>
-      <div className="border-ladderly-light-purple flex items-center border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
-        <React.Suspense fallback="">
-          <TopNav />
-        </React.Suspense>
-      </div>
+      <TopNav />
 
       <div className={styles.globe} />
 

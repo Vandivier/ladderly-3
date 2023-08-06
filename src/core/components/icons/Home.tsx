@@ -1,4 +1,4 @@
-export const HomeIcon: React.FC = () => (
+export const IconHome: React.FC = () => (
   <svg
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
