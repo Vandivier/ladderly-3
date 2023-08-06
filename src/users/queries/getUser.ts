@@ -6,7 +6,7 @@ import db from "db"
 // TODO: if user allows it, even not-logged-in viewers can see some of their info
 //    eg, in the case of public profiles
 export default resolver.pipe(resolver.authorize(), async ({ id }: { id: number }, ctx: Ctx) => {
-  if (isNaN(parseInt(id.toString()))) throw new NotFoundError()
+  if (id !== parseInt(id.toString())) throw new NotFoundError()
 
   const isOwnData = ctx.session.userId === id
   const user = await db.user.findUnique({
