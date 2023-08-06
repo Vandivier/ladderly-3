@@ -4,14 +4,6 @@
   height: 100vh;
 }
 
-.main {
-  flex: 1;
-  padding: 0rem 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
 .nextStepsCard {
   margin: 0 auto;
   width: 600px;
