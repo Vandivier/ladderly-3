@@ -35,16 +35,16 @@ model User {
   profileHomepageUri  String?
   profileLinkedInUri  String?
 
-  quizResults         QuizResult[]
-  role                RoleEnum             @default(USER)
-  sessions            Session[]
-  subscriptionChanges SubscriptionChange[]
-  subscriptions       Subscription[]
-  tokens              Token[]
-  transactions        Transaction[]
-  userChecklists      UserChecklist[]
-  uuid                String               @default(uuid())
-  userChecklistItems  UserChecklistItem[]
+  contributions      Contribution[]
+  quizResults        QuizResult[]
+  role               RoleEnum            @default(USER)
+  sessions           Session[]
+  subscriptions      Subscription[]
+  tokens             Token[]
+  transactions       Transaction[]
+  userChecklists     UserChecklist[]
+  uuid               String              @default(uuid())
+  userChecklistItems UserChecklistItem[]
 }
 
 enum RoleEnum {
@@ -150,25 +150,34 @@ model Checklist {
 }
 
 model Subscription {
-  id                  Int                  @id @default(autoincrement())
-  userId              Int
-  user                User                 @relation(fields: [userId], references: [id])
-  tier                PaymentTierEnum      @default(FREE)
-  type                String               @default("ACCOUNT_PLAN")
-  createdAt           DateTime             @default(now())
-  subscriptionChanges SubscriptionChange[]
+  id            Int             @id @default(autoincrement())
+  userId        Int
+  user          User            @relation(fields: [userId], references: [id])
+  tier          PaymentTierEnum @default(FREE)
+  type          String          @default("ACCOUNT_PLAN")
+  createdAt     DateTime        @default(now())
+  contributions Contribution[]
 }
 
-model SubscriptionChange {
-  id                  Int             @id @default(autoincrement())
-  userId              Int
-  user                User            @relation(fields: [userId], references: [id])
-  subscriptionId      Int
-  subscription        Subscription    @relation(fields: [subscriptionId], references: [id])
-  previousTier        PaymentTierEnum
+model Contribution {
+  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+
+  amount              Int
   newTier             PaymentTierEnum
-  createdAt           DateTime        @default(now())
+  previousTier        PaymentTierEnum
   stripeTransactionId String?
+  type                ContributionTypeEnum @default(ONE_TIME)
+
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId Int
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int
+}
+
+enum ContributionTypeEnum {
+  ONE_TIME
+  RECURRING
 }
 
 model Transaction {
