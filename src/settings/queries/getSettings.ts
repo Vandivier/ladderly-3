@@ -50,7 +50,7 @@ export default resolver.pipe(
             profileLinkedInUri: true,
           },
         },
-        subscriptionChanges: true,
+        contributions: true,
       },
     })
 
