@@ -2,13 +2,28 @@ import React from "react"
 
 import { TopNavLeft } from "./TopNavLeft"
 import { TopNavRight, TopNavRightSkeleton } from "./TopNavRight"
+import { MenuContext, MenuProvider } from "./MenuProvider"
 
 export const TopNav = () => (
-  <div className="border-ladderly-light-purple flex items-center border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
-    <TopNavLeft />
-
-    <React.Suspense fallback={<TopNavRightSkeleton />}>
-      <TopNavRight />
-    </React.Suspense>
-  </div>
+  <MenuProvider>
+    <InnerTopNav />
+  </MenuProvider>
 )
+
+const InnerTopNav = () => {
+  const { menuContent } = React.useContext(MenuContext)
+
+  return (
+    <div className="border-ladderly-light-purple flex flex-col items-center border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
+      <div className="flex w-full justify-between">
+        <TopNavLeft />
+
+        <React.Suspense fallback={<TopNavRightSkeleton />}>
+          <TopNavRight />
+        </React.Suspense>
+      </div>
+
+      <div className="w-full">{menuContent}</div>
+    </div>
+  )
+}
