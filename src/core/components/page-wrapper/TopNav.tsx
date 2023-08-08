@@ -23,7 +23,7 @@ const InnerTopNav = () => {
         </React.Suspense>
       </div>
 
-      <div className="w-full">{menuContent}</div>
+      {menuContent ? <div className="w-full">{menuContent}</div> : null}
     </div>
   )
 }

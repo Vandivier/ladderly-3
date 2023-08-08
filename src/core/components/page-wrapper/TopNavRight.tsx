@@ -1,7 +1,7 @@
 import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import Link from "next/link"
-import React, { useContext } from "react"
+import React from "react"
 
 import logout from "src/auth/mutations/logout"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
@@ -52,17 +52,25 @@ const LogoutButton = () => {
 
 export const TopNavRight = () => {
   const currentUser = useCurrentUser()
-  const { setMenuContent } = useContext(MenuContext)
+  const { setMenu, openMenuName } = React.useContext(MenuContext)
 
   const handleCommunityClick = (e) => {
     e.preventDefault()
-    setMenuContent("Foo")
+
+    if (openMenuName === "community") {
+      setMenu(null, "")
+    } else {
+      setMenu(<CommunityMenuItems />, "community")
+    }
   }
 
   const handleAccountClick = (e) => {
     e.preventDefault()
-    if (currentUser) {
-      setMenuContent(<AccountMenuItems userId={currentUser.id} />)
+
+    if (openMenuName === "account") {
+      setMenu(null, "")
+    } else if (currentUser) {
+      setMenu(<AccountMenuItems userId={currentUser.id} />, "account")
     }
   }
 
