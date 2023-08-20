@@ -14,8 +14,8 @@ const InnerTopNav = () => {
   const { menuContent } = React.useContext(MenuContext)
 
   return (
-    <div className="border-ladderly-light-purple flex flex-col items-center border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
-      <div className="flex w-full justify-between">
+    <div className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
+      <div className="flex w-full">
         <TopNavLeft />
 
         <React.Suspense fallback={<TopNavRightSkeleton />}>
