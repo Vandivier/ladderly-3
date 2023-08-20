@@ -8,7 +8,7 @@ import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import { IconVerticalChevron } from "../icons/VerticalChevron"
 import { MenuContext } from "./MenuProvider"
 
-const TOP_NAV_STANDARD_CLASSES = "inline-block ml-6 font-bold"
+const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold"
 const MENU_ITEM_STANDARD_CLASSES =
   "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
 
@@ -75,34 +75,30 @@ export const TopNavRight = () => {
   }
 
   return (
-    <>
-      <div className="ml-auto space-x-6">
-        <div className="group relative inline-block">
-          <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
-            Blog
+    <div className="align-items-center ml-auto flex space-x-6">
+      <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
+        Blog
+      </Link>
+      <button onClick={handleCommunityClick} className={TOP_NAV_STANDARD_CLASSES}>
+        Community
+        <IconVerticalChevron />
+      </button>
+      {currentUser ? (
+        <button onClick={handleAccountClick} className={TOP_NAV_STANDARD_CLASSES}>
+          Account
+          <IconVerticalChevron />
+        </button>
+      ) : (
+        <>
+          <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.LoginPage()}>
+            Login
           </Link>
-          <button onClick={handleCommunityClick} className={TOP_NAV_STANDARD_CLASSES}>
-            Community
-            <IconVerticalChevron />
-          </button>
-          {currentUser ? (
-            <button onClick={handleAccountClick} className={TOP_NAV_STANDARD_CLASSES}>
-              Account
-              <IconVerticalChevron />
-            </button>
-          ) : (
-            <>
-              <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.LoginPage()}>
-                Login
-              </Link>
-              <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.SignupPage()}>
-                Signup
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
-    </>
+          <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.SignupPage()}>
+            Signup
+          </Link>
+        </>
+      )}
+    </div>
   )
 }
 
