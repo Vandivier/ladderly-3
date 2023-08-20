@@ -10,21 +10,32 @@ import { MenuContext } from "./MenuProvider"
 
 const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold"
 const MENU_ITEM_STANDARD_CLASSES =
-  "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+  "font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+
+const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
+  <div
+    className="ml-auto flex py-1"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="options-menu"
+  >
+    {children}
+  </div>
+)
 
 const CommunityMenuItems = () => (
-  <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+  <MenuItemsWrapper>
     <Link href={Routes.CommunityPage()} className={MENU_ITEM_STANDARD_CLASSES}>
       Hall of Fame
     </Link>
     <Link href={Routes.CommunityPage()} className={MENU_ITEM_STANDARD_CLASSES}>
       Browse All Profiles
     </Link>
-  </div>
+  </MenuItemsWrapper>
 )
 
 const AccountMenuItems = ({ userId }) => (
-  <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+  <MenuItemsWrapper>
     <Link href={Routes.ShowUserPage({ userId })} className={MENU_ITEM_STANDARD_CLASSES}>
       My Profile
     </Link>
@@ -32,7 +43,7 @@ const AccountMenuItems = ({ userId }) => (
       Settings
     </Link>
     <LogoutButton />
-  </div>
+  </MenuItemsWrapper>
 )
 
 const LogoutButton = () => {
@@ -75,7 +86,7 @@ export const TopNavRight = () => {
   }
 
   return (
-    <div className="align-items-center ml-auto flex space-x-6">
+    <div className="ml-auto flex items-center space-x-6">
       <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
         Blog
       </Link>

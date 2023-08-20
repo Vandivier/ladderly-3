@@ -14,7 +14,7 @@ const InnerTopNav = () => {
   const { menuContent } = React.useContext(MenuContext)
 
   return (
-    <div className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
+    <div className="border-ladderly-light-purple column flex flex-col border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
       <div className="flex w-full">
         <TopNavLeft />
 
@@ -23,7 +23,7 @@ const InnerTopNav = () => {
         </React.Suspense>
       </div>
 
-      {menuContent ? <div className="w-full">{menuContent}</div> : null}
+      {menuContent ? <div className="flex w-full">{menuContent}</div> : null}
     </div>
   )
 }
