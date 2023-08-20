@@ -1,3 +1,4 @@
+import { Checklist, ChecklistItem } from "db"
 import { z } from "zod"
 
 export const CreateChecklistSchema = z.object({
@@ -15,3 +16,5 @@ export const UpdateChecklistSchema = z.object({
 export const DeleteChecklistSchema = z.object({
   id: z.number(),
 })
+
+export type ChecklistWithItems = Checklist & { checklistItems: ChecklistItem[] }

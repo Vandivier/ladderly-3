@@ -1,10 +1,9 @@
 import fs from "fs"
-import path from "path"
-import Link from "next/link"
 import matter from "gray-matter"
-import { Suspense } from "react"
-import styles from "src/styles/Home.module.css"
-import { TopNavContent } from "../index"
+import Link from "next/link"
+import path from "path"
+
+import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
 const BlogIndex = ({
   posts,
@@ -12,14 +11,8 @@ const BlogIndex = ({
   posts: { slug: string; title: string; date: string; author: string }[]
 }) => {
   return (
-    <div className={styles.container}>
-      <div className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
-        <Suspense fallback="">
-          <TopNavContent />
-        </Suspense>
-      </div>
-
-      <main className={styles.main}>
+    <LadderlyPageWrapper title="Ladderly | Blog">
+      <main>
         {posts.map((post) => (
           <div key={post.slug} className="border-ladderly-light-purple border-b p-4">
             <Link
@@ -34,27 +27,7 @@ const BlogIndex = ({
           </div>
         ))}
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://discord.gg/fAg6Xa4uxc"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.textLink}
-        >
-          Discord
-        </a>
-        <a
-          href="https://github.com/Vandivier/ladderly-3#about"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.textLink}
-        >
-          GitHub
-        </a>
-        <p>Copyright © 2023 John Vandivier</p>
-      </footer>
-    </div>
+    </LadderlyPageWrapper>
   )
 }
 
