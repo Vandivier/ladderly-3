@@ -25,7 +25,7 @@ const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
 
 const CommunityMenuItems = () => (
   <MenuItemsWrapper>
-    <Link href={Routes.CommunityPage()} className={MENU_ITEM_STANDARD_CLASSES}>
+    <Link href={Routes.HallOfFamePage()} className={MENU_ITEM_STANDARD_CLASSES}>
       Hall of Fame
     </Link>
     <Link href={Routes.CommunityPage()} className={MENU_ITEM_STANDARD_CLASSES}>
