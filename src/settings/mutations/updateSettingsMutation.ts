@@ -11,15 +11,27 @@ export default resolver.pipe(
     const userId = ctx.session.userId
 
     if (userId === null) throw new AuthorizationError()
+    const email = input.email.toLowerCase().trim()
+    if (!email.includes("@")) {
+      throw new Error("invalid email")
+    }
 
     const user = await db.user.update({
       where: { id: userId },
       data: {
         nameFirst: input.nameFirst?.trim() || "",
         nameLast: input.nameLast?.trim() || "",
-        email: input.email?.toLowerCase().trim() || "",
+        email,
         emailBackup: input.emailBackup?.toLowerCase().trim() || "",
         emailStripe: input.emailStripe?.toLowerCase().trim() || "",
+        hasPublicProfileEnabled: input.hasPublicProfileEnabled,
+        hasShoutOutsEnabled: input.hasShoutOutsEnabled,
+        hasOpenToWork: input.hasOpenToWork,
+        profileBlurb: input.profileBlurb?.trim() || null,
+        profileContactEmail: input.profileContactEmail?.toLowerCase().trim() || null,
+        profileGitHubUri: input.profileGitHubUri?.trim() || null,
+        profileHomepageUri: input.profileHomepageUri?.trim() || null,
+        profileLinkedInUri: input.profileLinkedInUri?.trim() || null,
       },
     })
 

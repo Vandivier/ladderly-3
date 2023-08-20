@@ -41,7 +41,20 @@
       "I have optimized my LinkedIn",
       "I have optimized my resume",
       "I am continually applying to 70+ places each week with social follow-up as prescribed in ladderly-slides",
-      "I have been following the 5 to 23 patterns article for at least two weeks",
+      {
+        "detailText": "This is a key material for whiteboard-style interviews. It will substantially increase your job search performance.",
+        "displayText": "I have been following the ###LINK### article for at least two weeks",
+        "isRequired": true,
+        "linkText": "5 to 23 Patterns",
+        "linkUri": "https://hackernoon.com/5-to-23-patterns-to-ace-any-coding-interview"
+      },
+      {
+        "detailText": "This is a key material for whiteboard-style interviews. It will substantially increase your job search performance.",
+        "displayText": "I have read the ###LINK### article from John Vandivier on HackerNoon",
+        "isRequired": true,
+        "linkText": "Mastering Leetcode",
+        "linkUri": "https://hackernoon.com/mastering-leetcode-6-problem-picking-patterns-for-technical-success"
+      },
       "After continuing the job search process for 2+ weeks (apply, follow up, keep coding, practicing for interviews) I have gotten at least one phone screening or I have reached out to a mentor to help investigate the lack of phone screening progress",
       "I have had a few interviews, obtained feedback, and incorporated that feedback to improve my job search going forward",
       "I have reached out for help whenever needed in the Ladderly community, endorsed communities, and through independent outreach using social media and my personal social network",

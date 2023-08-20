@@ -69,7 +69,7 @@ const seed = async () => {
         })
 
         if (checklistItem == null) {
-          console.warn(`Checklist item not found for checklist: ${name} item idx: ${i}`)
+          console.warn(`WARN: Checklist item not found for checklist: ${name} item idx: ${i}`)
         }
 
         if (checklistItem) {

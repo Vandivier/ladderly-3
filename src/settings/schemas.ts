@@ -8,17 +8,40 @@ export const optionalEmailValidator = z
   .nullable()
   .optional()
 
+export const uriValidator = z
+  .string()
+  .refine((value) => value === "" || value.startsWith("http"), {
+    message: "Invalid URI",
+  })
+  .nullable()
+  .optional()
+
+const optionalGitHubUriValidator = z
+  .string()
+  .refine((value) => value === "" || value.includes("github"), { message: "Invalid GitHub URL" })
+  .nullable()
+  .optional()
+
+const optionalLinkedInUriValidator = z
+  .string()
+  .refine((value) => value === "" || value.includes("linkedin"), {
+    message: "Invalid LinkedIn URL",
+  })
+  .nullable()
+  .optional()
+
 export const UpdateSettingsSchema = z.object({
   nameFirst: z.string().nullable().optional(),
   nameLast: z.string().nullable().optional(),
-  email: z
-    .string()
-    .email()
-    .refine((value) => value.trim().length > 0, {
-      message: "Email cannot be empty",
-    })
-    .nullable()
-    .optional(),
+  email: z.string().email(),
   emailBackup: optionalEmailValidator,
   emailStripe: optionalEmailValidator,
+  hasPublicProfileEnabled: z.boolean().optional(),
+  hasShoutOutsEnabled: z.boolean().optional(),
+  hasOpenToWork: z.boolean().optional(),
+  profileBlurb: z.string().nullable().optional(),
+  profileContactEmail: optionalEmailValidator,
+  profileGitHubUri: optionalGitHubUriValidator,
+  profileHomepageUri: uriValidator,
+  profileLinkedInUri: optionalLinkedInUriValidator,
 })
