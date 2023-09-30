@@ -44,8 +44,8 @@ const AboutPage: BlitzPage = () => {
             <li>
               <strong>Personalized & Intelligent Defaults</strong>: We are literally immune to
               analysis paralysis! Instead of overwhelming choices, we present intelligent defaults,
-              with prioritized alternatives and fallback strategies if the primary approach doesn't
-              work for you.
+              with prioritized alternatives and fallback strategies if the primary approach doesn
+              {`'`}t work for you.
             </li>
             <li>
               <strong>Curation & Humility</strong>: We celebrate the expertise of others. If someone
