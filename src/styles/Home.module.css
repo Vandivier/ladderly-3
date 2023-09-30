@@ -57,15 +57,21 @@
 }
 
 .footer {
-  display: flex;
-  padding: 2rem 0;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
 }
 
 .footer a,
 .footer p {
   margin: auto 0.4rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
 }
 
 .code {
