@@ -46,6 +46,7 @@ export const getStaticProps = async () => {
         author: data.author,
       }
     })
+    .reverse()
 
   return {
     props: {
