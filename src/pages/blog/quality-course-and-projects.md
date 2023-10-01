@@ -33,6 +33,8 @@ Ladderly recommends starting with a simple pet project that is well known and ea
 3. A Capstone Project
 4. A Portfolio Site
 
+The Trial by Fire illustrates the development of a basic Vanilla JS blog. Here is a [reference code implementation](https://github.com/Vandivier/trial-by-fire) and here is a [video](https://www.youtube.com/watch?v=V7yeF9AaBxM). This is intended to be frontend-only and it is essentially a toy project. The Next.js blog can be created using `create-next-app` as described in the [React official documentation](https://react.dev/learn/start-a-new-react-project).
+
 The code for these projects should be open source and each project should be publically deployed, accessible, and include a well-written README that shows off the interesting features and purpose of the project.
 
 Ladderly recommends using GitHub for your code repositories because it is well-recognized and feature rich. In particular, we recommend you take advantage of the [GitHub Profile README feature](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
