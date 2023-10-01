@@ -63,3 +63,4 @@ db/premium-checklists.json
 
 stripe_paymen*.json
 teachable_dat*.json
+db/*.bak.json
