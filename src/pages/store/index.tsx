@@ -5,11 +5,11 @@ import ProductGrid from "src/store/components/ProductGrid"
 import { PrintfulProduct } from "src/store/types"
 import { formatVariantName, printful } from "src/store/utils"
 
-type IndexPageProps = {
+type StorePageProps = {
   products: PrintfulProduct[]
 }
 
-const IndexPage: React.FC<IndexPageProps> = ({ products }) => (
+const StorePage: React.FC<StorePageProps> = ({ products }) => (
   <>
     <div className="pb-6 text-center md:pb-12">
       <h1 className="text-xl font-bold md:text-3xl lg:text-5xl">All Products</h1>
@@ -43,4 +43,4 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-export default IndexPage
+export default StorePage
