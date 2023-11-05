@@ -18,7 +18,7 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
         <h1 className="text-center text-3xl text-ladderly-violet-600">Error</h1>
         <h2 className="mb-3 mt-5 text-xl">
           {error instanceof AuthenticationError
-            ? "You are not authenticated."
+            ? "You are not logged in."
             : "You are not authorized to access this."}
         </h2>
 
