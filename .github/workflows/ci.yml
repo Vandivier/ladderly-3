@@ -21,7 +21,7 @@ jobs:
         with:
           status: ${{ job.status }}
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          content: >
+          title: >
             ${{ github.event_name }}: 
             ${{ github.event.issue.title || github.event.pull_request.title || 'Event Occurred' }}
             URL: 
