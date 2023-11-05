@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next"
 import React from "react"
+import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
 import ProductGrid from "src/store/components/ProductGrid"
 import { PrintfulProduct } from "src/store/types"
@@ -10,13 +11,13 @@ type StorePageProps = {
 }
 
 const StorePage: React.FC<StorePageProps> = ({ products }) => (
-  <>
+  <LadderlyPageWrapper title="Ladderly | Store">
     <div className="pb-6 text-center md:pb-12">
       <h1 className="text-xl font-bold md:text-3xl lg:text-5xl">All Products</h1>
     </div>
 
     <ProductGrid products={products} />
-  </>
+  </LadderlyPageWrapper>
 )
 
 export const getStaticProps: GetStaticProps = async () => {
