@@ -17,7 +17,7 @@ const NewestChecklistQueryHandler: React.FC = () => {
   const [userChecklistData, { refetch }] = useQuery(getLatestUserChecklistByName, {
     name: CURRENT_CHECKLIST_NAME,
   })
-  const [showToast, setShowToast] = React.useState(userChecklistData?.isLatestVersion!)
+  const [showToast, setShowToast] = React.useState(!userChecklistData?.isLatestVersion)
   const [toastMessage, setToastMessage] = React.useState("A New Checklist Version is Available.")
 
   const handleToastConfirmClick = async () => {
