@@ -94,6 +94,9 @@ export const TopNavRight = () => {
 
   return (
     <div className="ml-auto flex items-center space-x-6">
+      <Link href={Routes.StorePage()} className={TOP_NAV_STANDARD_CLASSES}>
+        Store
+      </Link>
       <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
         Blog
       </Link>
@@ -122,6 +125,13 @@ export const TopNavRight = () => {
 
 export const TopNavRightSkeleton = () => (
   <div className="ml-auto space-x-6">
-    <div className="h-4 w-16 rounded bg-gray-200"></div>
+    <div className="h-4 w-16 rounded bg-gray-200">
+      <Link href={Routes.StorePage()} className={TOP_NAV_STANDARD_CLASSES}>
+        Store
+      </Link>
+      <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
+        Blog
+      </Link>
+    </div>
   </div>
 )
