@@ -61,6 +61,7 @@ const Product: React.FC = (product: ProductProps) => {
           variants={variants}
           disabled={oneStyle}
         />
+        {/* TODO: uncomment this button
         <button
           className="snipcart-add-item w-full shrink-0 rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 shadow-sm transition hover:border-transparent hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:text-white focus:outline-none md:w-auto"
           data-item-id={activeVariantExternalId}
@@ -71,7 +72,7 @@ const Product: React.FC = (product: ProductProps) => {
           data-item-name={name}
         >
           Add to Cart
-        </button>
+        </button> */}
       </div>
     </article>
   )
