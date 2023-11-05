@@ -31,6 +31,13 @@ const CommunityMenuItems = () => (
     <Link href={Routes.CommunityPage()} className={MENU_ITEM_STANDARD_CLASSES}>
       Browse All Profiles
     </Link>
+    <Link
+      href="https://discord.com/invite/fAg6Xa4uxc"
+      className={MENU_ITEM_STANDARD_CLASSES}
+      target="_blank"
+    >
+      Discord
+    </Link>
   </MenuItemsWrapper>
 )
 
