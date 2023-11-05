@@ -16,6 +16,7 @@ const UserChecklistItemList = ({
   refetchChecklist: () => Promise<any>
 }) => {
   const [updateUserChecklistItemMutation] = useMutation(updateUserChecklistItem)
+  const sorted = items.sort((a, b) => a.checklistItem.displayIndex - b.checklistItem.displayIndex)
 
   const handleItemClick = async (id, isComplete) => {
     try {
@@ -28,7 +29,7 @@ const UserChecklistItemList = ({
 
   return (
     <ol className="list-decimal">
-      {items.map((item) => {
+      {sorted.map((item) => {
         const checklistItem = item.checklistItem
         return (
           <li
