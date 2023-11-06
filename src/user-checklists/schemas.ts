@@ -15,5 +15,5 @@ export type UserChecklistByNameData = {
   checklist: ChecklistWithItems
   isLatestVersion: boolean
   latestChecklist: ChecklistWithItems
-  userChecklistWithChecklistItems: UserChecklistWithChecklistItems
+  userChecklistWithChecklistItems: null | UserChecklistWithChecklistItems
 }
