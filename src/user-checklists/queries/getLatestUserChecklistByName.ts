@@ -14,7 +14,7 @@ export default resolver.pipe(
       shouldCreateIfNull = false,
     }: { name: string; version?: string; shouldCreateIfNull?: boolean },
     ctx: Ctx
-  ): Promise<null | UserChecklistByNameData> => {
+  ): Promise<UserChecklistByNameData> => {
     const { userId } = ctx.session
 
     if (!userId) throw new AuthenticationError()
@@ -67,8 +67,6 @@ export default resolver.pipe(
       }
 
       userChecklist = { ...newChecklist, userChecklistItems }
-    } else if (!userChecklist) {
-      return null
     }
 
     const isLatestVersion = latestChecklist && specificChecklist.version === latestChecklist.version
