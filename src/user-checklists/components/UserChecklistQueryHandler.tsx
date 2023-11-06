@@ -68,7 +68,7 @@ const UserChecklistItemList = ({
 export const UserChecklistQueryHandler: React.FC<{ name: string }> = ({ name }) => {
   const [currUserChecklistData, { refetch }] = useQuery(getLatestUserChecklistByName, {
     name,
-    // shouldCreateIfNull: true,
+    shouldCreateIfNull: true,
   })
 
   if (!currUserChecklistData.userChecklistWithChecklistItems) {
