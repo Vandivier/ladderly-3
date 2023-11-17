@@ -18,10 +18,54 @@ const UserProfile = () => {
 
       <div className="my-4">
         <p>Blurb: {user.profileBlurb}</p>
-        <p>Contact Email: {user.profileContactEmail}</p>
-        <p>GitHub: {user.profileGitHubUri}</p>
-        <p>Homepage: {user.profileHomepageUri}</p>
-        <p>LinkedIn: {user.profileLinkedInUri}</p>
+        <p>
+          Contact Email:{" "}
+          <a
+            href={`mailto:${user.profileContactEmail}`}
+            className="text-blue-600 hover:text-blue-700"
+          >
+            {user.profileContactEmail}
+          </a>
+        </p>
+        {user.profileGitHubUri ? (
+          <p>
+            GitHub:{" "}
+            <a
+              href={user.profileGitHubUri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-700"
+            >
+              {user.profileGitHubUri}
+            </a>
+          </p>
+        ) : null}
+        {user.profileHomepageUri ? (
+          <p>
+            Homepage:{" "}
+            <a
+              href={user.profileHomepageUri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-700"
+            >
+              {user.profileHomepageUri}
+            </a>
+          </p>
+        ) : null}
+        {user.profileLinkedInUri ? (
+          <p>
+            LinkedIn:{" "}
+            <a
+              href={user.profileLinkedInUri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-700"
+            >
+              {user.profileLinkedInUri}
+            </a>
+          </p>
+        ) : null}
       </div>
 
       {user.userChecklists.length > 0 ? (

@@ -1,7 +1,7 @@
 import { Ctx } from "@blitzjs/next"
 import { resolver } from "@blitzjs/rpc"
 import { AuthenticationError } from "blitz"
-import db, { Prisma } from "db"
+import db from "db"
 
 export default resolver.pipe(
   resolver.authorize(),
