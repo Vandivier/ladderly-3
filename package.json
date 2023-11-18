@@ -8,7 +8,7 @@
     "build": "node scripts/generate-sitemap.js && blitz prisma generate && blitz build",
     "migrate": "npm run users:backup && blitz prisma migrate dev && npm run users:restore",
     "seed": "blitz db seed",
-    "seed:update-in-place": "blitz db seed -- --update-latest-checklist",
+    "seed:update-in-place": "blitz db seed -- --update-latest-checklists",
     "start": "blitz start",
     "studio": "blitz prisma studio",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",

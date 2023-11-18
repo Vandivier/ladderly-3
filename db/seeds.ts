@@ -4,11 +4,11 @@ import db, { Checklist } from "./index"
 import {
   ChecklistSeedDataType,
   ChecklistsSchema,
-  updateLatestChecklists,
+  updateChecklistsInPlace,
 } from "./seed-utils/updateChecklists"
 
 const seed = async () => {
-  const updateLatest = process.argv.includes("--update-latest-checklist")
+  const updateLatest = process.argv.includes("--update-latest-checklists")
   const version = new Date().toISOString()
   const files = ["./checklists.json", "./premium-checklists.json"]
 
@@ -29,7 +29,7 @@ const seed = async () => {
       let checklist: Checklist | null = null
 
       if (updateLatest) {
-        checklist = await updateLatestChecklists(checklistData)
+        checklist = await updateChecklistsInPlace(checklistData)
       }
 
       if (!checklist) {
@@ -68,6 +68,7 @@ const seed = async () => {
           console.warn(`WARN: Checklist item not found for checklist: ${name} item idx: ${i}`)
         }
 
+        // TODO: don't do this if we are updating in place
         if (checklistItem) {
           await db.checklistItem.update({
             where: { id: checklistItem.id },
