@@ -76,6 +76,6 @@ const EditChecklistItemPage = () => {
 }
 
 EditChecklistItemPage.authenticate = { role: RoleEnum.ADMIN }
-EditChecklistItemPage.getLayout = (page) => <Layout>{page}</Layout>
+EditChecklistItemPage.getLayout = (page) => <Layout title="Edit Checklist">{page}</Layout>
 
 export default EditChecklistItemPage

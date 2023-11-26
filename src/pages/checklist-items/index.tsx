@@ -49,7 +49,7 @@ export const ChecklistItemsList = () => {
 
 const ChecklistItemsPage = () => {
   return (
-    <Layout>
+    <Layout title="Checklist Items">
       <Head>
         <title>ChecklistItems</title>
       </Head>
