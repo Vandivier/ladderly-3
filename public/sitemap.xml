@@ -6,6 +6,11 @@
     </url>
     <url>
         <loc>
+            https://ladderly.io/about
+        </loc>
+    </url>
+    <url>
+        <loc>
             https://ladderly.io/auth
         </loc>
     </url>
@@ -31,12 +36,32 @@
     </url>
     <url>
         <loc>
+            https://ladderly.io/privacy-policy
+        </loc>
+    </url>
+    <url>
+        <loc>
             https://ladderly.io/settings
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/blog/community-bounty
+            https://ladderly.io/store
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2023-07-21-community-bounty
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2023-10-01-quality-course-and-projects
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2023-11-25-leetcode-kata
         </loc>
     </url>
 </urlset>

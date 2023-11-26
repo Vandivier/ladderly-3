@@ -14,7 +14,7 @@ const blogPosts = fs.readdirSync(blogDirectory)
 
 // Filter out non-page files and convert page files to URLs
 const pageUrls = pages
-  .filter((page) => !["_app.tsx", "_document.tsx", "api", "blog"].includes(page))
+  .filter((page) => !["_app.tsx", "_document.tsx", "api", "blog", ".DS_Store"].includes(page))
   .map((page) => `${baseURL}/${page.replace(".tsx", "")}`)
 
 // Convert blog post files to URLs
