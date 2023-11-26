@@ -50,7 +50,7 @@ export const UsersList = () => {
 
 const CommunityPage: BlitzPage = () => {
   return (
-    <LadderlyPageWrapper title="Ladderly | Community">
+    <LadderlyPageWrapper title="Community">
       <LargeCard>
         <h1 className="text-2xl font-bold text-gray-800">Member Profiles</h1>
         <Suspense fallback="Loading...">

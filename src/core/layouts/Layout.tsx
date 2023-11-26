@@ -2,7 +2,7 @@ import Head from "next/head"
 import React from "react"
 import { BlitzLayout } from "@blitzjs/next"
 
-export type LayoutProps = { title?: string; children?: React.ReactNode }
+export type LayoutProps = { title: string; children?: React.ReactNode }
 
 const Layout: BlitzLayout<LayoutProps> = ({ title, children }) => {
   return (

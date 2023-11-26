@@ -11,7 +11,7 @@ const BlogIndex = ({
   posts: { slug: string; title: string; date: string; author: string }[]
 }) => {
   return (
-    <LadderlyPageWrapper title="Ladderly | Blog">
+    <LadderlyPageWrapper title="Blog">
       <main>
         {posts.map((post) => (
           <div key={post.slug} className="border-ladderly-light-purple border-b p-4">

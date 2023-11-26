@@ -50,7 +50,7 @@ export const SettingsList = () => {
 
 const SettingsPage = () => {
   return (
-    <LadderlyPageWrapper>
+    <LadderlyPageWrapper title="Settings">
       <Head>
         <title>Settings</title>
       </Head>

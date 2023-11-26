@@ -12,7 +12,7 @@ import "src/core/styles/index.css"
 import "src/styles/globals.css"
 
 const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) => (
-  <LadderlyPageWrapper>
+  <LadderlyPageWrapper title="Error">
     <LargeCard>
       <div>
         <h1 className="text-center text-3xl text-ladderly-violet-600">Error</h1>

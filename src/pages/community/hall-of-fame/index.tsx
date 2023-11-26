@@ -50,7 +50,7 @@ export const UsersList = () => {
 
 const HallOfFamePage: BlitzPage = () => {
   return (
-    <LadderlyPageWrapper title="Ladderly | Hall of Fame">
+    <LadderlyPageWrapper title="Hall of Fame">
       <LargeCard>
         <h1 className="text-2xl font-bold text-gray-800">Top Contributing Members</h1>
         <Suspense fallback="Loading...">
