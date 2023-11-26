@@ -95,33 +95,6 @@
   color: rgb(57, 33, 97);
 }
 
-.code p {
-  background: rgba(124, 58, 237, 12%);
-  border-radius: 4px;
-  padding: 0.7em 1.4em;
-  text-align: left;
-}
-
-.code code {
-  font-size: 0.86em;
-  font-weight: bold;
-  color: rgb(124, 58, 237);
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.toastContainer {
-  background: #eeff;
-  border: 1px solid #edff;
-  color: #62af;
-  display: flex;
-  padding: 0.2rem 1.5rem;
-}
-
-.toastContainer strong {
-  color: rgb(124, 58, 237);
-}
-
 .textLink {
   color: rgb(124, 58, 237);
   background: linear-gradient(to right, rgba(231, 216, 246, 1), rgba(231, 216, 246, 1)),
@@ -136,42 +109,6 @@
 .textLink:focus,
 .textLink:active {
   background-size: 0 1px, 100% 1px;
-}
-
-.arrowIcon {
-  box-sizing: border-box;
-  display: block;
-  width: 8px;
-  height: 8px;
-  border-top: 2px solid;
-  transform: scale(var(--ggs, 1));
-  border-right: 2px solid;
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  color: #b1a5c4;
-}
-
-.arrowIcon::after {
-  content: "";
-  display: block;
-  box-sizing: border-box;
-  position: absolute;
-  width: 8px;
-  height: 2px;
-  background: currentColor;
-  transform: rotate(-45deg);
-  top: 2px;
-  right: -1px;
-}
-
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
 }
 
 .button {
@@ -212,10 +149,6 @@
 /* MOBILE */
 @media (max-width: 800px) {
   .body {
-    flex-wrap: wrap;
-  }
-
-  .buttonContainer {
     flex-wrap: wrap;
   }
 
