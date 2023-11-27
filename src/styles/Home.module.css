@@ -17,19 +17,8 @@
 .header {
   display: flex;
   margin: auto;
-  padding: 2rem 0rem 1rem 0rem;
   text-align: center;
   gap: 4rem;
-}
-
-.body {
-  border-radius: var(--border-radius);
-  display: flex;
-  padding: 1rem;
-  width: 450px;
-  flex-direction: row;
-  align-self: center;
-  max-width: calc(min(var(--screen-width), 800px));
 }
 
 .instructions {
@@ -148,10 +137,6 @@
 
 /* MOBILE */
 @media (max-width: 800px) {
-  .body {
-    flex-wrap: wrap;
-  }
-
   .footer {
     flex-direction: column;
   }
