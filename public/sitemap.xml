@@ -1,6 +1,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>
+            https://ladderly.io/
+        </loc>
+    </url>
+    <url>
+        <loc>
             https://ladderly.io/404
         </loc>
     </url>
@@ -11,42 +16,27 @@
     </url>
     <url>
         <loc>
-            https://ladderly.io/auth
+            https://ladderly.io/auth/forgot-password
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/checklist-items
+            https://ladderly.io/auth/login
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/checklists
+            https://ladderly.io/auth/reset-password
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/community
+            https://ladderly.io/auth/signup
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/index
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/privacy-policy
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/settings
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/store
+            https://ladderly.io/blog/
         </loc>
     </url>
     <url>
@@ -62,6 +52,46 @@
     <url>
         <loc>
             https://ladderly.io/blog/2023-11-25-leetcode-kata
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/checklist-items/
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/checklists/
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/checklists/my-basic-checklist
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/checklists/my-premium-checklist
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/community/
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/community/hall-of-fame/
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/privacy-policy
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/store/
         </loc>
     </url>
 </urlset>

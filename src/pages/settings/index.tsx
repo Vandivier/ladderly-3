@@ -64,4 +64,6 @@ const SettingsPage = () => {
   )
 }
 
+SettingsPage.authenticate = true
+
 export default SettingsPage
