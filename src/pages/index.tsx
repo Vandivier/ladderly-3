@@ -70,7 +70,6 @@ const Home: BlitzPage = () => {
               <div className={styles.logo}>
                 <Image src="/logo.png" alt="Ladderly Logo" width={300} height={300} />
               </div>
-              <h2 className="text-2xl font-bold text-gray-800">Accelerate Your Tech Career</h2>
             </div>
             <LadderlyHelpsContentBlock />
           </div>
