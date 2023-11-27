@@ -7,7 +7,7 @@ import styles from "src/styles/Home.module.css"
 
 const AboutPage: BlitzPage = () => {
   return (
-    <LadderlyPageWrapper title="Ladderly | About">
+    <LadderlyPageWrapper title="About">
       <LargeCard>
         <h1 className="text-2xl font-bold text-gray-800">Discover the Ladderly Difference</h1>
 

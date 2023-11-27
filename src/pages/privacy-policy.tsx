@@ -6,7 +6,7 @@ import styles from "src/styles/Home.module.css"
 
 const PrivacyPolicyPage: BlitzPage = () => {
   return (
-    <LadderlyPageWrapper title="Ladderly | Privacy Policy">
+    <LadderlyPageWrapper title="Privacy Policy">
       <LargeCard>
         <h1 className="mb-4 text-2xl font-semibold">Ladderly Privacy Policy</h1>
 

@@ -48,11 +48,11 @@ export const UsersList = () => {
   )
 }
 
-const CommunityPage: BlitzPage = () => {
+const HallOfFamePage: BlitzPage = () => {
   return (
-    <LadderlyPageWrapper title="Community">
+    <LadderlyPageWrapper title="Hall of Fame">
       <LargeCard>
-        <h1 className="text-2xl font-bold text-gray-800">Member Profiles</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Top Contributing Members</h1>
         <Suspense fallback="Loading...">
           <UsersList />
         </Suspense>
@@ -61,4 +61,4 @@ const CommunityPage: BlitzPage = () => {
   )
 }
 
-export default CommunityPage
+export default HallOfFamePage

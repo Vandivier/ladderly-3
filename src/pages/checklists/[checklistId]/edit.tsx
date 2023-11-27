@@ -75,6 +75,6 @@ const EditChecklistPage = () => {
 }
 
 EditChecklistPage.authenticate = true
-EditChecklistPage.getLayout = (page) => <Layout>{page}</Layout>
+EditChecklistPage.getLayout = (page) => <Layout title="Edit Checklist">{page}</Layout>
 
 export default EditChecklistPage

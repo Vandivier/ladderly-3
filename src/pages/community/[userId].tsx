@@ -90,7 +90,7 @@ const UserProfile = () => {
 
 const ShowUserPage = () => {
   return (
-    <LadderlyPageWrapper title="Ladderly | Community">
+    <LadderlyPageWrapper title="Public Profile">
       <LargeCard>
         <Suspense fallback={<div>Loading...</div>}>
           <UserProfile />

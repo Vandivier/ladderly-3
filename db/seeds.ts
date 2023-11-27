@@ -1,11 +1,14 @@
-import db from "./index"
 import fs from "fs"
 import path from "path"
-
-const prisma = db
+import db, { Checklist } from "./index"
+import {
+  ChecklistSeedDataType,
+  ChecklistsSchema,
+  updateChecklistsInPlace,
+} from "./seed-utils/updateChecklists"
 
 const seed = async () => {
-  const updateLatest = process.argv.includes("--update-latest-checklist")
+  const updateLatest = process.argv.includes("--update-latest-checklists")
   const version = new Date().toISOString()
   const files = ["./checklists.json", "./premium-checklists.json"]
 
@@ -18,37 +21,30 @@ const seed = async () => {
     }
 
     const rawData = fs.readFileSync(filePath)
-    const checklists = JSON.parse(rawData.toString())
+    const unverifiedChecklistJson = JSON.parse(rawData.toString())
+    const checklists = ChecklistsSchema.parse(unverifiedChecklistJson)
 
     for (const checklistData of checklists) {
-      const { name, items } = checklistData
-      let checklist
+      const { name, items } = checklistData as ChecklistSeedDataType
+      let checklist: Checklist | null = null
 
       if (updateLatest) {
-        checklist = await prisma.checklist.findFirst({
-          where: { name },
-          orderBy: { createdAt: "desc" },
-        })
-
-        if (checklist) {
-          checklist = await prisma.checklist.update({
-            where: { id: checklist.id },
-            data: { version },
-          })
-        }
+        checklist = await updateChecklistsInPlace(checklistData)
       }
 
       if (!checklist) {
-        checklist = await prisma.checklist.create({
+        checklist = await db.checklist.create({
           data: { name, version },
         })
       }
 
       for (let i = 0; i < items.length; i++) {
-        let itemData = items[i]
+        const itemData = items[i]
         let displayText, linkText, linkUri, isRequired, detailText
 
-        if (typeof itemData === "string") {
+        if (typeof itemData === "undefined") {
+          throw new Error(`Checklist item is undefined for checklist: ${name} item idx: ${i}`)
+        } else if (typeof itemData === "string") {
           displayText = itemData
           linkText = ""
           linkUri = ""
@@ -62,7 +58,7 @@ const seed = async () => {
           detailText = itemData.detailText || ""
         }
 
-        const checklistItem = await prisma.checklistItem.findFirst({
+        const checklistItem = await db.checklistItem.findFirst({
           where: {
             AND: [{ checklistId: checklist.id }, { displayText }],
           },
@@ -72,13 +68,14 @@ const seed = async () => {
           console.warn(`WARN: Checklist item not found for checklist: ${name} item idx: ${i}`)
         }
 
+        // TODO: don't do this if we are updating in place
         if (checklistItem) {
-          await prisma.checklistItem.update({
+          await db.checklistItem.update({
             where: { id: checklistItem.id },
             data: { displayIndex: i, version: checklist.version },
           })
         } else {
-          await prisma.checklistItem.create({
+          await db.checklistItem.create({
             data: {
               displayText,
               displayIndex: i,

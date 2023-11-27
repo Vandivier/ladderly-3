@@ -60,6 +60,6 @@ const ShowChecklistPage = () => {
 }
 
 ShowChecklistPage.authenticate = true
-ShowChecklistPage.getLayout = (page) => <Layout>{page}</Layout>
+ShowChecklistPage.getLayout = (page) => <Layout title="Checklist Details">{page}</Layout>
 
 export default ShowChecklistPage

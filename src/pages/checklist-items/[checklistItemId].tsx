@@ -66,6 +66,6 @@ const ShowChecklistItemPage = () => {
 }
 
 ShowChecklistItemPage.authenticate = true
-ShowChecklistItemPage.getLayout = (page) => <Layout>{page}</Layout>
+ShowChecklistItemPage.getLayout = (page) => <Layout title="Checklist Item">{page}</Layout>
 
 export default ShowChecklistItemPage

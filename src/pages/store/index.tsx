@@ -11,7 +11,7 @@ type StorePageProps = {
 }
 
 const StorePage: React.FC<StorePageProps> = ({ products }) => (
-  <LadderlyPageWrapper title="Ladderly | Store">
+  <LadderlyPageWrapper title="Store">
     <div className="pb-6 text-center md:pb-12">
       <h1 className="text-xl font-bold md:text-3xl lg:text-5xl">All Products</h1>
     </div>

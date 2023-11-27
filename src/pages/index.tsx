@@ -12,27 +12,32 @@ import styles from "src/styles/Home.module.css"
 
 const LadderlyHelpsContentBlock = () => {
   return (
-    <div className={`${styles.body} bg-frost`}>
-      <div className={styles.instructions}>
-        <h2 className="text-2xl font-bold text-gray-800">Ladderly Helps You:</h2>
-
-        <div>
-          <div className={styles.code}>
-            <span>1</span>
-            <p>learn to code</p>
+    <div>
+      <h2 className="my-6 text-2xl font-bold">Ladderly Helps You:</h2>
+      <ol className="list-none space-y-3">
+        <li className="flex items-center">
+          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500">
+            1
           </div>
-
-          <div className={styles.code}>
-            <span>2</span>
-            <p>land your first or next programming role</p>
+          <span className="rounded-md bg-purple-300/50 p-2">learn to code</span>
+        </li>
+        <li className="flex items-center">
+          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500">
+            2
           </div>
-
-          <div className={styles.code}>
-            <span>3</span>
-            <p>grow social and professional networks</p>
+          <span className="rounded-md bg-purple-300/50 p-2">
+            land your first or next programming role
+          </span>
+        </li>
+        <li className="flex items-center">
+          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500">
+            3
           </div>
-        </div>
-      </div>
+          <span className="rounded-md bg-purple-300/50 p-2">
+            grow social and professional networks
+          </span>
+        </li>
+      </ol>
     </div>
   )
 }
@@ -65,13 +70,25 @@ const Home: BlitzPage = () => {
     <LadderlyPageWrapper title="Home">
       <main style={{ padding: "0rem 1rem" }}>
         <div className={styles.wrapper}>
-          <div className={styles.header}>
-            <div>
-              <div className={styles.logo}>
-                <Image src="/logo.png" alt="Ladderly Logo" width={300} height={300} />
-              </div>
-              <h2 className="text-2xl font-bold text-gray-800">Accelerate Your Tech Career</h2>
-            </div>
+          <div
+            className={`mx-auto my-6 flex flex-wrap gap-0 rounded-lg bg-frost p-2 sm:flex-nowrap sm:gap-16`}
+          >
+            <Image
+              className="m-auto block rounded-lg shadow-lg sm:hidden"
+              src="/logo.png"
+              alt="Ladderly Logo"
+              width={270}
+              height={270}
+            />
+
+            <Image
+              className="m-6 hidden rounded-lg shadow-lg sm:block"
+              src="/logo.png"
+              alt="Ladderly Logo"
+              width={330}
+              height={330}
+            />
+
             <LadderlyHelpsContentBlock />
           </div>
 
