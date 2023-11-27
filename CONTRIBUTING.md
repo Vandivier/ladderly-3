@@ -17,5 +17,5 @@ If you have personal support or setup questions the best place to ask those is i
 ## Design guidance
 
 1. Generally, just use the defaults in your context and the correct style will flow through.
-2. Standard copy uses `Roboto, sans-serif` and special copy like titles or code snippets can use `Courier New, sans-serif`
+2. Standard copy uses the Tailwind base font and special copy like titles or code snippets can use `Courier New` by using the global css class `font-special`.
    1. You don't have to use the special font in your titles, but if you do, keep your page internally consistent. Don't have some headings in standard font and some in special font.
