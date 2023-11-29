@@ -1,7 +1,7 @@
 import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import Link from "next/link"
-import React, { useState } from "react"
+import React from "react"
 
 import logout from "src/auth/mutations/logout"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
@@ -71,13 +71,9 @@ const LogoutButton = () => {
 export const TopNavRight = () => {
   const currentUser = useCurrentUser()
   const { setMenu, openMenuName } = React.useContext(MenuContext)
-  const [communityChevron, setCommunityChevron] = useState(false)
-  const [accountChevron, setAccountChevron] = useState(false)
 
   const handleCommunityClick = (e) => {
     e.preventDefault()
-    setCommunityChevron((prevValue) => !prevValue)
-    setAccountChevron(false)
 
     if (openMenuName === "community") {
       setMenu(null, "")
@@ -88,8 +84,6 @@ export const TopNavRight = () => {
 
   const handleAccountClick = (e) => {
     e.preventDefault()
-    setCommunityChevron(false)
-    setAccountChevron((prevValue) => !prevValue)
 
     if (openMenuName === "account") {
       setMenu(null, "")
@@ -108,12 +102,12 @@ export const TopNavRight = () => {
       </Link>
       <button onClick={handleCommunityClick} className={TOP_NAV_STANDARD_CLASSES}>
         Community
-        <IconVerticalChevron isPointingUp={communityChevron} />
+        <IconVerticalChevron isPointingUp={openMenuName === "community"} />
       </button>
       {currentUser ? (
         <button onClick={handleAccountClick} className={TOP_NAV_STANDARD_CLASSES}>
           Account
-          <IconVerticalChevron isPointingUp={accountChevron} />
+          <IconVerticalChevron isPointingUp={openMenuName === "account"} />
         </button>
       ) : (
         <>
