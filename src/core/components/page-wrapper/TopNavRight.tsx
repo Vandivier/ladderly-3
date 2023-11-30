@@ -102,12 +102,12 @@ export const TopNavRight = () => {
       </Link>
       <button onClick={handleCommunityClick} className={TOP_NAV_STANDARD_CLASSES}>
         Community
-        <IconVerticalChevron />
+        <IconVerticalChevron isPointingUp={openMenuName === "community"} />
       </button>
       {currentUser ? (
         <button onClick={handleAccountClick} className={TOP_NAV_STANDARD_CLASSES}>
           Account
-          <IconVerticalChevron />
+          <IconVerticalChevron isPointingUp={openMenuName === "account"} />
         </button>
       ) : (
         <>
