@@ -4,9 +4,9 @@ date: 12/01/23
 author: John Vandivier
 ---
 
-### An Insightful Guide by John, A Veteran Software Engineer
+The purpose of this guide is to maximize the performance of your job search as a software engineer. This guide is provided by John, a seasoned software engineer with a decade of experience at well-known companies like Amazon and Capital One.
 
-John, a seasoned software engineer with a decade of experience at renowned companies like Amazon and Capital One, recently hosted a live stream titled "75+ Job Boards Analyzed! Use these Top 8 to Succeed!" He shared invaluable insights on maximizing your chances in the competitive programming job market. Watch the [full video](https://www.youtube.com/watch?v=Wof3HPOLnPo) for a comprehensive understanding and explore the detailed [spreadsheet](https://docs.google.com/spreadsheets/d/1-g88F96DqkbheGxswzCBRzdnOU-257aZ9u6zL7j-7Gw?usp=sharing) for more data.
+This article summarizes the highlights of a detailed data analysis on the topic from John titled "75+ Job Boards Analyzed! Use these Top 8 to Succeed!" Watch the [full video](https://www.youtube.com/watch?v=Wof3HPOLnPo) for a comprehensive understanding and explore the detailed [spreadsheet](https://docs.google.com/spreadsheets/d/1-g88F96DqkbheGxswzCBRzdnOU-257aZ9u6zL7j-7Gw?usp=sharing) for more data.
 
 ### The Methodology: Optimizing the Job Search
 

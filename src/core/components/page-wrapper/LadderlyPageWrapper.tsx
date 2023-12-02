@@ -7,7 +7,7 @@ import { TopNav } from "./TopNav"
 import Link from "next/link"
 
 export const LadderlyPageWrapper: React.FC<LayoutProps> = ({ children, title }) => (
-  <Layout title={`ladderly.io | ${title}`}>
+  <Layout title={title}>
     <div className={styles.container}>
       <TopNav />
 
