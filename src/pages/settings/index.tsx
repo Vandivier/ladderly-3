@@ -1,14 +1,13 @@
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import { FORM_ERROR } from "final-form"
-import Head from "next/head"
 import { Suspense } from "react"
 
+import { LargeCard } from "src/core/components/LargeCard"
+import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 import { SettingForm } from "src/settings/components/SettingForm"
 import updateSettingsMutation from "src/settings/mutations/updateSettingsMutation"
 import getSettings, { UserSettings } from "src/settings/queries/getSettings"
 import { UpdateSettingsSchema } from "src/settings/schemas"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
-import { LargeCard } from "src/core/components/LargeCard"
 
 export const SettingsList = () => {
   const [settings, { setQueryData }] = useQuery(getSettings, {})
@@ -51,10 +50,6 @@ export const SettingsList = () => {
 const SettingsPage = () => {
   return (
     <LadderlyPageWrapper title="Settings">
-      <Head>
-        <title>Settings</title>
-      </Head>
-
       <div className="flex items-center justify-center">
         <Suspense fallback={<div>Loading...</div>}>
           <SettingsList />
