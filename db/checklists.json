@@ -31,14 +31,14 @@
         "displayText": "I have completed a ###LINK###.",
         "isRequired": true,
         "linkText": "substantive web development program",
-        "linkUri": "https://ladderly.io/blog/quality-course-and-projects"
+        "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
       },
       {
         "detailText": "",
         "displayText": "I have a portfolio that includes ###LINK###.",
         "isRequired": true,
         "linkText": "the Big 4 Projects",
-        "linkUri": "https://ladderly.io/blog/quality-course-and-projects"
+        "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
       },
       "I have used the rect tool for flash card study and passed at least one quiz. I created at least one GitHub issue or PR on the repo to improve it. I reached out to the maintainers using Discord or other means if I didn't hear back on my PR or issue within a few days. I am an Open Source contributor!",
       "I have attempted LinkedIn skill certs for HTML, CSS, JavaScript, TypeScript, React, and Git, and passed at least half of them. (There might be a separate responsive design one or also tailwind, bootstrap, material design, scss, or some others that should count)",
