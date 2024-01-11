@@ -159,6 +159,8 @@ model Subscription {
   type          String          @default("ACCOUNT_PLAN")
   createdAt     DateTime        @default(now())
   contributions Contribution[]
+
+  @@unique([userId, type])
 }
 
 model Contribution {
