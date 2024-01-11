@@ -8,52 +8,111 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
 async function updateSubscriptionTiers() {
-  const results = {}
   const premiumEmails = process.env.PREMIUM_EMAILS.split(",")
   const pWYC_Emails = process.env.PWYC_EMAILS.split(",")
   const data = JSON.parse(fs.readFileSync("./stripe_payments.json", "utf-8"))
+  const subscriptionType = "ACCOUNT_PLAN"
 
-  data.forEach((record) => {
-    // Remove non-digit and non-period characters from the amount string
-    // eg currency symbols and commas
+  for (const record of data) {
     const amountPaid = parseFloat(record["amount"].replace(/[^0-9.]/g, ""))
     const email = record["email"]
-    if (!results[email]) {
-      results[email] = 0
-    }
-    results[email] += amountPaid
-  })
+    const contributedAt = new Date(record["date"])
+    const transactionId = record["transactionId"] || null
 
-  // Update each user's subscription tier
-  for (const email in results) {
-    let tier
-    const totalPaid = results[email]
-
-    if (totalPaid >= 30 || premiumEmails.includes(email)) {
-      tier = "PREMIUM"
-    } else if (totalPaid >= 1 || pWYC_Emails.includes(email)) {
-      tier = "PAY_WHAT_YOU_CAN"
-    } else {
-      tier = "FREE"
-    }
-
+    // Find or create user based on email or emailStripe
     const user = await prisma.user.findFirst({
       where: {
-        OR: [{ email }, { emailStripe: email }],
+        OR: [{ email }, { emailBackup: email }, { emailStripe: email }],
       },
     })
+
     if (!user) {
       console.log(`User not found: ${email}`)
       continue
     }
 
-    await prisma.subscription.updateMany({
-      where: { userId: user.id },
+    // Fetch or create the subscription
+    let subscription = await prisma.subscription.findFirst({
+      where: {
+        userId: user.id,
+        type: subscriptionType,
+      },
+    })
+
+    if (!subscription) {
+      subscription = await prisma.subscription.create({
+        data: {
+          userId: user.id,
+          type: subscriptionType,
+        },
+      })
+    }
+
+    // Upsert contribution record
+    await prisma.contribution.upsert({
+      where: {
+        contributedAt_userId: {
+          contributedAt: contributedAt,
+          userId: user.id,
+        },
+      },
+      update: {
+        amount: amountPaid,
+        stripeTransactionId: transactionId,
+      },
+      create: {
+        amount: amountPaid,
+        stripeTransactionId: transactionId,
+        contributedAt: contributedAt,
+        type: "ONE_TIME",
+        user: { connect: { id: user.id } },
+        subscription: { connect: { id: subscription.id } },
+      },
+    })
+
+    // Compute total contributions for the user
+    const totalAmountContributed = await prisma.contribution.aggregate({
+      where: {
+        userId: user.id,
+      },
+      _sum: {
+        amount: true,
+      },
+    })
+
+    // Update user's total contributions
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        totalContributions: totalAmountContributed._sum.amount || 0,
+      },
+    })
+
+    // Determine subscription tier
+    let tier
+    if (totalAmountContributed._sum.amount >= 30 || premiumEmails.includes(email)) {
+      tier = "PREMIUM"
+    } else if (totalAmountContributed._sum.amount >= 1 || pWYC_Emails.includes(email)) {
+      tier = "PAY_WHAT_YOU_CAN"
+    } else {
+      tier = "FREE"
+    }
+
+    // Update user's subscription tier
+    await prisma.subscription.update({
+      where: {
+        userId_type: {
+          userId: user.id,
+          type: subscriptionType,
+        },
+      },
       data: { tier },
     })
   }
 
-  console.log("Subscription tiers updated.")
+  console.log("Subscription tiers and contributions updated.")
 }
 
 updateSubscriptionTiers().catch(console.error)
