@@ -46,6 +46,7 @@
     "next": "13.4.5",
     "nextjs-google-analytics": "2.3.3",
     "postcss": "8.4.24",
+    "postmark": "4.0.2",
     "printful-request": "2.0.0",
     "prisma": "4.6.1",
     "react": "18.2.0",
