@@ -6,6 +6,8 @@ const data = rows.slice(1).map((row) => {
   return {
     amount: cells[1].innerText,
     email: cells[5].innerText,
+    // note: date includes time data to the minute
+    // so, it's like a timestamp
     date: cells[6].innerText,
   }
 })

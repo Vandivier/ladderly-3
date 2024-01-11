@@ -34,6 +34,8 @@ model User {
   profileGitHubUri    String?
   profileHomepageUri  String?
   profileLinkedInUri  String?
+  totalContributions  Float   @default(0)
+  totalStoreSpend     Float   @default(0)
 
   contributions      Contribution[]
   quizResults        QuizResult[]
@@ -163,9 +165,8 @@ model Contribution {
   createdAt DateTime @default(now())
   id        Int      @id @default(autoincrement())
 
-  amount              Int
-  newTier             PaymentTierEnum
-  previousTier        PaymentTierEnum
+  amount              Float
+  contributedAt       DateTime
   stripeTransactionId String?
   type                ContributionTypeEnum @default(ONE_TIME)
 
@@ -173,6 +174,9 @@ model Contribution {
   subscriptionId Int
   user           User         @relation(fields: [userId], references: [id])
   userId         Int
+
+  @@unique([contributedAt, userId])
+  @@unique([subscriptionId, userId])
 }
 
 enum ContributionTypeEnum {

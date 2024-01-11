@@ -23,6 +23,7 @@ export const UsersList = () => {
 
   return (
     <div>
+      {/* TODO: LabeledDropDown that picks whether to count store purchases */}
       <ul className="my-4">
         {users.map((user) => (
           <li key={user.id}>
