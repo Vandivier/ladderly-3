@@ -22,7 +22,7 @@ async function updateSubscriptionTiers() {
     // Find or create user based on email or emailStripe
     const user = await prisma.user.findFirst({
       where: {
-        OR: [{ email }, { emailStripe: email }],
+        OR: [{ email }, { emailBackup: email }, { emailStripe: email }],
       },
     })
 

@@ -53,6 +53,7 @@ const CommunityPage: BlitzPage = () => {
     <LadderlyPageWrapper title="Community">
       <LargeCard>
         <h1 className="text-2xl font-bold text-gray-800">Member Profiles</h1>
+        <h3>Sorted by Signup Date</h3>
         <Suspense fallback="Loading...">
           <UsersList />
         </Suspense>
