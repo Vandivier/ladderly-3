@@ -3,9 +3,7 @@ import { resolver } from "@blitzjs/rpc"
 import { AuthorizationError, NotFoundError } from "blitz"
 import db from "db"
 
-// TODO: if user allows it, even not-logged-in viewers can see some of their info
-//    eg, in the case of public profiles
-export default resolver.pipe(resolver.authorize(), async ({ id }: { id: number }, ctx: Ctx) => {
+export default resolver.pipe(async ({ id }: { id: number }, ctx: Ctx) => {
   if (id !== parseInt(id.toString())) throw new NotFoundError()
 
   const isOwnData = ctx.session.userId === id
@@ -40,9 +38,9 @@ export default resolver.pipe(resolver.authorize(), async ({ id }: { id: number }
   })
 
   if (!user) throw new NotFoundError("User not found")
-  if (user && !isOwnData && !user.hasPublicProfileEnabled) {
-    throw new AuthorizationError("You do not have permission to view this user data.")
+  if (isOwnData || user.hasPublicProfileEnabled) {
+    return user
   }
 
-  return user
+  throw new AuthorizationError("You do not have permission to view this user data.")
 })
