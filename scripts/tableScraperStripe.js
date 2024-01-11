@@ -5,10 +5,11 @@ const data = rows.slice(1).map((row) => {
   const cells = row.cells
   return {
     amount: cells[1].innerText,
-    email: cells[5].innerText,
+    transactionId: cells[5].innerText,
+    email: cells[6].innerText,
     // note: date includes time data to the minute
     // so, it's like a timestamp
-    date: cells[6].innerText,
+    date: cells[7].innerText,
   }
 })
 
