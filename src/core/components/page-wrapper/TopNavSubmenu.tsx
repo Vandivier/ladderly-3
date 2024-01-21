@@ -7,7 +7,7 @@ import logout from "src/auth/mutations/logout"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 export const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold"
-const MENU_ITEM_STANDARD_CLASSES =
+export const MENU_ITEM_STANDARD_CLASSES =
   "font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
 
 export const AccountMenuItems = ({
@@ -42,19 +42,19 @@ const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
   </div>
 )
 
-export const CommunityMenuItems = () => (
+export const CommunityMenuItems = ({
+  linkClassName = MENU_ITEM_STANDARD_CLASSES,
+}: {
+  linkClassName?: string
+}) => (
   <MenuItemsWrapper>
-    <Link href={Routes.HallOfFamePage()} className={MENU_ITEM_STANDARD_CLASSES}>
+    <Link href={Routes.HallOfFamePage()} className={linkClassName}>
       Hall of Fame
     </Link>
-    <Link href={Routes.CommunityPage()} className={MENU_ITEM_STANDARD_CLASSES}>
+    <Link href={Routes.CommunityPage()} className={linkClassName}>
       Browse All Profiles
     </Link>
-    <Link
-      href="https://discord.com/invite/fAg6Xa4uxc"
-      className={MENU_ITEM_STANDARD_CLASSES}
-      target="_blank"
-    >
+    <Link href="https://discord.com/invite/fAg6Xa4uxc" className={linkClassName} target="_blank">
       Discord
     </Link>
   </MenuItemsWrapper>

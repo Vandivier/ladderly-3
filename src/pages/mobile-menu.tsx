@@ -7,17 +7,20 @@ import { TopNavFlexContainer } from "src/core/components/page-wrapper/TopNav"
 import { TopNavLeft } from "src/core/components/page-wrapper/TopNavLeft"
 import {
   AccountMenuItems,
+  CommunityMenuItems,
+  MENU_ITEM_STANDARD_CLASSES,
   TOP_NAV_STANDARD_CLASSES,
 } from "src/core/components/page-wrapper/TopNavSubmenu"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 const MOBILE_LINK_CLASSES =
   "block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900"
+const MOBILE_SUBMENU_ITEM_CLASSES = `${MENU_ITEM_STANDARD_CLASSES} m-3`
 
 const AuthenticatedMenuItems = () => {
   const [isSubmenuOpen, setIsSubmenuOpen] = React.useState(false)
 
-  const toggleSubmenu = () => {
+  const toggleAccountSubmenu = () => {
     setIsSubmenuOpen(!isSubmenuOpen)
   }
 
@@ -25,7 +28,7 @@ const AuthenticatedMenuItems = () => {
     <>
       <li>
         <button
-          onClick={toggleSubmenu}
+          onClick={toggleAccountSubmenu}
           className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
             isSubmenuOpen && "border border-gray-200 bg-gray-100"
           }`}
@@ -36,7 +39,7 @@ const AuthenticatedMenuItems = () => {
 
         {isSubmenuOpen && (
           <ul className="flex w-full">
-            <AccountMenuItems linkClassName={`${MOBILE_LINK_CLASSES} m-2`} />
+            <AccountMenuItems linkClassName={MOBILE_SUBMENU_ITEM_CLASSES} />
           </ul>
         )}
       </li>
@@ -68,9 +71,14 @@ const AuthenticatedPartialMenu = () => {
 
 const MobileMenuPage: BlitzPage = () => {
   const router = useRouter()
+  const [isCommunitySubmenuOpen, setIsCommunitySubmenuOpen] = React.useState(false)
 
   const handleClose = () => {
     router.back()
+  }
+
+  const toggleCommunitySubmenu = () => {
+    setIsCommunitySubmenuOpen(!isCommunitySubmenuOpen)
   }
 
   return (
@@ -99,10 +107,20 @@ const MobileMenuPage: BlitzPage = () => {
             </Link>
           </li>
           <li>
-            <Link href="/community" className={MOBILE_LINK_CLASSES}>
+            <button
+              onClick={toggleCommunitySubmenu}
+              className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
+                isCommunitySubmenuOpen ? "border border-gray-200 bg-gray-100" : ""
+              }`}
+            >
               Community
-              {/* TODO: COMMUNITY SHOULD BE A DROPDOWN NOT JUST A LINK */}
-            </Link>
+              <IconVerticalChevron isPointingUp={isCommunitySubmenuOpen} />
+            </button>
+            {isCommunitySubmenuOpen && (
+              <ul>
+                <CommunityMenuItems linkClassName={MOBILE_SUBMENU_ITEM_CLASSES} />
+              </ul>
+            )}
           </li>
         </ul>
       </nav>
