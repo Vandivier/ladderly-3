@@ -64,7 +64,7 @@ const LogoutButton = () => {
         await logoutMutation()
       }}
     >
-      Logout
+      Log Out
     </button>
   )
 }
@@ -113,10 +113,10 @@ export const TopNavRight = () => {
       ) : (
         <>
           <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.LoginPage()}>
-            Login
+            Log In
           </Link>
-          <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.SignupPage()}>
-            Signup
+          <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.CreateAccountPage()}>
+            Create Account
           </Link>
         </>
       )}

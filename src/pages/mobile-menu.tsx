@@ -1,10 +1,64 @@
-import { BlitzPage } from "@blitzjs/next"
+import { BlitzPage, Routes } from "@blitzjs/next"
+import { useMutation } from "@blitzjs/rpc"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import React from "react"
+import React, { Suspense } from "react"
+import logout from "src/auth/mutations/logout"
 import { TopNavFlexContainer } from "src/core/components/page-wrapper/TopNav"
 import { TopNavLeft } from "src/core/components/page-wrapper/TopNavLeft"
 import { TOP_NAV_STANDARD_CLASSES } from "src/core/components/page-wrapper/TopNavRight"
+import { useCurrentUser } from "src/users/hooks/useCurrentUser"
+
+const MOBILE_LINK_CLASSES =
+  "block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900"
+
+const AuthenticatedMenuItems = ({ onLogout }) => {
+  return (
+    <>
+      <li>
+        <Link href={Routes.SettingsPage()} className={MOBILE_LINK_CLASSES}>
+          Settings
+          {/* TODO: SHOULD BE ACCOUNT DROP DOWN NOT JUST SETTINGS */}
+        </Link>
+      </li>
+      <li>
+        <button onClick={onLogout} className={MOBILE_LINK_CLASSES}>
+          Log Out
+        </button>
+      </li>
+    </>
+  )
+}
+
+const GuestMenuItems = () => {
+  return (
+    <>
+      <li>
+        <Link href={Routes.LoginPage()} className={MOBILE_LINK_CLASSES}>
+          Log In
+        </Link>
+      </li>
+      <li>
+        <Link href={Routes.CreateAccountPage()} className={MOBILE_LINK_CLASSES}>
+          Create Account
+        </Link>
+      </li>
+    </>
+  )
+}
+
+const AuthenticatedPartialMenu = () => {
+  const currentUser = useCurrentUser()
+  const [logoutMutation] = useMutation(logout)
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    await logoutMutation()
+    await router.push("/")
+  }
+
+  return currentUser ? <AuthenticatedMenuItems onLogout={handleLogout} /> : <GuestMenuItems />
+}
 
 const MobileMenuPage: BlitzPage = () => {
   const router = useRouter()
@@ -14,7 +68,7 @@ const MobileMenuPage: BlitzPage = () => {
   }
 
   return (
-    <div className="inset-0 flex flex-col items-center justify-between bg-white">
+    <div className="fixed inset-0 flex flex-col bg-ladderly-light-purple-1">
       <TopNavFlexContainer>
         <TopNavLeft />
         <button onClick={handleClose} className={`${TOP_NAV_STANDARD_CLASSES} ml-auto`}>
@@ -22,31 +76,26 @@ const MobileMenuPage: BlitzPage = () => {
         </button>
       </TopNavFlexContainer>
 
-      <nav className="mt-25%">
-        <ul>
-          <li className="my-2">
-            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/about">
+      <nav className="mt-25% grow overflow-y-auto px-4">
+        <ul className="grid grid-cols-2 gap-4">
+          <Suspense fallback={<p>Loading...</p>}>
+            <AuthenticatedPartialMenu />
+          </Suspense>
+
+          <li>
+            <Link href="/about" className={MOBILE_LINK_CLASSES}>
               About
             </Link>
           </li>
-          <li className="my-2">
-            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/blog">
+          <li>
+            <Link href="/blog" className={MOBILE_LINK_CLASSES}>
               Blog
             </Link>
           </li>
-          <li className="my-2">
-            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/community">
+          <li>
+            <Link href="/community" className={MOBILE_LINK_CLASSES}>
               Community
-            </Link>
-          </li>
-          <li className="my-2">
-            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/auth/login">
-              Login
-            </Link>
-          </li>
-          <li className="my-2">
-            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/auth/signup">
-              Signup
+              {/* TODO: COMMUNITY SHOULD BE A DROPDOWN NOT JUST A LINK */}
             </Link>
           </li>
         </ul>
