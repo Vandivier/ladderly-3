@@ -26,7 +26,9 @@ const AuthenticatedMenuItems = () => {
       <li>
         <button
           onClick={toggleSubmenu}
-          className={`${MOBILE_LINK_CLASSES} flex items-center justify-between`}
+          className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
+            isSubmenuOpen && "border border-gray-200 bg-gray-100"
+          }`}
         >
           Account
           <IconVerticalChevron isPointingUp={isSubmenuOpen} />
