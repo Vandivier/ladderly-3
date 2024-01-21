@@ -4,27 +4,36 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { Suspense } from "react"
 import logout from "src/auth/mutations/logout"
+import { IconVerticalChevron } from "src/core/components/icons/VerticalChevron"
 import { TopNavFlexContainer } from "src/core/components/page-wrapper/TopNav"
 import { TopNavLeft } from "src/core/components/page-wrapper/TopNavLeft"
-import { TOP_NAV_STANDARD_CLASSES } from "src/core/components/page-wrapper/TopNavRight"
+import {
+  AccountMenuItems,
+  TOP_NAV_STANDARD_CLASSES,
+} from "src/core/components/page-wrapper/TopNavSubmenu"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 const MOBILE_LINK_CLASSES =
   "block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900"
 
 const AuthenticatedMenuItems = ({ onLogout }) => {
+  const [isSubmenuOpen, setIsSubmenuOpen] = React.useState(false)
+
+  const toggleSubmenu = () => {
+    setIsSubmenuOpen(!isSubmenuOpen)
+  }
+
   return (
     <>
       <li>
-        <Link href={Routes.SettingsPage()} className={MOBILE_LINK_CLASSES}>
-          Settings
-          {/* TODO: SHOULD BE ACCOUNT DROP DOWN NOT JUST SETTINGS */}
-        </Link>
-      </li>
-      <li>
-        <button onClick={onLogout} className={MOBILE_LINK_CLASSES}>
-          Log Out
+        <button
+          onClick={toggleSubmenu}
+          className={`${MOBILE_LINK_CLASSES} flex items-center justify-between`}
+        >
+          Account
+          <IconVerticalChevron isPointingUp={isSubmenuOpen} />
         </button>
+        {isSubmenuOpen && <AccountMenuItems linkClassName={MOBILE_LINK_CLASSES} />}
       </li>
     </>
   )
