@@ -4,11 +4,11 @@ import { SignupForm } from "src/auth/components/SignupForm"
 import { BlitzPage, Routes } from "@blitzjs/next"
 import Link from "next/link"
 
-const SignupPage: BlitzPage = () => {
+const CreateAccountPage: BlitzPage = () => {
   const router = useRouter()
 
   return (
-    <Layout title="Sign Up">
+    <Layout title="Create Account">
       <div className="relative min-h-screen">
         <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
           <Link href={Routes.Home()} className="ml-auto text-gray-800 hover:text-ladderly-pink">
@@ -23,4 +23,4 @@ const SignupPage: BlitzPage = () => {
   )
 }
 
-export default SignupPage
+export default CreateAccountPage

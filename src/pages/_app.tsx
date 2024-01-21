@@ -29,15 +29,15 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
                 className="ml-auto text-gray-800 hover:text-ladderly-pink"
                 href={Routes.LoginPage()}
               >
-                Login
+                Log In
               </Link>
               <p>
                 <span>Not a member yet?</span>{" "}
                 <Link
                   className="ml-auto text-gray-800 hover:text-ladderly-pink"
-                  href={Routes.SignupPage()}
+                  href={Routes.CreateAccountPage()}
                 >
-                  Sign up for free!
+                  Create an account for free!
                 </Link>
               </p>
             </div>
