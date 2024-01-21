@@ -33,7 +33,7 @@ export const AccountMenuItems = ({
 
 const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
   <div
-    className="ml-auto flex py-1"
+    className="ml-auto flex flex-wrap py-1"
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="options-menu"

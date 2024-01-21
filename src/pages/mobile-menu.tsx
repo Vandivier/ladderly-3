@@ -1,9 +1,7 @@
 import { BlitzPage, Routes } from "@blitzjs/next"
-import { useMutation } from "@blitzjs/rpc"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { Suspense } from "react"
-import logout from "src/auth/mutations/logout"
 import { IconVerticalChevron } from "src/core/components/icons/VerticalChevron"
 import { TopNavFlexContainer } from "src/core/components/page-wrapper/TopNav"
 import { TopNavLeft } from "src/core/components/page-wrapper/TopNavLeft"
@@ -16,7 +14,7 @@ import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 const MOBILE_LINK_CLASSES =
   "block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900"
 
-const AuthenticatedMenuItems = ({ onLogout }) => {
+const AuthenticatedMenuItems = () => {
   const [isSubmenuOpen, setIsSubmenuOpen] = React.useState(false)
 
   const toggleSubmenu = () => {
@@ -33,7 +31,12 @@ const AuthenticatedMenuItems = ({ onLogout }) => {
           Account
           <IconVerticalChevron isPointingUp={isSubmenuOpen} />
         </button>
-        {isSubmenuOpen && <AccountMenuItems linkClassName={MOBILE_LINK_CLASSES} />}
+
+        {isSubmenuOpen && (
+          <ul className="flex w-full">
+            <AccountMenuItems linkClassName={`${MOBILE_LINK_CLASSES} m-2`} />
+          </ul>
+        )}
       </li>
     </>
   )
@@ -58,15 +61,7 @@ const GuestMenuItems = () => {
 
 const AuthenticatedPartialMenu = () => {
   const currentUser = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
-  const router = useRouter()
-
-  const handleLogout = async () => {
-    await logoutMutation()
-    await router.push("/")
-  }
-
-  return currentUser ? <AuthenticatedMenuItems onLogout={handleLogout} /> : <GuestMenuItems />
+  return currentUser ? <AuthenticatedMenuItems /> : <GuestMenuItems />
 }
 
 const MobileMenuPage: BlitzPage = () => {
