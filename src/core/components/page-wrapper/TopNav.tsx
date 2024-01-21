@@ -6,7 +6,7 @@ import { MenuContext, MenuProvider } from "./MenuProvider"
 import Link from "next/link"
 
 export const TopNavFlexContainer = ({ children }) => (
-  <div className="border-ladderly-light-purple column flex w-full border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
+  <div className="column flex w-full border-b border-ladderly-light-purple-5 bg-ladderly-light-purple-2 px-4 py-1 text-ladderly-violet-700">
     {children}
   </div>
 )
