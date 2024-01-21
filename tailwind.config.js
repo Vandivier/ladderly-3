@@ -39,6 +39,9 @@ module.exports = {
       fontSize: {
         "1.8rem": "1.8rem",
       },
+      margin: {
+        "25%": "25%",
+      },
       textShadow: {
         md: "rgb(0, 0, 0, 0.56) 0px 3px 12px",
       },

@@ -14,7 +14,7 @@ const MobileMenuPage: BlitzPage = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-white">
+    <div className="inset-0 flex flex-col items-center justify-between bg-white">
       <TopNavFlexContainer>
         <TopNavLeft />
         <button onClick={handleClose} className={`${TOP_NAV_STANDARD_CLASSES} ml-auto`}>
@@ -22,21 +22,11 @@ const MobileMenuPage: BlitzPage = () => {
         </button>
       </TopNavFlexContainer>
 
-      <nav className="flex flex-col items-center justify-center">
+      <nav className="mt-25%">
         <ul>
           <li className="my-2">
             <Link className="text-lg text-gray-700 hover:text-gray-900" href="/about">
               About
-            </Link>
-          </li>
-          <li className="my-2">
-            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/services">
-              Services
-            </Link>
-          </li>
-          <li className="my-2">
-            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/portfolio">
-              Portfolio
             </Link>
           </li>
           <li className="my-2">
@@ -45,13 +35,22 @@ const MobileMenuPage: BlitzPage = () => {
             </Link>
           </li>
           <li className="my-2">
-            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/contact">
-              Contact
+            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/community">
+              Community
+            </Link>
+          </li>
+          <li className="my-2">
+            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/auth/login">
+              Login
+            </Link>
+          </li>
+          <li className="my-2">
+            <Link className="text-lg text-gray-700 hover:text-gray-900" href="/auth/signup">
+              Signup
             </Link>
           </li>
         </ul>
       </nav>
-      <div className="w-full p-5">{/* Footer or additional content here */}</div>
     </div>
   )
 }
