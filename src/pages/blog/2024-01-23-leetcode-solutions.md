@@ -35,3 +35,13 @@ class Solution:
             seen[curr_val] = curr_idx
             curr_idx+=1
 ```
+
+## 3Sum
+
+1. [3Sum Standard Solution with Two Pointers](https://leetcode.com/problems/3sum/solutions/4622219/python3-no-sort-with-top-20-performance/)
+2. [3Sum No-Sort with Sets](https://leetcode.com/problems/3sum/solutions/4624993/3sum-standard-two-pointers-approach/)
+
+## Other Solutions
+
+TODO - feel free to contribute your solution!
+GitHub Issue: [ladderly-3/issues/158](https://github.com/Vandivier/ladderly-3/issues/158)
