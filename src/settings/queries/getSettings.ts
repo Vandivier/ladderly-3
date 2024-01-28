@@ -10,8 +10,10 @@ export type UserSettings = {
   email: string
   emailBackup: string
   emailStripe: string
+  hasLiveStreamInterest: boolean
   hasPublicProfileEnabled: boolean
   hasShoutOutsEnabled: boolean
+  hasSmallGroupInterest: boolean
   hasOpenToWork: boolean
   profileBlurb: string | null
   profileContactEmail: string | null
@@ -40,8 +42,10 @@ export default resolver.pipe(
             email: true,
             emailBackup: true,
             emailStripe: true,
+            hasLiveStreamInterest: true,
             hasPublicProfileEnabled: true,
             hasShoutOutsEnabled: true,
+            hasSmallGroupInterest: true,
             hasOpenToWork: true,
             profileBlurb: true,
             profileContactEmail: true,
@@ -59,14 +63,16 @@ export default resolver.pipe(
     }
 
     return {
-      nameFirst: subscription.user.nameFirst,
-      nameLast: subscription.user.nameLast,
       email: subscription.user.email,
       emailBackup: subscription.user.emailBackup,
       emailStripe: subscription.user.emailStripe,
+      hasLiveStreamInterest: subscription.user.hasLiveStreamInterest,
+      hasOpenToWork: subscription.user.hasOpenToWork,
       hasPublicProfileEnabled: subscription.user.hasPublicProfileEnabled,
       hasShoutOutsEnabled: subscription.user.hasShoutOutsEnabled,
-      hasOpenToWork: subscription.user.hasOpenToWork,
+      hasSmallGroupInterest: subscription.user.hasSmallGroupInterest,
+      nameFirst: subscription.user.nameFirst,
+      nameLast: subscription.user.nameLast,
       profileBlurb: subscription.user.profileBlurb,
       profileContactEmail: subscription.user.profileContactEmail,
       profileGitHubUri: subscription.user.profileGitHubUri,
