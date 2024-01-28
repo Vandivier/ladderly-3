@@ -25,9 +25,11 @@ model User {
   nameFirst      String  @default("")
   nameLast       String  @default("")
 
+  hasLiveStreamInterest   Boolean @default(false)
   hasOpenToWork           Boolean @default(false)
   hasPublicProfileEnabled Boolean @default(false)
   hasShoutOutsEnabled     Boolean @default(false)
+  hasSmallGroupInterest   Boolean @default(false)
 
   profileBlurb        String?
   profileContactEmail String?

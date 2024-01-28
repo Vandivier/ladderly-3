@@ -31,14 +31,18 @@ const optionalLinkedInUriValidator = z
   .optional()
 
 export const UpdateSettingsSchema = z.object({
-  nameFirst: z.string().nullable().optional(),
-  nameLast: z.string().nullable().optional(),
   email: z.string().email(),
   emailBackup: optionalEmailValidator,
   emailStripe: optionalEmailValidator,
+
+  hasLiveStreamInterest: z.boolean().optional(),
+  hasOpenToWork: z.boolean().optional(),
   hasPublicProfileEnabled: z.boolean().optional(),
   hasShoutOutsEnabled: z.boolean().optional(),
-  hasOpenToWork: z.boolean().optional(),
+  hasSmallGroupInterest: z.boolean().optional(),
+
+  nameFirst: z.string().nullable().optional(),
+  nameLast: z.string().nullable().optional(),
   profileBlurb: z.string().nullable().optional(),
   profileContactEmail: optionalEmailValidator,
   profileGitHubUri: optionalGitHubUriValidator,

@@ -1,20 +1,34 @@
 import React from "react"
 import Link from "next/link"
 
-const plans = [
+type Benefit = {
+  emphasize?: boolean
+  paragraphContent?: React.ReactNode
+  text: string
+  url?: string
+}
+
+type Plan = {
+  name: string
+  price: string
+  benefits: Benefit[]
+  buttonText: string | null
+  link?: string
+}
+
+const plans: Plan[] = [
   {
     name: "Premium",
     price: "$30/mo",
     benefits: [
-      'All "Pay What You Can" plan benefits',
-      "Free access to all Ladderly In Real Life (IRL) events",
-      "Accrue free session time and receive limited-edition seasonal merchandise",
-      'Your subscription helps keep the cost extremely low ("pay what you want") for others',
-      "Greater influence on the development roadmap",
-      "Recognition through a banner on the website, social media shout-outs, and mentions on Ladderly GitHub repository README files",
-      "Transferable session time coupons",
-      "Contribute to the community bounty: No ads for all if the community subscription bounty is met",
-      "(Coming Soon) 24/7 Access to the Ladderly Chatbot",
+      { emphasize: true, text: "Limited Time Only: Free Expert Session" },
+      { text: 'All "Pay What You Can" plan benefits' },
+      { text: "25% discount on Expert Sessions" },
+      { text: "Exclusive small groups and giveaways" },
+      {
+        text: "Recognition in the Hall of Fame (Optional)",
+        url: "https://www.ladderly.io/community/hall-of-fame",
+      },
     ],
     buttonText: "Join Now",
     link: "https://buy.stripe.com/fZe2bF4mo6Td7lK004",
@@ -23,13 +37,10 @@ const plans = [
     name: "Pay What You Can",
     price: "as little as $1/mo",
     benefits: [
-      "Limited time offer: complimentary 30-minute session and 50% off all additional sessions",
-      "Ad-free experience",
-      "Priority support",
-      "Advanced Checklist Access (10 Additional Items)",
-      "Influence the development roadmap",
-      "Contribute to the community bounty: No ads for all if the community subscription bounty is met",
-      "Discounted Store and Expert Consultation Prices",
+      { text: "10% discount on Expert Sessions" },
+      { text: "Advanced Checklist Access" },
+      { text: "Ad-Free Experience" },
+      { text: "Priority Support" },
     ],
     buttonText: "Join Now",
     link: "https://buy.stripe.com/dR67vZbOQfpJ21qdQT",
@@ -42,15 +53,32 @@ const plans = [
         text: "Open Source Curriculum",
         url: "https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md",
       },
-      "Standard Checklist",
-      "Access the Social Community",
+      { text: "Standard Checklist" },
+      { text: "Access the Social Community" },
       { text: "24/7 Support with AI Chat", url: "https://www.youtube.com/watch?v=aC4_1mTa-aI" },
-      "Schedule Expert Consultations",
-      "Store Access",
+      { text: "Schedule Expert Consultations" },
+      { text: "Store Access" },
     ],
     buttonText: null,
   },
 ]
+
+const BenefitListItem: React.FC<{ benefit: Benefit; key: string }> = ({ benefit, key }) => {
+  if (benefit.url) {
+    benefit.paragraphContent = (
+      <Link className="text-ladderly-violet-700 hover:underline" href={benefit.url} target="_blank">
+        {benefit.text}
+      </Link>
+    )
+  }
+
+  return (
+    <li className="flex items-center space-x-2" key={key}>
+      <span className="mr-2">⭐</span>
+      <p className="text-left">{benefit.paragraphContent ?? benefit.text}</p>
+    </li>
+  )
+}
 
 const PricingGrid: React.FC = () => {
   return (
@@ -59,46 +87,24 @@ const PricingGrid: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan, i) => (
-          <div key={i} className="rounded-lg bg-white p-6 shadow-lg">
+          <div key={i} className="flex flex-col rounded-lg bg-white p-6 shadow-lg">
             <h2 className="mb-2 text-2xl font-bold">{plan.name}</h2>
             <p className="mb-4 text-xl">{plan.price}</p>
 
             <ul className="mb-4 space-y-2">
-              {plan.benefits.map((benefit, j) => (
-                <li key={j} className="flex items-start">
-                  <span className="mr-2">⭐</span>
-                  <p className="text-left">
-                    {typeof benefit === "string" ? (
-                      benefit
-                    ) : (
-                      <Link
-                        className="text-ladderly-violet-700 hover:underline"
-                        href={benefit.url}
-                        target="_blank"
-                      >
-                        {benefit.text}
-                      </Link>
-                    )}
-                  </p>
-                </li>
+              {plan.benefits.map((benefit) => (
+                <BenefitListItem benefit={benefit} key={benefit.text} />
               ))}
             </ul>
 
             {plan.buttonText && plan.link && (
-              <div>
-                <Link
-                  href={plan.link}
-                  className="rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
-                  style={{
-                    display: "flex",
-                    margin: "1rem auto",
-                    width: "max-content",
-                  }}
-                  target="_blank"
-                >
-                  {plan.buttonText}
-                </Link>
-              </div>
+              <Link
+                href={plan.link}
+                className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+                target="_blank"
+              >
+                {plan.buttonText}
+              </Link>
             )}
           </div>
         ))}

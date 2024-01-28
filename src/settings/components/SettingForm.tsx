@@ -24,9 +24,21 @@ export function SettingForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
       <LabeledTextField name="profileGitHubUri" label="GitHub URL" placeholder="GitHub URL" />
       <LabeledTextField name="profileHomepageUri" label="Homepage URL" placeholder="Homepage URL" />
       <LabeledTextField name="profileLinkedInUri" label="LinkedIn URL" placeholder="LinkedIn URL" />
-      <LabeledCheckboxField name="hasPublicProfileEnabled" label="Enable Public Profile" />
+      <LabeledCheckboxField
+        outerProps={{ className: "mt-2" }}
+        name="hasPublicProfileEnabled"
+        label="Enable Public Profile"
+      />
       <LabeledCheckboxField name="hasShoutOutsEnabled" label="Enable Shout Outs" />
       <LabeledCheckboxField name="hasOpenToWork" label="Open To Work" />
+      <LabeledCheckboxField
+        name="hasSmallGroupInterest"
+        label="Interested in a Guided Small Group"
+      />
+      <LabeledCheckboxField
+        name="hasLiveStreamInterest"
+        label="Interested in Joining a Live Stream"
+      />
     </Form>
   )
 }

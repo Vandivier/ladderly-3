@@ -16,24 +16,24 @@ const LadderlyHelpsContentBlock = () => {
       <h2 className="my-6 text-2xl font-bold">Ladderly Helps You:</h2>
       <ol className="list-none space-y-3">
         <li className="flex items-center">
-          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500">
+          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/50">
             1
           </div>
-          <span className="rounded-md bg-purple-300/50 p-2">learn to code</span>
+          <span className="rounded-md bg-purple-300/20 p-2">learn to code</span>
         </li>
         <li className="flex items-center">
-          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500">
+          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/50">
             2
           </div>
-          <span className="rounded-md bg-purple-300/50 p-2">
+          <span className="rounded-md bg-purple-300/20 p-2">
             land your first or next programming role
           </span>
         </li>
         <li className="flex items-center">
-          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500">
+          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/50">
             3
           </div>
-          <span className="rounded-md bg-purple-300/50 p-2">
+          <span className="rounded-md bg-purple-300/20 p-2">
             grow social and professional networks
           </span>
         </li>
