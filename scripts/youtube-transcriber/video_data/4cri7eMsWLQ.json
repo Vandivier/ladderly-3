@@ -1,0 +1,172 @@
+{
+  "id": "4cri7eMsWLQ",
+  "url": "https://youtu.be/4cri7eMsWLQ",
+  "title": "Technical interview advice for big tech",
+  "description": null,
+  "publish_date": "2024-01-16T00:00:00",
+  "length": 59,
+  "views": 124,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "the dream good question so I'm Bound by",
+      "start": 0.399,
+      "duration": 3.441
+    },
+    {
+      "text": "NDA so I can't give you specific",
+      "start": 2.2,
+      "duration": 3.4
+    },
+    {
+      "text": "questions and answers I can tell you",
+      "start": 3.84,
+      "duration": 3.28
+    },
+    {
+      "text": "that all of the coding algorithm",
+      "start": 5.6,
+      "duration": 3.4
+    },
+    {
+      "text": "questions that I was asked from both",
+      "start": 7.12,
+      "duration": 4.599
+    },
+    {
+      "text": "Google and upstart are contained in the",
+      "start": 9.0,
+      "duration": 4.96
+    },
+    {
+      "text": "5 to 23 patterns article which Super",
+      "start": 11.719,
+      "duration": 4.04
+    },
+    {
+      "text": "sets the 14 patterns so this is the",
+      "start": 13.96,
+      "duration": 3.44
+    },
+    {
+      "text": "article that I recommend it talks about",
+      "start": 15.759,
+      "duration": 3.28
+    },
+    {
+      "text": "various stages of learning the five the",
+      "start": 17.4,
+      "duration": 3.92
+    },
+    {
+      "text": "seven the 11 the 14 and all the way up",
+      "start": 19.039,
+      "duration": 5.08
+    },
+    {
+      "text": "to the 23 so I think in that 7 to 14",
+      "start": 21.32,
+      "duration": 4.279
+    },
+    {
+      "text": "range is going to be the sweet spot I",
+      "start": 24.119,
+      "duration": 3.281
+    },
+    {
+      "text": "did not get any dynamic programming",
+      "start": 25.599,
+      "duration": 3.641
+    },
+    {
+      "text": "questions I will tell you that I would",
+      "start": 27.4,
+      "duration": 3.84
+    },
+    {
+      "text": "specifically recommend interviewing.io",
+      "start": 29.24,
+      "duration": 4.4
+    },
+    {
+      "text": "for practicing all sorts of questions",
+      "start": 31.24,
+      "duration": 4.44
+    },
+    {
+      "text": "whether algorithm system design or",
+      "start": 33.64,
+      "duration": 4.16
+    },
+    {
+      "text": "behavioral on the note of Behavioral",
+      "start": 35.68,
+      "duration": 4.24
+    },
+    {
+      "text": "questions just did a quick Google search",
+      "start": 37.8,
+      "duration": 3.439
+    },
+    {
+      "text": "for the most common questions and the",
+      "start": 39.92,
+      "duration": 2.36
+    },
+    {
+      "text": "questions that I received were",
+      "start": 41.239,
+      "duration": 2.401
+    },
+    {
+      "text": "consistent with these tell me about a",
+      "start": 42.28,
+      "duration": 3.24
+    },
+    {
+      "text": "time you got in a conflict with so and",
+      "start": 43.64,
+      "duration": 3.439
+    },
+    {
+      "text": "so your customer or your teammate or",
+      "start": 45.52,
+      "duration": 3.24
+    },
+    {
+      "text": "something tell me about a time where",
+      "start": 47.079,
+      "duration": 3.521
+    },
+    {
+      "text": "there was ambiguity for example and then",
+      "start": 48.76,
+      "duration": 3.24
+    },
+    {
+      "text": "for system design point you back to",
+      "start": 50.6,
+      "duration": 3.24
+    },
+    {
+      "text": "interviewing.io once again my only call",
+      "start": 52.0,
+      "duration": 4.0
+    },
+    {
+      "text": "out here for Google is try to understand",
+      "start": 53.84,
+      "duration": 4.039
+    },
+    {
+      "text": "what AWS services are doing underneath",
+      "start": 56.0,
+      "duration": 5.12
+    },
+    {
+      "text": "if you're going to reference them",
+      "start": 57.879,
+      "duration": 3.241
+    }
+  ]
+}

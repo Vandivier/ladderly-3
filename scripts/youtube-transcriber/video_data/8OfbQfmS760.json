@@ -1,0 +1,32 @@
+{
+  "id": "8OfbQfmS760",
+  "url": "https://youtu.be/8OfbQfmS760",
+  "title": "We love a markdown draft #research",
+  "description": null,
+  "publish_date": "2024-01-02T00:00:00",
+  "length": 9,
+  "views": 112,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "researcher Pro tip so stats model cannot",
+      "start": 0.32,
+      "duration": 4.039
+    },
+    {
+      "text": "print your table summary to markdown but",
+      "start": 2.48,
+      "duration": 4.68
+    },
+    {
+      "text": "you can print it to text and ask gp4 to",
+      "start": 4.359,
+      "duration": 6.681
+    },
+    {
+      "text": "reformat that text into markdown",
+      "start": 7.16,
+      "duration": 3.88
+    }
+  ]
+}

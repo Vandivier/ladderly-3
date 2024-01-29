@@ -1,0 +1,57 @@
+{
+  "id": "v4hp8e0WxGo",
+  "url": "https://youtu.be/v4hp8e0WxGo",
+  "title": "CRUD: what is read?",
+  "description": null,
+  "publish_date": "2023-12-29T00:00:00",
+  "length": 15,
+  "views": 309,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "Peter thanks for the question think",
+      "start": 0.199,
+      "duration": 2.761
+    },
+    {
+      "text": "about a video game you're loading a",
+      "start": 1.4,
+      "duration": 3.8
+    },
+    {
+      "text": "saved game that's a re you're looking up",
+      "start": 2.96,
+      "duration": 3.879
+    },
+    {
+      "text": "data that's already in the database a",
+      "start": 5.2,
+      "duration": 3.519
+    },
+    {
+      "text": "little extra data on database design we",
+      "start": 6.839,
+      "duration": 3.92
+    },
+    {
+      "text": "talk about create read update and delete",
+      "start": 8.719,
+      "duration": 3.601
+    },
+    {
+      "text": "a read is a read the others are called",
+      "start": 10.759,
+      "duration": 3.361
+    },
+    {
+      "text": "writes cuz you're actually changing",
+      "start": 12.32,
+      "duration": 4.8
+    },
+    {
+      "text": "what's in the database",
+      "start": 14.12,
+      "duration": 3.0
+    }
+  ]
+}

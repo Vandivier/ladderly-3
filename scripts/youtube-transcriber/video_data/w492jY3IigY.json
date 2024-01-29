@@ -1,0 +1,482 @@
+{
+  "id": "w492jY3IigY",
+  "url": "https://youtu.be/w492jY3IigY",
+  "title": "is react confusing?",
+  "description": null,
+  "publish_date": "2023-12-29T00:00:00",
+  "length": 180,
+  "views": 24,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "what up suitcase when I initially",
+      "start": 0.32,
+      "duration": 2.92
+    },
+    {
+      "text": "learned react I hated it it was",
+      "start": 1.52,
+      "duration": 3.36
+    },
+    {
+      "text": "confusing for me too now that I'm on the",
+      "start": 3.24,
+      "duration": 3.519
+    },
+    {
+      "text": "other side I think it's super high value",
+      "start": 4.88,
+      "duration": 3.44
+    },
+    {
+      "text": "totally worth that initial upfront",
+      "start": 6.759,
+      "duration": 3.001
+    },
+    {
+      "text": "headache in this video I'm going to give",
+      "start": 8.32,
+      "duration": 3.52
+    },
+    {
+      "text": "you five notes ways to think about react",
+      "start": 9.76,
+      "duration": 3.6
+    },
+    {
+      "text": "that let the value of react shine",
+      "start": 11.84,
+      "duration": 3.48
+    },
+    {
+      "text": "through like why are we using react I'm",
+      "start": 13.36,
+      "duration": 3.4
+    },
+    {
+      "text": "going to address that and I'm going to",
+      "start": 15.32,
+      "duration": 2.84
+    },
+    {
+      "text": "mitigate eliminate a lot of that",
+      "start": 16.76,
+      "duration": 2.88
+    },
+    {
+      "text": "confusion so these are my five tips let",
+      "start": 18.16,
+      "duration": 2.959
+    },
+    {
+      "text": "me know if they help one what do",
+      "start": 19.64,
+      "duration": 2.799
+    },
+    {
+      "text": "Frameworks in general do we're going to",
+      "start": 21.119,
+      "duration": 3.32
+    },
+    {
+      "text": "start by talking about angular or Ember",
+      "start": 22.439,
+      "duration": 3.641
+    },
+    {
+      "text": "or another framework because react is",
+      "start": 24.439,
+      "duration": 3.121
+    },
+    {
+      "text": "not a framework we're going to show what",
+      "start": 26.08,
+      "duration": 3.599
+    },
+    {
+      "text": "those do why it's kind of problematic",
+      "start": 27.56,
+      "duration": 3.559
+    },
+    {
+      "text": "and then why we would prefer react",
+      "start": 29.679,
+      "duration": 3.56
+    },
+    {
+      "text": "instead angular is extremely opinionated",
+      "start": 31.119,
+      "duration": 2.96
+    },
+    {
+      "text": "you're going to be able to read the",
+      "start": 33.239,
+      "duration": 2.561
+    },
+    {
+      "text": "angular style guide follow it to the T",
+      "start": 34.079,
+      "duration": 3.761
+    },
+    {
+      "text": "ship an application in a week that's",
+      "start": 35.8,
+      "duration": 3.4
+    },
+    {
+      "text": "great because it's clear it's",
+      "start": 37.84,
+      "duration": 2.52
+    },
+    {
+      "text": "problematic because if you want to",
+      "start": 39.2,
+      "duration": 2.879
+    },
+    {
+      "text": "customize anything it's really really",
+      "start": 40.36,
+      "duration": 3.84
+    },
+    {
+      "text": "hard and it's also inefficient because",
+      "start": 42.079,
+      "duration": 3.64
+    },
+    {
+      "text": "often you're bringing in tools and",
+      "start": 44.2,
+      "duration": 2.92
+    },
+    {
+      "text": "you're bringing in logic that you really",
+      "start": 45.719,
+      "duration": 3.281
+    },
+    {
+      "text": "don't need how do I build a web page",
+      "start": 47.12,
+      "duration": 3.16
+    },
+    {
+      "text": "what do I do if someone is not",
+      "start": 49.0,
+      "duration": 2.68
+    },
+    {
+      "text": "authenticated and I want to redirect",
+      "start": 50.28,
+      "duration": 3.68
+    },
+    {
+      "text": "them how do I make an HTTP request how",
+      "start": 51.68,
+      "duration": 4.08
+    },
+    {
+      "text": "do I statically generate a site how do I",
+      "start": 53.96,
+      "duration": 3.88
+    },
+    {
+      "text": "dynamically generate a site angular has",
+      "start": 55.76,
+      "duration": 3.68
+    },
+    {
+      "text": "very clear very strong opinions on all",
+      "start": 57.84,
+      "duration": 3.96
+    },
+    {
+      "text": "of these react doesn't react does one",
+      "start": 59.44,
+      "duration": 4.36
+    },
+    {
+      "text": "thing it just controls what shows up on",
+      "start": 61.8,
+      "duration": 4.12
+    },
+    {
+      "text": "the page so we can think about a typical",
+      "start": 63.8,
+      "duration": 4.72
+    },
+    {
+      "text": "framework as following MVC model view",
+      "start": 65.92,
+      "duration": 4.36
+    },
+    {
+      "text": "controller model is like the data",
+      "start": 68.52,
+      "duration": 3.16
+    },
+    {
+      "text": "objects that you have like there can be",
+      "start": 70.28,
+      "duration": 3.4
+    },
+    {
+      "text": "a model for my shoe it has things like",
+      "start": 71.68,
+      "duration": 5.799
+    },
+    {
+      "text": "size weight color view is what is",
+      "start": 73.68,
+      "duration": 5.6
+    },
+    {
+      "text": "actually showing up on the page and see",
+      "start": 77.479,
+      "duration": 3.561
+    },
+    {
+      "text": "the controller is some logic that",
+      "start": 79.28,
+      "duration": 3.839
+    },
+    {
+      "text": "determines what shows up on the page",
+      "start": 81.04,
+      "duration": 5.52
+    },
+    {
+      "text": "react by itself is just VC there's no M",
+      "start": 83.119,
+      "duration": 5.36
+    },
+    {
+      "text": "so concept one full Frameworks help you",
+      "start": 86.56,
+      "duration": 3.559
+    },
+    {
+      "text": "ship applications really fast and",
+      "start": 88.479,
+      "duration": 4.121
+    },
+    {
+      "text": "they're strongly opinionated concept two",
+      "start": 90.119,
+      "duration": 4.841
+    },
+    {
+      "text": "react is just a templating engine a",
+      "start": 92.6,
+      "duration": 4.44
+    },
+    {
+      "text": "rendering Library a view controller it's",
+      "start": 94.96,
+      "duration": 4.4
+    },
+    {
+      "text": "not a full MVC framework we like that",
+      "start": 97.04,
+      "duration": 3.56
+    },
+    {
+      "text": "because it ultimately allows us to",
+      "start": 99.36,
+      "duration": 2.96
+    },
+    {
+      "text": "customize things and ship less code and",
+      "start": 100.6,
+      "duration": 2.76
+    },
+    {
+      "text": "it's more efficient at the end of the",
+      "start": 102.32,
+      "duration": 2.96
+    },
+    {
+      "text": "day concept three why don't we go even",
+      "start": 103.36,
+      "duration": 3.64
+    },
+    {
+      "text": "more minimal and just do this in vanilla",
+      "start": 105.28,
+      "duration": 3.64
+    },
+    {
+      "text": "because vanilla is too hard so you can",
+      "start": 107.0,
+      "duration": 4.079
+    },
+    {
+      "text": "think about the document API when you",
+      "start": 108.92,
+      "duration": 4.08
+    },
+    {
+      "text": "use document. get element document.",
+      "start": 111.079,
+      "duration": 5.841
+    },
+    {
+      "text": "create append Etc insert remove jsx",
+      "start": 113.0,
+      "duration": 6.159
+    },
+    {
+      "text": "react this is a key lesson it can be",
+      "start": 116.92,
+      "duration": 5.32
+    },
+    {
+      "text": "viewed as simply a syntactic sugar an",
+      "start": 119.159,
+      "duration": 6.0
+    },
+    {
+      "text": "easy way to use the document API that's",
+      "start": 122.24,
+      "duration": 4.479
+    },
+    {
+      "text": "the main way that I communicate what is",
+      "start": 125.159,
+      "duration": 3.6
+    },
+    {
+      "text": "react it's just an easy way to use the",
+      "start": 126.719,
+      "duration": 4.481
+    },
+    {
+      "text": "document API concept four traditional",
+      "start": 128.759,
+      "duration": 4.48
+    },
+    {
+      "text": "development you have HTML CSS and",
+      "start": 131.2,
+      "duration": 4.84
+    },
+    {
+      "text": "JavaScript clean separation of concerns",
+      "start": 133.239,
+      "duration": 4.601
+    },
+    {
+      "text": "react flips it on its head and it merges",
+      "start": 136.04,
+      "duration": 3.88
+    },
+    {
+      "text": "them all into JavaScript so you want to",
+      "start": 137.84,
+      "duration": 5.08
+    },
+    {
+      "text": "learn HTML CSS and JavaScript first then",
+      "start": 139.92,
+      "duration": 5.039
+    },
+    {
+      "text": "learn react it'll be much easier than if",
+      "start": 142.92,
+      "duration": 3.84
+    },
+    {
+      "text": "you try to Dive Right into react so",
+      "start": 144.959,
+      "duration": 3.28
+    },
+    {
+      "text": "concept four is that it's going to take",
+      "start": 146.76,
+      "duration": 3.44
+    },
+    {
+      "text": "all the elements of web development and",
+      "start": 148.239,
+      "duration": 3.72
+    },
+    {
+      "text": "allow you to write them in a single",
+      "start": 150.2,
+      "duration": 4.56
+    },
+    {
+      "text": "JavaScript syntax that looks like HTML",
+      "start": 151.959,
+      "duration": 3.961
+    },
+    {
+      "text": "but you can actually do a lot more with",
+      "start": 154.76,
+      "duration": 3.119
+    },
+    {
+      "text": "it concept five hard to hear but really",
+      "start": 155.92,
+      "duration": 4.679
+    },
+    {
+      "text": "important react is necessary it is not",
+      "start": 157.879,
+      "duration": 4.881
+    },
+    {
+      "text": "sufficient we do want the whole MVC we",
+      "start": 160.599,
+      "duration": 4.201
+    },
+    {
+      "text": "do want a whole framework so I need a",
+      "start": 162.76,
+      "duration": 4.16
+    },
+    {
+      "text": "library stack that includes react but",
+      "start": 164.8,
+      "duration": 3.519
+    },
+    {
+      "text": "it's not limited to react I might want",
+      "start": 166.92,
+      "duration": 3.44
+    },
+    {
+      "text": "to add Redux I might want to add Apollo",
+      "start": 168.319,
+      "duration": 3.521
+    },
+    {
+      "text": "so go to code academy follow the",
+      "start": 170.36,
+      "duration": 3.44
+    },
+    {
+      "text": "front-end engineering path you will",
+      "start": 171.84,
+      "duration": 3.44
+    },
+    {
+      "text": "learn how to build a full react",
+      "start": 173.8,
+      "duration": 3.079
+    },
+    {
+      "text": "application and it's more than just",
+      "start": 175.28,
+      "duration": 3.039
+    },
+    {
+      "text": "react but that's going to give you a",
+      "start": 176.879,
+      "duration": 4.881
+    },
+    {
+      "text": "good starting point hope this helps",
+      "start": 178.319,
+      "duration": 3.441
+    }
+  ]
+}
