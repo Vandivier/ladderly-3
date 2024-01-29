@@ -29,10 +29,17 @@ data_dir = "video_data"
 output_file = "consolidated_transcript.txt"
 
 
-def replace_smart_quotes(s):
+def replace_smart_quotes(s: str):
     s = s.replace("\u2018", "'").replace("\u2019", "'")
     s = s.replace("\u201c", '"').replace("\u201d", '"')
     return s
+
+
+def wrangle_transcript(transcript: str):
+    transcript = transcript.lower().replace("\u2018", "'").replace("\u2019", "'")
+    transcript = transcript.replace("laterally", "Ladderly")
+    transcript = transcript.replace("latterly", "Ladderly")
+    return transcript
 
 
 def remove_hashtags(title):
@@ -75,7 +82,7 @@ def main():
                             )
                         )
                     out_f.write("Transcript:\n")
-                    out_f.write(replace_smart_quotes(transcript + "\n"))
+                    out_f.write(wrangle_transcript(transcript + "\n"))
 
     print(f"Consolidated transcript written to {output_file}")
 
