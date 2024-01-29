@@ -57,6 +57,37 @@ there with free wi-fi that make nomad
 lifestyle possible for developers really
 supporting the developer culture
 
+URL: https://youtu.be/LxofYb_irV4
+Title: participants gave a median assessment, that GPT-4 material was written at a master's level of educat
+Transcript:
+so i mentioned that i ran an experiment
+and participants could not distinguish
+material that was written by
+gp4 across the board of educational
+levels including graduate degree holders
+they could tell about a third of the
+time here's the kicker the written
+material was a full page in length
+multiple paragraphs each paragraph
+having multiple sentences but let me
+also point out that what i'm saying is
+not quite what you're saying so you say
+when there's enough output it doesn't
+feel right my respondents also said this
+respondents would mark papers written by
+gp4 as not written by a phd holder they
+properly identified that they said this
+is not written by a phd holder and yet
+they couldn't tell that it was written
+by gp4 so the ability to say this
+doesn't quite feel academic is actually
+a very different thing than the ability
+to say not only is this not academic it
+was written by ai those are very
+different identifications you see i find
+this really creepy i don't know about
+you
+
 URL: https://youtu.be/KR6_gfwkql0
 Transcript:
 high turnover is preventable which one
@@ -80,6 +111,58 @@ interested in your story sounds too
 generic instead say interested to see
 how it's worked for you at this company
 as a boot camp grad
+
+URL: https://youtu.be/0ZGokJgesjY
+Title: Discovering that people can't identify a document authored by GPT-4
+Transcript:
+what's your stack well we're doing data
+analysis so it's 100%
+python sean says do you have to
+subscribe in gpt chat or is it free you
+have to pay this is gpt 4 very important
+nuance that's not only missed by a lot
+of the population it's also missed by a
+lot of the academy so a lot of people
+will talk about chat gpt
+hallucinating and they will be talking
+about 3.5 which is substantially
+inferior to a gpt 4 it's not even in the
+same model class so gpt 3.5 is a large
+language model gp4 is a multimodal model
+you see how it's drawn a graph
+approximately
+27% of respondents believe that document
+8 was written by
+gpt that means people cannot tell when
+it's written by gpt look at
+that oh
+wow and that is a rating above a five
+which is imminently reasonable because
+it's a scale of 1 to
+10 now there is 1 two three four five
+six seven 8 nine
+10 um six
+seven there's sort of like a mean bias
+here there's sort of a mean bias here
+where um people are picking five and i
+think they're doing that because five
+feels like the middle of one and 10 but
+it's actually not the middle of one and
+10 is it it's below the
+middle so i wonder if there is a uh like
+a cognitive response bias
+here um
+still even even if it were the middle
+even if this was a ninepoint scale and
+they had picked five that's still not
+saying i believe this is gpt it's saying
+i'm i'm like perfectly indifferent i
+literally don't know it's right in the
+middle so i think it's extremely
+reasonable to
+construct a binary out of the 10-point
+scale by saying above below five
+uh i think that's totally reasonable
 
 URL: https://youtu.be/MAge_YloPNU
 Title: AWS Free Tier Trap!
@@ -190,19 +273,6 @@ any of these are necessarily better it
 kind of depends on your personal
 situation
 
-URL: https://youtu.be/JdaTcDFxlak
-Title: MGK React Coding Tattoo??
-Transcript:
-and number two we have emotional
-slightly malnourishment okay hear me out
-i think these are the same type of guy
-you see mgk's throat i think he has a
-react tattoo so this is the react logo
-and the first guy was at a computer so i
-think they're both web developers so new
-reason to learn react you can be famous
-like mgk
-
 URL: https://youtu.be/nYR-pp5x7fw
 Title: Starboi and The Book of Wins
 Transcript:
@@ -216,6 +286,129 @@ stories about winning according to the
 star or store method check out this open
 source project that exists for just that
 purpose
+
+URL: https://youtu.be/hZD1npSLZPU
+Title: 8 doubt management strategies
+Transcript:
+five doubt management strategies the
+first thing i would encourage you to do
+this is absolutely critical is
+understand and respect your doubts what
+is a doubt it is not a guarantee of
+failure it is a declaration of the
+possibility of failure the truth is
+there is almost always a possibility of
+failure so the first thing to do is give
+your doubt a little respect give the
+devil his due in your doubt there may be
+some grain of truth we want to
+understand what that grain of truth is
+and if we investigate our doubt and find
+that there is no truth truth there we
+can easily move on to number two but if
+we do find some truth we can take action
+to address it let's say for example i
+doubt that i can accomplish some task by
+some date maybe that's true maybe i need
+to be less ambitious in my task maybe i
+need to move the date maybe i need to
+increase the time each day between now
+and that date that i'm allocating so i
+can respect it by taking it seriously
+that doesn't mean believing it
+completely at face value the second
+thing we must do this is not optional is
+we must ignore our doubts even if the
+doubt is true you must set it aside at
+least for a time so that you can make
+progress remember a doubt is not a
+guarantee of failure it is a declaration
+of the possibility of failure let's say
+there is a truly 50/50 chance that you
+succeed if you are going to ever realize
+the 50% positive chance that you do
+succeed you need to put in time and
+effort on your task which means for a
+time you need to set your doubts to the
+side even if they are true you need to
+ignore them and focus on your work the
+third thing you can do with a doubt is
+use logic evidence and reason to
+disprove them this is one of my
+favorites let's say that you're going
+about your week you're working on this
+task you have a goal to be done by the
+end of the week this is the second day
+and you realize how far away you are
+from the finish line a doubt starts to
+creep in well you have an option to
+disprove that doubt by pointing to the
+progress you made yesterday the doubt
+might say well if you continue on that
+progress it won't be enough we won't be
+done is that true let's take it
+seriously let's give it respect let's
+let's run the numbers many times you'll
+find it's simply not true if you make
+the same amount of progress as you did
+yesterday for four more days you'll be
+done you can engage in logical selft
+talk here and you can take doubt and
+turn it into a beneficial strategy maybe
+the doubt is right maybe if you repeat
+monday's progress five times you will
+not be done but that provides the
+opportunity for you to say well which of
+these other days might i be able to
+double down maybe i have spare time on
+thursday so if you take a doubt
+seriously it can become a benefit so
+maybe let's have a little trust that
+your body is giving you a doubt for some
+good reason another reason your body
+might be giving you doubt is if you lack
+sleep if you're not exercising properly
+or getting the proper nutrition when it
+comes to nutrition your basic vitamins
+will be helpful but also certain things
+like theanine which are optional
+supplements can serve to reduce anxiety
+if you're taking in a large amount of
+caffeine pair it with theanine l
+theanine this would occur naturally in
+green tea so that green tea is a
+combination of caffeine that doesn't
+give you as much jitters because of the
+presence of theanine that in contrast to
+spamming black coffee which will
+increase your generalized anxiety
+without good reason so again use the
+mental strategy to interrogate the
+anxiety understand the reason why and
+the answer might just be you need water
+and sleep last recommendation is mindful
+meditation because you're dealing with
+doubts you're going to want to engage in
+selft talk so your meditation should be
+mindful here is a recommended strategy
+for a mindful meditation identify the
+root cause of the doubt acknowledge that
+there may be some truth in it appreciate
+that you have made progress not all is
+doomed there are good things that have
+come along with this uh negative
+situation and then simply resolve to try
+accept that you have no guarantee of
+success but also accept that you have no
+guarantee of failure and meditate on the
+resolution to try hope this helps follow
+for more oh just thought of three more
+these are definitely going to help you
+exaggerated absolute language would be
+like i can't do anything this is never
+going to happen i can't remember a thing
+uh avoid language like that follow for
+more
 
 URL: https://youtu.be/4aAIPhmIW6M
 Transcript:
@@ -263,6 +456,49 @@ resume are not going to browse deep in
 your code it's going to be impressive
 enough that the thing is deployed and
 working hope this helps follow for more
+
+URL: https://youtu.be/8EbRo8We8Us
+Title: Realistic tasks you will perform as a software engineer
+Transcript:
+so what do professional software
+engineers actually do i'll tell you what
+i did yesterday as an example my
+company's making a new product and it is
+dynamically priced based on some stuff a
+user puts into a form so i made a new
+fast api route and then we take that
+information that the user sends and we
+put it into a library so my service
+that's in fast api is calling a library
+so i also had to make some updates in
+that library i used a whole lot of
+reference code so we already have a
+bunch of products so when i make a new
+or when i make a new pricing function in
+this library i need it to be similar to
+the existing logic when my draft was
+done i prepared it for peer review so i
+made sure that it was formatted we used
+black passing my pc type checks and
+basically passing the pipeline when all
+this was done i had to recruit teammates
+to review my code and then i will have
+to create a release of the library and
+do an install in the service and do
+another p request lots of fun
+
+URL: https://youtu.be/7945AEz1qM8
+Title: Intelligence is the ability for rapid mental growth
+Transcript:
+you're trying to get a job coding so you
+want to flexx with your netflix clone it
+looks well-designed really shiny
+professional and cool you've made it
+right wrong you're sleeping on the fact
+that you should be flexing on your first
+and worst project advertise your worst
+and your best to show growth growth is
+what employers want
 
 URL: https://youtu.be/Vt1aKS720tg
 Transcript:
@@ -317,6 +553,41 @@ companies even if they're not actually
 tier one so if you want algorithm
 interview specifically it's a matter of
 targeting a company
+
+URL: https://youtu.be/5VOzrKDRRpU
+Title: Motivation to become a programmer in 2024
+Transcript:
+there's going to be a million new
+programmers in 2024 and now i'm going to
+explain to you in this rant why you can
+be one of them guys everything i say is
+facts i didn't just make up the number a
+million literally that's the estimate a
+million new programmers do you know what
+a million people looks like imagine a
+million people let's try and get a
+picture of the competition here there's
+going to be people with phds there's
+going to be people who have been
+programming since they were single
+digits years old and their parents own
+companies there's going to be people who
+know multiple programming languages
+there's going to be people who had
+internships at google there's going to
+be people who have github projects that
+have thousands of stars and thousands of
+users already there's no way you can
+beat a million people but you don't have
+to that's the wrong way of thinking
+about this you're thinking about the
+smartest people in that group hello you
+don't need to be the smartest not
+everyone who gets a programming job is
+the smartest programmer trust me picture
+the stupidest person in that group of a
+million you just got to beat them and
+it's really not hard
 
 URL: https://youtu.be/1RFZGUrxII0
 Title: Solve Tech Chicken Egg Problem
@@ -511,6 +782,38 @@ Title: Bro did u merge my rebase
 Transcript:
 sure don't make the body
 
+URL: https://youtu.be/ISPNnI6d9_Y
+Transcript:
+100 job applications per week it's not
+asking too much nowadays they got
+that look that is one approach you can
+take for sure but i can tell you
+something i'm actually the person who's
+reviewing those cbs as a recruiter we
+flick through and we can tell straight
+away that your cv is completely generic
+and completely irrelevant for the jobs
+we are applying that you're applying for
+we can see the 20 other jobs that you've
+also applied for at our company that
+again completely irrelevant there's no
+targeted cover letter your cv has none
+of the skills that we're looking for
+instead of spraying and praying and
+hoping that something will stick why not
+get a bit more strategic look at the job
+you actually want to apply for look at
+the requirements what do they want to
+see how do your skills correlate to that
+and highlight that target your cv cut
+out all the rubbish that's not relevant
+and target your cv and then get a bit
+strategic about how you connect with
+people on linkedin that are close to
+that company recruiters in that company
+follow for more tips i'm sure i can help
+you good luck
+
 URL: https://youtu.be/zPKsj9x0acY
 Title: Leetcode: 14 Patterns
 Transcript:
@@ -521,6 +824,27 @@ this on to the general audience it's on
 hacker named top google result i always
 suggest three other resources leak code
 algo expert and interviewing dot io
+
+URL: https://youtu.be/Asc3qzgowCs
+Title: Quick explanation of
+Transcript:
+so your traditional rpg you need to
+like either be physically together or at
+least do a video call is kind of like
+the new cool way to do it you can do
+these like uh d andd
+streams with Aria's Tale you can do that
+or you can play by comment by um
+wherever you want really the rec so you
+can read the game manual and go through
+the the
+details you can play on twitter if you
+want use # Aria's Tale for traceability
+and observability
+but the recommended way is to come over
+here and use the pinned video the aria
+tale tik tok pinned video is the
+recommended way give ar tail a follow
 
 URL: https://youtu.be/v2osALwpRHY
 Title: Vue.js Portfolio: Open Source
@@ -658,6 +982,45 @@ footer those are some other logical
 blocks and consumers can use them as
 they see fit like google search results
 
+URL: https://youtu.be/j9vS3u9Nm6E
+Title: 3 important details about the learning small group starting Feb 3!
+Transcript:
+i'm a software engineer with 10 years of
+experience and i'm leading a small group
+teaching people to learn to code
+starting february 3rd here's three
+important details you need to know about
+it first you don't need to be there
+every saturday i've had people reach out
+like i can't commit to every saturday
+the program is running all year long i
+don't expect you to be there every
+saturday all year you should be able to
+learn to code within 6 months which
+means you should have like 3 months of
+saturdays you can miss and that'll be
+fun second this is a full stack web
+development curriculum if you're
+interested in cyber security or data
+analysis this is not for you and we
+won't be doing python third all skill
+levels are welcome this is going to be a
+diverse group of people who have never
+written code and people who already have
+programming roles and i'm already stoked
+about the gender diversity and stuff in
+the class that's already there each
+session is going to come with some
+office hours and if you're already an
+advanced programmer you can just use
+these office hours for like one-on on
+with me it's still going to be valuable
+for you hope this was interesting if
+you're interested drop a comment or
+shoot me a dm or just go sign up at
+Ladderly the premium account now and
+i'll send you a calendar invite
+
 URL: https://youtu.be/OCfSqYSSJhY
 Title: Don't Gatekeep Programming
 Transcript:
@@ -704,6 +1067,30 @@ glance i think indeed search might be
 like busted right now this job
 description has those keywords nowhere
 in it
+
+URL: https://youtu.be/lBg0D5X9ln4
+Title: Two open source projects for you to check out!
+Transcript:
+do you have any public code on github i
+want to take a look at production level
+code yeah hey kevin i do so what we're
+working on right now is totally open
+source actually basically everything
+that i do is open source so if you want
+to support an open source creator you
+came to the right place so go to ar
+tale.com and look at the footer there's
+the
+github um actually you can get to the
+github from the heading as well you can
+also go to Ladderly dot io and this is
+also totally open source you can sign up
+to Ladderly free to learn to code and
+land a programming job but i would
+encourage you to pay what you can you'll
+unlock the advanced checklist that has
+even more tips to improve your job
+search
 
 URL: https://youtu.be/hjYMng65R3o
 Title: ADDICTED TO LEETCODE?
@@ -803,6 +1190,37 @@ source maintainers can be rough
 sometimes for example the creator of
 riser fs killed his wife
 
+URL: https://youtu.be/AmD17uLq-iE
+Title: Web TCG Dev update!
+Transcript:
+open source web game development update
+we merged pull request number 12 for
+Aria's Tale.com these give us tags on the
+card and image search bugs trolls
+environment cards item cards these are
+all examples of card tags to get to that
+table go to the gallery and pick search
+cards and images at rst.com and this
+pull request was started by robert so
+i'm super excited that this is
+officially a community project now here
+you can see we use a small react
+functional component it is a styled span
+to make those pill tags and the
+background color is a hashed hsl
+function which means that we can hold
+the saturation and lightness constant so
+that we can always make sure there's a
+good contrast with a white text but we
+can let that hue vary on a string hash
+so that the same tag string always gives
+us the same color but different tag
+strings give us different hue variation
+if you like trading card games or
+programming hit the like button and
+follow for more open-source web game
+development updates
+
 URL: https://youtu.be/e-zQaLg3POY
 Title: what is devops?
 Transcript:
@@ -828,6 +1246,14 @@ URL: https://youtu.be/QCcSwMyN6N4
 Title: Does prompting == ownership?
 Transcript:
 so if you wake up one day
+
+URL: https://youtu.be/8OfbQfmS760
+Title: We love a markdown draft
+Transcript:
+researcher pro tip so stats model cannot
+print your table summary to markdown but
+you can print it to text and ask gp4 to
+reformat that text into markdown
 
 URL: https://youtu.be/Zae69W1j8Ko
 Title: I got to add Mastodon too
@@ -860,6 +1286,23 @@ learn python but also if you're a data
 analyst you shouldn't you shouldn't be
 learning django you should be learning
 like num like numpy
+
+URL: https://youtu.be/L25lJRQPE9M
+Title: You have experience AT LATEST from the moment you push
+Transcript:
+going to push up to github we're going
+to show you what github is why it
+matters it is your
+portfolio and you will have proof you'll
+have evidence that you are a programmer
+from today if you make it to that stage
+today anytime a recruiter asks for your
+years of experience you will start with
+today if not earlier if you've not
+already started earlier you should not
+let anyone demean you you should not let
+anyone tell you that you don't have
+experience you do
 
 URL: https://youtu.be/nM_GL26W738
 Title: Modified TDD is Best TDD
@@ -926,6 +1369,16 @@ hire and train junior developers there
 is a glut of talented juniors out there
 the way to fix the talent shortage is to
 change your hiring and team strategy
+
+URL: https://youtu.be/KLAwzXn2Z6Q
+Title: Fang what is listed under the community dropdown?
+Transcript:
+under the hall of fame is our discord
+link you can browse user profiles who
+have made their profile public in the
+hall of fame shout out to our top
+contributing members this is the hall of
+fame by the way
 
 URL: https://youtu.be/nbxbWNqMrPc
 Transcript:
@@ -1060,6 +1513,122 @@ does require a bit of setup though react
 preview integrates directly to vs code
 found this through stack share weekly
 follow for more
+
+URL: https://youtu.be/w492jY3IigY
+Title: is react confusing?
+Transcript:
+what up suitcase when i initially
+learned react i hated it it was
+confusing for me too now that i'm on the
+other side i think it's super high value
+totally worth that initial upfront
+headache in this video i'm going to give
+you five notes ways to think about react
+that let the value of react shine
+through like why are we using react i'm
+going to address that and i'm going to
+mitigate eliminate a lot of that
+confusion so these are my five tips let
+me know if they help one what do
+frameworks in general do we're going to
+start by talking about angular or ember
+or another framework because react is
+not a framework we're going to show what
+those do why it's kind of problematic
+and then why we would prefer react
+instead angular is extremely opinionated
+you're going to be able to read the
+angular style guide follow it to the t
+ship an application in a week that's
+great because it's clear it's
+problematic because if you want to
+customize anything it's really really
+hard and it's also inefficient because
+often you're bringing in tools and
+you're bringing in logic that you really
+don't need how do i build a web page
+what do i do if someone is not
+authenticated and i want to redirect
+them how do i make an http request how
+do i statically generate a site how do i
+dynamically generate a site angular has
+very clear very strong opinions on all
+of these react doesn't react does one
+thing it just controls what shows up on
+the page so we can think about a typical
+framework as following mvc model view
+controller model is like the data
+objects that you have like there can be
+a model for my shoe it has things like
+size weight color view is what is
+actually showing up on the page and see
+the controller is some logic that
+determines what shows up on the page
+react by itself is just vc there's no m
+so concept one full frameworks help you
+ship applications really fast and
+they're strongly opinionated concept two
+react is just a templating engine a
+rendering library a view controller it's
+not a full mvc framework we like that
+because it ultimately allows us to
+customize things and ship less code and
+it's more efficient at the end of the
+day concept three why don't we go even
+more minimal and just do this in vanilla
+because vanilla is too hard so you can
+think about the document api when you
+use document. get element document.
+create append etc insert remove jsx
+react this is a key lesson it can be
+viewed as simply a syntactic sugar an
+easy way to use the document api that's
+the main way that i communicate what is
+react it's just an easy way to use the
+document api concept four traditional
+development you have html css and
+javascript clean separation of concerns
+react flips it on its head and it merges
+them all into javascript so you want to
+learn html css and javascript first then
+learn react it'll be much easier than if
+you try to dive right into react so
+concept four is that it's going to take
+all the elements of web development and
+allow you to write them in a single
+javascript syntax that looks like html
+but you can actually do a lot more with
+it concept five hard to hear but really
+important react is necessary it is not
+sufficient we do want the whole mvc we
+do want a whole framework so i need a
+library stack that includes react but
+it's not limited to react i might want
+to add redux i might want to add apollo
+so go to code academy follow the
+front-end engineering path you will
+learn how to build a full react
+application and it's more than just
+react but that's going to give you a
+good starting point hope this helps
+
+URL: https://youtu.be/qqB99uP97eI
+Title: Student teacher ratio research shows small groups are awesome
+Transcript:
+google the optimal student teacher ratio
+with me top results says less than 18
+to1 if you read through the article they
+say as little as one is good but what
+are their sources let's go to this
+wikipedia bunch of stuff here one is
+kurt vonet kurt says 12 or
+smaller malcolm gladwell citing eric
+hanushek hanek studies the economics of
+education like me let's take a look at
+this graph basically lower is better and
+it's pretty much a straight line Ladderly
+is offering learn to code small groups
+check them out now
 
 URL: https://youtu.be/wfHdJJoxq1Y
 Title: Stolen Turkey Code Microproject
@@ -1231,6 +1800,36 @@ that you do enough of these from a
 probability standpoint you're gonna get
 a job
 
+URL: https://youtu.be/YZk44fUIvM4
+Title: Simple Architecture is a Flex
+Transcript:
+so my netfi psychiatric site is a very
+simple architecture and let's talk about
+why that's actually a flex so first of
+all it does use nextjs which is a
+framework so react is not a framework
+but next is but i did avoid
+infrastructure costs a continuously
+running server or even something like a
+lambda so what's cheaper than serverless
+is jamstack so currently nextjs is the
+optimal framework to pick for a jamstack
+architecture that will let you
+completely compile out to static build
+at build time and host for free so my
+client is a small business i don't want
+them paying for like aws and stuff they
+can just pay for a domain name why would
+i want to charge them more the client
+requirements are simple so my library
+stack is simple why would i bring in
+material design when i really only have
+like five components and i would have to
+customize all five reference components
+out of material anyway no it's much
+simpler and leaner faster load times to
+just build those from scratch
+
 URL: https://youtu.be/iCTuFabtekM
 Title: Follow to join the convo and
 Transcript:
@@ -1250,20 +1849,58 @@ jobs available two please check out this
 video from luke data engineering is
 where the money is now not data science
 
-URL: https://youtu.be/VSXTiLMyM5o
+URL: https://youtu.be/5vFFBq7aXg8
+Title: Top compensating employers for programming
 Transcript:
-foreign
+more insights from the end of your pay
+report from levels let's talk about top
+compensating employers who do you
+think's going to win state of the end
+we're looking at junior senior and staff
+levels jane street wins at the junior
+level at the senior level i was
+surprised to see netflix get beat staff
+ine at facebook over a million a year
 
-URL: https://youtu.be/2z5KCEVQUS0
+URL: https://youtu.be/2Yk4v6DXbxs
+Title: Don't overcomplicate devops, and definitely dont skip it!
 Transcript:
-coding is a way of making you feel like
-an absolute genius one moment like a
-complete right after it this is
-from clement he's a big name think two
-lessons from this one is imposter
-syndrome affects all levels from junior
-to ceo two is making mistakes is normal
-don't beat yourself up over it
+if i have like a restaurant website i
+would never send uh a
+restaurant consumer someone who wants to
+place an order i would never send them
+here this is the code repository this is
+the code form of the website i would
+send them to the deployed or rendered
+form of the website and this is what's
+missed in a whole bunch of other
+programming classes is how to deploy it
+deploying it is called devops so here's
+the software development life cycle
+let's get an image of this we're going
+to analyze that means we're going to
+basically come up with the idea for what
+we want to build in this case a
+restaurant website very straightforward
+uxui design what is it going to look
+like right so i might draw some pictures
+in photoshop show them to people and
+have some feedback and see like what
+does the right website look like before
+i've written any code three is
+implementation this means writing the
+code four is testing we're not going to
+be covering testing today five is
+deployment and then six is maintenance
+basically um whenever the menu changes i
+go and change the website too that whole
+uh process is called maintenance after
+it goes live making sure it's
+continuously updated so that is how you
+develop software de deployment is
+frequently missed in many intro classes
+but it's not that hard if you do it
+right and that's what i want to show you
 
 URL: https://youtu.be/8xj0QAdfAZ4
 Title: 7 ways coding is actually fun
@@ -1528,6 +2165,31 @@ decision uses 100 biased data follow for
 part two i'll give you a specific
 example much more to talk about
 
+URL: https://youtu.be/WF5_onKuWZs
+Title: siloing in disbursed shallow benefits is not ideal
+Transcript:
+the source for the claim that the gpt
+store will pay producers based on
+engagement is open ai in the blog where
+they announced the gpt store they
+announced the business model and it's
+based on engagement really disappointed
+cuz sam the open ai team and silicon
+valley are aware of the problems of this
+dynamic
+
+URL: https://youtu.be/fKy3Dp04vR8
+Title: - Land a Coding Job recursive doc dir support for
+Transcript:
+so aria tail has multiple narrative arcs
+that are played concurrently so i
+swapped the narrative file for a folder
+then i changed fil name. tsx to use the
+ellipses and brackets which supports
+nesting then instead of a single index
+page i extracted a generic index page
+component
+
 URL: https://youtu.be/LTLWTh0XVtM
 Title: Make boring and u win cc Lyons peer review comment
 Transcript:
@@ -1716,6 +2378,14 @@ run in the long run we can drive down
 costs and alter the experience after
 adoption is achieved
 
+URL: https://youtu.be/lXWXgpGrhW4
+Title: Good soup
+Transcript:
+fuji apple pear one sip scale of 1 to
+10
+725 maybe 74 actually 75 so it's tied
+with the oasis lime good stuff
+
 URL: https://youtu.be/5p1o82mOKXY
 Transcript:
 so where does all this data come from
@@ -1764,6 +2434,19 @@ give you the big picture in a short
 amount of time
 sign up link in my bio Ladderly.io and
 you can view that lesson for free
+
+URL: https://youtu.be/Oz_BTlVGkQE
+Title: Career switch into tech? How about small group learning?
+Transcript:
+so you want to learn to code but you
+already have a degree in a different
+field you're not going to go back to
+school for a computer science degree
+coding boot camps seem like a lot maybe
+what you should try is a small group so
+i'm running a small group every saturday
+starting in february if you're
+interested drop a com
 
 URL: https://youtu.be/VDTvPsCq9GI
 Title: College Grows Your Soft Skills??
@@ -1862,6 +2545,17 @@ don't need to know everything i would go
 further than jason i would say that
 google search is the number one
 developer skill
+
+URL: https://youtu.be/Jyw0ljQUn-g
+Title: Game cards rolling in!
+Transcript:
+merged to the 10th p request for ar sale
+simpler data model images will be tagged
+not cards more image seeds so a bigger
+gallery also our first game card seats
+game card description can fall through
+to the image sorting on the table drop
+down style update and less hard coding
 
 URL: https://youtu.be/Zjcy92uygzw
 Title: 3 Tips for Young Adults
@@ -2076,6 +2770,43 @@ right you're not interview ready yet and
 you don't know how to get better so get
 the feedback data and then improve
 
+URL: https://youtu.be/M3DlvlTbS-0
+Title: cold DM a googler…?
+Transcript:
+the question is how do you get in so
+insulting suggests that the way to get
+into google is to leverage linkedin to
+social network with a current google
+employee i totally agree i just got an
+offer from google i was able to use one
+of my linkedin contacts to gain an
+employee referral very confident that's
+the reason i got the initial interview
+and ultimate consideration of my
+candidacy i want to add two notes one is
+a lot of us don't have google employees
+in our network here juting suggests cold
+dming a current google employee who is
+currently a stranger i'm going to
+provide you an alternative strategy and
+my second note is that i'm actually
+going to agree with juan salting that
+that technique is pretty good but i'm
+going to add some scripts who
+specifically do you contact what
+specifically do you say so the
+alternative to cold dm is to use blind
+blind users are very liberal with their
+referrals if you have a blind account go
+on create a new post openly ask for
+referral tag it google if you do choose
+to call dm who do you reach out to what
+do you say this is where the Ladderly
+networking scripts that i've authored
+come in extremely handy very confident
+it's going to be helpful linkpin in the
+comments like follow for more
+
 URL: https://youtu.be/v02KgvTA3Mo
 Title: 1 Personal Brand Tip for Developers
 Transcript:
@@ -2152,6 +2883,21 @@ languages are growing and your ability
 to have like an in-browser experience
 but tools are rough outside of front end
 
+URL: https://youtu.be/94AaNfY8DsE
+Title: The hall of fame!
+Transcript:
+shipped a new feature this is the hall
+of fame this is a donation leaderboard
+shout out to our top donors here
+
+URL: https://youtu.be/mGXtvo728Z8
+Title: Search for these titles if you have a full stack portfolio
+Transcript:
+coding job search tip if you know react
+many employers will consider you for an
+angular review rooll follow for more
+sign up at Ladderly dot io
+
 URL: https://youtu.be/5HHy8VM3zdQ
 Title: Discord is the new Social Networking
 Transcript:
@@ -2165,6 +2911,17 @@ servers you can join also check the pin
 comments and Ladderly in my bio also as
 a server
 
+URL: https://youtu.be/o34_GpeV-to
+Transcript:
+check out Ladderly slides on github
+click the docs folder go to the endorsed
+communities document there are over a
+dozen discords mentioned in this
+document here's eight of them you can
+also do me a favor and create an issue
+on the repository to link this document
+from the intro section thanks
+
 URL: https://youtu.be/Iulo5Ed2x5k
 Transcript:
 bro got like 93 variables trying to make
@@ -2177,6 +2934,23 @@ just stopped when all the variables are
 under p dot one or what i mean if you're
 a boomer maximize your adjusted r
 squared or check the aic or the b i c
+
+URL: https://youtu.be/UH_F4Sl7DV4
+Title: Tech clan pull up!
+Transcript:
+no i don't think you understand i'm
+obsessed
+
+URL: https://youtu.be/XoaIFDF-Po8
+Title: geniunely, if you want to be doing many different things throughout the day then a career in program
+Transcript:
+so i'm a programmer and today i worked
+on one problem and it was a technical
+problem and it was a mathematical
+problem that's actually great it's
+actually a good thing you don't want to
+be working on five or 10 different
+problems in a single day as a programmer
 
 URL: https://youtu.be/IE0DAZ3zItQ
 Title: .NET vs React.js
@@ -2334,6 +3108,197 @@ founder of algo expert which i've
 recommended for years so i'm going to
 try this out and i encourage you to try
 it out too
+
+URL: https://youtu.be/4k-IslxAFec
+Title: Sharing state in React!
+Transcript:
+quick video here to talk about sharing
+state and react and i'll illustrate this
+with a specific problem that i recently
+solved in a customer relationship
+management platform a crm so in this
+platform you have contacts contacts will
+have phone numbers and physical
+addresses and email addresses the people
+that you want to contact right for your
+outreach what happens if people upload a
+bunch of duplicates we want to be able
+to detect duplicates and merge them
+merging duplicates is a great example of
+when we would want to share state why do
+we want to share state in this case
+imagine that i have that page where i
+can see the list of duplicate contacts i
+want to be able to click app pair and
+get to a different view which is a merge
+duplicate contacts view this view has a
+different concern but i want to recycle
+some of that same data so i want to pass
+that data over passing data over is not
+the same as passing state over i don't
+want to throw it over the fence and then
+disconnect i want to maintain a
+connection and here's the reason this is
+why it's unique to mer ing contacts the
+user should have the ability to click on
+let's say phone number from contact a
+email address from contact b so they can
+pick these bits of data from each
+contact that selection lives in the
+parent component but i want to pass it
+down to the child so i want to maintain
+a live connection so that they can click
+it at any time and it will be passed in
+so we're sharing state at that point
+there are a lot of ways to do this in
+react use state use a reducer or context
+are built into modern react with hooks
+then there are some strange sort of
+exotic ways you could do with like next
+static props so you could actually
+pre-compile the cartisian product of
+every two contacts we don't want to do
+that that's really weird but there are
+some additional built-ins like the
+static props that you could do with the
+frameworks that are common over and
+above react itself and then there are
+the state management libraries as well
+so there's even more ways to do it keep
+it simple that's the first thing you
+want to do if a built-in react first way
+works you should use it and in this case
+a built-in react way does work so let's
+focus on those three built-ins use state
+use reducer and use context which tool
+should we reach for and when and then
+which will apply to this case we're
+going to be helped out by a few
+architectural principles don't repeat
+yourself dry the rule of three and the
+concept of tight and loose coupling in
+general we want to not repeat ourselves
+and this is severely indicated once
+you've repeated yourself three or more
+times two is kind of okay you want to
+look at the actual effort and do a
+pragmatic return on investment to your
+effort if you only repeat yourself twice
+that can be fine you can repeat yourself
+this is sometimes called you cry you can
+repeat yourself the opposite of don't
+repeat yourself and how do you navigate
+between those you need to actually run
+the numbers the return on investment the
+rule of three says that typically three
+or more times you're going to want to
+dry it up and with tight and loose
+coupling we typically opt for loose
+coupling loose coupling makes things
+easier to maintain and update over time
+but there is an exception if you want to
+break something on purpose so that if
+component a changes you want to break
+component b or you want to break your
+build or you want to throw an error so
+that you are quickly and easily alerted
+ideally before deploying to production
+and that is the case for proper tight
+coupling we think about reducers as
+middleware so if you want to extract
+that repeated logic you can put it in a
+reducer we think about context as a data
+tree route so it's not as good for
+extracting logic it's better for
+extracting reusable
+data particularly when you have a bunch
+of components that have a common
+ancestor a great example of this would
+be a theme so passing around theme
+variables maybe you want light mode dark
+mode that's great for ed context used
+state is typically for local component
+state and there is one exception which
+is if you have proper type coupling with
+a one-step drill you can use a state
+prop in modern react this is pretty much
+the only time that you want to use a
+state prop you can also use a state prop
+as a development tool for a work in
+progress implementing a reducer
+implementing context might take you a
+while so you can temporarily do a state
+prop and then clean it up at the end of
+your pll request or whatever clean it up
+later so these are your three cases when
+you want to use state for local state or
+for a state prop that only goes one
+level deep or for a whip commit in our
+case with the merging contacts we are
+going one level deep context and
+reducers solve a problem called prop
+drilling where you have to go through
+multiple levels prop drilling is not a
+big issue if you're only going one step
+so our case here is unique we will
+actually reach for use state and the
+merge contacts page so you'll view the
+duplicates and that duplicate
+information which is in the parent will
+be passed one step into the merge form
+the user will be able to click each
+piece of data in the parent component
+and it will just get passed in one step
+only to the properly tightly coupled
+child they're properly tightly coupled
+because they're both related to this
+contact schema so that if the contact
+schema and the parent breaks actually
+want to break the child they should
+always move in lock step they should be
+following the same data shape the same
+schema because they're both dealing with
+the same entity the same model that is
+the contact model so that's called
+proper typ coupling and that is pretty
+unusual let's wrap up and test
+understanding by trying to picture a
+scenario that's slightly changed where i
+would reach for context or reducer so
+one way would be if the merge contact
+view were far away if were if it were on
+a different page that was not a
+descendant component in the rendering
+tree then i would probably reach for a
+reducer or in that case i might even do
+something more exotic like server side
+props static props and so on if it was
+on a different page i might use context
+if there was a hierarchical relation and
+that could be that the merge view is
+down the tree but it's not a child it's
+like a grandchild or a great grandchild
+and so on or if it was up the tree so
+that there's a hierarchical relation
+where they have a common ancestor higher
+up so an example of this might be
+picture a page where the duplicates are
+listed down in one section and there's a
+merge form that's actually above that
+section not inside of it so the user
+would in this case go down to the bottom
+and maybe check a few contacts the data
+would go up and then down the tree to
+kind of like a sibling but they have a
+hierarchical ancestor which is the page
+itself in that case i would consider
+using context on the whole
+page this is an advanced topic not a big
+deal if you didn't understand it um if
+you did understand it and if you have
+feedback would love to hear it if you're
+interested in coding follow the page and
+hope to see you soon
 
 URL: https://youtu.be/rYERr1r19sw
 Title: Is Drizzle ORM the new hotness? Nope
@@ -2742,6 +3707,51 @@ see the next one
 [music]
 you
 
+URL: https://youtu.be/sZccE3lNO_U
+Transcript:
+just finished my google final round
+these are my reflections on how i think
+i did tldr mid but that's also better
+than i was expecting because i kind of
+thought i was going to bomb so there
+were five rounds a behavioral a system
+design and then three algorithm
+interviews behavioral i think i got it
+system design i think i did okay i have
+a background in amazon services but it's
+a google interview so when i reference
+something like a cloud formation instead
+of basically getting like automatic
+multi-regional failover and stuff for
+free i have to like break it down to the
+like engine x level um which is a lot
+harder three coding interviews one was
+like your traditional easy followed by a
+hard um i got the easy and then the hard
+i got like partly through so my
+understanding is that's okay the second
+was like a behavioral with a medium did
+great on both of those and then the
+third was like an easy that grew in
+difficulty um and i don't know i think i
+did mid like i got partway through i
+don't actually know what the expectation
+there is so overall i think i did yeah i
+think they're going to pass this time i
+don't think they hire mid
+
+URL: https://youtu.be/H9iaWO5-z2s
+Title: on technical judgement
+Transcript:
+how can developers become more efficient
+and judicious when i read code how can i
+learn to say this code is worth the
+effort to refactor that code let's let
+it be this was a wonderful question
+asked to james it was too long to stitch
+so i added a comment tap the comment go
+view his excellent answer
+
 URL: https://youtu.be/cKCMYaNSRtA
 Title: CS job while in school pt 2
 Transcript:
@@ -2800,6 +3810,29 @@ file extensions make a new file called
 test.txt go in there type this
 now rename the file to dot html put it
 in chrome
+
+URL: https://youtu.be/i3MIF2yZw9I
+Title: It could never be a 7 but tbh better than 6.5
+Transcript:
+poro style energy drink rating one sip
+scale of 1 to 10 we all know this one
+red bull this will just help you know
+where my numbers are
+at it's a
+6.75
+
+URL: https://youtu.be/f-P3jvgRZqw
+Title: Happy national mentorship month!
+Transcript:
+january is national mentorship month
+shout out to the mentors out there in
+this viral linkedin article my favorite
+comments came from alicia she gave this
+list of actions to help you find a
+mentor by the way if you're looking for
+a mentor Ladderly may be able to help
+sign up today and check out the
+community guide
 
 URL: https://youtu.be/bzYHQ0IM2yY
 Title: Keep it Simple: Learn React
@@ -2918,6 +3951,19 @@ background color of the whole html page
 which of those two implementations you
 prefer and why
 
+URL: https://youtu.be/Sw-YJ2usMUE
+Title: They beat Google?!
+Transcript:
+big update today i turned down an offer
+from google and accepted a better offer
+from a unicorn called upstart they have
+a great mission around financial access
+and affordability please do ask
+questions i'm sure i have some really
+great tips for you regarding job search
+and negotiating multiple tier one
+company offers
+
 URL: https://youtu.be/L-7wHfsIRFE
 Title: Vandivier be a perfectionist on your side projects, not with your coworkers
 Transcript:
@@ -2932,6 +3978,11 @@ to yourself and those around you just
 try to work on one thing at a time in
 programming we call this yagni
 
+URL: https://youtu.be/5g-LqzhT3dI
+Transcript:
+[music]
+there's no in the house
+
 URL: https://youtu.be/Y0yVbl_J_2A
 Transcript:
 bonnie lee asked reactor view he asked
@@ -2942,6 +3993,20 @@ on indeed right now react is 10x at 50
 000 this is for the united states check
 for your area but that's why i recommend
 react
+
+URL: https://youtu.be/JhbHts-nFhQ
+Transcript:
+i like the error messages from computers
+that
+say well guess what computer i'm
+crazy learn to expect the unexpected
+
+URL: https://youtu.be/zBFpn6EP7Qo
+Title: How to be a LinkedIn Influencer!
+Transcript:
+[music]
+butterfly in the
+sky i can go twice as high yeah
 
 URL: https://youtu.be/OWywJB2bAbM
 Transcript:
@@ -3115,6 +4180,19 @@ something that you would use for a
 resource if you were learning to code
 comment why or why not
 
+URL: https://youtu.be/F3gulV8C2bE
+Title: Smith coding can help you do better although that already seemed pretty good?
+Transcript:
+a bachelor's degree 74k can someone
+explain the problem here to me if you
+can put away $500 a month in savings
+fresh out of college you're doing pretty
+well you'll be able to buy your own
+house after a few years of savings if
+you want to accelerate that consider a
+remote coding job but like that budget
+was already pretty good
+
 URL: https://youtu.be/SfcZNoRzMlU
 Title: to lives what got you interested in coding?
 Transcript:
@@ -3148,6 +4226,20 @@ what to do and if you don't go to google
 within 10 seconds i'm offended being
 able to quickly identify and use quality
 reference code is a key skill
+
+URL: https://youtu.be/uqwNfJwqmKg
+Title: Sophomore in HS to SWE
+Transcript:
+yu such a good question so first of all
+check out if your school has programming
+classes or if you can do like dual
+credit at a community college for a
+programming class when you get home hop
+on a computer check out these three
+websites you're going to want to build a
+github portfolio it might take you six
+months that's fine take your time with
+it hope it helps
 
 URL: https://youtu.be/PZUB8eCVcnM
 Title: Immigration helps the economy!
@@ -3209,6 +4301,29 @@ do read comments if you want to know
 about anything in particular drop it in
 the comments hope to hear from you soon
 
+URL: https://youtu.be/I2qNvEKq8zM
+Title: Don't hide your first or worst project
+Transcript:
+often have this misconception they want
+to present themselves as polished
+professional expert so they will only
+show their most elegant portfolio pieces
+and in the worst case they will only
+show one and it might be like a netflix
+clone and they think it looks really
+good this is like it looks just like
+netflix i've made it haven't i the
+answer is no employers want they want to
+see that you can do original work and
+they want to see growth and because they
+want to see growth that's why it's
+incredibly important to say here's my
+first and worst website here's my new
+cool best one look how far i've come in
+3 four five six months three four five
+six years do not feel ashamed of this
+basic website
+
 URL: https://youtu.be/Vw3xz3sF8tM
 Title: I smell BIAS
 Transcript:
@@ -3219,6 +4334,217 @@ funny and a little bit scary at the same
 time i asked bing to make a mock graph
 of increasing monthly expenses and it
 picked a bunch of white women
+
+URL: https://youtu.be/c3dc5Krzis0
+Title: reduce risk in a gap year
+Transcript:
+so let's talk about drisking your gap
+year you're taking a year to explore a
+potential interest in a programming
+career you might be a career switcher
+like b or like myself congrats b i also
+have a background in economics and i
+switched over this will work whether
+you're a career switcher or maybe you
+are a high school graduate you haven't
+picked up college yet so we're going to
+cover six tips of managing the risk of
+your gap year this will be a longer
+video in the previous video we talked
+about maximizing the value of your gap
+year minimizing risk and maximizing
+value are not the same thing what is the
+goal of your gap year the goal is to
+understand whether you do have that
+interest in programming whether you have
+a technical knack and possibly even
+landing a job that's a different
+objective compared to managing risk
+managing risk is minimize the chance of
+failure or in the case of failure
+minimize the cost of that failure we're
+going to talk about uh direct cost and
+then given my background in economics
+i'm going to be talking about
+opportunity cost as well very important
+first tip we'll start with a simple one
+define your goal your plan and your
+reason why write them on a piece of of
+paper physically write it and get an
+accountability partner that you tell
+this to verbally this is good old
+motivation hacking it works for a
+variety of reasons writing it down just
+helps you remember making you think
+through the plan helps you write a
+better plan making you communicate it to
+another person forces a feedback loop
+where you write a better plan and then
+social incentives kick in where you want
+to look good to this person and you will
+just have a little bit more skin in the
+game plus if you're not that serious
+about it you won't even go through with
+this step and you'll be able to fail
+fast which is actually a really great
+thing in cutting risk
+tip two relates to b so b switched from
+sales and you might switch from any
+other industry which means you might
+have a current employer tip two is
+leverage your employer educational
+benefit did you know if you work at
+walmart you can go to college for a
+dollar a day that's cutting so much risk
+because you're spending so much less
+program details vary here ask your
+manager and check your company policy
+does the tuition benefit apply to a
+coding boot camp or an online course and
+that brings us to tip three don't pick a
+random coding boot good camp or a random
+online course pick a highquality one
+that begs the question how do we know
+it's a high quality one well i have the
+answer for you i have a phd and
+economics where i studi this stuff go to
+cours report.com sort the coding boot
+camps by most reviewed and you need to
+pick a coding boot camp that is in your
+location in your country and has a score
+of 4.25 or higher on the five point
+scale and more than 400 reviews or a
+fortune 50 learning provider like google
+meta amazon microsoft and so on these
+are called prestigious coding boot camps
+and prestigious learning providers and
+they are significantly correlated to
+your h ability outcomes your labor
+market outcomes because surprise high uh
+employers know about these people
+employers know about these people so is
+it really any surprise that they're like
+oh like we know amazon like we trust
+them and so then you'll have a better
+job search outcome a random coding boot
+camp is not even correlated to job
+search performance so don't pick a
+random online course don't pick like a
+youtube video where the guy calls it a
+boot camp camp you need to go to cours
+report.com and follow the prescribed
+method to find a prestigious or a highly
+reputed coding boot camp tip four is go
+beyond these correlated reputation
+mechanisms that correlate with getting a
+job and get a straightup job guarantee
+at the time of recording springboard in
+the united states is a learning provider
+that has a job guarantee highly
+encourage you to check out springboard
+or browse through boot camps that have
+this high reputation and look in
+particular for a job guarantee again if
+you go to course report.com
+should make a note of that on the
+learning provider details page i told
+you i'm going to give you six tips i'm
+actually going to give you seven sorry
+about that hope that's okay stay to the
+end i guess the last one is awesome i'm
+supposed to say that right you got to
+stay all the way to the end so that like
+the algorithm loves me the truth is even
+a coding boot camp even if it has a job
+guarantee is a large commitment for some
+people so let's drisk that even further
+you should sign up at Ladderly dot io and
+Ladderly gives you a stepbystep checklist
+so this is the drisking tool is use a
+structured checklist
+that will help you kick off your
+portfolio right away and you will get
+your feet wet coding and you'll be able
+to determine whether or not you like
+coding so with the Ladderly dot io
+checklist one of the items is going to
+be check out free code camp or code
+academy and these are semi-formal online
+courses they're not really in-depth
+they're not going to get you a job but
+they're a good way to get your feet wet
+with some semi-structured learning and
+if you take these and if you're like
+yeah this is really easy i want to like
+do the more serious stuff now you've got
+a really green flag to dive into one of
+those boot camps
+if you take these and you're like i
+can't even get through html and css like
+it's so bad that's like maybe you
+shouldn't be doing a coding boot camp
+for html and css Ladderly is going to
+further help you drisk because there's a
+discord with a bunch of people on there
+and you can social network social
+networking has reinforcement for
+motivation but it also just improves
+your job search because now like you
+know people um having social connections
+on linkedin or whatever is going to
+improve your job search that's another
+kind of drisking prestigious coding boot
+camp was tip four drisk risking the
+coding boot camp investment itself with
+Ladderly and free code camp that was
+all tip five here's tip six this doesn't
+apply to very many people but it's going
+to be really important for those that it
+does apply to and that is don't wait
+until you graduate if you're considering
+a gap year after graduation maybe you're
+a sophomore right now why don't you just
+try coding like over the summer or if
+you have the spare time and i realize
+not everyone does because of
+extracurriculars but if you have the
+spare time why don't even you just try
+like coding over some weekends so you
+can knock out the code academy or free
+code camp stuff uh before you even
+graduate high school and you'll have a
+really good signal at that point you'll
+have a really good idea am i ready to
+dive into a boot camp immediately or not
+if you get a score less than three it's
+a red flag for a gap year it doesn't
+mean you're not smart enough it has to
+do with conscientiousness work ethic the
+ability to self-motivate self-start and
+stick to a plan if you get a score over
+four that's a green flag and if you're
+between three and four it's sort of a
+yellow flag it's still moderate risk
+self-studying is hard less than 5% of
+people that try to become a pr
+programmer on their own just by going
+through youtube videos and online
+courses will be
+successful coding boot camps have a
+higher success rate but coding boot
+camps are really intense and rigorous if
+you go to a good one and if you don't go
+to a good one it's not going to help you
+get a job so the truth is if you get a
+grit score less than three college might
+be an ideal fit for you because it's a
+bit slower paced and it's just a better
+fit for some people if you enjoyed the
+video tap like follow the page look
+forward to any feedback in the comments
+or better yet sign up for free at
+Ladderly dot io and i'll see you on
+discord
 
 URL: https://youtu.be/bSEOMAk8obo
 Title: Learn React not C
@@ -3254,6 +4580,14 @@ link in the description more purple than
 blue means even experienced developers
 dread c plus plus
 
+URL: https://youtu.be/5fwk4-LwR-g
+Title: LORE DROP TO SAY THE LEAST
+Transcript:
+and now the medical literature is
+doubling so fast in from 1900 to 1950 it
+took 50 years for the medical knowledge
+domain to double now it takes 73 days
+
 URL: https://youtu.be/jhRSmoKKDXg
 Title: 🤖 AI is wild
 Transcript:
@@ -3269,6 +4603,17 @@ comments the tldr here is that salaries
 are going back up the job market is
 starting to look better for programmers
 
+URL: https://youtu.be/pP9mpc00-oI
+Title: Sooooo is an open source TCG now
+Transcript:
+december 30th development roadmap part
+two i created chapter six of the arus
+tale narrative i created a prompt log of
+the user prompts given to chat gpt which
+generated the narrative and i started
+working on a tcg because we have all
+this art so we might as well make cards
+
 URL: https://youtu.be/lrgy93kNUi0
 Title: - Land a Coding Job 420 is all it takes to code!
 Transcript:
@@ -3281,6 +4626,11 @@ same price as code academy for better
 outcomes 60 bucks for seven months is
 420 which is cheaper than a single
 community college course
+
+URL: https://youtu.be/k4Q5_oLQDoc
+Transcript:
+[music]
+a
 
 URL: https://youtu.be/8mdqTHjo2v0
 Title: patterns over problems 🔑
@@ -3295,6 +4645,70 @@ the second stage to move from right to
 left because you have to carry the one
 but yeah if you already did line 75 go
 ahead and apply
+
+URL: https://youtu.be/SWesn5n0DRE
+Title: Signs ur an old programmer
+Transcript:
+programmers tell me you're old without
+telling me i'll go
+first muscle memory
+
+URL: https://youtu.be/TMYbu4TtfGk
+Title: Research is tech is magic
+Transcript:
+ben leo how are you so smart i'm not ben
+thank you it's just a bunch of work and
+then it appears smart to you you know um
+that's the trick of expertise we spend a
+lot of time doing something that's
+relatively
+niche uh and then it's sort of just um
+unexpected to people who haven't been
+there kind of like magic in that way i
+think
+
+URL: https://youtu.be/VxT9hnnjUbo
+Title: LinkedIn Optimization Tips
+Transcript:
+linkedin has updated its platform as
+used by recruiters here's four things
+you need to do right now to take
+advantage of it and optimize your job
+search one linkedin is now prioritizing
+candidates to recruiters when those
+candidates engage with the linkedin
+platform and they are responsive to
+recruiter inmails two linkedin is now
+prioritizing candidates that are
+socially connected with employees of the
+company where the technical recruiter is
+working how do you take advantage of
+this be active in growing your social
+network get those connections they mean
+something number three this is not an
+update but it was news to me and that is
+that linkedin prioritizes candidates
+that use the open to work profile status
+so set that status if you're looking for
+a job and then number four tap the
+comment view the prior video and follow
+the creator rob canilla that was the
+creator who first passed this
+information on to me he's going to be a
+really great resource if you follow his
+page hope this helps
+
+URL: https://youtu.be/nyEMpiUPYd4
+Title: the people who didnt go to college dont get priority lmao
+Transcript:
+so tell me you've done zero research on
+the labor market for software engineers
+without telling me just check out like
+the stack overflow developer survey from
+like any year it's like not that hard so
+75% of programmers have a degree so all
+those people who didn't go to college
+are mostly just not programmers at all
 
 URL: https://youtu.be/fr9kxvAHYW0
 Title: Follow the YT! We love
@@ -3344,6 +4758,12 @@ specified some languages one was only
 javascript three were like python or
 ruby or java
 
+URL: https://youtu.be/ySwTgWnfCvE
+Title: WPM isnt an important factor in landing a coding job
+Transcript:
+stop we going spin and kill
+deep
+
 URL: https://youtu.be/e-EmiGPZZIM
 Title: Stack Overflow vs Tiobe Index??
 Transcript:
@@ -3385,6 +4805,30 @@ copies deep let's go peep the ultimate
 productivity theme hack control shift p
 go to preferences for color theme click
 light
+
+URL: https://youtu.be/l5cxvbYA4W0
+Title: Intro to the Trial by Fire v2 with a bit of my background
+Transcript:
+john i'm a software engineer with 10
+years of experience i've worked for
+household names including amazon and
+capital
+one i have a phd in economics where i
+studied the return on investment to
+postsecondary alternative credentials so
+these would be things like coding boot
+camps certifications and so on and i'm
+the lead maintainer of Ladderly dot io an
+open-source educational platform that
+helps you land your first or next
+programming
+role you can sign up for free you can un
+lock additional features by paying what
+you can including an advanced checklist
+that will accelerate your job search and
+even more cool stuff if you want to join
+the big leagues at $30 a
+month this is the trial by fire
 
 URL: https://youtu.be/MMAggMAWPXo
 Title: Break Into Tech Advice
@@ -3502,7 +4946,7 @@ skills that you can pick up that will
 help set you apart one is expertise with
 accessibility or 508 compliance as they
 call it in government contracting study
-arya controls and color contrast
+aria controls and color contrast
 
 URL: https://youtu.be/QtseM6K4j0k
 Transcript:
@@ -3732,6 +5176,25 @@ first job you need a javascript for the
 website you didn't need python you can
 start with a simple text file no
 installation
+
+URL: https://youtu.be/0h5MbV-iNqU
+Title: - Land a Coding Job went down a whole amazing indeginous art rabbit whole
+Transcript:
+so now that we're a trading card game i
+wanted to build some additional art and
+i thought of using hieroglyphs and then
+i said wait are hieroglyphs a specific
+example of something more general turns
+out the answer is yes they're called
+idiograms ideographs pictographs or
+protor writing and another really
+distinctive example of this is naal art
+from native america so now the game has
+hieroglyphs naal art and eastern
+pictographic writing what you're seeing
+here is some game items specifically
+glove items follow for more this tcg can
+be played with standard poker cards sp
 
 URL: https://youtu.be/EzMKBc8VRTM
 Title: GET FOLLOWERS WITH 1 TRICK
@@ -4368,6 +5831,29 @@ comes picked for you recommend you
 follow brandon aka flybear on twitter
 big fan of the guy
 
+URL: https://youtu.be/LFrE1ySq5v8
+Title: Small group learning ftw
+Transcript:
+why are you buying an online course from
+someone in a position that you don't
+want to be in why are you learning from
+a boot camp teacher who's never had a
+fang job my name is john i'm a software
+engineer with 10 years of experience i
+worked for companies you know like
+amazon i have an open-source curriculum
+so take a look totally free if you're
+interested but if you get stuck at any
+time you can reach out to me and i'll
+personally walk you through the
+curriculum in addition in february i'm
+trying out a small group learning format
+did you know that like class size
+matters for educational outcomes and
+it's going to supercharge your social
+networking so if you're interested in
+that shoot me a dm or drop a comment
+
 URL: https://youtu.be/UHqhAnzJpas
 Transcript:
 five things you can do to optimize your
@@ -4634,6 +6120,12 @@ the article in front of us if you're
 looking for a cms she also talked about
 wagtail follow for part three
 
+URL: https://youtu.be/tL3f7jPu_sU
+Title: devs be always overpromising
+Transcript:
+[music]
+tr
+
 URL: https://youtu.be/WYa80sf-w94
 Title: career switchers, target january
 Transcript:
@@ -4733,6 +6225,24 @@ learning we know team-based learning
 works but what about isolating the
 emotional component check this article
 in the description
+
+URL: https://youtu.be/9FvMTdfBZo4
+Title: If you have open source programs you are a programmer and an open-source contributor full stop.
+Transcript:
+open source contributions are valuable
+they're valuable to you they're valuable
+to your companies they're valuable to
+the world open source is a big deal and
+you are contributing to open source and
+by the time you complete this trial by
+fire you will be programming you will be
+creating programs what do programmers do
+they create programs you will be
+developing
+software you will be a web developer
+those things will be true they will not
+be in progress so hopefully this is a
+boost to your confidence
 
 URL: https://youtu.be/dLXVDWOh0Vs
 Title: Best Agency for Content Creators?
@@ -4869,6 +6379,43 @@ ladies please consider learning to code
 follow the page share the video let's
 solve the page right now
 
+URL: https://youtu.be/gxEo6SgCw-A
+Title: A true data science mindset is utterly foreign to most programmers
+Transcript:
+do software engineers need to have a
+data science mindset nowadays this is a
+question i got during one of my live
+coding streams the answer is a
+resounding no data science is a mindset
+of probability when it comes to
+programming we are not thinking in terms
+of probabilities we are thinking
+inductively and deductively we want
+guarantees that certain things are going
+to happen when certain logic triggers
+when we're troubleshooting or doing a
+root cause analysis we also want to
+follow a deductive or inferential
+mindset not a probabilistic mindset this
+will be your guidance at the junior and
+mid level at the senior level you will
+start to encounter probability again
+this will have to do with things like
+traffic patterns then you're going to
+want to be able to correlate bugs to
+traffic patterns you don't need to worry
+about those things at the junior level
+if you are capable of having both of
+these mindsets and toggling between them
+correctly that's going to be a huge
+benefit but don't have that standard in
+mind for other software engineers very
+few people can do that so when you're
+thinking about their mindset most
+programmers will have a deductive
+nonprobabilistic mindset that's going to
+help you with communication
+
 URL: https://youtu.be/wFna3BiJ8fI
 Title: Java vs JavaScript
 Transcript:
@@ -4910,6 +6457,19 @@ i should probably evangelize react first
 i should probably make a tick tock
 telling people to learn html css
 javascript and react
+
+URL: https://youtu.be/xg0v616TLl0
+Title: unlock high paying remote jobs with this one trick
+Transcript:
+hey my name is john i'm a software
+engineer making six figures hanging out
+in florida even though i don't work here
+if you're interested in a sixf figure
+remote job give me a follow sign up at
+laterly we'll get you coding pretty
+quick if you're interested in making 0
+an hour give a follow
+to
 
 URL: https://youtu.be/1Vv0PkSsA0k
 Transcript:
@@ -4982,6 +6542,25 @@ yourself as an employee but you're going
 to get asked for references so maybe get
 some actual clients and stuff
 
+URL: https://youtu.be/db_Aj8MaKEg
+Title: Learn to code, network, and land a job!
+Transcript:
+so you want to learn to code but college
+takes tooo long coding boot camps are
+too intense not personalized enough not
+flexible enough one-on-one teaching is
+missing that social component and it can
+be really expensive what is a good fit
+for you might be a small group i'm
+trying one out this february drop a
+comment or dm if interested
+
+URL: https://youtu.be/I_71em-izaU
+Title: Senior Dev Advice for Juniors
+Transcript:
+ got to be kidding me call me
+bro when she living off
+
 URL: https://youtu.be/JYnpdLes-Ug
 Title: Triggered by Learning Code?
 Transcript:
@@ -5041,6 +6620,13 @@ URL: https://youtu.be/K09NqMXCLoo
 Transcript:
 foreign
 
+URL: https://youtu.be/QIjjaD0-TRg
+Title: Bates oof but whew still full stack
+Transcript:
+big big thank you to sean you should
+absolutely look at the year trend not
+the day trend and here's the result
+
 URL: https://youtu.be/KP0HljG5TLU
 Transcript:
 before taking a job offer it's worth
@@ -5066,6 +6652,18 @@ few other languages where you get a
 front-end back-end or full stack job for
 me it's all about lowering the barrier
 of entry into tech but what do you think
+
+URL: https://youtu.be/_XvG7ssJ2n0
+Title: the economy is growing wake up or miss your shot
+Transcript:
+this is total ignorant fomo there have
+been less than 10k tech layoffs across
+job families these are not all
+programmers a few hundred layoffs at
+google down from 12k last year it's way
+less these are not all engineers the
+economy is growing fed hikes paused
+learn to code ignore haters
 
 URL: https://youtu.be/NfLrOpPkvsA
 Title: When the ☕️ hits (as a coach)
@@ -5141,6 +6739,14 @@ the business rule clearly defined in a
 comment catches clear and bullying
 follows convention
 
+URL: https://youtu.be/AHGDkTAgW-8
+Title: Technical interview prep is better than ever, and a great opportunity for open source contributions!
+Transcript:
+le code cata is a consolidated blend 75
+in a new article we're putting solutions
+up two and three summer up other
+contributions welcome
+
 URL: https://youtu.be/vAOQRUqVdTY
 Title: Coding Project Advice
 Transcript:
@@ -5172,6 +6778,28 @@ projects and react to really nail down
 how i'm using react you can use react
 with a lot of sibling libraries so
 practice combinations
+
+URL: https://youtu.be/ZVDMFFVgkvc
+Title: Sign up for this small group and learn to code!
+Transcript:
+are you interested in learning to code
+this year my name is john i'm the lead
+maintainer of Ladderly and i'm offering
+a small group learning format starting
+in february i typically charge $80 for a
+half hour for one-on-one meetings the
+single-digit class siiz small group is
+only $30 a month for four sessions sign
+up now
+
+URL: https://youtu.be/65SxvQ3C5dc
+Title: Better web UI and small context window support
+Transcript:
+a better game guide for Aria's Tale has
+just been merged this includes a bridged
+instructions for language models with a
+smaller token window check it out now
+Aria's Tale.com
 
 URL: https://youtu.be/JW5X3Zql154
 Title: 3 Ways for Employers to Increase Labor Diversity
@@ -5224,6 +6852,42 @@ more effective than emo alone you get
 these sort of tips in the advantage
 checklist on Ladderly
 
+URL: https://youtu.be/4cri7eMsWLQ
+Title: Technical interview advice for big tech
+Transcript:
+the dream good question so i'm bound by
+nda so i can't give you specific
+questions and answers i can tell you
+that all of the coding algorithm
+questions that i was asked from both
+google and upstart are contained in the
+5 to 23 patterns article which super
+sets the 14 patterns so this is the
+article that i recommend it talks about
+various stages of learning the five the
+seven the 11 the 14 and all the way up
+to the 23 so i think in that 7 to 14
+range is going to be the sweet spot i
+did not get any dynamic programming
+questions i will tell you that i would
+specifically recommend interviewing.io
+for practicing all sorts of questions
+whether algorithm system design or
+behavioral on the note of behavioral
+questions just did a quick google search
+for the most common questions and the
+questions that i received were
+consistent with these tell me about a
+time you got in a conflict with so and
+so your customer or your teammate or
+something tell me about a time where
+there was ambiguity for example and then
+for system design point you back to
+interviewing.io once again my only call
+out here for google is try to understand
+what aws services are doing underneath
+if you're going to reference them
+
 URL: https://youtu.be/ju0NhxJi33k
 Title: - Land a Coding Job Discord-Driven Social Networking
 Transcript:
@@ -5236,6 +6900,19 @@ pick one or two communities from each
 group that you resonate with and nurture
 those relationships for a minimum of
 five minutes per day
+
+URL: https://youtu.be/1O-ltAnm5TA
+Title: Upstart is hiring!
+Transcript:
+so it's january hiring season's here and
+upart is also hiring the pricing team is
+looking for engineers with four or more
+years of experience up to the principal
+level also looking for a senior pm
+working at upstarts great here's a small
+portion of the benefits if you're
+interested shoot me a dm or visit the
+website now
 
 URL: https://youtu.be/RhyJLSjjnw4
 Title: Using Twitter for Programming References
@@ -5350,6 +7027,13 @@ prayer requests charitably they will
 naturally want to reciprocate maybe
 facilitated by a low-key dm follow for
 more sweet tips
+
+URL: https://youtu.be/J3_kjj0LDwo
+Title: Cormier how to view my dissertation in economics of education for free!
+Transcript:
+hey nick thanks for your interest so you
+can view my open access dissertation
+through proquest hope this helps
 
 URL: https://youtu.be/Ot1L7nhXPW4
 Title: Can "but" be positive? Does it matter?
@@ -5486,6 +7170,31 @@ you're signed to work in cyber security
 this video makes you wonder whether i
 got video consent from all car owners
 
+URL: https://youtu.be/iC_KkzWz72E
+Title: Get a coding job this year! 🔥
+Transcript:
+are you interested in learning to code
+in 2024 and landing your first or next
+professional programming role if so i
+have a great idea for you hey my name is
+john i'm a software engineer with 10
+years of experience i'm the lead
+maintainer of Ladderly dot io an
+open-source educational platform that
+helps you learn to code i also have a
+phd in economics where i studied the
+return to post-secondary alternative
+credentials seeing what employers want
+from coding boot camp graduates and
+others like this in february of 2024 for
+the first time i will be pil in a small
+group learn to code format there will be
+5 to 10 people registration is limited
+let me know if you'd be interested the
+price would only be $30 a month hope
+this is going to be a great offer let me
+know if you're interested
+
 URL: https://youtu.be/0ynspseZkmE
 Transcript:
 soon lee says i know everyone hates
@@ -5581,6 +7290,25 @@ talking fifth get multiple mentors
 including one who will tell you what you
 don't want to hear
 
+URL: https://youtu.be/u5eoSGkmmrg
+Title: Can GPT-4 reliably write publication quality research in economics?
+Transcript:
+as a software engineer i use gp4 almost
+daily and i think it's underrated for
+research purposes so i'm writing a new
+academic paper studying the productivity
+of gp4 in the particular case of publish
+quality economic research using gpc4 in
+particular with
+plugins and using um state-of-the-art
+prompt engineering to really max out the
+the production curve of the
+state-ofthe-art
+for ai tools and trying to see at this
+precipice of technology is it good
+enough to write a publishable paper
+calibrating the productivity
+
 URL: https://youtu.be/mrN1o1ci4Gw
 Transcript:
 let's talk about software engineering
@@ -5621,6 +7349,13 @@ investment to your education also that's
 cyber security
 data analytics
 so they have some different options
+
+URL: https://youtu.be/zIwlTveqCGE
+Title: Lets go team 🔥
+Transcript:
+is that what's happening 100% and what
+gave you the
+confidence um delusion
 
 URL: https://youtu.be/5vK_ZGx8f3w
 Title: is js a good language...?
@@ -5796,6 +7531,14 @@ began to type token you can see it can
 give me three levels deep in the menu in
 a much more efficient manner
 
+URL: https://youtu.be/PjkOWaR2SfM
+Title: See ya VA!
+Transcript:
+headed to upstart live for annual
+corporate planning check out what i'm
+leaving northern virginia's biggest snow
+in a while y'all here we go to doas
+
 URL: https://youtu.be/bbsqmuDjpmI
 Title: Stop overrating internships
 Transcript:
@@ -5809,6 +7552,43 @@ roles also don't ignore them or
 underrate them check out this github
 repo follow for more
 
+URL: https://youtu.be/zjP42eYmYYE
+Title: Doctorate holders could only tell one-third of the time 😬
+Transcript:
+if you work in research what is your
+creepiest finding i'll go first my
+research shows that a graduate degree
+holder not just an average person a
+highly educated person usually cannot
+detect when a written statement was
+written by gp4 not a human
+
+URL: https://youtu.be/SMvWuT6pCYM
+Title: Day 3 plugging a novel small group learning format
+Transcript:
+so you want to learn to code what's the
+lowrisk option probably college but that
+takes a long time right takes four or
+five plus years what's the fast option
+coding boot camps but a lot of those are
+really expensive and or
+sus um the affordable option is you can
+teach yourself to code but less than 5%
+of online course enrol le ever complete
+so that seems like a bad idea there's a
+really cool other option you don't run
+into this a lot because there's only
+like a few experts in the industry that
+can actually do this but hey i'm one of
+them my name is john and in february
+i'll be running a small group learning
+format so if you're interested in that
+drop a comment or shoot me a dm by the
+way it's more affordable than a coding
+boot camp and faster than a college and
+more effective than studying on your own
+so
+
 URL: https://youtu.be/Xo_IzE2vjyg
 Transcript:
 eddie asks what is the biggest problem
@@ -5820,6 +7600,74 @@ market most of my advice is tailored to
 the usa and i advise people to go for
 react for sure notice this advice is
 country specific
+
+URL: https://youtu.be/VOgONXbcA4E
+Title: Need to iterate on this one
+Transcript:
+if you're interested in machine learning
+programming or data science unserious
+question what do you call it when you
+use a salmon to
+type your algorithm on your
+keyboard efficient
+
+URL: https://youtu.be/iK_2G9HG3oY
+Title: make a program and start identifying as a programmer
+Transcript:
+and the final gem i learned from atomic
+habits emphasizes how identity drives
+behavior Ladderly is the only
+educational platform that solves this
+day one and as a student this is a great
+deal of respect for you computer science
+programs will have you identifying as a
+student for years and years you're never
+good enough you never know am i ready
+for a job this is a problem for
+motivation it breeds dropout it breeds
+imposter syndrome it makes networking
+difficult because you're like i don't
+know can i really claim it sign up for
+Ladderly today and you can solve this
+problem day one you will never have to
+wonder about whether you're programmer
+or not because you will have a portfolio
+with a program on it day one higher
+motivation reduced imposter syndrome you
+can reach out and network with
+confidence because you are a programmer
+you've you've written programs you're a
+programmer it's that simple don't
+overthink it sign up
+
+URL: https://youtu.be/0CZUHOXW1wA
+Title: How to prove experience as a career switcher, new grad, or dev without professional works experience
+Transcript:
+recruiter should not push back on your
+experience if your experience is an
+open- source
+project you can fully list your closed
+source project as well but if the
+recruiter pushes back they might have a
+point because because recruiters will
+sometimes try to downplay your
+experience and they'll say oh like
+you're a new grad from college so you
+don't have any professional work
+experience and when we say two years of
+experience for this junior level role we
+want two years of professional work
+experience how is that even possible
+dude you need to include my portfolio
+experience in my volunteering
+experience and so i started building
+this portfolio when i was a sophomore or
+a junior so i do have two years of
+experience so that's the game that's
+played does that make sense if it's
+hosted publicly on github you think we
+can safely list it yeah exactly because
+it's it's proof for everyone can see it
 
 URL: https://youtu.be/8j3Lew0tFAo
 Title: Delta Variant Changing Tech?
@@ -5894,6 +7742,18 @@ start coding was high school second best
 time is now that's why clement says my
 biggest regret as a software engineer is
 not having learned to code earlier
+
+URL: https://youtu.be/IyT6dgGihSo
+Title: Bye flash of ugly content
+Transcript:
+open source programming fixed five
+issues on Ladderly let me tell you
+about one of them look where the arrow
+is pointing there's a flash of poorly
+styled content do you see that gray
+background we don't like it and this is
+how it looks now on mobile follow if you
+want to see the other improvements
 
 URL: https://youtu.be/3r4sUaH4Gec
 Title: learn HTML pt 3
@@ -6017,6 +7877,20 @@ three-tier idea so i'm thinking right
 now ads and priority support and then in
 the future maybe like a custom chat
 
+URL: https://youtu.be/nD0DQt-glkg
+Transcript:
+oh my gosh beautiful roses i'm throwing
+roses roses roses roses
+
+URL: https://youtu.be/5LmK-4DQA2o
+Title: PT 2 technical interview but the interviewer is into improv
+Transcript:
+so i was planning on using python new
+choice i mean javascript new choice i
+was planning on using java listen idiot
+new choice can i just write out the bite
+code are you cool with that
+
 URL: https://youtu.be/6t4LBrDNmWY
 Transcript:
 what's up luca thanks for the question
@@ -6078,6 +7952,12 @@ you had the job you're not going to make
 six months of experience magically
 appear so get started now
 
+URL: https://youtu.be/bBYNl7_APs8
+Title: STOP STRESSING ITS A LEARNING EXPERIENCE BY DESIGN
+Transcript:
+[music]
+oh
+
 URL: https://youtu.be/ZiXQRinh0Bs
 Title: The special way im investing with Robinhood
 Transcript:
@@ -6089,6 +7969,24 @@ strategies from leading investors
 autopilot integrates to robinhood two
 links into my bio you can get up to 200
 and free stock check it out now
+
+URL: https://youtu.be/BZIBB1qkIaY
+Title: Prefer space-spelled full stack and other engineering terms on your resume
+Transcript:
+how to spell full stack on your resume
+any of these are going to be fine but
+you can see the red with the space
+spelling wins on the far left and far
+right and just overall wins on the graph
+so why not be the best why not pick that
+one this is also going to go for front
+end and back end they all work but
+that's the best
+
+URL: https://youtu.be/-oQtdhaIIKg
+Title: How to become a developer (easy)
+Transcript:
+s to be popular popular be popular
 
 URL: https://youtu.be/1vdZIwIi32A
 Title: Front-End Web Development: What You Didn't Know You Needed to Start
@@ -6156,6 +8054,30 @@ large language models like gpt4 do
 understand concepts like truth and
 falsehood and there could be additional
 ways that we don't yet understand
+
+URL: https://youtu.be/v4hp8e0WxGo
+Title: CRUD: what is read?
+Transcript:
+peter thanks for the question think
+about a video game you're loading a
+saved game that's a re you're looking up
+data that's already in the database a
+little extra data on database design we
+talk about create read update and delete
+a read is a read the others are called
+writes cuz you're actually changing
+what's in the database
+
+URL: https://youtu.be/Da7Zuku2pdc
+Title: Using git from the jump is a cheat code
+Transcript:
+so i teach people to code and one day a
+student tells me yo my file is missing
+like just missing somehow maybe they
+moved it or deleted or whatever luckily
+we push to github on the first day so
+here's three git techniques you can do
+to recover that file
 
 URL: https://youtu.be/UWb5nq9NUIA
 Title: Consistency 🔑 🔑
@@ -6241,6 +8163,63 @@ mark lines up with peak productivity and
 that was twice as fast for internet as
 electricity
 
+URL: https://youtu.be/Ue8L93j9ePQ
+Title: open source contributions pay large dividends, but they are often applied indirectly
+Transcript:
+here's a common misconception open
+source contributors don't get paid and
+their work is often stolen the truth is
+that open source contributors like
+myself often do get paid but it's often
+indirect sometimes we do get directly
+paid that's relatively rare often we get
+indirect payments through accelerated
+career velocity we look more attractive
+to employers we can command a higher
+salary if you've never been a
+professional programmer an open source
+contribution could be your ticket to
+your first professional programming role
+that is aug huge indirect payment to
+take full advantage of this as a junior
+make sure that you mention your open-
+source contribution on your resume and
+include the technical skill keywords
+related to that project in your
+contribution this will improve the
+ability of your resume to get through an
+ats that is looking for your skill
+keywords it'll also look better to an
+employer if they do a manual review with
+regard to stealing this is a tiny
+problem related to strange licenses for
+the most part we happily share code and
+we don't consider a theft
+
+URL: https://youtu.be/Cl9fYK70vkI
+Title: Upcoming features for
+Transcript:
+staring at the page you open up the
+dirty window let the sun
+
+URL: https://youtu.be/iRyC06DZLqc
+Title: Limitations of GPT-4 tool usage
+Transcript:
+limitations of chat gpt the premium
+version with tool usage right now so
+here you can see that i'm trying to get
+it to summarize my blog article it
+summarizes it but it won't give me the
+exact text basically there's a policy
+against web scraping it won't give me
+the image either so gpt 4 can view
+images but it won't do this remotely it
+won't scrape and it basically can't use
+apis like this Aria's Tale api which makes
+it a problem for tool usage that said i
+will be making a custom gpt so follow if
+you're interested to use it
+
 URL: https://youtu.be/8ivgdcbc5V4
 Transcript:
 crash course and effort estimation for
@@ -6278,6 +8257,50 @@ by team consensus or subject matter
 expertise don't forget the basics if you
 hit extra large break it up deliver
 iteratively
+
+URL: https://youtu.be/N5YmrWullrM
+Title: Be awesome, be social
+Transcript:
+have you ever tried to get a job without
+social networking or like professional
+networking or just like networking at
+all what did you do exactly and how did
+that work out for you yeah so in 2024
+you should be social networking for your
+professional job search here's a cheat
+code you can start social networking as
+you learn doing these two together
+creates social learning experiences and
+team-based learning experiences that
+result in better learning retention for
+you and when it comes time to actually
+ask for a referral feels genuine cuz
+you've built relationships with these
+people so try learning in public try
+making a tik tok or a tweet or a blog
+article about whatever it is you're
+studying from the beginning by
+explaining it you're going to reinforce
+your learning and you're going to build
+a social network that's helpful for you
+when you go to look for a job one other
+thing you can do is join a small group
+that i'm leading social networking video
+voice right better than just over text
+and tweets if you're interested drop a
+comment or shoot me a dm
+
+URL: https://youtu.be/_TGL4W2k1aI
+Title: Flutter vs React
+Transcript:
+if you're trying to learn to code and
+land a job as a software engineer or if
+you're a career switcher please don't
+learn flutter look at this do your own
+research about 1,000 jobs for this one
+react is over 60,000 the pay is higher
+too and this is for an entrylevel react
+engineer
 
 URL: https://youtu.be/_A_Jpr9HkGA
 Title: AI03: Build a Website with Midjourney, Figma & ChatGPT
@@ -7820,19 +9843,35 @@ state management space follow for part
 two my top three lessons learned in this
 space
 
-URL: https://youtu.be/eiO0fCYvpVs
-Title: Vercel is cool, not bad, and is right
+URL: https://youtu.be/Zpi8oiwZeBM
+Title: Do you need a degree to become a programmer or software developer?
 Transcript:
-[music]
-next.js these days include some cool
-features that are currently only
-supported on versel is this an example
-of lock-in in the video in front of us
-theo convincingly answers the answer is
-no other vendors could support these
-open source features in the future the
-fact that russell does it today it makes
-them cool not bad
+that's a really solid question uh the
+answer is uh very deep the answer is no
+
+URL: https://youtu.be/rmgW3Ceh5t4
+Title: CS new grad advice
+Transcript:
+so i'm a self-taught developer i don't
+have a cs degree so my expertise with
+new grat is kind of limited but i found
+this comment really insightful i don't
+know if this is trending up trending
+down trending sideways some companies do
+it some don't reddit useful link for
+once
+
+URL: https://youtu.be/kkgGiJ06czw
+Title: React over Solidity
+Transcript:
+what's up anon i feel your pain um under
+2,000 solidity jobs in the us learn
+react learn react learn react and don't
+tell me it doesn't help you at this
+point because you can still pivot and
+learn react right now which is what i
+recommend you do and also for others
+watching just start with react
 
 URL: https://youtu.be/kFSfF4ZD4oc
 Title: Stay tuned to learn more about what my team is building
@@ -7845,6 +9884,14 @@ participating you're welcome to join my
 team hurry up get on the discord link in
 my bio or follow the page for updates on
 what we're building
+
+URL: https://youtu.be/jCgMMJW_77M
+Title: Concatenation is adding strings but make it hard to remember
+Transcript:
+so you're a junior and you want to sound
+awesome like blow people away right
+repeat after me interpolation is
+isomorphic to concatenation
 
 URL: https://youtu.be/sMJrhzewVyc
 Title: The Hardest Part of React.js
@@ -7859,6 +9906,37 @@ would like to know what you think i
 think the four key concepts are state
 props hooks and jsx
 
+URL: https://youtu.be/LM99LTrF5fY
+Title: Runway ML still winning text to video, but Pika wins for image to video without text!
+Transcript:
+today i reviewed some ai generated video
+we reviewed pabs we reviewed runway ml
+google video poet and leonardo motion
+google video poet we realized cannot be
+accessed leonardo motion pretty much
+lost out the render quality for leonardo
+motion wasn't very good there wasn't
+actually that much motion and there was
+some notable warping here we're looking
+at pabs in general the video is very
+good and it's good at following
+instruction about the style so this is
+an anime style this is the ordinary
+style it's not good at some kinds of
+instructions other than the style so
+this is supposed to have an orange sky
+and it's supposed to have a monster in
+the sky it just straight up just didn't
+render those so runway wins for text to
+video pabs however you can provide it in
+image and if you provide it the image
+without any text it's very good at
+animating the image alone better i think
+than runway if you provide it the image
+and text it doesn't do a very good job
+here's runway with the better text to
+video
+
 URL: https://youtu.be/UFpUQrIhUCU
 Transcript:
 anyone got any tips to get better at
@@ -7871,19 +9949,6 @@ comfortable with react after going
 through curriculum once do multiple
 projects with different purposes make it
 something that matters to you
-
-URL: https://youtu.be/lQeJ8_EdC7s
-Title: Why Tech Pays (as an econ PhD)
-Transcript:
-[music]
-oh put me in coach econflex so employers
-are willing to pay the marginal revenue
-product of their employee because if
-they give you 10 bucks and you generate
-11 bucks a product it's a win for them
-and technology is the only factor of
-production that doesn't have decreasing
-marginal return
 
 URL: https://youtu.be/gEZ00UUWcbA
 Title: Efficient Bias
@@ -7988,6 +10053,26 @@ mastodon profile picture this is the
 mobile here's desktop and this is open
 source at vandevere not john's linktree
 
+URL: https://youtu.be/gZapiJ3axPs
+Title: Content changes count! Don't gatekeep open source
+Transcript:
+closing five issues on Ladderly this
+weekend including a blog typo your open
+source contributions don't need to be
+really complicated coach changes fixing
+a typo is more than welcome writing a
+blog article or even just identifying
+and creating an issue is a really
+important and welcome contribution
+
+URL: https://youtu.be/Uw4gqO39MsA
+Title: Farmer | AI & Marketing will it blur? Will it distort? Or will we roll a nat 20?
+Transcript:
+new ai tools google video join today's
+event i'll be using text from Aria's Tale
+to test google video poet p labs and
+leonardo motion text to video
+
 URL: https://youtu.be/YIXJMMCKlUY
 Title: Pull up if u want would be cool to see ya
 Transcript:
@@ -8007,6 +10092,11 @@ living it like every day and i just talk
 about my life follow i guess if you're
 into it
 
+URL: https://youtu.be/SB4jrCepf-o
+Title: Now lemme code something
+Transcript:
+baby girl i'm the man from the big ba
+
 URL: https://youtu.be/-G6el6SI5Os
 Title: Artists can Code
 Transcript:
@@ -8017,6 +10107,18 @@ programmer so i hope this helps to break
 the stereotype that programming is like
 just for i don't know boring people or
 something
+
+URL: https://youtu.be/7-sLuzWcDAo
+Transcript:
+hey thanks for the question for s in the
+previous video i don't know what his
+title was but here i'll give you 10 job
+titles you can apply for if you learn to
+build websites with react first five
+right here keep in mind there's actually
+more than 10 i'm just giving you the top
+10 another five right here like and
+follow to learn more
 
 URL: https://youtu.be/_rE1TykSLSo
 Title: (The 6 Ways) Code Ninja Says: How to Leetcode
@@ -8073,6 +10175,42 @@ browser gpu acceleration my m2 apple air
 wrote about 10 tokens or 8 words per
 second what did you get
 
+URL: https://youtu.be/XFQ8sduRjvI
+Transcript:
+how can i be confident that i'm ready to
+start interviewing for my react
+developer role five tips in this video
+first my github portfolio is ready i
+have at least two projects preferably
+three or more second thing practice
+flashcards on brainscape decom
+specifically check out javascript and
+react i want you to get to where 75% of
+the time or more you're getting the
+flashcards correct now go to linkedin
+add javascript react and whatever other
+skills are applicable to your profile
+it'll let you take a skill assessment
+now take the skill assessment for
+javascript click the practice button it
+should give you two sample questions if
+you get them both right you're ready to
+take the real assessment if you get them
+wrong go back to the flashcards i want
+you to hit 90% or higher now obviously
+the next step take the linkedin skill
+assessments take at least these five if
+you know another programming language
+take it for that too and now you're
+ready to start interviewing whether you
+pass those assessments or not pro tip
+you're actually not going to feel
+confident until you actually pass some
+interviews so just dive in the best
+practice that you can get for an
+interview is to take an interview let me
+know if i can do anything else to help
+
 URL: https://youtu.be/ZolYp3dqubA
 Title: 5 Tips for Backend
 Transcript:
@@ -8110,6 +10248,46 @@ meaningful projects on your github since
 your front-end guy reach for node
 express next or blitz.js good luck
 
+URL: https://youtu.be/Of-w51EE8uM
+Title: a gap year is a good idea! Here are some ways to get the most out of it and reduce risk
+Transcript:
+i don't think there's anything wrong
+with taking a year off after high school
+to what's up my name is john i'm a
+software engineer with 10 years of
+experience i've worked for big tech
+names you know like amazon and capital 1
+i also have a phd in economics where i
+studied the return on investment to
+postsecondary alternative credentials
+like boot camps if you're interested in
+programming i really like don's take
+here it's a moderate risk high reward
+opportunity in this video i want to tell
+you how to utilize your gap year and
+then how to drisk your gap year so that
+it becomes a lowrisk high reward
+opportunity to get the most out of your
+gap year build in public start your
+portfolio day one and utilize a three
+strikes rule building in public means
+you're going to be developing content on
+social media as you go along this is
+going to make your job search much
+easier later for the three strikes rule
+i recommend you start programming by
+trying javascript and web development
+but if that doesn't work for you realize
+there are tons of different approaches
+within programming maybe web development
+just doesn't work for you try out python
+and then do some soul searching if
+needed and maybe try out something
+you're passionate about maybe it's game
+development don't start with game
+development look like we're out of time
+follow for part two on drisking
+
 URL: https://youtu.be/ilEPGdTMyRQ
 Title: good vs bad coding bootcamps pt 3/3
 Transcript:
@@ -8143,6 +10321,41 @@ into that they want to learn
 specifically to make video games and
 they'll accept a lower salary so that's
 up to you but i suggest react
+
+URL: https://youtu.be/hhw1VU_mg8Q
+Title: pair programming
+Transcript:
+thank you for the question so i'll give
+you three specific tasks or answers but
+they fall under a general answer which
+is that you get better at pair
+programming by doing pair programming it
+is a situation of practice makes perfect
+and experience matters so my first
+suggestion is just reach out to a senior
+or a mid at your current company and ask
+them to pair with you for a day or on a
+single task i would try and give them
+some heads up it might be too much to
+ask if you say hey today can you give me
+the rest of your time today um so say
+you know on friday or in a couple days
+i'd love to take a day with you or even
+next week i'm really interested in
+trying out peir programming the second
+thing you could do is you could work
+with your team i don't know how many
+people are on your team but you could
+get your engineers to collectively
+suggest to management that we would like
+to do a sprint an agile sprint where we
+try pair programming as a team option
+three is go outside of work you could
+participate in a hackathon contribute to
+an open source project or get involved
+with a social group such as Ladderly
+link in my bio and you might pair
+program with me hope this helps
 
 URL: https://youtu.be/JJb8yG-TTzs
 Title: CSS joke Tier S
@@ -8192,6 +10405,13 @@ URL: https://youtu.be/jEsywZY_qwc
 Title: Switch regularly
 Transcript:
 i thought we had
+
+URL: https://youtu.be/8QQrB-BG7Ak
+Title: Its totally diff than 2023
+Transcript:
+i have fantastic news to
+share i haven't cried this year yet oh
+well it it's only
 
 URL: https://youtu.be/eS7Hcl30gnU
 Transcript:
@@ -8251,6 +10471,25 @@ linkedin html
 skill assessment quiz answers get those
 answers make flash cards drill them
 drill them drill them take the quiz
+
+URL: https://youtu.be/Ve8bzukmrf4
+Title: Portfolios are proof!
+Transcript:
+say oh i built this three years ago well
+did you did you prove it how do you
+prove it if it's publicly listed on
+github you have the green squares the
+famous green squares and the commit
+dates and you have proof that you've
+been doing this for years
+
+URL: https://youtu.be/3USrUfh1rcw
+Title: Oasis review
+Transcript:
+energy drink review today we have oasis
+from
+celsius that's like a that's like a 7
+and a half
 
 URL: https://youtu.be/AD4l5n8HTPo
 Title: The mental model goes way beyond unit testing
@@ -8510,19 +10749,23 @@ technology now for truck drivers big
 difference and bricklaying a classic low
 obsolescence rate industry
 
-URL: https://youtu.be/JA9n5aF85Ho
-Title: CONGRATS!! 🎉
-Transcript:
-you wanna go i can take you
-[music]
-with me
-
 URL: https://youtu.be/8r5rryz47iI
 Transcript:
 no need to rush take your time to learn
 the fundamentals of web development
 learn how to build fully fledged website
 with josh
+
+URL: https://youtu.be/1GU34An1lXU
+Transcript:
+software engineers data people thinking
+about a database to use for your next
+project this is ridiculous a billion
+reads for a dollar like my tiny brain
+cannot comprehend a billion units of
+data without analogy by analogy the
+diameter of the earth in inches is half
+a billion
 
 URL: https://youtu.be/8A942oE76Zg
 Transcript:
@@ -8544,12 +10787,6 @@ find him and then follow my channel for
 part three of three there's more
 homework you need to do to find the
 right boot camp for you
-
-URL: https://youtu.be/hUmCyp-n1-c
-Title: Proof GPT-4 is AGI
-Transcript:
-bro
-[music]
 
 URL: https://youtu.be/KWHbliswVzY
 Title: how to pick specific leetcode questions to practice
@@ -8688,6 +10925,37 @@ some of the things it does out of the
 box for you on the screen there but this
 is just the tip of the iceberg
 
+URL: https://youtu.be/-7AxO8cwoHw
+Title: I dont need to solve an eigenvector to understand a matrix shape mismatch
+Transcript:
+day in the life of a software engineer
+and today i've been dealing with matrix
+math which is really weird to me because
+in my 10-year career i have done more
+matrix math in the past few months than
+the remainder of my career combined and
+i used to be one of these voices saying
+that matrix math is basically irrelevant
+in the college curriculum to work as a
+programmer and i want to stand by that
+and i want to talk about it and the
+reason is because i'm doing none of
+these operations by hand i'm using
+numpy and thinking through the matrix
+math problems with a computer science
+data structure mental model is way more
+helpful than trying to think through
+like matrix notation that i was taught
+you know to sum or multiply matrices in
+sort of a matrix math class instead just
+being able to think through it's an
+array of arrays it's a list of lists of
+integers or floats is a much more
+practical mindset so i'm going to have
+my cake and eat it too acknowledging
+that i have used matrix math but you
+still don't need a college course in it
+
 URL: https://youtu.be/oqf9faXSNR4
 Title: Don't stick to what you're good at
 Transcript:
@@ -8699,6 +10967,21 @@ exercising being healthy is right for me
 i don't need to be the average or better
 than average kickboxer i just need to be
 healthy
+
+URL: https://youtu.be/IGkGg_b-Qac
+Title: touching grass w my tippy toes while doing a lil ponder
+Transcript:
+i'm often asked if i worry about ai
+replacing software engineering roles my
+usual answer is no ai helps software
+engineers it doesn't replace them but
+there's one kind of person who maybe
+should be a little concerned that's
+anyone who thinks they can focus
+exclusively on technical skills to the
+neglect of soft skills communication
+teamwork those people are at the highest
+risk in my opinion getting replaced
 
 URL: https://youtu.be/PN651Zcv7-c
 Title: Unlocking High Paying Job Offers
@@ -8808,16 +11091,6 @@ interpreter can adapt to your code and
 kind of cache parts of functions and
 it's going to make stuff way faster also
 multi-threading follow for part four
-
-URL: https://youtu.be/FWpoozkc1C8
-Transcript:
-so charge ubt ai is going to make people
-more productive and somehow this is
-going to take away jobs it doesn't make
-sense to me make it make sense if i'm an
-employer and i have a tool that can make
-anyone way more productive why would i
-not hire even more people
 
 URL: https://youtu.be/LuFttXwJXWs
 Title: Start with JavaScript, not C++
@@ -9150,6 +11423,18 @@ stop asking what's required start asking
 what's a good return on investment to my
 time and effort
 
+URL: https://youtu.be/TDCbKfpdvvY
+Title: Example professional networking message
+Transcript:
+so here's an example of a good
+networking message that someone sent to
+me and i accepted they use my name they
+refer to a shared interest they use a
+polite tone there's the fun smile face
+they also had a profile picture where
+they were smiling and you could see
+their face great stuff
+
 URL: https://youtu.be/JjE4P414cuA
 Transcript:
 you cannot trust a lot of this phony
@@ -9161,6 +11446,20 @@ the vast majority of companies don't
 care your language is a built-in sort
 method four ways to figure out who to
 really trust right here on screen
+
+URL: https://youtu.be/byHqjGf3I98
+Title: What is an array in JavaScript?
+Transcript:
+what is an array in javascript and why
+do we need them an array is just an
+ordered list like think about the
+alphabet you need it in order right if
+you don't care about the order maybe you
+can use a different data container like
+a set or a map they're really useful if
+you want to compare and sort like give
+me your three best memes you got to put
+them in order
 
 URL: https://youtu.be/RDz-TnG0fvw
 Title: Its almost like anti-technology bias and fear porn influence society
@@ -9252,13 +11551,6 @@ doing like all kinds of video
 walkthroughs and he's putting out new
 solutions like almost every day
 
-URL: https://youtu.be/F8QoxZSYei4
-Title: Follow the Process!
-Transcript:
-it's just a grotesque post-modern psyop
-and anyone who's fallen for this is
-brain damaged
-
 URL: https://youtu.be/T2LAnNU8UcM
 Title: guess and check is a key skill
 Transcript:
@@ -9272,6 +11564,57 @@ is look at the number of stars and three
 is look at the downloads per week as a
 trend for indicators for us developers
 you know like me
+
+URL: https://youtu.be/SLEzYmWI3Iw
+Title: Very big brain very nuance subtle analysis of important and weighty decision before coding
+Transcript:
+you might be thinking about learning to
+code and you might have heard of these
+different job families there's these
+huge subtle nuance differences right so
+let's get into the differences there
+isn't one there isn't one there isn't
+one they're the same thing just learn a
+code just get a job see you on the other
+side
+
+URL: https://youtu.be/nCXn7kPpe0I
+Title: 🔥 start a portfolio today! Check it out
+Transcript:
+just released an improved trial by fire
+you're going to hear more about this in
+the coming days and weeks this will take
+you from zero to hero from zero coding
+experience to deploying your first
+website in under 2 hours check it out
+now
+
+URL: https://youtu.be/wvqHkB7oXQE
+Title: Evidente break mind silos for public benefit
+Transcript:
+when asked to come in for an 8 a.m.
+meeting my genz new hire said ug sorry i
+can't make it i have a workout class
+kudos to the genzer you work 9 to5 if
+you're in a traditional job and many
+tech jobs will have court hours so you
+don't even need to hit 9 to five let
+alone eight i take on the fact that some
+people are shocked about this is i think
+it's like the hurt people hurt people
+thing they are questioning this new set
+of norms and they're like wait i wasn't
+allowed to do this when i was young and
+they're like reporting this to their
+other like abusive teammates their boss
+or whatever and they're like this is bad
+right and they're getting the
+reinforcement like yeah this is bad we
+don't do this the fact that you have an
+echo chamber in a silo where like that
+toxic behavior is allowed is like not a
+good reason to go crap all over gen z
+like they're doing the right thing
 
 URL: https://youtu.be/JyJsBVZCJo4
 Title: Why JavaScript is THE best programming language...period!
@@ -9312,6 +11655,29 @@ listen here man i don't know who needs
 to hear this today but
 no
  no
+
+URL: https://youtu.be/76dE6Iew2cc
+Title: How to score free mentorship and grow your brand as a thought leader!
+Transcript:
+coding thought leaders and students you
+can now mark if you're interested in
+joining a live stream use this to grow
+your brand or for free personal
+mentorship find it under the settings
+tab at Ladderly now
+
+URL: https://youtu.be/QkjzosOm0Ew
+Title: We need ratings and prices not just view based payouts to leverage concentrated value including the
+Transcript:
+so i'm really disappointed with open
+ai's decision to follow an attention
+based business model the reason is due
+to basic economics they're going to
+foster shallow culture attention is not
+paying dollars out of your pocket
+there's little skin in the game it's a
+big quantity move it's a low depth move
+it fosters brain rot not deep education
 
 URL: https://youtu.be/-1vqVgtjDOM
 Title: We're all less than six degrees away from in 2023 with social media in full swing
@@ -9361,6 +11727,12 @@ are like so far off base that even if i
 help him technically he's still not
 going to be able to get a job employers
 are going to think the same
+
+URL: https://youtu.be/8mDMFUiIkUs
+Title: Tech can sustainably fix inflation, cost of living issues, poverty, even global warming, healthcare…
+Transcript:
+guess what it grows the
+economy benefits everybody
 
 URL: https://youtu.be/cZ2ssaipqnw
 Title: Post-interview follow up guidance
@@ -9467,6 +11839,41 @@ ordinary javascript document api
 elements a component fall to hear more
 about components
 
+URL: https://youtu.be/PpiuEHXYMdc
+Transcript:
+part three of five why breaking into
+tech through data science is a bad idea
+it's exactly this in a data science boot
+camp you're not really learning rigorous
+statistics or theory you're learning
+business analysis and they're selling
+you a sexy marketing term of data
+science here are some top google results
+for data science boot camps we have
+vanderbilt mit university of texas at
+austin notice the university of texas at
+austin number four in analytics they're
+already giving away the game if you
+click the link to the vanderbilt data
+science boot camp they immediately
+switch language and to university data
+analytics boot camp similarly ut you
+click the link in their marketing page
+brags that the school is ranked number
+three in the master of science for
+business analytics why do i care that
+your school is ranked three at the
+master's level in business analytics if
+i'm here to learn data science and in
+theory this is supposed to be an
+alternative to a grad program or even an
+undergrad program according to online
+influencers lower down the page learn
+dsba skills so they're literally
+squishing the terms together data
+science business analysis two more parts
+follow don't
+
 URL: https://youtu.be/jOH7wG8QYkw
 Transcript:
 would you learn plain javascript first
@@ -9476,6 +11883,19 @@ considering that react leans heavily on
 things like destructuring advanced array
 methods etc i would learn es6 javascript
 first before diving into react
+
+URL: https://youtu.be/neU5oiuXkEM
+Transcript:
+so how do you get a tech job how do you
+make money like that bunch of ways you
+can do this i recommend you learn react
+go to code academy do the frontend path
+github portfolio at least three projects
+a blog and a portfolio site and a
+passion project linkedin skill
+certifications get ready to interview
+hit me up if you need help link in the
+bio
 
 URL: https://youtu.be/SH2HPLCIoAM
 Title: What is Blind 75?

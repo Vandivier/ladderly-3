@@ -36,10 +36,23 @@ def replace_smart_quotes(s: str):
 
 
 def wrangle_transcript(transcript: str):
-    transcript = transcript.lower().replace("\u2018", "'").replace("\u2019", "'")
-    transcript = transcript.replace("laterally", "Ladderly")
-    transcript = transcript.replace("latterly", "Ladderly")
-    return transcript
+    replacements = {
+        "\u2018": "'",
+        "\u2019": "'",
+        "laterally": "Ladderly",
+        "latterly": "Ladderly",
+        "latly": "Ladderly",
+        "doio": "dot io",
+        "arya tale": "Aria's Tale",
+        "arus tale": "Aria's Tale",
+        "arya": "aria",
+    }
+
+    result = transcript.lower()
+    for old, new in replacements.items():
+        result = result.replace(old, new)
+
+    return result
 
 
 def remove_hashtags(title):
