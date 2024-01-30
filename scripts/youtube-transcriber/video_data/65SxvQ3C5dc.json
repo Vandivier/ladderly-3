@@ -1,0 +1,37 @@
+{
+  "id": "65SxvQ3C5dc",
+  "url": "https://youtu.be/65SxvQ3C5dc",
+  "title": "Better web UI and small context window support #opensource #languagemodels",
+  "description": null,
+  "publish_date": "2023-12-27T00:00:00",
+  "length": 9,
+  "views": 69,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "a better game guide for Arya tale has",
+      "start": 0.12,
+      "duration": 3.839
+    },
+    {
+      "text": "just been merged this includes a bridged",
+      "start": 1.76,
+      "duration": 4.119
+    },
+    {
+      "text": "instructions for language models with a",
+      "start": 3.959,
+      "duration": 3.48
+    },
+    {
+      "text": "smaller token window check it out now",
+      "start": 5.879,
+      "duration": 4.361
+    },
+    {
+      "text": "Arya tale.com",
+      "start": 7.439,
+      "duration": 2.801
+    }
+  ]
+}

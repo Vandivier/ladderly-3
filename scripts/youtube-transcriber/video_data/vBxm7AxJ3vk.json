@@ -1,0 +1,37 @@
+{
+  "id": "vBxm7AxJ3vk",
+  "url": "https://youtu.be/vBxm7AxJ3vk",
+  "title": "Take my job fam try #leetcode",
+  "description": null,
+  "publish_date": "2024-01-24T00:00:00",
+  "length": 11,
+  "views": 116,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "when the audience looks at your code and",
+      "start": 0.44,
+      "duration": 4.24
+    },
+    {
+      "text": "says that's way too complicated for two",
+      "start": 2.399,
+      "duration": 4.721
+    },
+    {
+      "text": "Su and you say this is not two sum this",
+      "start": 4.68,
+      "duration": 4.8
+    },
+    {
+      "text": "is no sort 3 sum and I just solved it",
+      "start": 7.12,
+      "duration": 5.639
+    },
+    {
+      "text": "efficiently so you can show",
+      "start": 9.48,
+      "duration": 3.279
+    }
+  ]
+}

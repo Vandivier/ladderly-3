@@ -1,0 +1,52 @@
+{
+  "id": "fKy3Dp04vR8",
+  "url": "https://youtu.be/fKy3Dp04vR8",
+  "title": "- Land a Coding Job recursive doc dir support for #gamdev #programming",
+  "description": null,
+  "publish_date": "2023-12-31T00:00:00",
+  "length": 15,
+  "views": 40,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "so Arya tail has multiple narrative arcs",
+      "start": 0.359,
+      "duration": 3.481
+    },
+    {
+      "text": "that are played concurrently so I",
+      "start": 2.399,
+      "duration": 3.801
+    },
+    {
+      "text": "swapped The Narrative file for a folder",
+      "start": 3.84,
+      "duration": 4.6
+    },
+    {
+      "text": "then I changed fil name. TSX to use the",
+      "start": 6.2,
+      "duration": 3.88
+    },
+    {
+      "text": "ellipses and brackets which supports",
+      "start": 8.44,
+      "duration": 3.72
+    },
+    {
+      "text": "nesting then instead of a single index",
+      "start": 10.08,
+      "duration": 4.439
+    },
+    {
+      "text": "page I extracted a generic index page",
+      "start": 12.16,
+      "duration": 4.92
+    },
+    {
+      "text": "component",
+      "start": 14.519,
+      "duration": 2.561
+    }
+  ]
+}

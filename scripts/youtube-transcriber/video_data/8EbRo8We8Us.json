@@ -1,0 +1,142 @@
+{
+  "id": "8EbRo8We8Us",
+  "url": "https://youtu.be/8EbRo8We8Us",
+  "title": "Realistic tasks you will perform as a software engineer #computerscience",
+  "description": null,
+  "publish_date": "2024-01-12T00:00:00",
+  "length": 59,
+  "views": 2508,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "so what do professional software",
+      "start": 0.24,
+      "duration": 3.0
+    },
+    {
+      "text": "Engineers actually do I'll tell you what",
+      "start": 1.56,
+      "duration": 3.44
+    },
+    {
+      "text": "I did yesterday as an example my",
+      "start": 3.24,
+      "duration": 3.48
+    },
+    {
+      "text": "company's making a new product and it is",
+      "start": 5.0,
+      "duration": 3.92
+    },
+    {
+      "text": "dynamically priced based on some stuff a",
+      "start": 6.72,
+      "duration": 4.799
+    },
+    {
+      "text": "user puts into a form so I made a new",
+      "start": 8.92,
+      "duration": 5.759
+    },
+    {
+      "text": "Fast API route and then we take that",
+      "start": 11.519,
+      "duration": 5.001
+    },
+    {
+      "text": "information that the user sends and we",
+      "start": 14.679,
+      "duration": 4.68
+    },
+    {
+      "text": "put it into a library so my service",
+      "start": 16.52,
+      "duration": 5.759
+    },
+    {
+      "text": "that's in fast API is calling a library",
+      "start": 19.359,
+      "duration": 4.641
+    },
+    {
+      "text": "so I also had to make some updates in",
+      "start": 22.279,
+      "duration": 3.84
+    },
+    {
+      "text": "that Library I used a whole lot of",
+      "start": 24.0,
+      "duration": 3.679
+    },
+    {
+      "text": "reference code so we already have a",
+      "start": 26.119,
+      "duration": 4.16
+    },
+    {
+      "text": "bunch of products so when I make a new",
+      "start": 27.679,
+      "duration": 4.161
+    },
+    {
+      "text": "or when I make a new pricing function in",
+      "start": 30.279,
+      "duration": 4.841
+    },
+    {
+      "text": "this Library I need it to be similar to",
+      "start": 31.84,
+      "duration": 5.64
+    },
+    {
+      "text": "the existing logic when my draft was",
+      "start": 35.12,
+      "duration": 4.36
+    },
+    {
+      "text": "done I prepared it for peer review so I",
+      "start": 37.48,
+      "duration": 3.759
+    },
+    {
+      "text": "made sure that it was formatted we used",
+      "start": 39.48,
+      "duration": 5.559
+    },
+    {
+      "text": "black passing my PC type checks and",
+      "start": 41.239,
+      "duration": 5.761
+    },
+    {
+      "text": "basically passing the pipeline when all",
+      "start": 45.039,
+      "duration": 3.601
+    },
+    {
+      "text": "this was done I had to recruit teammates",
+      "start": 47.0,
+      "duration": 4.32
+    },
+    {
+      "text": "to review my code and then I will have",
+      "start": 48.64,
+      "duration": 5.439
+    },
+    {
+      "text": "to create a release of the library and",
+      "start": 51.32,
+      "duration": 4.84
+    },
+    {
+      "text": "do an install in the service and do",
+      "start": 54.079,
+      "duration": 6.64
+    },
+    {
+      "text": "another P request lots of fun",
+      "start": 56.16,
+      "duration": 4.559
+    }
+  ]
+}

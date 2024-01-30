@@ -1,0 +1,52 @@
+{
+  "id": "H9iaWO5-z2s",
+  "url": "https://youtu.be/H9iaWO5-z2s",
+  "title": "on technical judgement",
+  "description": null,
+  "publish_date": "2023-12-29T00:00:00",
+  "length": 15,
+  "views": 4,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "how can developers become more efficient",
+      "start": 0.359,
+      "duration": 3.52
+    },
+    {
+      "text": "and judicious when I read code how can I",
+      "start": 2.0,
+      "duration": 3.359
+    },
+    {
+      "text": "learn to say this code is worth the",
+      "start": 3.879,
+      "duration": 3.161
+    },
+    {
+      "text": "effort to refactor that code let's let",
+      "start": 5.359,
+      "duration": 3.561
+    },
+    {
+      "text": "it be this was a wonderful question",
+      "start": 7.04,
+      "duration": 4.04
+    },
+    {
+      "text": "asked to James it was too long to stitch",
+      "start": 8.92,
+      "duration": 4.04
+    },
+    {
+      "text": "so I added a comment tap the comment go",
+      "start": 11.08,
+      "duration": 5.559
+    },
+    {
+      "text": "view his excellent answer",
+      "start": 12.96,
+      "duration": 3.679
+    }
+  ]
+}

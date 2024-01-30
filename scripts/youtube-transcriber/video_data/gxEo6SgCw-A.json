@@ -1,0 +1,177 @@
+{
+  "id": "gxEo6SgCw-A",
+  "url": "https://youtu.be/gxEo6SgCw-A",
+  "title": "A true data science mindset is utterly foreign to most programmers",
+  "description": null,
+  "publish_date": "2024-01-20T00:00:00",
+  "length": 59,
+  "views": 50,
+  "channel": "Programming with John",
+  "transcript": [
+    {
+      "text": "do software Engineers need to have a",
+      "start": 0.28,
+      "duration": 4.12
+    },
+    {
+      "text": "data science mindset nowadays this is a",
+      "start": 2.28,
+      "duration": 3.44
+    },
+    {
+      "text": "question I got during one of my live",
+      "start": 4.4,
+      "duration": 3.039
+    },
+    {
+      "text": "coding streams the answer is a",
+      "start": 5.72,
+      "duration": 4.24
+    },
+    {
+      "text": "resounding no data science is a mindset",
+      "start": 7.439,
+      "duration": 4.041
+    },
+    {
+      "text": "of probability when it comes to",
+      "start": 9.96,
+      "duration": 3.4
+    },
+    {
+      "text": "programming we are not thinking in terms",
+      "start": 11.48,
+      "duration": 3.399
+    },
+    {
+      "text": "of probabilities we are thinking",
+      "start": 13.36,
+      "duration": 3.919
+    },
+    {
+      "text": "inductively and deductively we want",
+      "start": 14.879,
+      "duration": 4.001
+    },
+    {
+      "text": "guarantees that certain things are going",
+      "start": 17.279,
+      "duration": 3.521
+    },
+    {
+      "text": "to happen when certain logic triggers",
+      "start": 18.88,
+      "duration": 3.159
+    },
+    {
+      "text": "when we're troubleshooting or doing a",
+      "start": 20.8,
+      "duration": 3.0
+    },
+    {
+      "text": "root cause analysis we also want to",
+      "start": 22.039,
+      "duration": 3.601
+    },
+    {
+      "text": "follow a deductive or inferential",
+      "start": 23.8,
+      "duration": 4.239
+    },
+    {
+      "text": "mindset not a probabilistic mindset this",
+      "start": 25.64,
+      "duration": 3.719
+    },
+    {
+      "text": "will be your guidance at the Junior and",
+      "start": 28.039,
+      "duration": 3.041
+    },
+    {
+      "text": "mid level at the senior level you will",
+      "start": 29.359,
+      "duration": 3.521
+    },
+    {
+      "text": "start to encounter probability again",
+      "start": 31.08,
+      "duration": 2.999
+    },
+    {
+      "text": "this will have to do with things like",
+      "start": 32.88,
+      "duration": 2.92
+    },
+    {
+      "text": "traffic patterns then you're going to",
+      "start": 34.079,
+      "duration": 3.281
+    },
+    {
+      "text": "want to be able to correlate bugs to",
+      "start": 35.8,
+      "duration": 3.04
+    },
+    {
+      "text": "traffic patterns you don't need to worry",
+      "start": 37.36,
+      "duration": 3.24
+    },
+    {
+      "text": "about those things at the junior level",
+      "start": 38.84,
+      "duration": 3.92
+    },
+    {
+      "text": "if you are capable of having both of",
+      "start": 40.6,
+      "duration": 4.32
+    },
+    {
+      "text": "these mindsets and toggling between them",
+      "start": 42.76,
+      "duration": 3.68
+    },
+    {
+      "text": "correctly that's going to be a huge",
+      "start": 44.92,
+      "duration": 3.799
+    },
+    {
+      "text": "benefit but don't have that standard in",
+      "start": 46.44,
+      "duration": 4.119
+    },
+    {
+      "text": "mind for other software Engineers very",
+      "start": 48.719,
+      "duration": 3.761
+    },
+    {
+      "text": "few people can do that so when you're",
+      "start": 50.559,
+      "duration": 3.68
+    },
+    {
+      "text": "thinking about their mindset most",
+      "start": 52.48,
+      "duration": 3.48
+    },
+    {
+      "text": "programmers will have a deductive",
+      "start": 54.239,
+      "duration": 3.561
+    },
+    {
+      "text": "nonprobabilistic mindset that's going to",
+      "start": 55.96,
+      "duration": 4.919
+    },
+    {
+      "text": "help you with communication",
+      "start": 57.8,
+      "duration": 3.079
+    }
+  ]
+}
