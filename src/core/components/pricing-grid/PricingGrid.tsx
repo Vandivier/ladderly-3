@@ -55,7 +55,10 @@ const plans: Plan[] = [
       },
       { text: "Standard Checklist" },
       { text: "Access the Social Community" },
-      { text: "24/7 Support with AI Chat", url: "https://www.youtube.com/watch?v=aC4_1mTa-aI" },
+      {
+        text: "24/7 Support with AI Chat",
+        url: "https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt",
+      },
       { text: "Schedule Expert Consultations" },
       { text: "Store Access" },
     ],
