@@ -15,7 +15,7 @@ async function updateSubscriptionTiers() {
 
   for (const record of data) {
     const amountPaid = parseFloat(record["amount"].replace(/[^0-9.]/g, ""))
-    const email = record["email"]
+    const email = record["email"].toLowerCase()
     const contributedAt = new Date(record["date"])
     const transactionId = record["transactionId"] || null
 
