@@ -29,7 +29,7 @@ export const TopNavRight = () => {
     if (openMenuName === "account") {
       setMenu(null, "")
     } else if (currentUser) {
-      setMenu(<AccountMenuItems />, "account")
+      setMenu(<AccountMenuItems currentUser={currentUser} />, "account")
     }
   }
 

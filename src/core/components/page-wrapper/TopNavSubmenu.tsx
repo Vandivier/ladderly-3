@@ -1,22 +1,23 @@
 import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
+import { User } from "db"
 import Link from "next/link"
 import React from "react"
 
 import logout from "src/auth/mutations/logout"
-import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 export const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold"
 export const MENU_ITEM_STANDARD_CLASSES =
   "font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
 
 export const AccountMenuItems = ({
+  currentUser,
   linkClassName = MENU_ITEM_STANDARD_CLASSES,
 }: {
+  currentUser: Partial<User>
   linkClassName?: string
 }) => {
-  const currentUser = useCurrentUser()
-  const userId = currentUser?.id
+  const userId = currentUser.id
 
   return userId ? (
     <MenuItemsWrapper>
