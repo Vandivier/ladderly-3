@@ -29,3 +29,18 @@ As a manual batch:
 
 Note: The scraper, as with many scrapers, is fragile.
 If Stripe alters the table shape we may need to update it.
+
+## Minified React Error #426
+
+This error has been seen as a result of a render occuring out of suspense.
+
+Look for components that should be wrapped in `<Suspense>`.
+
+Possible fixes include:
+
+1. Adding the Suspense wrapper
+2. Refactoring the component so that it doesn't need suspsense. For example, by passing in data from another location.
+
+Ensure that this is pure a client-side error in your case by inspecting server logs (it probably is only on the client).
+
+Keep an eye out for dynamically appended components, such as a component appended through state or context. The dynamic closure may not be suspended, and that could be the issue. The above mentioned fixes still apply.

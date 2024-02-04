@@ -22,7 +22,7 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
             : "You are not authorized to access this."}
         </h2>
 
-        <p>
+        <div>
           {error instanceof AuthenticationError ? (
             <div>
               <Link
@@ -46,7 +46,7 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
               Back to Home
             </Link>
           )}
-        </p>
+        </div>
       </div>
     </LargeCard>
   </LadderlyPageWrapper>
