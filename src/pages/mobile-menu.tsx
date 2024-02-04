@@ -1,4 +1,5 @@
 import { BlitzPage, Routes } from "@blitzjs/next"
+import { User } from "db"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { Suspense } from "react"
@@ -17,7 +18,7 @@ const MOBILE_LINK_CLASSES =
   "block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900"
 const MOBILE_SUBMENU_ITEM_CLASSES = `${MENU_ITEM_STANDARD_CLASSES} m-3`
 
-const AuthenticatedMenuItems = () => {
+const AuthenticatedMenuItems = ({ currentUser }: { currentUser: Partial<User> }) => {
   const [isSubmenuOpen, setIsSubmenuOpen] = React.useState(false)
 
   const toggleAccountSubmenu = () => {
@@ -39,7 +40,10 @@ const AuthenticatedMenuItems = () => {
 
         {isSubmenuOpen && (
           <ul className="flex w-full">
-            <AccountMenuItems linkClassName={MOBILE_SUBMENU_ITEM_CLASSES} />
+            <AccountMenuItems
+              currentUser={currentUser}
+              linkClassName={MOBILE_SUBMENU_ITEM_CLASSES}
+            />
           </ul>
         )}
       </li>
@@ -66,7 +70,7 @@ const GuestMenuItems = () => {
 
 const AuthenticatedPartialMenu = () => {
   const currentUser = useCurrentUser()
-  return currentUser ? <AuthenticatedMenuItems /> : <GuestMenuItems />
+  return currentUser ? <AuthenticatedMenuItems currentUser={currentUser} /> : <GuestMenuItems />
 }
 
 const MobileMenuPage: BlitzPage = () => {
