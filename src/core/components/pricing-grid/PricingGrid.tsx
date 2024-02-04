@@ -66,7 +66,7 @@ const plans: Plan[] = [
   },
 ]
 
-const BenefitListItem: React.FC<{ benefit: Benefit; key: string }> = ({ benefit, key }) => {
+const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
   if (benefit.url) {
     benefit.paragraphContent = (
       <Link className="text-ladderly-violet-700 hover:underline" href={benefit.url} target="_blank">
@@ -76,7 +76,7 @@ const BenefitListItem: React.FC<{ benefit: Benefit; key: string }> = ({ benefit,
   }
 
   return (
-    <li className="flex items-center space-x-2" key={key}>
+    <li className="flex items-center space-x-2">
       <span className="mr-2">⭐</span>
       <p className="text-left">{benefit.paragraphContent ?? benefit.text}</p>
     </li>
