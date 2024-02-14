@@ -8,7 +8,7 @@ import {
 } from "./seed-utils/updateChecklists"
 
 const seed = async () => {
-  const updateLatest = process.argv.includes("--update-latest-checklists")
+  const updateLatestInPlace = process.argv.includes("--update-latest-checklists")
   const version = new Date().toISOString()
   const files = ["./checklists.json", "./premium-checklists.json"]
 
@@ -28,7 +28,7 @@ const seed = async () => {
       const { name, items } = checklistData as ChecklistSeedDataType
       let checklist: Checklist | null = null
 
-      if (updateLatest) {
+      if (updateLatestInPlace) {
         checklist = await updateChecklistsInPlace(checklistData)
       }
 
