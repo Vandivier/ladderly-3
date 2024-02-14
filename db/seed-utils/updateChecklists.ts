@@ -76,6 +76,9 @@ export const updateChecklistsInPlace = async (checklistData: ChecklistSeedDataTy
   })
   console.log(`Done creating new items for: ${checklistData.name}`)
   // TODO: remove obsolete ChecklistItems
+  // TODO: new checklist items are not being added as userchecklist items, eg 407 and 408.
+  // need to hard-purge the userchecklistitems for the checklist and re-add them
+  // related: newUserChecklistItemsData is not being used
   await updateUserChecklists(checklist.id, newChecklistItemsData)
   console.log(`Done updating UserChecklistItems for: ${checklistData.name}`)
   // TODO: remove obsolete UserChecklistItems
