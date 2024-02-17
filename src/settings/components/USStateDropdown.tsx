@@ -1,64 +1,67 @@
-import LabeledSelectField from "src/core/components/LabeledSelectField"
+import React from "react"
+import LabeledAutocompleteField from "src/core/components/LabeledAutocompleteField"
+
+const usStates = [
+  { value: "", label: "Select a state" },
+  { value: "Not U.S. Resident", label: "Not U.S. Resident" },
+  { value: "Alabama", label: "Alabama" },
+  { value: "Alaska", label: "Alaska" },
+  { value: "American Samoa", label: "American Samoa" },
+  { value: "Arizona", label: "Arizona" },
+  { value: "Arkansas", label: "Arkansas" },
+  { value: "California", label: "California" },
+  { value: "Colorado", label: "Colorado" },
+  { value: "Connecticut", label: "Connecticut" },
+  { value: "Delaware", label: "Delaware" },
+  { value: "District of Columbia", label: "District of Columbia" },
+  { value: "Florida", label: "Florida" },
+  { value: "Georgia", label: "Georgia" },
+  { value: "Guam", label: "Guam" },
+  { value: "Hawaii", label: "Hawaii" },
+  { value: "Idaho", label: "Idaho" },
+  { value: "Illinois", label: "Illinois" },
+  { value: "Indiana", label: "Indiana" },
+  { value: "Iowa", label: "Iowa" },
+  { value: "Kansas", label: "Kansas" },
+  { value: "Kentucky", label: "Kentucky" },
+  { value: "Louisiana", label: "Louisiana" },
+  { value: "Maine", label: "Maine" },
+  { value: "Maryland", label: "Maryland" },
+  { value: "Massachusetts", label: "Massachusetts" },
+  { value: "Michigan", label: "Michigan" },
+  { value: "Minnesota", label: "Minnesota" },
+  { value: "Mississippi", label: "Mississippi" },
+  { value: "Missouri", label: "Missouri" },
+  { value: "Montana", label: "Montana" },
+  { value: "Nebraska", label: "Nebraska" },
+  { value: "Nevada", label: "Nevada" },
+  { value: "New Hampshire", label: "New Hampshire" },
+  { value: "New Jersey", label: "New Jersey" },
+  { value: "New Mexico", label: "New Mexico" },
+  { value: "New York", label: "New York" },
+  { value: "North Carolina", label: "North Carolina" },
+  { value: "North Dakota", label: "North Dakota" },
+  { value: "Northern Mariana Islands", label: "Northern Mariana Islands" },
+  { value: "Ohio", label: "Ohio" },
+  { value: "Oklahoma", label: "Oklahoma" },
+  { value: "Oregon", label: "Oregon" },
+  { value: "Pennsylvania", label: "Pennsylvania" },
+  { value: "Puerto Rico", label: "Puerto Rico" },
+  { value: "Rhode Island", label: "Rhode Island" },
+  { value: "South Carolina", label: "South Carolina" },
+  { value: "South Dakota", label: "South Dakota" },
+  { value: "Tennessee", label: "Tennessee" },
+  { value: "Texas", label: "Texas" },
+  { value: "U.S. Virgin Islands", label: "U.S. Virgin Islands" },
+  { value: "Utah", label: "Utah" },
+  { value: "Vermont", label: "Vermont" },
+  { value: "Virginia", label: "Virginia" },
+  { value: "Washington", label: "Washington" },
+  { value: "West Virginia", label: "West Virginia" },
+  { value: "Wisconsin", label: "Wisconsin" },
+  { value: "Wyoming", label: "Wyoming" },
+]
 
 export const USStateDropdown = () => (
-  <LabeledSelectField name="stateOfResidence" label="State">
-    <option selected value=""></option>
-    <option value="Not U.S. Resident">Not U.S. Resident</option>
-    <option value="Alabama">Alabama</option>
-    <option value="Alaska">Alaska</option>
-    <option value="American Samoa">American Samoa</option>
-    <option value="Arizona">Arizona</option>
-    <option value="Arkansas">Arkansas</option>
-    <option value="California">California</option>
-    <option value="Colorado">Colorado</option>
-    <option value="Connecticut">Connecticut</option>
-    <option value="Delaware">Delaware</option>
-    <option value="District of Columbia">District of Columbia</option>
-    <option value="Florida">Florida</option>
-    <option value="Georgia">Georgia</option>
-    <option value="Guam">Guam</option>
-    <option value="Hawaii">Hawaii</option>
-    <option value="Idaho">Idaho</option>
-    <option value="Illinois">Illinois</option>
-    <option value="Indiana">Indiana</option>
-    <option value="Iowa">Iowa</option>
-    <option value="Kansas">Kansas</option>
-    <option value="Kentucky">Kentucky</option>
-    <option value="Louisiana">Louisiana</option>
-    <option value="Maine">Maine</option>
-    <option value="Maryland">Maryland</option>
-    <option value="Massachusetts">Massachusetts</option>
-    <option value="Michigan">Michigan</option>
-    <option value="Minnesota">Minnesota</option>
-    <option value="Mississippi">Mississippi</option>
-    <option value="Missouri">Missouri</option>
-    <option value="Montana">Montana</option>
-    <option value="Nebraska">Nebraska</option>
-    <option value="Nevada">Nevada</option>
-    <option value="New Hampshire">New Hampshire</option>
-    <option value="New Jersey">New Jersey</option>
-    <option value="New Mexico">New Mexico</option>
-    <option value="New York">New York</option>
-    <option value="North Carolina">North Carolina</option>
-    <option value="North Dakota">North Dakota</option>
-    <option value="Northern Mariana Islands">Northern Mariana Islands</option>
-    <option value="Ohio">Ohio</option>
-    <option value="Oklahoma">Oklahoma</option>
-    <option value="Oregon">Oregon</option>
-    <option value="Pennsylvania">Pennsylvania</option>
-    <option value="Puerto Rico">Puerto Rico</option>
-    <option value="Rhode Island">Rhode Island</option>
-    <option value="South Carolina">South Carolina</option>
-    <option value="South Dakota">South Dakota</option>
-    <option value="Tennessee">Tennessee</option>
-    <option value="Texas">Texas</option>
-    <option value="U.S. Virgin Islands">U.S. Virgin Islands</option>
-    <option value="Utah">Utah</option>
-    <option value="Vermont">Vermont</option>
-    <option value="Virginia">Virginia</option>
-    <option value="Washington">Washington</option>
-    <option value="West Virginia">West Virginia</option>
-    <option value="Wisconsin">Wisconsin</option>
-    <option value="Wyoming">Wyoming</option>
-  </LabeledSelectField>
+  <LabeledAutocompleteField name="stateOfResidence" label="State of Residence" options={usStates} />
 )
