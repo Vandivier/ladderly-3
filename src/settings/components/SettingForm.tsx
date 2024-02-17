@@ -17,6 +17,7 @@ export function SettingForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
       <Link href={Routes.BlogPost({ slug: "2024-02-16-user-settings" })}>
         Learn More About User Setting Fields
       </Link>
+
       <LabeledTextField name="nameFirst" label="First Name" placeholder="First Name" />
       <LabeledTextField name="nameLast" label="Last Name" placeholder="Last Name" />
       <LabeledTextField name="email" label="Email" placeholder="Email" />
@@ -32,15 +33,15 @@ export function SettingForm<S extends z.ZodType<any, any>>(props: FormProps<S>) 
       <LabeledTextField name="profileHomepageUri" label="Homepage URL" placeholder="Homepage URL" />
       <LabeledTextField name="profileLinkedInUri" label="LinkedIn URL" placeholder="LinkedIn URL" />
 
-      <CountryDropdown />
-      <USStateDropdown />
+      <CountryDropdown outerProps={{ className: "mt-4 items-baseline" }} />
+      <USStateDropdown outerProps={{ className: "mt-4 items-baseline" }} />
 
       <LabeledCheckboxField
-        outerProps={{ className: "mt-2" }}
-        name="hasPublicProfileEnabled"
         label="Enable Public Profile"
+        name="hasPublicProfileEnabled"
+        outerProps={{ className: "mt-4 items-baseline" }}
       />
-      <LabeledCheckboxField name="hasShoutOutsEnabled" label="Enable Shout Outs" />
+      <LabeledCheckboxField label="Enable Shout Outs" name="hasShoutOutsEnabled" />
       <LabeledCheckboxField name="hasOpenToWork" label="Open To Work" />
       <LabeledCheckboxField
         name="hasSmallGroupInterest"

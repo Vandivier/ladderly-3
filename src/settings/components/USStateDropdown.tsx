@@ -1,4 +1,4 @@
-import React from "react"
+import React, { PropsWithoutRef } from "react"
 import LabeledAutocompleteField from "src/core/components/LabeledAutocompleteField"
 
 const usStates = [
@@ -62,6 +62,15 @@ const usStates = [
   { value: "Wyoming", label: "Wyoming" },
 ]
 
-export const USStateDropdown = () => (
-  <LabeledAutocompleteField name="stateOfResidence" label="State of Residence" options={usStates} />
+export const USStateDropdown = ({
+  outerProps,
+}: {
+  outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
+}) => (
+  <LabeledAutocompleteField
+    name="stateOfResidence"
+    label="State of Residence"
+    options={usStates}
+    outerProps={outerProps}
+  />
 )
