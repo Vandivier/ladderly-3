@@ -1,5 +1,3 @@
-import { Routes } from "@blitzjs/next"
-import Link from "next/link"
 import React from "react"
 import { Form, FormProps } from "src/core/components/Form"
 import LabeledCheckboxField from "src/core/components/LabeledCheckboxField"
@@ -13,52 +11,105 @@ export { FORM_ERROR } from "src/core/components/Form"
 export function SettingForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   return (
     <Form<S> {...props}>
-      {/* TODO: make this link visually pop */}
-      <Link href={Routes.BlogPost({ slug: "2024-02-16-user-settings" })}>
-        Learn More About User Setting Fields
-      </Link>
+      <section>
+        <h3 className="mt-8 text-xl">Authentication Data</h3>
+        <LabeledTextField
+          name="email"
+          label="Primary Email"
+          outerProps={{ className: "mt-2" }}
+          placeholder="Primary Email"
+        />
+        <LabeledTextField
+          name="emailBackup"
+          label="Backup Email"
+          outerProps={{ className: "mt-2" }}
+          placeholder="Backup Email"
+        />
+        <LabeledTextField
+          name="emailStripe"
+          label="Stripe Email"
+          outerProps={{ className: "mt-2" }}
+          placeholder="Stripe Email"
+        />
+      </section>
 
-      <LabeledTextField name="nameFirst" label="First Name" placeholder="First Name" />
-      <LabeledTextField name="nameLast" label="Last Name" placeholder="Last Name" />
-      <LabeledTextField name="email" label="Email" placeholder="Email" />
-      <LabeledTextField name="emailBackup" label="Backup Email" placeholder="Backup Email" />
-      <LabeledTextField name="emailStripe" label="Stripe Email" placeholder="Stripe Email" />
-      <LabeledTextField name="profileBlurb" label="Profile Blurb" placeholder="Profile Blurb" />
-      <LabeledTextField
-        name="profileContactEmail"
-        label="Contact Email"
-        placeholder="Contact Email"
-      />
-      <LabeledTextField name="profileGitHubUri" label="GitHub URL" placeholder="GitHub URL" />
-      <LabeledTextField name="profileHomepageUri" label="Homepage URL" placeholder="Homepage URL" />
-      <LabeledTextField name="profileLinkedInUri" label="LinkedIn URL" placeholder="LinkedIn URL" />
+      <section>
+        <h3 className="mt-8 text-xl">Public Profile</h3>
+        <LabeledTextField
+          name="nameFirst"
+          label="First Name"
+          outerProps={{ className: "mt-2" }}
+          placeholder="First Name"
+        />
+        <LabeledTextField
+          name="nameLast"
+          label="Last Name"
+          outerProps={{ className: "mt-2" }}
+          placeholder="Last Name"
+        />
 
-      <CountryDropdown outerProps={{ className: "mt-4 items-baseline" }} />
-      <USStateDropdown outerProps={{ className: "mt-4 items-baseline" }} />
+        <LabeledCheckboxField name="hasOpenToWork" label="Open To Work" />
+        <LabeledCheckboxField label="Enable Shout Outs" name="hasShoutOutsEnabled" />
 
-      <LabeledCheckboxField
-        label="Enable Public Profile"
-        name="hasPublicProfileEnabled"
-        outerProps={{ className: "mt-4 items-baseline" }}
-      />
-      <LabeledCheckboxField label="Enable Shout Outs" name="hasShoutOutsEnabled" />
-      <LabeledCheckboxField name="hasOpenToWork" label="Open To Work" />
-      <LabeledCheckboxField
-        name="hasSmallGroupInterest"
-        label="Interested in a Guided Small Group"
-      />
-      <LabeledCheckboxField
-        name="hasLiveStreamInterest"
-        label="Interested in Joining a Live Stream"
-      />
-      <LabeledCheckboxField
-        name="hasOnlineEventInterest"
-        label="Interested in Online Hackathons and Events"
-      />
-      <LabeledCheckboxField
-        name="hasInPersonEventInterest"
-        label="Interested in In-Person Hackathons and Events"
-      />
+        <LabeledTextField
+          name="profileBlurb"
+          label="Profile Blurb"
+          outerProps={{ className: "mt-2" }}
+          placeholder="Profile Blurb"
+        />
+        <LabeledTextField
+          name="profileContactEmail"
+          label="Public Contact Email"
+          outerProps={{ className: "mt-2" }}
+          placeholder="Public Contact Email"
+        />
+        <LabeledTextField
+          name="profileGitHubUri"
+          label="GitHub URL"
+          outerProps={{ className: "mt-2" }}
+          placeholder="GitHub URL"
+        />
+        <LabeledTextField
+          name="profileHomepageUri"
+          label="Homepage URL"
+          outerProps={{ className: "mt-2" }}
+          placeholder="Homepage URL"
+        />
+        <LabeledTextField
+          name="profileLinkedInUri"
+          label="LinkedIn URL"
+          outerProps={{ className: "mt-2" }}
+          placeholder="LinkedIn URL"
+        />
+
+        <CountryDropdown outerProps={{ className: "mt-2 items-baseline" }} />
+        <USStateDropdown outerProps={{ className: "mt-2 items-baseline" }} />
+      </section>
+
+      <section>
+        <h3 className="mt-8 text-xl">Features and Interests</h3>
+        <LabeledCheckboxField
+          label="Enable Public Profile"
+          name="hasPublicProfileEnabled"
+          outerProps={{ className: "mt-2 items-baseline" }}
+        />
+        <LabeledCheckboxField
+          name="hasSmallGroupInterest"
+          label="Interested in an Expert-Led Small Group"
+        />
+        <LabeledCheckboxField
+          name="hasLiveStreamInterest"
+          label="Interested in Joining a Live Stream"
+        />
+        <LabeledCheckboxField
+          name="hasOnlineEventInterest"
+          label="Interested in Online Hackathons and Events"
+        />
+        <LabeledCheckboxField
+          name="hasInPersonEventInterest"
+          label="Interested in In-Person Hackathons and Events"
+        />
+      </section>
     </Form>
   )
 }
