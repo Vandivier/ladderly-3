@@ -1,8 +1,11 @@
 import { z } from "zod"
 
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+export const isValidOptionalEmail = (value: string) => value === "" || emailRegex.test(value)
+
 export const optionalEmailValidator = z
   .string()
-  .refine((value) => value === "" || value.includes("@"), {
+  .refine(isValidOptionalEmail, {
     message: "Invalid email",
   })
   .nullable()

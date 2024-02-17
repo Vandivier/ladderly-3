@@ -45,6 +45,8 @@ export const SettingsList = () => {
               alert("Updated successfully.")
             } catch (error: any) {
               console.error(error)
+              alert("Updated failed.")
+
               return {
                 [FORM_ERROR]: error.toString(),
               }

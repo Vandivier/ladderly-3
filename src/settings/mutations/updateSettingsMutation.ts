@@ -2,7 +2,7 @@ import { Ctx } from "@blitzjs/next"
 import { resolver } from "@blitzjs/rpc"
 import { AuthorizationError } from "blitz"
 import db from "db"
-import { UpdateSettingsSchema } from "../schemas"
+import { UpdateSettingsSchema, isValidOptionalEmail } from "../schemas"
 
 export default resolver.pipe(
   resolver.zod(UpdateSettingsSchema),
@@ -12,7 +12,15 @@ export default resolver.pipe(
 
     if (userId === null) throw new AuthorizationError()
     const email = input.email.toLowerCase().trim()
-    if (!email.includes("@")) {
+    const emailBackup = input.emailBackup?.toLowerCase().trim() || ""
+    const emailStripe = input.emailStripe?.toLowerCase().trim() || ""
+
+    if (
+      !email.includes("@") ||
+      !email.includes(".") ||
+      !isValidOptionalEmail(emailBackup) ||
+      !isValidOptionalEmail(emailStripe)
+    ) {
       throw new Error("invalid email")
     }
 
@@ -20,8 +28,10 @@ export default resolver.pipe(
       where: { id: userId },
       data: {
         email,
-        emailBackup: input.emailBackup?.toLowerCase().trim() || "",
-        emailStripe: input.emailStripe?.toLowerCase().trim() || "",
+        emailBackup,
+        emailStripe,
+        hasInPersonEventInterest: input.hasInPersonEventInterest,
+        hasOnlineEventInterest: input.hasOnlineEventInterest,
         hasLiveStreamInterest: input.hasLiveStreamInterest,
         hasOpenToWork: input.hasOpenToWork,
         hasPublicProfileEnabled: input.hasPublicProfileEnabled,
@@ -34,6 +44,8 @@ export default resolver.pipe(
         profileGitHubUri: input.profileGitHubUri?.trim() || null,
         profileHomepageUri: input.profileHomepageUri?.trim() || null,
         profileLinkedInUri: input.profileLinkedInUri?.trim() || null,
+        residenceCountry: input.residenceCountry?.trim() || "",
+        residenceUSState: input.residenceUSState?.trim() || "",
       },
     })
 
