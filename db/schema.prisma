@@ -38,8 +38,8 @@ model User {
   profileGitHubUri    String?
   profileHomepageUri  String?
   profileLinkedInUri  String?
-  residenceCountry    String?
-  residenceUSState    String?
+  residenceCountry    String  @default("")
+  residenceUSState    String  @default("")
   totalContributions  Float   @default(0)
   totalStoreSpend     Float   @default(0)
 
