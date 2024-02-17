@@ -68,7 +68,7 @@ export const USStateDropdown = ({
   outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
 }) => (
   <LabeledAutocompleteField
-    name="stateOfResidence"
+    name="residenceState"
     label="State of Residence"
     options={usStates}
     outerProps={outerProps}

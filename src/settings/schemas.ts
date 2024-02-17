@@ -35,7 +35,9 @@ export const UpdateSettingsSchema = z.object({
   emailBackup: optionalEmailValidator,
   emailStripe: optionalEmailValidator,
 
+  hasInPersonEventInterest: z.boolean().optional(),
   hasLiveStreamInterest: z.boolean().optional(),
+  hasOnlineEventInterest: z.boolean().optional(),
   hasOpenToWork: z.boolean().optional(),
   hasPublicProfileEnabled: z.boolean().optional(),
   hasShoutOutsEnabled: z.boolean().optional(),
@@ -48,4 +50,6 @@ export const UpdateSettingsSchema = z.object({
   profileGitHubUri: optionalGitHubUriValidator,
   profileHomepageUri: uriValidator,
   profileLinkedInUri: optionalLinkedInUriValidator,
+  residenceCountry: z.string().optional(),
+  residenceUSState: z.string().optional(),
 })
