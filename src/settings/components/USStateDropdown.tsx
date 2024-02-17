@@ -2,7 +2,7 @@ import React from "react"
 import LabeledAutocompleteField from "src/core/components/LabeledAutocompleteField"
 
 const usStates = [
-  { value: "", label: "Select a state" },
+  { value: "", label: "Select a U.S. State" },
   { value: "Not U.S. Resident", label: "Not U.S. Resident" },
   { value: "Alabama", label: "Alabama" },
   { value: "Alaska", label: "Alaska" },
