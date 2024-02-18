@@ -8,7 +8,7 @@ import {
 } from "./seed-utils/updateChecklists"
 
 const seed = async () => {
-  const updateLatest = process.argv.includes("--update-latest-checklists")
+  const updateLatestInPlace = process.argv.includes("--update-latest-checklists")
   const version = new Date().toISOString()
   const files = ["./checklists.json", "./premium-checklists.json"]
 
@@ -16,7 +16,7 @@ const seed = async () => {
     const filePath = path.resolve(__dirname, file)
 
     if (!fs.existsSync(filePath)) {
-      console.warn("File ${filePath} does not exist." + "\nContinuing to seed...")
+      console.warn(`File ${filePath} does not exist." + "\nContinuing to seed...`)
       continue
     }
 
@@ -28,7 +28,7 @@ const seed = async () => {
       const { name, items } = checklistData as ChecklistSeedDataType
       let checklist: Checklist | null = null
 
-      if (updateLatest) {
+      if (updateLatestInPlace) {
         checklist = await updateChecklistsInPlace(checklistData)
       }
 

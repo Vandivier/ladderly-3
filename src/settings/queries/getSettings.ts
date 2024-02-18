@@ -10,16 +10,20 @@ export type UserSettings = {
   email: string
   emailBackup: string
   emailStripe: string
+  hasInPersonEventInterest: boolean
   hasLiveStreamInterest: boolean
+  hasOnlineEventInterest: boolean
+  hasOpenToWork: boolean
   hasPublicProfileEnabled: boolean
   hasShoutOutsEnabled: boolean
   hasSmallGroupInterest: boolean
-  hasOpenToWork: boolean
   profileBlurb: string | null
   profileContactEmail: string | null
   profileGitHubUri: string | null
   profileHomepageUri: string | null
   profileLinkedInUri: string | null
+  residenceCountry: string
+  residenceUSState: string
   subscription: Subscription
 }
 
@@ -42,16 +46,20 @@ export default resolver.pipe(
             email: true,
             emailBackup: true,
             emailStripe: true,
+            hasInPersonEventInterest: true,
             hasLiveStreamInterest: true,
+            hasOnlineEventInterest: true,
+            hasOpenToWork: true,
             hasPublicProfileEnabled: true,
             hasShoutOutsEnabled: true,
             hasSmallGroupInterest: true,
-            hasOpenToWork: true,
             profileBlurb: true,
             profileContactEmail: true,
             profileGitHubUri: true,
             profileHomepageUri: true,
             profileLinkedInUri: true,
+            residenceCountry: true,
+            residenceUSState: true,
           },
         },
         contributions: true,
@@ -66,7 +74,9 @@ export default resolver.pipe(
       email: subscription.user.email,
       emailBackup: subscription.user.emailBackup,
       emailStripe: subscription.user.emailStripe,
+      hasInPersonEventInterest: subscription.user.hasInPersonEventInterest,
       hasLiveStreamInterest: subscription.user.hasLiveStreamInterest,
+      hasOnlineEventInterest: subscription.user.hasOnlineEventInterest,
       hasOpenToWork: subscription.user.hasOpenToWork,
       hasPublicProfileEnabled: subscription.user.hasPublicProfileEnabled,
       hasShoutOutsEnabled: subscription.user.hasShoutOutsEnabled,
@@ -78,6 +88,8 @@ export default resolver.pipe(
       profileGitHubUri: subscription.user.profileGitHubUri,
       profileHomepageUri: subscription.user.profileHomepageUri,
       profileLinkedInUri: subscription.user.profileLinkedInUri,
+      residenceCountry: subscription.user.residenceCountry,
+      residenceUSState: subscription.user.residenceUSState,
       subscription: subscription,
     }
   }

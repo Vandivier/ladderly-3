@@ -2,6 +2,13 @@ module.exports = {
   content: ["./{src,app,pages}/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            "--tw-prose-bullets": "var(--tw-prose-bold)",
+          },
+        },
+      },
       backgroundColor: {
         frost: "rgba(255, 255, 255, 0.2)",
       },

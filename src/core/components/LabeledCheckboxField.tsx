@@ -1,5 +1,9 @@
-import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from "react"
-import { useField, UseFieldConfig } from "react-final-form"
+import { ComponentPropsWithoutRef, PropsWithoutRef, forwardRef } from "react"
+import { UseFieldConfig, useField } from "react-final-form"
+
+export const defaultCheckboxFieldLabelProps = {
+  className: "flex items-baseline my-1",
+}
 
 export interface LabeledCheckboxFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
   /** Field name. */
@@ -12,7 +16,10 @@ export interface LabeledCheckboxFieldProps extends PropsWithoutRef<JSX.Intrinsic
 }
 
 export const LabeledCheckboxField = forwardRef<HTMLInputElement, LabeledCheckboxFieldProps>(
-  ({ name, label, outerProps, fieldProps, labelProps, ...props }, ref) => {
+  (
+    { name, label, outerProps, fieldProps, labelProps = defaultCheckboxFieldLabelProps, ...props },
+    ref
+  ) => {
     const {
       input,
       meta: { touched, error, submitError, submitting },
@@ -37,11 +44,6 @@ export const LabeledCheckboxField = forwardRef<HTMLInputElement, LabeledCheckbox
         )}
 
         <style jsx>{`
-          label {
-            display: flex;
-            align-items: center;
-            font-size: 1rem;
-          }
           input {
             margin-right: 0.5rem;
           }

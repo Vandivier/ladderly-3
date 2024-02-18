@@ -25,17 +25,21 @@ model User {
   nameFirst      String  @default("")
   nameLast       String  @default("")
 
-  hasLiveStreamInterest   Boolean @default(false)
-  hasOpenToWork           Boolean @default(false)
-  hasPublicProfileEnabled Boolean @default(false)
-  hasShoutOutsEnabled     Boolean @default(false)
-  hasSmallGroupInterest   Boolean @default(false)
+  hasInPersonEventInterest Boolean @default(false)
+  hasLiveStreamInterest    Boolean @default(false)
+  hasOnlineEventInterest   Boolean @default(false)
+  hasOpenToWork            Boolean @default(false)
+  hasPublicProfileEnabled  Boolean @default(false)
+  hasShoutOutsEnabled      Boolean @default(false)
+  hasSmallGroupInterest    Boolean @default(false)
 
   profileBlurb        String?
   profileContactEmail String?
   profileGitHubUri    String?
   profileHomepageUri  String?
   profileLinkedInUri  String?
+  residenceCountry    String  @default("")
+  residenceUSState    String  @default("")
   totalContributions  Float   @default(0)
   totalStoreSpend     Float   @default(0)
 

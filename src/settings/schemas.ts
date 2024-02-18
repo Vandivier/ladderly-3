@@ -1,8 +1,11 @@
 import { z } from "zod"
 
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+export const isValidOptionalEmail = (value: string) => value === "" || emailRegex.test(value)
+
 export const optionalEmailValidator = z
   .string()
-  .refine((value) => value === "" || value.includes("@"), {
+  .refine(isValidOptionalEmail, {
     message: "Invalid email",
   })
   .nullable()
@@ -35,7 +38,9 @@ export const UpdateSettingsSchema = z.object({
   emailBackup: optionalEmailValidator,
   emailStripe: optionalEmailValidator,
 
+  hasInPersonEventInterest: z.boolean().optional(),
   hasLiveStreamInterest: z.boolean().optional(),
+  hasOnlineEventInterest: z.boolean().optional(),
   hasOpenToWork: z.boolean().optional(),
   hasPublicProfileEnabled: z.boolean().optional(),
   hasShoutOutsEnabled: z.boolean().optional(),
@@ -48,4 +53,6 @@ export const UpdateSettingsSchema = z.object({
   profileGitHubUri: optionalGitHubUriValidator,
   profileHomepageUri: uriValidator,
   profileLinkedInUri: optionalLinkedInUriValidator,
+  residenceCountry: z.string().optional(),
+  residenceUSState: z.string().optional(),
 })

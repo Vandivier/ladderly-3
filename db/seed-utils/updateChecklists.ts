@@ -1,4 +1,5 @@
-import db, { Prisma } from "db"
+import db, { Checklist, ChecklistItem, Prisma } from "db"
+import { r } from "vitest/dist/index-9f5bc072"
 import { z } from "zod"
 
 const ChecklistItemObjectSchema = z.object({
@@ -20,7 +21,9 @@ export type ChecklistSeedDataType = z.infer<typeof ChecklistSchema>
 
 export const ChecklistsSchema = z.array(ChecklistSchema)
 
-export const updateChecklistsInPlace = async (checklistData: ChecklistSeedDataType) => {
+export const updateChecklistsInPlace = async (
+  checklistData: ChecklistSeedDataType
+) => {
   console.log(`Updating checklist: ${checklistData.name}`)
 
   let checklist = await db.checklist.findFirst({
@@ -30,7 +33,11 @@ export const updateChecklistsInPlace = async (checklistData: ChecklistSeedDataTy
   })
 
   if (checklist === null) {
-    throw new Error(`Attempted to update a checklist, but it wasn't found: ${checklistData.name}`)
+    console.warn(`Checklist not found: ${checklistData.name}. Creating now.`)
+    checklist = await db.checklist.create({
+      data: { name: checklistData.name, version: checklistData.version },
+      include: { checklistItems: true },
+    })
   }
 
   checklist = await db.checklist.update({
@@ -40,85 +47,135 @@ export const updateChecklistsInPlace = async (checklistData: ChecklistSeedDataTy
   })
 
   if (checklist === null) {
-    throw new Error(`Checklist found but not returned by the updater: ${checklistData.name}`)
+    throw new Error(
+      `Checklist found but not returned by the updater: ${checklistData.name}`
+    )
   }
 
-  // collect data for later bulk operations
-  const newChecklistItemsData: Prisma.ChecklistItemCreateManyInput[] = []
-  const newUserChecklistItemsData: Prisma.UserChecklistItemCreateManyInput[] = []
+  const checklistItemCreateManyInput: Prisma.ChecklistItemCreateManyInput[] = []
   for (let i = 0; i < checklistData.items.length; i++) {
     const item = checklistData.items[i]
     const itemData = ChecklistItemObjectSchema.parse(
       typeof item === "string" ? { displayText: item } : item
     )
 
-    const existingItem = checklist.checklistItems.find(
-      (ci) => ci.displayText === itemData.displayText
-    )
-
-    if (existingItem) {
-      await db.checklistItem.update({
-        where: { id: existingItem.id },
-        data: { ...itemData, displayIndex: i },
-      })
-    } else {
-      newChecklistItemsData.push({
-        ...itemData,
-        checklistId: checklist.id,
-        displayIndex: i,
-      })
-    }
+    checklistItemCreateManyInput.push({
+      ...itemData,
+      checklistId: checklist.id,
+      displayIndex: i,
+    })
   }
 
   console.log(`Done updating existing items for: ${checklistData.name}`)
   await db.checklistItem.createMany({
-    data: newChecklistItemsData,
+    data: checklistItemCreateManyInput,
+    skipDuplicates: true,
   })
   console.log(`Done creating new items for: ${checklistData.name}`)
-  // TODO: remove obsolete ChecklistItems
-  await updateUserChecklists(checklist.id, newChecklistItemsData)
-  console.log(`Done updating UserChecklistItems for: ${checklistData.name}`)
-  // TODO: remove obsolete UserChecklistItems
+
+  const checklistItems = await deleteObsoleteChecklistItems(
+    checklist,
+    checklistItemCreateManyInput
+  )
+  console.log(`deleteObsoleteChecklistItems done for: ${checklistData.name}`)
+  await updateUserChecklists(checklist, checklistItems)
+  console.log(`updateUserChecklists done for: ${checklistData.name}`)
 
   return checklist
 }
 
 const updateUserChecklists = async (
-  checklistId: number,
-  newChecklistItemsData: Prisma.ChecklistItemCreateManyInput[]
+  checklist: Checklist,
+  checklistItems: ChecklistItem[]
 ) => {
-  const createdChecklistItems = await db.checklistItem.findMany({
+  const userChecklists = await db.userChecklist.findMany({
     where: {
-      checklistId: checklistId,
-      displayText: { in: newChecklistItemsData.map((item) => item.displayText) },
+      checklistId: checklist.id,
     },
   })
 
-  const displayTextToIdMap = createdChecklistItems.reduce((acc, item) => {
-    acc[item.displayText] = item.id
-    return acc
-  }, {} as Record<string, number>)
-
-  // Prepare UserChecklistItems for bulk creation or update
-  const newUserChecklistItemsData: Prisma.UserChecklistItemCreateManyInput[] = []
-  const userChecklists = await db.userChecklist.findMany({
-    where: { checklistId: checklistId },
-  })
-  for (const newItem of newChecklistItemsData) {
-    const checklistItemId = displayTextToIdMap[newItem.displayText]
-    if (checklistItemId === undefined) continue
-
-    userChecklists.forEach((userChecklist) => {
-      newUserChecklistItemsData.push({
+  for (const userChecklist of userChecklists) {
+    await db.userChecklistItem.deleteMany({
+      where: {
         userChecklistId: userChecklist.id,
+      },
+    })
+
+    await db.userChecklistItem.createMany({
+      data: checklistItems.map((itemData) => ({
+        userChecklistId: userChecklist.id,
+        checklistItemId: itemData.id,
         userId: userChecklist.userId,
-        checklistItemId: checklistItemId,
-        isComplete: false,
-      })
+      })),
+    })
+  }
+}
+
+const deleteObsoleteChecklistItems = async (
+  checklist: Checklist & { checklistItems: ChecklistItem[] },
+  newChecklistItemsData: Prisma.ChecklistItemCreateManyInput[]
+): Promise<ChecklistItem[]> => {
+  const checklistItemsWithIds = await db.checklistItem.findMany({
+    where: {
+      checklistId: checklist.id,
+    },
+  })
+
+  const newItemsSet = new Set(
+    newChecklistItemsData.map((item) => {
+      return (
+        item.displayText +
+        item.detailText +
+        item.isRequired +
+        item.linkText +
+        item.linkUri
+      )
+    })
+  )
+
+  const obsoleteChecklistItems: ChecklistItem[] =
+    checklist.checklistItems.filter((item) => {
+      const currCompoundKey =
+        item.displayText +
+        item.detailText +
+        item.isRequired +
+        item.linkText +
+        item.linkUri
+
+      return !newItemsSet.has(currCompoundKey)
+    })
+
+  if (obsoleteChecklistItems.length > 0) {
+    const idsToDelete = obsoleteChecklistItems.map((item) => item.id)
+    await db.userChecklistItem.deleteMany({
+      where: {
+        checklistItemId: {
+          in: idsToDelete,
+        },
+      },
+    })
+    await db.checklistItem.deleteMany({
+      where: {
+        id: {
+          in: idsToDelete,
+        },
+      },
     })
   }
 
-  await db.userChecklistItem.createMany({
-    data: newUserChecklistItemsData,
+  const countOfItemsAfterDeletion = await db.checklistItem.count({
+    where: {
+      checklistId: checklist.id,
+    },
   })
+
+  if (countOfItemsAfterDeletion !== newChecklistItemsData.length) {
+    throw new Error(
+      `Checklist items count mismatch for: ${checklist.name}.\n` +
+        `Expected: ${newChecklistItemsData.length}, ` +
+        `Found: ${countOfItemsAfterDeletion}`
+    )
+  }
+
+  return checklistItemsWithIds
 }

@@ -1,5 +1,7 @@
+import { Routes } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import { FORM_ERROR } from "final-form"
+import Link from "next/link"
 import { Suspense } from "react"
 
 import { LargeCard } from "src/core/components/LargeCard"
@@ -15,8 +17,15 @@ export const SettingsList = () => {
 
   return (
     <LargeCard>
-      <h1 className="mb-4 text-2xl font-bold text-gray-800">Edit Settings & Profile</h1>
-      <p>Please email john@ladderly.io to update your subscription tier.</p>
+      <h1 className="text-2xl font-bold text-gray-800">Edit User Settings</h1>
+      <p className="mt-4">Please email john@ladderly.io to update your subscription tier.</p>
+
+      <Link
+        className="mt-4 block text-ladderly-violet-700 underline"
+        href={Routes.BlogPost({ slug: "2024-02-16-user-settings" })}
+      >
+        Learn More About User Settings
+      </Link>
 
       <Suspense>
         <SettingForm
@@ -36,6 +45,8 @@ export const SettingsList = () => {
               alert("Updated successfully.")
             } catch (error: any) {
               console.error(error)
+              alert("Updated failed.")
+
               return {
                 [FORM_ERROR]: error.toString(),
               }
