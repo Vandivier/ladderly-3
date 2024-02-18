@@ -86,7 +86,7 @@ export const updateChecklistsInPlace = async (
 
 const updateUserChecklists = async (
   checklist: Checklist,
-  newChecklistItemsWithIds: ChecklistItem[]
+  checklistItems: ChecklistItem[]
 ) => {
   const userChecklists = await db.userChecklist.findMany({
     where: {
@@ -102,7 +102,7 @@ const updateUserChecklists = async (
     })
 
     await db.userChecklistItem.createMany({
-      data: newChecklistItemsWithIds.map((itemData) => ({
+      data: checklistItems.map((itemData) => ({
         userChecklistId: userChecklist.id,
         checklistItemId: itemData.id,
         userId: userChecklist.userId,
@@ -147,9 +147,13 @@ const deleteObsoleteChecklistItems = async (
 
   if (obsoleteChecklistItems.length > 0) {
     const idsToDelete = obsoleteChecklistItems.map((item) => item.id)
-    // TODO: cascade delete obsolete userChecklistItems
-    // Foreign key constraint failed on the field: `UserChecklistItem_checklistItemId_fkey (index)`
-    console.log({ idsToDelete })
+    await db.userChecklistItem.deleteMany({
+      where: {
+        checklistItemId: {
+          in: idsToDelete,
+        },
+      },
+    })
     await db.checklistItem.deleteMany({
       where: {
         id: {
