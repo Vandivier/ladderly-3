@@ -6,7 +6,9 @@ It documents how to handle certain common manual tasks and outages.
 
 ## Updating a Production Checklist In-Place
 
-We `npm run seed:update-in-place`
+We `npm run seed:update-in-place`.
+
+This script is idempotent. If you run into an issue, in many cases you can just run the script again to resolve the issue.
 
 If the displayText on an item is mutated, the in-place update target will correctly be unidentified.
 

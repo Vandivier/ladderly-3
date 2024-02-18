@@ -24,6 +24,13 @@
         "linkText": "the Trial by Fire",
         "linkUri": "https://www.youtube.com/watch?v=InK2ciIKs_Q"
       },
+      {
+        "detailText": "",
+        "displayText": "Read ###LINK### and updated my settings as needed.",
+        "isRequired": true,
+        "linkText": "Understanding User Settings",
+        "linkUri": "https://ladderly.io/blog/2024-02-16-user-settings"
+      },
       "I feel fairly confident that I have learned basic HTML, including forms and semantic HTML",
       "I feel fairly confident that I have learned basic CSS",
       {
