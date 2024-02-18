@@ -4,7 +4,7 @@ date: 2/16/24
 author: John Vandivier
 ---
 
-This article explains the purpose of various user settings for Ladderly. This guide will walk you through each setting, explain its purpose, and how you can use it to tailor your experience to your preferences.
+This article explains the purpose of each of <a href="/settings">your Ladderly user settings</a>. This guide will walk you through each setting, explain its purpose, and how you can use it to tailor your experience to your preferences.
 
 ## Personal Information
 
