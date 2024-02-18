@@ -14,8 +14,14 @@ const cloneChecklistToUser = async (
   specificChecklist: ChecklistWithItems,
   userId: number,
   userChecklist: null | UserChecklistWithChecklistItems
-) => {
-  // TODO: cascade delete userChecklist if exists
+): Promise<UserChecklistWithChecklistItems> => {
+  if (userChecklist) {
+    console.log(`Deleting malformed userChecklist: ${userChecklist.id}`)
+    await db.userChecklistItem.deleteMany({ where: { userChecklistId: userChecklist.id } })
+    await db.userChecklist.delete({ where: { id: userChecklist.id } })
+  }
+
+  console.log(`Cloning checklist ${specificChecklist.id} to user: ${specificChecklist.id}`)
   const userChecklistItems: UserChecklistItemWithChecklistItem[] = []
   const newChecklist = await db.userChecklist.create({
     data: {
@@ -48,13 +54,26 @@ const cloneChecklistToUser = async (
 const getIsUserChecklistMalformed = (
   userChecklist: null | UserChecklistWithChecklistItems,
   specificChecklist: ChecklistWithItems
-) => {
-  // const isUserChecklistMalformed = specificChecklist.checklistItems.reduce(
-  //   (acc, el, i) =>
-  //     acc || el.displayText !== userChecklist?.userChecklistItems[i].checklistItem.displayText,
-  //   false
-  // )
-  throw new Error("Not implemented")
+): boolean => {
+  if (!userChecklist) return true
+  const specificChecklistItemTextSet = new Set(
+    specificChecklist.checklistItems.map((item) => item.displayText)
+  )
+  const userChecklistItemTextSet = new Set(
+    userChecklist.userChecklistItems.map((item) => item.checklistItem.displayText)
+  )
+  if (specificChecklistItemTextSet.size !== userChecklistItemTextSet.size) return true
+
+  for (const item of specificChecklist.checklistItems) {
+    const matchingItem = userChecklist.userChecklistItems.find(
+      (userItem) => userItem.checklistItem.displayText === item.displayText
+    )
+    if (!matchingItem) return true
+    if (matchingItem.checklistItem.linkText !== item.linkText) return true
+    if (matchingItem.checklistItem.linkUri !== item.linkUri) return true
+  }
+
+  return false
 }
 
 export default resolver.pipe(
@@ -86,17 +105,14 @@ export default resolver.pipe(
     const userChecklistWhere: Prisma.UserChecklistWhereUniqueInput = {
       userId_checklistId: { userId, checklistId: specificChecklist.id },
     }
+
     let userChecklist: null | UserChecklistWithChecklistItems = await db.userChecklist.findUnique({
       where: userChecklistWhere,
       include: { userChecklistItems: { include: { checklistItem: true } } },
     })
 
     if (shouldUpsertIfMalformed && getIsUserChecklistMalformed(userChecklist, specificChecklist)) {
-      await cloneChecklistToUser(specificChecklist, userId, userChecklist)
-      // userChecklist = await db.userChecklist.findUnique({
-      //   where: userChecklistWhere,
-      //   include: { userChecklistItems: { include: { checklistItem: true } } },
-      // })
+      userChecklist = await cloneChecklistToUser(specificChecklist, userId, userChecklist)
     }
 
     const isLatestVersion = latestChecklist && specificChecklist.version === latestChecklist.version
