@@ -4,7 +4,7 @@ import { UpdateChecklistItemSchema } from "../schemas"
 
 export default resolver.pipe(
   resolver.zod(UpdateChecklistItemSchema),
-  resolver.authorize(),
+  resolver.authorize(["ADMIN"]),
   async ({ id, ...data }) => {
     const checklistItem = await db.checklistItem.update({
       where: { id },
