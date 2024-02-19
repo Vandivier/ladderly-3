@@ -55,10 +55,12 @@ const createNewChecklist = async (
 }
 
 const seed = async () => {
+  const checklistNameToUpdate =
+    process.argv.find((arg) => arg.startsWith("--name="))?.split("=")[1] || ""
+  const files = ["./checklists.json", "./premium-checklists.json"]
   const updateLatestInPlace = process.argv.includes(
     "--update-latest-checklists"
   )
-  const files = ["./checklists.json", "./premium-checklists.json"]
 
   for (const file of files) {
     const filePath = path.resolve(__dirname, file)
@@ -75,6 +77,13 @@ const seed = async () => {
     const checklists = ChecklistsSchema.parse(unverifiedChecklistJson)
 
     for (const checklistData of checklists) {
+      if (
+        checklistNameToUpdate &&
+        checklistData.name !== checklistNameToUpdate
+      ) {
+        continue
+      }
+
       if (updateLatestInPlace) {
         await updateChecklistsInPlace(checklistData)
       } else {
