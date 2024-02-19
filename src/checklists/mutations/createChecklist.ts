@@ -4,7 +4,7 @@ import { CreateChecklistSchema } from "../schemas"
 
 export default resolver.pipe(
   resolver.zod(CreateChecklistSchema),
-  resolver.authorize(),
+  resolver.authorize(["admin"]),
   async (input) => {
     const checklist = await db.checklist.create({ data: input })
 
