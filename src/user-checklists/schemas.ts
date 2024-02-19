@@ -5,15 +5,16 @@ export type UserChecklistItemWithChecklistItem = UserChecklistItem & {
   checklistItem: ChecklistItem
 }
 
-export type UserChecklistWithChecklistItems = UserChecklist & {
-  userChecklistItems: (UserChecklistItem & {
-    checklistItem: ChecklistItem
-  })[]
+export type UserChecklistWithItems = UserChecklist & {
+  userChecklistItems: UserChecklistItemWithChecklistItem[]
+}
+
+export type UserChecklistCascade = {
+  checklist: ChecklistWithItems
+  userChecklist: UserChecklistWithItems
 }
 
 export type UserChecklistByNameData = {
-  checklist: ChecklistWithItems
-  isLatestVersion: boolean
-  latestChecklist: ChecklistWithItems
-  userChecklistWithChecklistItems: null | UserChecklistWithChecklistItems
+  latestChecklistId: number
+  userChecklistCascade: UserChecklistCascade
 }
