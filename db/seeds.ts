@@ -9,7 +9,7 @@ import {
 
 const createNewChecklist = async (
   checklistData: ChecklistSeedDataType
-): Promise<undefined> => {
+): Promise<void> => {
   const { name, items } = checklistData as ChecklistSeedDataType
   const version = "ignoreme_version_field_deprecation_in_progress"
   const checklist: Checklist | null = await db.checklist.create({
