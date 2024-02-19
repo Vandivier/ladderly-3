@@ -1,5 +1,4 @@
 import db, { Checklist, ChecklistItem, Prisma } from "db"
-import { r } from "vitest/dist/index-9f5bc072"
 import { z } from "zod"
 
 const ChecklistItemObjectSchema = z.object({
