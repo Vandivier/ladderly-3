@@ -92,39 +92,14 @@ export const UserChecklistQueryHandler: React.FC<{ name: string }> = ({
     getLatestUserChecklistByName,
     {
       name,
-      shouldUpsertIfMalformed: true,
     }
   )
-
-  if (!currUserChecklistData.userChecklistWithChecklistItems) {
-    return (
-      <>
-        <p>Checklist not found. Consider these options:</p>
-        <ol className="list-inside list-decimal">
-          <li>Click the green button to create a new checklist.</li>
-          <li>Refresh the page.</li>
-          <li>Log out and log back in.</li>
-          <li>
-            If the above steps do not resolve the issue, please report the issue
-            using the{" "}
-            <Link
-              className="ml-auto text-gray-800 hover:text-ladderly-pink"
-              href="https://discord.gg/fAg6Xa4uxc"
-              target="_blank"
-            >
-              Ladderly Discord
-            </Link>
-            .
-          </li>
-        </ol>
-      </>
-    )
-  }
 
   return currUserChecklistData ? (
     <UserChecklistItemList
       items={
-        currUserChecklistData.userChecklistWithChecklistItems.userChecklistItems
+        currUserChecklistData.userChecklistCascade.userChecklist
+          .userChecklistItems
       }
       refetchChecklist={refetch}
     />

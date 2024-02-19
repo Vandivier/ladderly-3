@@ -20,15 +20,16 @@ const NewestChecklistQueryHandler: React.FC = () => {
       name: CURRENT_CHECKLIST_NAME,
     }
   )
+  const { userChecklist } = userChecklistData.userChecklistCascade
   const [showToast, setShowToast] = React.useState(
-    !userChecklistData?.isLatestVersion
+    userChecklistData.latestChecklistId !== userChecklist.checklistId
   )
   const [toastMessage, setToastMessage] = React.useState(
     "A New Checklist Version is Available."
   )
 
   const handleToastConfirmClick = async () => {
-    const checklistId = userChecklistData?.latestChecklist?.id
+    const checklistId = userChecklistData.latestChecklistId
     if (!checklistId) return
     setToastMessage("Update in progress...")
 
