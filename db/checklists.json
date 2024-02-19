@@ -42,13 +42,60 @@
       },
       {
         "detailText": "",
-        "displayText": "I have a portfolio that includes ###LINK###.",
+        "displayText": "I have a vanilla HTML blog in my portfolio as described in ###LINK###.",
         "isRequired": true,
         "linkText": "the Big 4 Projects",
         "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
       },
-      "I have used the rect tool for flash card study and passed at least one quiz. I created at least one GitHub issue or PR on the repo to improve it. I reached out to the maintainers using Discord or other means if I didn't hear back on my PR or issue within a few days. I am an Open Source contributor!",
-      "I have attempted LinkedIn skill certs for HTML, CSS, JavaScript, TypeScript, React, and Git, and passed at least half of them. (There might be a separate responsive design one or also tailwind, bootstrap, material design, scss, or some others that should count)",
+      {
+        "detailText": "",
+        "displayText": "I have a portfolio site as described in ###LINK###.",
+        "isRequired": true,
+        "linkText": "the Big 4 Projects",
+        "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have a full-stack Next.js blog in my portfolio as described in ###LINK###.",
+        "isRequired": true,
+        "linkText": "the Big 4 Projects",
+        "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have a full-stack capstone project in my portfolio as described in ###LINK###.",
+        "isRequired": true,
+        "linkText": "the Big 4 Projects",
+        "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have studied flash cards for coding ###LINK### for at least half an hour.",
+        "isRequired": true,
+        "linkText": "using Rect",
+        "linkUri": "https://rect-alpha.vercel.app/"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have passed at least ###LINK###.",
+        "isRequired": true,
+        "linkText": "one skill quiz using Rect",
+        "linkUri": "https://rect-alpha.vercel.app/"
+      },
+      {
+        "detailText": "",
+        "displayText": "I created a GitHub issue or PR on ###LINK### improve it. I am an Open Source contributor!",
+        "isRequired": true,
+        "linkText": "the Ladderly.io repo to",
+        "linkUri": "https://github.com/Vandivier/ladderly-3"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have associated HTML, CSS, JavaScript, React, Git, and other relevent software engineering skills with ###LINK###.",
+        "isRequired": true,
+        "linkText": "my LinkedIn profile",
+        "linkUri": "https://linkedin.com"
+      },
       {
         "detailText": "",
         "displayText": "I have participated in ###LINK###.",
