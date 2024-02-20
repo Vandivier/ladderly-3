@@ -7,13 +7,15 @@ import React, { Suspense } from "react"
 import { LadderlyToast } from "src/core/components/LadderlyToast"
 import Layout from "src/core/layouts/Layout"
 import { UserChecklistQueryHandler } from "src/user-checklists/components/UserChecklistQueryHandler"
-import createUserChecklist from "src/user-checklists/mutations/createUserChecklist"
+import createUserChecklistAsClone from "src/user-checklists/mutations/createUserChecklistAsClone"
 import getLatestUserChecklistByName from "src/user-checklists/queries/getLatestUserChecklistByName"
 
 const CURRENT_CHECKLIST_NAME = "Programming Job Checklist"
 
 const NewestChecklistQueryHandler: React.FC = () => {
-  const [createUserChecklistMutation] = useMutation(createUserChecklist)
+  const [createUserChecklistAsCloneMutation] = useMutation(
+    createUserChecklistAsClone
+  )
   const [userChecklistData, { refetch }] = useQuery(
     getLatestUserChecklistByName,
     {
@@ -34,7 +36,7 @@ const NewestChecklistQueryHandler: React.FC = () => {
     setToastMessage("Update in progress...")
 
     try {
-      await createUserChecklistMutation({ checklistId })
+      await createUserChecklistAsCloneMutation({ checklistId })
       await refetch()
       setShowToast(false)
     } catch (error) {
