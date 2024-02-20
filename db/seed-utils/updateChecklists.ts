@@ -1,5 +1,4 @@
 import db, { Checklist, ChecklistItem, Prisma } from "db"
-import { r } from "vitest/dist/index-9f5bc072"
 import { z } from "zod"
 
 const ChecklistItemObjectSchema = z.object({
@@ -115,12 +114,6 @@ const deleteObsoleteChecklistItems = async (
   checklist: Checklist & { checklistItems: ChecklistItem[] },
   newChecklistItemsData: Prisma.ChecklistItemCreateManyInput[]
 ): Promise<ChecklistItem[]> => {
-  const checklistItemsWithIds = await db.checklistItem.findMany({
-    where: {
-      checklistId: checklist.id,
-    },
-  })
-
   const newItemsSet = new Set(
     newChecklistItemsData.map((item) => {
       return (
@@ -163,17 +156,19 @@ const deleteObsoleteChecklistItems = async (
     })
   }
 
-  const countOfItemsAfterDeletion = await db.checklistItem.count({
+  const checklistItemsWithIds = await db.checklistItem.findMany({
     where: {
       checklistId: checklist.id,
     },
   })
 
-  if (countOfItemsAfterDeletion !== newChecklistItemsData.length) {
+  const expectedItemCount = newChecklistItemsData.length
+  const actualItemCount = checklistItemsWithIds.length
+  if (expectedItemCount !== actualItemCount) {
     throw new Error(
       `Checklist items count mismatch for: ${checklist.name}.\n` +
-        `Expected: ${newChecklistItemsData.length}, ` +
-        `Found: ${countOfItemsAfterDeletion}`
+        `Expected: ${expectedItemCount}, ` +
+        `Found: ${actualItemCount}`
     )
   }
 

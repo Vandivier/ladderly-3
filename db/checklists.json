@@ -42,13 +42,60 @@
       },
       {
         "detailText": "",
-        "displayText": "I have a portfolio that includes ###LINK###.",
+        "displayText": "I have a vanilla HTML blog in my portfolio as described in ###LINK###.",
         "isRequired": true,
         "linkText": "the Big 4 Projects",
         "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
       },
-      "I have used the rect tool for flash card study and passed at least one quiz. I created at least one GitHub issue or PR on the repo to improve it. I reached out to the maintainers using Discord or other means if I didn't hear back on my PR or issue within a few days. I am an Open Source contributor!",
-      "I have attempted LinkedIn skill certs for HTML, CSS, JavaScript, TypeScript, React, and Git, and passed at least half of them. (There might be a separate responsive design one or also tailwind, bootstrap, material design, scss, or some others that should count)",
+      {
+        "detailText": "",
+        "displayText": "I have a portfolio site as described in ###LINK###.",
+        "isRequired": true,
+        "linkText": "the Big 4 Projects",
+        "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have a full-stack Next.js blog in my portfolio as described in ###LINK###.",
+        "isRequired": true,
+        "linkText": "the Big 4 Projects",
+        "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have a full-stack capstone project in my portfolio as described in ###LINK###.",
+        "isRequired": true,
+        "linkText": "the Big 4 Projects",
+        "linkUri": "https://ladderly.io/blog/2023-10-01-quality-course-and-projects"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have studied flash cards for coding ###LINK### for at least half an hour.",
+        "isRequired": false,
+        "linkText": "using Rect",
+        "linkUri": "https://rect-alpha.vercel.app/"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have passed at least ###LINK###.",
+        "isRequired": false,
+        "linkText": "one skill quiz using Rect",
+        "linkUri": "https://rect-alpha.vercel.app/"
+      },
+      {
+        "detailText": "",
+        "displayText": "I created a GitHub issue or PR on ###LINK### improve it. I am an Open Source contributor!",
+        "isRequired": false,
+        "linkText": "the Ladderly.io repo to",
+        "linkUri": "https://github.com/Vandivier/ladderly-3"
+      },
+      {
+        "detailText": "",
+        "displayText": "I have associated HTML, CSS, JavaScript, React, Git, and other relevent software engineering skills with ###LINK###.",
+        "isRequired": true,
+        "linkText": "my LinkedIn profile",
+        "linkUri": "https://linkedin.com"
+      },
       {
         "detailText": "",
         "displayText": "I have participated in ###LINK###.",
@@ -71,25 +118,49 @@
         "linkUri": "https://www.aragon.ai/?via=john-vandivier"
       },
       "I have optimized my resume",
-      "I am continually applying to 70+ places each week with social follow-up as prescribed in ladderly-slides",
+      {
+        "detailText": "",
+        "displayText": "I am continually applying to 70+ places each week with social follow-up as prescribed in ###LINK###",
+        "isRequired": true,
+        "linkText": "NETWORKING-SCRIPTS.md",
+        "linkUri": "https://github.com/Vandivier/ladderly-slides/blob/main/docs/NETWORKING-SCRIPTS.md"
+      },
       {
         "detailText": "This is a key material for whiteboard-style interviews. It will substantially increase your job search performance.",
         "displayText": "I have been following the ###LINK### article for at least two weeks",
-        "isRequired": true,
+        "isRequired": false,
         "linkText": "5 to 23 Patterns",
         "linkUri": "https://hackernoon.com/5-to-23-patterns-to-ace-any-coding-interview"
       },
       {
         "detailText": "This is a key material for whiteboard-style interviews. It will substantially increase your job search performance.",
-        "displayText": "I have read the ###LINK### article from John Vandivier on HackerNoon",
+        "displayText": "I have read the ###LINK### article.",
         "isRequired": true,
         "linkText": "Mastering Leetcode",
         "linkUri": "https://hackernoon.com/mastering-leetcode-6-problem-picking-patterns-for-technical-success"
       },
-      "After continuing the job search process for 2+ weeks (apply, follow up, keep coding, practicing for interviews) I have gotten at least one phone screening or I have reached out to a mentor to help investigate the lack of phone screening progress",
-      "I have had a few interviews, obtained feedback, and incorporated that feedback to improve my job search going forward",
-      "I have reached out for help whenever needed in the Ladderly community, endorsed communities, and through independent outreach using social media and my personal social network",
-      "I have landed a full time role involving coding!"
+      {
+        "detailText": "",
+        "displayText": "Every two weeks, I am getting one or more phone screen or initial interview requests from employers. If I don't, I will reach out to a mentor to help investigate the lack of phone screening progress.",
+        "isRequired": true,
+        "linkText": "",
+        "linkUri": ""
+      },
+      {
+        "detailText": "",
+        "displayText": "I have had at least one interview. After every interview, I have sought feedback, reflected, and incorporated at least one change to improve my job search going forward",
+        "isRequired": true,
+        "linkText": "",
+        "linkUri": ""
+      },
+      "I commit to reach out for help whenever needed in the Ladderly community, endorsed communities, or through independent outreach using social media and my personal social network",
+      {
+        "detailText": "",
+        "displayText": "I have landed a full time role involving coding!",
+        "isRequired": false,
+        "linkText": "",
+        "linkUri": ""
+      }
     ]
   },
   {

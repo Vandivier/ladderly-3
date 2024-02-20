@@ -1,68 +1,32 @@
 import { Ctx } from "@blitzjs/next"
 import { resolver } from "@blitzjs/rpc"
 import { AuthenticationError } from "blitz"
-import db, { Prisma } from "db"
+import db from "db"
 
 import { ChecklistWithItems } from "src/checklists/schemas"
-import {
-  UserChecklistByNameData,
-  UserChecklistItemWithChecklistItem,
-  UserChecklistWithChecklistItems,
-} from "../schemas"
+import { cloneChecklistToUser } from "../mutations/createUserChecklistAsClone"
+import { UserChecklistByNameData, UserChecklistWithItems } from "../schemas"
 
-const cloneChecklistToUser = async (
-  specificChecklist: ChecklistWithItems,
-  userId: number,
-  userChecklist: null | UserChecklistWithChecklistItems
-): Promise<UserChecklistWithChecklistItems> => {
-  if (userChecklist) {
-    console.log(`Deleting malformed userChecklist: ${userChecklist.id}`)
-    await db.userChecklistItem.deleteMany({ where: { userChecklistId: userChecklist.id } })
-    await db.userChecklist.delete({ where: { id: userChecklist.id } })
-  }
-
-  console.log(`Cloning checklist ${specificChecklist.id} to user: ${specificChecklist.id}`)
-  const userChecklistItems: UserChecklistItemWithChecklistItem[] = []
-  const newChecklist = await db.userChecklist.create({
-    data: {
-      userId,
-      checklistId: specificChecklist.id,
-    },
-  })
-
-  for (let checklistItem of specificChecklist.checklistItems) {
-    const data: Prisma.UserChecklistItemCreateInput = {
-      checklistItem: { connect: { id: checklistItem.id } },
-      isComplete: false,
-      user: { connect: { id: userId } },
-      userChecklist: { connect: { id: newChecklist.id } },
-    }
-
-    const userChecklistItem = await db.userChecklistItem.create({
-      data,
+type LatestUserChecklistType =
+  | null
+  | (UserChecklistWithItems & {
+      checklist: ChecklistWithItems
     })
 
-    userChecklistItems.push({
-      ...userChecklistItem,
-      checklistItem,
-    })
-  }
-
-  return { ...newChecklist, userChecklistItems }
-}
-
-const getIsUserChecklistMalformed = (
-  userChecklist: null | UserChecklistWithChecklistItems,
+const isUserChecklistMalformed = (
+  userChecklist: UserChecklistWithItems,
   specificChecklist: ChecklistWithItems
 ): boolean => {
-  if (!userChecklist) return true
   const specificChecklistItemTextSet = new Set(
     specificChecklist.checklistItems.map((item) => item.displayText)
   )
   const userChecklistItemTextSet = new Set(
-    userChecklist.userChecklistItems.map((item) => item.checklistItem.displayText)
+    userChecklist.userChecklistItems.map(
+      (item) => item.checklistItem.displayText
+    )
   )
-  if (specificChecklistItemTextSet.size !== userChecklistItemTextSet.size) return true
+  if (specificChecklistItemTextSet.size !== userChecklistItemTextSet.size)
+    return true
 
   for (const item of specificChecklist.checklistItems) {
     const matchingItem = userChecklist.userChecklistItems.find(
@@ -79,50 +43,63 @@ const getIsUserChecklistMalformed = (
 export default resolver.pipe(
   resolver.authorize(),
   async (
-    {
-      name,
-      version,
-      shouldUpsertIfMalformed = false,
-    }: { name: string; version?: string; shouldUpsertIfMalformed?: boolean },
+    { name }: { name: string },
     ctx: Ctx
   ): Promise<UserChecklistByNameData> => {
     const { userId } = ctx.session
     if (!userId) throw new AuthenticationError()
-
-    // Version is an ISO date string
-    // so, we can sort lexicographically
-    const checklists = await db.checklist.findMany({
+    const latestChecklist = await db.checklist.findFirst({
       include: { checklistItems: { orderBy: { displayIndex: "asc" } } },
-      orderBy: { version: "desc" },
+      orderBy: { createdAt: "desc" },
       where: { name },
     })
-    const latestChecklist = checklists[0]
-    const specificChecklist = version
-      ? checklists.find((checklist) => checklist.version === version)
-      : latestChecklist
+    if (!latestChecklist) throw new Error(`Checklist not found: ${name}`)
+    const latestUserChecklist: LatestUserChecklistType =
+      await db.userChecklist.findFirst({
+        where: { userId },
+        orderBy: { createdAt: "desc" },
+        include: {
+          checklist: {
+            include: { checklistItems: { orderBy: { displayIndex: "asc" } } },
+          },
+          userChecklistItems: { include: { checklistItem: true } },
+        },
+      })
 
-    if (!specificChecklist || !latestChecklist) throw new Error("Checklist not found")
-    const userChecklistWhere: Prisma.UserChecklistWhereUniqueInput = {
-      userId_checklistId: { userId, checklistId: specificChecklist.id },
+    if (
+      !latestUserChecklist ||
+      isUserChecklistMalformed(
+        latestUserChecklist,
+        latestUserChecklist.checklist
+      )
+    ) {
+      if (latestUserChecklist) {
+        console.log(
+          `Deleting malformed userChecklist: ${latestUserChecklist.id}`
+        )
+        await db.userChecklistItem.deleteMany({
+          where: { userChecklistId: latestUserChecklist.id },
+        })
+        await db.userChecklist.delete({ where: { id: latestUserChecklist.id } })
+      }
+
+      const cloned = await cloneChecklistToUser(latestChecklist, userId)
+
+      return {
+        latestChecklistId: latestChecklist.id,
+        userChecklistCascade: {
+          checklist: latestChecklist,
+          userChecklist: cloned,
+        },
+      }
     }
 
-    let userChecklist: null | UserChecklistWithChecklistItems = await db.userChecklist.findUnique({
-      where: userChecklistWhere,
-      include: { userChecklistItems: { include: { checklistItem: true } } },
-    })
-
-    if (shouldUpsertIfMalformed && getIsUserChecklistMalformed(userChecklist, specificChecklist)) {
-      userChecklist = await cloneChecklistToUser(specificChecklist, userId, userChecklist)
+    return {
+      latestChecklistId: latestChecklist.id,
+      userChecklistCascade: {
+        checklist: latestChecklist,
+        userChecklist: latestUserChecklist,
+      },
     }
-
-    const isLatestVersion = latestChecklist && specificChecklist.version === latestChecklist.version
-    const data: UserChecklistByNameData = {
-      checklist: specificChecklist,
-      latestChecklist,
-      isLatestVersion: isLatestVersion ?? false,
-      userChecklistWithChecklistItems: userChecklist,
-    }
-
-    return data
   }
 )
