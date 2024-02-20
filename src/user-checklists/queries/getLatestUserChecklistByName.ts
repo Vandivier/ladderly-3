@@ -4,7 +4,7 @@ import { AuthenticationError } from "blitz"
 import db from "db"
 
 import { ChecklistWithItems } from "src/checklists/schemas"
-import { cloneChecklistToUser } from "../mutations/cloneChecklistToUser"
+import { cloneChecklistToUser } from "../mutations/createUserChecklistAsClone"
 import { UserChecklistByNameData, UserChecklistWithItems } from "../schemas"
 
 type LatestUserChecklistType =
