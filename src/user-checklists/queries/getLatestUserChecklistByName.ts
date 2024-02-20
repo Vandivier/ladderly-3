@@ -54,8 +54,8 @@ export default resolver.pipe(
       where: { name },
     })
     if (!latestChecklist) throw new Error(`Checklist not found: ${name}`)
-    const latestUserChecklist: LatestUserChecklistType =
-      await db.userChecklist.findFirst({
+    const allUserChecklist: LatestUserChecklistType[] =
+      await db.userChecklist.findMany({
         where: { userId },
         orderBy: { createdAt: "desc" },
         include: {
@@ -65,6 +65,14 @@ export default resolver.pipe(
           userChecklistItems: { include: { checklistItem: true } },
         },
       })
+
+    const latestUserChecklist: LatestUserChecklistType =
+      (allUserChecklist.length > 0 &&
+        allUserChecklist.find(
+          (userChecklist) =>
+            userChecklist && userChecklist.checklist.name === name
+        )) ||
+      null
 
     if (
       !latestUserChecklist ||
