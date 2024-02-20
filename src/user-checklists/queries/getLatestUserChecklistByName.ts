@@ -7,6 +7,12 @@ import { ChecklistWithItems } from "src/checklists/schemas"
 import { cloneChecklistToUser } from "../mutations/cloneChecklistToUser"
 import { UserChecklistByNameData, UserChecklistWithItems } from "../schemas"
 
+type LatestUserChecklistType =
+  | null
+  | (UserChecklistWithItems & {
+      checklist: ChecklistWithItems
+    })
+
 const isUserChecklistMalformed = (
   userChecklist: UserChecklistWithItems,
   specificChecklist: ChecklistWithItems
@@ -48,15 +54,24 @@ export default resolver.pipe(
       where: { name },
     })
     if (!latestChecklist) throw new Error(`Checklist not found: ${name}`)
-    const latestUserChecklist: null | UserChecklistWithItems =
+    const latestUserChecklist: LatestUserChecklistType =
       await db.userChecklist.findFirst({
-        where: { userId, checklistId: latestChecklist.id },
-        include: { userChecklistItems: { include: { checklistItem: true } } },
+        where: { userId },
+        orderBy: { createdAt: "desc" },
+        include: {
+          checklist: {
+            include: { checklistItems: { orderBy: { displayIndex: "asc" } } },
+          },
+          userChecklistItems: { include: { checklistItem: true } },
+        },
       })
 
     if (
       !latestUserChecklist ||
-      isUserChecklistMalformed(latestUserChecklist, latestChecklist)
+      isUserChecklistMalformed(
+        latestUserChecklist,
+        latestUserChecklist.checklist
+      )
     ) {
       if (latestUserChecklist) {
         console.log(
