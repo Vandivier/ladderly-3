@@ -56,7 +56,14 @@ export const CommunityMenuItems = ({
     <Link href={Routes.CommunityPage()} className={linkClassName}>
       Browse All Profiles
     </Link>
-    <Link href="https://discord.com/invite/fAg6Xa4uxc" className={linkClassName} target="_blank">
+    <Link href={Routes.EventsCalendarPage()} className={linkClassName}>
+      Events Calendar
+    </Link>
+    <Link
+      href="https://discord.com/invite/fAg6Xa4uxc"
+      className={linkClassName}
+      target="_blank"
+    >
       Discord
     </Link>
   </MenuItemsWrapper>
