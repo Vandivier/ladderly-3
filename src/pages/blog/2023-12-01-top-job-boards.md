@@ -36,7 +36,7 @@ There are seven additional platforms identified by John, which could be benefici
 
 Note that many job titles have spelling variants. Consult Google Trends to select the recommended variant for your resume, LinkedIn Profile, and other written communication using an SEO mindset.
 
-Ladderly recommends consulting the Google Trends 12 month view. In this view, for instance, we currently see that Fullstack Developer is a preferred spelling to Full-Stack Developer.
+Ladderly recommends consulting the Google Trends 12 month view. In this view, for instance, [we currently see](https://trends.google.com/trends/explore?geo=US&q=fullstack%20developer,full%20stack%20developer,full-stack%20developer&hl=en) that Fullstack Developer is a preferred spelling to Full-Stack Developer.
 
 Job Titles include:
 
