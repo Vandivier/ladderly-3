@@ -1,10 +1,16 @@
 ---
 title: "7. LeetCode Solutions"
-date: 1/23/24
+date: 5/07/24
 author: John Vandivier
 ---
 
 This article contains curated solutions to the problems found in the Ladderly Kata.
+
+In addition to the written solutions below, here are links to three YouTube playlists which each contain solutions for a particular programming language:
+
+1. [Ladderly Leetcode Kata Solutions - Python](https://www.youtube.com/playlist?list=PL4hsXTgWARMy6Km1BkVPAFc8Z5uRRupC1)
+2. [Ladderly Leetcode Kata Solutions - Java](https://www.youtube.com/playlist?list=PL4hsXTgWARMwimJhjMGHMzAuPmRhWXgV6)
+3. [Ladderly Leetcode Kata Solutions - JavaScript](https://www.youtube.com/playlist?list=PL4hsXTgWARMzTXvDfAWZeX-l_f-1Qe9MC)
 
 The Ladderly Leetcode Expanded Kata contains 20 problems, but this solutions article contains more than 20 solutions. That is because we will cover the optimal solution and solutions for some follow-ups or modifications here. For example, we cover the no-sort solution to 3Sum, which is the optimal solution to 3Sum if you are prohibited from sorting, and it is a popular follow-up question during interviews.
 
