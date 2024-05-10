@@ -3,7 +3,7 @@ import Link from "next/link"
 import { IconHome } from "../icons/Home"
 
 export const TopNavLeft = () => (
-  <Link href={Routes.Home()} className="mr-auto">
+  <Link href={Routes.HomePage()} className="mr-auto">
     <IconHome />
   </Link>
 )
