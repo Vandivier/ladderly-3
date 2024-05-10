@@ -1,4 +1,4 @@
-import Document, { Html, Main, NextScript, Head } from "next/document"
+import { Html, Main } from "next/document"
 
 class MyDocument extends Document {
   render() {

@@ -1,3 +1,4 @@
+import { gSP } from "app/blitz-server"
 import fs from "fs"
 import matter from "gray-matter"
 import { GetStaticPaths, GetStaticProps } from "next"
@@ -54,13 +55,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = gSP(async ({ params }) => {
   if (!params || typeof params.slug !== "string") {
     return { notFound: true }
   }
 
   const slug = params.slug
-  const markdownWithMetadata = fs.readFileSync(path.join("src/pages/blog", slug + ".md")).toString()
+  const markdownWithMetadata = fs
+    .readFileSync(path.join("src/pages/blog", slug + ".md"))
+    .toString()
 
   const { data, content } = matter(markdownWithMetadata)
 
@@ -71,7 +74,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 
-  const updatedHtml = htmlContent.toString().replaceAll("{{ BlogCallToAction }}", sBlogCallToAction)
+  const updatedHtml = htmlContent
+    .toString()
+    .replaceAll("{{ BlogCallToAction }}", sBlogCallToAction)
 
   return {
     props: {
@@ -79,6 +84,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       content: updatedHtml,
     },
   }
-}
+})
 
 export default BlogPost

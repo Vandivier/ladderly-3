@@ -1,17 +1,26 @@
-import { AppProps, ErrorBoundary, ErrorComponent, ErrorFallbackProps, Routes } from "@blitzjs/next"
+import {
+  AppProps,
+  ErrorBoundary,
+  ErrorComponent,
+  ErrorFallbackProps,
+  Routes,
+} from "@blitzjs/next"
 import { Analytics } from "@vercel/analytics/react"
 import { AuthenticationError, AuthorizationError } from "blitz"
 import Link from "next/link"
 import { GoogleAnalytics } from "nextjs-google-analytics"
 import React from "react"
-import { withBlitz } from "src/blitz-client"
 import { LargeCard } from "src/core/components/LargeCard"
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
 import "src/core/styles/index.css"
 import "src/styles/globals.css"
 
-const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) => (
+const UserExceptionWrapper = ({
+  error,
+}: {
+  error: Error & Record<any, any>
+}) => (
   <LadderlyPageWrapper title="Error">
     <LargeCard>
       <div>
@@ -42,7 +51,10 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
               </p>
             </div>
           ) : (
-            <Link className="ml-auto text-gray-800 hover:text-ladderly-pink" href={Routes.Home()}>
+            <Link
+              className="ml-auto text-gray-800 hover:text-ladderly-pink"
+              href={Routes.Home()}
+            >
               Back to Home
             </Link>
           )}
@@ -53,7 +65,10 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
 )
 
 function RootErrorFallback({ error }: ErrorFallbackProps) {
-  if (error instanceof AuthenticationError || error instanceof AuthorizationError) {
+  if (
+    error instanceof AuthenticationError ||
+    error instanceof AuthorizationError
+  ) {
     return <UserExceptionWrapper error={error} />
   }
 

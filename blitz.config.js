@@ -1,4 +1,3 @@
-const { withBlitz } = require("@blitzjs/next")
 // @ts-check
 const { withBlitz } = require("@blitzjs/next")
 
@@ -11,4 +10,4 @@ const config = {
   },
 }
 
-module.exports = withBlitz(withBlitz(config))
+module.exports = withBlitz(config)
