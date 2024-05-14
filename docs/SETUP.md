@@ -50,7 +50,6 @@ npx blitz dev
 ## Troubleshooting.
 
 - **Unable to connect to supabase postgres database**
-
-* Make sure the connection string literal has no typos in it.
-* Make sure the password is correct and you don't have any braces after the colon `:`
-* If you just created the db at Supabase, give it about 45 minutes to propagate.
+  Make sure the connection string literal has no typos in it.
+  Make sure the password is correct and you don't have any braces after the colon `:`
+  If you just created the db at Supabase, give it about 45 minutes to propagate.
