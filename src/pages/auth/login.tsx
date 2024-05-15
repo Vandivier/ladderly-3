@@ -11,12 +11,15 @@ const LoginPage: BlitzPage = () => {
     <Layout title="Log In">
       <div className="relative min-h-screen">
         <nav className="flex border border-ladderly-light-purple-1 bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
-          <Link href={Routes.Home()} className="ml-auto text-gray-800 hover:text-ladderly-pink">
+          <Link
+            href="/"
+            className="ml-auto text-gray-800 hover:text-ladderly-pink"
+          >
             Back to Home
           </Link>
         </nav>
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-          <LoginForm onSuccess={() => router.push(Routes.Home())} />
+          <LoginForm onSuccess={() => router.push("/")} />
         </div>
       </div>
     </Layout>

@@ -18,19 +18,24 @@ const ResetPasswordPage: BlitzPage = () => {
     <Layout title="Set a New Password">
       <div className="relative min-h-screen">
         <nav className="border-ladderly-light-purple flex border bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
-          <Link href={Routes.Home()} className="ml-auto text-gray-800 hover:text-ladderly-pink">
+          <Link
+            href="/"
+            className="ml-auto text-gray-800 hover:text-ladderly-pink"
+          >
             Back to Home
           </Link>
         </nav>
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
           <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-            <h1 className="mb-4 text-2xl font-bold text-gray-800">Set a New Password</h1>
+            <h1 className="mb-4 text-2xl font-bold text-gray-800">
+              Set a New Password
+            </h1>
 
             {isSuccess ? (
               <div>
                 <h2>Password Reset Successfully</h2>
                 <p>
-                  Go to the <Link href={Routes.Home()}>homepage</Link>
+                  Go to the <Link href="/">homepage</Link>
                 </p>
               </div>
             ) : (
@@ -53,13 +58,18 @@ const ResetPasswordPage: BlitzPage = () => {
                       }
                     } else {
                       return {
-                        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again.",
+                        [FORM_ERROR]:
+                          "Sorry, we had an unexpected error. Please try again.",
                       }
                     }
                   }
                 }}
               >
-                <LabeledTextField name="password" label="New Password" type="password" />
+                <LabeledTextField
+                  name="password"
+                  label="New Password"
+                  type="password"
+                />
                 <LabeledTextField
                   name="passwordConfirmation"
                   label="Confirm New Password"
@@ -75,6 +85,8 @@ const ResetPasswordPage: BlitzPage = () => {
 }
 
 ResetPasswordPage.redirectAuthenticatedTo = "/"
-ResetPasswordPage.getLayout = (page) => <Layout title="Reset Your Password">{page}</Layout>
+ResetPasswordPage.getLayout = (page) => (
+  <Layout title="Reset Your Password">{page}</Layout>
+)
 
 export default ResetPasswordPage

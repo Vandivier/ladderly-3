@@ -64,7 +64,7 @@ const MyBasicChecklist: BlitzPage = () => {
         <nav className="border-ladderly-light-purple text-ladderly-violet-700et-700 flex border bg-ladderly-off-white px-4 py-1">
           <Link
             className="ml-auto text-gray-800 hover:text-ladderly-pink"
-            href={Routes.Home()}
+            href="/"
           >
             Back to Home
           </Link>
