@@ -5,6 +5,7 @@ import path from "path"
 import rehypeStringify from "rehype-stringify"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
+import rehypePrettyCode from "rehype-pretty-code"
 import styles from "src/styles/Home.module.css"
 import { unified } from "unified"
 
@@ -16,7 +17,7 @@ const tipUrl =
 
 const sBlogCallToAction = `<p class="call-to-action"
   style="font-size: 1rem; font-style: italic; margin: 0 auto;">
-  
+
     Thanks for reading! Ladderly is open source and community driven.
     Consider supporting the maintainers by
     <a href="${tipUrl}" target="_blank">
@@ -60,18 +61,23 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const slug = params.slug
-  const markdownWithMetadata = fs.readFileSync(path.join("src/pages/blog", slug + ".md")).toString()
+  const markdownWithMetadata = fs
+    .readFileSync(path.join("src/pages/blog", slug + ".md"))
+    .toString()
 
   const { data, content } = matter(markdownWithMetadata)
 
   const htmlContent = await unified()
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypePrettyCode, {})
     .use(rehypeExternalLinks, { target: "_blank" })
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 
-  const updatedHtml = htmlContent.toString().replaceAll("{{ BlogCallToAction }}", sBlogCallToAction)
+  const updatedHtml = htmlContent
+    .toString()
+    .replaceAll("{{ BlogCallToAction }}", sBlogCallToAction)
 
   return {
     props: {
