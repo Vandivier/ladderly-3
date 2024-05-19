@@ -6,6 +6,16 @@ module.exports = {
         DEFAULT: {
           css: {
             "--tw-prose-bullets": "var(--tw-prose-bold)",
+            pre: {
+              backgroundColor: "black",
+              color: "white",
+
+              "code.hljs": {
+                backgroundColor: "black",
+                color: "white",
+                padding: 0,
+              },
+            },
           },
         },
       },

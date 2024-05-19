@@ -2,21 +2,24 @@ import fs from "fs"
 import matter from "gray-matter"
 import { GetStaticPaths, GetStaticProps } from "next"
 import path from "path"
+import rehypeExternalLinks from "rehype-external-links"
+import rehypeHighlight from "rehype-highlight"
 import rehypeStringify from "rehype-stringify"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
-import styles from "src/styles/Home.module.css"
 import { unified } from "unified"
 
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
-import rehypeExternalLinks from "rehype-external-links"
+
+import "highlight.js/styles/github-dark.css"
+import styles from "src/styles/Home.module.css"
 
 const tipUrl =
   "https://checkout.stripe.com/c/pay/cs_live_a10YyjvS4xEbZJ9Th74ZTitGd2NZoHBILwU0K8AdL1P5INh5a9ry7h1Bj9#fidkdWxOYHwnPyd1blppbHNgWlIzUk5qNVddT2AyYGM8PURQN01fTUFSYjU1bX9nPX1KZ1InKSd1aWxrbkB9dWp2YGFMYSc%2FJ2BTZDxAMjdgYmBpQ2NWYmNcXycpJ3dgY2B3d2B3SndsYmxrJz8nbXFxdXY%2FKipycnIraWRhYWB3aXwrbGoqJ3gl"
 
 const sBlogCallToAction = `<p class="call-to-action"
   style="font-size: 1rem; font-style: italic; margin: 0 auto;">
-  
+
     Thanks for reading! Ladderly is open source and community driven.
     Consider supporting the maintainers by
     <a href="${tipUrl}" target="_blank">
@@ -60,7 +63,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const slug = params.slug
-  const markdownWithMetadata = fs.readFileSync(path.join("src/pages/blog", slug + ".md")).toString()
+  const markdownWithMetadata = fs
+    .readFileSync(path.join("src/pages/blog", slug + ".md"))
+    .toString()
 
   const { data, content } = matter(markdownWithMetadata)
 
@@ -68,10 +73,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeExternalLinks, { target: "_blank" })
+    .use(rehypeHighlight, {
+      subset: ["javascript", "typescript", "css", "html", "python", "java"],
+    })
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 
-  const updatedHtml = htmlContent.toString().replaceAll("{{ BlogCallToAction }}", sBlogCallToAction)
+  const updatedHtml = htmlContent
+    .toString()
+    .replaceAll("{{ BlogCallToAction }}", sBlogCallToAction)
 
   return {
     props: {
