@@ -1,23 +1,49 @@
-import db from "db"
 import { SecurePassword } from "@blitzjs/auth/secure-password"
+import db, { PaymentTierEnum } from "db"
+import { Role } from "types"
+import { Signup } from "../schemas"
 
 export default async function signup(
   input: { password: string; email: string },
   ctx: any
 ) {
+  // Extracting input and context
+  const { email: inputEmail, password: inputPassword } = input
   const blitzContext = ctx
-  const hashedPassword = await SecurePassword.hash(
-    (input.password as string) || "test-password"
-  )
-  const email = (input.email as string) || "test" + Math.random() + "@test.com"
-  const user = await db.user.create({
-    data: { email, hashedPassword },
+
+  // Input validation using zod schema
+  const parsedInput = Signup.parse({
+    email: inputEmail,
+    password: inputPassword,
   })
 
+  // Processing email and password
+  const email = parsedInput.email.toLowerCase().trim()
+  const password = parsedInput.password.trim()
+
+  // Hashing password
+  const hashedPassword = await SecurePassword.hash(password)
+
+  // Creating user
+  const user = await db.user.create({
+    data: { email, hashedPassword, role: "USER" },
+    select: { id: true, email: true, role: true },
+  })
+
+  // Creating user subscription
+  await db.subscription.create({
+    data: {
+      tier: PaymentTierEnum.FREE,
+      userId: user.id,
+    },
+  })
+
+  // Creating session
   await blitzContext.session.$create({
     userId: user.id,
-    role: "user",
+    role: user.role as Role,
   })
 
-  return { userId: blitzContext.session.userId, ...user, email: input.email }
+  // Returning user data
+  return user
 }
