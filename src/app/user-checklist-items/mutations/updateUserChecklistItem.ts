@@ -22,7 +22,9 @@ export default resolver.pipe(
         throw new Error("UserChecklist not found.")
       }
 
-      const allItemsComplete = userChecklist.userChecklistItems.every((item) => item.isComplete)
+      const allItemsComplete = userChecklist.userChecklistItems.every(
+        (item) => item.isComplete
+      )
       if (allItemsComplete) {
         await db.userChecklist.update({
           where: { id: userChecklist.id },

@@ -65,6 +65,7 @@ const UserExceptionWrapper = ({
   </LadderlyPageWrapper>
 )
 
+// TODO: merge w ladderly-3/src/app/error.tsx
 function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (
     error instanceof AuthenticationError ||

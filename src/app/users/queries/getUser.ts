@@ -42,5 +42,7 @@ export default resolver.pipe(async ({ id }: { id: number }, ctx: Ctx) => {
     return user
   }
 
-  throw new AuthorizationError("You do not have permission to view this user data.")
+  throw new AuthorizationError(
+    "You do not have permission to view this user data."
+  )
 })
