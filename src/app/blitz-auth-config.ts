@@ -1,5 +1,5 @@
 import { AuthPluginClientOptions } from "@blitzjs/auth"
 
 export const authConfig: AuthPluginClientOptions = {
-  cookiePrefix: "app-dir",
+  cookiePrefix: "ladderly-3-app-dir",
 }
