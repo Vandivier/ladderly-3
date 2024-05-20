@@ -26,7 +26,7 @@ export default async function signup(
 
   // Creating user
   const user = await db.user.create({
-    data: { email, hashedPassword, role: "USER" },
+    data: { email: email.toLowerCase().trim(), hashedPassword, role: "USER" },
     select: { id: true, email: true, role: true },
   })
 
