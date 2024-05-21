@@ -1,11 +1,11 @@
 "use client"
-import { LabeledTextField } from "src/app/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/app/components/Form"
-import { ResetPassword } from "../schemas"
-import resetPassword from "../mutations/resetPassword"
 import { useMutation } from "@blitzjs/rpc"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { Form, FORM_ERROR } from "src/core/components/Form"
+import { LabeledTextField } from "src/core/components/LabeledTextField"
+import resetPassword from "../mutations/resetPassword"
+import { ResetPassword } from "../schemas"
 
 export function ResetPasswordForm() {
   const searchParams = useSearchParams()

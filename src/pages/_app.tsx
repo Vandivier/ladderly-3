@@ -15,7 +15,6 @@ import { withBlitz } from "src/app/blitz-client"
 import { LargeCard } from "src/core/components/LargeCard"
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
-import "src/core/styles/index.css"
 import "src/app/styles/globals.css"
 
 const UserExceptionWrapper = ({

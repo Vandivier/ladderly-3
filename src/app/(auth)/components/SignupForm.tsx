@@ -1,10 +1,10 @@
 "use client"
-import { LabeledTextField } from "src/app/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/app/components/Form"
-import signup from "../mutations/signup"
-import { Signup } from "../schemas"
 import { useMutation } from "@blitzjs/rpc"
 import { useRouter } from "next/navigation"
+import { Form, FORM_ERROR } from "src/core/components/Form"
+import { LabeledTextField } from "src/core/components/LabeledTextField"
+import signup from "../mutations/signup"
+import { Signup } from "../schemas"
 
 type SignupFormProps = {
   onSuccess?: () => void

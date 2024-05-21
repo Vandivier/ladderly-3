@@ -1,14 +1,13 @@
 "use client"
+import { useMutation } from "@blitzjs/rpc"
 import { AuthenticationError, PromiseReturnType } from "blitz"
+import type { Route } from "next"
 import Link from "next/link"
-import { LabeledTextField } from "src/app/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/app/components/Form"
+import { useRouter, useSearchParams } from "next/navigation"
+import { FORM_ERROR, Form } from "src/core/components/Form"
+import { LabeledTextField } from "src/core/components/LabeledTextField"
 import login from "../mutations/login"
 import { Login } from "../schemas"
-import { useMutation } from "@blitzjs/rpc"
-import { useSearchParams } from "next/navigation"
-import { useRouter } from "next/navigation"
-import type { Route } from "next"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
