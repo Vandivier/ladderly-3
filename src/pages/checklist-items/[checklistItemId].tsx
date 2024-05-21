@@ -1,14 +1,13 @@
-import { Suspense } from "react"
-import { Routes } from "@blitzjs/next"
+import { Routes, useParam } from "@blitzjs/next"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useQuery, useMutation } from "@blitzjs/rpc"
-import { useParam } from "@blitzjs/next"
+import { Suspense } from "react"
 
+import deleteChecklistItem from "src/app/checklist-items/mutations/deleteChecklistItem"
+import getChecklistItem from "src/app/checklist-items/queries/getChecklistItem"
 import Layout from "src/core/layouts/Layout"
-import getChecklistItem from "src/checklist-items/queries/getChecklistItem"
-import deleteChecklistItem from "src/checklist-items/mutations/deleteChecklistItem"
 
 export const ChecklistItem = () => {
   const router = useRouter()
@@ -66,6 +65,8 @@ const ShowChecklistItemPage = () => {
 }
 
 ShowChecklistItemPage.authenticate = true
-ShowChecklistItemPage.getLayout = (page) => <Layout title="Checklist Item">{page}</Layout>
+ShowChecklistItemPage.getLayout = (page) => (
+  <Layout title="Checklist Item">{page}</Layout>
+)
 
 export default ShowChecklistItemPage

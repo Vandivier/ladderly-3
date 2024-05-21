@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePaginatedQuery } from "@blitzjs/rpc"
 import { useRouter } from "next/router"
 import Layout from "src/core/layouts/Layout"
-import getChecklistItems from "src/checklist-items/queries/getChecklistItems"
+import getChecklistItems from "src/app/checklist-items/queries/getChecklistItems"
 
 const ITEMS_PER_PAGE = 100
 

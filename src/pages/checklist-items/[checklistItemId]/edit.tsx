@@ -1,17 +1,19 @@
-import { Suspense } from "react"
-import { Routes } from "@blitzjs/next"
+import { Routes, useParam } from "@blitzjs/next"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useQuery, useMutation } from "@blitzjs/rpc"
-import { useParam } from "@blitzjs/next"
+import { Suspense } from "react"
 
-import Layout from "src/core/layouts/Layout"
-import { UpdateChecklistItemSchema } from "src/checklist-items/schemas"
-import getChecklistItem from "src/checklist-items/queries/getChecklistItem"
-import updateChecklistItem from "src/checklist-items/mutations/updateChecklistItem"
-import { ChecklistItemForm, FORM_ERROR } from "src/checklist-items/components/ChecklistItemForm"
 import { RoleEnum } from "db"
+import {
+  ChecklistItemForm,
+  FORM_ERROR,
+} from "src/app/checklist-items/components/ChecklistItemForm"
+import updateChecklistItem from "src/app/checklist-items/mutations/updateChecklistItem"
+import getChecklistItem from "src/app/checklist-items/queries/getChecklistItem"
+import { UpdateChecklistItemSchema } from "src/app/checklist-items/schemas"
+import Layout from "src/core/layouts/Layout"
 
 export const EditChecklistItem = () => {
   const router = useRouter()
@@ -46,7 +48,9 @@ export const EditChecklistItem = () => {
                   id: checklistItem.id,
                 })
                 await setQueryData(updated)
-                await router.push(Routes.ShowChecklistItemPage({ checklistItemId: updated.id }))
+                await router.push(
+                  Routes.ShowChecklistItemPage({ checklistItemId: updated.id })
+                )
               } catch (error: any) {
                 console.error(error)
                 return {
@@ -76,6 +80,8 @@ const EditChecklistItemPage = () => {
 }
 
 EditChecklistItemPage.authenticate = { role: RoleEnum.ADMIN }
-EditChecklistItemPage.getLayout = (page) => <Layout title="Edit Checklist">{page}</Layout>
+EditChecklistItemPage.getLayout = (page) => (
+  <Layout title="Edit Checklist">{page}</Layout>
+)
 
 export default EditChecklistItemPage
