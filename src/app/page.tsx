@@ -74,19 +74,21 @@ export default async function Home() {
             className={`mx-auto my-6 flex flex-wrap gap-0 rounded-lg bg-frost p-2 sm:flex-nowrap sm:gap-16`}
           >
             <Image
-              className="m-auto block rounded-lg shadow-lg sm:hidden"
-              src="/logo.png"
               alt="Ladderly Logo"
-              width={270}
+              className="m-auto block rounded-lg shadow-lg sm:hidden"
               height={270}
+              priority={true}
+              src="/logo.png"
+              width={270}
             />
 
             <Image
-              className="m-6 hidden rounded-lg shadow-lg sm:block"
-              src="/logo.png"
               alt="Ladderly Logo"
-              width={330}
               height={330}
+              className="m-6 hidden rounded-lg shadow-lg sm:block"
+              priority={true}
+              src="/logo.png"
+              width={330}
             />
 
             <LadderlyHelpsContentBlock />
