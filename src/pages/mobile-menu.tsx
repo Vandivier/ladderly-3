@@ -59,12 +59,12 @@ const GuestMenuItems = () => {
   return (
     <>
       <li>
-        <Link href={Routes.LoginPage()} className={MOBILE_LINK_CLASSES}>
+        <Link href="/login" className={MOBILE_LINK_CLASSES}>
           Log In
         </Link>
       </li>
       <li>
-        <Link href={Routes.CreateAccountPage()} className={MOBILE_LINK_CLASSES}>
+        <Link href="/signup" className={MOBILE_LINK_CLASSES}>
           Create Account
         </Link>
       </li>

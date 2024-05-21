@@ -37,7 +37,7 @@ const UserExceptionWrapper = ({
             <div>
               <Link
                 className="ml-auto text-gray-800 hover:text-ladderly-pink"
-                href={Routes.LoginPage()}
+                href="/login"
               >
                 Log In
               </Link>

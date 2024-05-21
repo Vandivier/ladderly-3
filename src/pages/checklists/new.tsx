@@ -1,12 +1,15 @@
 import { Routes } from "@blitzjs/next"
+import { useMutation } from "@blitzjs/rpc"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useMutation } from "@blitzjs/rpc"
-import Layout from "src/core/layouts/Layout"
-import { CreateChecklistSchema } from "src/checklists/schemas"
-import createChecklist from "src/checklists/mutations/createChecklist"
-import { ChecklistForm, FORM_ERROR } from "src/checklists/components/ChecklistForm"
 import { Suspense } from "react"
+import {
+  ChecklistForm,
+  FORM_ERROR,
+} from "src/app/checklists/components/ChecklistForm"
+import createChecklist from "src/app/checklists/mutations/createChecklist"
+import { CreateChecklistSchema } from "src/app/checklists/schemas"
+import Layout from "src/core/layouts/Layout"
 
 const NewChecklistPage = () => {
   const router = useRouter()
@@ -23,7 +26,9 @@ const NewChecklistPage = () => {
           onSubmit={async (values) => {
             try {
               const checklist = await createChecklistMutation(values)
-              await router.push(Routes.ShowChecklistPage({ checklistId: checklist.id }))
+              await router.push(
+                Routes.ShowChecklistPage({ checklistId: checklist.id })
+              )
             } catch (error: any) {
               console.error(error)
               return {

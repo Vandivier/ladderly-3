@@ -82,7 +82,7 @@ const AboutPage: BlitzPage = () => {
         </h2>
         <p className="mt-4">
           Sign up{" "}
-          <Link className={styles.textLink} href="auth/signup">
+          <Link className={styles.textLink} href="/auth/signup">
             here
           </Link>{" "}
           and check out the{" "}

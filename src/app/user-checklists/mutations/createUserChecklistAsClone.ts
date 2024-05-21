@@ -3,7 +3,7 @@ import { resolver } from "@blitzjs/rpc"
 import { Prisma } from "@prisma/client"
 import { AuthenticationError } from "blitz"
 import db from "db"
-import { ChecklistWithItems } from "src/checklists/schemas"
+import { ChecklistWithItems } from "src/app/checklists/schemas"
 import {
   UserChecklistItemWithChecklistItem,
   UserChecklistWithItems,

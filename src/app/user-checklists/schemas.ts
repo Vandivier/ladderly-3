@@ -1,5 +1,5 @@
 import { ChecklistItem, UserChecklist, UserChecklistItem } from "db"
-import { ChecklistWithItems } from "src/checklists/schemas"
+import { ChecklistWithItems } from "src/app/checklists/schemas"
 
 export type UserChecklistItemWithChecklistItem = UserChecklistItem & {
   checklistItem: ChecklistItem

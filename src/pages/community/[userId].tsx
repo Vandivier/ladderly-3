@@ -2,9 +2,9 @@ import { useParams } from "@blitzjs/next"
 import { useQuery } from "@blitzjs/rpc"
 import { Suspense } from "react"
 
-import getUser from "src/users/queries/getUser"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import getUser from "src/app/users/queries/getUser"
 import { LargeCard } from "src/core/components/LargeCard"
+import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
 const UserProfile = () => {
   const { userId } = useParams()
@@ -76,7 +76,9 @@ const UserProfile = () => {
               <li className="my-1" key={checklist.id}>
                 <p>Checklist: {checklist.checklist.name}</p>
                 <p>Version: {checklist.checklist.version}</p>
-                <p>Completed at: {new Date(checklist.updatedAt).toLocaleString()}</p>
+                <p>
+                  Completed at: {new Date(checklist.updatedAt).toLocaleString()}
+                </p>
               </li>
             ))}
           </ul>

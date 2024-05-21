@@ -2,9 +2,9 @@ import { useMutation, useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import React from "react"
 
-import updateUserChecklistItem from "src/user-checklist-items/mutations/updateUserChecklistItem"
-import getLatestUserChecklistByName from "src/user-checklists/queries/getLatestUserChecklistByName"
-import { UserChecklistItemWithChecklistItem } from "src/user-checklists/schemas"
+import updateUserChecklistItem from "src/app/user-checklist-items/mutations/updateUserChecklistItem"
+import getLatestUserChecklistByName from "src/app/user-checklists/queries/getLatestUserChecklistByName"
+import { UserChecklistItemWithChecklistItem } from "src/app/user-checklists/schemas"
 
 const MAGIC_LINK_SUBSTR = "###LINK###"
 
@@ -64,7 +64,7 @@ const UserChecklistItemList = ({
                     <React.Fragment key={index}>
                       {part}
                       <Link
-                        href={checklistItem.linkUri}
+                        href={{ pathname: checklistItem.linkUri }}
                         target="_blank"
                         rel="noreferrer"
                         className="font-bold hover:underline"

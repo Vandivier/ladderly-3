@@ -70,7 +70,7 @@ const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
     benefit.paragraphContent = (
       <Link
         className="text-ladderly-violet-700 hover:underline"
-        href={benefit.url}
+        href={{ pathname: benefit.url }}
         target="_blank"
       >
         {benefit.text}
@@ -108,7 +108,7 @@ const PricingGrid: React.FC = () => {
 
             {plan.buttonText && plan.link && (
               <Link
-                href={plan.link}
+                href={{ pathname: plan.link }}
                 className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
                 target="_blank"
               >

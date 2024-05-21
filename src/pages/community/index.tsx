@@ -3,9 +3,9 @@ import { usePaginatedQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { Suspense } from "react"
+import getUsers from "src/app/users/queries/getUsers"
 import { LargeCard } from "src/core/components/LargeCard"
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
-import getUsers from "src/users/queries/getUsers"
 
 const ITEMS_PER_PAGE = 100
 
