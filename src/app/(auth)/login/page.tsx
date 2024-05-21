@@ -1,6 +1,6 @@
 "use client"
 import { BlitzPage } from "@blitzjs/next"
-import { useRouter } from "next/compat/router"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import LoginForm from "src/app/(auth)/components/LoginForm"
 import Layout from "src/core/layouts/Layout"
@@ -20,7 +20,7 @@ const LoginPage: BlitzPage = () => {
           </Link>
         </nav>
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-          <LoginForm onSuccess={() => router && router.push("/")} />
+          <LoginForm onSuccess={() => router.push("/")} />
         </div>
       </div>
     </Layout>
