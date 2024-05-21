@@ -59,13 +59,10 @@ export const TopNavRight = () => {
         </button>
       ) : (
         <>
-          <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.LoginPage()}>
+          <Link className={TOP_NAV_STANDARD_CLASSES} href="/login">
             Log In
           </Link>
-          <Link
-            className={TOP_NAV_STANDARD_CLASSES}
-            href={Routes.CreateAccountPage()}
-          >
+          <Link className={TOP_NAV_STANDARD_CLASSES} href="/signup">
             Create Account
           </Link>
         </>

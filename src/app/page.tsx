@@ -65,8 +65,6 @@ const AdvancedChecklistContentBlock = () => {
   ) : null
 }
 
-// TODO: use arrow function
-// const Home = async () => {
 export default async function Home() {
   return (
     <LadderlyPageWrapper title="Home">

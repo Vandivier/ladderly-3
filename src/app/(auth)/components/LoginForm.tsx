@@ -1,13 +1,11 @@
-"use client"
+import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { AuthenticationError, PromiseReturnType } from "blitz"
-import type { Route } from "next"
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
+import login from "src/app/(auth)/mutations/login"
+import { Login } from "src/app/(auth)/schemas"
 import { FORM_ERROR, Form } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
-import login from "../mutations/login"
-import { Login } from "../schemas"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
@@ -15,25 +13,18 @@ type LoginFormProps = {
 
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
-  const router = useRouter()
-  const next = useSearchParams()?.get("next")
   return (
-    <>
-      <h1>Login</h1>
+    <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+      <h1 className="mb-4 text-2xl font-bold text-gray-800">Log In</h1>
 
       <Form
-        submitText="Login"
+        submitText="Log In"
         schema={Login}
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values) => {
           try {
-            await loginMutation(values)
-            router.refresh()
-            if (next) {
-              router.push(next as Route)
-            } else {
-              router.push("/")
-            }
+            const user = await loginMutation(values)
+            props.onSuccess?.(user)
           } catch (error: any) {
             if (error instanceof AuthenticationError) {
               return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
@@ -54,14 +45,16 @@ export const LoginForm = (props: LoginFormProps) => {
           placeholder="Password"
           type="password"
         />
-        <div>
-          <Link href={"/forgot-password"}>Forgot your password?</Link>
+        <div className="mt-4 text-left">
+          <Link href={Routes.ForgotPasswordPage()}>Forgot your password?</Link>
         </div>
       </Form>
 
-      <div style={{ marginTop: "1rem" }}>
-        Or <Link href="/signup">Sign Up</Link>
+      <div className="mt-4">
+        Or <Link href={Routes.CreateAccountPage()}>Sign Up</Link>
       </div>
-    </>
+    </div>
   )
 }
+
+export default LoginForm
