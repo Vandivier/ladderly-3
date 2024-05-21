@@ -1,12 +1,15 @@
+import Link from "next/link"
 import React from "react"
 
 import Layout, { LayoutProps } from "../../layouts/Layout"
-
-import styles from "src/styles/Home.module.css"
 import { TopNav } from "./TopNav"
-import Link from "next/link"
 
-export const LadderlyPageWrapper: React.FC<LayoutProps> = ({ children, title }) => (
+import styles from "src/app/styles/Home.module.css"
+
+export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
+  children,
+  title,
+}) => (
   <Layout title={title}>
     <div className={styles.container}>
       <TopNav />

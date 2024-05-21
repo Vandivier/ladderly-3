@@ -6,9 +6,9 @@ import { Suspense } from "react"
 
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 import PricingGrid from "src/core/components/pricing-grid/PricingGrid"
-import useSubscriptionLevel from "src/users/hooks/useSubscriptionLevel"
+import useSubscriptionLevel from "./users/hooks/useSubscriptionLevel"
 
-import styles from "src/styles/Home.module.css"
+import styles from "src/app/styles/Home.module.css"
 
 const LadderlyHelpsContentBlock = () => {
   return (

@@ -4,8 +4,8 @@ import { User } from "db"
 import Link from "next/link"
 import React from "react"
 
-import logout from "src/auth/mutations/logout"
 import { MenuContext } from "./MenuProvider"
+import logout from "src/app/(auth)/mutations/logout"
 
 export const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold"
 export const MENU_ITEM_STANDARD_CLASSES =

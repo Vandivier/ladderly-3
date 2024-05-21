@@ -2,7 +2,7 @@ import { Routes } from "@blitzjs/next"
 import Link from "next/link"
 import React from "react"
 
-import { useCurrentUser } from "src/users/hooks/useCurrentUser"
+import { useCurrentUser } from "src/app/users/hooks/useCurrentUser"
 import { IconVerticalChevron } from "../icons/VerticalChevron"
 import { MenuContext } from "./MenuProvider"
 import {

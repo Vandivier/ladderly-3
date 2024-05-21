@@ -3,6 +3,7 @@ import { User } from "db"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { Suspense } from "react"
+import { useCurrentUser } from "src/app/users/hooks/useCurrentUser"
 import { IconVerticalChevron } from "src/core/components/icons/VerticalChevron"
 import { TopNavFlexContainer } from "src/core/components/page-wrapper/TopNav"
 import { TopNavLeft } from "src/core/components/page-wrapper/TopNavLeft"
@@ -12,13 +13,16 @@ import {
   MENU_ITEM_STANDARD_CLASSES,
   TOP_NAV_STANDARD_CLASSES,
 } from "src/core/components/page-wrapper/TopNavSubmenu"
-import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 const MOBILE_LINK_CLASSES =
   "block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900"
 const MOBILE_SUBMENU_ITEM_CLASSES = `${MENU_ITEM_STANDARD_CLASSES} m-3`
 
-const AuthenticatedMenuItems = ({ currentUser }: { currentUser: Partial<User> }) => {
+const AuthenticatedMenuItems = ({
+  currentUser,
+}: {
+  currentUser: Partial<User>
+}) => {
   const [isSubmenuOpen, setIsSubmenuOpen] = React.useState(false)
 
   const toggleAccountSubmenu = () => {
@@ -70,12 +74,17 @@ const GuestMenuItems = () => {
 
 const AuthenticatedPartialMenu = () => {
   const currentUser = useCurrentUser()
-  return currentUser ? <AuthenticatedMenuItems currentUser={currentUser} /> : <GuestMenuItems />
+  return currentUser ? (
+    <AuthenticatedMenuItems currentUser={currentUser} />
+  ) : (
+    <GuestMenuItems />
+  )
 }
 
 const MobileMenuPage: BlitzPage = () => {
   const router = useRouter()
-  const [isCommunitySubmenuOpen, setIsCommunitySubmenuOpen] = React.useState(false)
+  const [isCommunitySubmenuOpen, setIsCommunitySubmenuOpen] =
+    React.useState(false)
 
   const handleClose = () => {
     router.back()
@@ -89,7 +98,10 @@ const MobileMenuPage: BlitzPage = () => {
     <div className="fixed inset-0 flex flex-col bg-ladderly-light-purple-1">
       <TopNavFlexContainer>
         <TopNavLeft />
-        <button onClick={handleClose} className={`${TOP_NAV_STANDARD_CLASSES} ml-auto`}>
+        <button
+          onClick={handleClose}
+          className={`${TOP_NAV_STANDARD_CLASSES} ml-auto`}
+        >
           Close
         </button>
       </TopNavFlexContainer>
@@ -114,7 +126,9 @@ const MobileMenuPage: BlitzPage = () => {
             <button
               onClick={toggleCommunitySubmenu}
               className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
-                isCommunitySubmenuOpen ? "border border-gray-200 bg-gray-100" : ""
+                isCommunitySubmenuOpen
+                  ? "border border-gray-200 bg-gray-100"
+                  : ""
               }`}
             >
               Community
@@ -122,7 +136,9 @@ const MobileMenuPage: BlitzPage = () => {
             </button>
             {isCommunitySubmenuOpen && (
               <ul>
-                <CommunityMenuItems linkClassName={MOBILE_SUBMENU_ITEM_CLASSES} />
+                <CommunityMenuItems
+                  linkClassName={MOBILE_SUBMENU_ITEM_CLASSES}
+                />
               </ul>
             )}
           </li>
