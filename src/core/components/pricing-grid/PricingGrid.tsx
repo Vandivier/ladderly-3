@@ -60,7 +60,6 @@ const plans: Plan[] = [
         url: "https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt",
       },
       { text: "Schedule Expert Consultations" },
-      { text: "Store Access" },
     ],
     buttonText: null,
   },
@@ -69,7 +68,11 @@ const plans: Plan[] = [
 const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
   if (benefit.url) {
     benefit.paragraphContent = (
-      <Link className="text-ladderly-violet-700 hover:underline" href={benefit.url} target="_blank">
+      <Link
+        className="text-ladderly-violet-700 hover:underline"
+        href={benefit.url}
+        target="_blank"
+      >
         {benefit.text}
       </Link>
     )
@@ -90,7 +93,10 @@ const PricingGrid: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan, i) => (
-          <div key={i} className="flex flex-col rounded-lg bg-white p-6 shadow-lg">
+          <div
+            key={i}
+            className="flex flex-col rounded-lg bg-white p-6 shadow-lg"
+          >
             <h2 className="mb-2 text-2xl font-bold">{plan.name}</h2>
             <p className="mb-4 text-xl">{plan.price}</p>
 
