@@ -1,4 +1,3 @@
-import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { AuthenticationError, PromiseReturnType } from "blitz"
 import Link from "next/link"
@@ -46,12 +45,12 @@ export const LoginForm = (props: LoginFormProps) => {
           type="password"
         />
         <div className="mt-4 text-left">
-          <Link href={Routes.ForgotPasswordPage()}>Forgot your password?</Link>
+          <Link href="/forgot-password">Forgot your password?</Link>
         </div>
       </Form>
 
       <div className="mt-4">
-        Or <Link href={Routes.CreateAccountPage()}>Sign Up</Link>
+        Or <Link href="/signup">Sign Up</Link>
       </div>
     </div>
   )

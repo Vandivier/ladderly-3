@@ -1,4 +1,3 @@
-import { Routes } from "@blitzjs/next"
 import Link from "next/link"
 import React from "react"
 
@@ -39,7 +38,7 @@ export const TopNavRight = () => {
 
   return (
     <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
-      <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
+      <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
         Blog
       </Link>
       <button
@@ -73,7 +72,7 @@ export const TopNavRight = () => {
 
 export const TopNavRightSkeleton = () => (
   <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
-    <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
+    <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
       Blog
     </Link>
   </div>

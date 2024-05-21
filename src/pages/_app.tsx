@@ -3,7 +3,6 @@ import {
   ErrorBoundary,
   ErrorComponent,
   ErrorFallbackProps,
-  Routes,
 } from "@blitzjs/next"
 import { Analytics } from "@vercel/analytics/react"
 import { AuthenticationError, AuthorizationError } from "blitz"
@@ -45,7 +44,7 @@ const UserExceptionWrapper = ({
                 <span>Not a member yet?</span>{" "}
                 <Link
                   className="ml-auto text-gray-800 hover:text-ladderly-pink"
-                  href={Routes.CreateAccountPage()}
+                  href="/signup"
                 >
                   Create an account for free!
                 </Link>

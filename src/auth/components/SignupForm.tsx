@@ -1,3 +1,4 @@
+"use client"
 import { useMutation } from "@blitzjs/rpc"
 import signup from "src/app/(auth)/mutations/signup"
 import { Signup } from "src/app/(auth)/schemas"
