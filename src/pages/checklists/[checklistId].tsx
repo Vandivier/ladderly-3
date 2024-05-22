@@ -7,8 +7,8 @@ import { useQuery, useMutation } from "@blitzjs/rpc"
 import { useParam } from "@blitzjs/next"
 
 import Layout from "src/core/layouts/Layout"
-import getChecklist from "src/checklists/queries/getChecklist"
-import deleteChecklist from "src/checklists/mutations/deleteChecklist"
+import getChecklist from "src/app/checklists/queries/getChecklist"
+import deleteChecklist from "src/app/checklists/mutations/deleteChecklist"
 
 export const Checklist = () => {
   const router = useRouter()
@@ -26,7 +26,9 @@ export const Checklist = () => {
         <h1>Checklist {checklist.id}</h1>
         <pre>{JSON.stringify(checklist, null, 2)}</pre>
 
-        <Link href={Routes.EditChecklistPage({ checklistId: checklist.id })}>Edit</Link>
+        <Link href={Routes.EditChecklistPage({ checklistId: checklist.id })}>
+          Edit
+        </Link>
 
         <button
           type="button"
@@ -60,6 +62,8 @@ const ShowChecklistPage = () => {
 }
 
 ShowChecklistPage.authenticate = true
-ShowChecklistPage.getLayout = (page) => <Layout title="Checklist Details">{page}</Layout>
+ShowChecklistPage.getLayout = (page) => (
+  <Layout title="Checklist Details">{page}</Layout>
+)
 
 export default ShowChecklistPage

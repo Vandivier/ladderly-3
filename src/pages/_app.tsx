@@ -1,17 +1,26 @@
-import { AppProps, ErrorBoundary, ErrorComponent, ErrorFallbackProps, Routes } from "@blitzjs/next"
+import {
+  AppProps,
+  ErrorBoundary,
+  ErrorComponent,
+  ErrorFallbackProps,
+} from "@blitzjs/next"
 import { Analytics } from "@vercel/analytics/react"
 import { AuthenticationError, AuthorizationError } from "blitz"
 import Link from "next/link"
 import { GoogleAnalytics } from "nextjs-google-analytics"
 import React from "react"
-import { withBlitz } from "src/blitz-client"
+import { withBlitz } from "src/app/blitz-client"
+
 import { LargeCard } from "src/core/components/LargeCard"
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
-import "src/core/styles/index.css"
-import "src/styles/globals.css"
+import "src/app/styles/globals.css"
 
-const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) => (
+const UserExceptionWrapper = ({
+  error,
+}: {
+  error: Error & Record<any, any>
+}) => (
   <LadderlyPageWrapper title="Error">
     <LargeCard>
       <div>
@@ -27,7 +36,7 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
             <div>
               <Link
                 className="ml-auto text-gray-800 hover:text-ladderly-pink"
-                href={Routes.LoginPage()}
+                href="/login"
               >
                 Log In
               </Link>
@@ -35,14 +44,17 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
                 <span>Not a member yet?</span>{" "}
                 <Link
                   className="ml-auto text-gray-800 hover:text-ladderly-pink"
-                  href={Routes.CreateAccountPage()}
+                  href="/signup"
                 >
                   Create an account for free!
                 </Link>
               </p>
             </div>
           ) : (
-            <Link className="ml-auto text-gray-800 hover:text-ladderly-pink" href={Routes.Home()}>
+            <Link
+              className="ml-auto text-gray-800 hover:text-ladderly-pink"
+              href="/"
+            >
               Back to Home
             </Link>
           )}
@@ -52,8 +64,12 @@ const UserExceptionWrapper = ({ error }: { error: Error & Record<any, any> }) =>
   </LadderlyPageWrapper>
 )
 
+// TODO: merge w ladderly-3/src/app/error.tsx
 function RootErrorFallback({ error }: ErrorFallbackProps) {
-  if (error instanceof AuthenticationError || error instanceof AuthorizationError) {
+  if (
+    error instanceof AuthenticationError ||
+    error instanceof AuthorizationError
+  ) {
     return <UserExceptionWrapper error={error} />
   }
 

@@ -7,10 +7,13 @@ import { useQuery, useMutation } from "@blitzjs/rpc"
 import { useParam } from "@blitzjs/next"
 
 import Layout from "src/core/layouts/Layout"
-import { UpdateChecklistSchema } from "src/checklists/schemas"
-import getChecklist from "src/checklists/queries/getChecklist"
-import updateChecklist from "src/checklists/mutations/updateChecklist"
-import { ChecklistForm, FORM_ERROR } from "src/checklists/components/ChecklistForm"
+import { UpdateChecklistSchema } from "src/app/checklists/schemas"
+import getChecklist from "src/app/checklists/queries/getChecklist"
+import updateChecklist from "src/app/checklists/mutations/updateChecklist"
+import {
+  ChecklistForm,
+  FORM_ERROR,
+} from "src/app/checklists/components/ChecklistForm"
 
 export const EditChecklist = () => {
   const router = useRouter()
@@ -45,7 +48,9 @@ export const EditChecklist = () => {
                   id: checklist.id,
                 })
                 await setQueryData(updated)
-                await router.push(Routes.ShowChecklistPage({ checklistId: updated.id }))
+                await router.push(
+                  Routes.ShowChecklistPage({ checklistId: updated.id })
+                )
               } catch (error: any) {
                 console.error(error)
                 return {
@@ -75,6 +80,8 @@ const EditChecklistPage = () => {
 }
 
 EditChecklistPage.authenticate = true
-EditChecklistPage.getLayout = (page) => <Layout title="Edit Checklist">{page}</Layout>
+EditChecklistPage.getLayout = (page) => (
+  <Layout title="Edit Checklist">{page}</Layout>
+)
 
 export default EditChecklistPage

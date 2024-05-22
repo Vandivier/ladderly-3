@@ -1,11 +1,10 @@
-import { Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { User } from "db"
 import Link from "next/link"
 import React from "react"
 
-import logout from "src/auth/mutations/logout"
 import { MenuContext } from "./MenuProvider"
+import logout from "src/app/(auth)/mutations/logout"
 
 export const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold"
 export const MENU_ITEM_STANDARD_CLASSES =
@@ -22,10 +21,10 @@ export const AccountMenuItems = ({
 
   return userId ? (
     <MenuItemsWrapper>
-      <Link href={Routes.ShowUserPage({ userId })} className={linkClassName}>
+      <Link href={`/community/${userId}`} className={linkClassName}>
         My Profile
       </Link>
-      <Link href={Routes.SettingsPage()} className={linkClassName}>
+      <Link href="/settings" className={linkClassName}>
         Settings
       </Link>
       <LogoutButton className={linkClassName} />
@@ -50,13 +49,13 @@ export const CommunityMenuItems = ({
   linkClassName?: string
 }) => (
   <MenuItemsWrapper>
-    <Link href={Routes.HallOfFamePage()} className={linkClassName}>
+    <Link href="/community/hall-of-fame" className={linkClassName}>
       Hall of Fame
     </Link>
-    <Link href={Routes.CommunityPage()} className={linkClassName}>
+    <Link href="/community" className={linkClassName}>
       Browse All Profiles
     </Link>
-    <Link href={Routes.EventsCalendarPage()} className={linkClassName}>
+    <Link href="/events-calendar" className={linkClassName}>
       Events Calendar
     </Link>
     <Link

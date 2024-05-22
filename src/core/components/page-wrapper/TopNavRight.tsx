@@ -1,8 +1,7 @@
-import { Routes } from "@blitzjs/next"
 import Link from "next/link"
 import React from "react"
 
-import { useCurrentUser } from "src/users/hooks/useCurrentUser"
+import { useCurrentUser } from "src/app/users/hooks/useCurrentUser"
 import { IconVerticalChevron } from "../icons/VerticalChevron"
 import { MenuContext } from "./MenuProvider"
 import {
@@ -39,7 +38,7 @@ export const TopNavRight = () => {
 
   return (
     <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
-      <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
+      <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
         Blog
       </Link>
       <button
@@ -59,13 +58,10 @@ export const TopNavRight = () => {
         </button>
       ) : (
         <>
-          <Link className={TOP_NAV_STANDARD_CLASSES} href={Routes.LoginPage()}>
+          <Link className={TOP_NAV_STANDARD_CLASSES} href="/login">
             Log In
           </Link>
-          <Link
-            className={TOP_NAV_STANDARD_CLASSES}
-            href={Routes.CreateAccountPage()}
-          >
+          <Link className={TOP_NAV_STANDARD_CLASSES} href="/signup">
             Create Account
           </Link>
         </>
@@ -76,7 +72,7 @@ export const TopNavRight = () => {
 
 export const TopNavRightSkeleton = () => (
   <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
-    <Link href={Routes.BlogIndex()} className={TOP_NAV_STANDARD_CLASSES}>
+    <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
       Blog
     </Link>
   </div>

@@ -1,14 +1,13 @@
 import { BlitzPage } from "@blitzjs/auth"
-import { Routes } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import React, { Suspense } from "react"
 
+import { UserChecklistQueryHandler } from "src/app/user-checklists/components/UserChecklistQueryHandler"
+import createUserChecklistAsClone from "src/app/user-checklists/mutations/createUserChecklistAsClone"
+import getLatestUserChecklistByName from "src/app/user-checklists/queries/getLatestUserChecklistByName"
 import { LadderlyToast } from "src/core/components/LadderlyToast"
 import Layout from "src/core/layouts/Layout"
-import { UserChecklistQueryHandler } from "src/user-checklists/components/UserChecklistQueryHandler"
-import createUserChecklistAsClone from "src/user-checklists/mutations/createUserChecklistAsClone"
-import getLatestUserChecklistByName from "src/user-checklists/queries/getLatestUserChecklistByName"
 
 const CURRENT_CHECKLIST_NAME = "Programming Job Checklist"
 
@@ -64,7 +63,7 @@ const MyBasicChecklist: BlitzPage = () => {
         <nav className="border-ladderly-light-purple text-ladderly-violet-700et-700 flex border bg-ladderly-off-white px-4 py-1">
           <Link
             className="ml-auto text-gray-800 hover:text-ladderly-pink"
-            href={Routes.Home()}
+            href="/"
           >
             Back to Home
           </Link>

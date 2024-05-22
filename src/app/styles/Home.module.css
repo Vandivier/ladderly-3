@@ -1,0 +1,160 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nextStepsCard {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  margin: auto;
+  text-align: center;
+  gap: 4rem;
+}
+
+.instructions {
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.globe {
+  position: fixed;
+  width: 350vmin;
+  height: 75vmin;
+  left: 20%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + 40px));
+  z-index: -1;
+  border-radius: 100%;
+  background-image: radial-gradient(
+    95.63% 95.63% at 95.92% 0%,
+    rgba(255, 255, 255, 0.62) 0%,
+    #8155ff38 60.42%,
+    #002fff5c 169%
+  );
+  filter: blur(8vmin);
+}
+
+.footer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.footer a,
+.footer p {
+  margin: auto 0.4rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.code {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  gap: 0.5rem;
+}
+
+.code span {
+  background: rgba(124, 58, 237, 50%);
+  border-radius: 50rem;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 17px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(57, 33, 97);
+}
+
+.textLink {
+  color: rgb(124, 58, 237);
+  background: linear-gradient(
+      to right,
+      rgba(231, 216, 246, 1),
+      rgba(231, 216, 246, 1)
+    ),
+    linear-gradient(
+      to right,
+      rgba(99, 1, 235, 1),
+      rgba(124, 58, 237, 1),
+      rgba(231, 216, 246, 1)
+    );
+  background-size: 100% 1px, 0 1px;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+
+.textLink:hover,
+.textLink:focus,
+.textLink:active {
+  background-size: 0 1px, 100% 1px;
+}
+
+.button {
+  background: linear-gradient(to top, rgb(124, 58, 237), rgb(117, 81, 236));
+  border: 1px solid rgb(231, 216, 246);
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.25) 0px 3px 8px;
+  padding: 0 24px;
+  height: 48px;
+  width: 200px;
+  max-width: 300px;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  user-select: none;
+  white-space: nowrap;
+  border-radius: 0.75rem;
+  border-bottom-left-radius: 0px;
+  font-size: 15px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: white;
+  text-shadow: rgb(0 0 0 / 56%) 0px 3px 12px;
+  box-shadow: rgb(80 63 205 / 50%) 0px 1px 40px;
+}
+
+.logo img {
+  border-radius: 16px;
+  box-shadow: rgba(117, 81, 236, 0.8) 3px 6px 18px;
+  margin: auto;
+}
+
+/* MOBILE */
+@media (max-width: 800px) {
+  .footer {
+    flex-direction: column;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .nextStepsCard {
+    width: 300px;
+  }
+}

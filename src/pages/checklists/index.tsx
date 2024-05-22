@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePaginatedQuery } from "@blitzjs/rpc"
 import { useRouter } from "next/router"
 import Layout from "src/core/layouts/Layout"
-import getChecklists from "src/checklists/queries/getChecklists"
+import getChecklists from "src/app/checklists/queries/getChecklists"
 
 const ITEMS_PER_PAGE = 100
 
@@ -26,7 +26,9 @@ export const ChecklistsList = () => {
       <ul>
         {checklists.map((checklist) => (
           <li key={checklist.id}>
-            <Link href={Routes.ShowChecklistPage({ checklistId: checklist.id })}>
+            <Link
+              href={Routes.ShowChecklistPage({ checklistId: checklist.id })}
+            >
               {checklist.name}
             </Link>
           </li>
