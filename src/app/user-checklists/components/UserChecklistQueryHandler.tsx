@@ -5,6 +5,7 @@ import React from "react"
 import updateUserChecklistItem from "src/app/user-checklist-items/mutations/updateUserChecklistItem"
 import getLatestUserChecklistByName from "src/app/user-checklists/queries/getLatestUserChecklistByName"
 import { UserChecklistItemWithChecklistItem } from "src/app/user-checklists/schemas"
+import { parseUrl } from "src/core/utils/parsing"
 
 const MAGIC_LINK_SUBSTR = "###LINK###"
 
@@ -64,7 +65,7 @@ const UserChecklistItemList = ({
                     <React.Fragment key={index}>
                       {part}
                       <Link
-                        href={{ pathname: checklistItem.linkUri }}
+                        href={parseUrl(checklistItem.linkUri)}
                         target="_blank"
                         rel="noreferrer"
                         className="font-bold hover:underline"
