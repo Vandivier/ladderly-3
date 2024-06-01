@@ -102,7 +102,8 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 5. [234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/description/)
 
    1. Patterns: Linked List, Fast and Slow Pointers, Recursion
-   2. Finishing Statement: I realize that the only way to avoid O(n) space complexity is to modify the input in place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array. I also realize that recursion creates O(n) space complexity along the runtime stack. Therefore recursion is also not optimal.
+
+   2. Finishing Statement: I realize that the only way to avoid O(n) space complexity is to modify the input in place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
 
 6. [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 
@@ -124,7 +125,7 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
 11. [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 
-    1. finishing statement: saying the tree traversal orders and when each one should be used
+    1. After completion: Review [other common tree traversal patterns](https://en.wikipedia.org/wiki/Tree_traversal) and their use cases.
 
 12. [79. Word Search](https://leetcode.com/problems/word-search/)
 
@@ -191,7 +192,7 @@ Here is the list of code challenges in the Ladderly Leetcode Expanded Kata:
 
     1. Patterns: Linked List, Fast and Slow Pointers, Recursion
 
-    2. Finishing Statement: I realize that the only way to avoid O(n) space complexity is to modify the input in-place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array. I also realize that recursion creates O(n) space complexity along the runtime stack. Therefore recursion is also not optimal.
+    2. Finishing Statement: I realize that the only way to avoid O(n) space complexity is to modify the input in-place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
 
 11. [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
     Patterns: Linked List
@@ -225,7 +226,8 @@ Here is the list of code challenges in the Ladderly Leetcode Expanded Kata:
 19. [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
 
 20. [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
-    1. finishing statement: saying the tree traversal orders and when each one should be used
+
+    1. After completion: Review [other common tree traversal patterns](https://en.wikipedia.org/wiki/Tree_traversal) and their use cases.
 
 {{ BlogCallToAction }}
 
