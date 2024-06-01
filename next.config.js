@@ -8,9 +8,6 @@ const config = {
   experimental: {
     typedRoutes: true,
   },
-  images: {
-    domains: ["files.cdn.printful.com"],
-  },
 }
 
 module.exports = withBlitz(config)
