@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link"
+import { useCurrentUser } from "src/app/users/hooks/useCurrentUser"
 
 type Benefit = {
   emphasize?: boolean
@@ -13,7 +14,7 @@ type Plan = {
   price: string
   benefits: Benefit[]
   buttonText: string | null
-  link?: string
+  loggedInLink?: string
 }
 
 const plans: Plan[] = [
@@ -31,7 +32,7 @@ const plans: Plan[] = [
       },
     ],
     buttonText: "Join Now",
-    link: "https://buy.stripe.com/fZe2bF4mo6Td7lK004",
+    loggedInLink: "https://buy.stripe.com/fZe2bF4mo6Td7lK004",
   },
   {
     name: "Pay What You Can",
@@ -43,7 +44,7 @@ const plans: Plan[] = [
       { text: "Priority Support" },
     ],
     buttonText: "Join Now",
-    link: "https://buy.stripe.com/dR67vZbOQfpJ21qdQT",
+    loggedInLink: "https://buy.stripe.com/dR67vZbOQfpJ21qdQT",
   },
   {
     name: "Free",
@@ -86,7 +87,19 @@ const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
   )
 }
 
+const LoggedOutPlanButton: React.FC = () => (
+  <Link
+    href={"/signup"}
+    className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+  >
+    Join Now
+  </Link>
+)
+
 const PricingGrid: React.FC = () => {
+  const currentUser = useCurrentUser()
+  const isLoggedIn = Boolean(currentUser)
+
   return (
     <div className="mx-auto mt-10 max-w-7xl rounded-lg bg-frost p-6">
       <h1 className="mb-10 text-center text-4xl font-bold">Pricing Plans</h1>
@@ -106,15 +119,17 @@ const PricingGrid: React.FC = () => {
               ))}
             </ul>
 
-            {plan.buttonText && plan.link && (
+            {isLoggedIn && plan.buttonText && plan.loggedInLink && (
               <Link
-                href={{ pathname: plan.link }}
+                href={{ pathname: plan.loggedInLink }}
                 className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
                 target="_blank"
               >
                 {plan.buttonText}
               </Link>
             )}
+
+            {!isLoggedIn ? <LoggedOutPlanButton /> : null}
           </div>
         ))}
       </div>
