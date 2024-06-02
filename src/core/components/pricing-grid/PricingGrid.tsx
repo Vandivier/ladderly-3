@@ -11,6 +11,7 @@ type Benefit = {
 
 type Plan = {
   name: string
+  planId: number
   price: string
   benefits: Benefit[]
   buttonText: string | null
@@ -20,6 +21,7 @@ type Plan = {
 const plans: Plan[] = [
   {
     name: "Premium",
+    planId: 30,
     price: "$30/mo",
     benefits: [
       { emphasize: true, text: "Limited Time Only: Free Expert Session" },
@@ -36,6 +38,7 @@ const plans: Plan[] = [
   },
   {
     name: "Pay What You Can",
+    planId: 10,
     price: "as little as $1/mo",
     benefits: [
       { text: "10% discount on Expert Sessions" },
@@ -48,6 +51,7 @@ const plans: Plan[] = [
   },
   {
     name: "Free",
+    planId: 0,
     price: "$0",
     benefits: [
       {
@@ -87,9 +91,9 @@ const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
   )
 }
 
-const LoggedOutPlanButton: React.FC = () => (
+const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
   <Link
-    href={"/signup"}
+    href={`/signup?planId=${planId}`}
     className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
   >
     Join Now
@@ -129,7 +133,7 @@ const PricingGrid: React.FC = () => {
               </Link>
             )}
 
-            {!isLoggedIn ? <LoggedOutPlanButton /> : null}
+            {!isLoggedIn ? <LoggedOutPlanButton planId={plan.planId} /> : null}
           </div>
         ))}
       </div>
