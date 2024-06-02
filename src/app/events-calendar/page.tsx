@@ -1,3 +1,5 @@
+"use client"
+
 import { BlitzPage } from "@blitzjs/next"
 import React from "react"
 import { LargeCard } from "src/core/components/LargeCard"
@@ -5,7 +7,7 @@ import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPa
 
 const EventsCalendarPage: BlitzPage = () => {
   return (
-    <LadderlyPageWrapper title="Events Calendar">
+    <LadderlyPageWrapper slug="/events-calendar" title="Events Calendar">
       <LargeCard>
         <h1 className="mb-4 text-2xl font-bold text-gray-800">
           Events Calendar

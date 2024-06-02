@@ -8,9 +8,10 @@ import styles from "src/app/styles/Home.module.css"
 
 export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
   children,
+  slug = "",
   title,
 }) => (
-  <Layout title={title}>
+  <Layout slug={slug} title={title}>
     <div className={styles.container}>
       <TopNav />
 
