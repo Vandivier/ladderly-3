@@ -1,29 +1,95 @@
 "use client" // Error components must be Client components
-import React, { useEffect } from "react"
 
-export default function Error({
+import {
+  AppProps,
+  ErrorBoundary,
+  ErrorComponent,
+  ErrorFallbackProps,
+} from "@blitzjs/next"
+import { Analytics } from "@vercel/analytics/react"
+import { AuthenticationError, AuthorizationError } from "blitz"
+import Link from "next/link"
+import { GoogleAnalytics } from "nextjs-google-analytics"
+import React from "react"
+import { LargeCard } from "src/core/components/LargeCard"
+import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import { withBlitz } from "./blitz-client"
+
+const UserExceptionWrapper = ({
   error,
-  reset,
 }: {
-  error: Error
-  reset: () => void
-}) {
-  useEffect(() => {
-    // TODO: Log the error to an error reporting service
-    console.error(error)
-  }, [error])
+  error: Error & Record<any, any>
+}) => (
+  <LadderlyPageWrapper title="Error">
+    <LargeCard>
+      <div>
+        <h1 className="text-center text-3xl text-ladderly-violet-600">Error</h1>
+        <h2 className="mb-3 mt-5 text-xl">
+          {error instanceof AuthenticationError
+            ? "You are not logged in."
+            : "You are not authorized to access this."}
+        </h2>
+
+        <div>
+          {error instanceof AuthenticationError ? (
+            <div>
+              <Link
+                className="ml-auto text-gray-800 hover:text-ladderly-pink"
+                href="/login"
+              >
+                Log In
+              </Link>
+              <p>
+                <span>Not a member yet?</span>{" "}
+                <Link
+                  className="ml-auto text-gray-800 hover:text-ladderly-pink"
+                  href="/signup"
+                >
+                  Create an account for free!
+                </Link>
+              </p>
+            </div>
+          ) : (
+            <Link
+              className="ml-auto text-gray-800 hover:text-ladderly-pink"
+              href="/"
+            >
+              Back to Home
+            </Link>
+          )}
+        </div>
+      </div>
+    </LargeCard>
+  </LadderlyPageWrapper>
+)
+
+function RootErrorFallback({ error }: ErrorFallbackProps) {
+  if (
+    error instanceof AuthenticationError ||
+    error instanceof AuthorizationError
+  ) {
+    return <UserExceptionWrapper error={error} />
+  }
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
-    </div>
+    <ErrorComponent
+      statusCode={(error as any)?.statusCode || 400}
+      title={error.message || error.name}
+    />
   )
 }
+
+function MyApp({ Component, pageProps }: AppProps) {
+  const getLayout = Component.getLayout || ((page) => page)
+  return (
+    <>
+      <GoogleAnalytics trackPageViews />
+      <ErrorBoundary FallbackComponent={RootErrorFallback}>
+        {getLayout(<Component {...pageProps} />)}
+      </ErrorBoundary>
+      <Analytics />
+    </>
+  )
+}
+
+export default withBlitz(MyApp)
