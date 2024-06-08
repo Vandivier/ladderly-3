@@ -50,7 +50,7 @@ export const LoginForm = (props: LoginFormProps) => {
       </Form>
 
       <div className="mt-4">
-        Or <Link href="/signup">Sign Up</Link>
+        Or <Link href="/signup" className="underline">Sign Up</Link>
       </div>
     </div>
   )
