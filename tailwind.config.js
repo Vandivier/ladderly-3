@@ -1,3 +1,4 @@
+
 module.exports = {
   content: ["./{src,app,pages}/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -68,4 +69,5 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/typography")],
+  darkMode: 'class',
 }

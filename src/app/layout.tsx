@@ -1,6 +1,7 @@
 import "./styles/globals.css"
 import { BlitzProvider } from "./blitz-client"
 import { Inter } from "next/font/google"
+import { Providers } from "./providers"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -17,6 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Providers>
+          {children}
+        </Providers>
         <BlitzProvider>
           <>{children}</>
         </BlitzProvider>

@@ -6,6 +6,9 @@ import { Login } from "src/app/(auth)/schemas"
 import { FORM_ERROR, Form } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
 
+
+
+
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
 }
@@ -50,7 +53,7 @@ export const LoginForm = (props: LoginFormProps) => {
       </Form>
 
       <div className="mt-4">
-        Or <Link href="/signup">Sign Up</Link>
+        Or <Link href="/signup" className="underline">Sign Up</Link>
       </div>
     </div>
   )
