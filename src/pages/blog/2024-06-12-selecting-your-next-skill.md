@@ -4,7 +4,7 @@ date: 6/12/24
 author: John Vandivier, Max Tapp
 ---
 
-Choosing the next skill to develop is a critical decision that can shape your career trajectory. At Ladderly, we treat this process as an optimal investment problem. The goal is to identify the skill that maximizes your return on investment (ROI) in terms of time, money, and effort, while also accounting for risk and leisure. Here’s a step-by-step guide to help you select the most beneficial skill for your development.
+Choosing the next skill to develop is a critical decision that can shape your career trajectory. At Ladderly, we treat this process as an optimal investment problem. The goal is to identify the skill that maximizes your return on investment (ROI) in terms of time, money, and effort, while also accounting for risk and leisure. Here’s a five-step process to help you select the most beneficial skill for your development.
 
 ## Step 1: Define Your Goals
 
