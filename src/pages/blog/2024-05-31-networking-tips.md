@@ -75,5 +75,5 @@ Beyond the previously-mentioned networking scripts, here are several additional 
    - These different perspectives will give you a more informed view and may increase your ability to gain a referral compared to a self-limiting approach of restricting the level you communicate with.
 
 7. Consider a Coaching Session
-   - Short-term strategic communication is a case where slightly rewording can significantly improve response rates outcome quality.
+   - Short-term strategic communication is a case where slightly rewording can significantly improve response rates and outcome quality.
    - Consider [booking a coaching call](https://buy.stripe.com/cN2bMfbOQ2CX5dC7su) if you would like help personalizing the generic advice in this article to your specific situation.

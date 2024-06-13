@@ -1,5 +1,6 @@
 "use client"
 import { useMutation } from "@blitzjs/rpc"
+import Link from "next/link"
 import signup from "src/app/(auth)/mutations/signup"
 import { Signup } from "src/app/(auth)/schemas"
 import { Form, FORM_ERROR } from "src/core/components/Form"
@@ -47,6 +48,13 @@ export const SignupForm = (props: SignupFormProps) => {
           type="password"
         />
       </Form>
+
+      <div className="mt-4">
+        Already signed up?{" "}
+        <Link className="underline" href="/login">
+          Log in here!
+        </Link>
+      </div>
     </div>
   )
 }

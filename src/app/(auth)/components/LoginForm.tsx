@@ -17,6 +17,7 @@ export const LoginForm = (props: LoginFormProps) => {
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Log In</h1>
 
       <Form
+        className="space-y-4"
         submitText="Log In"
         schema={Login}
         initialValues={{ email: "", password: "" }}
@@ -45,12 +46,17 @@ export const LoginForm = (props: LoginFormProps) => {
           type="password"
         />
         <div className="mt-4 text-left">
-          <Link href="/forgot-password">Forgot your password?</Link>
+          <Link className="underline" href="/forgot-password">
+            Forgot your password?
+          </Link>
         </div>
       </Form>
 
       <div className="mt-4">
-        Or <Link href="/signup" className="underline">Sign Up</Link>
+        Need to create an account?{" "}
+        <Link className="underline" href="/signup">
+          Sign up here!
+        </Link>
       </div>
     </div>
   )
