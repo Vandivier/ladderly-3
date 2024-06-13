@@ -46,12 +46,17 @@ export const LoginForm = (props: LoginFormProps) => {
           type="password"
         />
         <div className="mt-4 text-left">
-          <Link href="/forgot-password">Forgot your password?</Link>
+          <Link className="underline" href="/forgot-password">
+            Forgot your password?
+          </Link>
         </div>
       </Form>
 
       <div className="mt-4">
-        Need to create an account? <Link href="/signup">Sign up here!</Link>
+        Need to create an account?{" "}
+        <Link className="underline" href="/signup">
+          Sign up here!
+        </Link>
       </div>
     </div>
   )

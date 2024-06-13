@@ -50,7 +50,10 @@ export const SignupForm = (props: SignupFormProps) => {
       </Form>
 
       <div className="mt-4">
-        Already signed up? <Link href="/login">Log in here!</Link>
+        Already signed up?{" "}
+        <Link className="underline" href="/login">
+          Log in here!
+        </Link>
       </div>
     </div>
   )
