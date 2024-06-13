@@ -16,7 +16,6 @@ import { Root, Element } from "hast"
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
 import "highlight.js/styles/github-dark.css"
-import styles from "src/app/styles/Home.module.css"
 
 const tipUrl =
   "https://checkout.stripe.com/c/pay/cs_live_a10YyjvS4xEbZJ9Th74ZTitGd2NZoHBILwU0K8AdL1P5INh5a9ry7h1Bj9#fidkdWxOYHwnPyd1blppbHNgWlIzUk5qNVddT2AyYGM8PURQN01fTUFSYjU1bX9nPX1KZ1InKSd1aWxrbkB9dWp2YGFMYSc%2FJ2BTZDxAMjdgYmBpQ2NWYmNcXycpJ3dgY2B3d2B3SndsYmxrJz8nbXFxdXY%2FKipycnIraWRhYWB3aXwrbGoqJ3gl"
@@ -34,7 +33,7 @@ const sBlogCallToAction = `<p class="call-to-action"
 const BlogPost = ({ title, content }: { title: string; content: string }) => {
   return (
     <LadderlyPageWrapper title={title}>
-      <main className="m-auto w-1/2">
+      <main className="m-auto w-full md:w-1/2">
         <h1 className="p-4 text-3xl font-bold text-ladderly-violet-600">
           {title}
         </h1>
