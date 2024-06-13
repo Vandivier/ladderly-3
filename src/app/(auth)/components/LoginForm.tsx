@@ -6,9 +6,6 @@ import { Login } from "src/app/(auth)/schemas"
 import { FORM_ERROR, Form } from "src/core/components/Form"
 import { LabeledTextField } from "src/core/components/LabeledTextField"
 
-
-
-
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
 }

@@ -1,7 +1,7 @@
 import "./styles/globals.css"
 import { BlitzProvider } from "./blitz-client"
 import { Inter } from "next/font/google"
-import { Providers } from "./providers"
+import { Providers } from "providers"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -16,11 +16,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
         <BlitzProvider>
           <>{children}</>
         </BlitzProvider>

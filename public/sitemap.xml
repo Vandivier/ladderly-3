@@ -1,37 +1,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>
-            https://ladderly.io/
-        </loc>
-    </url>
-    <url>
-        <loc>
             https://ladderly.io/404
         </loc>
     </url>
     <url>
         <loc>
             https://ladderly.io/about
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/auth/forgot-password
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/auth/login
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/auth/reset-password
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/auth/signup
         </loc>
     </url>
     <url>
@@ -92,6 +67,11 @@
     <url>
         <loc>
             https://ladderly.io/blog/2024-04-20-hook-fundamentals
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2024-05-31-networking-tips
         </loc>
     </url>
     <url>
