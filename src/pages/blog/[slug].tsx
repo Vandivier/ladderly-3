@@ -1,17 +1,17 @@
 import fs from "fs"
 import matter from "gray-matter"
-import { Element, Root } from "hast"
 import { GetStaticPaths, GetStaticProps } from "next"
 import path from "path"
-import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeHighlight from "rehype-highlight"
-import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
+import rehypeSlug from "rehype-slug"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { unified } from "unified"
 import { visit } from "unist-util-visit"
+import { Root, Element } from "hast"
 
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
@@ -34,7 +34,7 @@ const sBlogCallToAction = `<p class="call-to-action"
 const BlogPost = ({ title, content }: { title: string; content: string }) => {
   return (
     <LadderlyPageWrapper title={title}>
-      <main className={styles.main}>
+      <main className="m-auto w-1/2">
         <h1 className="p-4 text-3xl font-bold text-ladderly-violet-600">
           {title}
         </h1>
@@ -75,7 +75,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { data, content } = matter(markdownWithMetadata)
 
-  const addFontBoldToHeadings = () => {
+  const addFontBoldToHeadingsAndAnchorHover = () => {
     return (tree: Root) => {
       visit(tree, "element", (node: Element) => {
         if (/^h[1-6]$/.test(node.tagName)) {
@@ -93,6 +93,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             }
           }
         }
+
+        if (node.tagName === "a") {
+          if (!node.properties) node.properties = {}
+          if (!node.properties.className) node.properties.className = []
+          ;(node.properties.className as string[]).push(
+            "no-underline",
+            "hover:underline"
+          )
+        }
       })
     }
   }
@@ -108,7 +117,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(rehypeAutolinkHeadings, {
       behavior: "wrap",
     })
-    .use(addFontBoldToHeadings)
+    .use(addFontBoldToHeadingsAndAnchorHover)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 
