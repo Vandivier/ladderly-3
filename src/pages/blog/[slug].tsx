@@ -1,13 +1,17 @@
 import fs from "fs"
 import matter from "gray-matter"
+import { Element, Root } from "hast"
 import { GetStaticPaths, GetStaticProps } from "next"
 import path from "path"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeHighlight from "rehype-highlight"
+import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { unified } from "unified"
+import { visit } from "unist-util-visit"
 
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
@@ -31,7 +35,9 @@ const BlogPost = ({ title, content }: { title: string; content: string }) => {
   return (
     <LadderlyPageWrapper title={title}>
       <main className={styles.main}>
-        <h1 className="p-4 text-3xl text-ladderly-violet-600">{title}</h1>
+        <h1 className="p-4 text-3xl font-bold text-ladderly-violet-600">
+          {title}
+        </h1>
         <article
           className="prose prose-lg max-w-none px-4 text-gray-700"
           dangerouslySetInnerHTML={{ __html: content }}
@@ -69,6 +75,28 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { data, content } = matter(markdownWithMetadata)
 
+  const addFontBoldToHeadings = () => {
+    return (tree: Root) => {
+      visit(tree, "element", (node: Element) => {
+        if (/^h[1-6]$/.test(node.tagName)) {
+          if (!node.properties) node.properties = {}
+          if (!node.properties.className) node.properties.className = []
+          ;(node.properties.className as string[]).push("font-bold")
+
+          if (node.children && node.children.length > 0) {
+            const firstChild = node.children[0] as Element
+            if (firstChild.tagName === "a") {
+              if (!firstChild.properties) firstChild.properties = {}
+              if (!firstChild.properties.className)
+                firstChild.properties.className = []
+              ;(firstChild.properties.className as string[]).push("font-bold")
+            }
+          }
+        }
+      })
+    }
+  }
+
   const htmlContent = await unified()
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
@@ -76,6 +104,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(rehypeHighlight, {
       subset: ["javascript", "typescript", "css", "html", "python", "java"],
     })
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, {
+      behavior: "wrap",
+    })
+    .use(addFontBoldToHeadings)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 
