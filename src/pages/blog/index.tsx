@@ -12,9 +12,12 @@ const BlogIndex = ({
 }) => {
   return (
     <LadderlyPageWrapper title="Blog">
-      <main>
+      <main className="m-auto w-full md:w-1/2">
         {posts.map((post) => (
-          <div key={post.slug} className="border-ladderly-light-purple border-b p-4">
+          <div
+            key={post.slug}
+            className="border-ladderly-light-purple border-b p-4"
+          >
             <Link
               className="text-2xl text-ladderly-violet-600 hover:underline"
               href={`/blog/${post.slug}`}
@@ -37,7 +40,9 @@ export const getStaticProps = async () => {
     .filter((filename) => path.extname(filename) === ".md")
     .map((filename) => {
       const slug = filename.replace(".md", "")
-      const markdownWithMetadata = fs.readFileSync(path.join("src/pages/blog", filename)).toString()
+      const markdownWithMetadata = fs
+        .readFileSync(path.join("src/pages/blog", filename))
+        .toString()
       const { data } = matter(markdownWithMetadata)
       return {
         slug,

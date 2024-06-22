@@ -5,14 +5,17 @@ import path from "path"
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeHighlight from "rehype-highlight"
 import rehypeStringify from "rehype-stringify"
+import rehypeSlug from "rehype-slug"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { unified } from "unified"
+import { visit } from "unist-util-visit"
+import { Root, Element } from "hast"
 
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
 import "highlight.js/styles/github-dark.css"
-import styles from "src/app/styles/Home.module.css"
 
 const tipUrl =
   "https://checkout.stripe.com/c/pay/cs_live_a10YyjvS4xEbZJ9Th74ZTitGd2NZoHBILwU0K8AdL1P5INh5a9ry7h1Bj9#fidkdWxOYHwnPyd1blppbHNgWlIzUk5qNVddT2AyYGM8PURQN01fTUFSYjU1bX9nPX1KZ1InKSd1aWxrbkB9dWp2YGFMYSc%2FJ2BTZDxAMjdgYmBpQ2NWYmNcXycpJ3dgY2B3d2B3SndsYmxrJz8nbXFxdXY%2FKipycnIraWRhYWB3aXwrbGoqJ3gl"
@@ -30,8 +33,10 @@ const sBlogCallToAction = `<p class="call-to-action"
 const BlogPost = ({ title, content }: { title: string; content: string }) => {
   return (
     <LadderlyPageWrapper title={title}>
-      <main className={styles.main}>
-        <h1 className="p-4 text-3xl text-ladderly-violet-600">{title}</h1>
+      <main className="m-auto w-full md:w-1/2">
+        <h1 className="p-4 text-3xl font-bold text-ladderly-violet-600">
+          {title}
+        </h1>
         <article
           className="prose prose-lg max-w-none px-4 text-gray-700"
           dangerouslySetInnerHTML={{ __html: content }}
@@ -69,6 +74,37 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { data, content } = matter(markdownWithMetadata)
 
+  const addFontBoldToHeadingsAndAnchorHover = () => {
+    return (tree: Root) => {
+      visit(tree, "element", (node: Element) => {
+        if (/^h[1-6]$/.test(node.tagName)) {
+          if (!node.properties) node.properties = {}
+          if (!node.properties.className) node.properties.className = []
+          ;(node.properties.className as string[]).push("font-bold")
+
+          if (node.children && node.children.length > 0) {
+            const firstChild = node.children[0] as Element
+            if (firstChild.tagName === "a") {
+              if (!firstChild.properties) firstChild.properties = {}
+              if (!firstChild.properties.className)
+                firstChild.properties.className = []
+              ;(firstChild.properties.className as string[]).push("font-bold")
+            }
+          }
+        }
+
+        if (node.tagName === "a") {
+          if (!node.properties) node.properties = {}
+          if (!node.properties.className) node.properties.className = []
+          ;(node.properties.className as string[]).push(
+            "no-underline",
+            "hover:underline"
+          )
+        }
+      })
+    }
+  }
+
   const htmlContent = await unified()
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
@@ -76,6 +112,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(rehypeHighlight, {
       subset: ["javascript", "typescript", "css", "html", "python", "java"],
     })
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, {
+      behavior: "wrap",
+    })
+    .use(addFontBoldToHeadingsAndAnchorHover)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 

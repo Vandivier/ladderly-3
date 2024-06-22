@@ -1,0 +1,31 @@
+.toc {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 200px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.toc ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.toc li {
+  margin-bottom: 10px;
+}
+
+.toc-h2 {
+  font-weight: bold;
+}
+
+.toc-h3 {
+  margin-left: 10px;
+}
+
+.toc-h4 {
+  margin-left: 20px;
+}
