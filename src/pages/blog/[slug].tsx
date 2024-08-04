@@ -1,17 +1,18 @@
 import fs from "fs"
 import matter from "gray-matter"
+import { Element, Root } from "hast"
 import { GetStaticPaths, GetStaticProps } from "next"
 import path from "path"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeHighlight from "rehype-highlight"
-import rehypeStringify from "rehype-stringify"
 import rehypeSlug from "rehype-slug"
-import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import rehypeStringify from "rehype-stringify"
+import remarkGfm from "remark-gfm"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { unified } from "unified"
 import { visit } from "unist-util-visit"
-import { Root, Element } from "hast"
 
 import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
 
@@ -101,12 +102,36 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             "hover:underline"
           )
         }
+
+        if (node.tagName === "table") {
+          if (!node.properties) node.properties = {}
+          if (!node.properties.className) node.properties.className = []
+          ;(node.properties.className as string[]).push(
+            "min-w-full",
+            "border-collapse",
+            "text-left",
+            "text-sm",
+            "my-4"
+          )
+        }
+
+        if (node.tagName === "th" || node.tagName === "td") {
+          if (!node.properties) node.properties = {}
+          if (!node.properties.className) node.properties.className = []
+          ;(node.properties.className as string[]).push(
+            "px-4",
+            "py-2",
+            "border",
+            "border-gray-300"
+          )
+        }
       })
     }
   }
 
   const htmlContent = await unified()
     .use(remarkParse)
+    .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeExternalLinks, { target: "_blank" })
     .use(rehypeHighlight, {
