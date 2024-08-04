@@ -33,23 +33,38 @@ This poll is more useful for the Ladderly.io audience for four reasons:
 3. This poll avoids stigmatic language.
 4. This poll is more recently, notably existing after the use of AI for tailoring has become common.
 
-A different school of common wisdom holds that a personal discussion will often reveal more about a person than their resume. This is closer to Ladderly.io's guidance, which is that social networking and brand building are far better allocations of time compared to fine-tuning the resume or writing a cover letter. Instead of sending a cover letter to a hiring manager, try to get them on a call.
+<img width="401" style="margin: auto;" alt="image" src="https://github.com/user-attachments/assets/e66051da-9f39-4bb9-9e72-74aed9551dd6">
 
-**_TODO: ADD POLL RESULTS HERE_**
+This poll indicates that popular support for post-tailored resumes not only holds for software engineers, but the support is exaggerated compared to other industries with a strong majority expecting at least ten times higher performance from a tailored resume!
 
-In summary, common wisdom holds that tailoring is not merely beneficial, but it is a multiplier technique rather than an incremental improvement. The prediction from common wisdom is that time spent on tailoring has a better return on investment compared to allocating that same time toward a second application.
+In summary, common wisdom holds that tailoring is not merely beneficial, but it is a multiplier technique rather than an incremental improvement. The prediction from common wisdom is that time spent on tailoring has a better return on investment compared to allocating that same time toward a second application. The main problem with this belief is that there is concrete data to suggest other practices provide better return.
 
-Problems with these results include:
+A notable secondary issue is that the practice of tailoring a resume varies widely. [Here](https://career.arizona.edu/resources/tailoring-your-resume/) is a five-step method from the University of Arizona. All five steps are partially addressed by tailoring a resume to a job family or role rather than a particular job post.
 
-1. They are all based on polling, not observational study of actual job search data or research.
-2. Guidance on how to tailor varies widely, and estimates of the value of tailoring do not account for the quality of tailoring.
-3.
+## Ladderly's Guidance
+
+A different school of common wisdom holds that a personal discussion will often reveal more about a person than their resume. This is closer to Ladderly.io's guidance, which is that social networking and brand building are far better allocations of time compared to fine-tuning the resume or writing a cover letter.
+
+There is a technical implication of this model which is that social networking attenuates the effects of the resume and the cover letter. Indeed, original data later in this article will show that social networking effects dominate the job search, so the resume and cover letter are not only attenuated but also small to negligible after social networking is accounted for.
+
+Instead of sending a cover letter to a hiring manager, connect with them on LinkedIn. There are two additional benefits to this approach:
+
+1. Reaching out on LinkedIn can generate a referral, while a cover letter does not. Referrals are powerful.
+2. Your social network grows independent of whether you achieve an interview.
 
 ## Existing Research
 
-**_TODO: ADD CONSENSUS RESULTS HERE_**
+Consensus.app is a tool that aggregates scholarly literature to find papers relevant to a particular research question. On the question ["Does resume customization improve job search outcomes?"](https://consensus.app/results/?q=Does%20resume%20customization%20improve%20job%20search%20outcomes%3F&synthesize=on) the tool finds nine related papers but there is not enough data to provide a consensus answer because several metrics are identified, but it is not clear whether they constitute an improvement. My review indicates two highlights:
 
-## An Original Contribution
+1. Providing job seekers with resume and cover letter templates as well as tips on how to look and apply for jobs "increased job-finding rates, particularly among job seekers aged 35-50 (up to 8 percentage points)"
+   1. From Guglielmo Briscese et al. "Improving Job Search Skills: A Field Experiment on Online Employment Assistance." Political Methods: Experiments & Experimental Design eJournal (2020). https://doi.org/10.2139/ssrn.3584933.
+2. Resume characteristics such as experience and education, positively impact the likelihood of receiving an interview invitation from an organization.
+   1. This was the only paper that assessed factors of interview attainment. Tailoring was not supported.
+   2. From Peg Thoms et al. "Resume Characteristics as Predictors of an Invitation to Interview." Journal of Business and Psychology, 13 (1999): 339-356. https://doi.org/10.1023/A:1022974232557.
+
+From these papers I think we can conservatively and generously award an upper-bound of a 10 percent increase in interview attainment or job finding to the cover letter and tailored resume.
+
+## An Original Contribution of Data
 
 John Vandivier is the founder and lead maintainer of Ladderly.io and in 2024 he conducted a job search from May through early August. He censored and open sourced his job search data and it provides useful insight into the topic of the current article.
 
