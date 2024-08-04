@@ -1,10 +1,10 @@
-"use client"
-import { useMutation } from "@blitzjs/rpc"
-import Link from "next/link"
-import signup from "src/app/(auth)/mutations/signup"
-import { Signup } from "src/app/(auth)/schemas"
-import { Form, FORM_ERROR } from "src/core/components/Form"
-import { LabeledTextField } from "src/core/components/LabeledTextField"
+'use client'
+import { useMutation } from '@blitzjs/rpc'
+import Link from 'next/link'
+import signup from 'src/app/(auth)/mutations/signup'
+import { Signup } from 'src/app/(auth)/schemas'
+import { Form, FORM_ERROR } from 'src/core/components/Form'
+import { LabeledTextField } from 'src/core/components/LabeledTextField'
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -21,7 +21,7 @@ export const SignupForm = (props: SignupFormProps) => {
       <Form
         submitText="Create Account"
         schema={Signup}
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: '', password: '' }}
         className="space-y-4"
         onSubmit={async (values) => {
           try {
@@ -29,11 +29,11 @@ export const SignupForm = (props: SignupFormProps) => {
             props.onSuccess?.()
           } catch (error: any) {
             if (
-              error.code === "P2002" &&
-              error.meta?.target?.includes("email")
+              error.code === 'P2002' &&
+              error.meta?.target?.includes('email')
             ) {
               // This error comes from Prisma
-              return { email: "This email is already being used" }
+              return { email: 'This email is already being used' }
             } else {
               return { [FORM_ERROR]: error.toString() }
             }
@@ -50,7 +50,7 @@ export const SignupForm = (props: SignupFormProps) => {
       </Form>
 
       <div className="mt-4">
-        Already signed up?{" "}
+        Already signed up?{' '}
         <Link className="underline" href="/login">
           Log in here!
         </Link>

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import { PaymentTierEnum } from "db"
-import { useCurrentUser } from "./useCurrentUser"
+import { useEffect, useState } from 'react'
+import { PaymentTierEnum } from 'db'
+import { useCurrentUser } from './useCurrentUser'
 
 const tiersOrder = {
   FREE: 0,

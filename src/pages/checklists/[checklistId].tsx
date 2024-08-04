@@ -1,18 +1,18 @@
-import { Suspense } from "react"
-import { Routes } from "@blitzjs/next"
-import Head from "next/head"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useQuery, useMutation } from "@blitzjs/rpc"
-import { useParam } from "@blitzjs/next"
+import { Suspense } from 'react'
+import { Routes } from '@blitzjs/next'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useQuery, useMutation } from '@blitzjs/rpc'
+import { useParam } from '@blitzjs/next'
 
-import Layout from "src/core/layouts/Layout"
-import getChecklist from "src/app/checklists/queries/getChecklist"
-import deleteChecklist from "src/app/checklists/mutations/deleteChecklist"
+import Layout from 'src/core/layouts/Layout'
+import getChecklist from 'src/app/checklists/queries/getChecklist'
+import deleteChecklist from 'src/app/checklists/mutations/deleteChecklist'
 
 export const Checklist = () => {
   const router = useRouter()
-  const checklistId = useParam("checklistId", "number")
+  const checklistId = useParam('checklistId', 'number')
   const [deleteChecklistMutation] = useMutation(deleteChecklist)
   const [checklist] = useQuery(getChecklist, { id: checklistId })
 
@@ -33,12 +33,12 @@ export const Checklist = () => {
         <button
           type="button"
           onClick={async () => {
-            if (window.confirm("This will be deleted")) {
+            if (window.confirm('This will be deleted')) {
               await deleteChecklistMutation({ id: checklist.id })
               await router.push(Routes.ChecklistsPage())
             }
           }}
-          style={{ marginLeft: "0.5rem" }}
+          style={{ marginLeft: '0.5rem' }}
         >
           Delete
         </button>

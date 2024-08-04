@@ -1,5 +1,5 @@
 ---
-title: "11. Hook Fundamentals"
+title: '11. Hook Fundamentals'
 date: 4/20/24
 author: John Vandivier
 ---
@@ -68,7 +68,7 @@ This custom hook, useLocalStorage, allows you to store a value in localStorage s
 Implementation of useLocalStorage.ts
 
 ```typescript
-import React from "react"
+import React from 'react'
 
 /**
  * A hook that manages a piece of state that is synchronized with localStorage.
@@ -141,7 +141,7 @@ Below is a simpler version of the useLocalStorage hook implemented in JavaScript
 Implementation of useLocalStorage.js
 
 ```javascript
-import React from "react"
+import React from 'react'
 
 /**
  * A hook that manages a piece of state that is synchronized with localStorage.
@@ -210,7 +210,7 @@ Here's an even simpler version of the useLocalStorage hook implemented in JavaSc
 Implementation of useLocalStorage.js
 
 ```javascript
-import React from "react"
+import React from 'react'
 
 function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = React.useState(() => {

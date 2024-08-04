@@ -1,7 +1,7 @@
-import { SecurePassword } from "@blitzjs/auth/secure-password"
-import db, { PaymentTierEnum } from "db"
-import { Role } from "types"
-import { Signup } from "../schemas"
+import { SecurePassword } from '@blitzjs/auth/secure-password'
+import db, { PaymentTierEnum } from 'db'
+import { Role } from 'types'
+import { Signup } from '../schemas'
 
 export default async function signup(
   input: { password: string; email: string },
@@ -26,7 +26,7 @@ export default async function signup(
 
   // Creating user
   const user = await db.user.create({
-    data: { email: email.toLowerCase().trim(), hashedPassword, role: "USER" },
+    data: { email: email.toLowerCase().trim(), hashedPassword, role: 'USER' },
     select: { id: true, email: true, role: true },
   })
 

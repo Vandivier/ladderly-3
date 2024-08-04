@@ -1,9 +1,9 @@
-"use client"
-import { BlitzPage } from "@blitzjs/next"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { SignupForm } from "src/auth/components/SignupForm"
-import Layout from "src/core/layouts/Layout"
+'use client'
+import { BlitzPage } from '@blitzjs/next'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { SignupForm } from 'src/auth/components/SignupForm'
+import Layout from 'src/core/layouts/Layout'
 
 const CreateAccountPage: BlitzPage = () => {
   const router = useRouter()
@@ -20,7 +20,7 @@ const CreateAccountPage: BlitzPage = () => {
           </Link>
         </nav>
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-          <SignupForm onSuccess={() => router.push("/")} />
+          <SignupForm onSuccess={() => router.push('/')} />
         </div>
       </div>
     </Layout>

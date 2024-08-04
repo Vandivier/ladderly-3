@@ -1,10 +1,10 @@
-import { BlitzPage } from "@blitzjs/auth"
-import Link from "next/link"
-import { Suspense } from "react"
-import { UserChecklistQueryHandler } from "src/app/user-checklists/components/UserChecklistQueryHandler"
-import Layout from "src/core/layouts/Layout"
+import { BlitzPage } from '@blitzjs/auth'
+import Link from 'next/link'
+import { Suspense } from 'react'
+import { UserChecklistQueryHandler } from 'src/app/user-checklists/components/UserChecklistQueryHandler'
+import Layout from 'src/core/layouts/Layout'
 
-const CURRENT_CHECKLIST_NAME = "Advanced Programming Job Checklist"
+const CURRENT_CHECKLIST_NAME = 'Advanced Programming Job Checklist'
 
 const MyPremiumChecklist: BlitzPage = () => {
   return (

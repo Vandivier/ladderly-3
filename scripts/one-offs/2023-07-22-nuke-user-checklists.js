@@ -1,14 +1,14 @@
-const path = require("path")
+const path = require('path')
 
-require("dotenv").config({ path: path.resolve(__dirname, "../../.env.local") })
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env.local') })
 
-const { PrismaClient } = require("@prisma/client")
+const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
 async function executeOneOff() {
   await prisma.userChecklist.deleteMany()
-  console.log("One-off script completed!")
+  console.log('One-off script completed!')
 }
 
 executeOneOff()

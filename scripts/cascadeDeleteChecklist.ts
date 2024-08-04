@@ -1,8 +1,8 @@
-import path from "path"
+import path from 'path'
 
-require("dotenv").config({ path: path.resolve(__dirname, "../.env.local") })
+require('dotenv').config({ path: path.resolve(__dirname, '../.env.local') })
 
-import db from "../db"
+import db from '../db'
 
 async function deleteChecklist(checklistId: number) {
   const checklist = await db.checklist.findUnique({
@@ -46,19 +46,19 @@ async function deleteChecklist(checklistId: number) {
 const main = async () => {
   const checklistIdAsStr =
     process.argv
-      .find((arg) => arg.startsWith("--checklistId="))
-      ?.split("=")[1] || ""
+      .find((arg) => arg.startsWith('--checklistId='))
+      ?.split('=')[1] || ''
   const checklistId = parseInt(checklistIdAsStr, 10)
 
   if (!checklistId) {
     console.log(
-      "Did not receive a valid checklistId. \n" +
-        "Received: " +
+      'Did not receive a valid checklistId. \n' +
+        'Received: ' +
         checklistIdAsStr +
-        "\n" +
-        "From the scripts/ dir, call this script like:\n" +
-        "`npx ts-node -P tsconfig.script.json scripts/cascadeDeleteChecklist.ts --checklistId=123`\n" +
-        "Exiting."
+        '\n' +
+        'From the scripts/ dir, call this script like:\n' +
+        '`npx ts-node -P tsconfig.script.json scripts/cascadeDeleteChecklist.ts --checklistId=123`\n' +
+        'Exiting.'
     )
     process.exit(1)
   }
@@ -67,7 +67,7 @@ const main = async () => {
     await deleteChecklist(checklistId)
     process.exit(0)
   } catch (error) {
-    console.error("An error occurred:", error)
+    console.error('An error occurred:', error)
     process.exit(1)
   }
 }

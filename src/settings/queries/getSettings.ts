@@ -1,8 +1,8 @@
-import { Ctx } from "@blitzjs/next"
-import { resolver } from "@blitzjs/rpc"
-import { AuthenticationError } from "blitz"
-import db, { Subscription } from "db"
-import { z } from "zod"
+import { Ctx } from '@blitzjs/next'
+import { resolver } from '@blitzjs/rpc'
+import { AuthenticationError } from 'blitz'
+import db, { Subscription } from 'db'
+import { z } from 'zod'
 
 export type UserSettings = {
   nameFirst: string

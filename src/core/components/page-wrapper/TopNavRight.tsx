@@ -1,16 +1,16 @@
-import Link from "next/link"
-import React from "react"
+import Link from 'next/link'
+import React from 'react'
 
-import { useCurrentUser } from "src/app/users/hooks/useCurrentUser"
-import { IconVerticalChevron } from "../icons/VerticalChevron"
-import { MenuContext } from "./MenuProvider"
+import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
+import { IconVerticalChevron } from '../icons/VerticalChevron'
+import { MenuContext } from './MenuProvider'
 import {
   AccountMenuItems,
   CommunityMenuItems,
   TOP_NAV_STANDARD_CLASSES,
-} from "./TopNavSubmenu"
+} from './TopNavSubmenu'
 
-const TOP_NAV_RIGHT_SECTION_CLASSES = "ml-auto flex items-center space-x-6"
+const TOP_NAV_RIGHT_SECTION_CLASSES = 'ml-auto flex items-center space-x-6'
 
 export const TopNavRight = () => {
   const currentUser = useCurrentUser()
@@ -19,20 +19,20 @@ export const TopNavRight = () => {
   const handleCommunityClick = (e) => {
     e.preventDefault()
 
-    if (openMenuName === "community") {
-      setMenu(null, "")
+    if (openMenuName === 'community') {
+      setMenu(null, '')
     } else {
-      setMenu(<CommunityMenuItems />, "community")
+      setMenu(<CommunityMenuItems />, 'community')
     }
   }
 
   const handleAccountClick = (e) => {
     e.preventDefault()
 
-    if (openMenuName === "account") {
-      setMenu(null, "")
+    if (openMenuName === 'account') {
+      setMenu(null, '')
     } else if (currentUser) {
-      setMenu(<AccountMenuItems currentUser={currentUser} />, "account")
+      setMenu(<AccountMenuItems currentUser={currentUser} />, 'account')
     }
   }
 
@@ -46,7 +46,7 @@ export const TopNavRight = () => {
         className={TOP_NAV_STANDARD_CLASSES}
       >
         Community
-        <IconVerticalChevron isPointingUp={openMenuName === "community"} />
+        <IconVerticalChevron isPointingUp={openMenuName === 'community'} />
       </button>
       {currentUser ? (
         <button
@@ -54,7 +54,7 @@ export const TopNavRight = () => {
           className={TOP_NAV_STANDARD_CLASSES}
         >
           Account
-          <IconVerticalChevron isPointingUp={openMenuName === "account"} />
+          <IconVerticalChevron isPointingUp={openMenuName === 'account'} />
         </button>
       ) : (
         <>

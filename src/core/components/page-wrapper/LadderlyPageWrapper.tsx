@@ -1,14 +1,14 @@
-import Link from "next/link"
-import React from "react"
+import Link from 'next/link'
+import React from 'react'
 
-import Layout, { LayoutProps } from "../../layouts/Layout"
-import { TopNav } from "./TopNav"
+import Layout, { LayoutProps } from '../../layouts/Layout'
+import { TopNav } from './TopNav'
 
-import styles from "src/app/styles/Home.module.css"
+import styles from 'src/app/styles/Home.module.css'
 
 export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
   children,
-  slug = "",
+  slug = '',
   title,
 }) => (
   <Layout slug={slug} title={title}>
@@ -20,8 +20,8 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
       {children}
 
       <footer className={styles.footer}>
-        <ul className={styles["footer-links"]}>
-          <Link className={styles.textLink} href={"/about"}>
+        <ul className={styles['footer-links']}>
+          <Link className={styles.textLink} href={'/about'}>
             About
           </Link>
           <a
@@ -40,7 +40,7 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
           >
             GitHub
           </a>
-          <Link className={styles.textLink} href={"/privacy-policy"}>
+          <Link className={styles.textLink} href={'/privacy-policy'}>
             Privacy Policy
           </Link>
         </ul>

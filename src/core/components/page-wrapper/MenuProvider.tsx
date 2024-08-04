@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 type MenuContextType = {
   menuContent: React.ReactNode
@@ -12,7 +12,9 @@ export const MenuContext = React.createContext<MenuContextType>({
   setMenu: (menuContent: React.ReactNode, openMenuName: string) => {},
 })
 
-export const MenuProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const MenuProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [menuContent, setMenuContent] = React.useState<React.ReactNode>(null)
   const [openMenuName, setOpenMenuName] = React.useState<string | null>(null)
 

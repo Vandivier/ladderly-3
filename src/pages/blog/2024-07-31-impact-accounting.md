@@ -1,5 +1,5 @@
 ---
-title: "14. Impact Accounting"
+title: '14. Impact Accounting'
 date: 7/31/24
 author: John Vandivier
 ---

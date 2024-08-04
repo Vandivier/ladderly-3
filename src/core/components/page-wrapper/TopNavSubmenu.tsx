@@ -1,14 +1,14 @@
-import { useMutation } from "@blitzjs/rpc"
-import { User } from "db"
-import Link from "next/link"
-import React from "react"
+import { useMutation } from '@blitzjs/rpc'
+import { User } from 'db'
+import Link from 'next/link'
+import React from 'react'
 
-import { MenuContext } from "./MenuProvider"
-import logout from "src/app/(auth)/mutations/logout"
+import { MenuContext } from './MenuProvider'
+import logout from 'src/app/(auth)/mutations/logout'
 
-export const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold"
+export const TOP_NAV_STANDARD_CLASSES = 'ml-6 font-bold'
 export const MENU_ITEM_STANDARD_CLASSES =
-  "font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+  'font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
 
 export const AccountMenuItems = ({
   currentUser,
@@ -76,7 +76,7 @@ const LogoutButton = ({ className }: { className: string }) => {
     <button
       className={className}
       onClick={async () => {
-        setMenu(null, "")
+        setMenu(null, '')
         await logoutMutation()
       }}
     >

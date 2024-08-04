@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { BlitzPage } from "@blitzjs/next"
-import React from "react"
-import { LargeCard } from "src/core/components/LargeCard"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import { BlitzPage } from '@blitzjs/next'
+import React from 'react'
+import { LargeCard } from 'src/core/components/LargeCard'
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
 const EventsCalendarPage: BlitzPage = () => {
   return (
@@ -13,14 +13,14 @@ const EventsCalendarPage: BlitzPage = () => {
           Events Calendar
         </h1>
         <p className="mb-4">
-          Subscribe to the Ladderly Community Events calendar{" "}
+          Subscribe to the Ladderly Community Events calendar{' '}
           <a
             className="underline"
             href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MnJwdWwzbmFmazhtcW5wanNsaXE0czZubHJfMjAyNDA1MDZUMTkwMDAwWiBjXzllNWY0YzliOTI5NWQ1ZDZkNzdhNjUxNTU3NTQxMmYyOWY3ZmM0ODJiYmI1NjA0NGNlYzA5NjUwMGQ2OTk0NzlAZw&tmsrc=c_9e5f4c9b9295d5d6d77a6515575412f29f7fc482bbb56044cec096500d699479%40group.calendar.google.com&scp=ALL"
             target="_blank"
           >
             here
-          </a>{" "}
+          </a>{' '}
           to receive reminders about upcoming streams, meetups, and other
           events.
         </p>

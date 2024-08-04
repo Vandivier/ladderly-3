@@ -1,5 +1,5 @@
-import { Checklist, ChecklistItem } from "db"
-import { z } from "zod"
+import { Checklist, ChecklistItem } from 'db'
+import { z } from 'zod'
 
 export const CreateChecklistSchema = z.object({
   item: z.string(),

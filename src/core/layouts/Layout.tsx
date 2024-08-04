@@ -1,6 +1,6 @@
-import React from "react"
-import { BlitzLayout } from "@blitzjs/next"
-import { useRouter } from "next/compat/router"
+import React from 'react'
+import { BlitzLayout } from '@blitzjs/next'
+import { useRouter } from 'next/compat/router'
 
 export type LayoutProps = {
   children?: React.ReactNode
@@ -8,7 +8,7 @@ export type LayoutProps = {
   title: string
 }
 
-const Layout: BlitzLayout<LayoutProps> = ({ slug = "", title, children }) => {
+const Layout: BlitzLayout<LayoutProps> = ({ slug = '', title, children }) => {
   const router = useRouter()
   const canonical = `https://ladderly.io${router?.asPath ?? slug}`
   const preppendedTitle = `ladderly.io | ${title}`

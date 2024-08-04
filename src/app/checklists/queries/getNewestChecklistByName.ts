@@ -1,5 +1,5 @@
-import { resolver } from "@blitzjs/rpc"
-import db, { Checklist } from "db"
+import { resolver } from '@blitzjs/rpc'
+import db, { Checklist } from 'db'
 
 export default resolver.pipe(
   resolver.authorize(),
@@ -9,7 +9,7 @@ export default resolver.pipe(
         name,
       },
       orderBy: {
-        version: "desc",
+        version: 'desc',
       },
     })
 

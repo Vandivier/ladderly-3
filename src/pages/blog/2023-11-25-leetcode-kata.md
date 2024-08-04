@@ -1,5 +1,5 @@
 ---
-title: "3. Ladderly Leetcode Kata"
+title: '3. Ladderly Leetcode Kata'
 date: 11/25/23
 author: John Vandivier
 ---

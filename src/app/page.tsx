@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import { PaymentTierEnum } from "@prisma/client"
-import Image from "next/image"
-import Link from "next/link"
-import { Suspense } from "react"
+import { PaymentTierEnum } from '@prisma/client'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Suspense } from 'react'
 
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
-import PricingGrid from "src/core/components/pricing-grid/PricingGrid"
-import useSubscriptionLevel from "./users/hooks/useSubscriptionLevel"
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
+import PricingGrid from 'src/core/components/pricing-grid/PricingGrid'
+import useSubscriptionLevel from './users/hooks/useSubscriptionLevel'
 
-import styles from "src/app/styles/Home.module.css"
+import styles from 'src/app/styles/Home.module.css'
 
 const LadderlyHelpsContentBlock = () => {
   return (
@@ -50,13 +50,13 @@ const AdvancedChecklistContentBlock = () => {
   return isPaid ? (
     <div
       className={`${styles.nextStepsCard} rounded-lg bg-white p-2 shadow-lg`}
-      style={{ marginTop: "0.5rem" }}
+      style={{ marginTop: '0.5rem' }}
     >
       <h3 className="text-m font-bold text-gray-800">
-        As a paid member, you can access the{" "}
+        As a paid member, you can access the{' '}
         <Link
           className="text-m font-bold text-ladderly-pink hover:underline"
-          href={"/checklists/my-premium-checklist"}
+          href={'/checklists/my-premium-checklist'}
         >
           Advanced Checklist
         </Link>
@@ -68,7 +68,7 @@ const AdvancedChecklistContentBlock = () => {
 
 const HomePage = () => (
   <LadderlyPageWrapper title="Home">
-    <main style={{ padding: "0rem 1rem" }}>
+    <main style={{ padding: '0rem 1rem' }}>
       <div className={styles.wrapper}>
         <div
           className={`mx-auto my-6 flex flex-wrap gap-0 rounded-lg bg-frost p-2 sm:flex-nowrap sm:gap-16`}
@@ -100,26 +100,26 @@ const HomePage = () => (
           >
             <h2
               className="text-2xl font-bold text-gray-800"
-              style={{ marginBottom: "0.5rem" }}
+              style={{ marginBottom: '0.5rem' }}
             >
               Recommended Next Steps:
             </h2>
             <h2 className="text-2xl font-bold text-gray-800">
-              Complete the{" "}
+              Complete the{' '}
               <Link
                 className="text-2xl font-bold text-ladderly-pink hover:underline"
-                href={"/checklists/my-basic-checklist"}
+                href={'/checklists/my-basic-checklist'}
               >
                 Standard Checklist
               </Link>
-              ,{" "}
+              ,{' '}
               <span className="text-2xl font-bold">
                 consider one of the paid plans below
               </span>
-              , and{" "}
+              , and{' '}
               <Link
                 className="text-2xl font-bold text-ladderly-pink hover:underline"
-                href={"https://buy.stripe.com/cN2bMfbOQ2CX5dC7su"}
+                href={'https://buy.stripe.com/cN2bMfbOQ2CX5dC7su'}
                 target="_blank"
               >
                 Book an Expert Session
@@ -130,14 +130,14 @@ const HomePage = () => (
 
           <div
             className={`${styles.nextStepsCard} rounded-lg bg-white p-2 shadow-lg`}
-            style={{ marginTop: "0.5rem" }}
+            style={{ marginTop: '0.5rem' }}
           >
             <h3 className="text-m font-bold text-gray-800">
               To support Ladderly{"'"}s mission to provide low-cost education in
-              STEM, consider{" "}
+              STEM, consider{' '}
               <Link
                 className="text-m font-bold text-ladderly-pink hover:underline"
-                href={"https://buy.stripe.com/eVa9E72egelFfSgfYZ"}
+                href={'https://buy.stripe.com/eVa9E72egelFfSgfYZ'}
                 target="_blank"
               >
                 leaving a tip

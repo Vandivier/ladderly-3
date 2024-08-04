@@ -3,18 +3,18 @@ import {
   ErrorBoundary,
   ErrorComponent,
   ErrorFallbackProps,
-} from "@blitzjs/next"
-import { Analytics } from "@vercel/analytics/react"
-import { AuthenticationError, AuthorizationError } from "blitz"
-import Link from "next/link"
-import { GoogleAnalytics } from "nextjs-google-analytics"
-import React from "react"
-import { withBlitz } from "src/app/blitz-client"
+} from '@blitzjs/next'
+import { Analytics } from '@vercel/analytics/react'
+import { AuthenticationError, AuthorizationError } from 'blitz'
+import Link from 'next/link'
+import { GoogleAnalytics } from 'nextjs-google-analytics'
+import React from 'react'
+import { withBlitz } from 'src/app/blitz-client'
 
-import { LargeCard } from "src/core/components/LargeCard"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import { LargeCard } from 'src/core/components/LargeCard'
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
-import "src/app/styles/globals.css"
+import 'src/app/styles/globals.css'
 
 const UserExceptionWrapper = ({
   error,
@@ -27,8 +27,8 @@ const UserExceptionWrapper = ({
         <h1 className="text-center text-3xl text-ladderly-violet-600">Error</h1>
         <h2 className="mb-3 mt-5 text-xl">
           {error instanceof AuthenticationError
-            ? "You are not logged in."
-            : "You are not authorized to access this."}
+            ? 'You are not logged in.'
+            : 'You are not authorized to access this.'}
         </h2>
 
         <div>
@@ -41,7 +41,7 @@ const UserExceptionWrapper = ({
                 Log In
               </Link>
               <p>
-                <span>Not a member yet?</span>{" "}
+                <span>Not a member yet?</span>{' '}
                 <Link
                   className="ml-auto text-gray-800 hover:text-ladderly-pink"
                   href="/signup"

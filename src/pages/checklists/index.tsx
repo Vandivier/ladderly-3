@@ -1,11 +1,11 @@
-import { Suspense } from "react"
-import { Routes } from "@blitzjs/next"
-import Head from "next/head"
-import Link from "next/link"
-import { usePaginatedQuery } from "@blitzjs/rpc"
-import { useRouter } from "next/router"
-import Layout from "src/core/layouts/Layout"
-import getChecklists from "src/app/checklists/queries/getChecklists"
+import { Suspense } from 'react'
+import { Routes } from '@blitzjs/next'
+import Head from 'next/head'
+import Link from 'next/link'
+import { usePaginatedQuery } from '@blitzjs/rpc'
+import { useRouter } from 'next/router'
+import Layout from 'src/core/layouts/Layout'
+import getChecklists from 'src/app/checklists/queries/getChecklists'
 
 const ITEMS_PER_PAGE = 100
 
@@ -13,7 +13,7 @@ export const ChecklistsList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
   const [{ checklists, hasMore }] = usePaginatedQuery(getChecklists, {
-    orderBy: { id: "asc" },
+    orderBy: { id: 'asc' },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })

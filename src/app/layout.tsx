@@ -1,15 +1,15 @@
-import "./styles/globals.css"
-import { BlitzProvider } from "./blitz-client"
-import { Inter } from "next/font/google"
+import './styles/globals.css'
+import { BlitzProvider } from './blitz-client'
+import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: "ladderly.io",
+  title: 'ladderly.io',
   description:
-    "Ladderly is a coding bootcamp alternative" +
-    " and career accelerator." +
-    " Land your next programming role in as little as three months!",
+    'Ladderly is a coding bootcamp alternative' +
+    ' and career accelerator.' +
+    ' Land your next programming role in as little as three months!',
 }
 
 export default function RootLayout({

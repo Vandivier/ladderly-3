@@ -1,9 +1,9 @@
-"use client"
-import { useMutation } from "@blitzjs/rpc"
-import Form, { FORM_ERROR } from "src/core/components/Form"
-import LabeledTextField from "src/core/components/LabeledTextField"
-import forgotPassword from "../mutations/forgotPassword"
-import { ForgotPassword } from "../schemas"
+'use client'
+import { useMutation } from '@blitzjs/rpc'
+import Form, { FORM_ERROR } from 'src/core/components/Form'
+import LabeledTextField from 'src/core/components/LabeledTextField'
+import forgotPassword from '../mutations/forgotPassword'
+import { ForgotPassword } from '../schemas'
 
 export function ForgotPasswordForm() {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
@@ -24,14 +24,14 @@ export function ForgotPasswordForm() {
           <Form
             submitText="Send Reset Password Instructions"
             schema={ForgotPassword}
-            initialValues={{ email: "" }}
+            initialValues={{ email: '' }}
             onSubmit={async (values) => {
               try {
                 await forgotPasswordMutation(values)
               } catch (error: any) {
                 return {
                   [FORM_ERROR]:
-                    "Sorry, we had an unexpected error. Please try again.",
+                    'Sorry, we had an unexpected error. Please try again.',
                 }
               }
             }}

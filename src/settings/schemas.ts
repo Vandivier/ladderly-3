@@ -1,34 +1,37 @@
-import { z } from "zod"
+import { z } from 'zod'
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
-export const isValidOptionalEmail = (value: string) => value === "" || emailRegex.test(value)
+export const isValidOptionalEmail = (value: string) =>
+  value === '' || emailRegex.test(value)
 
 export const optionalEmailValidator = z
   .string()
   .refine(isValidOptionalEmail, {
-    message: "Invalid email",
+    message: 'Invalid email',
   })
   .nullable()
   .optional()
 
 export const uriValidator = z
   .string()
-  .refine((value) => value === "" || value.startsWith("http"), {
-    message: "Invalid URI",
+  .refine((value) => value === '' || value.startsWith('http'), {
+    message: 'Invalid URI',
   })
   .nullable()
   .optional()
 
 const optionalGitHubUriValidator = z
   .string()
-  .refine((value) => value === "" || value.includes("github"), { message: "Invalid GitHub URL" })
+  .refine((value) => value === '' || value.includes('github'), {
+    message: 'Invalid GitHub URL',
+  })
   .nullable()
   .optional()
 
 const optionalLinkedInUriValidator = z
   .string()
-  .refine((value) => value === "" || value.includes("linkedin"), {
-    message: "Invalid LinkedIn URL",
+  .refine((value) => value === '' || value.includes('linkedin'), {
+    message: 'Invalid LinkedIn URL',
   })
   .nullable()
   .optional()

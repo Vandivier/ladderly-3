@@ -1,12 +1,12 @@
-import db, { Checklist, ChecklistItem, Prisma } from "db"
-import { z } from "zod"
+import db, { Checklist, ChecklistItem, Prisma } from 'db'
+import { z } from 'zod'
 
 const ChecklistItemObjectSchema = z.object({
   displayText: z.string(),
-  detailText: z.string().default(""),
+  detailText: z.string().default(''),
   isRequired: z.boolean().default(true),
-  linkText: z.string().default(""),
-  linkUri: z.string().default(""),
+  linkText: z.string().default(''),
+  linkUri: z.string().default(''),
 })
 
 const ChecklistItemSchema = z.union([ChecklistItemObjectSchema, z.string()])
@@ -27,7 +27,7 @@ export const updateChecklistsInPlace = async (
 
   let checklist = await db.checklist.findFirst({
     where: { name: checklistData.name },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
     include: { checklistItems: true },
   })
 
@@ -55,7 +55,7 @@ export const updateChecklistsInPlace = async (
   for (let i = 0; i < checklistData.items.length; i++) {
     const item = checklistData.items[i]
     const itemData = ChecklistItemObjectSchema.parse(
-      typeof item === "string" ? { displayText: item } : item
+      typeof item === 'string' ? { displayText: item } : item
     )
 
     checklistItemCreateManyInput.push({

@@ -1,8 +1,8 @@
-import { loadEnvConfig } from "@next/env"
-import { defineConfig } from "vitest/config"
+import { loadEnvConfig } from '@next/env'
+import { defineConfig } from 'vitest/config'
 
-import react from "@vitejs/plugin-react"
-import tsconfigPaths from "vite-tsconfig-paths"
+import react from '@vitejs/plugin-react'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 const projectDir = process.cwd()
 loadEnvConfig(projectDir)
@@ -11,11 +11,11 @@ loadEnvConfig(projectDir)
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
-    dir: "./",
+    dir: './',
     globals: true,
-    setupFiles: "./test/setup.ts",
+    setupFiles: './test/setup.ts',
     coverage: {
-      reporter: ["text", "json", "html"],
+      reporter: ['text', 'json', 'html'],
     },
   },
 })

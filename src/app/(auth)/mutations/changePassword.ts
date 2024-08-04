@@ -1,9 +1,9 @@
-import { SecurePassword } from "@blitzjs/auth/secure-password"
-import { resolver } from "@blitzjs/rpc"
-import { AuthenticationError, NotFoundError } from "blitz"
-import db from "db"
-import { ChangePassword } from "../schemas"
-import { authenticateUser } from "./login"
+import { SecurePassword } from '@blitzjs/auth/secure-password'
+import { resolver } from '@blitzjs/rpc'
+import { AuthenticationError, NotFoundError } from 'blitz'
+import db from 'db'
+import { ChangePassword } from '../schemas'
+import { authenticateUser } from './login'
 
 export default resolver.pipe(
   resolver.zod(ChangePassword),
@@ -16,7 +16,7 @@ export default resolver.pipe(
       await authenticateUser(user.email, currentPassword)
     } catch (error) {
       if (error instanceof AuthenticationError) {
-        throw new Error("Invalid Password")
+        throw new Error('Invalid Password')
       }
       throw error
     }

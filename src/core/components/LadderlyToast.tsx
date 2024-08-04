@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode } from 'react'
 
 type ToastProps = {
   bgClassName?: string
@@ -8,16 +8,16 @@ type ToastProps = {
 }
 
 export const LadderlyToast: React.FC<ToastProps> = ({
-  bgClassName = "bg-green-200",
+  bgClassName = 'bg-green-200',
   message,
   onClick = () => ({}),
   onClose,
 }) => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       onClick()
-    } else if (event.key === "Escape") {
-      if (typeof onClose === "function") {
+    } else if (event.key === 'Escape') {
+      if (typeof onClose === 'function') {
         onClose()
       }
     }
@@ -25,14 +25,14 @@ export const LadderlyToast: React.FC<ToastProps> = ({
 
   const handleDismissClick = (event: React.MouseEvent) => {
     event.stopPropagation()
-    if (typeof onClose === "function") {
+    if (typeof onClose === 'function') {
       onClose()
     }
   }
 
   const handleDismissKeyDown = (event: React.KeyboardEvent) => {
     event.stopPropagation()
-    if (typeof onClose === "function" && event.key === "Enter") {
+    if (typeof onClose === 'function' && event.key === 'Enter') {
       onClose()
     }
   }

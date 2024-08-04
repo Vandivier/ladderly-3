@@ -1,5 +1,5 @@
 ---
-title: "9. Resume Optimization"
+title: '9. Resume Optimization'
 date: 2/12/24
 author: John Vandivier
 ---

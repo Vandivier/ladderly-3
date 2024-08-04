@@ -14,7 +14,7 @@ export const parseUrl = (url: string): ParsedUrl => {
   } catch (e) {
     return {
       pathname: url,
-      search: "",
+      search: '',
     }
   }
 }

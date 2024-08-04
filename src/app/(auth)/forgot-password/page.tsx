@@ -1,12 +1,12 @@
-"use client"
-import Layout from "src/core/layouts/Layout"
-import { LabeledTextField } from "src/core/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/core/components/Form"
-import { ForgotPassword } from "src/app/(auth)/schemas"
-import forgotPassword from "src/app/(auth)/mutations/forgotPassword"
-import { useMutation } from "@blitzjs/rpc"
-import { BlitzPage } from "@blitzjs/next"
-import Link from "next/link"
+'use client'
+import Layout from 'src/core/layouts/Layout'
+import { LabeledTextField } from 'src/core/components/LabeledTextField'
+import { Form, FORM_ERROR } from 'src/core/components/Form'
+import { ForgotPassword } from 'src/app/(auth)/schemas'
+import forgotPassword from 'src/app/(auth)/mutations/forgotPassword'
+import { useMutation } from '@blitzjs/rpc'
+import { BlitzPage } from '@blitzjs/next'
+import Link from 'next/link'
 
 const ForgotPasswordPage: BlitzPage = () => {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
@@ -40,14 +40,14 @@ const ForgotPasswordPage: BlitzPage = () => {
               <Form
                 submitText="Send Reset Password Instructions"
                 schema={ForgotPassword}
-                initialValues={{ email: "" }}
+                initialValues={{ email: '' }}
                 onSubmit={async (values) => {
                   try {
                     await forgotPasswordMutation(values)
                   } catch (error: any) {
                     return {
                       [FORM_ERROR]:
-                        "Sorry, we had an unexpected error. Please try again.",
+                        'Sorry, we had an unexpected error. Please try again.',
                     }
                   }
                 }}

@@ -1,10 +1,10 @@
-import { useParams } from "@blitzjs/next"
-import { useQuery } from "@blitzjs/rpc"
-import { Suspense } from "react"
+import { useParams } from '@blitzjs/next'
+import { useQuery } from '@blitzjs/rpc'
+import { Suspense } from 'react'
 
-import getUser from "src/app/users/queries/getUser"
-import { LargeCard } from "src/core/components/LargeCard"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import getUser from 'src/app/users/queries/getUser'
+import { LargeCard } from 'src/core/components/LargeCard'
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
 const UserProfile = () => {
   const { userId } = useParams()
@@ -19,7 +19,7 @@ const UserProfile = () => {
       <div className="my-4">
         <p>Blurb: {user.profileBlurb}</p>
         <p>
-          Contact Email:{" "}
+          Contact Email:{' '}
           <a
             href={`mailto:${user.profileContactEmail}`}
             className="text-blue-600 hover:text-blue-700"
@@ -29,7 +29,7 @@ const UserProfile = () => {
         </p>
         {user.profileGitHubUri ? (
           <p>
-            GitHub:{" "}
+            GitHub:{' '}
             <a
               href={user.profileGitHubUri}
               target="_blank"
@@ -42,7 +42,7 @@ const UserProfile = () => {
         ) : null}
         {user.profileHomepageUri ? (
           <p>
-            Homepage:{" "}
+            Homepage:{' '}
             <a
               href={user.profileHomepageUri}
               target="_blank"
@@ -55,7 +55,7 @@ const UserProfile = () => {
         ) : null}
         {user.profileLinkedInUri ? (
           <p>
-            LinkedIn:{" "}
+            LinkedIn:{' '}
             <a
               href={user.profileLinkedInUri}
               target="_blank"

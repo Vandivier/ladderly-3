@@ -1,8 +1,8 @@
-import { BlitzPage } from "@blitzjs/next"
-import { LargeCard } from "src/core/components/LargeCard"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import { BlitzPage } from '@blitzjs/next'
+import { LargeCard } from 'src/core/components/LargeCard'
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
-import styles from "src/app/styles/Home.module.css"
+import styles from 'src/app/styles/Home.module.css'
 
 const PrivacyPolicyPage: BlitzPage = () => {
   return (
@@ -52,7 +52,7 @@ const PrivacyPolicyPage: BlitzPage = () => {
         </h2>
         <p>
           We do not sell your data, though we do utilize some third party tools.
-          For example, ladderly.io utilizes{" "}
+          For example, ladderly.io utilizes{' '}
           <a
             href="https://vercel.com"
             target="_blank"
@@ -60,8 +60,8 @@ const PrivacyPolicyPage: BlitzPage = () => {
             className={styles.textLink}
           >
             Vercel
-          </a>{" "}
-          and{" "}
+          </a>{' '}
+          and{' '}
           <a
             href="https://supabase.com/"
             target="_blank"
@@ -77,7 +77,7 @@ const PrivacyPolicyPage: BlitzPage = () => {
           I have questions about my privacy on Ladderly
         </h2>
         <p>
-          We{`'`}re here to help. Reach out at{" "}
+          We{`'`}re here to help. Reach out at{' '}
           <a className="underline" href="mailto:admin@ladderly.io">
             admin@ladderly.io
           </a>

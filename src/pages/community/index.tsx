@@ -1,11 +1,11 @@
-import { BlitzPage, Routes } from "@blitzjs/next"
-import { usePaginatedQuery } from "@blitzjs/rpc"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import React, { Suspense } from "react"
-import getUsers from "src/app/users/queries/getUsers"
-import { LargeCard } from "src/core/components/LargeCard"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import { BlitzPage, Routes } from '@blitzjs/next'
+import { usePaginatedQuery } from '@blitzjs/rpc'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { Suspense } from 'react'
+import getUsers from 'src/app/users/queries/getUsers'
+import { LargeCard } from 'src/core/components/LargeCard'
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
 const ITEMS_PER_PAGE = 100
 
@@ -13,7 +13,7 @@ export const UsersList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
   const [{ users, hasMore }] = usePaginatedQuery(getUsers, {
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
