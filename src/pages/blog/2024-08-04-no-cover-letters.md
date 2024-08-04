@@ -37,6 +37,8 @@ This poll is more useful for the Ladderly.io audience for four reasons:
 
 This poll indicates that popular support for post-tailored resumes not only holds for software engineers, but the support is exaggerated compared to other industries with a strong majority expecting at least ten times higher performance from a tailored resume!
 
+My poll notably replicates echo chamber effects. My belief based on my job search experience is that resume tailoring isn't important. 40% of poll participants that are first-degree LinkedIn connections agreed, selecting "100 apps tailored per role," while only 20% of other poll participants further from me in social graph distance selected that option.
+
 In summary, common wisdom holds that tailoring is not merely beneficial, but it is a multiplier technique rather than an incremental improvement. The prediction from common wisdom is that time spent on tailoring has a better return on investment compared to allocating that same time toward a second application. The main problem with this belief is that there is concrete data to suggest other practices provide better return.
 
 A notable secondary issue is that the practice of tailoring a resume varies widely. [Here](https://career.arizona.edu/resources/tailoring-your-resume/) is a five-step method from the University of Arizona. All five steps are partially addressed by tailoring a resume to a job family or role rather than a particular job post.
