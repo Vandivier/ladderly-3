@@ -1,10 +1,14 @@
 ---
 title: "15. On Cover Letters and Resume Tailoring"
-date: 8/3/24
+date: 8/4/24
 author: John Vandivier
 ---
 
-Ladderly.io's general advice is that software engineers should not spend time and effort on writing cover letters or tailoring their resume. This article provides additional data behind that general recommendation, plus additional nuance which includes identifying some edge cases in which such actions would become a good idea.
+This article makes a data-driven case that creating a cover letter and tailored resume for each job post is not an optimal use of time and effort for most software engineers during their job search.
+
+The article combines scholarly research with original analysis to push back on an observed error in common wisdom on the subject.
+
+This article makes the case with nuance, pointing out edge cases in which that standard advice may not hold.
 
 ## Common Wisdom
 
@@ -29,7 +33,9 @@ This poll is more useful for the Ladderly.io audience for four reasons:
 3. This poll avoids stigmatic language.
 4. This poll is more recently, notably existing after the use of AI for tailoring has become common.
 
-### TODO: ADD RESULTS HERE
+A different school of common wisdom holds that a personal discussion will often reveal more about a person than their resume. This is closer to Ladderly.io's guidance, which is that social networking and brand building are far better allocations of time compared to fine-tuning the resume or writing a cover letter. Instead of sending a cover letter to a hiring manager, try to get them on a call.
+
+**_TODO: ADD POLL RESULTS HERE_**
 
 In summary, common wisdom holds that tailoring is not merely beneficial, but it is a multiplier technique rather than an incremental improvement. The prediction from common wisdom is that time spent on tailoring has a better return on investment compared to allocating that same time toward a second application.
 
@@ -41,13 +47,19 @@ Problems with these results include:
 
 ## Existing Research
 
+**_TODO: ADD CONSENSUS RESULTS HERE_**
+
 ## An Original Contribution
 
-John Vandivier is the founder and lead maintainer of Ladderly.io and in 2024 he conducted a job search from May through early August. He censored and open sourced his job search data here, and it provides useful insight into the question of the return on investment to resume optimization compared to other activities.
+John Vandivier is the founder and lead maintainer of Ladderly.io and in 2024 he conducted a job search from May through early August. He censored and open sourced his job search data and it provides useful insight into the topic of the current article.
 
-TODO (I think no significant connection between resume and rate of interview)
+Specifically, his data showed no significant correlation between different resume versions and the attainment of an interview.
 
-A caveat in this data is that even the earliest version of the resume could be describe as fair in quality, without obvious grammatical errors or similar issues. So the fact that the variation in resume version did not correlate with outcomes does not mean that resume quality has no impact, but it does mean that once you have a fairly high quality resume, fine-tuning it into an ultra-high quality resume has negligible return, which is exactly applicable to the discussion of whether a resume should be optimized per job post or simply at the level of the job family or role.
+The data can be found here and the analytical script used for the above regression table can be found here.
+
+A caveat in this result is that even the earliest version of the resume could be describe as fair in quality, without obvious grammatical errors, major ATS parsing issues, or other major issues. So the fact that the variation in resume version did not correlate with outcomes does not mean that resume quality has no impact, but it does mean that once you have a fairly high quality resume, fine-tuning it into an ultra-high quality resume has negligible return, which is exactly applicable to the discussion of whether a resume should be optimized per job post or simply at the level of the job family or role.
+
+Notably, although the effect was insignificant, it was also positive and small, which is consistent with the idea that a larger study with many rows of data may indeed find some small positive effect. It is also consistent with the idea that fine tuning the resume for each job post is not an optimal use of time and effort.
 
 ## Edge Cases
 
@@ -61,3 +73,10 @@ Here are a few such cases which might motivate an individual without respect to 
 2. An individual is already paid top-of-market, so only a few companies could potentially support an increase in desired compensation.
 3. An individual is restricted for geopolitical or other reasons to work with a small market of potential employers.
 4. An individual is attracted to a particular brand or working with specific people that occupy specific companies.
+
+Earlier in this article, I gave the advice: "Instead of sending a cover letter to a hiring manager, try to get them on a call." Two objections to this advice come to mind:
+
+1. What if the hiring manager and other networking targets at the company of interest cannot be identified or are unresponsive?
+2. What if you already had a call with them? Why not do both?
+
+Ladderly.io's general advice would be to spend your time and effort at another company with more transparency and responsiveness, but that general advice isn't useful in the edge cases reviewed here where there are no other viable employment options for the candidate.
