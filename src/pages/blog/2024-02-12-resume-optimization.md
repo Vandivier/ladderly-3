@@ -8,7 +8,7 @@ This article contains details on how to improve your resume to optimize employer
 
 ## General Principles
 
-Ladderly recommendations optimize your return on investment to time and effort as a job seeker. We do not try to optimize success for a particular employer or job posting. We recommend skipping a variety of practices that can improve response rates, such as tailored cover letters and resumes for each job posting. While these practices can improve response rates, we find that they generally reduce overall job search performance in terms of the time to obtain a job and the final compensation package.
+Ladderly recommendations optimize your return on investment to time and effort as a job seeker. Ladderly.io generally advises against targeting a single dream company and instead targeting a basket of employers who will support a desired role. As such, Ladderly.io discourages creating tailored resumes and cover letters for each job post. See additional research behind this strategy in blog article [15. On Cover Letters and Resume Tailoring](https://www.ladderly.io/blog/2024-08-04-no-cover-letters).
 
 Ladderly recommends that you apply to about 80 job postings each week using a single resume that is generated from your LinkedIn profile. This resume should focus on skill keywords for full-stack web development, mentioning skill keywords three times each, in addition to the suggestions made by the resume scanner later discussed.
 
