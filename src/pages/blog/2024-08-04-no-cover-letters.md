@@ -68,9 +68,31 @@ From these papers I think we can conservatively and generously award an upper-bo
 
 John Vandivier is the founder and lead maintainer of Ladderly.io and in 2024 he conducted a job search from May through early August. He censored and open sourced his job search data and it provides useful insight into the topic of the current article.
 
-Specifically, his data showed no significant correlation between different resume versions and the attainment of an interview.
+Specifically, his data showed no significant correlation between different resume versions and the attainment of an interview. The table below describes an ordinary least squares regression of interview attainment:
 
-The data can be found here and the analytical script used for the above regression table can be found here.
+| Dep. Variable:      | attained_interview |
+| ------------------- | ------------------ |
+| Model:              | OLS                |
+| No. Observations:   | 133                |
+| R-squared:          | 0.352              |
+| Adj. R-squared:     | 0.326              |
+| F-statistic:        | 13.79              |
+| Prob (F-statistic): | 9.41e-11           |
+
+|                     | coef    | std err | t      | p(t)  |
+| ------------------- | ------- | ------- | ------ | ----- |
+| const               | 0.1068  | 0.103   | 1.034  | 0.303 |
+| is_low_effort       | -0.0972 | 0.164   | -0.594 | 0.554 |
+| Resume Version      | 0.0054  | 0.036   | 0.149  | 0.882 |
+| Company             | -0.0003 | 0.001   | -0.323 | 0.747 |
+| Referral            | 0.2361  | 0.078   | 3.030  | 0.003 |
+| Inbound Opportunity | 0.6636  | 0.091   | 7.294  | 0.000 |
+
+Referral and inbound opportinities were essentially all that mattered. Social networking, brand building, and LinkedIn optimization drove these variables. In addition, a low effort application is partly described as an application in which no social networking occured.
+
+This particular job search took place during a particularly difficult market for candidates, or a favorable market from the employer point of view. Magnitudes are expected to shift over time and in association with software engineer labor market conditions. In particular, the constant is likely to increase in a market that favors candidates more strongly.
+
+The data can be found [here](https://github.com/Vandivier/ladderly-3/blob/main/scripts/analytical/vandivier-censored-job-search-may-2024.csv) and the analytical script used for the above regression table can be found [here](https://github.com/Vandivier/ladderly-3/blob/main/scripts/analytical/blog-15-job-search-regression.py).
 
 A caveat in this result is that even the earliest version of the resume could be describe as fair in quality, without obvious grammatical errors, major ATS parsing issues, or other major issues. So the fact that the variation in resume version did not correlate with outcomes does not mean that resume quality has no impact, but it does mean that once you have a fairly high quality resume, fine-tuning it into an ultra-high quality resume has negligible return, which is exactly applicable to the discussion of whether a resume should be optimized per job post or simply at the level of the job family or role.
 
