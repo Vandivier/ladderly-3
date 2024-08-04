@@ -1,13 +1,13 @@
-import { useMutation, useQuery } from "@blitzjs/rpc"
-import Link from "next/link"
-import React from "react"
+import { useMutation, useQuery } from '@blitzjs/rpc'
+import Link from 'next/link'
+import React from 'react'
 
-import updateUserChecklistItem from "src/app/user-checklist-items/mutations/updateUserChecklistItem"
-import getLatestUserChecklistByName from "src/app/user-checklists/queries/getLatestUserChecklistByName"
-import { UserChecklistItemWithChecklistItem } from "src/app/user-checklists/schemas"
-import { parseUrl } from "src/core/utils/parsing"
+import updateUserChecklistItem from 'src/app/user-checklist-items/mutations/updateUserChecklistItem'
+import getLatestUserChecklistByName from 'src/app/user-checklists/queries/getLatestUserChecklistByName'
+import { UserChecklistItemWithChecklistItem } from 'src/app/user-checklists/schemas'
+import { parseUrl } from 'src/core/utils/parsing'
 
-const MAGIC_LINK_SUBSTR = "###LINK###"
+const MAGIC_LINK_SUBSTR = '###LINK###'
 
 const UserChecklistItemList = ({
   items,
@@ -26,7 +26,7 @@ const UserChecklistItemList = ({
       await updateUserChecklistItemMutation({ id, isComplete: !isComplete })
       await refetchChecklist()
     } catch (error) {
-      alert("Error updating checklist item " + JSON.stringify(error, null, 2))
+      alert('Error updating checklist item ' + JSON.stringify(error, null, 2))
     }
   }
 

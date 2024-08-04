@@ -69,7 +69,7 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successful response with image data
           content:
             application/json:
@@ -94,7 +94,7 @@ paths:
       operationId: getRandomImage
       summary: Retrieve a random image from the gallery.
       responses:
-        "200":
+        '200':
           description: Successful response with a random image
           content:
             application/json:
@@ -133,7 +133,7 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successful response with art roll data
           content:
             application/json:

@@ -1,15 +1,15 @@
-import { BlitzPage } from "@blitzjs/auth"
-import { useMutation, useQuery } from "@blitzjs/rpc"
-import Link from "next/link"
-import React, { Suspense } from "react"
+import { BlitzPage } from '@blitzjs/auth'
+import { useMutation, useQuery } from '@blitzjs/rpc'
+import Link from 'next/link'
+import React, { Suspense } from 'react'
 
-import { UserChecklistQueryHandler } from "src/app/user-checklists/components/UserChecklistQueryHandler"
-import createUserChecklistAsClone from "src/app/user-checklists/mutations/createUserChecklistAsClone"
-import getLatestUserChecklistByName from "src/app/user-checklists/queries/getLatestUserChecklistByName"
-import { LadderlyToast } from "src/core/components/LadderlyToast"
-import Layout from "src/core/layouts/Layout"
+import { UserChecklistQueryHandler } from 'src/app/user-checklists/components/UserChecklistQueryHandler'
+import createUserChecklistAsClone from 'src/app/user-checklists/mutations/createUserChecklistAsClone'
+import getLatestUserChecklistByName from 'src/app/user-checklists/queries/getLatestUserChecklistByName'
+import { LadderlyToast } from 'src/core/components/LadderlyToast'
+import Layout from 'src/core/layouts/Layout'
 
-const CURRENT_CHECKLIST_NAME = "Programming Job Checklist"
+const CURRENT_CHECKLIST_NAME = 'Programming Job Checklist'
 
 const NewestChecklistQueryHandler: React.FC = () => {
   const [createUserChecklistAsCloneMutation] = useMutation(
@@ -26,20 +26,20 @@ const NewestChecklistQueryHandler: React.FC = () => {
     userChecklistData.latestChecklistId !== userChecklist.checklistId
   )
   const [toastMessage, setToastMessage] = React.useState(
-    "A New Checklist Version is Available."
+    'A New Checklist Version is Available.'
   )
 
   const handleToastConfirmClick = async () => {
     const checklistId = userChecklistData.latestChecklistId
     if (!checklistId) return
-    setToastMessage("Update in progress...")
+    setToastMessage('Update in progress...')
 
     try {
       await createUserChecklistAsCloneMutation({ checklistId })
       await refetch()
       setShowToast(false)
     } catch (error) {
-      alert("Error updating checklist items.")
+      alert('Error updating checklist items.')
     }
   }
 

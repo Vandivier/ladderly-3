@@ -1,5 +1,5 @@
 ---
-title: "7. LeetCode Solutions"
+title: '7. LeetCode Solutions'
 date: 5/07/24
 author: John Vandivier
 ---

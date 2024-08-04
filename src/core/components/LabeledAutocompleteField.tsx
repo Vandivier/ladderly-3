@@ -1,12 +1,12 @@
-import React, { PropsWithoutRef } from "react"
-import { Field } from "react-final-form"
-import Select from "react-select"
+import React, { PropsWithoutRef } from 'react'
+import { Field } from 'react-final-form'
+import Select from 'react-select'
 
 interface LabeledAutocompleteFieldProps {
   label: string
   name: string
   options: { value: string; label: string }[]
-  outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
+  outerProps?: PropsWithoutRef<JSX.IntrinsicElements['div']>
 }
 
 const LabeledAutocompleteField: React.FC<LabeledAutocompleteFieldProps> = ({

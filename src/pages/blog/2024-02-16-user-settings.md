@@ -1,5 +1,5 @@
 ---
-title: "10. Understanding User Settings"
+title: '10. Understanding User Settings'
 date: 2/16/24
 author: John Vandivier
 ---

@@ -1,7 +1,7 @@
-import { Ctx } from "@blitzjs/next"
-import { resolver } from "@blitzjs/rpc"
-import { AuthorizationError, NotFoundError } from "blitz"
-import db from "db"
+import { Ctx } from '@blitzjs/next'
+import { resolver } from '@blitzjs/rpc'
+import { AuthorizationError, NotFoundError } from 'blitz'
+import db from 'db'
 
 export default resolver.pipe(async ({ id }: { id: number }, ctx: Ctx) => {
   if (id !== parseInt(id.toString())) throw new NotFoundError()
@@ -25,7 +25,7 @@ export default resolver.pipe(async ({ id }: { id: number }, ctx: Ctx) => {
       userChecklists: {
         where: { isComplete: true },
         take: 3,
-        orderBy: { createdAt: "desc" },
+        orderBy: { createdAt: 'desc' },
         select: {
           id: true,
           checklist: true,
@@ -37,12 +37,12 @@ export default resolver.pipe(async ({ id }: { id: number }, ctx: Ctx) => {
     },
   })
 
-  if (!user) throw new NotFoundError("User not found")
+  if (!user) throw new NotFoundError('User not found')
   if (isOwnData || user.hasPublicProfileEnabled) {
     return user
   }
 
   throw new AuthorizationError(
-    "You do not have permission to view this user data."
+    'You do not have permission to view this user data.'
   )
 })

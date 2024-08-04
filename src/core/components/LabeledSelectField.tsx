@@ -1,4 +1,4 @@
-import { Field } from "react-final-form"
+import { Field } from 'react-final-form'
 
 interface LabeledSelectFieldProps {
   name: string
@@ -6,7 +6,11 @@ interface LabeledSelectFieldProps {
   children: React.ReactNode
 }
 
-const LabeledSelectField: React.FC<LabeledSelectFieldProps> = ({ label, children, ...props }) => {
+const LabeledSelectField: React.FC<LabeledSelectFieldProps> = ({
+  label,
+  children,
+  ...props
+}) => {
   const { name: fieldName, ...otherProps } = props
 
   return (

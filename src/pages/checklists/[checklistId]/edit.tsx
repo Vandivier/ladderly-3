@@ -1,23 +1,23 @@
-import { Suspense } from "react"
-import { Routes } from "@blitzjs/next"
-import Head from "next/head"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useQuery, useMutation } from "@blitzjs/rpc"
-import { useParam } from "@blitzjs/next"
+import { Suspense } from 'react'
+import { Routes } from '@blitzjs/next'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useQuery, useMutation } from '@blitzjs/rpc'
+import { useParam } from '@blitzjs/next'
 
-import Layout from "src/core/layouts/Layout"
-import { UpdateChecklistSchema } from "src/app/checklists/schemas"
-import getChecklist from "src/app/checklists/queries/getChecklist"
-import updateChecklist from "src/app/checklists/mutations/updateChecklist"
+import Layout from 'src/core/layouts/Layout'
+import { UpdateChecklistSchema } from 'src/app/checklists/schemas'
+import getChecklist from 'src/app/checklists/queries/getChecklist'
+import updateChecklist from 'src/app/checklists/mutations/updateChecklist'
 import {
   ChecklistForm,
   FORM_ERROR,
-} from "src/app/checklists/components/ChecklistForm"
+} from 'src/app/checklists/components/ChecklistForm'
 
 export const EditChecklist = () => {
   const router = useRouter()
-  const checklistId = useParam("checklistId", "number")
+  const checklistId = useParam('checklistId', 'number')
   const [checklist, { setQueryData }] = useQuery(
     getChecklist,
     { id: checklistId },

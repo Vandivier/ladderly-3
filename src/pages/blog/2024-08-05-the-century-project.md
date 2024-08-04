@@ -1,5 +1,5 @@
 ---
-title: "16. The Century Project"
+title: '16. The Century Project'
 date: 8/5/24
 author: John Vandivier
 ---

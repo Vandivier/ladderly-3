@@ -1,23 +1,23 @@
-const path = require("path")
-const fs = require("fs")
+const path = require('path')
+const fs = require('fs')
 
-require("dotenv").config({ path: path.resolve(__dirname, "../.env.local") })
+require('dotenv').config({ path: path.resolve(__dirname, '../.env.local') })
 
-const { PrismaClient } = require("@prisma/client")
+const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
 async function updateSubscriptionTiers() {
-  const premiumEmails = process.env.PREMIUM_EMAILS.split(",")
-  const pWYC_Emails = process.env.PWYC_EMAILS.split(",")
-  const data = JSON.parse(fs.readFileSync("./stripe_payments.json", "utf-8"))
-  const subscriptionType = "ACCOUNT_PLAN"
+  const premiumEmails = process.env.PREMIUM_EMAILS.split(',')
+  const pWYC_Emails = process.env.PWYC_EMAILS.split(',')
+  const data = JSON.parse(fs.readFileSync('./stripe_payments.json', 'utf-8'))
+  const subscriptionType = 'ACCOUNT_PLAN'
 
   for (const record of data) {
-    const amountPaid = parseFloat(record["amount"].replace(/[^0-9.]/g, ""))
-    const email = record["email"].toLowerCase()
-    const contributedAt = new Date(record["date"])
-    const transactionId = record["transactionId"] || null
+    const amountPaid = parseFloat(record['amount'].replace(/[^0-9.]/g, ''))
+    const email = record['email'].toLowerCase()
+    const contributedAt = new Date(record['date'])
+    const transactionId = record['transactionId'] || null
 
     // Find or create user based on email or emailStripe
     const user = await prisma.user.findFirst({
@@ -64,7 +64,7 @@ async function updateSubscriptionTiers() {
         amount: amountPaid,
         stripeTransactionId: transactionId,
         contributedAt: contributedAt,
-        type: "ONE_TIME",
+        type: 'ONE_TIME',
         user: { connect: { id: user.id } },
         subscription: { connect: { id: subscription.id } },
       },
@@ -92,12 +92,18 @@ async function updateSubscriptionTiers() {
 
     // Determine subscription tier
     let tier
-    if (totalAmountContributed._sum.amount >= 30 || premiumEmails.includes(email)) {
-      tier = "PREMIUM"
-    } else if (totalAmountContributed._sum.amount >= 1 || pWYC_Emails.includes(email)) {
-      tier = "PAY_WHAT_YOU_CAN"
+    if (
+      totalAmountContributed._sum.amount >= 30 ||
+      premiumEmails.includes(email)
+    ) {
+      tier = 'PREMIUM'
+    } else if (
+      totalAmountContributed._sum.amount >= 1 ||
+      pWYC_Emails.includes(email)
+    ) {
+      tier = 'PAY_WHAT_YOU_CAN'
     } else {
-      tier = "FREE"
+      tier = 'FREE'
     }
 
     // Update user's subscription tier
@@ -112,7 +118,7 @@ async function updateSubscriptionTiers() {
     })
   }
 
-  console.log("Subscription tiers and contributions updated.")
+  console.log('Subscription tiers and contributions updated.')
 }
 
 updateSubscriptionTiers().catch(console.error)

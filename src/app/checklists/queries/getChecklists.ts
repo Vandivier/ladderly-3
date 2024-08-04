@@ -1,11 +1,11 @@
-import { paginate } from "blitz"
-import { resolver } from "@blitzjs/rpc"
-import db, { Prisma } from "db"
+import { paginate } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
+import db, { Prisma } from 'db'
 
 interface GetChecklistsInput
   extends Pick<
     Prisma.ChecklistFindManyArgs,
-    "where" | "orderBy" | "skip" | "take"
+    'where' | 'orderBy' | 'skip' | 'take'
   > {}
 
 export default resolver.pipe(

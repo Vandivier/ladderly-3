@@ -1,11 +1,11 @@
-import { NotFoundError } from "blitz"
-import { resolver } from "@blitzjs/rpc"
-import db from "db"
-import { z } from "zod"
+import { NotFoundError } from 'blitz'
+import { resolver } from '@blitzjs/rpc'
+import db from 'db'
+import { z } from 'zod'
 
 const GetChecklist = z.object({
   // This accepts type of undefined, but is required at runtime
-  id: z.number().optional().refine(Boolean, "Required"),
+  id: z.number().optional().refine(Boolean, 'Required'),
 })
 
 export default resolver.pipe(

@@ -1,10 +1,10 @@
-import React from "react"
+import React from 'react'
 
-import Link from "next/link"
-import { MenuContext, MenuProvider } from "./MenuProvider"
-import { TopNavLeft } from "./TopNavLeft"
-import { TopNavRight, TopNavRightSkeleton } from "./TopNavRight"
-import { TOP_NAV_STANDARD_CLASSES } from "./TopNavSubmenu"
+import Link from 'next/link'
+import { MenuContext, MenuProvider } from './MenuProvider'
+import { TopNavLeft } from './TopNavLeft'
+import { TopNavRight, TopNavRightSkeleton } from './TopNavRight'
+import { TOP_NAV_STANDARD_CLASSES } from './TopNavSubmenu'
 
 export const TopNavFlexContainer = ({ children }) => (
   <div className="column flex w-full border-b border-ladderly-light-purple-5 bg-ladderly-light-purple-2 px-4 py-1 text-ladderly-violet-700">

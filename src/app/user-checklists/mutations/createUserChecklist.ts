@@ -1,7 +1,7 @@
-import { Ctx } from "@blitzjs/next"
-import { resolver } from "@blitzjs/rpc"
-import { AuthenticationError } from "blitz"
-import db from "db"
+import { Ctx } from '@blitzjs/next'
+import { resolver } from '@blitzjs/rpc'
+import { AuthenticationError } from 'blitz'
+import db from 'db'
 
 export default resolver.pipe(
   resolver.authorize(),
@@ -16,7 +16,7 @@ export default resolver.pipe(
       include: { checklistItems: true },
     })
 
-    if (!checklist) throw new Error("Checklist not found")
+    if (!checklist) throw new Error('Checklist not found')
 
     // Create the user checklist
     const userChecklist = await db.userChecklist.create({

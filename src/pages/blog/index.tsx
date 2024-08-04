@@ -1,9 +1,9 @@
-import fs from "fs"
-import matter from "gray-matter"
-import Link from "next/link"
-import path from "path"
+import fs from 'fs'
+import matter from 'gray-matter'
+import Link from 'next/link'
+import path from 'path'
 
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
 const BlogIndex = ({
   posts,
@@ -35,13 +35,13 @@ const BlogIndex = ({
 }
 
 export const getStaticProps = async () => {
-  const files = fs.readdirSync(path.join("src/pages/blog"))
+  const files = fs.readdirSync(path.join('src/pages/blog'))
   const posts = files
-    .filter((filename) => path.extname(filename) === ".md")
+    .filter((filename) => path.extname(filename) === '.md')
     .map((filename) => {
-      const slug = filename.replace(".md", "")
+      const slug = filename.replace('.md', '')
       const markdownWithMetadata = fs
-        .readFileSync(path.join("src/pages/blog", filename))
+        .readFileSync(path.join('src/pages/blog', filename))
         .toString()
       const { data } = matter(markdownWithMetadata)
       return {

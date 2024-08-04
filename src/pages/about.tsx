@@ -1,9 +1,9 @@
-import { BlitzPage } from "@blitzjs/next"
-import Link from "next/link"
-import { LargeCard } from "src/core/components/LargeCard"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
+import { BlitzPage } from '@blitzjs/next'
+import Link from 'next/link'
+import { LargeCard } from 'src/core/components/LargeCard'
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
-import styles from "src/app/styles/Home.module.css"
+import styles from 'src/app/styles/Home.module.css'
 
 const AboutPage: BlitzPage = () => {
   return (
@@ -81,11 +81,11 @@ const AboutPage: BlitzPage = () => {
           Start Now for Free!
         </h2>
         <p className="mt-4">
-          Sign up{" "}
+          Sign up{' '}
           <Link className={styles.textLink} href="/signup">
             here
-          </Link>{" "}
-          and check out the{" "}
+          </Link>{' '}
+          and check out the{' '}
           <a
             href="https://discord.gg/fAg6Xa4uxc"
             target="_blank"

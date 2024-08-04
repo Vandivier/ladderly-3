@@ -1,6 +1,6 @@
-import React from "react"
-import Link from "next/link"
-import { useCurrentUser } from "src/app/users/hooks/useCurrentUser"
+import React from 'react'
+import Link from 'next/link'
+import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
 
 type Benefit = {
   emphasize?: boolean
@@ -20,51 +20,51 @@ type Plan = {
 
 const plans: Plan[] = [
   {
-    name: "Premium",
+    name: 'Premium',
     planId: 30,
-    price: "$30/mo",
+    price: '$30/mo',
     benefits: [
-      { emphasize: true, text: "Limited Time Only: Free Expert Session" },
+      { emphasize: true, text: 'Limited Time Only: Free Expert Session' },
       { text: 'All "Pay What You Can" plan benefits' },
-      { text: "25% discount on Expert Sessions" },
-      { text: "Exclusive small groups and giveaways" },
+      { text: '25% discount on Expert Sessions' },
+      { text: 'Exclusive small groups and giveaways' },
       {
-        text: "Recognition in the Hall of Fame (Optional)",
-        url: "https://www.ladderly.io/community/hall-of-fame",
+        text: 'Recognition in the Hall of Fame (Optional)',
+        url: 'https://www.ladderly.io/community/hall-of-fame',
       },
     ],
-    buttonText: "Join Now",
-    loggedInLink: "https://buy.stripe.com/fZe2bF4mo6Td7lK004",
+    buttonText: 'Join Now',
+    loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
   },
   {
-    name: "Pay What You Can",
+    name: 'Pay What You Can',
     planId: 10,
-    price: "as little as $1/mo",
+    price: 'as little as $1/mo',
     benefits: [
-      { text: "10% discount on Expert Sessions" },
-      { text: "Advanced Checklist Access" },
-      { text: "Ad-Free Experience" },
-      { text: "Priority Support" },
+      { text: '10% discount on Expert Sessions' },
+      { text: 'Advanced Checklist Access' },
+      { text: 'Ad-Free Experience' },
+      { text: 'Priority Support' },
     ],
-    buttonText: "Join Now",
-    loggedInLink: "https://buy.stripe.com/dR67vZbOQfpJ21qdQT",
+    buttonText: 'Join Now',
+    loggedInLink: 'https://buy.stripe.com/dR67vZbOQfpJ21qdQT',
   },
   {
-    name: "Free",
+    name: 'Free',
     planId: 0,
-    price: "$0",
+    price: '$0',
     benefits: [
       {
-        text: "Open Source Curriculum",
-        url: "https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md",
+        text: 'Open Source Curriculum',
+        url: 'https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md',
       },
-      { text: "Standard Checklist" },
-      { text: "Access the Social Community" },
+      { text: 'Standard Checklist' },
+      { text: 'Access the Social Community' },
       {
-        text: "24/7 Support with AI Chat",
-        url: "https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt",
+        text: '24/7 Support with AI Chat',
+        url: 'https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt',
       },
-      { text: "Schedule Expert Consultations" },
+      { text: 'Schedule Expert Consultations' },
     ],
     buttonText: null,
   },

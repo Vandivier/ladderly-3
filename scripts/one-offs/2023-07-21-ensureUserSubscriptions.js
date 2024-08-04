@@ -1,8 +1,8 @@
-const path = require("path")
+const path = require('path')
 
-require("dotenv").config({ path: path.resolve(__dirname, "../../.env.local") })
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env.local') })
 
-const { PrismaClient, PaymentTierEnum } = require("@prisma/client")
+const { PrismaClient, PaymentTierEnum } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
@@ -18,7 +18,7 @@ async function ensureUserSubscriptions() {
           data: {
             user: { connect: { id: user.id } },
             tier: PaymentTierEnum.FREE,
-            type: "ACCOUNT_PLAN",
+            type: 'ACCOUNT_PLAN',
             createdAt: new Date(),
           },
         })
@@ -32,12 +32,14 @@ async function ensureUserSubscriptions() {
     }
   }
 
-  console.log("Subscription verification completed!")
+  console.log('Subscription verification completed!')
 }
 
 ensureUserSubscriptions()
   .catch((e) => {
-    console.error(`Failed to ensure subscriptions for all users. Error: ${e.message}`)
+    console.error(
+      `Failed to ensure subscriptions for all users. Error: ${e.message}`
+    )
     process.exit(1)
   })
   .finally(async () => {

@@ -1,11 +1,11 @@
-import { Ctx } from "@blitzjs/next"
-import { resolver } from "@blitzjs/rpc"
-import { AuthenticationError } from "blitz"
-import db from "db"
+import { Ctx } from '@blitzjs/next'
+import { resolver } from '@blitzjs/rpc'
+import { AuthenticationError } from 'blitz'
+import db from 'db'
 
-import { ChecklistWithItems } from "src/app/checklists/schemas"
-import { cloneChecklistToUser } from "../mutations/createUserChecklistAsClone"
-import { UserChecklistByNameData, UserChecklistWithItems } from "../schemas"
+import { ChecklistWithItems } from 'src/app/checklists/schemas'
+import { cloneChecklistToUser } from '../mutations/createUserChecklistAsClone'
+import { UserChecklistByNameData, UserChecklistWithItems } from '../schemas'
 
 type LatestUserChecklistType =
   | null
@@ -49,18 +49,18 @@ export default resolver.pipe(
     const { userId } = ctx.session
     if (!userId) throw new AuthenticationError()
     const latestChecklist = await db.checklist.findFirst({
-      include: { checklistItems: { orderBy: { displayIndex: "asc" } } },
-      orderBy: { createdAt: "desc" },
+      include: { checklistItems: { orderBy: { displayIndex: 'asc' } } },
+      orderBy: { createdAt: 'desc' },
       where: { name },
     })
     if (!latestChecklist) throw new Error(`Checklist not found: ${name}`)
     const allUserChecklist: LatestUserChecklistType[] =
       await db.userChecklist.findMany({
         where: { userId },
-        orderBy: { createdAt: "desc" },
+        orderBy: { createdAt: 'desc' },
         include: {
           checklist: {
-            include: { checklistItems: { orderBy: { displayIndex: "asc" } } },
+            include: { checklistItems: { orderBy: { displayIndex: 'asc' } } },
           },
           userChecklistItems: { include: { checklistItem: true } },
         },

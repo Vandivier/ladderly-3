@@ -1,22 +1,22 @@
-import { Routes } from "@blitzjs/next"
-import { useMutation } from "@blitzjs/rpc"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { Suspense } from "react"
+import { Routes } from '@blitzjs/next'
+import { useMutation } from '@blitzjs/rpc'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Suspense } from 'react'
 import {
   ChecklistForm,
   FORM_ERROR,
-} from "src/app/checklists/components/ChecklistForm"
-import createChecklist from "src/app/checklists/mutations/createChecklist"
-import { CreateChecklistSchema } from "src/app/checklists/schemas"
-import Layout from "src/core/layouts/Layout"
+} from 'src/app/checklists/components/ChecklistForm'
+import createChecklist from 'src/app/checklists/mutations/createChecklist'
+import { CreateChecklistSchema } from 'src/app/checklists/schemas'
+import Layout from 'src/core/layouts/Layout'
 
 const NewChecklistPage = () => {
   const router = useRouter()
   const [createChecklistMutation] = useMutation(createChecklist)
 
   return (
-    <Layout title={"Create New Checklist"}>
+    <Layout title={'Create New Checklist'}>
       <h1>Create New Checklist</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <ChecklistForm

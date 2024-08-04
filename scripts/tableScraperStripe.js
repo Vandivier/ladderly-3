@@ -1,4 +1,4 @@
-const table = document.querySelector("table")
+const table = document.querySelector('table')
 const rows = Array.from(table.rows)
 
 const data = rows.slice(1).map((row) => {

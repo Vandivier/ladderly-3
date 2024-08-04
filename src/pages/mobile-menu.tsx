@@ -1,21 +1,21 @@
-import { BlitzPage, Routes } from "@blitzjs/next"
-import { User } from "db"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import React, { Suspense } from "react"
-import { useCurrentUser } from "src/app/users/hooks/useCurrentUser"
-import { IconVerticalChevron } from "src/core/components/icons/VerticalChevron"
-import { TopNavFlexContainer } from "src/core/components/page-wrapper/TopNav"
-import { TopNavLeft } from "src/core/components/page-wrapper/TopNavLeft"
+import { BlitzPage, Routes } from '@blitzjs/next'
+import { User } from 'db'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { Suspense } from 'react'
+import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
+import { IconVerticalChevron } from 'src/core/components/icons/VerticalChevron'
+import { TopNavFlexContainer } from 'src/core/components/page-wrapper/TopNav'
+import { TopNavLeft } from 'src/core/components/page-wrapper/TopNavLeft'
 import {
   AccountMenuItems,
   CommunityMenuItems,
   MENU_ITEM_STANDARD_CLASSES,
   TOP_NAV_STANDARD_CLASSES,
-} from "src/core/components/page-wrapper/TopNavSubmenu"
+} from 'src/core/components/page-wrapper/TopNavSubmenu'
 
 const MOBILE_LINK_CLASSES =
-  "block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900"
+  'block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900'
 const MOBILE_SUBMENU_ITEM_CLASSES = `${MENU_ITEM_STANDARD_CLASSES} m-3`
 
 const AuthenticatedMenuItems = ({
@@ -35,7 +35,7 @@ const AuthenticatedMenuItems = ({
         <button
           onClick={toggleAccountSubmenu}
           className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
-            isSubmenuOpen && "border border-gray-200 bg-gray-100"
+            isSubmenuOpen && 'border border-gray-200 bg-gray-100'
           }`}
         >
           Account
@@ -127,8 +127,8 @@ const MobileMenuPage: BlitzPage = () => {
               onClick={toggleCommunitySubmenu}
               className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
                 isCommunitySubmenuOpen
-                  ? "border border-gray-200 bg-gray-100"
-                  : ""
+                  ? 'border border-gray-200 bg-gray-100'
+                  : ''
               }`}
             >
               Community

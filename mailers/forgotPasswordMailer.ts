@@ -1,4 +1,4 @@
-import { postmarkClient } from "integrations/postmark"
+import { postmarkClient } from 'integrations/postmark'
 
 type ResetPasswordMailer = {
   to: string
@@ -17,22 +17,25 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
 `
 
   const msg = {
-    from: "support@ladderly.io",
-    From: "support@ladderly.io",
+    from: 'support@ladderly.io',
+    From: 'support@ladderly.io',
     to,
-    subject: "Your Password Reset Instructions",
-    Subject: "Your Password Reset Instructions",
+    subject: 'Your Password Reset Instructions',
+    Subject: 'Your Password Reset Instructions',
     html,
     HtmlBody: html,
   }
 
   return {
     async send() {
-      if (typeof process.env.POSTMARK_API_KEY === "string" && process.env.POSTMARK_API_KEY !== "") {
+      if (
+        typeof process.env.POSTMARK_API_KEY === 'string' &&
+        process.env.POSTMARK_API_KEY !== ''
+      ) {
         await postmarkClient.sendEmail(msg)
       } else {
         // Preview email in the browser
-        const previewEmail = (await import("preview-email")).default
+        const previewEmail = (await import('preview-email')).default
         await previewEmail(msg)
       }
     },

@@ -1,15 +1,15 @@
-import { Routes } from "@blitzjs/next"
-import { useMutation, useQuery } from "@blitzjs/rpc"
-import { FORM_ERROR } from "final-form"
-import Link from "next/link"
-import { Suspense } from "react"
+import { Routes } from '@blitzjs/next'
+import { useMutation, useQuery } from '@blitzjs/rpc'
+import { FORM_ERROR } from 'final-form'
+import Link from 'next/link'
+import { Suspense } from 'react'
 
-import { LargeCard } from "src/core/components/LargeCard"
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper"
-import { SettingForm } from "src/settings/components/SettingForm"
-import updateSettingsMutation from "src/settings/mutations/updateSettingsMutation"
-import getSettings, { UserSettings } from "src/settings/queries/getSettings"
-import { UpdateSettingsSchema } from "src/settings/schemas"
+import { LargeCard } from 'src/core/components/LargeCard'
+import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
+import { SettingForm } from 'src/settings/components/SettingForm'
+import updateSettingsMutation from 'src/settings/mutations/updateSettingsMutation'
+import getSettings, { UserSettings } from 'src/settings/queries/getSettings'
+import { UpdateSettingsSchema } from 'src/settings/schemas'
 
 export const SettingsList = () => {
   const [settings, { setQueryData }] = useQuery(getSettings, {})
@@ -24,7 +24,7 @@ export const SettingsList = () => {
 
       <Link
         className="mt-4 block text-ladderly-violet-700 underline"
-        href={Routes.BlogPost({ slug: "2024-02-16-user-settings" })}
+        href={Routes.BlogPost({ slug: '2024-02-16-user-settings' })}
       >
         Learn More About User Settings
       </Link>
@@ -44,10 +44,10 @@ export const SettingsList = () => {
               }
 
               await setQueryData(updatedUserSettings)
-              alert("Updated successfully.")
+              alert('Updated successfully.')
             } catch (error: any) {
               console.error(error)
-              alert("Updated failed.")
+              alert('Updated failed.')
 
               return {
                 [FORM_ERROR]: error.toString(),

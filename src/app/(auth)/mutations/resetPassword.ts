@@ -1,23 +1,23 @@
-import { hash256 } from "@blitzjs/auth"
-import { SecurePassword } from "@blitzjs/auth/secure-password"
-import { resolver } from "@blitzjs/rpc"
-import db from "db"
-import { ResetPassword } from "../schemas"
-import login from "./login"
+import { hash256 } from '@blitzjs/auth'
+import { SecurePassword } from '@blitzjs/auth/secure-password'
+import { resolver } from '@blitzjs/rpc'
+import db from 'db'
+import { ResetPassword } from '../schemas'
+import login from './login'
 
 export class ResetPasswordError extends Error {
-  name = "ResetPasswordError"
-  message = "Reset password link is invalid or it has expired."
+  name = 'ResetPasswordError'
+  message = 'Reset password link is invalid or it has expired.'
 }
 
 export default resolver.pipe(
   resolver.zod(ResetPassword),
   async ({ password, token }, ctx) => {
-    if (!token) throw new ResetPasswordError("Token is required")
+    if (!token) throw new ResetPasswordError('Token is required')
     // 1. Try to find this token in the database
     const hashedToken = hash256(token)
     const possibleToken = await db.token.findFirst({
-      where: { hashedToken, type: "RESET_PASSWORD" },
+      where: { hashedToken, type: 'RESET_PASSWORD' },
       include: { user: true },
     })
 

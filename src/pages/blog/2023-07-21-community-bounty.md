@@ -1,5 +1,5 @@
 ---
-title: "1. The Community Bounty Feature: Join the Revolution!"
+title: '1. The Community Bounty Feature: Join the Revolution!'
 date: 7/21/23
 author: John Vandivier
 ---

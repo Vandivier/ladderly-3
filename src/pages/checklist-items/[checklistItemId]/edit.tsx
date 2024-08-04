@@ -1,23 +1,23 @@
-import { Routes, useParam } from "@blitzjs/next"
-import { useMutation, useQuery } from "@blitzjs/rpc"
-import Head from "next/head"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { Suspense } from "react"
+import { Routes, useParam } from '@blitzjs/next'
+import { useMutation, useQuery } from '@blitzjs/rpc'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Suspense } from 'react'
 
-import { RoleEnum } from "db"
+import { RoleEnum } from 'db'
 import {
   ChecklistItemForm,
   FORM_ERROR,
-} from "src/app/checklist-items/components/ChecklistItemForm"
-import updateChecklistItem from "src/app/checklist-items/mutations/updateChecklistItem"
-import getChecklistItem from "src/app/checklist-items/queries/getChecklistItem"
-import { UpdateChecklistItemSchema } from "src/app/checklist-items/schemas"
-import Layout from "src/core/layouts/Layout"
+} from 'src/app/checklist-items/components/ChecklistItemForm'
+import updateChecklistItem from 'src/app/checklist-items/mutations/updateChecklistItem'
+import getChecklistItem from 'src/app/checklist-items/queries/getChecklistItem'
+import { UpdateChecklistItemSchema } from 'src/app/checklist-items/schemas'
+import Layout from 'src/core/layouts/Layout'
 
 export const EditChecklistItem = () => {
   const router = useRouter()
-  const checklistItemId = useParam("checklistItemId", "number")
+  const checklistItemId = useParam('checklistItemId', 'number')
   const [checklistItem, { setQueryData }] = useQuery(
     getChecklistItem,
     { id: checklistItemId },

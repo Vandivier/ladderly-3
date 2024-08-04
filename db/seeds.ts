@@ -1,17 +1,17 @@
-import fs from "fs"
-import path from "path"
-import db, { Checklist } from "./index"
+import fs from 'fs'
+import path from 'path'
+import db, { Checklist } from './index'
 import {
   ChecklistSeedDataType,
   ChecklistsSchema,
   updateChecklistsInPlace,
-} from "./seed-utils/updateChecklists"
+} from './seed-utils/updateChecklists'
 
 const createNewChecklist = async (
   checklistData: ChecklistSeedDataType
 ): Promise<void> => {
   const { name, items } = checklistData as ChecklistSeedDataType
-  const version = "ignoreme_version_field_deprecation_in_progress"
+  const version = 'ignoreme_version_field_deprecation_in_progress'
   const checklist: Checklist | null = await db.checklist.create({
     data: { name, version },
   })
@@ -20,23 +20,23 @@ const createNewChecklist = async (
     const itemData = items[i]
     let displayText, linkText, linkUri, isRequired, detailText
 
-    if (typeof itemData === "undefined") {
+    if (typeof itemData === 'undefined') {
       throw new Error(
         `Checklist item is undefined for checklist: ${name} item idx: ${i}`
       )
-    } else if (typeof itemData === "string") {
+    } else if (typeof itemData === 'string') {
       displayText = itemData
-      linkText = ""
-      linkUri = ""
+      linkText = ''
+      linkUri = ''
       isRequired = true
-      detailText = ""
+      detailText = ''
     } else {
       displayText = itemData.displayText
-      linkText = itemData.linkText || ""
-      linkUri = itemData.linkUri || ""
+      linkText = itemData.linkText || ''
+      linkUri = itemData.linkUri || ''
       isRequired =
         itemData.isRequired === undefined ? true : itemData.isRequired
-      detailText = itemData.detailText || ""
+      detailText = itemData.detailText || ''
     }
 
     await db.checklistItem.create({
@@ -56,10 +56,10 @@ const createNewChecklist = async (
 
 const seed = async () => {
   const checklistNameToUpdate =
-    process.argv.find((arg) => arg.startsWith("--name="))?.split("=")[1] || ""
-  const files = ["./checklists.json", "./premium-checklists.json"]
+    process.argv.find((arg) => arg.startsWith('--name='))?.split('=')[1] || ''
+  const files = ['./checklists.json', './premium-checklists.json']
   const updateLatestInPlace = process.argv.includes(
-    "--update-latest-checklists"
+    '--update-latest-checklists'
   )
 
   for (const file of files) {

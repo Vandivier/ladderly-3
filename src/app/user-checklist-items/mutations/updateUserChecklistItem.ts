@@ -1,6 +1,6 @@
-import { resolver } from "@blitzjs/rpc"
-import db from "db"
-import { UpdateUserChecklistItemSchema } from "../schemas"
+import { resolver } from '@blitzjs/rpc'
+import db from 'db'
+import { UpdateUserChecklistItemSchema } from '../schemas'
 
 export default resolver.pipe(
   resolver.zod(UpdateUserChecklistItemSchema),
@@ -19,7 +19,7 @@ export default resolver.pipe(
       })
 
       if (!userChecklist) {
-        throw new Error("UserChecklist not found.")
+        throw new Error('UserChecklist not found.')
       }
 
       const allItemsComplete = userChecklist.userChecklistItems.every(

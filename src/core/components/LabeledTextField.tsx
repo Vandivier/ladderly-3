@@ -1,17 +1,17 @@
-"use client"
-import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from "react"
-import { useField, UseFieldConfig } from "react-final-form"
+'use client'
+import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from 'react'
+import { useField, UseFieldConfig } from 'react-final-form'
 
 export interface LabeledTextFieldProps
-  extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
+  extends PropsWithoutRef<JSX.IntrinsicElements['input']> {
   /** Field name. */
   name: string
   /** Field label. */
   label: string
   /** Field type. Doesn't include radio buttons and checkboxes */
-  type?: "text" | "password" | "email" | "number"
-  outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
-  labelProps?: ComponentPropsWithoutRef<"label">
+  type?: 'text' | 'password' | 'email' | 'number'
+  outerProps?: PropsWithoutRef<JSX.IntrinsicElements['div']>
+  labelProps?: ComponentPropsWithoutRef<'label'>
   fieldProps?: UseFieldConfig<string>
 }
 
@@ -24,15 +24,15 @@ export const LabeledTextField = forwardRef<
     meta: { touched, error, submitError, submitting },
   } = useField(name, {
     parse:
-      props.type === "number"
+      props.type === 'number'
         ? (Number as any)
         : // Converting `""` to `null` ensures empty values will be set to null in the DB
-          (v) => (v === "" ? null : v),
+          (v) => (v === '' ? null : v),
     ...fieldProps,
   })
 
   const normalizedError = Array.isArray(error)
-    ? error.join(", ")
+    ? error.join(', ')
     : error || submitError
 
   return (
@@ -43,7 +43,7 @@ export const LabeledTextField = forwardRef<
       </label>
 
       {touched && normalizedError && (
-        <div role="alert" style={{ color: "red" }}>
+        <div role="alert" style={{ color: 'red' }}>
           {normalizedError}
         </div>
       )}
