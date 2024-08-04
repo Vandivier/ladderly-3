@@ -89,3 +89,8 @@ teachable_dat*.json
 
 # Database backups
 db/*.bak.json
+
+# Python deps
+*.venv
+*.venv/
+*/venv/
