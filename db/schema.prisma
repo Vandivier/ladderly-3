@@ -290,14 +290,14 @@ model Votable {
   updatedAt           DateTime    @updatedAt
   type                VotableType
   name                String
-  description         String
+  description         String      @default("")
   tags                String[]
   prestigeScore       Float       @default(0)
   voteCount           Int         @default(0)
   registeredUserVotes Int         @default(0)
   guestVotes          Int         @default(0)
   website             String?
-  miscInfo            Json
+  miscInfo            Json?
 
   votesA    Vote[]            @relation("VotableA")
   votesB    Vote[]            @relation("VotableB")
