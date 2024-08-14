@@ -318,12 +318,12 @@ model Vote {
   id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  voterId    Int
-  votableAId Int
-  votableBId Int
-  winnerId   Int
-  voter      User     @relation(fields: [voterId], references: [id])
   votableA   Votable  @relation("VotableA", fields: [votableAId], references: [id])
+  votableAId Int
   votableB   Votable  @relation("VotableB", fields: [votableBId], references: [id])
+  votableBId Int
+  voter      User?    @relation(fields: [voterId], references: [id])
+  voterId    Int?
   winner     Votable  @relation("Winner", fields: [winnerId], references: [id])
+  winnerId   Int
 }

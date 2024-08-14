@@ -13,20 +13,34 @@ const createVote = resolver.pipe(
   async ({ winnerId, votableAId, votableBId }, ctx) => {
     const voterId = ctx.session.userId
 
-    if (!voterId) {
-      throw new Error('You must be logged in to vote.')
-    }
-
+    // Record the vote with or without a logged-in user
     await db.vote.create({
       data: {
         winnerId,
         votableAId,
         votableBId,
-        voterId,
+        voterId: voterId,
       },
     })
 
-    // Optionally, update prestige scores or other related fields here.
+    // Update Votable with vote counts
+    if (voterId) {
+      await db.votable.update({
+        where: { id: winnerId },
+        data: {
+          registeredUserVotes: { increment: 1 },
+          prestigeScore: { increment: 1 },
+        },
+      })
+    } else {
+      await db.votable.update({
+        where: { id: winnerId },
+        data: {
+          guestVotes: { increment: 1 },
+          prestigeScore: { increment: 1 },
+        },
+      })
+    }
 
     return true
   }
