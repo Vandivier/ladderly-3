@@ -5,11 +5,38 @@ import path from 'path'
 
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
-const BlogIndex = ({
-  posts,
-}: {
-  posts: { slug: string; title: string; date: string; author: string }[]
-}) => {
+interface BlogPost {
+  slug: string
+  title: string
+  date: string
+  author: string
+}
+
+async function getBlogPosts(): Promise<BlogPost[]> {
+  const files = fs.readdirSync(path.join(process.cwd(), 'src/app/blog'))
+  const posts = files
+    .filter((filename) => path.extname(filename) === '.md')
+    .map((filename) => {
+      const slug = filename.replace('.md', '')
+      const markdownWithMetadata = fs
+        .readFileSync(path.join(process.cwd(), 'src/app/blog', filename))
+        .toString()
+      const { data } = matter(markdownWithMetadata)
+      return {
+        slug,
+        title: data.title,
+        date: data.date,
+        author: data.author,
+      }
+    })
+    .reverse()
+
+  return posts
+}
+
+export default async function BlogIndex() {
+  const posts = await getBlogPosts()
+
   return (
     <LadderlyPageWrapper title="Blog">
       <main className="m-auto w-full md:w-1/2">
@@ -33,31 +60,3 @@ const BlogIndex = ({
     </LadderlyPageWrapper>
   )
 }
-
-export const getStaticProps = async () => {
-  const files = fs.readdirSync(path.join('src/pages/blog'))
-  const posts = files
-    .filter((filename) => path.extname(filename) === '.md')
-    .map((filename) => {
-      const slug = filename.replace('.md', '')
-      const markdownWithMetadata = fs
-        .readFileSync(path.join('src/pages/blog', filename))
-        .toString()
-      const { data } = matter(markdownWithMetadata)
-      return {
-        slug,
-        title: data.title,
-        date: data.date,
-        author: data.author,
-      }
-    })
-    .reverse()
-
-  return {
-    props: {
-      posts,
-    },
-  }
-}
-
-export default BlogIndex

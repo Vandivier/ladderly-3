@@ -1,7 +1,6 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import { Element, Root } from 'hast'
-import { GetStaticPaths, GetStaticProps } from 'next'
 import path from 'path'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
@@ -31,49 +30,22 @@ const sBlogCallToAction = `<p class="call-to-action"
     </a>
   </p>`
 
-const BlogPost = ({ title, content }: { title: string; content: string }) => {
-  return (
-    <LadderlyPageWrapper title={title}>
-      <main className="m-auto w-full md:w-1/2">
-        <h1 className="p-4 text-3xl font-bold text-ladderly-violet-600">
-          {title}
-        </h1>
-        <article
-          className="prose prose-lg max-w-none px-4 text-gray-700"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      </main>
-    </LadderlyPageWrapper>
-  )
+interface TableOfContentsItem {
+  id: string
+  text: string
+  level: number
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const files = fs.readdirSync(path.join('src/pages/blog'))
-  const paths = files
-    .filter((filename) => path.extname(filename) === '.md')
-    .map((filename) => ({
-      params: {
-        slug: filename.replace('.md', ''),
-      },
-    }))
-
-  return {
-    paths,
-    fallback: false,
-  }
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (!params || typeof params.slug !== 'string') {
-    return { notFound: true }
-  }
-
-  const slug = params.slug
+async function getBlogPost(
+  slug: string
+): Promise<{ title: string; content: string; toc: TableOfContentsItem[] }> {
   const markdownWithMetadata = fs
-    .readFileSync(path.join('src/pages/blog', slug + '.md'))
+    .readFileSync(path.join(process.cwd(), 'src/app/blog', `${slug}.md`))
     .toString()
 
   const { data, content } = matter(markdownWithMetadata)
+
+  const toc: TableOfContentsItem[] = []
 
   const addStylesAndClasses = () => {
     return (tree: Root) => {
@@ -83,13 +55,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           if (!node.properties.className) node.properties.className = []
           ;(node.properties.className as string[]).push('font-bold')
 
+          if (node.properties.id && typeof node.properties.id === 'string') {
+            toc.push({
+              id: node.properties.id,
+              text: (node.children[0] as any).value,
+              level: parseInt(node.tagName.charAt(1)),
+            })
+          }
+
           if (node.children && node.children.length > 0) {
             const firstChild = node.children[0] as Element
             if (firstChild.tagName === 'a') {
               if (!firstChild.properties) firstChild.properties = {}
-              if (!firstChild.properties.className)
+              if (!firstChild.properties.className) {
                 firstChild.properties.className = []
-              ;(firstChild.properties.className as string[]).push('font-bold')
+                firstChild.properties.className.push('font-bold')
+              }
             }
           }
         }
@@ -150,11 +131,57 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .replaceAll('{{ BlogCallToAction }}', sBlogCallToAction)
 
   return {
-    props: {
-      title: data.title,
-      content: updatedHtml,
-    },
+    title: data.title,
+    content: updatedHtml,
+    toc,
   }
 }
 
-export default BlogPost
+export async function generateStaticParams() {
+  const files = fs.readdirSync(path.join(process.cwd(), 'src/app/blog'))
+  return files
+    .filter((filename) => path.extname(filename) === '.md')
+    .map((filename) => ({
+      slug: filename.replace('.md', ''),
+    }))
+}
+
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const { title, content, toc } = await getBlogPost(params.slug)
+
+  return (
+    <LadderlyPageWrapper title={title}>
+      <main className="m-auto w-full md:w-1/2">
+        <h1 className="p-4 text-3xl font-bold text-ladderly-violet-600">
+          {title}
+        </h1>
+        <nav className="mb-8 rounded bg-gray-100 p-4">
+          <h2 className="mb-2 text-xl font-bold">Table of Contents</h2>
+          <ul>
+            {toc.map((item) => (
+              <li
+                key={item.id}
+                style={{ marginLeft: `${(item.level - 1) * 20}px` }}
+              >
+                <a
+                  href={`#${item.id}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {item.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <article
+          className="prose prose-lg max-w-none px-4 text-gray-700"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      </main>
+    </LadderlyPageWrapper>
+  )
+}
