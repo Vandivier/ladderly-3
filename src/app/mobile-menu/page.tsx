@@ -1,7 +1,8 @@
-import { BlitzPage, Routes } from '@blitzjs/next'
+'use client'
+
 import { User } from 'db'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { Suspense } from 'react'
 import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
 import { IconVerticalChevron } from 'src/core/components/icons/VerticalChevron'
@@ -81,9 +82,11 @@ const AuthenticatedPartialMenu = () => {
   )
 }
 
-const MobileMenuPage: BlitzPage = () => {
+const MobileMenuPage = () => {
   const router = useRouter()
   const [isCommunitySubmenuOpen, setIsCommunitySubmenuOpen] =
+    React.useState(false)
+  const [isTopHonorsSubmenuOpen, setIsTopHonorsSubmenuOpen] =
     React.useState(false)
 
   const handleClose = () => {
@@ -92,6 +95,10 @@ const MobileMenuPage: BlitzPage = () => {
 
   const toggleCommunitySubmenu = () => {
     setIsCommunitySubmenuOpen(!isCommunitySubmenuOpen)
+  }
+
+  const toggleTopHonorsSubmenu = () => {
+    setIsTopHonorsSubmenuOpen(!isTopHonorsSubmenuOpen)
   }
 
   return (
@@ -139,6 +146,36 @@ const MobileMenuPage: BlitzPage = () => {
                 <CommunityMenuItems
                   linkClassName={MOBILE_SUBMENU_ITEM_CLASSES}
                 />
+              </ul>
+            )}
+          </li>
+          <li>
+            <button
+              onClick={toggleTopHonorsSubmenu}
+              className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
+                isTopHonorsSubmenuOpen
+                  ? 'border border-gray-200 bg-gray-100'
+                  : ''
+              }`}
+            >
+              Top Honors
+              <IconVerticalChevron isPointingUp={isTopHonorsSubmenuOpen} />
+            </button>
+            {isTopHonorsSubmenuOpen && (
+              <ul>
+                <li>
+                  <Link href="/vote" className={MOBILE_SUBMENU_ITEM_CLASSES}>
+                    Vote
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/top-honors"
+                    className={MOBILE_SUBMENU_ITEM_CLASSES}
+                  >
+                    View Top Honors
+                  </Link>
+                </li>
               </ul>
             )}
           </li>
