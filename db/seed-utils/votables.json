@@ -283,6 +283,7 @@
   { "type": "SKILL", "name": "PostgreSQL" },
   { "type": "SKILL", "name": "Wordpress" },
   { "type": "FOOD", "name": "Banana" },
+  { "type": "FOOD", "name": "Celsius (Energy Drink)" },
   { "type": "FOOD", "name": "Steak (Medium Rare)" },
   { "type": "FOOD", "name": "Chicken" },
   { "type": "FOOD", "name": "Mocha" },
