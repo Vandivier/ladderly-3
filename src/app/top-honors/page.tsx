@@ -5,17 +5,8 @@ import React, { Suspense, useState } from 'react'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 import getVotableLeaders from './queries/getVotableLeaders'
 
-const toTitleCasePlural = (str) => {
-  let pluralized
-
-  if (str.toLowerCase().endsWith('y')) {
-    pluralized = str.slice(0, -1) + 'ies'
-  } else {
-    pluralized = str + 's'
-  }
-
-  return pluralized.charAt(0).toUpperCase() + pluralized.slice(1).toLowerCase()
-}
+const toTitleCase = (str) =>
+  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 
 const VotableLeaders = ({ type }) => {
   const [leaders] = useQuery(getVotableLeaders, { type })
@@ -23,7 +14,7 @@ const VotableLeaders = ({ type }) => {
   return (
     <div>
       <h2 className="mb-4 text-xl font-bold">
-        Top {`${toTitleCasePlural(type)}`}
+        Top {`${toTitleCase(type)}`} Honors
       </h2>
       <ul>
         {leaders.map((leader) => (
@@ -43,7 +34,7 @@ export default function TopHonorsPage() {
   return (
     <LadderlyPageWrapper title="Top Honors">
       <div className="flex flex-col items-center justify-center">
-        <div className="mb-4">
+        <div className="m-4">
           <label htmlFor="votable-type" className="mr-2">
             Select Votable Type:
           </label>

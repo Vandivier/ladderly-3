@@ -37,7 +37,9 @@ const VotePageContent = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="m-4 text-2xl font-bold">Vote for the more prestigious!</h1>
+      <h1 className="m-4 text-2xl font-bold">
+        Vote for the more prestigious option!
+      </h1>
       <div className="flex space-x-4">
         <button
           onClick={() => handleVote(votableA.id)}
