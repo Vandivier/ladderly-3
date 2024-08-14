@@ -28,8 +28,8 @@ const VotableLeaders = ({ type }) => {
       <ul>
         {leaders.map((leader) => (
           <li key={leader.id}>
-            {leader.name} - {leader.prestigeScore} points ({leader.voteCount}{' '}
-            votes)
+            {leader.name} - {leader.prestigeScore} points (
+            {leader.registeredUserVotes} registered votes)
           </li>
         ))}
       </ul>

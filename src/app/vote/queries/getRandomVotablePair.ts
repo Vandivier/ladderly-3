@@ -1,15 +1,16 @@
 import db from 'db'
 import { resolver } from '@blitzjs/rpc'
+import { Prisma } from '@prisma/client'
 
 const getRandomVotablePair = resolver.pipe(async () => {
-  const votables = await db.votable.findMany({
-    orderBy: {
-      id: 'asc',
-    },
-    take: 2,
-  })
+  const randomPair = await db.$queryRaw`
+    SELECT *
+    FROM "Votable"
+    ORDER BY RANDOM()
+    LIMIT 2
+  `
 
-  return votables
+  return randomPair as Prisma.VotableGetPayload<{}>[]
 })
 
 export default getRandomVotablePair
