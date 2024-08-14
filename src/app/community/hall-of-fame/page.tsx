@@ -1,4 +1,5 @@
-import { BlitzPage, Routes } from '@blitzjs/next'
+'use client'
+
 import { usePaginatedQuery } from '@blitzjs/rpc'
 import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
@@ -9,7 +10,7 @@ import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPa
 
 const ITEMS_PER_PAGE = 100
 
-export const UsersList = () => {
+const UsersList = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const page = Number(searchParams?.get('page') ?? '0')
@@ -64,7 +65,7 @@ export const UsersList = () => {
   )
 }
 
-const HallOfFamePage: BlitzPage = () => {
+const HallOfFamePage = () => {
   return (
     <LadderlyPageWrapper title="Hall of Fame">
       <LargeCard>

@@ -1,7 +1,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>
-            https://ladderly.io/
+            https://ladderly.io
         </loc>
     </url>
     <url>
@@ -16,27 +16,7 @@
     </url>
     <url>
         <loc>
-            https://ladderly.io/auth/forgot-password
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/auth/login
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/auth/reset-password
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/auth/signup
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/blog/
+            https://ladderly.io/blog
         </loc>
     </url>
     <url>
@@ -96,12 +76,37 @@
     </url>
     <url>
         <loc>
-            https://ladderly.io/checklist-items/
+            https://ladderly.io/blog/2024-05-31-networking-tips
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/checklists/
+            https://ladderly.io/blog/2024-06-12-selecting-your-next-skill
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2024-07-31-impact-accounting
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2024-08-04-no-cover-letters
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2024-08-05-the-century-project
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/checklist-items
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/checklists
         </loc>
     </url>
     <url>
@@ -116,17 +121,27 @@
     </url>
     <url>
         <loc>
-            https://ladderly.io/community/
+            https://ladderly.io/community
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/community/hall-of-fame/
+            https://ladderly.io/community/hall-of-fame
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/events-calendar/
+            https://ladderly.io/events-calendar
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/forgot-password
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/login
         </loc>
     </url>
     <url>
@@ -137,6 +152,26 @@
     <url>
         <loc>
             https://ladderly.io/privacy-policy
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/reset-password
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/signup
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/top-honors
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/vote
         </loc>
     </url>
 </urlset>
