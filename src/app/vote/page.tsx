@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useState, Suspense } from 'react'
-import { useQuery, useMutation } from '@blitzjs/rpc'
+import { useMutation, useQuery } from '@blitzjs/rpc'
+import React, { Suspense, useState } from 'react'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
-import getRandomVotablePair from './queries/getRandomVotablePair'
+import { VotableTypeSelector } from 'src/votable/VotableTypeSelector'
 import createVote from './mutations/createVote'
+import getRandomVotablePair from './queries/getRandomVotablePair'
 
 const VotePageContent = () => {
   const [votableType, setVotableType] = useState('COMPANY')
@@ -43,21 +44,7 @@ const VotePageContent = () => {
         Vote for the more prestigious option!
       </h1>
 
-      <div className="mb-4">
-        <label htmlFor="votable-type" className="mr-2">
-          Select Votable Type:
-        </label>
-        <select
-          id="votable-type"
-          value={votableType}
-          onChange={(e) => setVotableType(e.target.value)}
-          className="rounded border p-2"
-        >
-          <option value="COMPANY">Company</option>
-          <option value="SCHOOL">School</option>
-          <option value="SKILL">Skill</option>
-        </select>
-      </div>
+      <VotableTypeSelector value={votableType} onChange={setVotableType} />
 
       <div className="flex space-x-4">
         <button
