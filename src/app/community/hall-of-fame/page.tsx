@@ -1,7 +1,7 @@
 import { BlitzPage, Routes } from '@blitzjs/next'
 import { usePaginatedQuery } from '@blitzjs/rpc'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useSearchParams, useRouter } from 'next/navigation'
 import React, { Suspense } from 'react'
 import getUsers from 'src/app/users/queries/getUsers'
 import { LargeCard } from 'src/core/components/LargeCard'
@@ -11,7 +11,8 @@ const ITEMS_PER_PAGE = 100
 
 export const UsersList = () => {
   const router = useRouter()
-  const page = Number(router.query.page) || 0
+  const searchParams = useSearchParams()
+  const page = Number(searchParams?.get('page') ?? '0')
   const [{ users, hasMore }] = usePaginatedQuery(getUsers, {
     orderBy: [{ totalContributions: 'desc' }, { createdAt: 'desc' }],
     where: { totalContributions: { gt: 0 } },
@@ -19,8 +20,16 @@ export const UsersList = () => {
     take: ITEMS_PER_PAGE,
   })
 
-  const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
-  const goToNextPage = () => router.push({ query: { page: page + 1 } })
+  const goToPreviousPage = () => {
+    const params = new URLSearchParams(searchParams?.toString() ?? '')
+    params.set('page', String(page - 1))
+    router.push(`?${params.toString()}`)
+  }
+  const goToNextPage = () => {
+    const params = new URLSearchParams(searchParams?.toString() ?? '')
+    params.set('page', String(page + 1))
+    router.push(`?${params.toString()}`)
+  }
   const displayName = (user) =>
     user.nameFirst ? `${user.nameFirst} ${user.nameLast}` : `User ${user.id}`
 
@@ -30,9 +39,7 @@ export const UsersList = () => {
       <ul className="my-4">
         {users.map((user) => (
           <li key={user.id}>
-            <Link href={Routes.ShowUserPage({ userId: user.id })}>
-              {displayName(user)}
-            </Link>
+            <Link href={`/community/${user.id}`}>{displayName(user)}</Link>
 
             {user.hasOpenToWork && (
               <span className="mx-3 inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">

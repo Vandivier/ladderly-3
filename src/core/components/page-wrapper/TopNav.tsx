@@ -1,7 +1,8 @@
-import React from 'react'
+'use client'
 
+import React from 'react'
 import Link from 'next/link'
-import { MenuContext, MenuProvider } from './MenuProvider'
+import { MenuProvider, MenuContext } from './MenuProvider'
 import { TopNavLeft } from './TopNavLeft'
 import { TopNavRight, TopNavRightSkeleton } from './TopNavRight'
 import { TOP_NAV_STANDARD_CLASSES } from './TopNavSubmenu'
@@ -42,3 +43,5 @@ const InnerTopNav = () => {
     </>
   )
 }
+
+export default TopNav

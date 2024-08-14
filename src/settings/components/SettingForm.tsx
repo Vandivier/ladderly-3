@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { Form, FormProps } from 'src/core/components/Form'
 import LabeledCheckboxField from 'src/core/components/LabeledCheckboxField'

@@ -1,3 +1,5 @@
+'use client'
+
 import { useMutation } from '@blitzjs/rpc'
 import { User } from 'db'
 import Link from 'next/link'
