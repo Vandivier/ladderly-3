@@ -279,9 +279,13 @@ model QuizResult {
 }
 
 enum VotableType {
+  CERTIFICATION
   COMPANY
+  FOOD
+  JOB_TITLE
   SCHOOL
   SKILL
+  TECH_INFLUENCER
 }
 
 model Votable {
@@ -303,6 +307,8 @@ model Votable {
   votesB    Vote[]            @relation("VotableB")
   votesWon  Vote[]            @relation("Winner")
   snapshots VotableSnapshot[]
+
+  @@unique([type, name])
 }
 
 model VotableSnapshot {

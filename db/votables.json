@@ -179,6 +179,7 @@
   { "type": "COMPANY", "name": "Steno" },
   { "type": "COMPANY", "name": "Stripe" },
   { "type": "COMPANY", "name": "Substack" },
+  { "type": "COMPANY", "name": "Supabase" },
   { "type": "COMPANY", "name": "Sumo Logic" },
   { "type": "COMPANY", "name": "Tableau" },
   { "type": "COMPANY", "name": "Taekus" },
@@ -213,6 +214,8 @@
   { "type": "COMPANY", "name": "Zendesk" },
   { "type": "COMPANY", "name": "Zillow" },
   { "type": "COMPANY", "name": "Zoom" },
+  { "type": "SKILL", "name": "Mocha", "tags": ["unit testing"] },
+  { "type": "SKILL", "name": "Chai", "tags": ["unit testing"] },
   { "type": "SKILL", "name": "Written Communication" },
   { "type": "SKILL", "name": "Verbal Communication" },
   { "type": "SKILL", "name": "Nonverbal Communication" },
@@ -277,5 +280,145 @@
   { "type": "SCHOOL", "name": "University of Houston" },
   { "type": "SCHOOL", "name": "George Mason University" },
   { "type": "SCHOOL", "name": "Georgetown University" },
-  { "type": "SCHOOL", "name": "California Institute of Technology" }
+  { "type": "SKILL", "name": "PostgreSQL" },
+  { "type": "SKILL", "name": "Wordpress" },
+  { "type": "FOOD", "name": "Banana" },
+  { "type": "FOOD", "name": "Steak (Medium Rare)" },
+  { "type": "FOOD", "name": "Chicken" },
+  { "type": "FOOD", "name": "Mocha" },
+  { "type": "FOOD", "name": "Chai" },
+  { "type": "FOOD", "name": "Salmon" },
+  { "type": "FOOD", "name": "Pizza" },
+  { "type": "FOOD", "name": "Cinnamon Roll" },
+  { "type": "FOOD", "name": "Sourdough Bread" },
+  { "type": "FOOD", "name": "Focaccia" },
+  { "type": "FOOD", "name": "Curry" },
+  { "type": "FOOD", "name": "Lemonade" },
+  { "type": "FOOD", "name": "Limeade" },
+  { "type": "FOOD", "name": "Agua Fresca" },
+  { "type": "FOOD", "name": "Enchilada" },
+  { "type": "FOOD", "name": "Protein Shake" },
+  { "type": "FOOD", "name": "Granny Smith Apple" },
+  { "type": "FOOD", "name": "Red Delicious Apple" },
+  { "type": "FOOD", "name": "Fuji Apple" },
+  { "type": "FOOD", "name": "Onion" },
+  { "type": "FOOD", "name": "Yogurt" },
+  { "type": "FOOD", "name": "Water" },
+  { "type": "FOOD", "name": "Cannoli" },
+  { "type": "FOOD", "name": "Tres Leches" },
+  { "type": "FOOD", "name": "BLT Sandwich" },
+  { "type": "FOOD", "name": "Fettuccine Alfredo" },
+  { "type": "FOOD", "name": "Coffee" },
+  { "type": "FOOD", "name": "Tea" },
+  { "type": "FOOD", "name": "Hot Dog (Glizzy)" },
+  { "type": "FOOD", "name": "Soda (Pop) (Cola)" },
+  { "type": "JOB_TITLE", "name": "DevOps Engineer" },
+  { "type": "JOB_TITLE", "name": "Site Reliability Engineer (SRE)" },
+  { "type": "JOB_TITLE", "name": "Security Engineer" },
+  { "type": "JOB_TITLE", "name": "Scrum Master" },
+  { "type": "JOB_TITLE", "name": "Product Manager" },
+  { "type": "JOB_TITLE", "name": "Senior Product Manager" },
+  { "type": "JOB_TITLE", "name": "Software Engineer" },
+  { "type": "JOB_TITLE", "name": "Software Developer" },
+  { "type": "JOB_TITLE", "name": "Web Developer" },
+  { "type": "JOB_TITLE", "name": "Full Stack Developer" },
+  { "type": "JOB_TITLE", "name": "Front End Developer" },
+  { "type": "JOB_TITLE", "name": "Backend Developer" },
+  { "type": "JOB_TITLE", "name": "Engineering Manager" },
+  { "type": "JOB_TITLE", "name": "CTO" },
+  { "type": "JOB_TITLE", "name": "CEO" },
+  { "type": "JOB_TITLE", "name": "COO" },
+  { "type": "JOB_TITLE", "name": "Data Analyst" },
+  { "type": "JOB_TITLE", "name": "Data Engineer" },
+  { "type": "JOB_TITLE", "name": "Data Scientist" },
+  { "type": "JOB_TITLE", "name": "Research Scientist" },
+  { "type": "JOB_TITLE", "name": "Senior Software Engineer" },
+  { "type": "JOB_TITLE", "name": "Staff Software Engineer" },
+  { "type": "JOB_TITLE", "name": "Senior Staff Software Engineer" },
+  { "type": "JOB_TITLE", "name": "Distinguished Software Engineer" },
+  { "type": "JOB_TITLE", "name": "Principal Software Engineer" },
+  { "type": "JOB_TITLE", "name": "Senior Engineering Manager" },
+  { "type": "JOB_TITLE", "name": "Director of Engineering" },
+  { "type": "JOB_TITLE", "name": "VP of Engineering" },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Clement Mihailescu",
+    "website": "https://www.youtube.com/channel/UCaO6VoaYJv4kS-TQO_M-N_g"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Rahul Pandey",
+    "website": "https://www.youtube.com/@RahulPandeyrkp"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Navdeep Singh",
+    "website": "https://www.youtube.com/c/neetcode"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Ben Awad",
+    "website": "https://twitter.com/benawad"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "DevLeader",
+    "website": "https://twitter.com/DevLeaderCa"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Tech Rally",
+    "website": "https://twitter.com/TheTechRally"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "ThePrimeagen",
+    "website": "https://twitter.com/ThePrimeagen"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Theo - t3.gg",
+    "website": "https://twitter.com/t3dotgg"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "John Vandivier",
+    "website": "https://www.tiktok.com/@johnvandivier"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Guido van Rossum",
+    "website": "https://twitter.com/gvanrossum"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Mark Zuckerberg",
+    "website": "https://twitter.com/finkd"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Zach Wilson",
+    "website": "https://twitter.com/eczachly"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "Will Larson",
+    "website": "https://twitter.com/Lethain"
+  },
+  { "type": "SCHOOL", "name": "California Institute of Technology" },
+  { "type": "CERTIFICATION", "name": "AWS Certified Developer-Associate" },
+  {
+    "type": "CERTIFICATION",
+    "name": "AWS Certified Solutions Architect-Associate"
+  },
+  { "type": "CERTIFICATION", "name": "CompTIA Security+" },
+  {
+    "type": "CERTIFICATION",
+    "name": "Certified Information Systems Security Professional (CISSP)"
+  },
+  {
+    "type": "CERTIFICATION",
+    "name": "Cisco Certified Network Associate (CCNA)"
+  },
+  { "type": "CERTIFICATION", "name": "Certified ScrumMaster (CSM)" }
 ]
