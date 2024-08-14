@@ -1,3 +1,5 @@
+'use client'
+
 import { useMutation } from '@blitzjs/rpc'
 import { User } from 'db'
 import Link from 'next/link'
@@ -84,3 +86,18 @@ const LogoutButton = ({ className }: { className: string }) => {
     </button>
   )
 }
+
+export const TopHonorsMenuItems = ({
+  linkClassName = MENU_ITEM_STANDARD_CLASSES,
+}: {
+  linkClassName?: string
+}) => (
+  <MenuItemsWrapper>
+    <Link href="/top-honors" className={linkClassName}>
+      View Leaders
+    </Link>
+    <Link href="/vote" className={linkClassName}>
+      Vote
+    </Link>
+  </MenuItemsWrapper>
+)

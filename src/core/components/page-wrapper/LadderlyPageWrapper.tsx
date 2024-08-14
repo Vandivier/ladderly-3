@@ -21,39 +21,47 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
 
       <footer className={styles.footer}>
         <ul className={styles['footer-links']}>
-          <Link className={styles.textLink} href={'/about'}>
-            About
-          </Link>
-          <a
-            href="https://discord.gg/fAg6Xa4uxc"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.textLink}
-          >
-            Discord
-          </a>
-          <a
-            href="https://github.com/Vandivier/ladderly-3#about"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.textLink}
-          >
-            GitHub
-          </a>
-          <Link className={styles.textLink} href={'/privacy-policy'}>
-            Privacy Policy
-          </Link>
+          <li>
+            <Link href="/about" className={styles.textLink}>
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="https://discord.gg/fAg6Xa4uxc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.textLink}
+            >
+              Discord
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="https://github.com/Vandivier/ladderly-3#about"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.textLink}
+            >
+              GitHub
+            </Link>
+          </li>
+          <li>
+            <Link href="/privacy-policy" className={styles.textLink}>
+              Privacy Policy
+            </Link>
+          </li>
         </ul>
         <p>
-          Copyright © 2023
-          <a
+          Copyright © {new Date().getFullYear()}{' '}
+          <Link
             href="https://vandivier.github.io/not-johns-linktree/"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.textLink}
           >
             John Vandivier
-          </a>
+          </Link>
         </p>
       </footer>
     </div>

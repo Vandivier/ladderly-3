@@ -6,27 +6,30 @@ const beautify = require('xml-beautifier')
 const baseURL = 'https://ladderly.io'
 
 const pagesDirectory = path.join(__dirname, '..', 'src', 'pages')
+const appDirectory = path.join(__dirname, '..', 'src', 'app')
 const publicDirectory = path.join(__dirname, '..', 'public')
 
 function checkAuthenticationRequired(filePath) {
   const fileContents = fs.readFileSync(filePath, 'utf8')
-  return fileContents.includes('authenticate = true')
+  return (
+    fileContents.includes('authenticate = true') ||
+    fileContents.includes('requireAuth()')
+  )
 }
 
-// Function to recursively get all paths from a directory
 function getPathsFromDirectory(directory) {
   let paths = []
 
-  // Read items in the directory
+  if (!fs.existsSync(directory)) {
+    return paths
+  }
+
   const items = fs.readdirSync(directory)
 
   for (const item of items) {
-    // Full path of the item
     const fullPath = path.join(directory, item)
-    // Get stats of the item
     const stat = fs.statSync(fullPath)
 
-    // If the item is a directory, recursively get its paths, else add it to the paths array
     if (stat.isDirectory()) {
       paths = [...paths, ...getPathsFromDirectory(fullPath)]
     } else if (stat.isFile()) {
@@ -37,34 +40,73 @@ function getPathsFromDirectory(directory) {
   return paths
 }
 
-// Get all page paths
 const allPagePaths = getPathsFromDirectory(pagesDirectory)
+const allAppPaths = getPathsFromDirectory(appDirectory)
 
-// Filter and map paths to URLs
-const urls = allPagePaths
-  .filter((filePath) => {
-    // Exclude dynamic routes, specific files, and authenticated pages
-    return (
-      !filePath.includes('[') &&
-      !filePath.includes(']') &&
-      !['_app.tsx', '_document.tsx', '.DS_Store', '.css'].some((exclude) =>
-        filePath.endsWith(exclude)
-      ) &&
-      !checkAuthenticationRequired(filePath)
-    )
-  })
-  .map((filePath) => {
-    // Convert file path to URL path
-    const relativePath = path.relative(pagesDirectory, filePath)
-    const urlPath = relativePath
-      .replace(/\\/g, '/') // Replace backslashes with forward slashes for URL
-      .replace(/\.tsx$/, '') // Remove file extension
-      .replace(/\.md$/, '') // Remove file extension for markdown
-      .replace(/index$/, '') // Remove 'index' from path for root pages
+function filePathToUrlPath(filePath, baseDir) {
+  const relativePath = path.relative(baseDir, filePath)
+  return relativePath
+    .replace(/\\/g, '/') // Replace backslashes with forward slashes for URL
+    .replace(/\.(tsx|ts|js|jsx|md)$/, '') // Remove file extensions
+    .replace(/(^|\/)index$/, '') // Remove 'index' from path for root pages
+    .replace(/\/page$/, '') // Remove 'page' for App Router pages
+    .replace(/\(auth\),?/, '')
+}
 
-    return `${baseURL}/${urlPath}`
-  })
-  .sort()
+function isValidPagePath(urlPath) {
+  const excludePatterns = [
+    'api',
+    'components',
+    '_',
+    'layout',
+    'error',
+    'loading',
+    'not-found',
+  ]
+  return !excludePatterns.some((pattern) => urlPath.includes(pattern))
+}
+
+function getUrlsFromPaths(paths, baseDir, isAppRouter = false) {
+  return paths
+    .filter((filePath) => {
+      if (
+        isAppRouter &&
+        !filePath.endsWith('page.tsx') &&
+        !filePath.endsWith('page.ts') &&
+        !filePath.endsWith('page.js') &&
+        !filePath.endsWith('page.jsx')
+      ) {
+        return false
+      }
+
+      const urlPath = filePathToUrlPath(filePath, baseDir)
+      return (
+        !filePath.includes('[') &&
+        !filePath.includes(']') &&
+        !['_app', '_document', '.DS_Store', '.css'].some((exclude) =>
+          filePath.includes(exclude)
+        ) &&
+        !checkAuthenticationRequired(filePath) &&
+        isValidPagePath(urlPath)
+      )
+    })
+    .map((filePath) => {
+      const urlPath = filePathToUrlPath(filePath, baseDir)
+
+      // Special handling for root page.tsx
+      if (isAppRouter && (urlPath === 'page' || urlPath === '')) {
+        return baseURL
+      }
+
+      return new URL(urlPath, baseURL).href
+    })
+}
+
+const pageUrls = getUrlsFromPaths(allPagePaths, pagesDirectory)
+const appUrls = getUrlsFromPaths(allAppPaths, appDirectory, true)
+
+// Combine and sort all URLs
+const urls = [...new Set([...pageUrls, ...appUrls])].sort()
 
 // Wrap URLs in XML
 const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -73,3 +115,5 @@ const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 // Beautify and Write sitemap to public directory
 fs.writeFileSync(path.join(publicDirectory, 'sitemap.xml'), beautify(sitemap))
+
+console.log(`Sitemap generated with ${urls.length} URLs`)

@@ -53,6 +53,7 @@ model User {
   userChecklists     UserChecklist[]
   uuid               String              @default(uuid())
   userChecklistItems UserChecklistItem[]
+  votes              Vote[]
 }
 
 enum RoleEnum {
@@ -275,4 +276,54 @@ model QuizResult {
   quizId Int
   user   User    @relation(fields: [userId], references: [id])
   userId Int
+}
+
+enum VotableType {
+  COMPANY
+  SCHOOL
+  SKILL
+}
+
+model Votable {
+  id                  Int         @id @default(autoincrement())
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  type                VotableType
+  name                String
+  description         String      @default("")
+  tags                String[]
+  prestigeScore       Float       @default(0)
+  voteCount           Int         @default(0)
+  registeredUserVotes Int         @default(0)
+  guestVotes          Int         @default(0)
+  website             String?
+  miscInfo            Json?
+
+  votesA    Vote[]            @relation("VotableA")
+  votesB    Vote[]            @relation("VotableB")
+  votesWon  Vote[]            @relation("Winner")
+  snapshots VotableSnapshot[]
+}
+
+model VotableSnapshot {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  votableId     Int
+  prestigeScore Float
+  voteCount     Int
+  votable       Votable  @relation(fields: [votableId], references: [id])
+}
+
+model Vote {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  votableA   Votable  @relation("VotableA", fields: [votableAId], references: [id])
+  votableAId Int
+  votableB   Votable  @relation("VotableB", fields: [votableBId], references: [id])
+  votableBId Int
+  voter      User?    @relation(fields: [voterId], references: [id])
+  voterId    Int?
+  winner     Votable  @relation("Winner", fields: [winnerId], references: [id])
+  winnerId   Int
 }

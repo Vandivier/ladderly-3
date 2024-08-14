@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import db, { Checklist } from './index'
+import db, { Checklist, VotableType } from './index'
 import {
   ChecklistSeedDataType,
   ChecklistsSchema,
@@ -54,7 +54,51 @@ const createNewChecklist = async (
   }
 }
 
+type VotableSeedData = {
+  type: string
+  name: string
+  description?: string
+  tags?: string[]
+  prestigeScore?: number
+  voteCount?: number
+  registeredUserVotes?: number
+  guestVotes?: number
+  website?: string
+}
+
+const seedVotables = async () => {
+  const filePath = path.resolve(__dirname, './votables.json')
+
+  if (!fs.existsSync(filePath)) {
+    console.warn(`File ${filePath} does not exist.\nContinuing to seed...`)
+    return
+  }
+
+  const rawData = fs.readFileSync(filePath)
+  const votables: VotableSeedData[] = JSON.parse(rawData.toString())
+
+  for (const votableData of votables) {
+    const { type, name, ...optionalData } = votableData
+
+    if (!Object.values(VotableType).includes(type as VotableType)) {
+      throw new Error(`Invalid VotableType: ${type}`)
+    }
+
+    await db.votable.create({
+      data: {
+        type: type as VotableType,
+        name,
+        ...optionalData,
+      },
+    })
+  }
+
+  console.log('Votables seeded successfully.')
+}
+
 const seed = async () => {
+  await seedVotables()
+
   const checklistNameToUpdate =
     process.argv.find((arg) => arg.startsWith('--name='))?.split('=')[1] || ''
   const files = ['./checklists.json', './premium-checklists.json']
