@@ -1,14 +1,17 @@
 'use client'
 
-import React, { Suspense } from 'react'
-import { useQuery, useMutation } from '@blitzjs/rpc'
+import { useMutation, useQuery } from '@blitzjs/rpc'
+import React, { Suspense, useState } from 'react'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
-import getRandomVotablePair from './queries/getRandomVotablePair'
+import { VotableTypeSelector } from 'src/votable/VotableTypeSelector'
 import createVote from './mutations/createVote'
+import getRandomVotablePair from './queries/getRandomVotablePair'
 
 const VotePageContent = () => {
-  const [votablePair, { refetch }] = useQuery(getRandomVotablePair, null)
-
+  const [votableType, setVotableType] = useState('COMPANY')
+  const [votablePair, { refetch }] = useQuery(getRandomVotablePair, {
+    type: votableType,
+  })
   const [castVote] = useMutation(createVote)
 
   const votableA = votablePair?.[0]
@@ -37,7 +40,12 @@ const VotePageContent = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="m-4 text-2xl font-bold">Vote for the more prestigious!</h1>
+      <h1 className="m-4 text-2xl font-bold">
+        Vote for the more prestigious option!
+      </h1>
+
+      <VotableTypeSelector value={votableType} onChange={setVotableType} />
+
       <div className="flex space-x-4">
         <button
           onClick={() => handleVote(votableA.id)}

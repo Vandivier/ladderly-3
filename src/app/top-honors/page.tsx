@@ -3,33 +3,33 @@
 import { useQuery } from '@blitzjs/rpc'
 import React, { Suspense, useState } from 'react'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
+import { VotableTypeSelector } from 'src/votable/VotableTypeSelector'
 import getVotableLeaders from './queries/getVotableLeaders'
 
-const toTitleCasePlural = (str) => {
-  let pluralized
-
-  if (str.toLowerCase().endsWith('y')) {
-    pluralized = str.slice(0, -1) + 'ies'
-  } else {
-    pluralized = str + 's'
-  }
-
-  return pluralized.charAt(0).toUpperCase() + pluralized.slice(1).toLowerCase()
-}
+const toTitleCase = (str) =>
+  str
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ')
 
 const VotableLeaders = ({ type }) => {
   const [leaders] = useQuery(getVotableLeaders, { type })
 
   return (
     <div>
-      <h2 className="mb-4 text-xl font-bold">
-        Top {`${toTitleCasePlural(type)}`}
+      <h2 className="mb-4 text-center text-2xl font-bold">
+        Top {`${toTitleCase(type)}`} Honors
       </h2>
+      <p className="my-4 max-w-[400px] text-sm">
+        These are the top 10 {`${toTitleCase(type)}`} leaders based on their
+        prestige score and registered user votes. Ties are sorted by name.
+      </p>
       <ul>
         {leaders.map((leader) => (
           <li key={leader.id}>
-            {leader.name} - {leader.prestigeScore} points (
-            {leader.registeredUserVotes} registered votes)
+            <span className="font-bold">{leader.name}</span> -{' '}
+            {leader.prestigeScore} points ({leader.registeredUserVotes}{' '}
+            registered votes)
           </li>
         ))}
       </ul>
@@ -38,30 +38,18 @@ const VotableLeaders = ({ type }) => {
 }
 
 export default function TopHonorsPage() {
-  const [selectedType, setSelectedType] = useState('COMPANY')
+  const [votableType, setVotableType] = useState('COMPANY')
 
   return (
     <LadderlyPageWrapper title="Top Honors">
-      <div className="flex flex-col items-center justify-center">
-        <div className="mb-4">
-          <label htmlFor="votable-type" className="mr-2">
-            Select Votable Type:
-          </label>
-          <select
-            id="votable-type"
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            className="rounded border p-2"
-          >
-            <option value="COMPANY">Company</option>
-            <option value="SCHOOL">School</option>
-            <option value="SKILL">Skill</option>
-          </select>
+      <main className="m-4 flex flex-col items-center justify-center">
+        <div className="m-auto my-4">
+          <VotableTypeSelector value={votableType} onChange={setVotableType} />
         </div>
         <Suspense fallback={<div>Loading...</div>}>
-          <VotableLeaders type={selectedType} />
+          <VotableLeaders type={votableType} />
         </Suspense>
-      </div>
+      </main>
     </LadderlyPageWrapper>
   )
 }
