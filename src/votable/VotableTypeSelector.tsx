@@ -1,4 +1,5 @@
 export const VotableTypeSelector = ({ value, onChange }) => {
+  // `votableTypes` is aligned to `enum VotableType` in schema.prisma
   const votableTypes = [
     { value: 'CERTIFICATION', label: 'Certification' },
     { value: 'COMPANY', label: 'Company' },
