@@ -48,6 +48,7 @@ const LadderlyHelpsContentBlock = () => {
             <Image
               src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=480223&theme=light"
               alt="Ladderly&#0046;io - Land&#0032;your&#0032;next&#0032;programming&#0032;role&#0033; | Product Hunt"
+              style={{ margin: 'auto' }}
               width="250"
               height="54"
             />
