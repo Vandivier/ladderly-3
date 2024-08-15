@@ -372,6 +372,21 @@
     "website": "https://twitter.com/TheTechRally"
   },
   {
+    "type": "SKILL",
+    "name": "Zig (Programming Language)",
+    "website": "https://ziglang.org/"
+  },
+  {
+    "type": "SKILL",
+    "name": "Swift (Programming Language)",
+    "website": "https://swift.org/"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "James Q Quick",
+    "website": "https://twitter.com/jamesqquick"
+  },
+  {
     "type": "TECH_INFLUENCER",
     "name": "ThePrimeagen",
     "website": "https://twitter.com/ThePrimeagen"
