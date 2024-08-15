@@ -8,6 +8,11 @@ const config = {
   experimental: {
     typedRoutes: true,
   },
+  images: {
+    domains: ['api.producthunt.com'],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
 }
 
 module.exports = withBlitz(config)
