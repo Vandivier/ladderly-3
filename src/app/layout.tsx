@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { BlitzProvider } from './blitz-client'
 
+import BlitzClientWrapper from 'src/core/components/page-wrapper/BlitzClientWrapper'
 import './styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -75,7 +75,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <BlitzProvider>{children}</BlitzProvider>
+        <BlitzClientWrapper>{children}</BlitzClientWrapper>
       </body>
     </html>
   )
