@@ -1,9 +1,14 @@
 import fs from 'fs'
 import matter from 'gray-matter'
+import { Metadata } from 'next'
 import Link from 'next/link'
 import path from 'path'
 
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
+
+export const metadata: Metadata = {
+  title: 'Blog',
+}
 
 interface BlogPost {
   slug: string
