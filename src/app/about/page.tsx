@@ -1,11 +1,10 @@
-import { BlitzPage } from '@blitzjs/next'
 import Link from 'next/link'
 import { LargeCard } from 'src/core/components/LargeCard'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
 import styles from 'src/app/styles/Home.module.css'
 
-const AboutPage: BlitzPage = () => {
+const AboutPage = () => {
   return (
     <LadderlyPageWrapper title="About">
       <LargeCard>

@@ -1,10 +1,9 @@
-import { BlitzPage } from '@blitzjs/next'
 import { LargeCard } from 'src/core/components/LargeCard'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
 import styles from 'src/app/styles/Home.module.css'
 
-const PrivacyPolicyPage: BlitzPage = () => {
+const PrivacyPolicyPage = () => {
   return (
     <LadderlyPageWrapper title="Privacy Policy">
       <LargeCard>
