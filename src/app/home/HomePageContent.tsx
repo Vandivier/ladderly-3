@@ -40,6 +40,19 @@ const LadderlyHelpsContentBlock = () => {
             grow social and professional networks
           </span>
         </li>
+        <li>
+          <a
+            href="https://www.producthunt.com/posts/ladderly-io?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ladderly&#0045;io"
+            target="_blank"
+          >
+            <Image
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=480223&theme=light"
+              alt="Ladderly&#0046;io - Land&#0032;your&#0032;next&#0032;programming&#0032;role&#0033; | Product Hunt"
+              width="250"
+              height="54"
+            />
+          </a>
+        </li>
       </ol>
     </div>
   )

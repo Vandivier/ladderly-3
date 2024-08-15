@@ -8,6 +8,9 @@ const config = {
   experimental: {
     typedRoutes: true,
   },
+  images: {
+    domains: ['api.producthunt.com'],
+  },
 }
 
 module.exports = withBlitz(config)

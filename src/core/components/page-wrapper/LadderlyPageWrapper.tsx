@@ -38,7 +38,7 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
           </li>
           <li>
             <Link
-              href="https://github.com/Vandivier/ladderly-3#about"
+              href="https://github.com/Vandivier/ladderly-3"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.textLink}
