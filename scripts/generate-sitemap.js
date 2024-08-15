@@ -71,6 +71,7 @@ function getUrlsFromPaths(paths, baseDir, isAppRouter = false) {
     .filter((filePath) => {
       if (
         isAppRouter &&
+        !filePath.endsWith('.md') &&
         !filePath.endsWith('page.tsx') &&
         !filePath.endsWith('page.ts') &&
         !filePath.endsWith('page.js') &&

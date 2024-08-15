@@ -1,4 +1,3 @@
-import { Routes } from '@blitzjs/next'
 import { useMutation, useQuery } from '@blitzjs/rpc'
 import { FORM_ERROR } from 'final-form'
 import Link from 'next/link'
@@ -24,7 +23,7 @@ export const SettingsList = () => {
 
       <Link
         className="mt-4 block text-ladderly-violet-700 underline"
-        href={Routes.BlogPost({ slug: '2024-02-16-user-settings' })}
+        href={`/blog/2024-02-16-user-settings`}
       >
         Learn More About User Settings
       </Link>

@@ -1,256 +1,1005 @@
 [
-  { "type": "COMPANY", "name": "23andMe" },
-  { "type": "COMPANY", "name": "2U" },
-  { "type": "COMPANY", "name": "3M" },
-  { "type": "COMPANY", "name": "Accenture" },
-  { "type": "COMPANY", "name": "Acorns" },
-  { "type": "COMPANY", "name": "Adidas" },
-  { "type": "COMPANY", "name": "Adobe" },
-  { "type": "COMPANY", "name": "Affirm" },
-  { "type": "COMPANY", "name": "Airbnb" },
-  { "type": "COMPANY", "name": "Alaska Airlines" },
-  { "type": "COMPANY", "name": "Albertsons" },
-  { "type": "COMPANY", "name": "Alphabet" },
-  { "type": "COMPANY", "name": "Alphataraxia" },
-  { "type": "COMPANY", "name": "Amazon" },
-  { "type": "COMPANY", "name": "American Express" },
-  { "type": "COMPANY", "name": "AnchorWatch" },
-  { "type": "COMPANY", "name": "Anthropic" },
-  { "type": "COMPANY", "name": "AppDynamics" },
-  { "type": "COMPANY", "name": "Apple" },
-  { "type": "COMPANY", "name": "Asana" },
-  { "type": "COMPANY", "name": "Atlassian" },
-  { "type": "COMPANY", "name": "Bloomberg" },
-  { "type": "COMPANY", "name": "Boeing" },
-  { "type": "COMPANY", "name": "Bolt" },
-  { "type": "COMPANY", "name": "Booz Allen Hamilton" },
-  { "type": "COMPANY", "name": "Breef" },
-  { "type": "COMPANY", "name": "Brightwheel" },
-  { "type": "COMPANY", "name": "Cameo" },
-  { "type": "COMPANY", "name": "Canva" },
-  { "type": "COMPANY", "name": "Capital One" },
-  { "type": "COMPANY", "name": "Carvana" },
-  { "type": "COMPANY", "name": "Celonis" },
-  { "type": "COMPANY", "name": "Cerebral Care" },
-  { "type": "COMPANY", "name": "Chegg" },
-  { "type": "COMPANY", "name": "Chime" },
-  { "type": "COMPANY", "name": "Cisco" },
-  { "type": "COMPANY", "name": "Citi" },
-  { "type": "COMPANY", "name": "Clarity Financial" },
-  { "type": "COMPANY", "name": "Cloudflare" },
-  { "type": "COMPANY", "name": "Cohere" },
-  { "type": "COMPANY", "name": "Coinbase" },
-  { "type": "COMPANY", "name": "College Board" },
-  { "type": "COMPANY", "name": "CrowdStrike" },
-  { "type": "COMPANY", "name": "Databricks" },
-  { "type": "COMPANY", "name": "Datadog" },
-  { "type": "COMPANY", "name": "Dave" },
-  { "type": "COMPANY", "name": "Discord" },
-  { "type": "COMPANY", "name": "Docusign" },
-  { "type": "COMPANY", "name": "DoorDash" },
-  { "type": "COMPANY", "name": "Dropbox" },
-  { "type": "COMPANY", "name": "Duolingo" },
-  { "type": "COMPANY", "name": "EarnUp" },
-  { "type": "COMPANY", "name": "Ebay" },
-  { "type": "COMPANY", "name": "Endgame" },
-  { "type": "COMPANY", "name": "Enigma Technologies" },
-  { "type": "COMPANY", "name": "Etsy" },
-  { "type": "COMPANY", "name": "Evolve Vacation Rental" },
-  { "type": "COMPANY", "name": "Expedia" },
-  { "type": "COMPANY", "name": "Facebook" },
-  { "type": "COMPANY", "name": "Faire" },
-  { "type": "COMPANY", "name": "Federato" },
-  { "type": "COMPANY", "name": "Figma" },
-  { "type": "COMPANY", "name": "Filament" },
-  { "type": "COMPANY", "name": "Flex" },
-  { "type": "COMPANY", "name": "FloQast" },
-  { "type": "COMPANY", "name": "Ford" },
-  { "type": "COMPANY", "name": "Forward Financing" },
-  { "type": "COMPANY", "name": "Fountain" },
-  { "type": "COMPANY", "name": "GitHub" },
-  { "type": "COMPANY", "name": "Google" },
-  { "type": "COMPANY", "name": "Guideline" },
-  { "type": "COMPANY", "name": "Gusto" },
-  { "type": "COMPANY", "name": "HashiCorp" },
-  { "type": "COMPANY", "name": "HighTouch" },
-  { "type": "COMPANY", "name": "Honeycomb" },
-  { "type": "COMPANY", "name": "Hopper" },
-  { "type": "COMPANY", "name": "Hubspot" },
-  { "type": "COMPANY", "name": "Hudson River Trading" },
-  { "type": "COMPANY", "name": "Hugging Face" },
-  { "type": "COMPANY", "name": "Hulu" },
-  { "type": "COMPANY", "name": "IBM" },
-  { "type": "COMPANY", "name": "Indeed" },
-  { "type": "COMPANY", "name": "Instabase" },
-  { "type": "COMPANY", "name": "Instacart" },
-  { "type": "COMPANY", "name": "Instagram" },
-  { "type": "COMPANY", "name": "Intel" },
-  { "type": "COMPANY", "name": "Intuit" },
-  { "type": "COMPANY", "name": "Jane Street" },
-  { "type": "COMPANY", "name": "JetBrains" },
-  { "type": "COMPANY", "name": "John Deere" },
-  { "type": "COMPANY", "name": "Juniper Square" },
-  { "type": "COMPANY", "name": "Kaiser Permanente" },
-  { "type": "COMPANY", "name": "Kajabi" },
-  { "type": "COMPANY", "name": "Kayak" },
-  { "type": "COMPANY", "name": "Khan Academy" },
-  { "type": "COMPANY", "name": "Kin + Carta" },
-  { "type": "COMPANY", "name": "Klarna" },
-  { "type": "COMPANY", "name": "Lattice" },
-  { "type": "COMPANY", "name": "LedgerX" },
-  { "type": "COMPANY", "name": "Leidos" },
-  { "type": "COMPANY", "name": "Lending Club" },
-  { "type": "COMPANY", "name": "Lenovo" },
-  { "type": "COMPANY", "name": "LinkedIn" },
-  { "type": "COMPANY", "name": "Lyft" },
-  { "type": "COMPANY", "name": "Mailchimp" },
-  { "type": "COMPANY", "name": "Maple" },
-  { "type": "COMPANY", "name": "Marqeta" },
-  { "type": "COMPANY", "name": "Material Bank" },
-  { "type": "COMPANY", "name": "Mercury" },
-  { "type": "COMPANY", "name": "Meta" },
-  { "type": "COMPANY", "name": "Microsoft" },
-  { "type": "COMPANY", "name": "MicroStrategy" },
-  { "type": "COMPANY", "name": "Miro" },
-  { "type": "COMPANY", "name": "Mixpanel" },
-  { "type": "COMPANY", "name": "Mozilla" },
-  { "type": "COMPANY", "name": "Netflix" },
-  { "type": "COMPANY", "name": "Nike" },
-  { "type": "COMPANY", "name": "Noom" },
+  {
+    "type": "CONTENT",
+    "name": "16. The Century Project",
+    "website": "https://www.ladderly.io/blog/2024-08-05-the-century-project",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "COMPANY",
+    "name": "23andMe"
+  },
+  {
+    "type": "COMPANY",
+    "name": "2U"
+  },
+  {
+    "type": "COMPANY",
+    "name": "3M"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Accenture"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Acorns"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Adidas"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Adobe"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Affirm"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Airbnb"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Alaska Airlines"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Albertsons"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Alphabet"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Alphataraxia"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Amazon"
+  },
+  {
+    "type": "COMPANY",
+    "name": "American Express"
+  },
+  {
+    "type": "COMPANY",
+    "name": "AnchorWatch"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Anthropic"
+  },
+  {
+    "type": "COMPANY",
+    "name": "AppDynamics"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Apple"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Asana"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Atlassian"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Bloomberg"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Boeing"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Bolt"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Booz Allen Hamilton"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Breef"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Brightwheel"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Cameo"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Canva"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Capital One"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Carvana"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Celonis"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Cerebral Care"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Chegg"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Chime"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Cisco"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Citi"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Clarity Financial"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Cloudflare"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Cohere"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Coinbase"
+  },
+  {
+    "type": "COMPANY",
+    "name": "College Board"
+  },
+  {
+    "type": "COMPANY",
+    "name": "CrowdStrike"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Databricks"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Datadog"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Dave"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Discord"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Docusign"
+  },
+  {
+    "type": "COMPANY",
+    "name": "DoorDash"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Dropbox"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Duolingo"
+  },
+  {
+    "type": "COMPANY",
+    "name": "EarnUp"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Ebay"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Endgame"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Enigma Technologies"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Etsy"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Evolve Vacation Rental"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Expedia"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Facebook"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Faire"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Federato"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Figma"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Filament"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Flex"
+  },
+  {
+    "type": "COMPANY",
+    "name": "FloQast"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Ford"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Forward Financing"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Fountain"
+  },
+  {
+    "type": "COMPANY",
+    "name": "GitHub"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Google"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Guideline"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Gusto"
+  },
+  {
+    "type": "COMPANY",
+    "name": "HashiCorp"
+  },
+  {
+    "type": "COMPANY",
+    "name": "HighTouch"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Honeycomb"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Hopper"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Hubspot"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Hudson River Trading"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Hugging Face"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Hulu"
+  },
+  {
+    "type": "COMPANY",
+    "name": "IBM"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Indeed"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Instabase"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Instacart"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Instagram"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Intel"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Intuit"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Jane Street"
+  },
+  {
+    "type": "COMPANY",
+    "name": "JetBrains"
+  },
+  {
+    "type": "COMPANY",
+    "name": "John Deere"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Juniper Square"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Kaiser Permanente"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Kajabi"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Kayak"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Khan Academy"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Kin + Carta"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Klarna"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Lattice"
+  },
+  {
+    "type": "COMPANY",
+    "name": "LedgerX"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Leidos"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Lending Club"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Lenovo"
+  },
+  {
+    "type": "COMPANY",
+    "name": "LinkedIn"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Lyft"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Mailchimp"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Maple"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Marqeta"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Material Bank"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Mercury"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Meta"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Microsoft"
+  },
+  {
+    "type": "COMPANY",
+    "name": "MicroStrategy"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Miro"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Mixpanel"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Mozilla"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Netflix"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Nike"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Noom"
+  },
   {
     "type": "COMPANY",
     "name": "Nova Credit",
     "website": "https://www.novacredit.com/"
   },
-  { "type": "COMPANY", "name": "Numerated" },
-  { "type": "COMPANY", "name": "Nvidia" },
-  { "type": "COMPANY", "name": "OfferUp" },
-  { "type": "COMPANY", "name": "Okta" },
-  { "type": "COMPANY", "name": "One" },
-  { "type": "COMPANY", "name": "OpenAI" },
-  { "type": "COMPANY", "name": "OpenSea" },
-  { "type": "COMPANY", "name": "Optimizely" },
-  { "type": "COMPANY", "name": "Optiver" },
-  { "type": "COMPANY", "name": "Oracle" },
-  { "type": "COMPANY", "name": "Orum" },
-  { "type": "COMPANY", "name": "Outschool" },
-  { "type": "COMPANY", "name": "PagerDuty" },
-  { "type": "COMPANY", "name": "Palantir" },
-  { "type": "COMPANY", "name": "Pandora" },
-  { "type": "COMPANY", "name": "Patreon" },
-  { "type": "COMPANY", "name": "Paypal" },
-  { "type": "COMPANY", "name": "PBS" },
-  { "type": "COMPANY", "name": "Peloton" },
-  { "type": "COMPANY", "name": "Personio" },
-  { "type": "COMPANY", "name": "Perusall" },
-  { "type": "COMPANY", "name": "Pinterest" },
-  { "type": "COMPANY", "name": "Plaid" },
-  { "type": "COMPANY", "name": "Postman" },
-  { "type": "COMPANY", "name": "Postmates" },
-  { "type": "COMPANY", "name": "Progressive" },
-  { "type": "COMPANY", "name": "QA Wolf" },
-  { "type": "COMPANY", "name": "Quora" },
-  { "type": "COMPANY", "name": "Ramp" },
-  { "type": "COMPANY", "name": "Raytheon" },
-  { "type": "COMPANY", "name": "Red Hat" },
-  { "type": "COMPANY", "name": "Reddit" },
-  { "type": "COMPANY", "name": "Redfin" },
-  { "type": "COMPANY", "name": "Robinhood" },
-  { "type": "COMPANY", "name": "Rocket Money" },
-  { "type": "COMPANY", "name": "Roku" },
-  { "type": "COMPANY", "name": "Runway" },
-  { "type": "COMPANY", "name": "SAIC" },
-  { "type": "COMPANY", "name": "Salesforce" },
-  { "type": "COMPANY", "name": "SAP" },
-  { "type": "COMPANY", "name": "Saturn" },
-  { "type": "COMPANY", "name": "Scale AI" },
-  { "type": "COMPANY", "name": "Scion" },
-  { "type": "COMPANY", "name": "ServiceNow" },
-  { "type": "COMPANY", "name": "Shopify" },
-  { "type": "COMPANY", "name": "Slack" },
-  { "type": "COMPANY", "name": "Snap" },
-  { "type": "COMPANY", "name": "Snapchat" },
-  { "type": "COMPANY", "name": "Snowflake" },
-  { "type": "COMPANY", "name": "SpaceX" },
-  { "type": "COMPANY", "name": "Splunk" },
-  { "type": "COMPANY", "name": "Spotify" },
-  { "type": "COMPANY", "name": "Square" },
-  { "type": "COMPANY", "name": "Starbucks" },
-  { "type": "COMPANY", "name": "Steno" },
-  { "type": "COMPANY", "name": "Stripe" },
-  { "type": "COMPANY", "name": "Substack" },
-  { "type": "COMPANY", "name": "Supabase" },
-  { "type": "COMPANY", "name": "Sumo Logic" },
-  { "type": "COMPANY", "name": "Tableau" },
-  { "type": "COMPANY", "name": "Taekus" },
-  { "type": "COMPANY", "name": "Tecton" },
-  { "type": "COMPANY", "name": "Teradata" },
-  { "type": "COMPANY", "name": "Tesla" },
-  { "type": "COMPANY", "name": "Texas Instruments" },
-  { "type": "COMPANY", "name": "The Home Depot" },
-  { "type": "COMPANY", "name": "Thumbtack" },
-  { "type": "COMPANY", "name": "TikTok" },
-  { "type": "COMPANY", "name": "Twilio" },
-  { "type": "COMPANY", "name": "Twitch" },
-  { "type": "COMPANY", "name": "Twitter" },
-  { "type": "COMPANY", "name": "Two Sigma" },
-  { "type": "COMPANY", "name": "Uber" },
-  { "type": "COMPANY", "name": "Upstart" },
-  { "type": "COMPANY", "name": "Vanta" },
-  { "type": "COMPANY", "name": "Vercel" },
-  { "type": "COMPANY", "name": "Vimeo" },
-  { "type": "COMPANY", "name": "Virta Health" },
-  { "type": "COMPANY", "name": "Visa" },
-  { "type": "COMPANY", "name": "Walmart" },
-  { "type": "COMPANY", "name": "Wealthfront" },
-  { "type": "COMPANY", "name": "Webflow" },
-  { "type": "COMPANY", "name": "Wells Fargo" },
-  { "type": "COMPANY", "name": "Whop" },
-  { "type": "COMPANY", "name": "Wix" },
-  { "type": "COMPANY", "name": "Workday" },
-  { "type": "COMPANY", "name": "Yelp" },
-  { "type": "COMPANY", "name": "Yext" },
-  { "type": "COMPANY", "name": "YouTube" },
-  { "type": "COMPANY", "name": "Zendesk" },
-  { "type": "COMPANY", "name": "Zillow" },
-  { "type": "COMPANY", "name": "Zoom" },
-  { "type": "SKILL", "name": "Mocha", "tags": ["unit testing"] },
-  { "type": "SKILL", "name": "Chai", "tags": ["unit testing"] },
-  { "type": "SKILL", "name": "Written Communication" },
-  { "type": "SKILL", "name": "Verbal Communication" },
-  { "type": "SKILL", "name": "Nonverbal Communication" },
-  { "type": "SKILL", "name": "Influence" },
-  { "type": "SKILL", "name": "Time Management" },
-  { "type": "SKILL", "name": "Emotional Intelligence" },
-  { "type": "SKILL", "name": "Python" },
-  { "type": "SKILL", "name": "JavaScript" },
-  { "type": "SKILL", "name": "TypeScript" },
-  { "type": "SKILL", "name": "React.js" },
-  { "type": "SKILL", "name": "Angular (Web Framework)" },
-  { "type": "SKILL", "name": "Next.js (Web Framework)" },
-  { "type": "SKILL", "name": "Java (Programming Language)" },
-  { "type": "SKILL", "name": "Kotlin" },
-  { "type": "SKILL", "name": "Scala" },
-  { "type": "SKILL", "name": "Rust (Programming Language)" },
-  { "type": "SKILL", "name": "Ruby (Programming Language)" },
-  { "type": "SKILL", "name": "PHP" },
-  { "type": "SKILL", "name": "Ruby on Rails" },
-  { "type": "SKILL", "name": "HTML" },
-  { "type": "SKILL", "name": "SQL" },
-  { "type": "SKILL", "name": "Docker" },
-  { "type": "SKILL", "name": "AWS" },
-  { "type": "SKILL", "name": "GCP" },
-  { "type": "SKILL", "name": "C (Programming Language)" },
-  { "type": "SKILL", "name": "C++ (Programming Language)" },
-  { "type": "SKILL", "name": "C# (Programming Language)" },
-  { "type": "SKILL", "name": "CSS" },
-  { "type": "SCHOOL", "name": "Harvard" },
-  { "type": "SCHOOL", "name": "Princeton" },
-  { "type": "SCHOOL", "name": "MIT" },
-  { "type": "SCHOOL", "name": "Yale" },
-  { "type": "SCHOOL", "name": "NYU" },
-  { "type": "SCHOOL", "name": "Johns Hopkins University" },
-  { "type": "SCHOOL", "name": "General Assembly" },
+  {
+    "type": "COMPANY",
+    "name": "Numerated"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Nvidia"
+  },
+  {
+    "type": "COMPANY",
+    "name": "OfferUp"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Okta"
+  },
+  {
+    "type": "COMPANY",
+    "name": "One"
+  },
+  {
+    "type": "COMPANY",
+    "name": "OpenAI"
+  },
+  {
+    "type": "COMPANY",
+    "name": "OpenSea"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Optimizely"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Optiver"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Oracle"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Orum"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Outschool"
+  },
+  {
+    "type": "COMPANY",
+    "name": "PagerDuty"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Palantir"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Pandora"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Patreon"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Paypal"
+  },
+  {
+    "type": "COMPANY",
+    "name": "PBS"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Peloton"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Personio"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Perusall"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Pinterest"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Plaid"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Postman"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Postmates"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Progressive"
+  },
+  {
+    "type": "COMPANY",
+    "name": "QA Wolf"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Quora"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Ramp"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Raytheon"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Red Hat"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Reddit"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Redfin"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Robinhood"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Rocket Money"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Roku"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Runway"
+  },
+  {
+    "type": "COMPANY",
+    "name": "SAIC"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Salesforce"
+  },
+  {
+    "type": "COMPANY",
+    "name": "SAP"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Saturn"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Scale AI"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Scion"
+  },
+  {
+    "type": "COMPANY",
+    "name": "ServiceNow"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Shopify"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Slack"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Snap"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Snapchat"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Snowflake"
+  },
+  {
+    "type": "COMPANY",
+    "name": "SpaceX"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Splunk"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Spotify"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Square"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Starbucks"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Steno"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Stripe"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Substack"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Supabase"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Sumo Logic"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Tableau"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Taekus"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Tecton"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Teradata"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Tesla"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Texas Instruments"
+  },
+  {
+    "type": "COMPANY",
+    "name": "The Home Depot"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Thumbtack"
+  },
+  {
+    "type": "COMPANY",
+    "name": "TikTok"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Twilio"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Twitch"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Twitter"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Two Sigma"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Uber"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Upstart"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Vanta"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Vercel"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Vimeo"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Virta Health"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Visa"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Walmart"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Wealthfront"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Webflow"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Wells Fargo"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Whop"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Wix"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Workday"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Yelp"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Yext"
+  },
+  {
+    "type": "COMPANY",
+    "name": "YouTube"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Zendesk"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Zillow"
+  },
+  {
+    "type": "COMPANY",
+    "name": "Zoom"
+  },
+  {
+    "type": "SKILL",
+    "name": "Mocha",
+    "tags": ["unit testing"]
+  },
+  {
+    "type": "SKILL",
+    "name": "Chai",
+    "tags": ["unit testing"]
+  },
+  {
+    "type": "SKILL",
+    "name": "Written Communication"
+  },
+  {
+    "type": "SKILL",
+    "name": "Verbal Communication"
+  },
+  {
+    "type": "SKILL",
+    "name": "Nonverbal Communication"
+  },
+  {
+    "type": "SKILL",
+    "name": "Influence"
+  },
+  {
+    "type": "SKILL",
+    "name": "Time Management"
+  },
+  {
+    "type": "SKILL",
+    "name": "Emotional Intelligence"
+  },
+  {
+    "type": "SKILL",
+    "name": "Python"
+  },
+  {
+    "type": "SKILL",
+    "name": "JavaScript"
+  },
+  {
+    "type": "SKILL",
+    "name": "TypeScript"
+  },
+  {
+    "type": "SKILL",
+    "name": "React.js"
+  },
+  {
+    "type": "SKILL",
+    "name": "Angular (Web Framework)"
+  },
+  {
+    "type": "SKILL",
+    "name": "Next.js (Web Framework)"
+  },
+  {
+    "type": "SKILL",
+    "name": "Java (Programming Language)"
+  },
+  {
+    "type": "SKILL",
+    "name": "Kotlin"
+  },
+  {
+    "type": "SKILL",
+    "name": "Scala"
+  },
+  {
+    "type": "SKILL",
+    "name": "Rust (Programming Language)"
+  },
+  {
+    "type": "SKILL",
+    "name": "Ruby (Programming Language)"
+  },
+  {
+    "type": "SKILL",
+    "name": "PHP"
+  },
+  {
+    "type": "SKILL",
+    "name": "Ruby on Rails"
+  },
+  {
+    "type": "SKILL",
+    "name": "HTML"
+  },
+  {
+    "type": "SKILL",
+    "name": "SQL"
+  },
+  {
+    "type": "SKILL",
+    "name": "Docker"
+  },
+  {
+    "type": "SKILL",
+    "name": "AWS"
+  },
+  {
+    "type": "SKILL",
+    "name": "GCP"
+  },
+  {
+    "type": "SKILL",
+    "name": "C (Programming Language)"
+  },
+  {
+    "type": "SKILL",
+    "name": "C++ (Programming Language)"
+  },
+  {
+    "type": "SKILL",
+    "name": "C# (Programming Language)"
+  },
+  {
+    "type": "SKILL",
+    "name": "CSS"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Harvard"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Princeton"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "MIT"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Yale"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "NYU"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Johns Hopkins University"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "General Assembly"
+  },
   {
     "type": "SCHOOL",
     "name": "Springboard",
@@ -266,81 +1015,306 @@
     "name": "CareerFoundry",
     "website": "https://careerfoundry.com/"
   },
-  { "type": "SCHOOL", "name": "London School of Economics" },
-  { "type": "SCHOOL", "name": "Institut Polytechnique de Paris" },
-  { "type": "SCHOOL", "name": "Peking University" },
-  { "type": "SCHOOL", "name": "Indian Institute of Science" },
-  { "type": "SCHOOL", "name": "Delhi University (University of Delhi)" },
-  { "type": "SCHOOL", "name": "Stanford" },
-  { "type": "SCHOOL", "name": "University of Pennsylvania" },
-  { "type": "SCHOOL", "name": "Miami University" },
-  { "type": "SCHOOL", "name": "Duke" },
-  { "type": "SCHOOL", "name": "Austin Community College" },
-  { "type": "SCHOOL", "name": "University of Texas" },
-  { "type": "SCHOOL", "name": "University of Houston" },
-  { "type": "SCHOOL", "name": "George Mason University" },
-  { "type": "SCHOOL", "name": "Georgetown University" },
-  { "type": "SKILL", "name": "PostgreSQL" },
-  { "type": "SKILL", "name": "Wordpress" },
-  { "type": "FOOD", "name": "Banana" },
-  { "type": "FOOD", "name": "Celsius (Energy Drink)" },
-  { "type": "FOOD", "name": "Steak (Medium Rare)" },
-  { "type": "FOOD", "name": "Chicken" },
-  { "type": "FOOD", "name": "Mocha" },
-  { "type": "FOOD", "name": "Chai" },
-  { "type": "FOOD", "name": "Salmon" },
-  { "type": "FOOD", "name": "Pizza" },
-  { "type": "FOOD", "name": "Cinnamon Roll" },
-  { "type": "FOOD", "name": "Sourdough Bread" },
-  { "type": "FOOD", "name": "Focaccia" },
-  { "type": "FOOD", "name": "Curry" },
-  { "type": "FOOD", "name": "Lemonade" },
-  { "type": "FOOD", "name": "Limeade" },
-  { "type": "FOOD", "name": "Agua Fresca" },
-  { "type": "FOOD", "name": "Enchilada" },
-  { "type": "FOOD", "name": "Protein Shake" },
-  { "type": "FOOD", "name": "Granny Smith Apple" },
-  { "type": "FOOD", "name": "Red Delicious Apple" },
-  { "type": "FOOD", "name": "Fuji Apple" },
-  { "type": "FOOD", "name": "Onion" },
-  { "type": "FOOD", "name": "Yogurt" },
-  { "type": "FOOD", "name": "Water" },
-  { "type": "FOOD", "name": "Cannoli" },
-  { "type": "FOOD", "name": "Tres Leches" },
-  { "type": "FOOD", "name": "BLT Sandwich" },
-  { "type": "FOOD", "name": "Fettuccine Alfredo" },
-  { "type": "FOOD", "name": "Coffee" },
-  { "type": "FOOD", "name": "Tea" },
-  { "type": "FOOD", "name": "Hot Dog (Glizzy)" },
-  { "type": "FOOD", "name": "Soda (Pop) (Cola)" },
-  { "type": "JOB_TITLE", "name": "DevOps Engineer" },
-  { "type": "JOB_TITLE", "name": "Site Reliability Engineer (SRE)" },
-  { "type": "JOB_TITLE", "name": "Security Engineer" },
-  { "type": "JOB_TITLE", "name": "Scrum Master" },
-  { "type": "JOB_TITLE", "name": "Product Manager" },
-  { "type": "JOB_TITLE", "name": "Senior Product Manager" },
-  { "type": "JOB_TITLE", "name": "Software Engineer" },
-  { "type": "JOB_TITLE", "name": "Software Developer" },
-  { "type": "JOB_TITLE", "name": "Web Developer" },
-  { "type": "JOB_TITLE", "name": "Full Stack Developer" },
-  { "type": "JOB_TITLE", "name": "Front End Developer" },
-  { "type": "JOB_TITLE", "name": "Backend Developer" },
-  { "type": "JOB_TITLE", "name": "Engineering Manager" },
-  { "type": "JOB_TITLE", "name": "CTO" },
-  { "type": "JOB_TITLE", "name": "CEO" },
-  { "type": "JOB_TITLE", "name": "COO" },
-  { "type": "JOB_TITLE", "name": "Data Analyst" },
-  { "type": "JOB_TITLE", "name": "Data Engineer" },
-  { "type": "JOB_TITLE", "name": "Data Scientist" },
-  { "type": "JOB_TITLE", "name": "Research Scientist" },
-  { "type": "JOB_TITLE", "name": "Senior Software Engineer" },
-  { "type": "JOB_TITLE", "name": "Staff Software Engineer" },
-  { "type": "JOB_TITLE", "name": "Senior Staff Software Engineer" },
-  { "type": "JOB_TITLE", "name": "Distinguished Software Engineer" },
-  { "type": "JOB_TITLE", "name": "Principal Software Engineer" },
-  { "type": "JOB_TITLE", "name": "Senior Engineering Manager" },
-  { "type": "JOB_TITLE", "name": "Director of Engineering" },
-  { "type": "JOB_TITLE", "name": "VP of Engineering" },
+  {
+    "type": "SCHOOL",
+    "name": "London School of Economics"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Institut Polytechnique de Paris"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Peking University"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Indian Institute of Science"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Delhi University (University of Delhi)"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Stanford"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "University of Pennsylvania"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Miami University"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Duke"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Austin Community College"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "University of Texas"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "University of Houston"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "George Mason University"
+  },
+  {
+    "type": "SCHOOL",
+    "name": "Georgetown University"
+  },
+  {
+    "type": "SKILL",
+    "name": "PostgreSQL"
+  },
+  {
+    "type": "SKILL",
+    "name": "Wordpress"
+  },
+  {
+    "type": "FOOD",
+    "name": "Banana"
+  },
+  {
+    "type": "FOOD",
+    "name": "Celsius (Energy Drink)"
+  },
+  {
+    "type": "FOOD",
+    "name": "Steak (Medium Rare)"
+  },
+  {
+    "type": "FOOD",
+    "name": "Chicken"
+  },
+  {
+    "type": "FOOD",
+    "name": "Mocha"
+  },
+  {
+    "type": "FOOD",
+    "name": "Chai"
+  },
+  {
+    "type": "FOOD",
+    "name": "Salmon"
+  },
+  {
+    "type": "FOOD",
+    "name": "Pizza"
+  },
+  {
+    "type": "FOOD",
+    "name": "Cinnamon Roll"
+  },
+  {
+    "type": "FOOD",
+    "name": "Sourdough Bread"
+  },
+  {
+    "type": "FOOD",
+    "name": "Focaccia"
+  },
+  {
+    "type": "FOOD",
+    "name": "Curry"
+  },
+  {
+    "type": "FOOD",
+    "name": "Lemonade"
+  },
+  {
+    "type": "FOOD",
+    "name": "Limeade"
+  },
+  {
+    "type": "FOOD",
+    "name": "Agua Fresca"
+  },
+  {
+    "type": "FOOD",
+    "name": "Enchilada"
+  },
+  {
+    "type": "FOOD",
+    "name": "Protein Shake"
+  },
+  {
+    "type": "FOOD",
+    "name": "Granny Smith Apple"
+  },
+  {
+    "type": "FOOD",
+    "name": "Red Delicious Apple"
+  },
+  {
+    "type": "FOOD",
+    "name": "Fuji Apple"
+  },
+  {
+    "type": "FOOD",
+    "name": "Onion"
+  },
+  {
+    "type": "FOOD",
+    "name": "Yogurt"
+  },
+  {
+    "type": "FOOD",
+    "name": "Water"
+  },
+  {
+    "type": "FOOD",
+    "name": "Cannoli"
+  },
+  {
+    "type": "FOOD",
+    "name": "Tres Leches"
+  },
+  {
+    "type": "FOOD",
+    "name": "BLT Sandwich"
+  },
+  {
+    "type": "FOOD",
+    "name": "Fettuccine Alfredo"
+  },
+  {
+    "type": "FOOD",
+    "name": "Coffee"
+  },
+  {
+    "type": "FOOD",
+    "name": "Tea"
+  },
+  {
+    "type": "FOOD",
+    "name": "Hot Dog (Glizzy)"
+  },
+  {
+    "type": "FOOD",
+    "name": "Soda (Pop) (Cola)"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "DevOps Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Site Reliability Engineer (SRE)"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Security Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Scrum Master"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Product Manager"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Senior Product Manager"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Software Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Software Developer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Web Developer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Full Stack Developer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Front End Developer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Backend Developer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Engineering Manager"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "CTO"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "CEO"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "COO"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Data Analyst"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Data Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Data Scientist"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Research Scientist"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Senior Software Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Staff Software Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Senior Staff Software Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Distinguished Software Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Principal Software Engineer"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Senior Engineering Manager"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "Director of Engineering"
+  },
+  {
+    "type": "JOB_TITLE",
+    "name": "VP of Engineering"
+  },
   {
     "type": "TECH_INFLUENCER",
     "name": "Clement Mihailescu",
@@ -370,6 +1344,21 @@
     "type": "TECH_INFLUENCER",
     "name": "Tech Rally",
     "website": "https://twitter.com/TheTechRally"
+  },
+  {
+    "type": "SKILL",
+    "name": "Zig (Programming Language)",
+    "website": "https://ziglang.org/"
+  },
+  {
+    "type": "SKILL",
+    "name": "Swift (Programming Language)",
+    "website": "https://swift.org/"
+  },
+  {
+    "type": "TECH_INFLUENCER",
+    "name": "James Q Quick",
+    "website": "https://twitter.com/jamesqquick"
   },
   {
     "type": "TECH_INFLUENCER",
@@ -406,13 +1395,22 @@
     "name": "Will Larson",
     "website": "https://twitter.com/Lethain"
   },
-  { "type": "SCHOOL", "name": "California Institute of Technology" },
-  { "type": "CERTIFICATION", "name": "AWS Certified Developer-Associate" },
+  {
+    "type": "SCHOOL",
+    "name": "California Institute of Technology"
+  },
+  {
+    "type": "CERTIFICATION",
+    "name": "AWS Certified Developer-Associate"
+  },
   {
     "type": "CERTIFICATION",
     "name": "AWS Certified Solutions Architect-Associate"
   },
-  { "type": "CERTIFICATION", "name": "CompTIA Security+" },
+  {
+    "type": "CERTIFICATION",
+    "name": "CompTIA Security+"
+  },
   {
     "type": "CERTIFICATION",
     "name": "Certified Information Systems Security Professional (CISSP)"
@@ -421,5 +1419,98 @@
     "type": "CERTIFICATION",
     "name": "Cisco Certified Network Associate (CCNA)"
   },
-  { "type": "CERTIFICATION", "name": "Certified ScrumMaster (CSM)" }
+  {
+    "type": "CERTIFICATION",
+    "name": "Certified ScrumMaster (CSM)"
+  },
+  {
+    "type": "CONTENT",
+    "name": "1. The Community Bounty Feature: Join the Revolution!",
+    "website": "https://www.ladderly.io/blog/2023-07-21-community-bounty",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "2. Building a Quality Portfolio",
+    "website": "https://www.ladderly.io/blog/2023-10-01-quality-course-and-projects",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "3. Ladderly Leetcode Kata",
+    "website": "https://www.ladderly.io/blog/2023-11-25-leetcode-kata",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "4. Leveraging Top Job Boards to Land Your Next Programming Role",
+    "website": "https://www.ladderly.io/blog/2023-12-01-top-job-boards",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "5. Aria's Tale: An Emergent Social Gaming Experience",
+    "website": "https://www.ladderly.io/blog/2023-12-25-arias-tale",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "6. Hardware Needed to Code",
+    "website": "https://www.ladderly.io/blog/2024-01-20-hardware",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "7. LeetCode Solutions",
+    "website": "https://www.ladderly.io/blog/2024-01-23-leetcode-solutions",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "8. Essentials of HTML",
+    "website": "https://www.ladderly.io/blog/2024-02-11-essentials-of-html",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "9. Resume Optimization",
+    "website": "https://www.ladderly.io/blog/2024-02-12-resume-optimization",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "10. Understanding User Settings",
+    "website": "https://www.ladderly.io/blog/2024-02-16-user-settings",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "11. Hook Fundamentals",
+    "website": "https://www.ladderly.io/blog/2024-04-20-hook-fundamentals",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "12. At Least Ten Networking Tips",
+    "website": "https://www.ladderly.io/blog/2024-05-31-networking-tips",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "13. Selecting Your Next Skill to Develop",
+    "website": "https://www.ladderly.io/blog/2024-06-12-selecting-your-next-skill",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "14. Impact Accounting",
+    "website": "https://www.ladderly.io/blog/2024-07-31-impact-accounting",
+    "tags": ["Ladderly.io Article"]
+  },
+  {
+    "type": "CONTENT",
+    "name": "15. On Cover Letters and Resume Tailoring",
+    "website": "https://www.ladderly.io/blog/2024-08-04-no-cover-letters",
+    "tags": ["Ladderly.io Article"]
+  }
 ]

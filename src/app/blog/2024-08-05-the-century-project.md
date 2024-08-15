@@ -6,7 +6,7 @@ author: John Vandivier
 
 This article describes a Ladderly.io community initiative related to exercise called The Century Project (TCP).
 
-## Why?
+## Why a Health Initiative?
 
 Health is crucial to high performance, including high performance in cognitive work. Exercise is crucial to health, but general fitness guidance and online fitness communities are not tailored to cognitive work and Ladderly.io values.
 
