@@ -167,23 +167,19 @@ export default async function BlogPost({
         <nav className="mb-8 rounded-lg bg-gray-100 p-4 shadow-lg">
           <h2 className="mb-2 text-xl font-bold">Table of Contents</h2>
           <ul>
-            {toc.map((item) => {
-              console.log(item)
-
-              return (
-                <li
-                  key={item.id}
-                  style={{ marginLeft: `${(item.level - 1) * 20}px` }}
+            {toc.map((item) => (
+              <li
+                key={item.id}
+                style={{ marginLeft: `${(item.level - 1) * 20}px` }}
+              >
+                <a
+                  href={`#${item.id}`}
+                  className="text-blue-600 hover:underline"
                 >
-                  <a
-                    href={`#${item.id}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    {item.text}
-                  </a>
-                </li>
-              )
-            })}
+                  {item.text}
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
         <article
