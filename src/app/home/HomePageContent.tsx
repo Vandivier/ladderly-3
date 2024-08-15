@@ -95,6 +95,7 @@ const HomePage = () => (
             height={270}
             priority={true}
             src="/logo.png"
+            style={{ alignSelf: 'center', maxHeight: '160px' }}
             width={270}
           />
 
@@ -104,6 +105,7 @@ const HomePage = () => (
             className="m-6 hidden rounded-lg shadow-lg sm:block"
             priority={true}
             src="/logo.png"
+            style={{ alignSelf: 'center', maxHeight: '200px' }}
             width={330}
           />
 
