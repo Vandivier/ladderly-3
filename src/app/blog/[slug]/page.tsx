@@ -56,9 +56,14 @@ async function getBlogPost(
           ;(node.properties.className as string[]).push('font-bold')
 
           if (node.properties.id && typeof node.properties.id === 'string') {
+            let headingText = ''
+            visit(node, 'text', (textNode) => {
+              headingText += textNode.value
+            })
+
             toc.push({
               id: node.properties.id,
-              text: (node.children[0] as any).value,
+              text: headingText,
               level: parseInt(node.tagName.charAt(1)),
             })
           }
@@ -159,22 +164,26 @@ export default async function BlogPost({
         <h1 className="p-4 text-3xl font-bold text-ladderly-violet-600">
           {title}
         </h1>
-        <nav className="mb-8 rounded bg-gray-100 p-4">
+        <nav className="mb-8 rounded-lg bg-gray-100 p-4 shadow-lg">
           <h2 className="mb-2 text-xl font-bold">Table of Contents</h2>
           <ul>
-            {toc.map((item) => (
-              <li
-                key={item.id}
-                style={{ marginLeft: `${(item.level - 1) * 20}px` }}
-              >
-                <a
-                  href={`#${item.id}`}
-                  className="text-blue-600 hover:underline"
+            {toc.map((item) => {
+              console.log(item)
+
+              return (
+                <li
+                  key={item.id}
+                  style={{ marginLeft: `${(item.level - 1) * 20}px` }}
                 >
-                  {item.text}
-                </a>
-              </li>
-            ))}
+                  <a
+                    href={`#${item.id}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {item.text}
+                  </a>
+                </li>
+              )
+            })}
           </ul>
         </nav>
         <article
