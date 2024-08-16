@@ -1,6 +1,8 @@
 'use client'
+
 import { useMutation } from '@blitzjs/rpc'
 import Link from 'next/link'
+import { SignInButtonGoogle } from 'src/app/(auth)/components/SignInButtonGoogle'
 import signup from 'src/app/(auth)/mutations/signup'
 import { Signup } from 'src/app/(auth)/schemas'
 import { Form, FORM_ERROR } from 'src/core/components/Form'
@@ -17,6 +19,10 @@ export const SignupForm = (props: SignupFormProps) => {
       <h1 className="mb-4 text-2xl font-bold text-gray-800">
         Create an Account
       </h1>
+
+      <section id="social-sign-in" className="my-4">
+        <SignInButtonGoogle />
+      </section>
 
       <Form
         submitText="Create Account"

@@ -15,5 +15,8 @@ module.exports = {
     ],
     'declaration-block-trailing-semicolon': null,
     'no-descending-specificity': null,
+    'color-function-notation': null,
+    'alpha-value-notation': 'number',
+    'declaration-block-no-redundant-longhand-properties': null,
   },
 }
