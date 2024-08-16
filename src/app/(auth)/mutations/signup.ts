@@ -1,11 +1,12 @@
 import { SecurePassword } from '@blitzjs/auth/secure-password'
+import { Ctx } from 'blitz'
 import db, { PaymentTierEnum } from 'db'
 import { Role } from 'types'
 import { Signup } from '../schemas'
 
 export default async function signup(
   input: { password: string; email: string },
-  ctx: any
+  ctx: Ctx
 ) {
   // Extracting input and context
   const { email: inputEmail, password: inputPassword } = input
