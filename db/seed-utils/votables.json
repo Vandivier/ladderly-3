@@ -1509,6 +1509,12 @@
   },
   {
     "type": "CONTENT",
+    "name": "CS50: Introduction to Computer Science | Harvard University",
+    "website": "https://pll.harvard.edu/course/cs50-introduction-computer-science",
+    "tags": ["coding course"]
+  },
+  {
+    "type": "CONTENT",
     "name": "15. On Cover Letters and Resume Tailoring",
     "website": "https://www.ladderly.io/blog/2024-08-04-no-cover-letters",
     "tags": ["Ladderly.io Article"]
