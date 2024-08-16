@@ -1,6 +1,7 @@
 'use client'
 
 import { useMutation } from '@blitzjs/rpc'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { SignInButtonGoogle } from 'src/app/(auth)/components/SignInButtonGoogle'
 import signup from 'src/app/(auth)/mutations/signup'
@@ -14,6 +15,17 @@ type SignupFormProps = {
 
 export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
+
+  const handleGoogleSignIn = async () => {
+    await signIn('google', { callbackUrl: '/dashboard' })
+  }
+
+  const handleKeyUp = async (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === 'Enter') {
+      await handleGoogleSignIn()
+    }
+  }
+
   return (
     <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">
@@ -21,7 +33,10 @@ export const SignupForm = (props: SignupFormProps) => {
       </h1>
 
       <section id="social-sign-in" className="my-4">
-        <SignInButtonGoogle />
+        <SignInButtonGoogle
+          onClick={handleGoogleSignIn}
+          onKeyUp={handleKeyUp}
+        />
       </section>
 
       <Form

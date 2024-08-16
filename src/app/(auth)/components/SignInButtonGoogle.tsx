@@ -1,8 +1,16 @@
 import React from 'react'
 import './SignInButtonGoogle.css'
 
-export const SignInButtonGoogle = () => (
-  <button className="gsi-material-button">
+type SignInButtonGoogleProps = {
+  onClick?: () => void
+  onKeyUp?: (event: React.KeyboardEvent<HTMLButtonElement>) => void
+}
+
+export const SignInButtonGoogle: React.FC<SignInButtonGoogleProps> = ({
+  onClick,
+  onKeyUp,
+}) => (
+  <button className="gsi-material-button" onClick={onClick} onKeyUp={onKeyUp}>
     <div className="gsi-material-button-state"></div>
     <div className="gsi-material-button-content-wrapper">
       <div className="gsi-material-button-icon">
