@@ -99,18 +99,9 @@ model Session {
   sessionToken String?  @unique @default(uuid()) // T3, modified via `@default(uuid())`
   expires      DateTime @default(now()) // T3, modified via `@default(now())`
 
-  user   User? @relation(fields: [userId], references: [id])
-  // TODO: @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int?
 }
-
-// model Session {
-//     id           String   @id @default(cuid())
-//     sessionToken String   @unique
-//     userId       String
-//     expires      DateTime
-//     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-// }
 
 model Token {
   id          Int       @id @default(autoincrement())
