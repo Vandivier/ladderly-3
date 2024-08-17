@@ -21,6 +21,7 @@ web_modules/
 
 # next.js
 /.next/
+**/.next/
 .now
 *.sqlite*
 *.sqlite-journal
