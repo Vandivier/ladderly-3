@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "scripts": {
-    "backup": "npm run checklists:backup && npm run users:backup",
+    "backup": "npm run s:checklists:backup && npm run s:users:backup",
     "build": "npm run lint && node scripts/generate-sitemap.js && blitz prisma generate && blitz build",
     "dev": "blitz dev",
     "format": "prettier --write .",
