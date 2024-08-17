@@ -17,14 +17,16 @@ model User {
   id        Int      @id @default(autoincrement())
   updatedAt DateTime @updatedAt
 
-  adminNotes     String  @default("")
-  email          String  @unique
-  emailBackup    String  @default("")
-  emailStripe    String  @default("")
+  adminNotes     String    @default("")
+  email          String    @unique
+  emailBackup    String    @default("")
+  emailStripe    String    @default("")
+  emailVerified  DateTime? // T3
   hashedPassword String?
-  nameFirst      String  @default("")
-  nameLast       String  @default("")
-  profilePicture String  @default("")
+  image          String? // T3
+  name           String    @default("") // T3
+  nameFirst      String    @default("")
+  nameLast       String    @default("")
 
   hasInPersonEventInterest Boolean @default(false)
   hasLiveStreamInterest    Boolean @default(false)
@@ -39,11 +41,13 @@ model User {
   profileGitHubUri    String?
   profileHomepageUri  String?
   profileLinkedInUri  String?
+  profilePicture      String  @default("")
   residenceCountry    String  @default("")
   residenceUSState    String  @default("")
   totalContributions  Float   @default(0)
   totalStoreSpend     Float   @default(0)
 
+  accounts           Account[]
   contributions      Contribution[]
   quizResults        QuizResult[]
   role               RoleEnum            @default(USER)
@@ -62,6 +66,25 @@ enum RoleEnum {
   USER
 }
 
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   Int
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? // @db.Text
+  access_token             String? // @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? // @db.Text
+  session_state            String?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refresh_token_expires_in Int?
+
+  @@unique([provider, providerAccountId])
+}
+
 model Session {
   id                 Int       @id @default(autoincrement())
   createdAt          DateTime  @default(now())
@@ -73,9 +96,21 @@ model Session {
   publicData         String?
   privateData        String?
 
+  sessionToken String?  @unique @default(uuid()) // T3, modified via `@default(uuid())`
+  expires      DateTime @default(now()) // T3, modified via `@default(now())`
+
   user   User? @relation(fields: [userId], references: [id])
+  // TODO: @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int?
 }
+
+// model Session {
+//     id           String   @id @default(cuid())
+//     sessionToken String   @unique
+//     userId       String
+//     expires      DateTime
+//     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
 
 model Token {
   id          Int       @id @default(autoincrement())
@@ -94,6 +129,14 @@ model Token {
 
 enum TokenType {
   RESET_PASSWORD
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model UserChecklist {
