@@ -1,4 +1,10 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
 
-npx pretty-quick --staged
+# Get the root of the git repository
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+# Change to the blitz-app directory
+cd "$REPO_ROOT/blitz-app" || exit
+
+# Run pretty-quick only on staged files in the blitz-app directory
+git diff --staged --name-only | xargs npx pretty-quick --staged
