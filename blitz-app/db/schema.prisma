@@ -24,6 +24,7 @@ model User {
   hashedPassword String?
   nameFirst      String  @default("")
   nameLast       String  @default("")
+  profilePicture String  @default("")
 
   hasInPersonEventInterest Boolean @default(false)
   hasLiveStreamInterest    Boolean @default(false)
