@@ -1,5 +1,11 @@
-import { Prisma, PrismaClient, Session, User } from "@prisma/client";
-import { Adapter, AdapterSession, AdapterUser } from "next-auth/adapters";
+import { Account, Prisma, PrismaClient, Session, User } from "@prisma/client";
+import {
+  Adapter,
+  AdapterAccount,
+  AdapterSession,
+  AdapterUser,
+} from "next-auth/adapters";
+import { ProviderType } from "next-auth/providers/index";
 
 export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
   return {
@@ -41,7 +47,29 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       const user = await prisma.user.delete({ where: { id: userId } });
       return adaptUser(user);
     },
-    linkAccount: (data) => prisma.account.create({ data }),
+    linkAccount: async (account) => {
+      const prismaAccountData: Prisma.AccountCreateInput = {
+        provider: account.provider,
+        type: account.type,
+        providerAccountId: account.providerAccountId,
+        access_token: account.access_token,
+        expires_at: account.expires_at,
+        token_type: account.token_type,
+        scope: account.scope,
+        id_token: account.id_token,
+        session_state: account.session_state,
+        refresh_token: account.refresh_token,
+        user: {
+          connect: { id: parseInt(account.userId, 10) },
+        },
+      };
+
+      const createdAccount = await prisma.account.create({
+        data: prismaAccountData,
+      });
+
+      return adaptAccount(createdAccount);
+    },
     unlinkAccount: (provider_providerAccountId) =>
       prisma.account.delete({ where: { provider_providerAccountId } }),
 
@@ -63,13 +91,24 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       });
       return result ? { session: result, user: adaptUser(result.user) } : null;
     },
-    updateSession: (data) =>
-      prisma.session.update({
-        where: { sessionToken: data.sessionToken },
-        data,
-      }),
-    deleteSession: (sessionToken) =>
-      prisma.session.delete({ where: { sessionToken } }),
+    updateSession: async (data) => {
+      const { sessionToken, ...updateData } = data;
+
+      const prismaUpdateData: Prisma.SessionUpdateInput = {
+        expires: updateData.expires,
+        expiresAt: updateData.expires,
+      };
+
+      const updatedSession = await prisma.session.update({
+        where: { sessionToken },
+        data: prismaUpdateData,
+      });
+
+      return adaptSession(updatedSession);
+    },
+    deleteSession: async (sessionToken) => {
+      await prisma.session.delete({ where: { sessionToken } });
+    },
     createVerificationToken: (data) =>
       prisma.verificationToken.create({ data }),
     useVerificationToken: (identifier_token) =>
@@ -79,13 +118,12 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
 
 function adaptSession(session: Session): AdapterSession {
   return {
-    sessionToken: session.sessionToken || session.handle, // Use handle if sessionToken is not available
+    sessionToken: session.sessionToken || session.handle,
     userId: session.userId?.toString() || "",
-    expires: session.expiresAt || session.expires, // Use expiresAt if available, otherwise use expires
+    expires: session.expiresAt || session.expires,
   };
 }
 
-// Helper function to adapt your User model to AdapterUser
 function adaptUser(user: User): AdapterUser {
   return {
     id: user.id.toString(),
@@ -93,5 +131,21 @@ function adaptUser(user: User): AdapterUser {
     email: user.email,
     emailVerified: user.emailVerified || null,
     image: user.image || null,
+  };
+}
+
+function adaptAccount(account: Account): AdapterAccount {
+  return {
+    userId: account.userId.toString(),
+    type: account.type as ProviderType,
+    provider: account.provider,
+    providerAccountId: account.providerAccountId,
+    refresh_token: account.refresh_token ?? undefined,
+    access_token: account.access_token ?? undefined,
+    expires_at: account.expires_at ?? undefined,
+    token_type: account.token_type ?? undefined,
+    scope: account.scope ?? undefined,
+    id_token: account.id_token ?? undefined,
+    session_state: account.session_state ?? undefined,
   };
 }
