@@ -8,16 +8,20 @@
   ],
   "routes": [
     {
+      "src": "/_next/static/(.*)",
+      "dest": "blitz-app/_next/static/$1"
+    },
+    {
       "src": "/api/rpc/(.*)",
-      "dest": "/api/rpc/$1"
+      "dest": "/blitz-app/api/rpc/$1"
     },
     {
       "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "dest": "/blitz-app/api/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/blitz-app/$1"
     }
   ],
   "buildCommand": "cd blitz-app && npm run build",
