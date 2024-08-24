@@ -20,5 +20,6 @@
       "dest": "blitz-app/$1"
     }
   ],
-  "buildCommand": "cd blitz-app && npm run build"
+  "buildCommand": "cd blitz-app && npm run build",
+  "cache": false
 }
