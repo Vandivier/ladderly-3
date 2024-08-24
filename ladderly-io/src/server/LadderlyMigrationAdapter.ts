@@ -70,16 +70,19 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
 
       return adaptAccount(createdAccount);
     },
-    unlinkAccount: (provider_providerAccountId) =>
-      prisma.account.delete({ where: { provider_providerAccountId } }),
-
+    unlinkAccount: async (provider_providerAccountId) => {
+      const account = await prisma.account.delete({
+        where: { provider_providerAccountId },
+      });
+      return account ? adaptAccount(account) : undefined;
+    },
     createSession: async (data) => {
       const session = await prisma.session.create({
         data: {
           ...data,
           handle: data.sessionToken,
           expiresAt: data.expires,
-          userId: parseInt(data.userId, 10), // Convert string ID to number
+          userId: parseInt(data.userId, 10),
         },
       });
       return adaptSession(session);
