@@ -25,7 +25,9 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       return adaptUser(user);
     },
     getUser: async (id) => {
-      const user = await prisma.user.findUnique({ where: { id } });
+      const user = await prisma.user.findUnique({
+        where: { id: parseInt(id) },
+      });
       return user ? adaptUser(user) : null;
     },
     getUserByEmail: async (email) => {
@@ -40,11 +42,22 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       return account?.user ? adaptUser(account.user) : null;
     },
     updateUser: async ({ id, ...data }) => {
-      const user = await prisma.user.update({ where: { id }, data });
+      const maybeName = data.name;
+      const userUpdatedInput: Prisma.UserUpdateInput = {
+        ...data,
+        name: maybeName ?? "",
+      };
+
+      const user = await prisma.user.update({
+        where: { id: parseInt(id) },
+        data: userUpdatedInput,
+      });
       return adaptUser(user);
     },
     deleteUser: async (userId) => {
-      const user = await prisma.user.delete({ where: { id: userId } });
+      const user = await prisma.user.delete({
+        where: { id: parseInt(userId) },
+      });
       return adaptUser(user);
     },
     linkAccount: async (account) => {
@@ -60,7 +73,7 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
         session_state: account.session_state,
         refresh_token: account.refresh_token,
         user: {
-          connect: { id: parseInt(account.userId, 10) },
+          connect: { id: parseInt(account.userId) },
         },
       };
 
@@ -82,7 +95,7 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
           ...data,
           handle: data.sessionToken,
           expiresAt: data.expires,
-          userId: parseInt(data.userId, 10),
+          userId: parseInt(data.userId),
         },
       });
       return adaptSession(session);
@@ -92,7 +105,9 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
         where: { sessionToken },
         include: { user: true },
       });
-      return result ? { session: result, user: adaptUser(result.user) } : null;
+      return result?.user
+        ? { session: adaptSession(result), user: adaptUser(result.user) }
+        : null;
     },
     updateSession: async (data) => {
       const { sessionToken, ...updateData } = data;
@@ -122,7 +137,7 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
 function adaptSession(session: Session): AdapterSession {
   return {
     sessionToken: session.sessionToken || session.handle,
-    userId: session.userId?.toString() || "",
+    userId: session.userId?.toString() ?? "",
     expires: session.expiresAt || session.expires,
   };
 }
