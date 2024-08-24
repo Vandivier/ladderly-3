@@ -2,22 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/next"
-    },
-    {
       "src": "blitz-app/package.json",
-      "use": "@vercel/node"
+      "use": "@vercel/next"
     }
   ],
   "routes": [
     {
-      "src": "/blitz/(.*)",
-      "dest": "/blitz-app/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/blitz-app/$1"
     }
-  ]
+  ],
+  "buildCommand": "cd blitz-app && npm run build"
 }
