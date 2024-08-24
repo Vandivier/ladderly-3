@@ -13,8 +13,6 @@ const config = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  basePath: '',
-  assetPrefix: '',
 }
 
 module.exports = withBlitz(config)
