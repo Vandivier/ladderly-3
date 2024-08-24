@@ -9,16 +9,17 @@
   "routes": [
     {
       "src": "/api/rpc/(.*)",
-      "dest": "/blitz-app/api/rpc/$1"
+      "dest": "/api/rpc/$1"
     },
     {
       "src": "/api/(.*)",
-      "dest": "/blitz-app/api/$1"
+      "dest": "/api/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/blitz-app/$1"
+      "dest": "/$1"
     }
   ],
-  "buildCommand": "cd blitz-app && npm run build"
+  "buildCommand": "cd blitz-app && npm run build",
+  "outputDirectory": "blitz-app/.next"
 }
