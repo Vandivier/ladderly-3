@@ -8,22 +8,17 @@
   ],
   "routes": [
     {
-      "src": "/_next/static/(.*)",
-      "dest": "blitz-app/_next/static/$1"
-    },
-    {
       "src": "/api/rpc/(.*)",
-      "dest": "/blitz-app/api/rpc/$1"
+      "dest": "blitz-app/api/rpc/$1"
     },
     {
       "src": "/api/(.*)",
-      "dest": "/blitz-app/api/$1"
+      "dest": "blitz-app/api/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/blitz-app/$1"
+      "dest": "blitz-app/$1"
     }
   ],
-  "buildCommand": "cd blitz-app && npm run build",
-  "outputDirectory": "blitz-app/.next"
+  "buildCommand": "cd blitz-app && npm run build"
 }
