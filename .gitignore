@@ -21,6 +21,7 @@ web_modules/
 
 # next.js
 /.next/
+**/.next/
 .now
 *.sqlite*
 *.sqlite-journal
@@ -31,6 +32,8 @@ blitz-log.log
 # ignore physical backups of blitz db
 db/bak.user*.json
 db/premium-checklists.json
+**/db/bak.user*.json
+**/db/premium-checklists.json
 
 # production/build
 /out/

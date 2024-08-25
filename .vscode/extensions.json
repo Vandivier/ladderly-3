@@ -1,14 +1,15 @@
 {
   "recommendations": [
+    "bradlc.vscode-tailwindcss",
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
-    "mikestead.dotenv",
+    "GitHub.vscode-github-actions",
     "mgmcdermott.vscode-language-babel",
+    "mikestead.dotenv",
     "orta.vscode-jest",
     "prisma.prisma",
-    "stylelint.vscode-stylelint",
-    "bradlc.vscode-tailwindcss"
+    "stylelint.vscode-stylelint"
   ],
   "unwantedRecommendations": []
 }
