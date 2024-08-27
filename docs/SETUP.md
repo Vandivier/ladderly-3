@@ -34,7 +34,7 @@ npx blitz prisma migrate dev
 5. Run the app locally.
 
 ```bash
-npm run dev
+npx run dev
 # alternatively: `npx blitz dev`
 ```
 
