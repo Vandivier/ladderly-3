@@ -15,14 +15,14 @@ export const env = createEnv({
       (str) => process.env.VERCEL_URL ?? str,
       process.env.VERCEL ? z.string() : z.string().url()
     ),
-    DISCORD_CLIENT_ID: z.string(),
-    DISCORD_CLIENT_SECRET: z.string(),
-    GITHUB_CLIENT_ID: z.string(),
-    GITHUB_CLIENT_SECRET: z.string(),
-    GOOGLE_CLIENT_ID: z.string(),
-    GOOGLE_CLIENT_SECRET: z.string(),
-    LINKEDIN_CLIENT_ID: z.string(),
-    LINKEDIN_CLIENT_SECRET: z.string(),
+    DISCORD_CLIENT_ID: z.string().optional(),
+    DISCORD_CLIENT_SECRET: z.string().optional(),
+    GITHUB_CLIENT_ID: z.string().optional(),
+    GITHUB_CLIENT_SECRET: z.string().optional(),
+    GOOGLE_CLIENT_ID: z.string().optional(),
+    GOOGLE_CLIENT_SECRET: z.string().optional(),
+    LINKEDIN_CLIENT_ID: z.string().optional(),
+    LINKEDIN_CLIENT_SECRET: z.string().optional(),
   },
 
   client: {

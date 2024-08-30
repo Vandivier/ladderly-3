@@ -75,28 +75,36 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: LadderlyMigrationAdapter(db),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
-    }),
-    GithubProvider({
-      clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
-    }),
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-    }),
-    LinkedInProvider({
-      clientId: env.LINKEDIN_CLIENT_ID,
-      clientSecret: env.LINKEDIN_CLIENT_SECRET,
-      authorization: {
-        params: {
-          scope: "openid profile email",
-        },
-      },
-    }),
-  ],
+    env.DISCORD_CLIENT_ID && env.DISCORD_CLIENT_SECRET
+      ? DiscordProvider({
+          clientId: env.DISCORD_CLIENT_ID,
+          clientSecret: env.DISCORD_CLIENT_SECRET,
+        })
+      : null,
+    env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET
+      ? GithubProvider({
+          clientId: env.GITHUB_CLIENT_ID,
+          clientSecret: env.GITHUB_CLIENT_SECRET,
+        })
+      : null,
+    env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
+      ? GoogleProvider({
+          clientId: env.GOOGLE_CLIENT_ID,
+          clientSecret: env.GOOGLE_CLIENT_SECRET,
+        })
+      : null,
+    env.LINKEDIN_CLIENT_ID && env.LINKEDIN_CLIENT_SECRET
+      ? LinkedInProvider({
+          authorization: {
+            params: {
+              scope: "openid profile email",
+            },
+          },
+          clientId: env.LINKEDIN_CLIENT_ID,
+          clientSecret: env.LINKEDIN_CLIENT_SECRET,
+        })
+      : null,
+  ].filter(Boolean) as NextAuthOptions["providers"],
 };
 
 export const getServerAuthSession = () => getServerSession(authOptions);
