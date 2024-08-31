@@ -4,12 +4,14 @@
 
 import { useMutation, useQuery } from '@blitzjs/rpc'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 import createAnswer from 'src/app/questions/mutations/createAnswer'
+import deleteAnswer from 'src/app/questions/mutations/deleteAnswer'
 import getQuestion from 'src/app/questions/queries/getQuestion'
+import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
 import { Form, FORM_ERROR } from 'src/core/components/Form'
 import LabeledTextField from 'src/core/components/LabeledTextField'
+
 import { z } from 'zod'
 
 const AnswerSchema = z.object({
@@ -21,12 +23,24 @@ export default function QuestionDetails({
 }: {
   questionId: number
 }) {
-  const [question] = useQuery(getQuestion, { id: questionId })
+  const [question, { refetch }] = useQuery(getQuestion, { id: questionId })
   const [createAnswerMutation] = useMutation(createAnswer)
-  const router = useRouter()
+  const [deleteAnswerMutation] = useMutation(deleteAnswer)
+  const currentUser = useCurrentUser()
 
   if (!question || !question.authorId) return <div>Question not found</div>
   const authorName = question.author?.nameFirst || 'Anonymous'
+
+  const handleDeleteAnswer = async (answerId: number) => {
+    if (window.confirm('Are you sure you want to delete this answer?')) {
+      try {
+        await deleteAnswerMutation({ id: answerId })
+        refetch()
+      } catch (error) {
+        console.error('Failed to delete answer:', error)
+      }
+    }
+  }
 
   return (
     <div>
@@ -55,10 +69,25 @@ export default function QuestionDetails({
       {question.answers?.map((answer) => (
         <div key={answer.id} className="mb-4 border-t pt-4">
           <p>{answer.body}</p>
-          <p className="mt-2 text-sm text-gray-600">
-            Answered by {answer.author?.name || 'Anonymous'} on{' '}
-            {new Date(answer.createdAt).toLocaleDateString()}
-          </p>
+          <div className="mt-2 flex items-center justify-between">
+            <p className="text-sm text-gray-600">
+              Answered by{' '}
+              <Link href={`/community/${answer.authorId}`}>
+                {answer.author?.nameFirst ||
+                  answer.author?.nameLast ||
+                  'Anonymous'}
+              </Link>{' '}
+              on {new Date(answer.createdAt).toLocaleDateString()}
+            </p>
+            {currentUser?.id === answer.authorId && (
+              <button
+                onClick={() => handleDeleteAnswer(answer.id)}
+                className="text-red-500 hover:text-red-700"
+              >
+                Delete
+              </button>
+            )}
+          </div>
         </div>
       ))}
 
@@ -72,7 +101,7 @@ export default function QuestionDetails({
               body: values.body,
               questionId,
             })
-            router.refresh()
+            refetch()
           } catch (error) {
             console.error('Failed to submit answer:', error)
             return {

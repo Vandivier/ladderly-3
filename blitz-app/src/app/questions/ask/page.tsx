@@ -13,7 +13,7 @@ export default function AskQuestionPage() {
           Ask a Question
         </h1>
         <p className="mb-6 text-gray-600">
-          Be specific and imagine you're asking a question to another person.
+          Be specific and imagine you are asking a question to another person.
           Include all the information someone would need to answer your
           question.
         </p>
