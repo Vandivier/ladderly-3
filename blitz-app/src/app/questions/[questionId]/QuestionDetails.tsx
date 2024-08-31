@@ -35,7 +35,7 @@ export default function QuestionDetails({
     if (window.confirm('Are you sure you want to delete this answer?')) {
       try {
         await deleteAnswerMutation({ id: answerId })
-        refetch()
+        void refetch()
       } catch (error) {
         console.error('Failed to delete answer:', error)
       }
@@ -101,7 +101,7 @@ export default function QuestionDetails({
               body: values.body,
               questionId,
             })
-            refetch()
+            void refetch()
           } catch (error) {
             console.error('Failed to submit answer:', error)
             return {
