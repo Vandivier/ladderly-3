@@ -1,6 +1,6 @@
 import db from 'db'
 
-async function createComment(
+export async function createComment(
   authorId: number,
   parentVotableId: number,
   body: string

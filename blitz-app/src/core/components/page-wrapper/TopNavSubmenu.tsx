@@ -57,6 +57,9 @@ export const CommunityMenuItems = ({
     <Link href="/community" className={linkClassName}>
       Browse All Profiles
     </Link>
+    <Link href="/questions" className={linkClassName}>
+      Questions
+    </Link>
     <Link href="/events-calendar" className={linkClassName}>
       Events Calendar
     </Link>

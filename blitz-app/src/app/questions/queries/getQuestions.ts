@@ -32,7 +32,8 @@ export default resolver.pipe(
             id: true,
             name: true,
             createdAt: true,
-            description: true,
+            body: true,
+            tags: true,
             author: {
               select: {
                 id: true,
@@ -40,21 +41,25 @@ export default resolver.pipe(
               },
             },
             voteCount: true,
-            tags: true,
+            childVotables: {
+              where: { type: 'ANSWER' },
+              select: { id: true },
+            },
             _count: {
-              select: { childVotables: true },
+              select: { votes: true },
             },
           },
         }),
     })
 
-    const questionsWithAnswerCount = questions.map((question) => ({
+    const questionsWithCounts = questions.map((question) => ({
       ...question,
-      answerCount: question._count.childVotables,
+      answerCount: question.childVotables.length,
+      voteCount: question._count.votes,
     }))
 
     return {
-      questions: questionsWithAnswerCount,
+      questions: questionsWithCounts,
       nextPage,
       hasMore,
       count,
