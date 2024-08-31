@@ -45,6 +45,7 @@ model User {
   totalStoreSpend     Float   @default(0)
 
   accounts           Account[]
+  authoredVotables   Votable[]           @relation("AuthoredVotables")
   contributions      Contribution[]
   quizResults        QuizResult[]
   role               RoleEnum            @default(USER)
@@ -56,10 +57,6 @@ model User {
   uuid               String              @default(uuid())
   userChecklistItems UserChecklistItem[]
   votes              Vote[]
-
-  // New relations for Q&A and blog functionality
-  authoredVotables Votable[] @relation("AuthoredVotables")
-  comments         Comment[]
 }
 
 enum RoleEnum {
@@ -315,6 +312,7 @@ model QuizResult {
 enum VotableType {
   ANSWER
   CERTIFICATION
+  COMMENT
   COMPANY
   CONTENT
   EDUCATOR
@@ -330,9 +328,8 @@ model Votable {
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
   type                VotableType
-  name                String
-  description         String      @default("")
-  body                String? // Added for question/answer/blog content
+  name                String // also, the title for questions and blog posts
+  body                String?
   tags                String[]
   prestigeScore       Float       @default(0)
   voteCount           Int         @default(0)
@@ -349,8 +346,7 @@ model Votable {
 
   votes      Vote[]
   snapshots  VotableSnapshot[]
-  comments   Comment[]
-  isAccepted Boolean           @default(false)
+  isAccepted Boolean           @default(false) // For answers
 
   @@unique([type, name])
 }
@@ -370,8 +366,8 @@ model Vote {
   updatedAt DateTime @updatedAt
   votable   Votable  @relation(fields: [votableId], references: [id])
   votableId Int
-  voter     User?    @relation(fields: [voterId], references: [id])
-  voterId   Int?
+  voter     User     @relation(fields: [voterId], references: [id])
+  voterId   Int
   voteType  VoteType
 
   @@unique([voterId, votableId])
@@ -380,16 +376,4 @@ model Vote {
 enum VoteType {
   UPVOTE
   DOWNVOTE
-}
-
-// New Comment model
-model Comment {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  body      String
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  votable   Votable  @relation(fields: [votableId], references: [id])
-  votableId Int
 }
