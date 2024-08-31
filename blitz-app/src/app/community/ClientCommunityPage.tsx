@@ -2,7 +2,6 @@
 
 'use client'
 
-import { Routes } from '@blitzjs/next'
 import { usePaginatedQuery } from '@blitzjs/rpc'
 import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'

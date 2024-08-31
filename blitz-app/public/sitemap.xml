@@ -156,7 +156,22 @@
     </url>
     <url>
         <loc>
+            https://ladderly.io/questions
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/questions/ask
+        </loc>
+    </url>
+    <url>
+        <loc>
             https://ladderly.io/reset-password
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/settings
         </loc>
     </url>
     <url>

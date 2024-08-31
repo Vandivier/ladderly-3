@@ -4,10 +4,10 @@ import { useMutation, useQuery } from '@blitzjs/rpc'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { VotableTypeSelector } from 'src/votable/VotableTypeSelector'
+import { typeToSlug } from 'src/app/votables/utils'
+import { VotableTypeSelector } from 'src/app/votables/VotableTypeSelector'
 import createVote from '../mutations/createVote'
 import getRandomVotablePair from '../queries/getRandomVotablePair'
-import { typeToSlug } from 'src/votable/utils'
 
 const VotePageContent = ({ initialType }: { initialType?: string }) => {
   const router = useRouter()
@@ -20,20 +20,20 @@ const VotePageContent = ({ initialType }: { initialType?: string }) => {
   const votableA = votablePair?.[0]
   const votableB = votablePair?.[1]
 
-  const handleVote = async (winnerId: number) => {
-    if (votableA && votableB) {
-      try {
-        await castVote({
-          winnerId,
-          votableAId: votableA.id,
-          votableBId: votableB.id,
-        })
-        await refetch()
-      } catch (error) {
-        console.error('Error casting vote:', error)
-      }
-    } else {
-      console.error('Invalid votable pair.')
+  const handleVote = async (
+    votableId: number,
+    voteType: 'UPVOTE' | 'DOWNVOTE',
+    loserId?: number
+  ) => {
+    try {
+      await castVote({
+        votableId,
+        voteType,
+        loserId,
+      })
+      await refetch()
+    } catch (error) {
+      console.error('Error casting vote:', error)
     }
   }
 
@@ -48,9 +48,7 @@ const VotePageContent = ({ initialType }: { initialType?: string }) => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="m-4 text-2xl font-bold">
-        Vote for the more prestigious option!
-      </h1>
+      <h1 className="m-4 text-2xl font-bold">Vote on these options!</h1>
 
       <VotableTypeSelector
         value={votableType}
@@ -64,22 +62,43 @@ const VotePageContent = ({ initialType }: { initialType?: string }) => {
         View current leaders here!
       </Link>
 
-      <div className="flex space-x-4">
-        <button
-          onClick={() => handleVote(votableA.id)}
-          className="rounded border bg-blue-500 p-4 text-white"
-        >
-          {votableA.name}
-        </button>
-        <button
-          onClick={() => handleVote(votableB.id)}
-          className="rounded border bg-blue-500 p-4 text-white"
-        >
-          {votableB.name}
-        </button>
+      <div className="flex space-x-8">
+        {[votableA, votableB].map((votable) => (
+          <div key={votable.id} className="flex flex-col items-center">
+            <h2 className="mb-2 text-lg font-semibold">{votable.name}</h2>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => handleVote(votable.id, 'UPVOTE')}
+                className="rounded border bg-green-500 p-2 text-white"
+              >
+                Upvote
+              </button>
+              <button
+                onClick={() => handleVote(votable.id, 'DOWNVOTE')}
+                className="rounded border bg-red-500 p-2 text-white"
+              >
+                Downvote
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
+
+      <button
+        onClick={() => handleVote(votableA.id, 'UPVOTE', votableB.id)}
+        className="mt-4 rounded border bg-blue-500 p-2 text-white"
+      >
+        {votableA.name} is better
+      </button>
+      <button
+        onClick={() => handleVote(votableB.id, 'UPVOTE', votableA.id)}
+        className="mt-2 rounded border bg-blue-500 p-2 text-white"
+      >
+        {votableB.name} is better
+      </button>
+
       <button onClick={() => refetch()} className="m-4 text-blue-500 underline">
-        Skip
+        Skip to next pair
       </button>
     </div>
   )

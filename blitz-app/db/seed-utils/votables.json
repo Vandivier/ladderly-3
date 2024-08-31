@@ -528,7 +528,7 @@
   },
   {
     "type": "COMPANY",
-    "name": "Outschool"
+    "name": "OutEDUCATOR"
   },
   {
     "type": "COMPANY",
@@ -973,102 +973,102 @@
     "name": "CSS"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Harvard"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Princeton"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "MIT"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Yale"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "NYU"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Johns Hopkins University"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "General Assembly"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Springboard",
     "website": "https://www.springboard.com/"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Le Wagon",
     "website": "https://www.lewagon.com/"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "CareerFoundry",
     "website": "https://careerfoundry.com/"
   },
   {
-    "type": "SCHOOL",
-    "name": "London School of Economics"
+    "type": "EDUCATOR",
+    "name": "London EDUCATOR of Economics"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Institut Polytechnique de Paris"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Peking University"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Indian Institute of Science"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Delhi University (University of Delhi)"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Stanford"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "University of Pennsylvania"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Miami University"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Duke"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Austin Community College"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "University of Texas"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "University of Houston"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "George Mason University"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "Georgetown University"
   },
   {
@@ -1396,7 +1396,7 @@
     "website": "https://twitter.com/Lethain"
   },
   {
-    "type": "SCHOOL",
+    "type": "EDUCATOR",
     "name": "California Institute of Technology"
   },
   {

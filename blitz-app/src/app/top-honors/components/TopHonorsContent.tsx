@@ -4,9 +4,9 @@ import { useQuery } from '@blitzjs/rpc'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { VotableTypeSelector } from '../../../votable/VotableTypeSelector'
+import { typeToSlug } from 'src/app/votables/utils'
+import { VotableTypeSelector } from 'src/app/votables/VotableTypeSelector'
 import getVotableLeaders from '../queries/getVotableLeaders'
-import { typeToSlug } from 'src/votable/utils'
 
 const toTitleCase = (str) =>
   str

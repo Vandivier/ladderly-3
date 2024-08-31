@@ -1,48 +1,55 @@
+// src/app/vote/mutations/createVote.ts
+
 import db from 'db'
 import { resolver } from '@blitzjs/rpc'
 import { z } from 'zod'
 
 const CreateVote = z.object({
-  winnerId: z.number(),
-  votableAId: z.number(),
-  votableBId: z.number(),
+  votableId: z.number(),
+  voteType: z.enum(['UPVOTE', 'DOWNVOTE']),
+  loserId: z.number().optional(),
 })
 
 const createVote = resolver.pipe(
   resolver.zod(CreateVote),
-  async ({ winnerId, votableAId, votableBId }, ctx) => {
+  resolver.authorize(),
+  async ({ votableId, voteType, loserId }, ctx) => {
     const voterId = ctx.session.userId
 
-    // Record the vote with or without a logged-in user
-    await db.vote.create({
-      data: {
-        winnerId,
-        votableAId,
-        votableBId,
-        voterId: voterId,
-      },
+    // Begin a transaction
+    return await db.$transaction(async (tx) => {
+      // Create the vote
+      const vote = await tx.vote.create({
+        data: {
+          votable: { connect: { id: votableId } },
+          voter: { connect: { id: voterId } },
+          voteType,
+        },
+      })
+
+      // Update the votable
+      const voteValue = voteType === 'UPVOTE' ? 1 : -1
+      await tx.votable.update({
+        where: { id: votableId },
+        data: {
+          voteCount: { increment: 1 },
+          prestigeScore: { increment: voteValue },
+        },
+      })
+
+      // If it's a head-to-head vote, update the loser
+      if (loserId) {
+        await tx.votable.update({
+          where: { id: loserId },
+          data: {
+            voteCount: { increment: 1 },
+            prestigeScore: { decrement: 1 },
+          },
+        })
+      }
+
+      return vote
     })
-
-    // Update Votable with vote counts
-    if (voterId) {
-      await db.votable.update({
-        where: { id: winnerId },
-        data: {
-          registeredUserVotes: { increment: 1 },
-          prestigeScore: { increment: 1 },
-        },
-      })
-    } else {
-      await db.votable.update({
-        where: { id: winnerId },
-        data: {
-          guestVotes: { increment: 1 },
-          prestigeScore: { increment: 1 },
-        },
-      })
-    }
-
-    return true
   }
 )
 

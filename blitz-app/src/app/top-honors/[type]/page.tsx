@@ -2,7 +2,7 @@
 
 import { Suspense } from 'react'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
-import { isValidVotableType, slugToType } from 'src/votable/utils'
+import { isValidVotableType, slugToType } from 'src/app/votables/utils'
 import TopHonorsContent from '../components/TopHonorsContent'
 
 export default function TopHonorsPageWithTypeParam({
