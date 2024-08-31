@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { UpdateSettingsSchema } from 'src/app/settings/schemas'
 import { Form, FormProps } from 'src/core/components/Form'
 import LabeledCheckboxField from 'src/core/components/LabeledCheckboxField'
 import LabeledTextField from 'src/core/components/LabeledTextField'
@@ -10,11 +11,18 @@ import { USStateDropdown } from './USStateDropdown'
 
 export { FORM_ERROR } from 'src/core/components/Form'
 
-export function SettingForm<S extends z.ZodType<any, any>>(
-  props: FormProps<S>
-) {
+type SettingsFormProps = {
+  initialValues: z.infer<typeof UpdateSettingsSchema>
+  onSubmit: FormProps<typeof UpdateSettingsSchema>['onSubmit']
+}
+
+export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
   return (
-    <Form<S> {...props}>
+    <Form
+      schema={UpdateSettingsSchema}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+    >
       <section>
         <h3 className="mt-8 text-xl">Authentication Data</h3>
         <LabeledTextField
@@ -36,7 +44,6 @@ export function SettingForm<S extends z.ZodType<any, any>>(
           placeholder="Stripe Email"
         />
       </section>
-
       <section>
         <h3 className="mt-8 text-xl">Public Profile</h3>
         <LabeledTextField
@@ -92,7 +99,6 @@ export function SettingForm<S extends z.ZodType<any, any>>(
         <CountryDropdown outerProps={{ className: 'mt-2 items-baseline' }} />
         <USStateDropdown outerProps={{ className: 'mt-2 items-baseline' }} />
       </section>
-
       <section>
         <h3 className="mt-8 text-xl">Features and Interests</h3>
         <LabeledCheckboxField
@@ -117,6 +123,13 @@ export function SettingForm<S extends z.ZodType<any, any>>(
           label="Interested in In-Person Hackathons and Events"
         />
       </section>
+
+      <button
+        type="submit"
+        className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+      >
+        Submit
+      </button>
     </Form>
   )
 }
