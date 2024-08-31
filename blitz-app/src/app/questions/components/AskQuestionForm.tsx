@@ -33,9 +33,7 @@ export function AskQuestionForm() {
             ...parsed,
             type: 'QUESTION',
           })
-          router.push(`/questions`)
-          // TODO: Redirect to the newly created question
-          // router.push(`/questions/${question.id}`)
+          router.push(`/questions/${question.id}`)
         } catch (error) {
           console.error('Failed to create question:', error)
           return {

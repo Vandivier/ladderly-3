@@ -14,48 +14,47 @@ export default function ClientQuestionsPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const page = Number(searchParams?.get('page') ?? '0')
-  const [{ questions, hasMore }] = usePaginatedQuery(getQuestions, {
-    orderBy: { createdAt: 'desc' },
-    skip: ITEMS_PER_PAGE * page,
-    take: ITEMS_PER_PAGE,
-  })
+  const [{ questions, hasMore }, { refetch, isFetching }] = usePaginatedQuery(
+    getQuestions,
+    {
+      orderBy: { createdAt: 'desc' },
+      skip: ITEMS_PER_PAGE * page,
+      take: ITEMS_PER_PAGE,
+    }
+  )
 
-  const goToPreviousPage = () => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '')
-    params.set('page', String(page - 1))
-    router.push(`?${params.toString()}`)
-  }
-  const goToNextPage = () => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '')
-    params.set('page', String(page + 1))
-    router.push(`?${params.toString()}`)
-  }
+  const goToPreviousPage = () => router.push(`/questions?page=${page - 1}`)
+  const goToNextPage = () => router.push(`/questions?page=${page + 1}`)
+
+  if (isFetching) return <div>Loading...</div>
+  if (!questions || questions.length === 0)
+    return <div>No questions found.</div>
 
   return (
     <div>
-      <ul className="my-4 space-y-4">
+      <ul className="space-y-4">
         {questions.map((question) => (
           <li key={question.id} className="border-b pb-4">
-            <Link href={`/questions/${question.id}`} className="block">
+            <Link href={`/questions/${question.id}`}>
               <h3 className="text-xl font-semibold text-blue-600 hover:text-blue-800">
-                {question.title}
+                {question.name}
               </h3>
-              <p className="text-sm text-gray-600">
-                Asked by {question.author.name || `User ${question.author.id}`}{' '}
-                on {new Date(question.createdAt).toLocaleDateString()}
-              </p>
-              <p className="mt-2 text-gray-700">
-                {question.description.substring(0, 150)}...
-              </p>
             </Link>
+            <p className="text-sm text-gray-600">
+              Asked by {question.author?.name || 'Anonymous'} on{' '}
+              {new Date(question.createdAt).toLocaleDateString()}
+            </p>
+            <p className="mt-2 text-gray-700">
+              {question.body?.substring(0, 150)}...
+            </p>
             <div className="mt-2 flex items-center space-x-4">
               <span className="text-sm text-gray-500">
-                {question.voteCount} votes
+                {question.voteCount || 0} votes
               </span>
               <span className="text-sm text-gray-500">
-                {question.answerCount} answers
+                {question.answerCount || 0} answers
               </span>
-              {question.tags.map((tag) => (
+              {question.tags?.map((tag) => (
                 <span
                   key={tag}
                   className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700"
@@ -70,15 +69,15 @@ export default function ClientQuestionsPage() {
 
       <div className="mt-6 flex justify-between">
         <button
-          disabled={page === 0}
           onClick={goToPreviousPage}
+          disabled={page === 0}
           className="rounded bg-blue-500 px-4 py-2 text-white disabled:bg-gray-300"
         >
           Previous
         </button>
         <button
-          disabled={!hasMore}
           onClick={goToNextPage}
+          disabled={!hasMore}
           className="rounded bg-blue-500 px-4 py-2 text-white disabled:bg-gray-300"
         >
           Next
