@@ -7,13 +7,16 @@ import { useState } from 'react'
 import { SettingsForm } from 'src/app/settings/components/SettingsForm'
 import updateSettingsMutation from 'src/app/settings/mutations/updateSettingsMutation'
 import { UserSettings } from 'src/app/settings/queries/getSettings'
-import { FORM_ERROR } from 'src/core/components/Form'
+
+interface SettingsFormWrapperProps {
+  initialSettings: UserSettings
+  refetchSettings: () => void
+}
 
 export function SettingsFormWrapper({
   initialSettings,
-}: {
-  initialSettings: UserSettings
-}) {
+  refetchSettings,
+}: SettingsFormWrapperProps) {
   const [settings, setSettings] = useState(initialSettings)
   const [updateSettingsMutate] = useMutation(updateSettingsMutation)
 
@@ -21,14 +24,11 @@ export function SettingsFormWrapper({
     try {
       const updatedSettings = await updateSettingsMutate(values)
       setSettings((prev) => ({ ...prev, ...updatedSettings }))
+      refetchSettings()
       alert('Updated successfully.')
     } catch (error: any) {
-      console.error(error)
+      console.error('Failed to update settings:', error)
       alert('Update failed.')
-
-      return {
-        [FORM_ERROR]: error.toString(),
-      }
     }
   }
 
