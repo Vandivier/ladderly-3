@@ -2,7 +2,7 @@
 
 This directory contains scripts and data for various insights
 
-## usage
+## installation and usage
 
 navigate to the directory containing this README in a terminal and create a virtual environment:
 
@@ -11,12 +11,20 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
+optionally upgrade pip:
+
+```bash
+pip install --upgrade pip
+```
+
 install the requirements file and run your script of choice!
 
 ```bash
 python3 -m pip install -r requirements.txt
 python3 blog-15-job-search-regression.py
 ```
+
+Python 3.12.x is currently supported.
 
 ## contributing
 

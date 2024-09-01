@@ -9,20 +9,29 @@ given a youtube account or playlist, this tool helps us:
 
 Each script file has detailed usage info at the top of the file.
 
-## installation
+## installation and usage
 
-`poetry install`
+navigate to the directory containing this README in a terminal and create a virtual environment:
 
-## ide compliance
-
-```
-poetry config virtualenvs.in-project true
-poetry shell
-which python
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-then cmd+shift+p -> "Select Python Interpreter" and give VS Code the path identified via `which python`
-if you are on windows, don't paste the bash path literal. you should translate that location into Windows syntax
+optionally upgrade pip:
+
+```bash
+pip install --upgrade pip
+```
+
+install the requirements file and run your script of choice!
+
+```bash
+python3 -m pip install -r requirements.txt
+python3 report.py
+```
+
+Python 3.12.x is currently supported.
 
 ## contribution
 

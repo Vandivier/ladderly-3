@@ -1,0 +1,6 @@
+black == 22.3.0
+invoke == 2.2.0
+youtube-transcript-api == 0.6.1
+youtube-dl == 2021.12.17
+pytube == 15.0.0
+python-dotenv == 1.0.0
