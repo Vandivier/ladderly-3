@@ -1,14 +1,14 @@
 # analysis supporting blog article
 # `15. On Cover Letters and Resume Tailoring`
 # found at
-# `ladderly-3/src/pages/blog/2024-08-03-no-cover-letters.md`
+# `blog/2024-08-04-no-cover-letters.md`
 # explains interview attainment
 
 import pandas as pd
 import statsmodels.api as sm
 
 # Load the CSV file
-file_path = './vandivier-censored-job-search-may-2024.csv'
+file_path = './blog-15-job-search-regression.csv'
 df = pd.read_csv(file_path)
 
 # Step 1 of 3: Construct Variables
