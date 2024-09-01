@@ -1,13 +1,48 @@
+"""
+YouTube Channel Performance Report Generator
+
+This script generates a performance report for videos in a YouTube playlist.
+
+Usage:
+1. Ensure you have the required libraries installed:
+   pip install python-dotenv pytube
+
+2. Set up your environment:
+   - Create a .env file in the same directory as this script.
+   - Add the following line to the .env file:
+     youtube_playlist_url=<your_playlist_url>
+   - Replace <your_playlist_url> with the actual URL of the YouTube playlist you want to analyze.
+
+3. Run the script:
+   python report.py
+
+Features:
+- Generates a CSV report with video metrics (report_video_data.csv).
+- Creates JSON files with high and low-value video URLs.
+- Provides a summary report with key statistics.
+- Implements crash proofing and pause/resume functionality.
+- Checks for stale cache data (older than 24 hours).
+
+Pause and Resume:
+- To pause the script, press Ctrl+C. Progress will be saved automatically.
+- To resume, simply run the script again. It will continue from where it left off.
+
+Note: This script respects YouTube's terms of service and rate limits. Please use responsibly.
+"""
+
 import os
 import csv
 import json
+import time
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from pytube import Playlist, YouTube
 import statistics
-import time
 
 load_dotenv()
 playlist_url = os.getenv("youtube_playlist_url")
+CACHE_FILE = "video_data_cache.json"
+PROGRESS_FILE = "progress.json"
 
 if not playlist_url:
     playlist_url = input("Enter YouTube playlist URL: ")
@@ -85,6 +120,28 @@ def categorize_videos(video_data, report):
 
     return high_value, low_value
 
+def save_progress(processed_urls, video_data):
+    with open(PROGRESS_FILE, 'w') as f:
+        json.dump({
+            'processed_urls': processed_urls,
+            'video_data': video_data,
+            'timestamp': datetime.now().isoformat()
+        }, f)
+
+def load_progress():
+    if os.path.exists(PROGRESS_FILE):
+        with open(PROGRESS_FILE, 'r') as f:
+            data = json.load(f)
+        
+        timestamp = datetime.fromisoformat(data['timestamp'])
+        if datetime.now() - timestamp > timedelta(hours=24):
+            print("Cache is more than 24 hours old. Do you want to start fresh? (y/n)")
+            if input().lower() == 'y':
+                return set(), []
+        
+        return set(data['processed_urls']), data['video_data']
+    return set(), []
+
 # Main execution
 print(f"Fetching playlist data from: {playlist_url}")
 playlist = Playlist(playlist_url)
@@ -93,23 +150,36 @@ playlist = Playlist(playlist_url)
 total_videos = len(playlist.video_urls)
 print(f"Estimated number of videos in playlist: {total_videos}")
 
-video_data = []
+processed_urls, video_data = load_progress()
 start_time = time.time()
 
-for i, url in enumerate(playlist.video_urls, 1):
-    video = get_video_data(url)
-    if video:
-        video_data.append(video)
-    
-    # Print progress every 5 videos or on the last video
-    if i % 5 == 0 or i == total_videos:
-        elapsed_time = time.time() - start_time
-        videos_per_second = i / elapsed_time
-        estimated_total_time = total_videos / videos_per_second
-        remaining_time = estimated_total_time - elapsed_time
+try:
+    for i, url in enumerate(playlist.video_urls, 1):
+        if url in processed_urls:
+            continue
         
-        print(f"Processed {i}/{total_videos} videos. "
-              f"Estimated time remaining: {remaining_time:.2f} seconds")
+        video = get_video_data(url)
+        if video:
+            video_data.append(video)
+            processed_urls.add(url)
+        
+        # Print progress every 5 videos or on the last video
+        if i % 5 == 0 or i == total_videos:
+            elapsed_time = time.time() - start_time
+            videos_per_second = i / elapsed_time
+            estimated_total_time = total_videos / videos_per_second
+            remaining_time = estimated_total_time - elapsed_time
+            
+            print(f"Processed {i}/{total_videos} videos. "
+                  f"Estimated time remaining: {remaining_time:.2f} seconds")
+            
+            # Save progress
+            save_progress(list(processed_urls), video_data)
+
+except KeyboardInterrupt:
+    print("\nOperation paused. Progress has been saved.")
+    save_progress(list(processed_urls), video_data)
+    exit()
 
 if not video_data:
     print("No valid video data could be retrieved. Please check the playlist URL and try again.")
@@ -149,3 +219,7 @@ else:
 
 total_time = time.time() - start_time
 print(f"\nTotal execution time: {total_time:.2f} seconds")
+
+# Clean up progress file after successful completion
+if os.path.exists(PROGRESS_FILE):
+    os.remove(PROGRESS_FILE)
