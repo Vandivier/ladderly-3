@@ -2,8 +2,10 @@
 
 given a youtube account or playlist, this tool helps us:
 
-1. identify high and low performing videos via `main.py`
-2. transcribe a video set into a transcript for LLM usage via `consolidate.py`
+1. create a channel performance report with `report.py`
+2. save video data with `main.py`
+3. create a single-file transcript from saved video data for LLM usage via `consolidate.py`
+4. developer tools like formatting in `tasks.py`
 
 Each script file has detailed usage info at the top of the file.
 
