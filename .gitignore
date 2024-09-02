@@ -97,3 +97,6 @@ db/*.bak.json
 *.venv
 *.venv/
 */venv/
+
+# misc local, scratch, and secret files
+*.ignoreme.*
