@@ -30,7 +30,6 @@ interface QuestionWithAuthor {
 }
 
 export default resolver.pipe(
-  resolver.authorize(),
   async ({ where, orderBy, skip = 0, take = 100 }: GetQuestionsInput) => {
     const whereCondition: Prisma.VotableWhereInput = {
       ...where,
