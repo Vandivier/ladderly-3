@@ -42,6 +42,18 @@ PROGRESS_FILE = "progress.json"
 
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
+def get_playlist_item_count(playlist_id):
+    try:
+        request = youtube.playlists().list(
+            part="contentDetails",
+            id=playlist_id
+        )
+        response = request.execute()
+        return int(response['items'][0]['contentDetails']['itemCount'])
+    except HttpError as e:
+        print(f"An error occurred while fetching playlist info: {e}")
+        return None
+
 def get_video_data(video_item):
     video_id = video_item['snippet']['resourceId']['videoId']
     title = video_item['snippet']['title']
@@ -74,9 +86,14 @@ def get_video_data(video_item):
 
 def get_all_playlist_items(playlist_id):
     try:
+        total_videos = get_playlist_item_count(playlist_id)
+        if total_videos is None:
+            print("Could not determine the total number of videos. Proceeding anyway.")
+        else:
+            print(f"Total videos in playlist: {total_videos}")
+
         videos = []
         next_page_token = None
-        total_videos = 0
 
         while True:
             request = youtube.playlistItems().list(
@@ -92,14 +109,15 @@ def get_all_playlist_items(playlist_id):
                 if video:
                     videos.append(video)
             
-            total_videos += len(response['items'])
-            print(f"Fetched {len(videos)} videos so far...")
+            if total_videos:
+                print(f"Fetched {len(videos)}/{total_videos} videos ({(len(videos)/total_videos)*100:.2f}%)")
+            else:
+                print(f"Fetched {len(videos)} videos so far...")
 
             next_page_token = response.get('nextPageToken')
             if not next_page_token:
                 break
 
-        print(f"Total videos in playlist: {total_videos}")
         print(f"Successfully fetched data for {len(videos)} videos")
 
         # Sort videos by view count in descending order
