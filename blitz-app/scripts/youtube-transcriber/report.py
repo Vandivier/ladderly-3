@@ -14,7 +14,10 @@ Usage:
    - Replace <your_playlist_url> with the actual URL of the YouTube playlist you want to analyze.
 
 3. Run the script:
-   python report.py
+   python report.py [--offline-partial]
+
+   Options:
+   --offline-partial: Generate a partial report using cached data without making API calls
 
 Features:
 - Generates a CSV report with video metrics (report_video_data.csv).
@@ -22,6 +25,7 @@ Features:
 - Provides a summary report with key statistics.
 - Implements crash proofing and pause/resume functionality.
 - Checks for stale cache data (older than 24 hours).
+- Offers an offline mode to generate partial reports from cached data.
 
 Pause and Resume:
 - To pause the script, press Ctrl+C. Progress will be saved automatically.
@@ -34,6 +38,7 @@ import os
 import csv
 import json
 import time
+import argparse
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from pytube import Playlist, YouTube
@@ -41,11 +46,7 @@ import statistics
 
 load_dotenv()
 playlist_url = os.getenv("youtube_playlist_url")
-CACHE_FILE = "video_data_cache.json"
 PROGRESS_FILE = "progress.json"
-
-if not playlist_url:
-    playlist_url = input("Enter YouTube playlist URL: ")
 
 def get_video_data(url):
     try:
@@ -142,50 +143,19 @@ def load_progress():
         return set(data['processed_urls']), data['video_data']
     return set(), []
 
-# Main execution
-print(f"Fetching playlist data from: {playlist_url}")
-playlist = Playlist(playlist_url)
-
-# Estimate total number of videos
-total_videos = len(playlist.video_urls)
-print(f"Estimated number of videos in playlist: {total_videos}")
-
-processed_urls, video_data = load_progress()
-start_time = time.time()
-
-try:
-    for i, url in enumerate(playlist.video_urls, 1):
-        if url in processed_urls:
-            continue
-        
-        video = get_video_data(url)
-        if video:
-            video_data.append(video)
-            processed_urls.add(url)
-        
-        # Print progress every 5 videos or on the last video
-        if i % 5 == 0 or i == total_videos:
-            elapsed_time = time.time() - start_time
-            videos_per_second = i / elapsed_time
-            estimated_total_time = total_videos / videos_per_second
-            remaining_time = estimated_total_time - elapsed_time
-            
-            print(f"Processed {i}/{total_videos} videos. "
-                  f"Estimated time remaining: {remaining_time:.2f} seconds")
-            
-            # Save progress
-            save_progress(list(processed_urls), video_data)
-
-except KeyboardInterrupt:
-    print("\nOperation paused. Progress has been saved.")
-    save_progress(list(processed_urls), video_data)
-    exit()
-
-if not video_data:
-    print("No valid video data could be retrieved. Please check the playlist URL and try again.")
-else:
-    print("\nGenerating report...")
+def generate_offline_report():
+    processed_urls, video_data = load_progress()
     
+    if not video_data:
+        print("No cached data available. Please run the script in online mode first.")
+        return
+
+    print(f"Generating offline partial report based on {len(video_data)} cached videos.")
+    
+    # Generate report
+    generate_full_report(video_data)
+
+def generate_full_report(video_data):
     # Write CSV report
     with open('report_video_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['title', 'url', 'likes', 'like_to_dislike_ratio', 'views', 'comment_count', 'duration', 'title_length']
@@ -217,9 +187,68 @@ else:
     print("\nReport generated successfully. Check 'report_video_data.csv' for detailed data.")
     print("High-value and low-value video URLs have been saved to JSON files.")
 
-total_time = time.time() - start_time
-print(f"\nTotal execution time: {total_time:.2f} seconds")
+def main():
+    parser = argparse.ArgumentParser(description="YouTube Channel Performance Report Generator")
+    parser.add_argument("--offline-partial", action="store_true", help="Generate a partial report using cached data without making API calls")
+    args = parser.parse_args()
 
-# Clean up progress file after successful completion
-if os.path.exists(PROGRESS_FILE):
-    os.remove(PROGRESS_FILE)
+    if args.offline_partial:
+        generate_offline_report()
+        return
+
+    if not playlist_url:
+        playlist_url = input("Enter YouTube playlist URL: ")
+
+    print(f"Fetching playlist data from: {playlist_url}")
+    playlist = Playlist(playlist_url)
+
+    # Estimate total number of videos
+    total_videos = len(playlist.video_urls)
+    print(f"Estimated number of videos in playlist: {total_videos}")
+
+    processed_urls, video_data = load_progress()
+    start_time = time.time()
+
+    try:
+        for i, url in enumerate(playlist.video_urls, 1):
+            if url in processed_urls:
+                continue
+            
+            video = get_video_data(url)
+            if video:
+                video_data.append(video)
+                processed_urls.add(url)
+            
+            # Print progress every 5 videos or on the last video
+            if i % 5 == 0 or i == total_videos:
+                elapsed_time = time.time() - start_time
+                videos_per_second = i / elapsed_time
+                estimated_total_time = total_videos / videos_per_second
+                remaining_time = estimated_total_time - elapsed_time
+                
+                print(f"Processed {i}/{total_videos} videos. "
+                      f"Estimated time remaining: {remaining_time:.2f} seconds")
+                
+                # Save progress
+                save_progress(list(processed_urls), video_data)
+
+    except KeyboardInterrupt:
+        print("\nOperation paused. Progress has been saved.")
+        save_progress(list(processed_urls), video_data)
+        return
+
+    if not video_data:
+        print("No valid video data could be retrieved. Please check the playlist URL and try again.")
+    else:
+        print("\nGenerating report...")
+        generate_full_report(video_data)
+
+    total_time = time.time() - start_time
+    print(f"\nTotal execution time: {total_time:.2f} seconds")
+
+    # Clean up progress file after successful completion
+    if os.path.exists(PROGRESS_FILE):
+        os.remove(PROGRESS_FILE)
+
+if __name__ == "__main__":
+    main()
