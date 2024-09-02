@@ -33,38 +33,44 @@ export default function ClientQuestionsPage() {
   return (
     <div>
       <ul className="space-y-4">
-        {questions.map((question) => (
-          <li key={question.id} className="border-b pb-4">
-            <Link href={`/questions/${question.id}`}>
-              <h3 className="text-xl font-semibold text-blue-600 hover:text-blue-800">
-                {question.name}
-              </h3>
-            </Link>
-            <p className="text-sm text-gray-600">
-              Asked by {question.author?.name || 'Anonymous'} on{' '}
-              {new Date(question.createdAt).toLocaleDateString()}
-            </p>
-            <p className="mt-2 text-gray-700">
-              {question.body?.substring(0, 150)}...
-            </p>
-            <div className="mt-2 flex items-center space-x-4">
-              <span className="text-sm text-gray-500">
-                {question.voteCount || 0} votes
-              </span>
-              <span className="text-sm text-gray-500">
-                {question.answerCount || 0} answers
-              </span>
-              {question.tags?.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700"
-                >
-                  {tag}
+        {questions.map((question) => {
+          if (!question || !question?.author?.id)
+            return <div>Question not found</div>
+          const authorName =
+            question.author.name || question.author.nameFirst || 'Anonymous'
+
+          return (
+            <li key={question.id} className="border-b pb-4">
+              <Link href={`/questions/${question.id}`}>
+                <h3 className="text-xl font-semibold text-blue-600 hover:text-blue-800">
+                  {question.name}
+                </h3>
+              </Link>
+              <p className="text-sm text-gray-600">
+                Asked by{' '}
+                <Link href={`/community/${question.author.id}`}>
+                  {authorName}
+                </Link>
+              </p>
+              <div className="mt-2 flex items-center space-x-4">
+                <span className="text-sm text-gray-500">
+                  {question.voteCount || 0} votes
                 </span>
-              ))}
-            </div>
-          </li>
-        ))}
+                <span className="text-sm text-gray-500">
+                  {question.answerCount || 0} answers
+                </span>
+                {question.tags?.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </li>
+          )
+        })}
       </ul>
 
       <div className="mt-6 flex justify-between">

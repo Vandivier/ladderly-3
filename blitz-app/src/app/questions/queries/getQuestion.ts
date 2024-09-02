@@ -1,10 +1,9 @@
 // src/app/questions/queries/getQuestion.ts
 
 import { resolver } from '@blitzjs/rpc'
-import db from 'db'
 import { NotFoundError } from 'blitz'
-
-export const AUTHOR_FIELDS = { id: true, nameFirst: true, nameLast: true }
+import db from 'db'
+import { AUTHOR_FIELDS } from '../utils'
 
 export default resolver.pipe(
   resolver.authorize(),

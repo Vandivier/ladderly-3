@@ -1,8 +1,9 @@
 // src/app/questions/queries/getQuestions.ts
 
-import { paginate } from 'blitz'
 import { resolver } from '@blitzjs/rpc'
-import db from 'db'
+import { paginate } from 'blitz'
+import db, { Prisma } from 'db'
+import { AUTHOR_FIELDS } from '../utils'
 
 interface GetQuestionsInput {
   orderBy?: { [key: string]: 'asc' | 'desc' }
@@ -11,9 +12,34 @@ interface GetQuestionsInput {
   where?: {}
 }
 
+interface QuestionWithAuthor {
+  id: number
+  createdAt: Date
+  name: string
+  body: string | null
+  tags: string[]
+  author: {
+    id: number
+    name: string
+    nameFirst: string
+    nameLast: string
+  }
+  voteCount: number
+  childVotables: { id: number }[]
+  _count: { votes: number }
+}
+
 export default resolver.pipe(
   resolver.authorize(),
   async ({ where, orderBy, skip = 0, take = 100 }: GetQuestionsInput) => {
+    const whereCondition: Prisma.VotableWhereInput = {
+      ...where,
+      type: 'QUESTION',
+      author: {
+        isNot: null,
+      },
+    }
+
     const {
       items: questions,
       hasMore,
@@ -22,11 +48,11 @@ export default resolver.pipe(
     } = await paginate({
       skip,
       take,
-      count: () => db.votable.count({ where: { ...where, type: 'QUESTION' } }),
+      count: () => db.votable.count({ where: whereCondition }),
       query: (paginateArgs) =>
         db.votable.findMany({
           ...paginateArgs,
-          where: { ...where, type: 'QUESTION' },
+          where: whereCondition,
           orderBy,
           select: {
             id: true,
@@ -35,10 +61,7 @@ export default resolver.pipe(
             body: true,
             tags: true,
             author: {
-              select: {
-                id: true,
-                name: true,
-              },
+              select: AUTHOR_FIELDS,
             },
             voteCount: true,
             childVotables: {
@@ -49,7 +72,7 @@ export default resolver.pipe(
               select: { votes: true },
             },
           },
-        }),
+        }) as Promise<QuestionWithAuthor[]>,
     })
 
     const questionsWithCounts = questions.map((question) => ({

@@ -29,7 +29,8 @@ export default function QuestionDetails({
   const currentUser = useCurrentUser()
 
   if (!question || !question.authorId) return <div>Question not found</div>
-  const authorName = question.author?.nameFirst || 'Anonymous'
+  const authorName =
+    question.author?.name || question.author?.nameFirst || 'Anonymous'
 
   const handleDeleteAnswer = async (answerId: number) => {
     if (window.confirm('Are you sure you want to delete this answer?')) {
