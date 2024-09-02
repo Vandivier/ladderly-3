@@ -64,7 +64,7 @@ def main():
         print(f"The directory containing raw transcripts does not exist: {data_dir}")
         exit(1)
 
-    with open("low_value_transcript_urls.json", "r") as low_value_urls_file:
+    with open("urls_low_value_manual.json", "r") as low_value_urls_file:
         low_value_urls = json.load(low_value_urls_file)
 
     with open(output_file, "w", encoding="utf-8") as out_f:

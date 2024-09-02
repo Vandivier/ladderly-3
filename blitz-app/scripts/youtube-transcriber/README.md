@@ -1,18 +1,39 @@
 # youtube-transcriber
 
-don't forget! tasks.py has your invoke tasks 👍👍
+given a youtube account or playlist, this tool helps us:
 
-## installation
+1. create a channel performance report with `report.py`
+2. save video data with `main.py`
+3. create a single-file transcript from saved video data for LLM usage via `consolidate.py`
+4. developer tools like formatting in `tasks.py`
 
-`poetry install`
+Each script file has detailed usage info at the top of the file.
 
-## ide compliance
+## installation and usage
 
+navigate to the directory containing this README in a terminal and create a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 ```
-poetry config virtualenvs.in-project true
-poetry shell
-which python
+
+optionally upgrade pip:
+
+```bash
+pip install --upgrade pip
 ```
 
-then cmd+shift+p -> "Select Python Interpreter" and give VS Code the path identified via `which python`
-if you are on windows, don't paste the bash path literal. you should translate that location into Windows syntax
+install the requirements file and run your script of choice!
+
+```bash
+python3 -m pip install -r requirements.txt
+python3 report.py
+```
+
+Python 3.12.x is currently supported.
+
+## contribution
+
+please make sure code is properly formatted.
+`inv format` runs black through invoke for formatting.
