@@ -13,6 +13,7 @@ import { Form, FORM_ERROR } from 'src/core/components/Form'
 import LabeledTextField from 'src/core/components/LabeledTextField'
 
 import { z } from 'zod'
+import { PleaseLoginComponent } from '../components/PleaseLoginComponent'
 
 const AnswerSchema = z.object({
   body: z.string().min(30, 'Answer must be at least 30 characters long'),
@@ -23,14 +24,24 @@ export default function QuestionDetails({
 }: {
   questionId: number
 }) {
-  const [question, { refetch }] = useQuery(getQuestion, { id: questionId })
+  const currentUser = useCurrentUser()
+  if (!currentUser) {
+    return <PleaseLoginComponent />
+  }
+
+  const [question, { refetch }] = useQuery(getQuestion, {
+    id: questionId,
+  })
   const [createAnswerMutation] = useMutation(createAnswer)
   const [deleteAnswerMutation] = useMutation(deleteAnswer)
-  const currentUser = useCurrentUser()
 
-  if (!question || !question.authorId) return <div>Question not found</div>
+  if (!question) {
+    return <div>Loading...</div>
+  } else if (!question.author) {
+    return <div>Question not found</div>
+  }
   const authorName =
-    question.author?.name || question.author?.nameFirst || 'Anonymous'
+    question.author.name || question.author.nameFirst || 'Anonymous'
 
   const handleDeleteAnswer = async (answerId: number) => {
     if (window.confirm('Are you sure you want to delete this answer?')) {
