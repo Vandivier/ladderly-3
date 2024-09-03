@@ -1,47 +1,53 @@
 // src/app/questions/queries/getQuestion.ts
 
+import { BlitzCtx } from '@blitzjs/auth'
 import { resolver } from '@blitzjs/rpc'
-import db from 'db'
 import { NotFoundError } from 'blitz'
+import db from 'db'
+import getCurrentUser from 'src/app/users/queries/getCurrentUser'
+import { AUTHOR_FIELDS } from '../utils'
 
-export const AUTHOR_FIELDS = { id: true, nameFirst: true, nameLast: true }
+export default resolver.pipe(async ({ id }: { id: number }, ctx: BlitzCtx) => {
+  const currentUser = await getCurrentUser(null, ctx)
+  if (!currentUser) {
+    return { currentUser, question: null }
+  }
 
-export default resolver.pipe(
-  resolver.authorize(),
-  async ({ id }: { id: number }) => {
-    const question = await db.votable.findFirst({
-      where: { id, type: 'QUESTION' },
-      include: {
-        author: {
-          select: AUTHOR_FIELDS,
-        },
-        childVotables: {
-          where: { type: 'ANSWER' },
-          include: {
-            author: {
-              select: AUTHOR_FIELDS,
-            },
+  const question = await db.votable.findFirst({
+    where: { id, type: 'QUESTION' },
+    include: {
+      author: {
+        select: AUTHOR_FIELDS,
+      },
+      childVotables: {
+        where: { type: 'ANSWER' },
+        include: {
+          author: {
+            select: AUTHOR_FIELDS,
           },
-          orderBy: { createdAt: 'desc' },
         },
-        _count: {
-          select: {
-            votes: true,
-            childVotables: {
-              where: { type: 'ANSWER' },
-            },
+        orderBy: { createdAt: 'desc' },
+      },
+      _count: {
+        select: {
+          votes: true,
+          childVotables: {
+            where: { type: 'ANSWER' },
           },
         },
       },
-    })
+    },
+  })
 
-    if (!question) throw new NotFoundError()
+  if (!question) throw new NotFoundError()
 
-    return {
+  return {
+    currentUser,
+    question: {
       ...question,
       answers: question.childVotables,
       answerCount: question._count.childVotables,
       voteCount: question._count.votes,
-    }
+    },
   }
-)
+})
