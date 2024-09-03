@@ -21,13 +21,12 @@ const QuestionSchema = z.object({
 })
 
 export function AskQuestionForm() {
+  const router = useRouter()
+  const [createQuestionMutation] = useMutation(createQuestion)
   const currentUser = useCurrentUser()
   if (!currentUser) {
     return <PleaseLoginComponent />
   }
-
-  const router = useRouter()
-  const [createQuestionMutation] = useMutation(createQuestion)
 
   return (
     <Form

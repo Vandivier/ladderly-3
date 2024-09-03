@@ -8,10 +8,8 @@ import React from 'react'
 import createAnswer from 'src/app/questions/mutations/createAnswer'
 import deleteAnswer from 'src/app/questions/mutations/deleteAnswer'
 import getQuestion from 'src/app/questions/queries/getQuestion'
-import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
 import { Form, FORM_ERROR } from 'src/core/components/Form'
 import LabeledTextField from 'src/core/components/LabeledTextField'
-
 import { z } from 'zod'
 import { PleaseLoginComponent } from '../components/PleaseLoginComponent'
 
@@ -24,16 +22,15 @@ export default function QuestionDetails({
 }: {
   questionId: number
 }) {
-  const currentUser = useCurrentUser()
-  if (!currentUser) {
-    return <PleaseLoginComponent />
-  }
-
-  const [question, { refetch }] = useQuery(getQuestion, {
+  const [questionData, { refetch }] = useQuery(getQuestion, {
     id: questionId,
   })
   const [createAnswerMutation] = useMutation(createAnswer)
   const [deleteAnswerMutation] = useMutation(deleteAnswer)
+  const { currentUser, question } = questionData
+  if (!currentUser) {
+    return <PleaseLoginComponent />
+  }
 
   if (!question) {
     return <div>Loading...</div>
