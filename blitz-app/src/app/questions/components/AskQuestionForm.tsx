@@ -5,10 +5,12 @@
 import { useMutation } from '@blitzjs/rpc'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import createQuestion from 'src/app/questions/mutations/createQuestion'
+import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
 import { Form, FORM_ERROR } from 'src/core/components/Form'
 import LabeledTextField from 'src/core/components/LabeledTextField'
 import { z } from 'zod'
-import createQuestion from 'src/app/questions/mutations/createQuestion'
+import { PleaseLoginComponent } from './PleaseLoginComponent'
 
 const QuestionSchema = z.object({
   name: z.string().min(10, 'Title must be at least 10 characters long'),
@@ -19,6 +21,11 @@ const QuestionSchema = z.object({
 })
 
 export function AskQuestionForm() {
+  const currentUser = useCurrentUser()
+  if (!currentUser) {
+    return <PleaseLoginComponent />
+  }
+
   const router = useRouter()
   const [createQuestionMutation] = useMutation(createQuestion)
 
