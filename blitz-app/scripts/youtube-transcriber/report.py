@@ -16,7 +16,16 @@ Usage:
      YOUTUBE_API_KEY=<your_youtube_api_key>
      YOUTUBE_PLAYLIST_ID=<your_playlist_id>
 
-3. Run the script:
+3. (Optional) Prepare Ignored URLs:
+   - Create `urls_low_value_manual.ignoreme.json`
+   - Each file should contain a list of YouTube video URLs to exclude from recommendations.
+     Example content:
+     [
+         "https://youtu.be/VIDEO_ID_1",
+         "https://youtu.be/VIDEO_ID_2"
+     ]
+
+4. Run the script. All flags are optional:
    python report.py [--offline-partial] [--recommend-next-n N]
 
    Options:
@@ -116,7 +125,7 @@ def get_video_details(video_ids):
                         "view_count": int(stats.get("viewCount", 0)),
                         "like_count": int(stats.get("likeCount", 0)),
                         "comment_count": int(stats.get("commentCount", 0)),
-                        "duration": duration.total_seconds(),
+                        "duration_seconds": duration.total_seconds(),
                     }
                 )
 
@@ -181,7 +190,7 @@ def generate_full_report(video_data):
                     "view_count": video.get("view_count", 0),
                     "like_count": video.get("like_count", 0),
                     "comment_count": video.get("comment_count", 0),
-                    "duration_seconds": video.get("duration", 0),
+                    "duration_seconds": video.get("duration_seconds", 0),
                 }
             )
     print(f"Full report generated at {CSV_REPORT_FILE}.")
@@ -239,9 +248,38 @@ def calculate_percentile(values, percentile):
     return sorted_values[lower] * (1 - weight) + sorted_values[upper] * weight
 
 
+def load_ignored_urls():
+    """
+    Loads URLs to ignore from JSON files.
+
+    Returns:
+        set: A set of YouTube video URLs to exclude from recommendations.
+    """
+    ignored_files = [
+        "urls_low_value_manual.ignoreme.json",
+        "urls_low_value_manual.json",
+    ]
+    ignored_urls = set()
+
+    for filename in ignored_files:
+        if os.path.exists(filename):
+            try:
+                with open(filename, "r") as f:
+                    urls = json.load(f)
+                    ignored_urls.update(urls)
+                print(f"Loaded {len(urls)} URLs from {filename}.")
+            except json.JSONDecodeError:
+                print(f"Error decoding JSON from {filename}. Skipping.")
+        else:
+            print(f"Ignored URLs file {filename} not found. Skipping.")
+
+    return ignored_urls
+
+
 def recommend_next_videos(n):
     """
-    Recommends the next n top-performing videos based on view count percentile.
+    Recommends the next n top-performing videos based on view count percentile,
+    excluding URLs from ignore lists.
 
     Args:
         n (int): Number of videos to recommend. If n is -1, recommend all top-performing videos.
@@ -254,6 +292,9 @@ def recommend_next_videos(n):
         print("No video data available for recommendations.")
         return []
 
+    # Load ignored URLs
+    ignored_urls = load_ignored_urls()
+
     # Calculate the 75th percentile of view counts
     view_counts = [video["view_count"] for video in video_data]
     p75 = calculate_percentile(view_counts, 75)
@@ -263,6 +304,16 @@ def recommend_next_videos(n):
     top_videos = [video for video in video_data if video["view_count"] >= p75]
     print(f"Number of top-performing videos (view_count >= p75): {len(top_videos)}")
 
+    # Exclude ignored URLs
+    top_videos = [
+        video
+        for video in top_videos
+        if f"https://youtu.be/{video['video_id']}" not in ignored_urls
+    ]
+    print(
+        f"Number of top-performing videos after excluding ignored URLs: {len(top_videos)}"
+    )
+
     # Sort top_videos by view_count descending
     top_videos_sorted = sorted(top_videos, key=lambda x: x["view_count"], reverse=True)
 
@@ -270,7 +321,7 @@ def recommend_next_videos(n):
     if n == -1:
         recommended = top_videos_sorted
     else:
-        # If n <= number of top_videos, return top n
+        # Filter out ignored URLs from lower-performing videos as well
         if n <= len(top_videos_sorted):
             recommended = top_videos_sorted[:n]
         else:
@@ -279,7 +330,12 @@ def recommend_next_videos(n):
             remaining = n - len(top_videos_sorted)
             # Select lower-performing videos sorted by view_count descending
             lower_videos = sorted(
-                [video for video in video_data if video["view_count"] < p75],
+                [
+                    video
+                    for video in video_data
+                    if video["view_count"] < p75
+                    and f"https://youtu.be/{video['video_id']}" not in ignored_urls
+                ],
                 key=lambda x: x["view_count"],
                 reverse=True,
             )
