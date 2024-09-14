@@ -321,7 +321,7 @@ def recommend_next_videos(n):
         print(url)
 
     # Save recommended URLs to a JSON file for external use
-    with open("recommended_videos.json", "w") as f:
+    with open("recommended_videos.ignoreme.json", "w") as f:
         json.dump(recommended, f, indent=2)
 
     return recommended

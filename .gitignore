@@ -98,6 +98,7 @@ db/*.bak.json
 *.venv
 *.venv/
 */venv/
+__pycache__/
 
 # misc local, scratch, and secret files
 *.ignoreme.*

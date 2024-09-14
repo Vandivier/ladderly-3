@@ -38,7 +38,7 @@ def get_authenticated_service():
         Resource: Authorized YouTube API client.
     """
     flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
-    credentials = flow.run_console()
+    credentials = flow.run_local_server(port=0)
     return build("youtube", "v3", credentials=credentials)
 
 def get_playlist_id(youtube, playlist_name):
