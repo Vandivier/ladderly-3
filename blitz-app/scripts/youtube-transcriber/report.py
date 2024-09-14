@@ -290,9 +290,19 @@ def load_filter_urls():
 
 
 def recommend_next_videos(n):
+    """
+    Recommends the next n top-performing videos.
+
+    Args:
+        n (int): Number of videos to recommend.
+
+    Returns:
+        list: List of recommended video URLs.
+    """
     video_data = load_video_data_from_csv()
     if not video_data:
-        return
+        print("No video data available for recommendations.")
+        return []
 
     filter_urls = load_filter_urls()
     recommended = []
@@ -306,12 +316,34 @@ def recommend_next_videos(n):
     if len(recommended) < n:
         print(f"Warning: Only {len(recommended)} videos available after filtering.")
 
-    print(
-        f"Here are the top {len(recommended)} video URLs recommended for you to post next:"
-    )
+    print(f"Here are the top {len(recommended)} video URLs recommended for you to post next:")
     for url in recommended:
         print(url)
 
+    # Save recommended URLs to a JSON file for external use
+    with open("recommended_videos.json", "w") as f:
+        json.dump(recommended, f, indent=2)
+
+    return recommended
+
+def get_recommended_videos(n):
+    """
+    Retrieves the top n recommended videos.
+
+    Args:
+        n (int): Number of videos to recommend.
+
+    Returns:
+        list: List of recommended video URLs.
+    """
+    # Ensure the CSV report is available
+    if not os.path.exists("report_video_data.csv"):
+        print("CSV report not found. Generating report first...")
+        video_data = get_all_playlist_items(PLAYLIST_ID)
+        save_progress(video_data)
+        generate_full_report(video_data)
+
+    return recommend_next_videos(n)
 
 def main():
     parser = argparse.ArgumentParser(
@@ -355,7 +387,6 @@ def main():
 
         print(f"\nGenerating report for {len(video_data)} videos...")
         generate_full_report(video_data)
-
 
 if __name__ == "__main__":
     main()

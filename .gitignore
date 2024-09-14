@@ -53,6 +53,7 @@ yarn-error.log*
 .env.local
 .env.*.local
 .envrc
+!.env.template
 
 # Logs
 logs
