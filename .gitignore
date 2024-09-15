@@ -53,6 +53,7 @@ yarn-error.log*
 .env.local
 .env.*.local
 .envrc
+!.env.template
 
 # Logs
 logs
@@ -97,6 +98,7 @@ db/*.bak.json
 *.venv
 *.venv/
 */venv/
+__pycache__/
 
 # misc local, scratch, and secret files
 *.ignoreme.*

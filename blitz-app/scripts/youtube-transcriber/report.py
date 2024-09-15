@@ -1,7 +1,10 @@
+# report.py
+
 """
 YouTube Playlist Performance Report Generator
 
-This script generates a performance report for all videos in a YouTube playlist.
+This script generates a performance report for all videos in a YouTube playlist
+and recommends top-performing videos based on specified criteria.
 
 Usage:
 1. Ensure you have the required libraries installed:
@@ -13,12 +16,21 @@ Usage:
      YOUTUBE_API_KEY=<your_youtube_api_key>
      YOUTUBE_PLAYLIST_ID=<your_playlist_id>
 
-3. Run the script:
-   python report.py [--offline-partial]
+3. (Optional) Prepare Ignored URLs:
+   - Create `urls_low_value_manual.ignoreme.json`
+   - Each file should contain a list of YouTube video URLs to exclude from recommendations.
+     Example content:
+     [
+         "https://youtu.be/VIDEO_ID_1",
+         "https://youtu.be/VIDEO_ID_2"
+     ]
+
+4. Run the script. All flags are optional:
+   python report.py [--offline-partial] [--recommend-next-n N]
 
    Options:
-   --offline-partial: Generate a partial report using cached data without making API calls
-   --recommend-next-n: Recommend the next n top-performing videos, assuming the CSV report is already created.
+   --offline-partial      Generate a partial report using cached data without making API calls
+   --recommend-next-n     Recommend the next N top-performing videos based on the report
 
 Note: This script fetches all publicly available metrics from the YouTube Data API for all videos in the specified playlist.
 Watch time is not available through this API, and dislike counts are no longer public.
@@ -29,288 +41,349 @@ import os
 import csv
 import json
 import argparse
-from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-import statistics
 import isodate
 
 load_dotenv()
 API_KEY = os.getenv("YOUTUBE_API_KEY")
 PLAYLIST_ID = os.getenv("YOUTUBE_PLAYLIST_ID")
-PROGRESS_FILE = "progress.json"
+PROGRESS_FILE = "progress.ignoreme.json"
+CSV_REPORT_FILE = "report_video_data.ignoreme.csv"
 
 youtube = build("youtube", "v3", developerKey=API_KEY)
 
 
-def get_playlist_item_count(playlist_id):
-    try:
-        request = youtube.playlists().list(part="contentDetails", id=playlist_id)
-        response = request.execute()
-        return int(response["items"][0]["contentDetails"]["itemCount"])
-    except HttpError as e:
-        print(f"An error occurred while fetching playlist info: {e}")
-        return None
-
-
-def get_video_data(video_item):
-    video_id = video_item["snippet"]["resourceId"]["videoId"]
-    title = video_item["snippet"]["title"]
-
-    try:
-        video_response = (
-            youtube.videos()
-            .list(part="statistics,contentDetails", id=video_id)
-            .execute()
-        )
-
-        if video_response["items"]:
-            stats = video_response["items"][0]["statistics"]
-            content_details = video_response["items"][0]["contentDetails"]
-
-            duration = isodate.parse_duration(
-                content_details.get("duration", "PT0S")
-            ).total_seconds()
-
-            return {
-                "title": title,
-                "url": f"https://youtu.be/{video_id}",
-                "views": int(stats.get("viewCount", 0)),
-                "likes": int(stats.get("likeCount", 0)),
-                "comments": int(stats.get("commentCount", 0)),
-                "duration": duration,
-                "title_length": len(title),
-            }
-    except HttpError as e:
-        print(f"An error occurred: {e}")
-
-    return None
-
-
 def get_all_playlist_items(playlist_id):
-    try:
-        total_videos = get_playlist_item_count(playlist_id)
-        if total_videos is None:
-            print("Could not determine the total number of videos. Proceeding anyway.")
-        else:
-            print(f"Total videos in playlist: {total_videos}")
+    """
+    Retrieves all video items from the specified YouTube playlist.
 
-        videos = []
-        next_page_token = None
+    Args:
+        playlist_id (str): The ID of the YouTube playlist.
 
-        while True:
+    Returns:
+        list: A list of video items with their details.
+    """
+    videos = []
+    next_page_token = None
+
+    while True:
+        try:
             request = youtube.playlistItems().list(
-                part="snippet",
+                part="snippet,contentDetails",
                 playlistId=playlist_id,
                 maxResults=50,
                 pageToken=next_page_token,
             )
             response = request.execute()
 
-            for item in response["items"]:
-                video = get_video_data(item)
-                if video:
-                    videos.append(video)
-
-            if total_videos:
-                print(
-                    f"Fetched {len(videos)}/{total_videos} videos ({(len(videos)/total_videos)*100:.2f}%)"
-                )
-            else:
-                print(f"Fetched {len(videos)} videos so far...")
+            for item in response.get("items", []):
+                video_id = item["contentDetails"]["videoId"]
+                video_title = item["snippet"]["title"]
+                videos.append({"video_id": video_id, "title": video_title})
 
             next_page_token = response.get("nextPageToken")
             if not next_page_token:
                 break
 
-        print(f"Successfully fetched data for {len(videos)} videos")
+        except HttpError as e:
+            print(f"An HTTP error occurred: {e}")
+            break
 
-        # Sort videos by view count in descending order
-        return sorted(videos, key=lambda x: x["views"], reverse=True)
-
-    except HttpError as e:
-        print(f"An error occurred: {e}")
-        return []
+    return videos
 
 
-def calculate_percentile(data, percentile):
-    return statistics.quantiles(data, n=4)[percentile - 1]
+def get_video_details(video_ids):
+    """
+    Retrieves detailed statistics for a list of video IDs.
 
+    Args:
+        video_ids (list): A list of YouTube video IDs.
 
-def generate_report(video_data):
-    metrics = ["views", "likes", "comments", "duration", "title_length"]
-    report = {metric: {} for metric in metrics}
+    Returns:
+        list: A list of video details including statistics.
+    """
+    video_details = []
+    for i in range(0, len(video_ids), 50):
+        batch_ids = video_ids[i : i + 50]
+        try:
+            request = youtube.videos().list(
+                part="statistics,contentDetails", id=",".join(batch_ids)
+            )
+            response = request.execute()
 
-    for metric in metrics:
-        values = [v[metric] for v in video_data if v and v[metric] is not None]
+            for item in response.get("items", []):
+                stats = item.get("statistics", {})
+                content_details = item.get("contentDetails", {})
+                duration = isodate.parse_duration(
+                    content_details.get("duration", "PT0S")
+                )
+                video_details.append(
+                    {
+                        "video_id": item["id"],
+                        "view_count": int(stats.get("viewCount", 0)),
+                        "like_count": int(stats.get("likeCount", 0)),
+                        "comment_count": int(stats.get("commentCount", 0)),
+                        "duration_seconds": duration.total_seconds(),
+                    }
+                )
 
-        if values:
-            report[metric] = {
-                "max": max(values),
-                "p75": calculate_percentile(values, 3),
-                "p50": calculate_percentile(values, 2),
-                "average": sum(values) / len(values),
-                "p25": calculate_percentile(values, 1),
-            }
-        else:
-            report[metric] = {"max": 0, "p75": 0, "p50": 0, "average": 0, "p25": 0}
+        except HttpError as e:
+            print(f"An HTTP error occurred while fetching video details: {e}")
 
-    return report
-
-
-def categorize_videos(video_data, report):
-    high_value = []
-    low_value = []
-
-    for video in video_data:
-        if video is None:
-            continue
-        high_count = low_count = 0
-        for metric in ["views", "likes", "comments"]:
-            value = video[metric]
-            if value >= report[metric]["p75"]:
-                high_count += 1
-            elif value <= report[metric]["p25"]:
-                low_count += 1
-
-        if high_count >= 2:
-            high_value.append(video["url"])
-        if low_count >= 2:
-            low_value.append(video["url"])
-
-    return high_value, low_value
+    return video_details
 
 
 def save_progress(video_data):
+    """
+    Saves the fetched video data to a progress JSON file.
+
+    Args:
+        video_data (list): A list of video data dictionaries.
+    """
     with open(PROGRESS_FILE, "w") as f:
-        json.dump(
-            {"video_data": video_data, "timestamp": datetime.now().isoformat()}, f
-        )
+        json.dump(video_data, f, indent=2)
+    print(f"Progress saved to {PROGRESS_FILE}.")
 
 
 def load_progress():
-    if os.path.exists(PROGRESS_FILE):
-        with open(PROGRESS_FILE, "r") as f:
-            data = json.load(f)
+    """
+    Loads video data from the progress JSON file.
 
-        timestamp = datetime.fromisoformat(data["timestamp"])
-        if datetime.now() - timestamp > timedelta(hours=24):
-            print("Cache is more than 24 hours old. Do you want to start fresh? (y/n)")
-            if input().lower() == "y":
-                return []
+    Returns:
+        list: A list of video data dictionaries.
+    """
+    if not os.path.exists(PROGRESS_FILE):
+        print(f"No progress file found at {PROGRESS_FILE}.")
+        return []
 
-        return data["video_data"]
-    return []
+    with open(PROGRESS_FILE, "r") as f:
+        video_data = json.load(f)
+    print(f"Loaded progress from {PROGRESS_FILE}.")
+    return video_data
 
 
 def generate_full_report(video_data):
-    # Write CSV report
-    with open("report_video_data.csv", "w", newline="", encoding="utf-8") as csvfile:
+    """
+    Generates a CSV report from the video data.
+
+    Args:
+        video_data (list): A list of video data dictionaries.
+    """
+    with open(CSV_REPORT_FILE, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
+            "video_id",
             "title",
-            "url",
-            "views",
-            "likes",
-            "comments",
-            "duration",
-            "title_length",
+            "view_count",
+            "like_count",
+            "comment_count",
+            "duration_seconds",
         ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for video in video_data:
-            if video:
-                writer.writerow(video)
-
-    # Generate and print summary report
-    report = generate_report(video_data)
-    print("Summary Report:")
-    for metric, values in report.items():
-        print(f"\n{metric.capitalize()}:")
-        for key, value in values.items():
-            print(f"  {key}: {value:.2f}")
-
-    # Categorize videos and write to JSON files
-    high_value, low_value = categorize_videos(video_data, report)
-
-    with open("urls_high_value_automated.json", "w") as f:
-        json.dump(high_value, f, indent=2)
-
-    with open("urls_low_value_automated.json", "w") as f:
-        json.dump(low_value, f, indent=2)
-
-    print(
-        "\nReport generated successfully. Check 'report_video_data.csv' for detailed data."
-    )
-    print("High-value and low-value video URLs have been saved to JSON files.")
+            writer.writerow(
+                {
+                    "video_id": video.get("video_id"),
+                    "title": video.get("title"),
+                    "view_count": video.get("view_count", 0),
+                    "like_count": video.get("like_count", 0),
+                    "comment_count": video.get("comment_count", 0),
+                    "duration_seconds": video.get("duration_seconds", 0),
+                }
+            )
+    print(f"Full report generated at {CSV_REPORT_FILE}.")
 
 
-def load_video_data_from_csv(csv_file="report_video_data.csv"):
+def load_video_data_from_csv():
+    """
+    Loads video data from the CSV report file.
+
+    Returns:
+        list: A list of video data dictionaries.
+    """
+    if not os.path.exists(CSV_REPORT_FILE):
+        print(f"No CSV report found at {CSV_REPORT_FILE}.")
+        return []
+
     video_data = []
-    try:
-        with open(csv_file, "r", newline="", encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                # Convert numeric fields back to integers
-                for field in ["views", "likes", "comments", "duration", "title_length"]:
-                    row[field] = int(float(row[field]))
-                video_data.append(row)
-        return sorted(video_data, key=lambda x: x["views"], reverse=True)
-    except FileNotFoundError:
-        print(
-            f"Error: CSV file '{csv_file}' not found. Please run the report generation first."
-        )
-        return None
+    with open(CSV_REPORT_FILE, "r", newline="", encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            video_data.append(
+                {
+                    "video_id": row["video_id"],
+                    "title": row["title"],
+                    "view_count": int(row["view_count"]),
+                    "like_count": int(row["like_count"]),
+                    "comment_count": int(row["comment_count"]),
+                    "duration_seconds": float(row["duration_seconds"]),
+                }
+            )
+    print(f"Loaded video data from {CSV_REPORT_FILE}.")
+    return video_data
 
 
-def load_filter_urls():
-    filter_urls = set()
-    filter_files = [
-        "./urls_low_value_manual.ignoreme.json",
-        "./urls_low_value_manual.json",
-        "./urls_low_value_automated.json",
+def calculate_percentile(values, percentile):
+    """
+    Calculates the given percentile for a list of numeric values.
+
+    Args:
+        values (list): A list of numeric values.
+        percentile (float): The desired percentile (e.g., 75 for p75).
+
+    Returns:
+        float: The calculated percentile value.
+    """
+    if not values:
+        return 0
+    sorted_values = sorted(values)
+    index = (percentile / 100) * (len(sorted_values) - 1)
+    lower = int(index)
+    upper = lower + 1
+    if upper >= len(sorted_values):
+        return sorted_values[lower]
+    weight = index - lower
+    return sorted_values[lower] * (1 - weight) + sorted_values[upper] * weight
+
+
+def load_ignored_urls():
+    """
+    Loads URLs to ignore from JSON files.
+
+    Returns:
+        set: A set of YouTube video URLs to exclude from recommendations.
+    """
+    ignored_files = [
+        "urls_low_value_manual.ignoreme.json",
+        "urls_low_value_manual.json",
     ]
+    ignored_urls = set()
 
-    for file in filter_files:
-        try:
-            with open(file, "r") as f:
-                urls = json.load(f)
-                if isinstance(urls, list):
-                    filter_urls.update(urls)
-                else:
-                    print(
-                        f"Warning: Filter file {file} does not contain a list of URLs. Skipping."
-                    )
-        except FileNotFoundError:
-            print(f"Warning: Filter file {file} not found. Skipping.")
-        except json.JSONDecodeError:
-            print(f"Warning: Filter file {file} is not valid JSON. Skipping.")
+    for filename in ignored_files:
+        if os.path.exists(filename):
+            try:
+                with open(filename, "r") as f:
+                    urls = json.load(f)
+                    ignored_urls.update(urls)
+                print(f"Loaded {len(urls)} URLs from {filename}.")
+            except json.JSONDecodeError:
+                print(f"Error decoding JSON from {filename}. Skipping.")
+        else:
+            print(f"Ignored URLs file {filename} not found. Skipping.")
 
-    return filter_urls
+    return ignored_urls
 
 
 def recommend_next_videos(n):
+    """
+    Recommends the next n top-performing videos based on view count percentile,
+    excluding URLs from ignore lists.
+
+    Args:
+        n (int): Number of videos to recommend. If n is -1, recommend all top-performing videos.
+
+    Returns:
+        list: List of recommended video URLs.
+    """
     video_data = load_video_data_from_csv()
     if not video_data:
-        return
+        print("No video data available for recommendations.")
+        return []
 
-    filter_urls = load_filter_urls()
-    recommended = []
+    # Load ignored URLs
+    ignored_urls = load_ignored_urls()
 
-    for video in video_data:
-        if video["url"] not in filter_urls:
-            recommended.append(video["url"])
-            if len(recommended) == n:
-                break
+    # Calculate the 75th percentile of view counts
+    view_counts = [video["view_count"] for video in video_data]
+    p75 = calculate_percentile(view_counts, 75)
+    print(f"75th percentile (p75) of view counts: {p75}")
 
-    if len(recommended) < n:
-        print(f"Warning: Only {len(recommended)} videos available after filtering.")
+    # Select videos with view_count >= p75
+    top_videos = [video for video in video_data if video["view_count"] >= p75]
+    print(f"Number of top-performing videos (view_count >= p75): {len(top_videos)}")
 
+    # Exclude ignored URLs
+    top_videos = [
+        video
+        for video in top_videos
+        if f"https://youtu.be/{video['video_id']}" not in ignored_urls
+    ]
     print(
-        f"Here are the top {len(recommended)} video URLs recommended for you to post next:"
+        f"Number of top-performing videos after excluding ignored URLs: {len(top_videos)}"
     )
-    for url in recommended:
-        print(url)
+
+    # Sort top_videos by view_count descending
+    top_videos_sorted = sorted(top_videos, key=lambda x: x["view_count"], reverse=True)
+
+    # If n is -1, return all top_videos
+    if n == -1:
+        recommended = top_videos_sorted
+    else:
+        # Filter out ignored URLs from lower-performing videos as well
+        if n <= len(top_videos_sorted):
+            recommended = top_videos_sorted[:n]
+        else:
+            # Include all top_videos and add lower-performing videos to reach n
+            recommended = top_videos_sorted
+            remaining = n - len(top_videos_sorted)
+            # Select lower-performing videos sorted by view_count descending
+            lower_videos = sorted(
+                [
+                    video
+                    for video in video_data
+                    if video["view_count"] < p75
+                    and f"https://youtu.be/{video['video_id']}" not in ignored_urls
+                ],
+                key=lambda x: x["view_count"],
+                reverse=True,
+            )
+            recommended.extend(lower_videos[:remaining])
+            print(
+                f"Added {remaining} lower-performing videos to reach the desired count."
+            )
+
+    recommended_urls = [
+        f"https://youtu.be/{video['video_id']}" for video in recommended
+    ]
+    print(f"Recommended {len(recommended_urls)} videos.")
+    return recommended_urls
+
+
+def get_recommended_videos(n):
+    """
+    Retrieves the top n recommended videos.
+
+    Args:
+        n (int): Number of videos to recommend. If n is -1, recommend all top-performing videos.
+
+    Returns:
+        list: List of recommended video URLs.
+    """
+    # Ensure the CSV report is available
+    if not os.path.exists(CSV_REPORT_FILE):
+        print("CSV report not found. Generating report first...")
+        video_data = get_all_playlist_items(PLAYLIST_ID)
+        video_details = get_video_details([video["video_id"] for video in video_data])
+        # Merge video_data and video_details
+        merged_data = []
+        details_dict = {video["video_id"]: video for video in video_details}
+        for video in video_data:
+            details = details_dict.get(video["video_id"], {})
+            merged_video = {
+                "video_id": video["video_id"],
+                "title": video["title"],
+                "view_count": details.get("view_count", 0),
+                "like_count": details.get("like_count", 0),
+                "comment_count": details.get("comment_count", 0),
+                "duration_seconds": details.get("duration_seconds", 0),
+            }
+            merged_data.append(merged_video)
+        save_progress(merged_data)
+        generate_full_report(merged_data)
+
+    return recommend_next_videos(n)
 
 
 def main():
@@ -325,12 +398,17 @@ def main():
     parser.add_argument(
         "--recommend-next-n",
         type=int,
-        help="Recommend the next n top-performing videos",
+        help="Recommend the next n top-performing videos, assuming the CSV report is already created.",
     )
     args = parser.parse_args()
 
     if args.recommend_next_n is not None:
-        recommend_next_videos(args.recommend_next_n)
+        # Recommend next n videos
+        recommended_videos = recommend_next_videos(args.recommend_next_n)
+        if recommended_videos:
+            print("\nHere are the recommended video URLs:")
+            for url in recommended_videos:
+                print(url)
     else:
         if args.offline_partial:
             video_data = load_progress()
@@ -345,7 +423,24 @@ def main():
         else:
             print(f"Fetching all playlist data and sorting by view count...")
             video_data = get_all_playlist_items(PLAYLIST_ID)
-            save_progress(video_data)
+            video_details = get_video_details(
+                [video["video_id"] for video in video_data]
+            )
+            # Merge video_data and video_details
+            merged_data = []
+            details_dict = {video["video_id"]: video for video in video_details}
+            for video in video_data:
+                details = details_dict.get(video["video_id"], {})
+                merged_video = {
+                    "video_id": video["video_id"],
+                    "title": video["title"],
+                    "view_count": details.get("view_count", 0),
+                    "like_count": details.get("like_count", 0),
+                    "comment_count": details.get("comment_count", 0),
+                    "duration_seconds": details.get("duration_seconds", 0),
+                }
+                merged_data.append(merged_video)
+            save_progress(merged_data)
 
         if not video_data:
             print(

@@ -11,16 +11,17 @@ Each script file has detailed usage info at the top of the file.
 
 ## installation and usage
 
+copy the template environment file and populate appropriate values:
+
+```bash
+cp .env.template .env
+```
+
 navigate to the directory containing this README in a terminal and create a virtual environment:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-optionally upgrade pip:
-
-```bash
 pip install --upgrade pip
 ```
 
