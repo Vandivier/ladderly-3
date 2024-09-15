@@ -28,7 +28,10 @@ SCOPES = ["https://www.googleapis.com/auth/youtube"]
 
 load_dotenv()
 
-CLIENT_SECRET_FILE = os.getenv("YOUTUBE_CLIENT_SECRET_FILE", "client_secret.ignoreme.json")
+CLIENT_SECRET_FILE = os.getenv(
+    "YOUTUBE_DESKTOP_CLIENT_SECRET_FILE", "client_secret.ignoreme.json"
+)
+
 
 def get_authenticated_service():
     """
@@ -40,6 +43,7 @@ def get_authenticated_service():
     flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
     credentials = flow.run_local_server(port=0)
     return build("youtube", "v3", credentials=credentials)
+
 
 def get_playlist_id(youtube, playlist_name):
     """
@@ -53,11 +57,7 @@ def get_playlist_id(youtube, playlist_name):
         str or None: Playlist ID if found, else None.
     """
     try:
-        request = youtube.playlists().list(
-            part="snippet",
-            mine=True,
-            maxResults=50
-        )
+        request = youtube.playlists().list(part="snippet", mine=True, maxResults=50)
         response = request.execute()
         for item in response.get("items", []):
             if item["snippet"]["title"].lower() == playlist_name.lower():
@@ -66,6 +66,7 @@ def get_playlist_id(youtube, playlist_name):
     except HttpError as e:
         print(f"An error occurred while fetching playlists: {e}")
         return None
+
 
 def create_playlist(youtube, playlist_name, description=""):
     """
@@ -87,12 +88,12 @@ def create_playlist(youtube, playlist_name, description=""):
                     "title": playlist_name,
                     "description": description,
                     "tags": ["automated", "playlist"],
-                    "defaultLanguage": "en"
+                    "defaultLanguage": "en",
                 },
                 "status": {
                     "privacyStatus": "private"  # Change to "public" or "unlisted" if desired
-                }
-            }
+                },
+            },
         )
         response = request.execute()
         print(f"Created playlist '{playlist_name}' with ID: {response['id']}")
@@ -100,6 +101,7 @@ def create_playlist(youtube, playlist_name, description=""):
     except HttpError as e:
         print(f"An error occurred while creating playlist: {e}")
         return None
+
 
 def clear_playlist(youtube, playlist_id):
     """
@@ -111,9 +113,7 @@ def clear_playlist(youtube, playlist_id):
     """
     try:
         request = youtube.playlistItems().list(
-            part="id",
-            playlistId=playlist_id,
-            maxResults=50
+            part="id", playlistId=playlist_id, maxResults=50
         )
         response = request.execute()
         while response:
@@ -125,7 +125,7 @@ def clear_playlist(youtube, playlist_id):
                     part="id",
                     playlistId=playlist_id,
                     maxResults=50,
-                    pageToken=response["nextPageToken"]
+                    pageToken=response["nextPageToken"],
                 )
                 response = request.execute()
             else:
@@ -133,6 +133,7 @@ def clear_playlist(youtube, playlist_id):
         print(f"Cleared all videos from playlist ID: {playlist_id}")
     except HttpError as e:
         print(f"An error occurred while clearing playlist: {e}")
+
 
 def add_videos_to_playlist(youtube, playlist_id, video_urls):
     """
@@ -154,17 +155,17 @@ def add_videos_to_playlist(youtube, playlist_id, video_urls):
                 body={
                     "snippet": {
                         "playlistId": playlist_id,
-                        "resourceId": {
-                            "kind": "youtube#video",
-                            "videoId": video_id
-                        }
+                        "resourceId": {"kind": "youtube#video", "videoId": video_id},
                     }
-                }
+                },
             )
             response = request.execute()
-            print(f"Added video {video_id} to playlist with Playlist Item ID: {response['id']}")
+            print(
+                f"Added video {video_id} to playlist with Playlist Item ID: {response['id']}"
+            )
     except HttpError as e:
         print(f"An error occurred while adding videos: {e}")
+
 
 def extract_video_id(url):
     """
@@ -177,17 +178,19 @@ def extract_video_id(url):
         str or None: Video ID if extracted, else None.
     """
     from urllib.parse import urlparse, parse_qs
+
     parsed_url = urlparse(url)
-    if parsed_url.hostname in ['youtu.be']:
+    if parsed_url.hostname in ["youtu.be"]:
         return parsed_url.path[1:]
-    if parsed_url.hostname in ['www.youtube.com', 'youtube.com']:
-        if parsed_url.path == '/watch':
-            return parse_qs(parsed_url.query).get('v', [None])[0]
-        elif parsed_url.path.startswith('/embed/'):
-            return parsed_url.path.split('/')[2]
-        elif parsed_url.path.startswith('/v/'):
-            return parsed_url.path.split('/')[2]
+    if parsed_url.hostname in ["www.youtube.com", "youtube.com"]:
+        if parsed_url.path == "/watch":
+            return parse_qs(parsed_url.query).get("v", [None])[0]
+        elif parsed_url.path.startswith("/embed/"):
+            return parsed_url.path.split("/")[2]
+        elif parsed_url.path.startswith("/v/"):
+            return parsed_url.path.split("/")[2]
     return None
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -197,20 +200,20 @@ def main():
     parser.add_argument(
         "--playlist-name",
         type=str,
-        default=f"Top Videos for ${today_as_string}",
-        help="Name of the YouTube playlist to create or update."
+        default=f"Top Videos for {today_as_string}",
+        help="Name of the YouTube playlist to create or update.",
     )
     parser.add_argument(
         "--description",
         type=str,
         default="",
-        help="Description for the YouTube playlist."
+        help="Description for the YouTube playlist.",
     )
     parser.add_argument(
         "--video-count",
         type=int,
         default=-1,
-        help="Number of top-performing videos to add to the playlist (-1 for all)."
+        help="Number of top-performing videos to add to the playlist (-1 for all).",
     )
     args = parser.parse_args()
 
@@ -251,6 +254,7 @@ def main():
     print("Adding recommended videos to the playlist...")
     add_videos_to_playlist(youtube, playlist_id, recommended_videos)
     print("Playlist update complete.")
+
 
 if __name__ == "__main__":
     main()
