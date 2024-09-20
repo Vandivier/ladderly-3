@@ -1,10 +1,10 @@
 'use client'
 import { useMutation } from '@blitzjs/rpc'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import signup from 'src/app/(auth)/mutations/signup'
+import { Signup } from 'src/app/(auth)/schemas'
 import { Form, FORM_ERROR } from 'src/core/components/Form'
 import { LabeledTextField } from 'src/core/components/LabeledTextField'
-import signup from '../mutations/signup'
-import { Signup } from '../schemas'
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -12,21 +12,21 @@ type SignupFormProps = {
 
 export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
-  const router = useRouter()
-
   return (
-    <div>
-      <h1>Create an Account</h1>
+    <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+      <h1 className="mb-4 text-2xl font-bold text-gray-800">
+        Create an Account
+      </h1>
 
       <Form
         submitText="Create Account"
         schema={Signup}
         initialValues={{ email: '', password: '' }}
+        className="space-y-4"
         onSubmit={async (values) => {
           try {
             await signupMutation(values)
-            router.refresh()
-            router.push('/')
+            props.onSuccess?.()
           } catch (error: any) {
             if (
               error.code === 'P2002' &&
@@ -48,6 +48,15 @@ export const SignupForm = (props: SignupFormProps) => {
           type="password"
         />
       </Form>
+
+      <div className="mt-4">
+        Already signed up?{' '}
+        <Link className="underline" href="/login">
+          Log in here!
+        </Link>
+      </div>
     </div>
   )
 }
+
+export default SignupForm
