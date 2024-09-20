@@ -2,7 +2,7 @@
 import { BlitzPage } from '@blitzjs/next'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { SignupForm } from 'src/auth/components/SignupForm'
+import { SignupForm } from 'src/app/(auth)/components/SignupForm'
 import Layout from 'src/core/layouts/Layout'
 
 const CreateAccountPage: BlitzPage = () => {

@@ -3,7 +3,7 @@ import { BlitzPage } from '@blitzjs/next'
 import { useMutation } from '@blitzjs/rpc'
 import { assert } from 'blitz'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useSearchParams } from 'next/navigation'
 import resetPassword from 'src/app/(auth)/mutations/resetPassword'
 import { ResetPassword } from 'src/app/(auth)/schemas'
 import { Form, FORM_ERROR } from 'src/core/components/Form'
@@ -11,8 +11,8 @@ import { LabeledTextField } from 'src/core/components/LabeledTextField'
 import Layout from 'src/core/layouts/Layout'
 
 const ResetPasswordPage: BlitzPage = () => {
-  const router = useRouter()
-  const token = router.query.token?.toString()
+  const searchParams = useSearchParams()
+  const token = searchParams?.get('token')?.toString()
   const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword)
 
   return (

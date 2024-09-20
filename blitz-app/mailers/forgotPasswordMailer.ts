@@ -7,7 +7,7 @@ type ResetPasswordMailer = {
 
 export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   const origin = process.env.APP_ORIGIN || process.env.BLITZ_DEV_SERVER_ORIGIN
-  const resetUrl = `${origin}/auth/reset-password?token=${token}`
+  const resetUrl = `${origin}/reset-password?token=${token}`
 
   const html = `
   <h1>Reset Your Password</h1>
