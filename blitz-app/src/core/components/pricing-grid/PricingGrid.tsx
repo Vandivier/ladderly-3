@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
+import { StripeCheckoutButton } from './StripeCheckoutButton'
 
 type Benefit = {
   emphasize?: boolean
@@ -16,6 +17,7 @@ type Plan = {
   benefits: Benefit[]
   buttonText: string | null
   loggedInLink?: string
+  stripeProductId?: string
 }
 
 const plans: Plan[] = [
@@ -131,6 +133,10 @@ const PricingGrid: React.FC = () => {
               >
                 {plan.buttonText}
               </Link>
+            )}
+
+            {isLoggedIn && plan.buttonText && plan.stripeProductId && (
+              <StripeCheckoutButton stripeProductId={plan.stripeProductId} />
             )}
 
             {!isLoggedIn ? <LoggedOutPlanButton planId={plan.planId} /> : null}
