@@ -9,6 +9,10 @@
   width: 400px;
 }
 
+.mx-auto.next-steps-card {
+  margin: 0.5rem auto;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
