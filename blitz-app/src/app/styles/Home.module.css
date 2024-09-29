@@ -4,9 +4,9 @@
   min-height: 100vh;
 }
 
-.nextStepsCard {
-  margin: 0 auto;
-  width: 600px;
+.next-steps-card {
+  margin: 1rem;
+  width: 400px;
 }
 
 .wrapper {
@@ -154,7 +154,7 @@
     flex-direction: column;
   }
 
-  .nextStepsCard {
+  .next-steps-card {
     width: 300px;
   }
 }

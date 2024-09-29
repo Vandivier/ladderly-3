@@ -65,7 +65,7 @@ const AdvancedChecklistContentBlock = () => {
 
   return isPaid ? (
     <div
-      className={`${styles.nextStepsCard} rounded-lg bg-white p-2 shadow-lg`}
+      className={`${styles['next-steps-card']} rounded-lg bg-white p-2 shadow-lg`}
       style={{ marginTop: '0.5rem' }}
     >
       <h3 className="text-m font-bold text-gray-800">
@@ -113,55 +113,64 @@ const HomePage = () => (
         </div>
 
         <div>
-          <div
-            className={`${styles.nextStepsCard} rounded-lg bg-white p-6 shadow-lg`}
-          >
-            <h2
-              className="text-2xl font-bold text-gray-800"
-              style={{ marginBottom: '0.5rem' }}
+          <div className=" flex flex-col justify-center sm:flex-row">
+            <div
+              className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
             >
-              Recommended Next Steps:
-            </h2>
-            <h2 className="text-2xl font-bold text-gray-800">
-              Complete the{' '}
-              <Link
-                className="text-2xl font-bold text-ladderly-pink hover:underline"
-                href={'/checklists/my-basic-checklist'}
-              >
-                Standard Checklist
-              </Link>
-              ,{' '}
-              <span className="text-2xl font-bold">
-                consider one of the paid plans below
-              </span>
-              , and{' '}
-              <Link
-                className="text-2xl font-bold text-ladderly-pink hover:underline"
-                href={'https://buy.stripe.com/cN2bMfbOQ2CX5dC7su'}
-                target="_blank"
-              >
-                Book an Expert Session
-              </Link>
-              !
-            </h2>
-          </div>
+              <p> TEMP BLAH BLAH BLAH</p>
+            </div>
 
-          <div
-            className={`${styles.nextStepsCard} rounded-lg bg-white p-2 shadow-lg`}
-            style={{ marginTop: '0.5rem' }}
-          >
-            <h3 className="text-m font-bold text-gray-800">
-              To support Ladderly{"'"}s mission to provide low-cost education in
-              STEM, consider{' '}
-              <Link
-                className="text-m font-bold text-ladderly-pink hover:underline"
-                href={'https://buy.stripe.com/eVa9E72egelFfSgfYZ'}
-                target="_blank"
+            <section id="recommended-next-steps" className="flex flex-col">
+              <div
+                className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
               >
-                leaving a tip
-              </Link>
-              .
-            </h3>
+                <h2
+                  className="text-2xl font-bold text-gray-800"
+                  style={{ marginBottom: '0.5rem' }}
+                >
+                  Recommended Next Steps:
+                </h2>
+                <h2 className="text-2xl font-bold text-gray-800">
+                  Complete the{' '}
+                  <Link
+                    className="text-2xl font-bold text-ladderly-pink hover:underline"
+                    href={'/checklists/my-basic-checklist'}
+                  >
+                    Standard Checklist
+                  </Link>
+                  ,{' '}
+                  <span className="text-2xl font-bold">
+                    consider one of the paid plans below
+                  </span>
+                  , and{' '}
+                  <Link
+                    className="text-2xl font-bold text-ladderly-pink hover:underline"
+                    href={'https://buy.stripe.com/cN2bMfbOQ2CX5dC7su'}
+                    target="_blank"
+                  >
+                    Book an Expert Session
+                  </Link>
+                  !
+                </h2>
+              </div>
+
+              <div
+                className={`${styles['next-steps-card']} rounded-lg bg-white p-2 shadow-lg`}
+              >
+                <h3 className="text-m font-bold text-gray-800">
+                  To support Ladderly{"'"}s mission to provide low-cost
+                  education in STEM, consider{' '}
+                  <Link
+                    className="text-m font-bold text-ladderly-pink hover:underline"
+                    href={'https://buy.stripe.com/eVa9E72egelFfSgfYZ'}
+                    target="_blank"
+                  >
+                    leaving a tip
+                  </Link>
+                  .
+                </h3>
+              </div>
+            </section>
           </div>
 
           <Suspense>
