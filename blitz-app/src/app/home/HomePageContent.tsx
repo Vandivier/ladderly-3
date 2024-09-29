@@ -117,10 +117,9 @@ const AdvancedChecklistContentBlock = () => {
 
   return isPaid ? (
     <div
-      className={`${styles['next-steps-card']} rounded-lg bg-white p-2 shadow-lg`}
-      style={{ marginTop: '0.5rem' }}
+      className={`m-2 w-[300px] rounded-lg bg-white p-2 shadow-lg lg:w-auto`}
     >
-      <h3 className="text-m font-bold text-gray-800">
+      <p className="text-gray-800">
         As a paid member, you can access the{' '}
         <Link
           className="text-m font-bold text-ladderly-pink hover:underline"
@@ -129,7 +128,7 @@ const AdvancedChecklistContentBlock = () => {
           Advanced Checklist
         </Link>
         !
-      </h3>
+      </p>
     </div>
   ) : null
 }
@@ -164,7 +163,7 @@ const HomePage = () => (
           <LadderlyHelpsContentBlock />
         </div>
 
-        <div>
+        <div className="flex flex-col items-center">
           <div className="flex flex-col justify-center sm:mt-4 sm:flex-row">
             <section id="testimonials">
               <h2 className="text-l mt-3 px-6 font-bold text-gray-800 sm:text-xl">
