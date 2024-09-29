@@ -7,17 +7,69 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
+import useSubscriptionLevel from 'src/app/users/hooks/useSubscriptionLevel'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 import PricingGrid from 'src/core/components/pricing-grid/PricingGrid'
-import useSubscriptionLevel from 'src/app/users/hooks/useSubscriptionLevel'
 
+import React from 'react'
 import styles from 'src/app/styles/Home.module.css'
+
+type Testimonial = {
+  testimonialGiverName: string
+  testimonialLinkedInUrl: string
+  testimonialText: string
+}
+
+const defaulTestimonial: Testimonial = {
+  testimonialGiverName: 'Calvin He',
+  testimonialLinkedInUrl: 'https://www.linkedin.com/in/calvin-h-he/',
+  testimonialText: `Ladderly.io's advice and Leetcode Kata helped me fill in the gaps from my web development boot camp. Without John's generous resume review and career advice, I wouldn't have landed my remote job this year!`,
+}
+
+const testimonials: Testimonial[] = [
+  defaulTestimonial,
+  {
+    testimonialGiverName: 'Chris Flannery',
+    testimonialLinkedInUrl: 'https://www.linkedin.com/in/chriswillsflannery/',
+    testimonialText: `The Ladderly Leetcode Kata is awesome. After using it for about two months, I'm notably more efficient and confident in coding interviews.`,
+  },
+  {
+    testimonialGiverName: 'Pratik Thorat',
+    testimonialLinkedInUrl: 'https://www.linkedin.com/in/pratikwebworks/',
+    testimonialText: `I just got off of an interview that I obtained thanks to Ladderly's Networking Scripts. My resume was passed down to the hiring manager. I owe everything to John and Ladderly.io's open-source curriculum!`,
+  },
+]
+
+const TestimonialBlock = () => {
+  const randomTestimonial =
+    testimonials[Math.floor(Math.random() * testimonials.length)] ??
+    defaulTestimonial
+
+  return (
+    <div>
+      <p className="mb-4 text-gray-800">
+        {`"${randomTestimonial.testimonialText}"`}
+      </p>
+      <p className="font-bold">{randomTestimonial.testimonialGiverName}</p>
+      {randomTestimonial.testimonialLinkedInUrl ? (
+        <a
+          href={randomTestimonial.testimonialLinkedInUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline"
+        >
+          Connect on LinkedIn
+        </a>
+      ) : null}
+    </div>
+  )
+}
 
 const LadderlyHelpsContentBlock = () => {
   return (
     <div>
       <h2 className="my-6 text-2xl font-bold">Ladderly Helps You:</h2>
-      <ol className="list-none space-y-3">
+      <ol className="flex list-none flex-col gap-3">
         <li className="flex items-center">
           <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/50">
             1
@@ -40,7 +92,7 @@ const LadderlyHelpsContentBlock = () => {
             grow social and professional networks
           </span>
         </li>
-        <li>
+        <li className="m-3">
           <a
             href="https://www.producthunt.com/posts/ladderly-io?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ladderly&#0045;io"
             target="_blank"
@@ -65,7 +117,7 @@ const AdvancedChecklistContentBlock = () => {
 
   return isPaid ? (
     <div
-      className={`${styles.nextStepsCard} rounded-lg bg-white p-2 shadow-lg`}
+      className={`${styles['next-steps-card']} rounded-lg bg-white p-2 shadow-lg`}
       style={{ marginTop: '0.5rem' }}
     >
       <h3 className="text-m font-bold text-gray-800">
@@ -87,7 +139,7 @@ const HomePage = () => (
     <main style={{ padding: '0rem 1rem' }}>
       <div className={styles.wrapper}>
         <div
-          className={`mx-auto my-6 flex flex-wrap gap-0 rounded-lg bg-frost p-2 sm:flex-nowrap sm:gap-16`}
+          className={`mx-auto flex flex-wrap gap-0 rounded-lg bg-frost p-2 sm:flex-nowrap sm:gap-16`}
         >
           <Image
             alt="Ladderly Logo"
@@ -113,55 +165,66 @@ const HomePage = () => (
         </div>
 
         <div>
-          <div
-            className={`${styles.nextStepsCard} rounded-lg bg-white p-6 shadow-lg`}
-          >
-            <h2
-              className="text-2xl font-bold text-gray-800"
-              style={{ marginBottom: '0.5rem' }}
-            >
-              Recommended Next Steps:
-            </h2>
-            <h2 className="text-2xl font-bold text-gray-800">
-              Complete the{' '}
-              <Link
-                className="text-2xl font-bold text-ladderly-pink hover:underline"
-                href={'/checklists/my-basic-checklist'}
+          <div className="flex flex-col justify-center sm:mt-4 sm:flex-row">
+            <section id="testimonials">
+              <h2 className="text-l mt-3 px-6 font-bold text-gray-800 sm:text-xl">
+                Why Users Love Us:
+              </h2>
+              <div
+                className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
               >
-                Standard Checklist
-              </Link>
-              ,{' '}
-              <span className="text-2xl font-bold">
-                consider one of the paid plans below
-              </span>
-              , and{' '}
-              <Link
-                className="text-2xl font-bold text-ladderly-pink hover:underline"
-                href={'https://buy.stripe.com/cN2bMfbOQ2CX5dC7su'}
-                target="_blank"
-              >
-                Book an Expert Session
-              </Link>
-              !
-            </h2>
-          </div>
+                <TestimonialBlock />
+              </div>
+            </section>
 
-          <div
-            className={`${styles.nextStepsCard} rounded-lg bg-white p-2 shadow-lg`}
-            style={{ marginTop: '0.5rem' }}
-          >
-            <h3 className="text-m font-bold text-gray-800">
-              To support Ladderly{"'"}s mission to provide low-cost education in
-              STEM, consider{' '}
-              <Link
-                className="text-m font-bold text-ladderly-pink hover:underline"
-                href={'https://buy.stripe.com/eVa9E72egelFfSgfYZ'}
-                target="_blank"
+            <section id="recommended-next-steps" className="flex flex-col">
+              <div
+                className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
               >
-                leaving a tip
-              </Link>
-              .
-            </h3>
+                <h2 className="text-l mb-2 font-bold text-gray-800 sm:text-xl">
+                  Recommended Next Steps:
+                </h2>
+                <h2 className="text-l font-bold text-gray-800">
+                  Complete the{' '}
+                  <Link
+                    className="text-l font-bold text-ladderly-pink hover:underline"
+                    href={'/checklists/my-basic-checklist'}
+                  >
+                    Standard Checklist
+                  </Link>
+                  ,{' '}
+                  <span className="text-l font-bold">
+                    consider one of the paid plans below
+                  </span>
+                  , and{' '}
+                  <Link
+                    className="text-l font-bold text-ladderly-pink hover:underline"
+                    href={'https://buy.stripe.com/cN2bMfbOQ2CX5dC7su'}
+                    target="_blank"
+                  >
+                    Book an Expert Session
+                  </Link>
+                  !
+                </h2>
+              </div>
+
+              <div
+                className={`${styles['next-steps-card']} rounded-lg bg-white p-2 shadow-lg`}
+              >
+                <p>
+                  To support Ladderly{"'"}s mission to provide low-cost
+                  education in STEM, consider{' '}
+                  <Link
+                    className="text-m font-bold text-ladderly-pink hover:underline"
+                    href={'https://buy.stripe.com/eVa9E72egelFfSgfYZ'}
+                    target="_blank"
+                  >
+                    leaving a tip
+                  </Link>
+                  .
+                </p>
+              </div>
+            </section>
           </div>
 
           <Suspense>

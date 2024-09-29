@@ -21,13 +21,13 @@ const HomePageSkeleton = () => (
     </div>
     <div className="space-y-4">
       <div
-        className={`${styles.nextStepsCard} animate-pulse rounded-lg bg-white p-6 shadow-lg`}
+        className={`${styles['next-steps-card']} animate-pulse rounded-lg bg-white p-6 shadow-lg`}
       >
         <div className="mb-4 h-8 w-3/4 rounded bg-gray-300"></div>
         <div className="h-24 w-full rounded bg-gray-300"></div>
       </div>
       <div
-        className={`${styles.nextStepsCard} animate-pulse rounded-lg bg-white p-2 shadow-lg`}
+        className={`${styles['next-steps-card']} animate-pulse rounded-lg bg-white p-2 shadow-lg`}
       >
         <div className="h-6 w-full rounded bg-gray-300"></div>
       </div>
