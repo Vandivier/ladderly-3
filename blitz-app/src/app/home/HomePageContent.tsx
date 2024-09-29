@@ -48,7 +48,7 @@ const TestimonialBlock = () => {
   return (
     <div>
       <p className="mb-4 text-gray-800">
-        "{randomTestimonial.testimonialText}"
+        {`"${randomTestimonial.testimonialText}"`}
       </p>
       <p className="font-bold">{randomTestimonial.testimonialGiverName}</p>
       {randomTestimonial.testimonialLinkedInUrl ? (
