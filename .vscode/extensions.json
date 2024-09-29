@@ -9,7 +9,8 @@
     "mikestead.dotenv",
     "orta.vscode-jest",
     "prisma.prisma",
-    "stylelint.vscode-stylelint"
+    "stylelint.vscode-stylelint",
+    "jmkrivocapich.drawfolderstructure"
   ],
   "unwantedRecommendations": []
 }
