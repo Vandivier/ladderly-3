@@ -7,11 +7,63 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
+import useSubscriptionLevel from 'src/app/users/hooks/useSubscriptionLevel'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 import PricingGrid from 'src/core/components/pricing-grid/PricingGrid'
-import useSubscriptionLevel from 'src/app/users/hooks/useSubscriptionLevel'
 
+import React from 'react'
 import styles from 'src/app/styles/Home.module.css'
+
+type Testimonial = {
+  testimonialGiverName: string
+  testimonialLinkedInUrl: string
+  testimonialText: string
+}
+
+const defaulTestimonial: Testimonial = {
+  testimonialGiverName: 'Calvin He',
+  testimonialLinkedInUrl: 'https://www.linkedin.com/in/calvin-h-he/',
+  testimonialText: `Ladderly.io's advice and Leetcode Kata helped me fill in the gaps from my web development boot camp. Without John's generous resume review and career advice, I wouldn't have landed my remote job this year!`,
+}
+
+const testimonials: Testimonial[] = [
+  defaulTestimonial,
+  {
+    testimonialGiverName: 'Chris Flannery',
+    testimonialLinkedInUrl: 'https://www.linkedin.com/in/chriswillsflannery/',
+    testimonialText: `The Ladderly Leetcode Kata is awesome. After using it for about two months, I'm notably more efficient and confident in coding interviews.`,
+  },
+  {
+    testimonialGiverName: 'Pratik Thorat',
+    testimonialLinkedInUrl: 'https://www.linkedin.com/in/pratikwebworks/',
+    testimonialText: `I just got off of an interview that I obtained thanks to Ladderly's Networking Scripts. My resume was passed down to the hiring manager. I owe everything to John and Ladderly.io's open-source curriculum!`,
+  },
+]
+
+const TestimonialBlock = () => {
+  const randomTestimonial =
+    testimonials[Math.floor(Math.random() * testimonials.length)] ??
+    defaulTestimonial
+
+  return (
+    <div>
+      <p className="mb-4 text-gray-800">
+        "{randomTestimonial.testimonialText}"
+      </p>
+      <p className="font-bold">{randomTestimonial.testimonialGiverName}</p>
+      {randomTestimonial.testimonialLinkedInUrl ? (
+        <a
+          href={randomTestimonial.testimonialLinkedInUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline"
+        >
+          Connect on LinkedIn
+        </a>
+      ) : null}
+    </div>
+  )
+}
 
 const LadderlyHelpsContentBlock = () => {
   return (
@@ -121,7 +173,7 @@ const HomePage = () => (
               <div
                 className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
               >
-                <p> TEMP BLAH BLAH BLAH</p>
+                <TestimonialBlock />
               </div>
             </section>
 
@@ -159,7 +211,7 @@ const HomePage = () => (
               <div
                 className={`${styles['next-steps-card']} rounded-lg bg-white p-2 shadow-lg`}
               >
-                <h3 className="text-m font-bold text-gray-800">
+                <p>
                   To support Ladderly{"'"}s mission to provide low-cost
                   education in STEM, consider{' '}
                   <Link
@@ -170,7 +222,7 @@ const HomePage = () => (
                     leaving a tip
                   </Link>
                   .
-                </h3>
+                </p>
               </div>
             </section>
           </div>
