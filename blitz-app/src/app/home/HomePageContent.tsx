@@ -17,7 +17,7 @@ const LadderlyHelpsContentBlock = () => {
   return (
     <div>
       <h2 className="my-6 text-2xl font-bold">Ladderly Helps You:</h2>
-      <ol className="list-none space-y-3">
+      <ol className="flex list-none flex-col gap-3">
         <li className="flex items-center">
           <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/50">
             1
@@ -40,7 +40,7 @@ const LadderlyHelpsContentBlock = () => {
             grow social and professional networks
           </span>
         </li>
-        <li>
+        <li className="m-3">
           <a
             href="https://www.producthunt.com/posts/ladderly-io?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ladderly&#0045;io"
             target="_blank"
@@ -87,7 +87,7 @@ const HomePage = () => (
     <main style={{ padding: '0rem 1rem' }}>
       <div className={styles.wrapper}>
         <div
-          className={`mx-auto my-6 flex flex-wrap gap-0 rounded-lg bg-frost p-2 sm:flex-nowrap sm:gap-16`}
+          className={`mx-auto flex flex-wrap gap-0 rounded-lg bg-frost p-2 sm:flex-nowrap sm:gap-16`}
         >
           <Image
             alt="Ladderly Logo"
@@ -113,38 +113,40 @@ const HomePage = () => (
         </div>
 
         <div>
-          <div className=" flex flex-col justify-center sm:flex-row">
-            <div
-              className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
-            >
-              <p> TEMP BLAH BLAH BLAH</p>
-            </div>
+          <div className="flex flex-col justify-center sm:mt-4 sm:flex-row">
+            <section id="testimonials">
+              <h2 className="text-l mt-3 px-6 font-bold text-gray-800 sm:text-xl">
+                Why Users Love Us:
+              </h2>
+              <div
+                className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
+              >
+                <p> TEMP BLAH BLAH BLAH</p>
+              </div>
+            </section>
 
             <section id="recommended-next-steps" className="flex flex-col">
               <div
                 className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
               >
-                <h2
-                  className="text-2xl font-bold text-gray-800"
-                  style={{ marginBottom: '0.5rem' }}
-                >
+                <h2 className="text-l mb-2 font-bold text-gray-800 sm:text-xl">
                   Recommended Next Steps:
                 </h2>
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-l font-bold text-gray-800">
                   Complete the{' '}
                   <Link
-                    className="text-2xl font-bold text-ladderly-pink hover:underline"
+                    className="text-l font-bold text-ladderly-pink hover:underline"
                     href={'/checklists/my-basic-checklist'}
                   >
                     Standard Checklist
                   </Link>
                   ,{' '}
-                  <span className="text-2xl font-bold">
+                  <span className="text-l font-bold">
                     consider one of the paid plans below
                   </span>
                   , and{' '}
                   <Link
-                    className="text-2xl font-bold text-ladderly-pink hover:underline"
+                    className="text-l font-bold text-ladderly-pink hover:underline"
                     href={'https://buy.stripe.com/cN2bMfbOQ2CX5dC7su'}
                     target="_blank"
                   >
