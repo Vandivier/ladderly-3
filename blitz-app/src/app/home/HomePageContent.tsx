@@ -1,4 +1,4 @@
-// app/HomePageContent.tsx
+// src/app/HomePageContent.tsx
 
 'use client'
 
@@ -20,18 +20,23 @@ type Testimonial = {
   testimonialText: string
 }
 
-const defaulTestimonial: Testimonial = {
+const defaultTestimonial: Testimonial = {
   testimonialGiverName: 'Calvin He',
   testimonialLinkedInUrl: 'https://www.linkedin.com/in/calvin-h-he/',
   testimonialText: `Ladderly.io's advice and Leetcode Kata helped me fill in the gaps from my web development boot camp. Without John's generous resume review and career advice, I wouldn't have landed my remote job this year!`,
 }
 
 const testimonials: Testimonial[] = [
-  defaulTestimonial,
+  defaultTestimonial,
   {
     testimonialGiverName: 'Chris Flannery',
     testimonialLinkedInUrl: 'https://www.linkedin.com/in/chriswillsflannery/',
     testimonialText: `The Ladderly Leetcode Kata is awesome. After using it for about two months, I'm notably more efficient and confident in coding interviews.`,
+  },
+  {
+    testimonialGiverName: 'Isaiah LaDuke',
+    testimonialLinkedInUrl: 'https://www.linkedin.com/in/isaiah-laduke/',
+    testimonialText: `It can't be overstated that Ladderly was crucial to my career. From coding, to interviews, to resume advice, to simple encouragement, I received more help than I thought I would be able to gain.`,
   },
   {
     testimonialGiverName: 'Pratik Thorat',
@@ -43,7 +48,7 @@ const testimonials: Testimonial[] = [
 const TestimonialBlock = () => {
   const randomTestimonial =
     testimonials[Math.floor(Math.random() * testimonials.length)] ??
-    defaulTestimonial
+    defaultTestimonial
 
   return (
     <div>
