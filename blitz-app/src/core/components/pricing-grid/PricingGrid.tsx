@@ -17,6 +17,7 @@ type Plan = {
   benefits: Benefit[]
   buttonText: string | null
   loggedInLink?: string
+  stripeProductPriceId?: string
   stripeProductId?: string
 }
 
@@ -37,6 +38,9 @@ const plans: Plan[] = [
     ],
     buttonText: 'Join Now',
     loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
+    stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
+    stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
+    // price_1Q4QAUHIGvUXkXbti9S0usmc
   },
   {
     name: 'Pay What You Can',
@@ -125,18 +129,23 @@ const PricingGrid: React.FC = () => {
               ))}
             </ul>
 
-            {isLoggedIn && plan.buttonText && plan.loggedInLink && (
-              <Link
-                href={{ pathname: plan.loggedInLink }}
-                className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
-                target="_blank"
-              >
-                {plan.buttonText}
-              </Link>
-            )}
+            {isLoggedIn &&
+              plan.buttonText &&
+              plan.loggedInLink &&
+              !plan.stripeProductPriceId && (
+                <Link
+                  href={{ pathname: plan.loggedInLink }}
+                  className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+                  target="_blank"
+                >
+                  {plan.buttonText}
+                </Link>
+              )}
 
-            {isLoggedIn && plan.buttonText && plan.stripeProductId && (
-              <StripeCheckoutButton stripeProductId={plan.stripeProductId} />
+            {isLoggedIn && plan.buttonText && plan.stripeProductPriceId && (
+              <StripeCheckoutButton
+                stripeProductPriceId={plan.stripeProductPriceId}
+              />
             )}
 
             {!isLoggedIn ? <LoggedOutPlanButton planId={plan.planId} /> : null}

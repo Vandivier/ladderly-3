@@ -9,9 +9,9 @@ const stripePromise = loadStripe(
 )
 
 export const StripeCheckoutButton = ({
-  stripeProductId,
+  stripeProductPriceId,
 }: {
-  stripeProductId: string
+  stripeProductPriceId: string
 }) => {
   const [loading, setLoading] = useState(false)
 
@@ -25,7 +25,7 @@ export const StripeCheckoutButton = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          priceId: stripeProductId, // TODO: maybe wrong
+          priceId: stripeProductPriceId,
         }),
       })
 
@@ -44,8 +44,12 @@ export const StripeCheckoutButton = ({
   }
 
   return (
-    <button onClick={handleCheckout} disabled={loading}>
-      {loading ? 'Loading...' : 'Subscribe Now'}
+    <button
+      className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+      onClick={handleCheckout}
+      disabled={loading}
+    >
+      {loading ? 'Loading...' : 'Join Now'}
     </button>
   )
 }
