@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
+import { StripeCheckoutButton } from './StripeCheckoutButton'
 
 type Benefit = {
   emphasize?: boolean
@@ -16,6 +17,8 @@ type Plan = {
   benefits: Benefit[]
   buttonText: string | null
   loggedInLink?: string
+  stripeProductPriceId?: string
+  stripeProductId?: string
 }
 
 const plans: Plan[] = [
@@ -35,6 +38,8 @@ const plans: Plan[] = [
     ],
     buttonText: 'Join Now',
     loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
+    stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
+    stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },
   {
     name: 'Pay What You Can',
@@ -102,7 +107,6 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
 
 const PricingGrid: React.FC = () => {
   const currentUser = useCurrentUser()
-  const isLoggedIn = Boolean(currentUser)
 
   return (
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
@@ -123,17 +127,27 @@ const PricingGrid: React.FC = () => {
               ))}
             </ul>
 
-            {isLoggedIn && plan.buttonText && plan.loggedInLink && (
-              <Link
-                href={{ pathname: plan.loggedInLink }}
-                className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
-                target="_blank"
-              >
-                {plan.buttonText}
-              </Link>
+            {currentUser &&
+              plan.buttonText &&
+              plan.loggedInLink &&
+              !plan.stripeProductPriceId && (
+                <Link
+                  href={{ pathname: plan.loggedInLink }}
+                  className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+                  target="_blank"
+                >
+                  {plan.buttonText}
+                </Link>
+              )}
+
+            {currentUser && plan.buttonText && plan.stripeProductPriceId && (
+              <StripeCheckoutButton
+                stripeProductPriceId={plan.stripeProductPriceId}
+                userId={currentUser.id}
+              />
             )}
 
-            {!isLoggedIn ? <LoggedOutPlanButton planId={plan.planId} /> : null}
+            {!currentUser ? <LoggedOutPlanButton planId={plan.planId} /> : null}
           </div>
         ))}
       </div>
