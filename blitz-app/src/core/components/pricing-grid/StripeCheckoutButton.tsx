@@ -10,8 +10,10 @@ const stripePromise = loadStripe(
 
 export const StripeCheckoutButton = ({
   stripeProductPriceId,
+  userId,
 }: {
   stripeProductPriceId: string
+  userId: number
 }) => {
   const [loading, setLoading] = useState(false)
 
@@ -26,6 +28,7 @@ export const StripeCheckoutButton = ({
         },
         body: JSON.stringify({
           priceId: stripeProductPriceId,
+          userId,
         }),
       })
 

@@ -7,10 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 export async function POST(req: Request) {
   try {
-    // Optionally, parse any request body data if needed
     const { priceId } = await req.json()
-
-    // Create the Checkout session parameters
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'subscription',

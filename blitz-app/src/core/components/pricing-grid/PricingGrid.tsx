@@ -40,7 +40,6 @@ const plans: Plan[] = [
     loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
-    // price_1Q4QAUHIGvUXkXbti9S0usmc
   },
   {
     name: 'Pay What You Can',
@@ -108,7 +107,6 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
 
 const PricingGrid: React.FC = () => {
   const currentUser = useCurrentUser()
-  const isLoggedIn = Boolean(currentUser)
 
   return (
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
@@ -129,7 +127,7 @@ const PricingGrid: React.FC = () => {
               ))}
             </ul>
 
-            {isLoggedIn &&
+            {currentUser &&
               plan.buttonText &&
               plan.loggedInLink &&
               !plan.stripeProductPriceId && (
@@ -142,13 +140,14 @@ const PricingGrid: React.FC = () => {
                 </Link>
               )}
 
-            {isLoggedIn && plan.buttonText && plan.stripeProductPriceId && (
+            {currentUser && plan.buttonText && plan.stripeProductPriceId && (
               <StripeCheckoutButton
                 stripeProductPriceId={plan.stripeProductPriceId}
+                userId={currentUser.id}
               />
             )}
 
-            {!isLoggedIn ? <LoggedOutPlanButton planId={plan.planId} /> : null}
+            {!currentUser ? <LoggedOutPlanButton planId={plan.planId} /> : null}
           </div>
         ))}
       </div>
