@@ -43,6 +43,11 @@ const testimonials: Testimonial[] = [
     testimonialLinkedInUrl: 'https://www.linkedin.com/in/pratikwebworks/',
     testimonialText: `I just got off of an interview that I obtained thanks to Ladderly's Networking Scripts. My resume was passed down to the hiring manager. I owe everything to John and Ladderly.io's open-source curriculum!`,
   },
+  {
+    testimonialGiverName: 'Jonathan Norstrom',
+    testimonialLinkedInUrl: 'https://www.linkedin.com/in/norstromjonathan/',
+    testimonialText: `I was laid off and my confidence took a hit. Interviewing was hard in ways that I’d forgotten about. Thankfully, John Vandivier stepped in as a mentor, ran a mock interview, and we created a plan to improve my weak areas. He was kind and knowledgeable. I signed offer within two months.`,
+  },
 ]
 
 const TestimonialBlock = () => {
@@ -61,7 +66,7 @@ const TestimonialBlock = () => {
           href={randomTestimonial.testimonialLinkedInUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:underline"
+          className="underline"
         >
           Connect on LinkedIn
         </a>
