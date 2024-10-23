@@ -28,9 +28,13 @@ const plans: Plan[] = [
     price: '$30/mo',
     benefits: [
       { emphasize: true, text: 'Limited Time Only: Free Expert Session' },
-      { text: 'All "Pay What You Can" plan benefits' },
-      { text: '25% discount on Expert Sessions' },
-      { text: 'Exclusive small groups and giveaways' },
+      { text: 'Video Course Access' },
+      { text: 'Advanced Checklist Access' },
+      { text: 'Paywalled Article Access' },
+      // { text: 'Ad-Free Experience' },
+      // { text: 'Priority Support' },
+      // { text: '25% discount on Expert Sessions' },
+      { text: 'Exclusive events and early access to new features!' },
       {
         text: 'Recognition in the Hall of Fame (Optional)',
         url: 'https://www.ladderly.io/community/hall-of-fame',
@@ -40,19 +44,6 @@ const plans: Plan[] = [
     loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
-  },
-  {
-    name: 'Pay What You Can',
-    planId: 10,
-    price: 'as little as $1/mo',
-    benefits: [
-      { text: '10% discount on Expert Sessions' },
-      { text: 'Advanced Checklist Access' },
-      { text: 'Ad-Free Experience' },
-      { text: 'Priority Support' },
-    ],
-    buttonText: 'Join Now',
-    loggedInLink: 'https://buy.stripe.com/dR67vZbOQfpJ21qdQT',
   },
   {
     name: 'Free',
