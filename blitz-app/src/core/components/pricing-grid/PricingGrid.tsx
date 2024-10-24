@@ -1,9 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
+import { StripeCheckoutButton } from './StripeCheckoutButton'
 
 type Benefit = {
-  emphasize?: boolean
   paragraphContent?: React.ReactNode
   text: string
   url?: string
@@ -16,18 +16,20 @@ type Plan = {
   benefits: Benefit[]
   buttonText: string | null
   loggedInLink?: string
+  stripeProductPriceId?: string
+  stripeProductId?: string
 }
 
 const plans: Plan[] = [
   {
     name: 'Premium',
-    planId: 30,
-    price: '$30/mo',
+    planId: 40,
+    price: '$40/mo',
     benefits: [
-      { emphasize: true, text: 'Limited Time Only: Free Expert Session' },
-      { text: 'All "Pay What You Can" plan benefits' },
-      { text: '25% discount on Expert Sessions' },
-      { text: 'Exclusive small groups and giveaways' },
+      { text: 'Video Course Access' },
+      { text: 'Advanced Checklist Access' },
+      { text: 'Paywalled Article Access' },
+      { text: 'Exclusive events and early access to new features!' },
       {
         text: 'Recognition in the Hall of Fame (Optional)',
         url: 'https://www.ladderly.io/community/hall-of-fame',
@@ -35,19 +37,8 @@ const plans: Plan[] = [
     ],
     buttonText: 'Join Now',
     loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
-  },
-  {
-    name: 'Pay What You Can',
-    planId: 10,
-    price: 'as little as $1/mo',
-    benefits: [
-      { text: '10% discount on Expert Sessions' },
-      { text: 'Advanced Checklist Access' },
-      { text: 'Ad-Free Experience' },
-      { text: 'Priority Support' },
-    ],
-    buttonText: 'Join Now',
-    loggedInLink: 'https://buy.stripe.com/dR67vZbOQfpJ21qdQT',
+    stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
+    stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },
   {
     name: 'Free',
@@ -102,13 +93,12 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
 
 const PricingGrid: React.FC = () => {
   const currentUser = useCurrentUser()
-  const isLoggedIn = Boolean(currentUser)
 
   return (
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
       <h1 className="mb-4 text-center text-2xl font-bold">Pricing Plans</h1>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {plans.map((plan, i) => (
           <div
             key={i}
@@ -123,17 +113,27 @@ const PricingGrid: React.FC = () => {
               ))}
             </ul>
 
-            {isLoggedIn && plan.buttonText && plan.loggedInLink && (
-              <Link
-                href={{ pathname: plan.loggedInLink }}
-                className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
-                target="_blank"
-              >
-                {plan.buttonText}
-              </Link>
+            {currentUser &&
+              plan.buttonText &&
+              plan.loggedInLink &&
+              !plan.stripeProductPriceId && (
+                <Link
+                  href={{ pathname: plan.loggedInLink }}
+                  className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+                  target="_blank"
+                >
+                  {plan.buttonText}
+                </Link>
+              )}
+
+            {currentUser && plan.buttonText && plan.stripeProductPriceId && (
+              <StripeCheckoutButton
+                stripeProductPriceId={plan.stripeProductPriceId}
+                userId={currentUser.id}
+              />
             )}
 
-            {!isLoggedIn ? <LoggedOutPlanButton planId={plan.planId} /> : null}
+            {!currentUser ? <LoggedOutPlanButton planId={plan.planId} /> : null}
           </div>
         ))}
       </div>
