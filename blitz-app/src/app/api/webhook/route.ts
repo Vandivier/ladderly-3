@@ -1,3 +1,7 @@
+// src/app/api/webhook/route.ts
+// in the Stripe Dashboard,
+// Stripe is configured to call this webhook on success
+
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import db, { PaymentTierEnum, Prisma } from 'db'
