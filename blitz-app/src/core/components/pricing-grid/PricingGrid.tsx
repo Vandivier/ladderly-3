@@ -4,7 +4,6 @@ import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
 import { StripeCheckoutButton } from './StripeCheckoutButton'
 
 type Benefit = {
-  emphasize?: boolean
   paragraphContent?: React.ReactNode
   text: string
   url?: string
@@ -24,16 +23,12 @@ type Plan = {
 const plans: Plan[] = [
   {
     name: 'Premium',
-    planId: 30,
-    price: '$30/mo',
+    planId: 40,
+    price: '$40/mo',
     benefits: [
-      { emphasize: true, text: 'Limited Time Only: Free Expert Session' },
       { text: 'Video Course Access' },
       { text: 'Advanced Checklist Access' },
       { text: 'Paywalled Article Access' },
-      // { text: 'Ad-Free Experience' },
-      // { text: 'Priority Support' },
-      // { text: '25% discount on Expert Sessions' },
       { text: 'Exclusive events and early access to new features!' },
       {
         text: 'Recognition in the Hall of Fame (Optional)',
@@ -103,7 +98,7 @@ const PricingGrid: React.FC = () => {
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
       <h1 className="mb-4 text-center text-2xl font-bold">Pricing Plans</h1>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {plans.map((plan, i) => (
           <div
             key={i}
