@@ -29,7 +29,7 @@ export async function POST(req: Request) {
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session
-      const subscriptionTier = 'PREMIUM'
+      const subscriptionTier = PaymentTierEnum.PREMIUM // Use enum directly
       const userId = session?.metadata?.userId
 
       try {
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
 
         const where: Prisma.SubscriptionWhereUniqueInput = {
           userId_type: {
-            type: PaymentTierEnum.PREMIUM,
+            type: subscriptionTier,
             userId: parseInt(userId),
           },
         }
@@ -74,6 +74,50 @@ export async function POST(req: Request) {
 
       break
     }
+
+    case 'customer.subscription.deleted': {
+      const subscription = event.data.object as Stripe.Subscription
+      const userId = subscription.metadata?.userId
+
+      try {
+        if (!userId) {
+          throw new Error(
+            `Can't update canceled subscription; missing user ID.`
+          )
+        }
+
+        // Set the user's subscription to PaymentTierEnum.FREE on cancellation
+        const updated = await db.user.update({
+          where: { id: parseInt(userId) },
+          data: {
+            subscriptions: {
+              update: {
+                where: {
+                  userId_type: {
+                    type: PaymentTierEnum.PREMIUM,
+                    userId: parseInt(userId),
+                  },
+                },
+                data: { tier: PaymentTierEnum.FREE },
+              },
+            },
+          },
+        })
+
+        console.log(
+          `Successfully updated user.id ${updated.id} subscription to ${PaymentTierEnum.FREE} after cancellation`
+        )
+      } catch (err) {
+        console.error(`Failed to update canceled subscription: ${err.message}`)
+        return NextResponse.json(
+          { error: 'Failed to update canceled subscription.' },
+          { status: 500 }
+        )
+      }
+
+      break
+    }
+
     default:
       console.warn(`Unhandled event type: ${event.type}`)
   }
