@@ -2,8 +2,8 @@ export const IconHome: React.FC = () => (
   <svg
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
-    width="1.5rem"
-    height="1.5rem"
+    width="20px" // aligns with `h-5 w-5` in ThemeToggle.tsx
+    height="20px"
     viewBox="0 0 192 192"
     preserveAspectRatio="xMidYMid meet"
   >

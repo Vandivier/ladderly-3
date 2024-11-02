@@ -13,6 +13,7 @@ import PricingGrid from 'src/core/components/pricing-grid/PricingGrid'
 
 import React from 'react'
 import styles from 'src/app/styles/Home.module.css'
+import { useTheme } from 'src/core/theme/ThemeContext'
 
 type Testimonial = {
   testimonialGiverName: string
@@ -76,6 +77,8 @@ const TestimonialBlock = () => {
 }
 
 const LadderlyHelpsContentBlock = () => {
+  const { theme } = useTheme()
+
   return (
     <div>
       <h2 className="my-6 text-2xl font-bold">Ladderly Helps You:</h2>
@@ -108,7 +111,7 @@ const LadderlyHelpsContentBlock = () => {
             target="_blank"
           >
             <Image
-              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=480223&theme=light"
+              src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=480223&theme=${theme}`}
               alt="Ladderly&#0046;io - Land&#0032;your&#0032;next&#0032;programming&#0032;role&#0033; | Product Hunt"
               style={{ margin: 'auto' }}
               width="250"

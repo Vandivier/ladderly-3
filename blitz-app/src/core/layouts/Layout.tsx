@@ -2,10 +2,11 @@
 
 'use client'
 
-import React from 'react'
 import { BlitzLayout } from '@blitzjs/next'
-import { usePathname } from 'next/navigation'
 import Head from 'next/head'
+import { usePathname } from 'next/navigation'
+import React from 'react'
+import { ThemeProvider } from '../theme/ThemeContext'
 
 export type LayoutProps = {
   children?: React.ReactNode
@@ -59,7 +60,7 @@ const Layout: BlitzLayout<LayoutProps> = ({ slug = '', title, children }) => {
         <meta property="og:url" content="https://ladderly.io/" />
       </Head>
 
-      {children}
+      <ThemeProvider>{children}</ThemeProvider>
     </>
   )
 }

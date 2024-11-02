@@ -1,8 +1,9 @@
 module.exports = {
+  endOfLine: 'auto',
   plugins: [require('prettier-plugin-tailwindcss')],
-  tailwindConfig: './tailwind.config.js',
-  tailwindFunctions: ['tw'],
+  printWidth: 80,
   semi: false,
   singleQuote: true,
-  printWidth: 80,
+  tailwindConfig: './tailwind.config.js',
+  tailwindFunctions: ['tw'],
 }

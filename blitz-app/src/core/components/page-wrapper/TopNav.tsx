@@ -1,14 +1,14 @@
 'use client'
 
-import React from 'react'
 import Link from 'next/link'
-import { MenuProvider, MenuContext } from './MenuProvider'
+import React from 'react'
+import { MenuContext, MenuProvider } from './MenuProvider'
 import { TopNavLeft } from './TopNavLeft'
 import { TopNavRight, TopNavRightSkeleton } from './TopNavRight'
 import { TOP_NAV_STANDARD_CLASSES } from './TopNavSubmenu'
 
 export const TopNavFlexContainer = ({ children }) => (
-  <div className="column flex w-full border-b border-ladderly-light-purple-5 bg-ladderly-light-purple-2 px-4 py-1 text-ladderly-violet-700">
+  <div className="column flex w-full items-center border-b border-ladderly-light-purple-5 bg-ladderly-light-purple-2 px-4 py-1 text-ladderly-violet-700 dark:bg-ladderly-dark-purple-2 dark:text-white">
     {children}
   </div>
 )
