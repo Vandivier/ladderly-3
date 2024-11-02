@@ -21,11 +21,6 @@
     </url>
     <url>
         <loc>
-            https://ladderly.io/blog/2023-07-21-community-bounty
-        </loc>
-    </url>
-    <url>
-        <loc>
             https://ladderly.io/blog/2023-10-01-quality-course-and-projects
         </loc>
     </url>
@@ -177,6 +172,11 @@
     <url>
         <loc>
             https://ladderly.io/signup
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/success
         </loc>
     </url>
     <url>
