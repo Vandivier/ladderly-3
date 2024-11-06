@@ -204,18 +204,14 @@ const HomePage = () => (
                 <p className="text-l font-bold">
                   Complete the{' '}
                   <Link
-                    className="text-l font-bold text-ladderly-pink hover:underline"
+                    className="text-ladderly-pink hover:underline"
                     href={'/checklists/my-basic-checklist'}
                   >
                     Standard Checklist
                   </Link>
-                  ,{' '}
-                  <span className="text-l font-bold">
-                    consider one of the paid plans below
-                  </span>
-                  , and{' '}
+                  , consider one of the paid plans below, and{' '}
                   <Link
-                    className="text-l font-bold text-ladderly-pink hover:underline"
+                    className="text-ladderly-pink hover:underline"
                     href={'https://buy.stripe.com/cN2bMfbOQ2CX5dC7su'}
                     target="_blank"
                   >
