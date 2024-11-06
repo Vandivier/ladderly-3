@@ -14,6 +14,7 @@ import PricingGrid from 'src/core/components/pricing-grid/PricingGrid'
 import React from 'react'
 import styles from 'src/app/styles/Home.module.css'
 import { useTheme } from 'src/core/theme/ThemeContext'
+import { DARK_MODE_STANDARD_CLASSES } from 'src/core/theme/ThemeUtils'
 
 type Testimonial = {
   testimonialGiverName: string
@@ -26,6 +27,12 @@ const defaultTestimonial: Testimonial = {
   testimonialLinkedInUrl: 'https://www.linkedin.com/in/calvin-h-he/',
   testimonialText: `Ladderly.io's advice and Leetcode Kata helped me fill in the gaps from my web development boot camp. Without John's generous resume review and career advice, I wouldn't have landed my remote job this year!`,
 }
+
+const HomePageCardSubheading = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => <h2 className="mb-2 text-xl font-bold">{children}</h2>
 
 const testimonials: Testimonial[] = [
   defaultTestimonial,
@@ -58,9 +65,7 @@ const TestimonialBlock = () => {
 
   return (
     <div>
-      <p className="mb-4 text-gray-800">
-        {`"${randomTestimonial.testimonialText}"`}
-      </p>
+      <p className="mb-4">{`"${randomTestimonial.testimonialText}"`}</p>
       <p className="font-bold">{randomTestimonial.testimonialGiverName}</p>
       {randomTestimonial.testimonialLinkedInUrl ? (
         <a
@@ -179,24 +184,24 @@ const HomePage = () => (
         <div className="flex flex-col items-center">
           <div className="flex flex-col justify-center sm:mt-4 sm:flex-row">
             <section id="testimonials">
-              <h2 className="text-l mt-3 px-6 font-bold text-gray-800 sm:text-xl">
-                Why Users Love Us:
-              </h2>
               <div
-                className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
+                className={`text-gray-800 ${DARK_MODE_STANDARD_CLASSES} ${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
               >
+                <HomePageCardSubheading>
+                  Why Users Love Us:
+                </HomePageCardSubheading>
                 <TestimonialBlock />
               </div>
             </section>
 
             <section id="recommended-next-steps" className="flex flex-col">
               <div
-                className={`${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
+                className={`text-gray-800 ${DARK_MODE_STANDARD_CLASSES} ${styles['next-steps-card']} rounded-lg bg-white p-6 shadow-lg`}
               >
-                <h2 className="text-l mb-2 font-bold text-gray-800 sm:text-xl">
+                <HomePageCardSubheading>
                   Recommended Next Steps:
-                </h2>
-                <h2 className="text-l font-bold text-gray-800">
+                </HomePageCardSubheading>
+                <p className="text-l font-bold">
                   Complete the{' '}
                   <Link
                     className="text-l font-bold text-ladderly-pink hover:underline"
@@ -217,11 +222,11 @@ const HomePage = () => (
                     Book an Expert Session
                   </Link>
                   !
-                </h2>
+                </p>
               </div>
 
               <div
-                className={`${styles['next-steps-card']} rounded-lg bg-white p-2 shadow-lg`}
+                className={`text-gray-800 ${DARK_MODE_STANDARD_CLASSES} ${styles['next-steps-card']} rounded-lg bg-white p-2 shadow-lg`}
               >
                 <p>
                   To support Ladderly{"'"}s mission to provide low-cost
