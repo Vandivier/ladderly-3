@@ -10,7 +10,7 @@ import logout from 'src/app/(auth)/mutations/logout'
 
 export const TOP_NAV_STANDARD_CLASSES = 'ml-6 font-bold'
 export const MENU_ITEM_STANDARD_CLASSES =
-  'font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+  'font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:bg-purple-300/20'
 
 export const AccountMenuItems = ({
   currentUser,
