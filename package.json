@@ -8,8 +8,7 @@
     "pretty-quick": "4.0.0"
   },
   "scripts": {
-    "prepare": "husky",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky"
   },
   "author": "John Vandivier",
   "license": "MIT"
