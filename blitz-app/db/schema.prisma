@@ -170,6 +170,8 @@ model ChecklistItem {
   linkText     String   @default("")
   linkUri      String   @default("")
 
+  // currently, versions are ISO
+  // so we can sort lexicographically
   version String @default("2023-07-18T00:00:00.517Z")
 
   checklist          Checklist           @relation(fields: [checklistId], references: [id])
