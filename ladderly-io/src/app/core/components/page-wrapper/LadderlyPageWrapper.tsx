@@ -1,14 +1,14 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
-import Layout, { LayoutProps } from '../../layouts/Layout'
-import { TopNav } from './TopNav'
+import Layout, { LayoutProps } from "../../layouts/Layout";
+import { TopNav } from "./TopNav";
 
-import styles from 'src/app/styles/Home.module.css'
+import styles from "src/styles/Home.module.css";
 
 export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
   children,
-  slug = '',
+  slug = "",
   title,
 }) => (
   <Layout slug={slug} title={title}>
@@ -20,7 +20,7 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
       {children}
 
       <footer className={styles.footer}>
-        <ul className={styles['footer-links']}>
+        <ul className={styles["footer-links"]}>
           <li>
             <Link href="/about" className={styles.textLink}>
               About
@@ -53,7 +53,7 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
           </li>
         </ul>
         <p>
-          Copyright © {new Date().getFullYear()}{' '}
+          Copyright © {new Date().getFullYear()}{" "}
           <Link
             href="https://vandivier.github.io/not-johns-linktree/"
             target="_blank"
@@ -66,4 +66,4 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
       </footer>
     </div>
   </Layout>
-)
+);

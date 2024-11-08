@@ -1,25 +1,25 @@
-'use client'
+"use client";
 
-import { useMutation } from '@blitzjs/rpc'
-import { User } from 'db'
-import Link from 'next/link'
-import React from 'react'
+import { signOut } from "next-auth/react";
+import { User } from "@prisma/client";
+import Link from "next/link";
+import React from "react";
 
-import { MenuContext } from './MenuProvider'
-import logout from 'src/app/(auth)/mutations/logout'
+import { MenuContext } from "./MenuProvider";
+import { useRouter } from "next/navigation";
 
-export const TOP_NAV_STANDARD_CLASSES = 'ml-6 font-bold'
+export const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold";
 export const MENU_ITEM_STANDARD_CLASSES =
-  'font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:bg-purple-300/20'
+  "font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:bg-purple-300/20";
 
 export const AccountMenuItems = ({
   currentUser,
   linkClassName = MENU_ITEM_STANDARD_CLASSES,
 }: {
-  currentUser: Partial<User>
-  linkClassName?: string
+  currentUser: Partial<User>;
+  linkClassName?: string;
 }) => {
-  const userId = currentUser.id
+  const userId = currentUser.id;
 
   return userId ? (
     <MenuItemsWrapper>
@@ -31,8 +31,8 @@ export const AccountMenuItems = ({
       </Link>
       <LogoutButton className={linkClassName} />
     </MenuItemsWrapper>
-  ) : null
-}
+  ) : null;
+};
 
 const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
   <div
@@ -43,12 +43,12 @@ const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
   >
     {children}
   </div>
-)
+);
 
 export const CommunityMenuItems = ({
   linkClassName = MENU_ITEM_STANDARD_CLASSES,
 }: {
-  linkClassName?: string
+  linkClassName?: string;
 }) => (
   <MenuItemsWrapper>
     <Link href="/community/hall-of-fame" className={linkClassName}>
@@ -71,29 +71,33 @@ export const CommunityMenuItems = ({
       Discord
     </Link>
   </MenuItemsWrapper>
-)
+);
 
 const LogoutButton = ({ className }: { className: string }) => {
-  const { setMenu } = React.useContext(MenuContext)
-  const [logoutMutation] = useMutation(logout)
+  const { setMenu } = React.useContext(MenuContext);
+  const router = useRouter();
 
   return (
     <button
       className={className}
       onClick={async () => {
-        setMenu(null, '')
-        await logoutMutation()
+        setMenu(null, "");
+        const signOutResponse = await signOut({
+          redirect: false,
+          callbackUrl: "/",
+        });
+        router.push(signOutResponse.url);
       }}
     >
       Log Out
     </button>
-  )
-}
+  );
+};
 
 export const TopHonorsMenuItems = ({
   linkClassName = MENU_ITEM_STANDARD_CLASSES,
 }: {
-  linkClassName?: string
+  linkClassName?: string;
 }) => (
   <MenuItemsWrapper>
     <Link href="/top-honors" className={linkClassName}>
@@ -103,4 +107,4 @@ export const TopHonorsMenuItems = ({
       Vote
     </Link>
   </MenuItemsWrapper>
-)
+);

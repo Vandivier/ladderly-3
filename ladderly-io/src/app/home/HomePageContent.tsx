@@ -12,7 +12,7 @@ import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/Ladderly
 import PricingGrid from "~/app/core/components/pricing-grid/PricingGrid";
 
 import React from "react";
-import styles from "~/app/styles/Home.module.css";
+import styles from "~/styles/Home.module.css";
 import { useTheme } from "~/app/core/theme/ThemeContext";
 import { DARK_MODE_STANDARD_CLASSES } from "~/app/core/theme/ThemeUtils";
 import { AuthButtons } from "../_components/AuthButtons";
@@ -131,8 +131,10 @@ const LadderlyHelpsContentBlock = () => {
 };
 
 const AdvancedChecklistContentBlock = () => {
-  const { tier } = useSubscriptionLevel();
-  const isPaid = tier != PaymentTierEnum.FREE;
+  // const { tier } = useSubscriptionLevel();
+  // TODO: get subscription tier from user router
+  // const isPaid = tier != PaymentTierEnum.FREE;
+  const isPaid = true;
 
   return isPaid ? (
     <div

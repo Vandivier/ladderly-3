@@ -1,3 +1,5 @@
+// TODO: migrate to trpc
+
 import { Ctx } from '@blitzjs/next'
 import { resolver } from '@blitzjs/rpc'
 import { AuthorizationError, NotFoundError } from 'blitz'

@@ -1,3 +1,5 @@
+// TODO: migrate to trpc
+
 import { paginate } from 'blitz'
 import { resolver } from '@blitzjs/rpc'
 import db, { Prisma } from 'db'

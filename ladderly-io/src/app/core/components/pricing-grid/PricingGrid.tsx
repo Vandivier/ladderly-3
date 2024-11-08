@@ -1,65 +1,64 @@
-import React from 'react'
-import Link from 'next/link'
-import { useCurrentUser } from 'src/app/users/hooks/useCurrentUser'
-import { StripeCheckoutButton } from './StripeCheckoutButton'
+import React from "react";
+import Link from "next/link";
+import { api } from "~/trpc/react";
 
 type Benefit = {
-  paragraphContent?: React.ReactNode
-  text: string
-  url?: string
-}
+  paragraphContent?: React.ReactNode;
+  text: string;
+  url?: string;
+};
 
 type Plan = {
-  name: string
-  planId: number
-  price: string
-  benefits: Benefit[]
-  buttonText: string | null
-  loggedInLink?: string
-  stripeProductPriceId?: string
-  stripeProductId?: string
-}
+  name: string;
+  planId: number;
+  price: string;
+  benefits: Benefit[];
+  buttonText: string | null;
+  loggedInLink?: string;
+  stripeProductPriceId?: string;
+  stripeProductId?: string;
+};
 
 const plans: Plan[] = [
   {
-    name: 'Premium',
+    name: "Premium",
     planId: 40,
-    price: '$40/mo',
+    price: "$40/mo",
     benefits: [
-      { text: 'Video Course Access' },
-      { text: 'Advanced Checklist Access' },
-      { text: 'Paywalled Article Access' },
-      { text: 'Exclusive events and early access to new features!' },
+      { text: "Video Course Access" },
+      { text: "Advanced Checklist Access" },
+      { text: "Paywalled Article Access" },
+      { text: "Exclusive events and early access to new features!" },
       {
-        text: 'Recognition in the Hall of Fame (Optional)',
-        url: 'https://www.ladderly.io/community/hall-of-fame',
+        text: "Recognition in the Hall of Fame (Optional)",
+        url: "https://www.ladderly.io/community/hall-of-fame",
       },
     ],
-    buttonText: 'Join Now',
-    loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
+    buttonText: "Join Now",
+    loggedInLink: "https://buy.stripe.com/fZe2bF4mo6Td7lK004",
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },
   {
-    name: 'Free',
+    name: "Free",
     planId: 0,
-    price: '$0',
+    price: "$0",
     benefits: [
       {
-        text: 'Open Source Curriculum',
-        url: 'https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md',
+        text: "Open Source Curriculum",
+        url: "https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md",
       },
-      { text: 'Standard Checklist' },
-      { text: 'Access the Social Community' },
+      { text: "Standard Checklist" },
+      { text: "Access the Social Community" },
       {
-        text: '24/7 Support with AI Chat',
-        url: 'https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt',
+        text: "24/7 Support with AI Chat",
+        url: "https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt",
       },
-      { text: 'Schedule Expert Consultations' },
+      { text: "Schedule Expert Consultations" },
     ],
     buttonText: null,
   },
-]
+];
 
 const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
   if (benefit.url) {
@@ -71,7 +70,7 @@ const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
       >
         {benefit.text}
       </Link>
-    )
+    );
   }
 
   return (
@@ -79,8 +78,8 @@ const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
       <span className="mr-2">⭐</span>
       <p className="text-left">{benefit.paragraphContent ?? benefit.text}</p>
     </li>
-  )
-}
+  );
+};
 
 const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
   <Link
@@ -89,10 +88,11 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
   >
     Join Now
   </Link>
-)
+);
 
 const PricingGrid: React.FC = () => {
-  const currentUser = useCurrentUser()
+  // TODO: is this an unnecessary server call? can we get this trpc/server on the server side?
+  const currentUser = api.user.getCurrentUser.useQuery();
 
   return (
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
@@ -126,19 +126,19 @@ const PricingGrid: React.FC = () => {
                 </Link>
               )}
 
-            {currentUser && plan.buttonText && plan.stripeProductPriceId && (
+            {/* {currentUser && plan.buttonText && plan.stripeProductPriceId && (
               <StripeCheckoutButton
                 stripeProductPriceId={plan.stripeProductPriceId}
                 userId={currentUser.id}
               />
-            )}
+            )} */}
 
             {!currentUser ? <LoggedOutPlanButton planId={plan.planId} /> : null}
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PricingGrid
+export default PricingGrid;

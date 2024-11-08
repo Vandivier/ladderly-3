@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { IconHome } from '../icons/Home'
-import { ThemeToggle } from 'src/core/theme/ThemeToggle'
+import Link from "next/link";
+import { IconHome } from "../icons/Home";
+import { ThemeToggle } from "~/app/core/theme/ThemeToggle";
 
 export const TopNavLeft = () => (
   <>
@@ -9,4 +9,4 @@ export const TopNavLeft = () => (
     </Link>
     <ThemeToggle />
   </>
-)
+);
