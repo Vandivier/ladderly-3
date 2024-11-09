@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -21,10 +18,10 @@ model User {
   email          String    @unique
   emailBackup    String    @default("")
   emailStripe    String    @default("")
-  emailVerified  DateTime? // T3
+  emailVerified  DateTime?
   hashedPassword String?
-  image          String? // T3
-  name           String    @default("") // T3
+  image          String?
+  name           String    @default("")
   nameFirst      String    @default("")
   nameLast       String    @default("")
 
@@ -48,6 +45,7 @@ model User {
   totalStoreSpend     Float   @default(0)
 
   accounts           Account[]
+  authoredVotables   Votable[]           @relation("AuthoredVotables")
   contributions      Contribution[]
   quizResults        QuizResult[]
   role               RoleEnum            @default(USER)
@@ -72,12 +70,12 @@ model Account {
   type                     String
   provider                 String
   providerAccountId        String
-  refresh_token            String? // @db.Text
-  access_token             String? // @db.Text
+  refresh_token            String?
+  access_token             String?
   expires_at               Int?
   token_type               String?
   scope                    String?
-  id_token                 String? // @db.Text
+  id_token                 String?
   session_state            String?
   user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   refresh_token_expires_in Int?
@@ -96,8 +94,8 @@ model Session {
   publicData         String?
   privateData        String?
 
-  sessionToken String?  @unique @default(uuid()) // T3, modified via `@default(uuid())`
-  expires      DateTime @default(now()) // T3, modified via `@default(now())`
+  sessionToken String?  @unique @default(uuid())
+  expires      DateTime @default(now())
 
   user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int?
@@ -314,12 +312,15 @@ model QuizResult {
 }
 
 enum VotableType {
+  ANSWER
   CERTIFICATION
+  COMMENT
   COMPANY
   CONTENT
+  EDUCATOR
   FOOD
   JOB_TITLE
-  SCHOOL
+  QUESTION
   SKILL
   TECH_INFLUENCER
 }
@@ -329,8 +330,8 @@ model Votable {
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
   type                VotableType
-  name                String
-  description         String      @default("")
+  name                String // also, the title for questions and blog posts
+  body                String?
   tags                String[]
   prestigeScore       Float       @default(0)
   voteCount           Int         @default(0)
@@ -338,11 +339,16 @@ model Votable {
   guestVotes          Int         @default(0)
   website             String?
   miscInfo            Json?
+  author              User?       @relation("AuthoredVotables", fields: [authorId], references: [id])
+  authorId            Int?
 
-  votesA    Vote[]            @relation("VotableA")
-  votesB    Vote[]            @relation("VotableB")
-  votesWon  Vote[]            @relation("Winner")
-  snapshots VotableSnapshot[]
+  parentVotable   Votable?  @relation("VotableHierarchy", fields: [parentVotableId], references: [id])
+  parentVotableId Int?
+  childVotables   Votable[] @relation("VotableHierarchy")
+
+  votes      Vote[]
+  snapshots  VotableSnapshot[]
+  isAccepted Boolean           @default(false) // For answers
 
   @@unique([type, name])
 }
@@ -357,15 +363,19 @@ model VotableSnapshot {
 }
 
 model Vote {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  votableA   Votable  @relation("VotableA", fields: [votableAId], references: [id])
-  votableAId Int
-  votableB   Votable  @relation("VotableB", fields: [votableBId], references: [id])
-  votableBId Int
-  voter      User?    @relation(fields: [voterId], references: [id])
-  voterId    Int?
-  winner     Votable  @relation("Winner", fields: [winnerId], references: [id])
-  winnerId   Int
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  votable   Votable  @relation(fields: [votableId], references: [id])
+  votableId Int
+  voter     User     @relation(fields: [voterId], references: [id])
+  voterId   Int
+  voteType  VoteType
+
+  @@unique([voterId, votableId])
+}
+
+enum VoteType {
+  UPVOTE
+  DOWNVOTE
 }
