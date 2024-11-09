@@ -10,7 +10,7 @@ const config = {
     typedRoutes: true,
   },
   images: {
-    domains: ["api.producthunt.com"],
+    remotePatterns: [{ hostname: "api.producthunt.com" }],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
