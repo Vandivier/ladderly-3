@@ -13,10 +13,11 @@ import {
 const TOP_NAV_RIGHT_SECTION_CLASSES = "ml-auto flex items-center space-x-6";
 
 export const TopNavRight = () => {
-  const currentUser = api.user.getCurrentUser.useQuery();
+  const currentUserQuery = api.user.getCurrentUser.useQuery();
+  const currentUser = currentUserQuery.data;
   const { setMenu, openMenuName } = React.useContext(MenuContext);
 
-  const handleCommunityClick = (e) => {
+  const handleCommunityClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (openMenuName === "community") {
       setMenu(null, "");
@@ -25,16 +26,16 @@ export const TopNavRight = () => {
     }
   };
 
-  const handleAccountClick = (e) => {
+  const handleAccountClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (openMenuName === "account") {
       setMenu(null, "");
-    } else if (currentUser.data) {
-      setMenu(<AccountMenuItems currentUser={currentUser.data} />, "account");
+    } else if (currentUser) {
+      setMenu(<AccountMenuItems currentUser={currentUser} />, "account");
     }
   };
 
-  const handleLeaderboardClick = (e) => {
+  const handleLeaderboardClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (openMenuName === "leaderboard") {
       setMenu(null, "");
