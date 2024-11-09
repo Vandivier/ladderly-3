@@ -1,6 +1,7 @@
 import {
   createTRPCRouter,
   protectedProcedure,
+  publicProcedure,
 } from "~/server/api/trpc";
 import { PaymentTierEnum } from "@prisma/client";
 
@@ -11,7 +12,11 @@ const tiersOrder = {
 } as const;
 
 export const userRouter = createTRPCRouter({
-  getCurrentUser: protectedProcedure.query(async ({ ctx }) => {
+  getCurrentUser: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session) {
+      return null;
+    }
+
     const user = await ctx.db.user.findUnique({
       where: {
         id: parseInt(ctx.session.user.id),
