@@ -6,7 +6,11 @@ import { MenuContext, MenuProvider } from "./MenuProvider";
 import { TopNavLeft } from "./TopNavLeft";
 import { TopNavRight, TopNavRightSkeleton } from "./TopNavRight";
 import { TOP_NAV_STANDARD_CLASSES } from "./TopNavSubmenu";
-import { DARK_MODE_STANDARD_CLASSES } from "~/app/core/theme/ThemeUtils";
+
+// note: do not extract `DARK_MODE_STANDARD_CLASSES` out of file.
+// it is duplicated intentionally between files to ensure tailwind classes are bundled
+const DARK_MODE_STANDARD_CLASSES =
+  "dark:bg-ladderly-dark-purple-2 dark:text-white";
 
 export const TopNavFlexContainer = ({
   children,

@@ -9,11 +9,15 @@ import React from "react";
 import useSubscriptionLevel from "src/app/users/hooks/useSubscriptionLevel";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 import PricingGrid from "~/app/core/components/pricing-grid/PricingGrid";
-import { DARK_MODE_STANDARD_CLASSES } from "~/app/core/theme/ThemeUtils";
 import styles from "~/styles/Home.module.css";
 import { AuthButtons } from "../_components/AuthButtons";
 import { LadderlyHelpsBlock } from "./LadderlyHelpsBlock";
 import { TestimonialBlock } from "./TestimonialBlock";
+
+// note: do not extract `DARK_MODE_STANDARD_CLASSES` out of file.
+// it is duplicated intentionally between files to ensure tailwind classes are bundled
+const DARK_MODE_STANDARD_CLASSES =
+  "dark:bg-ladderly-dark-purple-2 dark:text-white";
 
 const HomePageCardSubheading = ({
   children,
