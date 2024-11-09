@@ -1,6 +1,8 @@
+"use server";
+
 import React from "react";
 import Link from "next/link";
-import { api } from "~/trpc/react";
+import { api } from "~/trpc/server";
 
 type Benefit = {
   paragraphContent?: React.ReactNode;
@@ -90,9 +92,8 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
   </Link>
 );
 
-const PricingGrid: React.FC = () => {
-  // TODO: is this an unnecessary server call? can we get this trpc/server on the server side?
-  const currentUser = api.user.getCurrentUser.useQuery();
+const PricingGrid: React.FC = async () => {
+  const currentUser = await api.user.getCurrentUser();
 
   return (
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
