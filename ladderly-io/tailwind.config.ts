@@ -1,4 +1,3 @@
-import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
@@ -39,11 +38,13 @@ export default {
         frost: '0 4px 30px rgba(0, 0, 0, 0.1)',
       },
       colors: {
+        // note: ladderly-off-white is equivalent to ladderly-light-purple-1
         'ladderly-off-white': 'rgba(102, 34, 170, 0.05)',
         'ladderly-orange': 'rgb(255, 130, 85)',
         'ladderly-pink': 'rgb(255, 85, 210)',
         'ladderly-tetrad-pink': 'rgb(255, 85, 210)',
         'ladderly-triad-orange': 'rgb(255, 130, 85)',
+
         'ladderly-violet-1': '#8155ff38',
         'ladderly-violet-2': '#7450ec',
         'ladderly-violet-3': '#7C3AED',
@@ -72,4 +73,4 @@ export default {
     },
   },
   plugins: [require('@tailwindcss/typography')],
-} satisfies Config;
+};
