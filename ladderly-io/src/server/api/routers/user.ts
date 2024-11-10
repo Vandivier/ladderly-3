@@ -13,6 +13,28 @@ const tiersOrder = {
   PREMIUM: 2,
 } as const;
 
+const UpdateSettingsSchema = z.object({
+  email: z.string(),
+  emailBackup: z.string().optional(),
+  emailStripe: z.string().optional(),
+  nameFirst: z.string().optional(),
+  nameLast: z.string().optional(),
+  hasOpenToWork: z.boolean(),
+  hasShoutOutsEnabled: z.boolean(),
+  profileBlurb: z.string().nullable(),
+  profileContactEmail: z.string().nullable(),
+  profileGitHubUri: z.string().nullable(),
+  profileHomepageUri: z.string().nullable(),
+  profileLinkedInUri: z.string().nullable(),
+  residenceCountry: z.string(),
+  residenceUSState: z.string(),
+  hasPublicProfileEnabled: z.boolean(),
+  hasSmallGroupInterest: z.boolean(),
+  hasLiveStreamInterest: z.boolean(),
+  hasOnlineEventInterest: z.boolean(),
+  hasInPersonEventInterest: z.boolean(),
+});
+
 export const userRouter = createTRPCRouter({
   getCurrentUser: publicProcedure.query(async ({ ctx }) => {
     if (!ctx.session) {
@@ -176,6 +198,121 @@ export const userRouter = createTRPCRouter({
           message: 'You do not have permission to view this user data.'
         });
       }
+
+      return user;
+    }),
+
+  getSettings: protectedProcedure.query(async ({ ctx }) => {
+    const id = parseInt(ctx.session.user.id);
+    
+    const result = await ctx.db.$transaction(async (tx) => {
+      const user = await tx.user.findUnique({
+        where: { id },
+        include: {
+          subscriptions: {
+            where: { type: 'ACCOUNT_PLAN' },
+            select: { tier: true, type: true },
+          },
+        },
+      });
+
+      if (!user) {
+        throw new TRPCError({ 
+          code: 'NOT_FOUND',
+          message: 'User not found'
+        });
+      }
+
+      let subscription = user.subscriptions[0];
+
+      if (!subscription) {
+        subscription = await tx.subscription.create({
+          data: {
+            userId: id,
+            tier: PaymentTierEnum.FREE,
+            type: 'ACCOUNT_PLAN',
+          },
+        });
+      }
+
+      return {
+        id: user.id,
+        email: user.email,
+        emailBackup: user.emailBackup,
+        emailStripe: user.emailStripe,
+        nameFirst: user.nameFirst,
+        nameLast: user.nameLast,
+        hasOpenToWork: user.hasOpenToWork,
+        hasShoutOutsEnabled: user.hasShoutOutsEnabled,
+        profileBlurb: user.profileBlurb,
+        profileContactEmail: user.profileContactEmail,
+        profileGitHubUri: user.profileGitHubUri,
+        profileHomepageUri: user.profileHomepageUri,
+        profileLinkedInUri: user.profileLinkedInUri,
+        residenceCountry: user.residenceCountry,
+        residenceUSState: user.residenceUSState,
+        hasPublicProfileEnabled: user.hasPublicProfileEnabled,
+        hasSmallGroupInterest: user.hasSmallGroupInterest,
+        hasLiveStreamInterest: user.hasLiveStreamInterest,
+        hasOnlineEventInterest: user.hasOnlineEventInterest,
+        hasInPersonEventInterest: user.hasInPersonEventInterest,
+        subscription: {
+          tier: subscription.tier,
+          type: subscription.type,
+        },
+      };
+    });
+
+    return result;
+  }),
+
+  updateSettings: protectedProcedure
+    .input(UpdateSettingsSchema)
+    .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id);
+      const email = input.email.toLowerCase().trim();
+      const emailBackup = input.emailBackup?.toLowerCase().trim() || '';
+      const emailStripe = input.emailStripe?.toLowerCase().trim() || '';
+
+      // Basic email validation
+      const isValidEmail = (email: string) => 
+        email === '' || (email.includes('@') && email.includes('.'));
+
+      if (
+        !isValidEmail(email) ||
+        !isValidEmail(emailBackup) ||
+        !isValidEmail(emailStripe)
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Invalid email format'
+        });
+      }
+
+      const user = await ctx.db.user.update({
+        where: { id: userId },
+        data: {
+          email,
+          emailBackup,
+          emailStripe,
+          hasInPersonEventInterest: input.hasInPersonEventInterest,
+          hasOnlineEventInterest: input.hasOnlineEventInterest,
+          hasLiveStreamInterest: input.hasLiveStreamInterest,
+          hasOpenToWork: input.hasOpenToWork,
+          hasPublicProfileEnabled: input.hasPublicProfileEnabled,
+          hasShoutOutsEnabled: input.hasShoutOutsEnabled,
+          hasSmallGroupInterest: input.hasSmallGroupInterest,
+          nameFirst: input.nameFirst?.trim() || '',
+          nameLast: input.nameLast?.trim() || '',
+          profileBlurb: input.profileBlurb?.trim() || null,
+          profileContactEmail: input.profileContactEmail?.toLowerCase().trim() || null,
+          profileGitHubUri: input.profileGitHubUri?.trim() || null,
+          profileHomepageUri: input.profileHomepageUri?.trim() || null,
+          profileLinkedInUri: input.profileLinkedInUri?.trim() || null,
+          residenceCountry: input.residenceCountry?.trim() || '',
+          residenceUSState: input.residenceUSState?.trim() || '',
+        },
+      });
 
       return user;
     }),
