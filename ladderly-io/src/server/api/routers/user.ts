@@ -5,6 +5,7 @@ import {
 } from "~/server/api/trpc";
 import { PaymentTierEnum } from "@prisma/client";
 import { z } from "zod";
+import { TRPCError } from '@trpc/server';
 
 const tiersOrder = {
   FREE: 0,
@@ -117,5 +118,65 @@ export const userRouter = createTRPCRouter({
         users: paginatedUsers,
         hasMore,
       };
+    }),
+
+  getUser: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx, input }) => {
+      // Validate ID is an integer
+      if (input.id !== parseInt(input.id.toString())) {
+        throw new TRPCError({ 
+          code: 'NOT_FOUND',
+          message: 'User not found'
+        });
+      }
+
+      const isOwnData = ctx.session?.user?.id === input.id.toString();
+
+      const user = await ctx.db.user.findUnique({
+        where: { id: input.id },
+        select: {
+          id: true,
+          uuid: true,
+          nameFirst: true,
+          nameLast: true,
+          hasPublicProfileEnabled: true,
+          hasShoutOutsEnabled: true,
+          hasOpenToWork: true,
+          profileBlurb: true,
+          profileContactEmail: true,
+          profileGitHubUri: true,
+          profileHomepageUri: true,
+          profileLinkedInUri: true,
+          userChecklists: {
+            where: { isComplete: true },
+            take: 3,
+            orderBy: { createdAt: 'desc' },
+            select: {
+              id: true,
+              checklist: true,
+              createdAt: true,
+              isComplete: true,
+              updatedAt: true,
+            },
+          },
+        },
+      });
+
+      if (!user) {
+        throw new TRPCError({ 
+          code: 'NOT_FOUND',
+          message: 'User not found'
+        });
+      }
+
+      if (!isOwnData && !user.hasPublicProfileEnabled) {
+        throw new TRPCError({ 
+          code: 'UNAUTHORIZED',
+          message: 'You do not have permission to view this user data.'
+        });
+      }
+
+      return user;
     }),
 });
