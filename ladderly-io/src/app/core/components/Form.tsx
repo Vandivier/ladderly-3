@@ -1,22 +1,36 @@
-import { ReactNode, PropsWithoutRef } from 'react'
+import { ReactNode, PropsWithoutRef } from "react";
 import {
   Form as FinalForm,
   FormProps as FinalFormProps,
-} from 'react-final-form'
-import { z } from 'zod'
-import { validateZodSchema } from 'blitz'
-export { FORM_ERROR } from 'final-form'
+} from "react-final-form";
+import { z } from "zod";
+import { FORM_ERROR } from "final-form";
 
 export interface FormProps<S extends z.ZodType<any, any>>
-  extends Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
-  /** All your form fields */
-  children?: ReactNode
-  /** Text to display in the submit button */
-  submitText?: string
-  schema?: S
-  onSubmit: FinalFormProps<z.infer<S>>['onSubmit']
-  initialValues?: FinalFormProps<z.infer<S>>['initialValues']
+  extends Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit"> {
+  children?: ReactNode;
+  submitText?: string;
+  schema?: S;
+  onSubmit: FinalFormProps<z.infer<S>>["onSubmit"];
+  initialValues?: FinalFormProps<z.infer<S>>["initialValues"];
 }
+
+export const validateZodSchema = <T extends z.ZodType<any, any>>(
+  schema: T | undefined
+) => {
+  return (values: z.infer<T>) => {
+    if (!schema) return {};
+    try {
+      schema.parse(values);
+      return {};
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return error.formErrors.fieldErrors;
+      }
+      return { [FORM_ERROR]: "Form validation failed" };
+    }
+  };
+};
 
 export function Form<S extends z.ZodType<any, any>>({
   children,
@@ -33,11 +47,10 @@ export function Form<S extends z.ZodType<any, any>>({
       onSubmit={onSubmit}
       render={({ handleSubmit, submitting, submitError }) => (
         <form onSubmit={handleSubmit} className="form" {...props}>
-          {/* Form fields supplied as children are rendered here */}
           {children}
 
           {submitError && (
-            <div role="alert" style={{ color: 'red' }}>
+            <div role="alert" style={{ color: "red" }}>
               {submitError}
             </div>
           )}
@@ -54,7 +67,7 @@ export function Form<S extends z.ZodType<any, any>>({
         </form>
       )}
     />
-  )
+  );
 }
 
-export default Form
+export { FORM_ERROR };
