@@ -8,7 +8,6 @@ import React from "react";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 import PricingGrid from "~/app/core/components/pricing-grid/PricingGrid";
 import { LadderlySession } from "~/server/auth";
-import { AuthButtons } from "../_components/AuthButtons";
 import { LadderlyHelpsBlock } from "./LadderlyHelpsBlock";
 import { TestimonialBlock } from "./TestimonialBlock";
 
@@ -138,10 +137,6 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
               </div>
             </section>
           </div>
-
-          <section id="deleteme">
-            <AuthButtons initialSession={session} />
-          </section>
 
           <AdvancedChecklistContentBlock session={session} />
           <PricingGrid />

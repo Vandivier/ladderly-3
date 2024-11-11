@@ -1,19 +1,23 @@
 "use client";
 
+import { FORM_ERROR } from "final-form";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Login as LoginSchema } from "~/app/(auth)/schemas";
+import { SocialSignIn } from "~/app/_components/SocialSignIn";
 import { Form } from "~/app/core/components/Form";
 import { LabeledTextField } from "~/app/core/components/LabeledTextField";
-import { Login as LoginSchema } from "~/app/(auth)/schemas";
-import { FORM_ERROR } from "final-form";
+import { LadderlySession } from "~/server/auth";
 
-export const LoginForm = () => {
+export const LoginForm = ({ session }: { session: LadderlySession | null }) => {
   const router = useRouter();
 
   return (
     <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Log In</h1>
+
+      <SocialSignIn initialSession={session} />
 
       <Form
         className="space-y-4"
@@ -66,5 +70,3 @@ export const LoginForm = () => {
     </div>
   );
 };
-
-export default LoginForm;
