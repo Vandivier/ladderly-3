@@ -13,12 +13,13 @@ const tiersOrder = {
   PREMIUM: 2,
 } as const;
 
-const UpdateSettingsSchema = z.object({
+// Define the settings input type
+export const UpdateSettingsSchema = z.object({
   email: z.string(),
-  emailBackup: z.string().optional(),
-  emailStripe: z.string().optional(),
-  nameFirst: z.string().optional(),
-  nameLast: z.string().optional(),
+  emailBackup: z.string().nullable(),
+  emailStripe: z.string().nullable(),
+  nameFirst: z.string().nullable(),
+  nameLast: z.string().nullable(),
   hasOpenToWork: z.boolean(),
   hasShoutOutsEnabled: z.boolean(),
   profileBlurb: z.string().nullable(),
@@ -34,6 +35,36 @@ const UpdateSettingsSchema = z.object({
   hasOnlineEventInterest: z.boolean(),
   hasInPersonEventInterest: z.boolean(),
 });
+
+// Define the settings output type
+export const UserSettingsSchema = z.object({
+  id: z.number(),
+  email: z.string(),
+  emailBackup: z.string().nullable(),
+  emailStripe: z.string().nullable(),
+  nameFirst: z.string().nullable(),
+  nameLast: z.string().nullable(),
+  hasOpenToWork: z.boolean(),
+  hasShoutOutsEnabled: z.boolean(),
+  profileBlurb: z.string().nullable(),
+  profileContactEmail: z.string().nullable(),
+  profileGitHubUri: z.string().nullable(),
+  profileHomepageUri: z.string().nullable(),
+  profileLinkedInUri: z.string().nullable(),
+  residenceCountry: z.string(),
+  residenceUSState: z.string(),
+  hasPublicProfileEnabled: z.boolean(),
+  hasSmallGroupInterest: z.boolean(),
+  hasLiveStreamInterest: z.boolean(),
+  hasOnlineEventInterest: z.boolean(),
+  hasInPersonEventInterest: z.boolean(),
+  subscription: z.object({
+    tier: z.nativeEnum(PaymentTierEnum),
+    type: z.string(),
+  }),
+});
+
+export type UserSettings = z.infer<typeof UserSettingsSchema>;
 
 export const userRouter = createTRPCRouter({
   getCurrentUser: publicProcedure.query(async ({ ctx }) => {
@@ -235,7 +266,7 @@ export const userRouter = createTRPCRouter({
         });
       }
 
-      return {
+      const settings: UserSettings = {
         id: user.id,
         email: user.email,
         emailBackup: user.emailBackup,
@@ -261,6 +292,8 @@ export const userRouter = createTRPCRouter({
           type: subscription.type,
         },
       };
+
+      return UserSettingsSchema.parse(settings);
     });
 
     return result;
@@ -312,8 +345,24 @@ export const userRouter = createTRPCRouter({
           residenceCountry: input.residenceCountry?.trim() || '',
           residenceUSState: input.residenceUSState?.trim() || '',
         },
+        include: {
+          subscriptions: {
+            where: { type: 'ACCOUNT_PLAN' },
+            select: { tier: true, type: true },
+          },
+        },
       });
 
-      return user;
+      const subscription = user.subscriptions[0] || {
+        tier: PaymentTierEnum.FREE,
+        type: 'ACCOUNT_PLAN',
+      };
+
+      const settings: UserSettings = {
+        ...user,
+        subscription,
+      };
+
+      return UserSettingsSchema.parse(settings);
     }),
 });

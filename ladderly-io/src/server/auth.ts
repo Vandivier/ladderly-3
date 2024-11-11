@@ -7,36 +7,58 @@ import DiscordProvider from "next-auth/providers/discord";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import LinkedInProvider from "next-auth/providers/linkedin";
+import { PaymentTierEnum } from "@prisma/client";
 
 import { env } from "~/env";
 import { db } from "~/server/db";
 import { LadderlyMigrationAdapter } from "./LadderlyMigrationAdapter";
 
-declare module "next-auth" {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-      // ...other properties
-      // role: UserRole;
-    } & DefaultSession["user"];
+export interface LadderlySession extends DefaultSession {
+  user: {
+    id: string;
+    subscription: {
+      tier: PaymentTierEnum;
+      type: string;
+    };
+    email?: string | null;
+    name?: string | null;
+    image?: string | null;
   }
+}
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+declare module "next-auth" {
+  interface Session extends LadderlySession {}
 }
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    session: async ({ session, user }): Promise<LadderlySession> => {
+      const dbUser = await db.user.findUnique({
+        where: { id: parseInt(user.id) },
+        include: {
+          subscriptions: {
+            where: { type: 'ACCOUNT_PLAN' },
+            select: { tier: true, type: true },
+          },
+        },
+      });
+
+      const subscription = dbUser?.subscriptions[0] || {
+        tier: PaymentTierEnum.FREE,
+        type: 'ACCOUNT_PLAN',
+      };
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user.id,
+          subscription,
+        },
+      };
+    },
     signIn: async ({ user, account, profile, email, credentials }) => {
+      // If the user exists but doesn't have an account for this provider
       if (account?.provider && user.email) {
         const existingUser = await db.user.findUnique({
           where: { email: user.email },
@@ -44,7 +66,6 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (existingUser) {
-          // If the user exists but doesn't have an account for this provider
           const existingAccount = existingUser.accounts.find(
             (acc) => acc.provider === account.provider
           );
@@ -107,4 +128,5 @@ export const authOptions: NextAuthOptions = {
   ].filter(Boolean) as NextAuthOptions["providers"],
 };
 
-export const getServerAuthSession = () => getServerSession(authOptions);
+export const getServerAuthSession = () => 
+  getServerSession(authOptions) as Promise<LadderlySession | null>;
