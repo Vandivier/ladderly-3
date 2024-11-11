@@ -5,6 +5,7 @@ import { LargeCard } from "~/app/core/components/LargeCard";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 import { SettingsFormWrapper } from "./components/SettingsFormWrapper";
 import { redirect } from "next/navigation";
+import { PaymentTierEnum } from "@prisma/client";
 
 export const metadata = {
   title: "Settings",
@@ -13,6 +14,7 @@ export const metadata = {
 export default async function SettingsPage() {
   try {
     const settings = await api.user.getSettings();
+    const isPremium = settings.subscription.tier === PaymentTierEnum.FREE;
 
     return (
       <LadderlyPageWrapper>
@@ -22,6 +24,10 @@ export default async function SettingsPage() {
               Edit User Settings
             </h1>
             <p className="mt-4">
+              Welcome, User ID {settings.id}!{" "}
+              {isPremium
+                ? "You are signed in to a free account."
+                : "You are signed in to a premium account."}{" "}
               Please email john@ladderly.io to update your subscription tier.
             </p>
 
