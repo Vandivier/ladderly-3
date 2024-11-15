@@ -10,8 +10,6 @@ export const metadata = {
 const LoginPage = async () => {
   const session: LadderlySession | null = await getServerAuthSession();
 
-  // TODO: tell user if they are already logged in
-
   return (
     <div className="relative min-h-screen">
       <nav className="flex border border-ladderly-light-purple-1 bg-ladderly-off-white px-4 py-1 text-ladderly-violet-700">
@@ -23,7 +21,7 @@ const LoginPage = async () => {
         </Link>
       </nav>
       <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-        <LoginForm session={session} />
+        {session?.user ? <p>You are already logged in.</p> : <LoginForm />}
       </div>
     </div>
   );

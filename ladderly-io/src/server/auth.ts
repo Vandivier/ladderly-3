@@ -14,14 +14,14 @@ import { db } from "~/server/db";
 import { LadderlyMigrationAdapter } from "./LadderlyMigrationAdapter";
 
 export interface LadderlySession extends DefaultSession {
-  user: {
+  user?: {
     id: string;
     subscription: {
       tier: PaymentTierEnum;
       type: string;
     };
-    email?: string | null;
-    name?: string | null;
+    email: string | null;
+    name: string | null;
     image?: string | null;
   }
 }
@@ -48,13 +48,19 @@ export const authOptions: NextAuthOptions = {
         type: 'ACCOUNT_PLAN',
       };
 
+      const userData = dbUser
+        ? {
+            email: dbUser.email,
+            name: dbUser.name,
+            image: dbUser.image,
+            id: user.id,
+            subscription,
+          }
+        : undefined;
+
       return {
         ...session,
-        user: {
-          ...session.user,
-          id: user.id,
-          subscription,
-        },
+        user: userData,
       };
     },
     signIn: async ({ user, account, profile, email, credentials }) => {
