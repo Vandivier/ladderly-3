@@ -11,6 +11,23 @@ import { LabeledTextField } from "~/app/core/components/LabeledTextField";
 export const LoginForm = () => {
   const router = useRouter();
 
+  const handleSubmit = async (values: { email: string; password: string }) => {
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+
+    if (result?.error) {
+      return { [FORM_ERROR]: result.error };
+    }
+
+    if (result?.ok) {
+      router.push("/");
+      router.refresh();
+    }
+  };
+
   return (
     <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Log In</h1>
@@ -41,28 +58,7 @@ export const LoginForm = () => {
         submitText="Log In with Email"
         schema={LoginSchema}
         initialValues={{ email: "", password: "" }}
-        onSubmit={async (values) => {
-          try {
-            const result = await signIn("credentials", {
-              email: values.email,
-              password: values.password,
-              redirect: false,
-            });
-
-            if (result?.error) {
-              return { [FORM_ERROR]: "Invalid email or password" };
-            }
-
-            if (result?.ok) {
-              router.push("/");
-              router.refresh();
-            }
-          } catch (error: any) {
-            return {
-              [FORM_ERROR]: "An unexpected error occurred. Please try again.",
-            };
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         <LabeledTextField name="email" label="Email" placeholder="Email" />
         <LabeledTextField
