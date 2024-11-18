@@ -1,3 +1,11 @@
+/* TODO:
+ * let's abandon compatability with blitz.js passwords and simply force users to reset passwords as part of this migration.
+ * I'll mark user passwords as empty strings
+ * If the user password in the DB is empty we will trigger the forgot password flow and inform the user
+ * If the user password in the DB is populated, suggest a current best practice for node.js v20+
+ * Using the argon2 package seems fine to me.
+ */
+
 import {
   getServerSession,
   type DefaultSession,
@@ -7,11 +15,14 @@ import DiscordProvider from "next-auth/providers/discord";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import LinkedInProvider from "next-auth/providers/linkedin";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PaymentTierEnum } from "@prisma/client";
+import * as argon2 from "argon2";
 
 import { env } from "~/env";
 import { db } from "~/server/db";
 import { LadderlyMigrationAdapter } from "./LadderlyMigrationAdapter";
+import { TRPCError } from "@trpc/server";
 
 export interface LadderlySession extends DefaultSession {
   user?: {
@@ -28,6 +39,21 @@ export interface LadderlySession extends DefaultSession {
 
 declare module "next-auth" {
   interface Session extends LadderlySession {}
+}
+
+// Helper function to hash password
+async function hashPassword(password: string): Promise<string> {
+  return await argon2.hash(password);
+}
+
+// Helper function to verify password
+async function verifyPassword(hashedPassword: string, plaintext: string): Promise<boolean> {
+  try {
+    return await argon2.verify(hashedPassword, plaintext);
+  } catch (error) {
+    console.error('Password verification failed:', error);
+    return false;
+  }
 }
 
 export const authOptions: NextAuthOptions = {
@@ -131,6 +157,64 @@ export const authOptions: NextAuthOptions = {
           clientSecret: env.LINKEDIN_CLIENT_SECRET,
         })
       : null,
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "your-email@example.com" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        if (!credentials?.email || !credentials?.password) {
+          throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message: 'Invalid credentials',
+          });
+        }
+
+        const user = await db.user.findUnique({
+          where: { email: credentials.email },
+        });
+
+        if (!user) {
+          throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message: 'Invalid email or password',
+          });
+        }
+
+        if (!user.hashedPassword) {
+          // Trigger password reset flow
+          throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message: 'Password reset required. Please check your email to reset your password.',
+          });
+        }
+
+        try {
+          const isValid = await verifyPassword(user.hashedPassword, credentials.password);
+          
+          if (!isValid) {
+            throw new TRPCError({
+              code: 'UNAUTHORIZED',
+              message: 'Invalid email or password',
+            });
+          }
+
+          return {
+            id: user.id.toString(),
+            email: user.email,
+            name: `${user.nameFirst} ${user.nameLast}`.trim() || null,
+            image: user.image || null,
+          };
+        } catch (error) {
+          console.error('Password verification failed:', error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'An error occurred during authentication',
+          });
+        }
+      },
+    }),
   ].filter(Boolean) as NextAuthOptions["providers"],
 };
 

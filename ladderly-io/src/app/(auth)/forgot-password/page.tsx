@@ -3,13 +3,11 @@
 import { LabeledTextField } from "~/app/core/components/LabeledTextField";
 import { Form, FORM_ERROR } from "~/app/core/components/Form";
 import { ForgotPassword } from "src/app/(auth)/schemas";
-// import forgotPassword from "src/app/(auth)/mutations/forgotPassword";
-// import { useMutation } from "@blitzjs/rpc";
+import { api } from "~/trpc/react";
 import Link from "next/link";
 
 const ForgotPasswordPage = () => {
-  // const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword);
-  const isSuccess = false;
+  const forgotPasswordMutation = api.auth.forgotPassword.useMutation();
 
   return (
     <div className="relative min-h-screen">
@@ -27,7 +25,7 @@ const ForgotPasswordPage = () => {
             Forgot your password?
           </h1>
 
-          {isSuccess ? (
+          {forgotPasswordMutation.isSuccess ? (
             <div>
               <h2>Request Submitted</h2>
               <p>
@@ -42,7 +40,7 @@ const ForgotPasswordPage = () => {
               initialValues={{ email: "" }}
               onSubmit={async (values) => {
                 try {
-                  // await forgotPasswordMutation(values);
+                  await forgotPasswordMutation.mutateAsync(values);
                 } catch (error: any) {
                   return {
                     [FORM_ERROR]:
