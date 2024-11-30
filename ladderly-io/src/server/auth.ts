@@ -58,7 +58,12 @@ async function verifyPassword(hashedPassword: string, plaintext: string): Promis
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
+    // TODO: this seems to work with google login, but not with credentials login
     session: async ({ session, user }): Promise<LadderlySession> => {
+      console.log("Session Callback Triggered"); // TODO: delete this log
+      console.log("Session:", session); // TODO: delete this log
+      console.log("User:", user); // TODO: delete this log
+
       const dbUser = await db.user.findUnique({
         where: { id: parseInt(user.id) },
         include: {
@@ -68,6 +73,8 @@ export const authOptions: NextAuthOptions = {
           },
         },
       });
+
+      console.log("Database User:", dbUser); // TODO: delete this log
 
       const subscription = dbUser?.subscriptions[0] || {
         tier: PaymentTierEnum.FREE,
@@ -84,26 +91,31 @@ export const authOptions: NextAuthOptions = {
           }
         : undefined;
 
+      console.log("User Data for Session:", userData); // TODO: delete this log
+
       return {
         ...session,
         user: userData,
       };
     },
     signIn: async ({ user, account, profile, email, credentials }) => {
-      // If the user exists but doesn't have an account for this provider
       if (account?.provider && user.email) {
         const existingUser = await db.user.findUnique({
           where: { email: user.email },
           include: { accounts: true },
         });
 
+        console.log("Existing User:", existingUser); // TODO: delete this log
+
         if (existingUser) {
           const existingAccount = existingUser.accounts.find(
             (acc) => acc.provider === account.provider
           );
 
+          console.log("Existing Account:", existingAccount); // TODO: delete this log
+
           if (!existingAccount) {
-            await db.account.create({
+            const newAccount = await db.account.create({
               data: {
                 userId: existingUser.id,
                 type: account.type,
@@ -117,9 +129,13 @@ export const authOptions: NextAuthOptions = {
                 session_state: account.session_state,
               },
             });
+            console.log(`New Account Created with User ID: ${existingUser.id} and Account ID: ${newAccount.id}`);
           }
 
           return true;
+        } else {
+          console.log(`User not found by email with User ID: ${user.id}`);
+          return false;
         }
       }
 

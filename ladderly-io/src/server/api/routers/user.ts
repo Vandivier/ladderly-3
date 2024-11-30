@@ -68,13 +68,14 @@ export type UserSettings = z.infer<typeof UserSettingsSchema>;
 
 export const userRouter = createTRPCRouter({
   getCurrentUser: publicProcedure.query(async ({ ctx }) => {
-    if (!ctx.session) {
+    const strId = ctx?.session?.user?.id;
+    if (!strId) {
       return null;
     }
 
     const user = await ctx.db.user.findUnique({
       where: {
-        id: parseInt(ctx.session.user.id),
+        id: parseInt(strId),
       },
       include: {
         subscriptions: true
