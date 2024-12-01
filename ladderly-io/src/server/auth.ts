@@ -41,11 +41,6 @@ declare module "next-auth" {
   interface Session extends LadderlySession {}
 }
 
-// Helper function to hash password
-async function hashPassword(password: string): Promise<string> {
-  return await argon2.hash(password);
-}
-
 // Helper function to verify password
 async function verifyPassword(hashedPassword: string, plaintext: string): Promise<boolean> {
   try {
@@ -57,6 +52,9 @@ async function verifyPassword(hashedPassword: string, plaintext: string): Promis
 }
 
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     // TODO: this seems to work with google login, but not with credentials login
     session: async ({ session, user }): Promise<LadderlySession> => {
@@ -98,6 +96,10 @@ export const authOptions: NextAuthOptions = {
         user: userData,
       };
     },
+    jwt: async ({ token, user, account, profile }) => {
+      // TODO: implement or remove jwt callback
+      return token;
+    },
     signIn: async ({ user, account, profile, email, credentials }) => {
       if (account?.provider && user.email) {
         const existingUser = await db.user.findUnique({
@@ -132,13 +134,13 @@ export const authOptions: NextAuthOptions = {
             console.log(`New Account Created with User ID: ${existingUser.id} and Account ID: ${newAccount.id}`);
           }
 
-          return true;
         } else {
           console.log(`User not found by email with User ID: ${user.id}`);
           return false;
         }
       }
 
+      console.log("signIn callback completed successfully"); // TODO: delete this log
       return true;
     },
   },
