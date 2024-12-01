@@ -4,12 +4,14 @@ import {
   AdapterAccount,
   AdapterSession,
   AdapterUser,
-} from "next-auth/adapters";
-import { ProviderType } from "next-auth/providers/index";
+  VerificationToken,
+} from "@auth/core/adapters";
+
+import { AdapterAccountType } from "@auth/core/adapters";
 
 export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
   return {
-    createUser: async (data) => {
+    createUser: async (data: AdapterUser) => {
       const prismaUserData: Prisma.UserCreateInput = {
         name: data.name ?? undefined,
         email: data.email,
@@ -60,7 +62,7 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       });
       return adaptUser(user);
     },
-    linkAccount: async (account) => {
+    linkAccount: async (account: AdapterAccount) => {
       const prismaAccountData: Prisma.AccountCreateInput = {
         provider: account.provider,
         type: account.type,
@@ -70,7 +72,7 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
         token_type: account.token_type,
         scope: account.scope,
         id_token: account.id_token,
-        session_state: account.session_state,
+        session_state: account.session_state?.toString() ?? undefined,
         refresh_token: account.refresh_token,
         user: {
           connect: { id: parseInt(account.userId) },
@@ -90,6 +92,7 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       return account ? adaptAccount(account) : undefined;
     },
     createSession: async (data) => {
+      console.log("ENTERED CREATE SESSION WITH DATA:", data);
       const session = await prisma.session.create({
         data: {
           ...data,
@@ -105,6 +108,7 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
         where: { sessionToken },
         include: { user: true },
       });
+
       return result?.user
         ? { session: adaptSession(result), user: adaptUser(result.user) }
         : null;
@@ -127,7 +131,7 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
     deleteSession: async (sessionToken) => {
       await prisma.session.delete({ where: { sessionToken } });
     },
-    createVerificationToken: (data) =>
+    createVerificationToken: (data: VerificationToken) =>
       prisma.verificationToken.create({ data }),
     useVerificationToken: (identifier_token) =>
       prisma.verificationToken.delete({ where: { identifier_token } }),
@@ -155,13 +159,13 @@ function adaptUser(user: User): AdapterUser {
 function adaptAccount(account: Account): AdapterAccount {
   return {
     userId: account.userId.toString(),
-    type: account.type as ProviderType,
+    type: account.type as AdapterAccountType,
     provider: account.provider,
     providerAccountId: account.providerAccountId,
     refresh_token: account.refresh_token ?? undefined,
     access_token: account.access_token ?? undefined,
     expires_at: account.expires_at ?? undefined,
-    token_type: account.token_type ?? undefined,
+    token_type: account.token_type as Lowercase<string> ?? undefined,
     scope: account.scope ?? undefined,
     id_token: account.id_token ?? undefined,
     session_state: account.session_state ?? undefined,
