@@ -8,6 +8,7 @@
 
 import {
   getServerSession,
+  Session,
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
@@ -23,6 +24,7 @@ import { env } from "~/env";
 import { db } from "~/server/db";
 import { LadderlyMigrationAdapter } from "./LadderlyMigrationAdapter";
 import { TRPCError } from "@trpc/server";
+import { JWT } from "next-auth/jwt";
 
 export interface LadderlySession extends DefaultSession {
   user?: {
@@ -56,40 +58,49 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    session: async ({ session }: { session: DefaultSession }): Promise<LadderlySession> => {
-      const dbUser = await db.user.findUnique({
-        where: { email: session.user?.email ?? '' },
-        include: {
-          subscriptions: {
-            where: { type: 'ACCOUNT_PLAN' },
-            select: { tier: true, type: true },
+    jwt: async ({ token, user, account }) => {
+      // Initial sign in
+      if (account && user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.picture = user.image;
+        // Add any additional user data you want to include in the token
+        const dbUser = await db.user.findUnique({
+          where: { id: parseInt(user.id) },
+          include: {
+            subscriptions: {
+              where: { type: 'ACCOUNT_PLAN' },
+              select: { tier: true, type: true },
+            },
           },
-        },
-      });
-
-      const subscription = dbUser?.subscriptions[0] || {
-        tier: PaymentTierEnum.FREE,
-        type: 'ACCOUNT_PLAN',
-      };
-
-      const userData = dbUser
-        ? {
-            email: dbUser.email,
-            name: dbUser.name,
-            image: dbUser.image,
-            id: dbUser.id.toString(),
-            subscription,
-          }
-        : undefined;
-
-      return {
-        ...session,
-        user: userData,
-      };
-    },
-    jwt: async ({ token, user, account, profile }) => {
-      // TODO: implement or remove jwt callback
+        });
+        token.subscription = dbUser?.subscriptions[0] || {
+          tier: PaymentTierEnum.FREE,
+          type: 'ACCOUNT_PLAN',
+        };
+      }
       return token;
+    },
+    session: async ({ session, token }: { session: Session, token: JWT }): Promise<LadderlySession> => {
+      // jwt() is executed first then session()
+      const user = session.user as LadderlySession['user'];
+      const userId = user?.id?.toString() || token.id?.toString() || null;
+      const newSession: LadderlySession = {
+        ...session,
+        user: userId ? {
+          id: userId,
+          email: session.user?.email || token.email?.toString() || null,
+          name: token.name?.toString() || null,
+          image: token.picture?.toString() || null,
+          subscription: token.subscription as {
+            tier: PaymentTierEnum;
+            type: string;
+          },
+        } : undefined,
+      };
+
+      return newSession;
     },
     signIn: async ({ user, account, profile, email, credentials }) => {
       // signIn is called by both social login and credentials login
