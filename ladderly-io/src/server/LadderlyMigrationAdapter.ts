@@ -91,28 +91,6 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       });
       return account ? adaptAccount(account) : undefined;
     },
-    createSession: async (data) => {
-      console.log("ENTERED CREATE SESSION WITH DATA:", data);
-      const session = await prisma.session.create({
-        data: {
-          ...data,
-          handle: data.sessionToken,
-          expiresAt: data.expires,
-          userId: parseInt(data.userId),
-        },
-      });
-      return adaptSession(session);
-    },
-    getSessionAndUser: async (sessionToken) => {
-      const result = await prisma.session.findUnique({
-        where: { sessionToken },
-        include: { user: true },
-      });
-
-      return result?.user
-        ? { session: adaptSession(result), user: adaptUser(result.user) }
-        : null;
-    },
     updateSession: async (data) => {
       const { sessionToken, ...updateData } = data;
 
