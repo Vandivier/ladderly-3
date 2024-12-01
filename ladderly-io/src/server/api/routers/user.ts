@@ -1,3 +1,5 @@
+// src/server/api/routers/user.ts
+
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -6,6 +8,7 @@ import {
 import { PaymentTierEnum } from "@prisma/client";
 import { z } from "zod";
 import { TRPCError } from '@trpc/server';
+import { NULL_RESULT_TRPC_INT } from "~/server/constants";
 
 const tiersOrder = {
   FREE: 0,
@@ -70,7 +73,7 @@ export const userRouter = createTRPCRouter({
   getCurrentUser: publicProcedure.query(async ({ ctx }) => {
     const strId = ctx?.session?.user?.id;
     if (!strId) {
-      return null;
+      return NULL_RESULT_TRPC_INT;
     }
 
     const user = await ctx.db.user.findUnique({
