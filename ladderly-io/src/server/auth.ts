@@ -56,14 +56,9 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    // TODO: this seems to work with google login, but not with credentials login
-    session: async ({ session, user }): Promise<LadderlySession> => {
-      console.log("Session Callback Triggered"); // TODO: delete this log
-      console.log("Session:", session); // TODO: delete this log
-      console.log("User:", user); // TODO: delete this log
-
+    session: async ({ session }: { session: DefaultSession }): Promise<LadderlySession> => {
       const dbUser = await db.user.findUnique({
-        where: { id: parseInt(user.id) },
+        where: { email: session.user?.email ?? '' },
         include: {
           subscriptions: {
             where: { type: 'ACCOUNT_PLAN' },
@@ -71,8 +66,6 @@ export const authOptions: NextAuthOptions = {
           },
         },
       });
-
-      console.log("Database User:", dbUser); // TODO: delete this log
 
       const subscription = dbUser?.subscriptions[0] || {
         tier: PaymentTierEnum.FREE,
@@ -84,12 +77,10 @@ export const authOptions: NextAuthOptions = {
             email: dbUser.email,
             name: dbUser.name,
             image: dbUser.image,
-            id: user.id,
+            id: dbUser.id.toString(),
             subscription,
           }
         : undefined;
-
-      console.log("User Data for Session:", userData); // TODO: delete this log
 
       return {
         ...session,
@@ -101,20 +92,18 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     signIn: async ({ user, account, profile, email, credentials }) => {
+      // signIn is called by both social login and credentials login
+
       if (account?.provider && user.email) {
         const existingUser = await db.user.findUnique({
           where: { email: user.email },
           include: { accounts: true },
         });
 
-        console.log("Existing User:", existingUser); // TODO: delete this log
-
         if (existingUser) {
           const existingAccount = existingUser.accounts.find(
             (acc) => acc.provider === account.provider
           );
-
-          console.log("Existing Account:", existingAccount); // TODO: delete this log
 
           if (!existingAccount) {
             const newAccount = await db.account.create({
@@ -140,7 +129,6 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
-      console.log("signIn callback completed successfully"); // TODO: delete this log
       return true;
     },
   },
