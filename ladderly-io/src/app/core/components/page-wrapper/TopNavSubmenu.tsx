@@ -75,18 +75,15 @@ export const CommunityMenuItems = ({
 
 const LogoutButton = ({ className }: { className: string }) => {
   const { setMenu } = React.useContext(MenuContext);
-  const router = useRouter();
 
   return (
     <button
       className={className}
-      onClick={async () => {
+      onClick={() => {
         setMenu(null, "");
-        const signOutResponse = await signOut({
-          redirect: false,
+        signOut({
           callbackUrl: "/",
         });
-        router.push(signOutResponse.url);
       }}
     >
       Log Out

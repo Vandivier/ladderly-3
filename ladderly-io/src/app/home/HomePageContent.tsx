@@ -3,16 +3,15 @@
 import { PaymentTierEnum } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 
 import React from "react";
-import useSubscriptionLevel from "src/app/users/hooks/useSubscriptionLevel";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 import PricingGrid from "~/app/core/components/pricing-grid/PricingGrid";
-import styles from "~/styles/Home.module.css";
-import { AuthButtons } from "../_components/AuthButtons";
+import { LadderlySession } from "~/server/auth";
 import { LadderlyHelpsBlock } from "./LadderlyHelpsBlock";
 import { TestimonialBlock } from "./TestimonialBlock";
+
+import styles from "~/styles/Home.module.css";
 
 // note: do not extract `DARK_MODE_STANDARD_CLASSES` out of file.
 // it is duplicated intentionally between files to ensure tailwind classes are bundled
@@ -25,11 +24,12 @@ const HomePageCardSubheading = ({
   children: React.ReactNode;
 }) => <h2 className="mb-2 text-xl font-bold">{children}</h2>;
 
-const AdvancedChecklistContentBlock = () => {
-  // const { tier } = useSubscriptionLevel();
-  // TODO: get subscription tier from user router
-  // const isPaid = tier != PaymentTierEnum.FREE;
-  const isPaid = true;
+const AdvancedChecklistContentBlock = ({
+  session,
+}: {
+  session: LadderlySession | null;
+}) => {
+  const isPaid = session?.user?.subscription.tier !== PaymentTierEnum.FREE;
 
   return isPaid ? (
     <div
@@ -49,8 +49,8 @@ const AdvancedChecklistContentBlock = () => {
   ) : null;
 };
 
-const HomePageContent = ({ hello, session }: { hello: any; session: any }) => (
-  <LadderlyPageWrapper title="Home">
+const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
+  <LadderlyPageWrapper>
     <main style={{ padding: "0rem 1rem" }}>
       <div className={styles.wrapper}>
         <div
@@ -138,20 +138,7 @@ const HomePageContent = ({ hello, session }: { hello: any; session: any }) => (
             </section>
           </div>
 
-          <section id="deleteme">
-            <div className="flex flex-col items-center gap-2">
-              <p className="text-2xl text-white">
-                {hello ? hello.greeting : "Loading tRPC query..."}
-              </p>
-
-              <AuthButtons initialSession={session} />
-            </div>
-          </section>
-
-          <Suspense>
-            <AdvancedChecklistContentBlock />
-          </Suspense>
-
+          <AdvancedChecklistContentBlock session={session} />
           <PricingGrid />
         </div>
       </div>

@@ -1,18 +1,18 @@
 import { Suspense } from "react";
+import { getServerAuthSession, LadderlySession } from "~/server/auth";
 import HomePageContent from "./home/HomePageContent";
 import HomePageSkeleton from "./home/HomePageSkeleton";
 
-import { getServerAuthSession } from "~/server/auth";
-import { api } from "~/trpc/server";
+export const metadata = {
+  title: "Home",
+};
 
 export default async function HomePage() {
-  // TODO: replace hello with subscription level
-  const hello = await api.post.hello({ text: "from tRPC" });
-  const session = await getServerAuthSession();
+  const session: LadderlySession | null = await getServerAuthSession();
 
   return (
     <Suspense fallback={<HomePageSkeleton />}>
-      <HomePageContent hello={hello} session={session} />
+      <HomePageContent session={session} />
     </Suspense>
   );
 }
