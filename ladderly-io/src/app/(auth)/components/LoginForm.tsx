@@ -23,7 +23,7 @@ export const LoginForm = () => {
     }
 
     if (result?.ok) {
-      router.push("/");
+      router.push("/?refresh_current_user=true");
       router.refresh();
     }
   };
