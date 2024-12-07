@@ -206,56 +206,6 @@ scripts\python/
     pyproject.toml
     README.md
     uv.lock
-scripts\python\.venv/
-    .gitignore
-    CACHEDIR.TAG
-    pyvenv.cfg
-scripts\python\.venv\Lib/
-scripts\python\.venv\Lib\site-packages/
-    _virtualenv.pth
-    _virtualenv.py
-scripts\python\.venv\Lib\site-packages\pathspec/
-    gitignore.py
-    pathspec.py
-    pattern.py
-    py.typed
-    util.py
-    _meta.py
-    __init__.py
-scripts\python\.venv\Lib\site-packages\pathspec\patterns/
-    gitwildmatch.py
-    __init__.py
-scripts\python\.venv\Lib\site-packages\pathspec\patterns\__pycache__/
-    gitwildmatch.cpython-312.pyc
-    __init__.cpython-312.pyc
-scripts\python\.venv\Lib\site-packages\pathspec\__pycache__/
-    gitignore.cpython-312.pyc
-    pathspec.cpython-312.pyc
-    pattern.cpython-312.pyc
-    util.cpython-312.pyc
-    _meta.cpython-312.pyc
-    __init__.cpython-312.pyc
-scripts\python\.venv\Lib\site-packages\pathspec-0.12.1.dist-info/
-    INSTALLER
-    LICENSE
-    METADATA
-    RECORD
-    REQUESTED
-    WHEEL
-scripts\python\.venv\Lib\site-packages\__pycache__/
-    _virtualenv.cpython-312.pyc
-scripts\python\.venv\Scripts/
-    activate
-    activate.bat
-    activate.csh
-    activate.fish
-    activate.nu
-    activate.ps1
-    activate_this.py
-    deactivate.bat
-    pydoc.bat
-    python.exe
-    pythonw.exe
 scripts\python\analytical/
     blog-15-job-search-regression.csv
     blog-15-job-search-regression.py
