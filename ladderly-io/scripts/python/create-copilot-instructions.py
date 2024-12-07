@@ -5,25 +5,18 @@ import os
 import pathspec
 
 def read_package_json(script_path):
-    """Reads the content of package.json located three levels up from the script's directory."""
-    package_json_path = script_path.parents[2] / "package.json"
+    """Reads and returns the full content of package.json located three levels up from the script's directory."""
+    package_json_path = script_path.parents[2] / "package.json"  # Navigate three levels up
 
     if not package_json_path.exists():
         return "No package.json file found three levels up from the script directory."
 
     with open(package_json_path, "r") as file:
         try:
-            package_data = json.load(file)
-            dependencies = package_data.get("dependencies", {})
-            dev_dependencies = package_data.get("devDependencies", {})
-            return (
-                "Dependencies:\n" +
-                json.dumps(dependencies, indent=4) +
-                "\n\nDev Dependencies:\n" +
-                json.dumps(dev_dependencies, indent=4)
-            )
-        except json.JSONDecodeError:
-            return "Error reading package.json file: Not valid JSON."
+            package_content = file.read()
+            return f"Full package.json content:\n{package_content}"
+        except Exception as e:
+            return f"Error reading package.json file: {e}"
 
 
 def get_folder_structure(script_path, ignore_file=".gitignore"):
@@ -56,13 +49,20 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
 
 def create_copilot_instructions():
     """Creates the copilot-instructions.txt file."""
-    script_path = Path(__file__).resolve()  # Absolute path of the script
+    script_path = Path(__file__).resolve()
     instructions = (
         "Act as an expert web developer to help me resolve a concern. "
+        "\n"
         "We are working on the Ladderly.io web project and I will describe the dependencies for the project, "
-        "the folder structure, the data model. Once you have read through those materials, ask any clarifying "
-        "questions that you have. If you have none simply state that you have read through the high-level context "
+        "\n"
+        "the folder structure, and the data model. Once you have read through these materials, ask any clarifying "
+        "\n"
+        "questions that you have."
+        "\n"
+        "If you have no questions, state that you have read through the high-level context "
+        "\n"
         "and you are ready to help with the current concern.\n\n"
+        "\n"
         "Here is the project.json file for this project which describes the dependencies:\n"
         f"{read_package_json(script_path)}\n\n"
         "Here is the folder structure of the project:\n"
