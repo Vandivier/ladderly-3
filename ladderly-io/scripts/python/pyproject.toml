@@ -1,0 +1,7 @@
+[project]
+name = "ladderly-io-python-scripts"
+version = "0.1.0"
+description = "all the scripts for ladderly.io, written in python"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
