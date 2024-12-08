@@ -11,7 +11,8 @@
     "orta.vscode-jest",
     "prisma.prisma",
     "stylelint.vscode-stylelint",
-    "jmkrivocapich.drawfolderstructure"
+    "jmkrivocapich.drawfolderstructure",
+    "DavidAnson.vscode-markdownlint"
   ],
   "unwantedRecommendations": []
 }

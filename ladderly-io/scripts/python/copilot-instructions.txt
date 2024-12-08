@@ -1,0 +1,322 @@
+Act as an expert web developer to help me resolve a concern. 
+We are working on the Ladderly.io web project and I will describe the dependencies for the project, 
+the folder structure, and the data model. Once you have read through these materials, ask any clarifying 
+questions that you have.
+If you have no questions, state that you have read through the high-level context 
+and you are ready to help with the current concern.
+
+
+Here is the project.json file for this project which describes the dependencies:
+Full package.json content:
+{
+  "name": "ladderly-io",
+  "version": "0.1.1",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "dev": "next dev",
+    "postinstall": "prisma generate",
+    "lint": "next lint",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^1.6.0",
+    "@prisma/client": "^5.14.0",
+    "@t3-oss/env-nextjs": "^0.10.1",
+    "@tailwindcss/typography": "^0.5.15",
+    "@tanstack/react-query": "^5.50.0",
+    "@trpc/client": "^11.0.0-rc.446",
+    "@trpc/react-query": "^11.0.0-rc.446",
+    "@trpc/server": "^11.0.0-rc.446",
+    "argon2": "^0.41.1",
+    "geist": "^1.3.0",
+    "next": "^14.2.4",
+    "next-auth": "^4.24.7",
+    "postmark": "^4.0.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-final-form": "^6.5.9",
+    "react-select": "^5.8.3",
+    "server-only": "^0.0.1",
+    "superjson": "^2.2.1",
+    "zod": "^3.23.3"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.56.10",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.4",
+    "postcss": "^8.4.39",
+    "prettier": "^3.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "prisma": "^5.14.0",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.5.3"
+  },
+  "ct3aMetadata": {
+    "initVersion": "7.36.2"
+  },
+  "packageManager": "npm@10.8.2"
+}
+
+
+Here is the folder structure of the project:
+./
+    .env.template
+    .eslintrc.cjs
+    .gitignore
+    next.config.js
+    package-lock.json
+    package.json
+    postcss.config.cjs
+    prettier.config.ts
+    README.md
+    start-database.sh
+    tailwind.config.ts
+    tsconfig.json
+.next/
+prisma/
+    checklists.json
+    schema.prisma
+    seeds.ts
+prisma\migrations/
+    migration_lock.toml
+prisma\migrations\20230619184405_/
+    migration.sql
+prisma\migrations\20230619223016_optional_user_uuid/
+    migration.sql
+prisma\migrations\20230619223254_required_uuid_user/
+    migration.sql
+prisma\migrations\20230621003315_checklist_items/
+    migration.sql
+prisma\migrations\20230621003453_init_checklist/
+    migration.sql
+prisma\migrations\20230621004105_fix_checklistitem_relation/
+    migration.sql
+prisma\migrations\20230621005853_/
+    migration.sql
+prisma\migrations\20230622023703_init_payment_tiers/
+    migration.sql
+prisma\migrations\20230622041136_default_subscription_free/
+    migration.sql
+prisma\migrations\20230717002647_nullable_versioned_checklists/
+    migration.sql
+prisma\migrations\20230717003130_required_version_checklist/
+    migration.sql
+prisma\migrations\20230717010104_temp_optional_display_idx/
+    migration.sql
+prisma\migrations\20230717225747_non_nullable_checklist_item_display_index/
+    migration.sql
+prisma\migrations\20230719034635_checklist_item_detail_text/
+    migration.sql
+prisma\migrations\20230719035112_links_for_checklist_items/
+    migration.sql
+prisma\migrations\20230719052022_versioned_checklist_items/
+    migration.sql
+prisma\migrations\20230719190420_more_email_fields_and_subscription_type/
+    migration.sql
+prisma\migrations\20230721204837_init_user_checklist_item/
+    migration.sql
+prisma\migrations\20230721205221_no_generic_checklist_item_completestate/
+    migration.sql
+prisma\migrations\20230721210438_formalize_role_enum_w_admin/
+    migration.sql
+prisma\migrations\20230802011425_public_profile_opt_in/
+    migration.sql
+prisma\migrations\20230802012631_open_to_work_bool/
+    migration.sql
+prisma\migrations\20230802013857_profile_data/
+    migration.sql
+prisma\migrations\20230806184729_init_contributions/
+    migration.sql
+prisma\migrations\20240111015249_init_total_contributions/
+    migration.sql
+prisma\migrations\20240111022632_unique_subscription_by_type/
+    migration.sql
+prisma\migrations\20240111030957_rm_unique_contrib_per_subs/
+    migration.sql
+prisma\migrations\20240128051442_small_group_interest/
+    migration.sql
+prisma\migrations\20240217162209_user_residence_location/
+    migration.sql
+prisma\migrations\20240814022244_votables/
+    migration.sql
+prisma\migrations\20240814033017_nullable_miscinfo/
+    migration.sql
+prisma\migrations\20240814042534_guest_votes/
+    migration.sql
+prisma\migrations\20240814175726_constraint_name_and_type_jointly_on_votable/
+    migration.sql
+prisma\migrations\20240815011358_content_votable_type/
+    migration.sql
+prisma\migrations\20240816201444_user_pfps/
+    migration.sql
+prisma\migrations\20240817173146_/
+    migration.sql
+prisma\migrations\20240817173340_optional_sessiontoken/
+    migration.sql
+prisma\migrations\20240817173916_cascade_delete_sessions_on_user_delete/
+    migration.sql
+prisma\seed-utils/
+    seedVotables.ts
+    updateChecklists.ts
+    votables.json
+public/
+    android-chrome-192x192.png
+    android-chrome-512x512.png
+    apple-touch-icon.png
+    favicon-16x16.png
+    favicon-32x32.png
+    favicon.ico
+    logo.png
+    robots.txt
+    site.webmanifest
+    sitemap.xml
+scripts/
+    backupChecklists.js
+    backupUsers.js
+    cascadeDeleteChecklist.ts
+    deleteUnusedChecklistItems.js
+    deleteUnusedChecklists.js
+    deleteUser.js
+    ensureSubscriptions.js
+    generate-sitemap.js
+    restoreUsers.js
+    tableScraperStripe.js
+    tableScraperTeachable.js
+    updateUserSubscriptionsFromStripe.js
+scripts\ci/
+    custom-blog-lint.js
+scripts\one-offs/
+    2023-07-21-ensureUserSubscriptions.js
+    2023-07-22-nuke-user-checklists.js
+scripts\python/
+    .python-version
+    copilot-instructions.txt
+    create-copilot-instructions.py
+    pyproject.toml
+    README.md
+    uv.lock
+scripts\python\analytical/
+    blog-15-job-search-regression.csv
+    blog-15-job-search-regression.py
+    blog-16-game-based-evaluation-ai-risk-analysis.csv
+    README.md
+    requirements.txt
+scripts\python\youtube-transcriber/
+    .env.template
+    consolidate.py
+    consolidated_transcript.txt
+    main.py
+    manage_playlist.py
+    README.md
+    report.py
+    requirements.txt
+    tasks.py
+    urls_high_value_automated.json
+    urls_high_value_manual.json
+    urls_low_value_automated.json
+    urls_low_value_manual.json
+src/
+    env.js
+src\app/
+    layout.tsx
+    page.tsx
+src\app\(auth)/
+    schemas.ts
+src\app\(auth)\components/
+    ForgotPasswordForm.tsx
+    LoginForm.tsx
+    SignupForm.tsx
+src\app\(auth)\forgot-password/
+    page.tsx
+src\app\(auth)\login/
+    page.tsx
+src\app\(auth)\reset-password/
+    page.tsx
+    ResetPasswordClientPageClient.tsx
+src\app\(auth)\signup/
+    page.tsx
+src\app\api/
+src\app\api\auth/
+src\app\api\auth\[...nextauth]/
+    route.ts
+src\app\api\trpc/
+src\app\api\trpc\[trpc]/
+    route.ts
+src\app\community/
+    ClientCommunityPage.tsx
+    page.tsx
+src\app\community\[userId]/
+    page.tsx
+src\app\core/
+src\app\core\components/
+    Form.tsx
+    LabeledAutocompleteField.tsx
+    LabeledCheckboxField.tsx
+    LabeledSelectField.tsx
+    LabeledTextField.tsx
+    LadderlyToast.tsx
+    LargeCard.tsx
+    ProviderProvider.tsx
+src\app\core\components\icons/
+    Home.tsx
+    VerticalChevron.tsx
+src\app\core\components\page-wrapper/
+    LadderlyPageWrapper.tsx
+    MenuProvider.tsx
+    TopNav.tsx
+    TopNavLeft.tsx
+    TopNavRight.tsx
+    TopNavSubmenu.tsx
+src\app\core\components\pricing-grid/
+    PricingGrid.tsx
+    StripeCheckoutButton.tsx
+src\app\core\theme/
+    ThemeContext.tsx
+    ThemeToggle.tsx
+src\app\core\utils/
+    parsing.ts
+src\app\home/
+    HomePageContent.tsx
+    HomePageSkeleton.tsx
+    LadderlyHelpsBlock.tsx
+    TestimonialBlock.tsx
+src\app\settings/
+    page.tsx
+    schemas.ts
+src\app\settings\components/
+    CountryDropdown.tsx
+    SettingsForm.tsx
+    SettingsFormWrapper.tsx
+    USStateDropdown.tsx
+src\server/
+    auth.ts
+    constants.ts
+    db.ts
+    LadderlyMigrationAdapter.ts
+src\server\api/
+    root.ts
+    trpc.ts
+src\server\api\routers/
+    auth.ts
+    post.ts
+    user.ts
+src\server\mailers/
+    forgotPasswordMailer.ts
+src\styles/
+    globals.css
+    Home.module.css
+src\trpc/
+    query-client.ts
+    react.tsx
+    server.ts
