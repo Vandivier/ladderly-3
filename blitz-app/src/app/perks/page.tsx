@@ -1,89 +1,78 @@
-import { LargeCard } from 'src/core/components/LargeCard'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
 import styles from 'src/app/styles/Home.module.css'
 
+interface Perk {
+  title: string
+  description: string
+  discount: string
+  link: string
+  linkText: string
+}
+
+const perks: Perk[] = [
+  {
+    title: 'Neetcode',
+    description:
+      'A better way to prepare for coding interviews. In-depth explanations of data structure and algorithm problems by an ex-Google engineer and popular YouTuber.',
+    discount: '10% off',
+    link: 'https://neetcode.io',
+    linkText: 'Redeem your 10% discount',
+  },
+  {
+    title: 'CodeCrafters',
+    description:
+      'Advanced-level software engineering exercises (e.g., Build your own Redis, Git, Docker, etc.) in Python, Rust, Go, etc.',
+    discount: '40% off',
+    link: 'https://codecrafters.io',
+    linkText: 'Redeem your 40% discount',
+  },
+  {
+    title: 'Interviewing.io',
+    description:
+      'Anonymous mock interviews with Senior/Staff/Principal engineers from FAANG. Get feedback from the same people who make hiring decisions at top companies.',
+    discount: '$50 off',
+    link: 'https://interviewing.io',
+    linkText: 'Redeem your $50 discount',
+  },
+  // Add more perks as needed
+]
+
+const PerkCard = ({ title, description, discount, link, linkText }: Perk) => {
+  return (
+    <div className="mb-6 rounded-lg border bg-white p-4 shadow-md">
+      <h3 className="mb-2 text-xl font-semibold">{title}</h3>
+      <p className="mb-3 text-sm text-gray-700">{description}</p>
+      <p className="mb-3 font-bold text-purple-600">{discount}</p>
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="rounded bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
+      >
+        {linkText}
+      </a>
+    </div>
+  )
+}
+
 const PerksPage = () => {
   return (
     <LadderlyPageWrapper title="Perks">
-      <LargeCard>
-        <h1 className="mb-4 text-2xl font-semibold">Ladderly Perks!</h1>
-
-        <h2 className="mb-3 mt-5 text-xl">
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="mb-4 mt-4 text-2xl font-semibold">Ladderly Perks!</h1>
+        <h2 className="mb-3 text-xl">
           Earn a discount with recommended partners!
         </h2>
+      </div>
 
-        <h2 className="mb-3 mt-5 text-xl">
-          In what situations does ladderly.io collect personal data?
-        </h2>
-        <p>
-          If you create a ladderly.io account, we collect some personal data to
-          track your progress and to customize your user experience. If you make
-          a purchase in the ladderly.io store, we collect data to ensure proper
-          delivery and for tax accounting reasons.
-        </p>
-
-        <h2 className="mb-3 mt-5 text-xl">
-          Can I use ladderly.io anonymously?
-        </h2>
-        <p>
-          Yes, you can access ladderly.io resources without creating an account.
-          Without an account, no personal data about you is collected.
-        </p>
-
-        <h2 className="mb-3 mt-5 text-xl">
-          If I create an account, what data will you collect?
-        </h2>
-        <p>
-          A valid email address is required to create an account. You can also
-          add more information about yourself in your user profile, though this
-          is entirely optional.
-        </p>
-
-        <h2 className="mb-3 mt-5 text-xl">
-          Can any other organizations access my data?
-        </h2>
-        <p>
-          We do not sell your data, though we do utilize some third party tools.
-          For example, ladderly.io utilizes{' '}
-          <a
-            href="https://vercel.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.textLink}
-          >
-            Vercel
-          </a>{' '}
-          and{' '}
-          <a
-            href="https://supabase.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.textLink}
-          >
-            Supabase
-          </a>
-          . You can check their respective privacy policies for assurance.
-        </p>
-
-        <h2 className="mb-3 mt-5 text-xl">
-          I have questions about my privacy on Ladderly
-        </h2>
-        <p>
-          We{`'`}re here to help. Reach out at{' '}
-          <a className="underline" href="mailto:admin@ladderly.io">
-            admin@ladderly.io
-          </a>
-          .
-        </p>
-
-        <h2 className="mb-3 mt-5 text-xl">How can I find out about changes?</h2>
-        <p>
-          This version of the ladderly.io privacy Q&A was last updated on
-          9/30/2023. Keep an eye on your emails for any future updates or
-          changes.
-        </p>
-      </LargeCard>
+      <div className="mx-auto grid grid-cols-1 gap-6 px-10 md:grid-cols-2 lg:grid-cols-3">
+        {perks.map((perk, index) => (
+          <div className="mx-auto">
+            <PerkCard key={index} {...perk} />
+          </div>
+        ))}
+      </div>
     </LadderlyPageWrapper>
   )
 }
