@@ -52,6 +52,9 @@ export const TopNavRight = () => {
         Top Honors Leaderboard
         <IconVerticalChevron isPointingUp={openMenuName === 'leaderboard'} />
       </button>
+      <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
+        Perks
+      </Link>
       <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
         Blog
       </Link>
