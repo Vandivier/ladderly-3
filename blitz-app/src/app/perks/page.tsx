@@ -1,49 +1,95 @@
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
-import styles from 'src/app/styles/Home.module.css'
-
 interface Perk {
   title: string
   description: string
-  discount: string
+  discount?: string
   link: string
   linkText: string
+  promoCode?: string
 }
 
 const perks: Perk[] = [
   {
-    title: 'Neetcode',
+    title: 'Codecademy',
+    discount: '50% off',
     description:
-      'A better way to prepare for coding interviews. In-depth explanations of data structure and algorithm problems by an ex-Google engineer and popular YouTuber.',
-    discount: '10% off',
-    link: 'https://neetcode.io',
-    linkText: 'Redeem your 10% discount',
+      'Learn to code with Codecademy! They have free and paid options. Use this code to get a whopping 50% off their premium content!',
+    link: 'https://codecademy.referralrock.com/l/JOHN07/',
+    linkText: '50% off',
   },
   {
-    title: 'CodeCrafters',
+    title: 'Taro',
     description:
-      'Advanced-level software engineering exercises (e.g., Build your own Redis, Git, Docker, etc.) in Python, Rust, Go, etc.',
-    discount: '40% off',
-    link: 'https://codecrafters.io',
-    linkText: 'Redeem your 40% discount',
+      'Taro helps software engineers accelerate their careers by providing expert advice, targeted skill development, and a supportive community to support professional and technical growth!',
+    discount: '20% off',
+    link: 'https://www.jointaro.com/r/johnv099/',
+    linkText: 'Redeem your 20% discount',
+  },
+  {
+    title: 'BrandGhost',
+    description:
+      'BrandGhost enables consistent social media engagement with low effort, leading to a larger network and more opportunities for you!',
+    discount: '10% off',
+    link: 'https://www.brandghost.ai/',
+    linkText: 'Redeem your 10% discount',
+    promoCode: 'VANDIBGAFF',
   },
   {
     title: 'Interviewing.io',
     description:
       'Anonymous mock interviews with Senior/Staff/Principal engineers from FAANG. Get feedback from the same people who make hiring decisions at top companies.',
-    discount: '$50 off',
-    link: 'https://interviewing.io',
-    linkText: 'Redeem your $50 discount',
+    discount: '$100 off',
+    link: 'https://iio.sh/r/1OhF',
+    linkText: 'Redeem your $100 discount',
   },
-  // Add more perks as needed
+  {
+    title: 'Restream',
+    description:
+      'Restream allows you to stream video to multiple platforms at once!',
+    discount: '$10 in credits',
+    link: 'https://restream.io/join/9WkKx',
+    linkText: 'Redeem your $10 in credits',
+  },
+  {
+    title: 'VidIQ',
+    description:
+      'VidIQ helps you improve your YouTube channel and save valuable time! Once Ladderly.io makes 11 sales through this link we will qualify for a significant discount for additional sales.',
+    link: 'https://vidiq.com/ladderlyio',
+    linkText: 'Support the community',
+  },
 ]
 
-const PerkCard = ({ title, description, discount, link, linkText }: Perk) => {
+const PerkCard = ({
+  title,
+  description,
+  discount,
+  link,
+  linkText,
+  promoCode,
+}: Perk) => {
   return (
     <div className="mb-6 rounded-lg border bg-white p-4 shadow-md">
       <h3 className="mb-2 text-xl font-semibold">{title}</h3>
       <p className="mb-3 text-sm text-gray-700">{description}</p>
-      <p className="mb-3 font-bold text-purple-600">{discount}</p>
+
+      {discount ? (
+        <p className="mb-3 font-bold text-purple-600">
+          {discount}{' '}
+          {promoCode ? (
+            <span className="italic">
+              with Promo Code: <span className="font-bold">{promoCode}</span>
+            </span>
+          ) : (
+            'using the link below'
+          )}
+        </p>
+      ) : (
+        <p className="mb-3">
+          No discount currently - but you are helping the community!
+        </p>
+      )}
+
       <a
         href={link}
         target="_blank"
@@ -68,8 +114,8 @@ const PerksPage = () => {
 
       <div className="mx-auto grid grid-cols-1 gap-6 px-10 md:grid-cols-2 lg:grid-cols-3">
         {perks.map((perk, index) => (
-          <div className="mx-auto">
-            <PerkCard key={index} {...perk} />
+          <div className="mx-auto w-full" key={index}>
+            <PerkCard {...perk} />
           </div>
         ))}
       </div>
