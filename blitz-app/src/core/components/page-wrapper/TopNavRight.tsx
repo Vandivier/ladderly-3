@@ -52,6 +52,9 @@ export const TopNavRight = () => {
         Top Honors Leaderboard
         <IconVerticalChevron isPointingUp={openMenuName === 'leaderboard'} />
       </button>
+      <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
+        Perks
+      </Link>
       <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
         Blog
       </Link>
@@ -86,6 +89,9 @@ export const TopNavRight = () => {
 
 export const TopNavRightSkeleton = () => (
   <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
+    <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
+      Perks
+    </Link>
     <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
       Blog
     </Link>
