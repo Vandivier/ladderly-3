@@ -161,7 +161,7 @@ const PerksPage = () => {
     <LadderlyPageWrapper title="Perks">
       <div className="flex flex-col items-center justify-center">
         <h1 className="mb-4 mt-4 text-2xl font-semibold">Ladderly Perks!</h1>
-        <h2 className="mb-3 text-xl">
+        <h2 className="mb-3 text-center text-xl">
           Earn a discount with recommended partners!
         </h2>
       </div>

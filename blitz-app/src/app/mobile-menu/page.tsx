@@ -127,6 +127,11 @@ const MobileMenuPage = () => {
               </Link>
             </li>
             <li>
+              <Link href="/perks" className={MOBILE_LINK_CLASSES}>
+                Perks
+              </Link>
+            </li>
+            <li>
               <Link href="/blog" className={MOBILE_LINK_CLASSES}>
                 Blog
               </Link>
