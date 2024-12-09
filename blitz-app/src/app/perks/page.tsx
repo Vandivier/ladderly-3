@@ -11,6 +11,14 @@ interface Perk {
 
 const perks: Perk[] = [
   {
+    title: 'CareerFoundry',
+    description:
+      'CareerFoundry is top-rated coding bootcamp of the highest caliber, one of only two that Ladderly.io officially recommends, and they offer a job guarantee!',
+    discount: '10% off and a guaranteed job!',
+    link: 'https://careerfoundry.com/en/referral_registrations/new?referral=A7NKm6rk',
+    linkText: 'Redeem your 10% discount',
+  },
+  {
     title: 'Codecademy',
     discount: '50% off',
     description:
@@ -36,12 +44,27 @@ const perks: Perk[] = [
     promoCode: 'VANDIBGAFF',
   },
   {
+    title: 'Robinhood',
+    description:
+      'What goes better with a high-paying tech job than a high-quality investment account? Robinhood provides access to stocks, crypto, options, and more!',
+    discount: 'Up to $200 in free stock',
+    link: 'https://join.robinhood.com/johnv-19a478e6',
+    linkText: 'Get $5-200 in free stock',
+  },
+  {
     title: 'Interviewing.io',
     description:
       'Anonymous mock interviews with Senior/Staff/Principal engineers from FAANG. Get feedback from the same people who make hiring decisions at top companies.',
     discount: '$100 off',
     link: 'https://iio.sh/r/1OhF',
     linkText: 'Redeem your $100 discount',
+  },
+  {
+    title: 'DataExpert.io',
+    description: `Interested in data engineering or analytics? Check out Zach Wilson's industry-leading course at DataExpert.io!`,
+    discount: '20% off',
+    link: 'https://dataexpert.io/JOHN20',
+    linkText: 'Redeem your 20% discount',
   },
   {
     title: 'Restream',
@@ -52,11 +75,42 @@ const perks: Perk[] = [
     linkText: 'Redeem your $10 in credits',
   },
   {
+    title: 'OpusClip',
+    discount: 'Free Trial and Forever-Free Tier',
+    description:
+      'This tool automagically turns your long-form videos, such as a YouTube stream URL, into short-form video that you can post to YouTube shorts, TikTok, Instagram reels, and so on. It generates a description too. A real time saver!',
+    link: 'https://www.opus.pro/?via=fa6c47',
+    linkText: 'Claim your free trial',
+  },
+  {
+    title: 'Repurpose.io',
+    description: `When you post once to a social media channel like YouTube, Repurpose.io will automatically repost your content to other channels! It's a time saver and an impact multiplier.`,
+    discount: '14-Day Free Trial',
+    link: 'https://repurpose.io?fpr=98821',
+    linkText: '14-Day Free Trial',
+  },
+  {
+    title: 'StreamLabs',
+    description:
+      'StreamLabs can improve multi-streaming to TikTok, streamline your video editing workflow, and more!',
+    discount: '7-Day Free Trial',
+    link: 'https://streamlabs.pxf.io/09QnLR',
+    linkText: 'Claim your 7-Day Free Trial',
+  },
+  {
     title: 'VidIQ',
     description:
-      'VidIQ helps you improve your YouTube channel and save valuable time! Once Ladderly.io makes 11 sales through this link we will qualify for a significant discount for additional sales.',
+      'VidIQ helps you improve your YouTube channel and save valuable time! They have a free tier and a paid tier. For the paid version, after Ladderly.io makes 11 sales through this link we will qualify for a significant discount for additional sales.',
     link: 'https://vidiq.com/ladderlyio',
     linkText: 'Support the community',
+  },
+  {
+    title: 'Poplin Laundry Service',
+    description:
+      'Your time is valuable. Clean clothes win interviews and they smell good. This is why you should have someone else pick your laundry up, clean it, and deliver it to you.',
+    discount: '$10 Credit',
+    link: 'https://gopoplin.com/?referralId=dPasKp57usoUYkWnj0ji',
+    linkText: 'Claim your $10 credit!',
   },
 ]
 
@@ -74,7 +128,7 @@ const PerkCard = ({
       <p className="mb-3 text-sm text-gray-700">{description}</p>
 
       {discount ? (
-        <p className="mb-3 font-bold text-purple-600">
+        <p className="mb-4 font-bold text-purple-600">
           {discount}{' '}
           {promoCode ? (
             <span className="italic">
@@ -85,7 +139,7 @@ const PerkCard = ({
           )}
         </p>
       ) : (
-        <p className="mb-3">
+        <p className="mb-4">
           No discount currently - but you are helping the community!
         </p>
       )}
