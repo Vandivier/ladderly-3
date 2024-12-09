@@ -1,4 +1,4 @@
-import { LadderlyPageWrapper } from "src/core/components/page-wrapper/LadderlyPageWrapper";
+import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 
 interface Perk {
   title: string;
