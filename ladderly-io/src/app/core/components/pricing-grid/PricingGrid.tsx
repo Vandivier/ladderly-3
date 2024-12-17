@@ -97,7 +97,27 @@ const PricingGrid: React.FC = async () => {
 
   return (
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
-      <h1 className="mb-4 text-center text-2xl font-bold">Pricing Plans</h1>
+      <h2 className="mb-4 text-center text-2xl font-bold">Pricing Plans</h2>
+
+      <div
+        className={`m-2 w-[300px] rounded-lg bg-white p-2 shadow-lg lg:w-auto`}
+      >
+        <h3 className="mb-2 text-2xl font-bold">Get Premium for Free!</h3>
+        <p className="text-gray-800">
+          Use this{" "}
+          <Link
+            className="text-m font-bold text-ladderly-pink hover:underline"
+            href={
+              "https://docs.google.com/document/d/1DtwRvBRimmSiuQ-jkKo_P9QNBPLKQkFemR9vT_Kl9Jg"
+            }
+            target="_blank"
+          >
+            Reimbursement Request Letter
+          </Link>{" "}
+          to request coverage through your employer's training and education
+          budget.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {plans.map((plan, i) => (
