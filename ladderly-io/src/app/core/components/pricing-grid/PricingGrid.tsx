@@ -114,7 +114,7 @@ const PricingGrid: React.FC = async () => {
           >
             Reimbursement Request Letter
           </Link>{" "}
-          to request coverage through your employer's training and education
+          to request coverage through your employer{`'`}s training and education
           budget.
         </p>
       </div>
