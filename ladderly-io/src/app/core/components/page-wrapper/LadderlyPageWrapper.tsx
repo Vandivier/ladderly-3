@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
+import { LadderlyAnalytics } from "../LadderlyAnalytics";
 import { TopNav } from "./TopNav";
 
 import styles from "src/styles/Home.module.css";
@@ -11,6 +12,7 @@ export const LadderlyPageWrapper: React.FC<{ children: React.ReactNode }> = ({
   children: React.ReactNode;
 }) => (
   <div className={styles.container}>
+    <LadderlyAnalytics />
     <TopNav />
 
     <div className={styles.globe} />

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
+import { LadderlyAnalytics } from '../LadderlyAnalytics'
 import Layout, { LayoutProps } from '../../layouts/Layout'
 import { TopNav } from './TopNav'
 
@@ -12,6 +13,7 @@ export const LadderlyPageWrapper: React.FC<LayoutProps> = ({
   title,
 }) => (
   <Layout slug={slug} title={title}>
+    <LadderlyAnalytics />
     <div className={styles.container}>
       <TopNav />
 
