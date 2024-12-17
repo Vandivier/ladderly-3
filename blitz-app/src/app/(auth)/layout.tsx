@@ -1,3 +1,4 @@
+import { LadderlyAnalytics } from 'src/core/components/LadderlyAnalytics'
 import { useAuthenticatedBlitzContext } from '../blitz-server'
 
 export default async function AuthLayout({
@@ -8,5 +9,10 @@ export default async function AuthLayout({
   await useAuthenticatedBlitzContext({
     redirectAuthenticatedTo: '/',
   })
-  return <>{children}</>
+  return (
+    <>
+      <LadderlyAnalytics />
+      {children}
+    </>
+  )
 }

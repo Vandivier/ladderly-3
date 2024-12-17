@@ -4,14 +4,11 @@ import {
   ErrorComponent,
   ErrorFallbackProps,
 } from '@blitzjs/next'
-import { Analytics } from '@vercel/analytics/react'
 import { AuthenticationError, AuthorizationError } from 'blitz'
 import Link from 'next/link'
-import { GoogleAnalytics } from 'nextjs-google-analytics'
-import React from 'react'
 import { withBlitz } from 'src/app/blitz-client'
-
 import { LargeCard } from 'src/core/components/LargeCard'
+import { LadderlyAnalytics } from 'src/core/components/LadderlyAnalytics'
 import { LadderlyPageWrapper } from 'src/core/components/page-wrapper/LadderlyPageWrapper'
 
 import 'src/app/styles/globals.css'
@@ -74,10 +71,13 @@ function RootErrorFallback({ error }: ErrorFallbackProps) {
   }
 
   return (
-    <ErrorComponent
-      statusCode={(error as any)?.statusCode || 400}
-      title={error.message || error.name}
-    />
+    <>
+      <LadderlyAnalytics />
+      <ErrorComponent
+        statusCode={(error as any)?.statusCode || 400}
+        title={error.message || error.name}
+      />
+    </>
   )
 }
 
@@ -85,11 +85,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
   return (
     <>
-      <GoogleAnalytics trackPageViews />
+      <LadderlyAnalytics />
       <ErrorBoundary FallbackComponent={RootErrorFallback}>
         {getLayout(<Component {...pageProps} />)}
       </ErrorBoundary>
-      <Analytics />
     </>
   )
 }

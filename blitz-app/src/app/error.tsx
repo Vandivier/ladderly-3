@@ -1,4 +1,4 @@
-'use client' // Error components must be Client components
+'use client'
 
 import {
   AppProps,
