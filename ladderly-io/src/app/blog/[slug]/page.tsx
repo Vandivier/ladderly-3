@@ -117,8 +117,8 @@ export default async function BlogPost({
 
   return (
     <LadderlyPageWrapper>
-      <article className="prose prose-lg prose-violet mx-auto max-w-3xl px-4">
-        <header className="mb-8 border-b border-ladderly-light-purple-2 pb-8 text-center">
+      <article className="w-full prose prose-lg prose-violet mx-auto max-w-3xl px-4 overflow-hidden">
+        <header className="pb-4">
           <h1 className="mt-4 mb-0 text-3xl font-bold text-ladderly-violet-600">
             {post.title}
           </h1>
@@ -132,12 +132,12 @@ export default async function BlogPost({
             <h2 className="mb-2 text-xl font-bold text-ladderly-violet-600">
               Table of Contents
             </h2>
-            <ul className="list-none pl-0">
+            <ol className="list-decimal pl-5">
               {post.toc.map((item) => (
                 <li
                   key={item.id}
-                  style={{ marginLeft: `${(item.level - 1) * 20}px` }}
-                  className="my-1"
+                  style={{ marginLeft: `${(item.level - 2) * 20}px` }}
+                  className={`my-1 ${item.level === 1 ? "list-none -ml-5" : ""}`}
                 >
                   <a
                     href={`#${item.id}`}
@@ -147,7 +147,7 @@ export default async function BlogPost({
                   </a>
                 </li>
               ))}
-            </ul>
+            </ol>
           </section>
         )}
 
