@@ -36,7 +36,7 @@ export interface LadderlySession extends DefaultSession {
     email: string | null;
     name: string | null;
     image?: string | null;
-  }
+  };
 }
 
 declare module "next-auth" {
@@ -44,11 +44,14 @@ declare module "next-auth" {
 }
 
 // Helper function to verify password
-async function verifyPassword(hashedPassword: string, plaintext: string): Promise<boolean> {
+async function verifyPassword(
+  hashedPassword: string,
+  plaintext: string
+): Promise<boolean> {
   try {
     return await argon2.verify(hashedPassword, plaintext);
   } catch (error) {
-    console.error('Password verification failed:', error);
+    console.error("Password verification failed:", error);
     return false;
   }
 }
@@ -70,34 +73,42 @@ export const authOptions: NextAuthOptions = {
           where: { id: parseInt(user.id) },
           include: {
             subscriptions: {
-              where: { type: 'ACCOUNT_PLAN' },
+              where: { type: "ACCOUNT_PLAN" },
               select: { tier: true, type: true },
             },
           },
         });
         token.subscription = dbUser?.subscriptions[0] || {
           tier: PaymentTierEnum.FREE,
-          type: 'ACCOUNT_PLAN',
+          type: "ACCOUNT_PLAN",
         };
       }
       return token;
     },
-    session: async ({ session, token }: { session: Session, token: JWT }): Promise<LadderlySession> => {
+    session: async ({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: JWT;
+    }): Promise<LadderlySession> => {
       // jwt() is executed first then session()
-      const user = session.user as LadderlySession['user'];
+      const user = session.user as LadderlySession["user"];
       const userId = user?.id?.toString() || token.id?.toString() || null;
       const newSession: LadderlySession = {
         ...session,
-        user: userId ? {
-          id: userId,
-          email: session.user?.email || token.email?.toString() || null,
-          name: token.name?.toString() || null,
-          image: token.picture?.toString() || null,
-          subscription: token.subscription as {
-            tier: PaymentTierEnum;
-            type: string;
-          },
-        } : undefined,
+        user: userId
+          ? {
+              id: userId,
+              email: session.user?.email || token.email?.toString() || null,
+              name: token.name?.toString() || null,
+              image: token.picture?.toString() || null,
+              subscription: token.subscription as {
+                tier: PaymentTierEnum;
+                type: string;
+              },
+            }
+          : undefined,
       };
 
       return newSession;
@@ -131,9 +142,10 @@ export const authOptions: NextAuthOptions = {
                 session_state: account.session_state,
               },
             });
-            console.log(`New Account Created with User ID: ${existingUser.id} and Account ID: ${newAccount.id}`);
+            console.log(
+              `New Account Created with User ID: ${existingUser.id} and Account ID: ${newAccount.id}`
+            );
           }
-
         } else {
           console.log(`User not found by email with User ID: ${user.id}`);
           return false;
@@ -177,14 +189,18 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email", placeholder: "your-email@example.com" },
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "your-email@example.com",
+        },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message: 'Invalid credentials',
+            code: "UNAUTHORIZED",
+            message: "Invalid credentials",
           });
         }
 
@@ -194,26 +210,30 @@ export const authOptions: NextAuthOptions = {
 
         if (!user) {
           throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message: 'Invalid email or password',
+            code: "UNAUTHORIZED",
+            message: "Invalid email or password",
           });
         }
 
         if (!user.hashedPassword) {
           // Trigger password reset flow
           throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message: 'Password reset required. Please check your email to reset your password.',
+            code: "UNAUTHORIZED",
+            message:
+              "Password reset required. Please check your email to reset your password.",
           });
         }
 
         try {
-          const isValid = await verifyPassword(user.hashedPassword, credentials.password);
-          
+          const isValid = await verifyPassword(
+            user.hashedPassword,
+            credentials.password
+          );
+
           if (!isValid) {
             throw new TRPCError({
-              code: 'UNAUTHORIZED',
-              message: 'Invalid email or password',
+              code: "UNAUTHORIZED",
+              message: "Invalid email or password",
             });
           }
 
@@ -224,10 +244,13 @@ export const authOptions: NextAuthOptions = {
             image: user.image || null,
           };
         } catch (error) {
-          console.error('Password verification failed:', error);
+          console.error("Password verification failed:", error);
           throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'An error occurred during authentication',
+            code: "INTERNAL_SERVER_ERROR",
+            message:
+              "An error occurred during authentication. " +
+              "You may need to reset your password. " +
+              "If the issue persists, please contact support at admin@ladderly.io or through Discord.",
           });
         }
       },
@@ -235,5 +258,5 @@ export const authOptions: NextAuthOptions = {
   ].filter(Boolean) as NextAuthOptions["providers"],
 };
 
-export const getServerAuthSession = () => 
+export const getServerAuthSession = () =>
   getServerSession(authOptions) as Promise<LadderlySession | null>;

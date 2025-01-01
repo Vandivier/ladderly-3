@@ -4,13 +4,14 @@ import { Form, FORM_ERROR } from "~/app/core/components/Form";
 import LabeledTextField from "~/app/core/components/LabeledTextField";
 import { ForgotPassword } from "../schemas";
 import { api } from "~/trpc/react";
+import Link from "next/link";
 
 export function ForgotPasswordForm() {
   const forgotPasswordMutation = api.auth.forgotPassword.useMutation();
 
   return (
     <>
-      <h1>Forgot your password?</h1>
+      <h1>Reset Your Password</h1>
       <>
         {forgotPasswordMutation.isSuccess ? (
           <div>

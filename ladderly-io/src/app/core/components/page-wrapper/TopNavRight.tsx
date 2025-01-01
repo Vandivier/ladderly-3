@@ -64,13 +64,13 @@ export const TopNavRight = () => {
 
   return (
     <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
-      <button
+      {/* <button
         onClick={handleLeaderboardClick}
         className={TOP_NAV_STANDARD_CLASSES}
       >
         Top Honors Leaderboard
         <IconVerticalChevron isPointingUp={openMenuName === "leaderboard"} />
-      </button>
+      </button> */}
       <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
         Perks
       </Link>

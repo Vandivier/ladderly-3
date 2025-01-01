@@ -22,7 +22,7 @@ const ForgotPasswordPage = () => {
       <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
         <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
           <h1 className="mb-4 text-2xl font-bold text-gray-800">
-            Forgot your password?
+            Reset Your Password
           </h1>
 
           {forgotPasswordMutation.isSuccess ? (
@@ -56,6 +56,20 @@ const ForgotPasswordPage = () => {
               />
             </Form>
           )}
+
+          <section className="mt-8 flex flex-col gap-2">
+            <h2 className="font-bold">No need to reset your password?</h2>
+            <div className="my-1">
+              <Link className="underline" href="/login">
+                Log in here
+              </Link>
+            </div>
+            <div className="my-1">
+              <Link className="underline" href="/signup">
+                Sign up here
+              </Link>
+            </div>
+          </section>
         </div>
       </div>
     </div>

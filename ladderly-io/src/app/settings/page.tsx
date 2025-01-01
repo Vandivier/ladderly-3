@@ -28,7 +28,7 @@ export default async function SettingsPage() {
               {isPremium
                 ? "You are signed in to a free account."
                 : "You are signed in to a premium account."}{" "}
-              Please email john@ladderly.io to update your subscription tier.
+              Please email admin@ladderly.io to update your subscription tier.
             </p>
 
             <Link
