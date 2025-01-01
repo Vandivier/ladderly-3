@@ -51,18 +51,18 @@ export const CommunityMenuItems = ({
   linkClassName?: string;
 }) => (
   <MenuItemsWrapper>
-    <Link href="/community/hall-of-fame" className={linkClassName}>
+    {/* <Link href="/community/hall-of-fame" className={linkClassName}>
       Hall of Fame
-    </Link>
+    </Link> */}
     <Link href="/community" className={linkClassName}>
-      Browse All Profiles
+      Browse Profiles
     </Link>
-    <Link href="/questions" className={linkClassName}>
+    {/* <Link href="/questions" className={linkClassName}>
       Questions
     </Link>
     <Link href="/events-calendar" className={linkClassName}>
       Events Calendar
-    </Link>
+    </Link> */}
     <Link
       href="https://discord.com/invite/fAg6Xa4uxc"
       className={linkClassName}

@@ -4,6 +4,7 @@ import { TRPCError } from '@trpc/server';
 import { sendForgotPasswordEmail } from '~/server/mailers/forgotPasswordMailer';
 import crypto from 'crypto';
 import * as argon2 from 'argon2';
+import { Signup } from "~/app/(auth)/schemas";
 
 export const LoginSchema = z.object({
   email: z.string().email(),
@@ -112,5 +113,33 @@ export const authRouter = createTRPCRouter({
       await ctx.db.token.delete({ where: { id: tokenRecord.id } });
 
       return { success: true };
+    }),
+
+  signup: publicProcedure
+    .input(Signup)
+    .mutation(async ({ ctx, input }) => {
+      const { email, password } = input;
+
+      const existingUser = await ctx.db.user.findUnique({
+        where: { email: email.toLowerCase() },
+      });
+
+      if (existingUser) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "User already exists",
+        });
+      }
+
+      const hashedPassword = await argon2.hash(password);
+
+      const user = await ctx.db.user.create({
+        data: {
+          email: email.toLowerCase(),
+          hashedPassword,
+        },
+      });
+
+      return { success: true, userId: user.id };
     }),
 }); 
