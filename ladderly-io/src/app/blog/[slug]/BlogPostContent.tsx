@@ -1,6 +1,8 @@
 "use client";
 
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import Image from "next/image";
 import { TableOfContentsItem } from "./types";
 
 interface BlogPostContentProps {
@@ -11,11 +13,23 @@ interface BlogPostContentProps {
 export function BlogPostContent({ content, toc }: BlogPostContentProps) {
   return (
     <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
       components={{
         a: ({ children, ...props }) => (
           <a {...props} target="_blank" rel="noopener noreferrer">
             {children}
           </a>
+        ),
+        img: ({ src, alt }) => (
+          <div className="my-8 flex justify-center">
+            <Image
+              src={src || ""}
+              alt={alt || ""}
+              width={540}
+              height={300}
+              className="rounded-lg"
+            />
+          </div>
         ),
         h1: ({ children }) => {
           const text = children?.toString() || "";
@@ -32,6 +46,13 @@ export function BlogPostContent({ content, toc }: BlogPostContentProps) {
           const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
           return <h3 id={id}>{children}</h3>;
         },
+        table: ({ children }) => (
+          <div className="my-8 overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              {children}
+            </table>
+          </div>
+        ),
       }}
     >
       {content}

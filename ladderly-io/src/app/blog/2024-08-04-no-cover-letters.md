@@ -33,7 +33,7 @@ This poll is more useful for the Ladderly.io audience for four reasons:
 3. This poll avoids stigmatic language.
 4. This poll is more recently, notably existing after the use of AI for tailoring has become common.
 
-<img width="540" style="margin: auto;" alt="image" src="https://github.com/user-attachments/assets/69221fea-febf-45a7-a29a-d2117c016286">
+![LinkedIn Poll Results](/blog/images/cover-letters-poll.png)
 
 This poll indicates that popular support for post-tailored resumes not only holds for software engineers, but the support is exaggerated compared to other industries with a strong majority expecting at least ten times higher performance from a tailored resume!
 

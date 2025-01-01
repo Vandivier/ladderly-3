@@ -31,4 +31,13 @@
   .text-link-fancy:hover::after {
     background-size: 100% 100%;
   }
+  .prose table {
+    @apply border-collapse;
+  }
+  .prose th {
+    @apply bg-ladderly-light-purple-1 px-4 py-2 text-left;
+  }
+  .prose td {
+    @apply border-t border-ladderly-light-purple-2 px-4 py-2;
+  }
 }
