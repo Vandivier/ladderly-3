@@ -29,7 +29,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+    <div className="w-full max-w-md rounded-lg bg-white m-2 p-8 shadow-md">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">Log In</h1>
 
       <button
