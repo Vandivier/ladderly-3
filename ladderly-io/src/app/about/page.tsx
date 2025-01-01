@@ -2,8 +2,6 @@ import Link from "next/link";
 import { LargeCard } from "~/app/core/components/LargeCard";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 
-import styles from "src/app/styles/Home.module.css";
-
 export const metadata = {
   title: "About",
 };
@@ -13,13 +11,13 @@ const AboutPage = () => {
     <LadderlyPageWrapper>
       <LargeCard>
         <h1 className="text-2xl font-bold text-gray-800">
-          Discover the Ladderly Difference
+          Discover the Ladderly.io Difference
         </h1>
 
         <p className="mt-4">
-          Ladderly is an ecosystem of passionate learners and innovators.
-          Ladderly provides a set of tools and educational programs dedicated to
-          accelerating your journey in tech.
+          Ladderly.io is an ecosystem of passionate learners and innovators.
+          Ladderly.io provides a set of tools and educational programs dedicated
+          to accelerating your journey in tech.
         </p>
         <p className="mt-4">
           Learn to code, climb your career ladder, and join the revolution.
@@ -85,7 +83,7 @@ const AboutPage = () => {
         </h2>
         <p className="mt-4">
           Sign up{" "}
-          <Link className={styles.textLink} href="/signup">
+          <Link className="text-link-fancy" href="/signup">
             here
           </Link>{" "}
           and check out the{" "}
@@ -93,7 +91,7 @@ const AboutPage = () => {
             href="https://discord.gg/fAg6Xa4uxc"
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.textLink}
+            className="text-link-fancy"
           >
             Discord community
           </a>

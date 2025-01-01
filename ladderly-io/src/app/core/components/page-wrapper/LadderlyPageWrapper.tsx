@@ -22,7 +22,7 @@ export const LadderlyPageWrapper: React.FC<{ children: React.ReactNode }> = ({
     <footer className={styles.footer}>
       <ul className={styles["footer-links"]}>
         <li>
-          <Link href="/about" className={styles.textLink}>
+          <Link href="/about" className="text-link-fancy">
             About
           </Link>
         </li>
@@ -31,7 +31,7 @@ export const LadderlyPageWrapper: React.FC<{ children: React.ReactNode }> = ({
             href="https://discord.gg/fAg6Xa4uxc"
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.textLink}
+            className="text-link-fancy"
           >
             Discord
           </Link>
@@ -41,13 +41,13 @@ export const LadderlyPageWrapper: React.FC<{ children: React.ReactNode }> = ({
             href="https://github.com/Vandivier/ladderly-3"
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.textLink}
+            className="text-link-fancy"
           >
             GitHub
           </Link>
         </li>
         <li>
-          <Link href="/privacy-policy" className={styles.textLink}>
+          <Link href="/privacy-policy" className="text-link-fancy">
             Privacy Policy
           </Link>
         </li>
@@ -58,7 +58,7 @@ export const LadderlyPageWrapper: React.FC<{ children: React.ReactNode }> = ({
           href="https://vandivier.github.io/not-johns-linktree/"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.textLink}
+          className="text-link-fancy"
         >
           John Vandivier
         </Link>
