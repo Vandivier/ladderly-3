@@ -17,8 +17,16 @@ const ResetPasswordClientPageClient = () => {
       {resetPasswordMutation.isSuccess ? (
         <div>
           <h2>Password Reset Successfully</h2>
-          <p>
-            Go to the <Link href="/">homepage</Link>
+          <p className="mt-4">
+            <Link className="underline" href="/login">
+              Log in now!
+            </Link>
+          </p>
+          <p className="mt-4">
+            Go to the{" "}
+            <Link className="underline" href="/">
+              homepage
+            </Link>
           </p>
         </div>
       ) : (

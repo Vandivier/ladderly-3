@@ -69,7 +69,7 @@ export const LoginForm = () => {
         />
         <div className="mt-4 text-left">
           <Link className="underline" href="/forgot-password">
-            Forgot your password?
+            Reset Your Password
           </Link>
         </div>
       </Form>
