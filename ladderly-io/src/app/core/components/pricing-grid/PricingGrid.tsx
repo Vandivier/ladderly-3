@@ -30,11 +30,11 @@ const plans: Plan[] = [
       { text: "Video Course Access" },
       { text: "Advanced Checklist Access" },
       { text: "Paywalled Article Access" },
-      { text: "Exclusive events and early access to new features!" },
-      {
-        text: "Recognition in the Hall of Fame (Optional)",
-        url: "https://www.ladderly.io/community/hall-of-fame",
-      },
+      // { text: "Exclusive events and early access to new features!" },
+      // {
+      //   text: "Recognition in the Hall of Fame (Optional)",
+      //   url: "https://www.ladderly.io/community/hall-of-fame",
+      // },
     ],
     buttonText: "Join Now",
     loggedInLink: "https://buy.stripe.com/fZe2bF4mo6Td7lK004",
@@ -52,11 +52,11 @@ const plans: Plan[] = [
       },
       { text: "Standard Checklist" },
       { text: "Access the Social Community" },
-      {
-        text: "24/7 Support with AI Chat",
-        url: "https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt",
-      },
-      { text: "Schedule Expert Consultations" },
+      // {
+      //   text: "24/7 Support with AI Chat",
+      //   url: "https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt",
+      // },
+      // { text: "Schedule Expert Consultations" },
     ],
     buttonText: null,
   },
