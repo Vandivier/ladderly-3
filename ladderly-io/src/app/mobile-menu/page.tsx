@@ -1,6 +1,5 @@
 "use client";
 
-import { User } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { Suspense } from "react";
@@ -15,6 +14,7 @@ import {
 } from "~/app/core/components/page-wrapper/TopNavSubmenu";
 import { ThemeProvider } from "~/app/core/theme/ThemeContext";
 import { LadderlySession } from "~/server/auth";
+import { LadderlyAnalytics } from "../core/components/LadderlyAnalytics";
 
 const MOBILE_LINK_CLASSES =
   "block rounded-lg bg-white p-4 py-2 text-lg text-gray-700 shadow hover:text-gray-900";
@@ -107,6 +107,7 @@ const MobileMenuPage = ({ session }: MobileMenuPageProps) => {
 
   return (
     <ThemeProvider>
+      <LadderlyAnalytics />
       <div className="fixed inset-0 flex flex-col bg-ladderly-light-purple-1">
         <TopNavFlexContainer>
           <TopNavLeft />
