@@ -55,9 +55,17 @@ export const checklistRouter = createTRPCRouter({
         },
       });
 
-      // If no user checklist exists, create one from the latest checklist
-      if (!userChecklist) {
-        userChecklist = await db.userChecklist.create({
+      // If no user checklist exists or it has no items, create/recreate it
+      if (!userChecklist || userChecklist.userChecklistItems.length === 0) {
+        // If exists but has no items, delete it first
+        if (userChecklist) {
+          await db.userChecklist.delete({
+            where: { id: userChecklist.id },
+          });
+        }
+
+        // Create new user checklist
+        const newUserChecklist = await db.userChecklist.create({
           data: {
             userId: parseInt(ctx.session.user.id),
             checklistId: latestChecklist.id,
@@ -75,7 +83,7 @@ export const checklistRouter = createTRPCRouter({
               data: {
                 isComplete: false,
                 checklistItemId: item.id,
-                userChecklistId: userChecklist!.id,
+                userChecklistId: newUserChecklist!.id,
                 userId: parseInt(ctx.session.user.id),
               },
             })
@@ -84,7 +92,7 @@ export const checklistRouter = createTRPCRouter({
 
         // Fetch the complete user checklist with items
         userChecklist = await db.userChecklist.findUnique({
-          where: { id: userChecklist.id },
+          where: { id: newUserChecklist.id },
           include: {
             checklist: true,
             userChecklistItems: {
