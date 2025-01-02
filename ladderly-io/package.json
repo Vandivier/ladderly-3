@@ -17,6 +17,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^1.6.0",
     "@prisma/client": "^5.14.0",
+    "@stripe/stripe-js": "^5.4.0",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tanstack/react-query": "^5.50.0",
