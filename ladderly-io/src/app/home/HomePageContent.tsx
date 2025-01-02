@@ -7,7 +7,7 @@ import Link from "next/link";
 import React from "react";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 import PricingGrid from "~/app/core/components/pricing-grid/PricingGrid";
-import { LadderlySession } from "~/server/auth";
+import type { LadderlySession } from "~/server/auth";
 import { LadderlyHelpsBlock } from "./LadderlyHelpsBlock";
 import { TestimonialBlock } from "./TestimonialBlock";
 

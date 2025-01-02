@@ -83,7 +83,7 @@ export const checklistRouter = createTRPCRouter({
               data: {
                 isComplete: false,
                 checklistItemId: item.id,
-                userChecklistId: newUserChecklist!.id,
+                userChecklistId: newUserChecklist.id,
                 userId: parseInt(ctx.session.user.id),
               },
             })

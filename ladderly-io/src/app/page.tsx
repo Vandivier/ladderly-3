@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getServerAuthSession, LadderlySession } from "~/server/auth";
+import { getServerAuthSession, type LadderlySession } from "~/server/auth";
 import HomePageContent from "./home/HomePageContent";
 import HomePageSkeleton from "./home/HomePageSkeleton";
 

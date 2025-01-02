@@ -1,5 +1,5 @@
-import { Account, Prisma, PrismaClient, Session, User } from "@prisma/client";
-import {
+import type { Account, Prisma, PrismaClient, Session, User } from "@prisma/client";
+import type {
   Adapter,
   AdapterAccount,
   AdapterSession,
@@ -7,7 +7,7 @@ import {
   VerificationToken,
 } from "@auth/core/adapters";
 
-import { AdapterAccountType } from "@auth/core/adapters";
+import type { AdapterAccountType } from "@auth/core/adapters";
 
 export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
   return {
@@ -118,19 +118,19 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
 
 function adaptSession(session: Session): AdapterSession {
   return {
-    sessionToken: session.sessionToken || session.handle,
+    sessionToken: session.sessionToken  ?? session.handle,
     userId: session.userId?.toString() ?? "",
-    expires: session.expiresAt || session.expires,
+    expires: session.expiresAt  ?? session.expires,
   };
 }
 
 function adaptUser(user: User): AdapterUser {
   return {
     id: user.id.toString(),
-    name: user.name || null,
+    name: user.name  ?? null,
     email: user.email,
-    emailVerified: user.emailVerified || null,
-    image: user.image || null,
+    emailVerified: user.emailVerified  ?? null,
+    image: user.image ?? null,
   };
 }
 

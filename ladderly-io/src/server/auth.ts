@@ -78,7 +78,7 @@ export const authOptions: NextAuthOptions = {
             },
           },
         });
-        token.subscription = dbUser?.subscriptions[0] || {
+        token.subscription = dbUser?.subscriptions[0] ?? {
           tier: PaymentTierEnum.FREE,
           type: "ACCOUNT_PLAN",
         };
@@ -94,15 +94,15 @@ export const authOptions: NextAuthOptions = {
     }): Promise<LadderlySession> => {
       // jwt() is executed first then session()
       const user = session.user as LadderlySession["user"];
-      const userId = user?.id?.toString() || token.id?.toString() || null;
+      const userId = user?.id?.toString() ?? token.id?.toString() ?? null;
       const newSession: LadderlySession = {
         ...session,
         user: userId
           ? {
               id: userId,
-              email: session.user?.email || token.email?.toString() || null,
-              name: token.name?.toString() || null,
-              image: token.picture?.toString() || null,
+              email: session.user?.email ?? token.email?.toString() ?? null,
+              name: token.name?.toString() ?? null,
+              image: token.picture?.toString() ?? null,
               subscription: token.subscription as {
                 tier: PaymentTierEnum;
                 type: string;
@@ -197,7 +197,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.email ?? !credentials?.password) {
           throw new TRPCError({
             code: "UNAUTHORIZED",
             message: "Invalid credentials",
@@ -240,8 +240,8 @@ export const authOptions: NextAuthOptions = {
           return {
             id: user.id.toString(),
             email: user.email,
-            name: `${user.nameFirst} ${user.nameLast}`.trim() || null,
-            image: user.image || null,
+            name: `${user.nameFirst} ${user.nameLast}`.trim() ?? null,
+            image: user.image ?? null,
           };
         } catch (error) {
           console.error("Password verification failed:", error);

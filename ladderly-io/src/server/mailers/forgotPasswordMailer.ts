@@ -1,7 +1,7 @@
 import { ServerClient } from 'postmark';
 
 const postmarkClient = new ServerClient(
-  process.env.POSTMARK_API_KEY || ''
+  process.env.POSTMARK_API_KEY ?? ''
 );
 
 type ResetPasswordMailer = {
@@ -10,7 +10,7 @@ type ResetPasswordMailer = {
 };
 
 export async function sendForgotPasswordEmail({ to, token }: ResetPasswordMailer) {
-  const origin = process.env.APP_ORIGIN || 'http://localhost:3000'; // Default to localhost if APP_ORIGIN is not set
+  const origin = process.env.APP_ORIGIN ?? 'http://localhost:3000'; // Default to localhost if APP_ORIGIN is not set
   const resetUrl = `${origin}/reset-password?token=${token}`;
 
   const html = `

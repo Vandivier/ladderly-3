@@ -1,4 +1,4 @@
-import React, { PropsWithoutRef } from 'react'
+import React, { type PropsWithoutRef } from 'react'
 import { Field } from 'react-final-form'
 import Select from 'react-select'
 

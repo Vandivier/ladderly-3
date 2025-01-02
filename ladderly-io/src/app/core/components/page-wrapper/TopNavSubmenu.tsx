@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import { User } from "@prisma/client";
+// import { User } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 
@@ -77,7 +77,7 @@ const LogoutButton = ({ className }: { className: string }) => {
       className={className}
       onClick={() => {
         setMenu(null, "");
-        signOut({
+        void signOut({
           callbackUrl: "/",
         });
       }}

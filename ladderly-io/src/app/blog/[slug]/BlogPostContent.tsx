@@ -3,14 +3,12 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Image from "next/image";
-import { TableOfContentsItem } from "./types";
 
 interface BlogPostContentProps {
   content: string;
-  toc: TableOfContentsItem[];
 }
 
-export function BlogPostContent({ content, toc }: BlogPostContentProps) {
+export function BlogPostContent({ content }: BlogPostContentProps) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
@@ -23,8 +21,8 @@ export function BlogPostContent({ content, toc }: BlogPostContentProps) {
         img: ({ src, alt }) => (
           <div className="my-8 flex justify-center">
             <Image
-              src={src || ""}
-              alt={alt || ""}
+              src={src ?? ""}
+              alt={alt ?? ""}
               width={540}
               height={300}
               className="rounded-lg"
@@ -32,17 +30,17 @@ export function BlogPostContent({ content, toc }: BlogPostContentProps) {
           </div>
         ),
         h1: ({ children }) => {
-          const text = children?.toString() || "";
+          const text = children?.toString() ?? "";
           const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
           return <h1 id={id}>{children}</h1>;
         },
         h2: ({ children }) => {
-          const text = children?.toString() || "";
+          const text = children?.toString() ?? "";
           const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
           return <h2 id={id}>{children}</h2>;
         },
         h3: ({ children }) => {
-          const text = children?.toString() || "";
+          const text = children?.toString() ?? "";
           const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
           return <h3 id={id}>{children}</h3>;
         },

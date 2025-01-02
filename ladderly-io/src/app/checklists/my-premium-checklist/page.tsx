@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import React, { Suspense } from "react";
 import { LadderlyToast } from "~/app/core/components/LadderlyToast";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";

@@ -13,7 +13,7 @@ import {
   TOP_NAV_STANDARD_CLASSES,
 } from "~/app/core/components/page-wrapper/TopNavSubmenu";
 import { ThemeProvider } from "~/app/core/theme/ThemeContext";
-import { LadderlySession } from "~/server/auth";
+import { type LadderlySession } from "~/server/auth";
 import { LadderlyAnalytics } from "../core/components/LadderlyAnalytics";
 
 const MOBILE_LINK_CLASSES =

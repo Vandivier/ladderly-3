@@ -151,7 +151,7 @@ export default async function BlogPost({
           </section>
         )}
 
-        <BlogPostContent content={post.content} toc={post.toc} />
+        <BlogPostContent content={post.content} />
       </article>
     </LadderlyPageWrapper>
   );

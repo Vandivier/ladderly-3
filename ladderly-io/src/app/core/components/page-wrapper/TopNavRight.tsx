@@ -31,7 +31,7 @@ export const TopNavRight = () => {
       router.replace(`?${newQuery.toString()}`);
 
       // Refetch the current user
-      currentUserQuery.refetch();
+      void currentUserQuery.refetch();
     }
   }, [searchParams, currentUserQuery, router]);
 

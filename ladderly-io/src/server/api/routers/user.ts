@@ -309,12 +309,12 @@ export const userRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id);
       const email = input.email.toLowerCase().trim();
-      const emailBackup = input.emailBackup?.toLowerCase().trim() || '';
-      const emailStripe = input.emailStripe?.toLowerCase().trim() || '';
+      const emailBackup = input.emailBackup?.toLowerCase().trim() ?? '';
+      const emailStripe = input.emailStripe?.toLowerCase().trim() ?? '';
 
       // Basic email validation
       const isValidEmail = (email: string) => 
-        email === '' || (email.includes('@') && email.includes('.'));
+        email === '' ?? (email.includes('@') && email.includes('.'));
 
       if (
         !isValidEmail(email) ||
@@ -340,15 +340,15 @@ export const userRouter = createTRPCRouter({
           hasPublicProfileEnabled: input.hasPublicProfileEnabled,
           hasShoutOutsEnabled: input.hasShoutOutsEnabled,
           hasSmallGroupInterest: input.hasSmallGroupInterest,
-          nameFirst: input.nameFirst?.trim() || '',
-          nameLast: input.nameLast?.trim() || '',
-          profileBlurb: input.profileBlurb?.trim() || null,
-          profileContactEmail: input.profileContactEmail?.toLowerCase().trim() || null,
-          profileGitHubUri: input.profileGitHubUri?.trim() || null,
-          profileHomepageUri: input.profileHomepageUri?.trim() || null,
-          profileLinkedInUri: input.profileLinkedInUri?.trim() || null,
-          residenceCountry: input.residenceCountry?.trim() || '',
-          residenceUSState: input.residenceUSState?.trim() || '',
+          nameFirst: input.nameFirst?.trim() ?? '',
+          nameLast: input.nameLast?.trim() ?? '',
+          profileBlurb: input.profileBlurb?.trim() ?? null,
+          profileContactEmail: input.profileContactEmail?.toLowerCase().trim() ?? null,
+          profileGitHubUri: input.profileGitHubUri?.trim() ?? null,
+          profileHomepageUri: input.profileHomepageUri?.trim() ?? null,
+          profileLinkedInUri: input.profileLinkedInUri?.trim() ?? null,
+          residenceCountry: input.residenceCountry?.trim() ?? '',
+          residenceUSState: input.residenceUSState?.trim() ?? '',
         },
         include: {
           subscriptions: {
@@ -358,7 +358,7 @@ export const userRouter = createTRPCRouter({
         },
       });
 
-      const subscription = user.subscriptions[0] || {
+      const subscription = user.subscriptions[0] ?? {
         tier: PaymentTierEnum.FREE,
         type: 'ACCOUNT_PLAN',
       };
