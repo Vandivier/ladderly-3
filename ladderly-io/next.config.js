@@ -14,6 +14,16 @@ const config = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  // Ignore scripts directory during build
+  webpack: (config, { isServer }) => {
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: Array.isArray(config.watchOptions?.ignored)
+        ? [...config.watchOptions.ignored, "**/scripts/**"]
+        : ["**/scripts/**"],
+    };
+    return config;
+  },
 };
 
 export default config;

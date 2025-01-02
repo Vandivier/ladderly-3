@@ -9,7 +9,7 @@ import {
   AccountMenuItems,
   CommunityMenuItems,
   TOP_NAV_STANDARD_CLASSES,
-  TopHonorsMenuItems,
+  // TopHonorsMenuItems,
 } from "./TopNavSubmenu";
 
 const TOP_NAV_RIGHT_SECTION_CLASSES = "ml-auto flex items-center space-x-6";
@@ -49,18 +49,18 @@ export const TopNavRight = () => {
     if (openMenuName === "account") {
       setMenu(null, "");
     } else if (currentUser) {
-      setMenu(<AccountMenuItems currentUser={currentUser} />, "account");
+      setMenu(<AccountMenuItems userId={currentUser.id.toString()} />, "account");
     }
   };
 
-  const handleLeaderboardClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (openMenuName === "leaderboard") {
-      setMenu(null, "");
-    } else {
-      setMenu(<TopHonorsMenuItems />, "leaderboard");
-    }
-  };
+  // const handleLeaderboardClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   if (openMenuName === "leaderboard") {
+  //     setMenu(null, "");
+  //   } else {
+  //     setMenu(<TopHonorsMenuItems />, "leaderboard");
+  //   }
+  // };
 
   return (
     <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>

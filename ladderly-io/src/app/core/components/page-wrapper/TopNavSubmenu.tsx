@@ -87,17 +87,17 @@ const LogoutButton = ({ className }: { className: string }) => {
   );
 };
 
-export const TopHonorsMenuItems = ({
-  linkClassName = MENU_ITEM_STANDARD_CLASSES,
-}: {
-  linkClassName?: string;
-}) => (
-  <MenuItemsWrapper>
-    <Link href="/top-honors" className={linkClassName}>
-      View Leaders
-    </Link>
-    <Link href="/vote" className={linkClassName}>
-      Vote
-    </Link>
-  </MenuItemsWrapper>
-);
+// export const TopHonorsMenuItems = ({
+//   linkClassName = MENU_ITEM_STANDARD_CLASSES,
+// }: {
+//   linkClassName?: string;
+// }) => (
+//   <MenuItemsWrapper>
+//     <Link href="/top-honors" className={linkClassName}>
+//       View Leaders
+//     </Link>
+//     <Link href="/vote" className={linkClassName}>
+//       Vote
+//     </Link>
+//   </MenuItemsWrapper>
+// );
