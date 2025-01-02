@@ -2,13 +2,15 @@
   "name": "ladderly-monorepo",
   "version": "1.0.0",
   "description": "",
-  "main": ".eslintrc.js",
   "devDependencies": {
     "husky": "9.1.4",
+    "prettier": "3.4.2",
+    "prettier-plugin-tailwindcss": "0.6.9",
     "pretty-quick": "4.0.0"
   },
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "precommit": "npx pretty-quick --staged --config ./prettier.config.mjs"
   },
   "author": "John Vandivier",
   "license": "MIT"

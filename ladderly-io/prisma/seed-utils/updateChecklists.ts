@@ -1,5 +1,6 @@
-import db, { Checklist, ChecklistItem, Prisma } from 'db'
 import { z } from 'zod'
+import { db } from '~/server/db'
+import { Checklist, ChecklistItem, Prisma } from '@prisma/client'
 
 const ChecklistItemObjectSchema = z.object({
   displayText: z.string(),
@@ -21,7 +22,7 @@ export type ChecklistSeedDataType = z.infer<typeof ChecklistSchema>
 export const ChecklistsSchema = z.array(ChecklistSchema)
 
 export const updateChecklistsInPlace = async (
-  checklistData: ChecklistSeedDataType
+  checklistData: ChecklistSeedDataType,
 ) => {
   console.log(`Updating checklist: ${checklistData.name}`)
 
@@ -47,7 +48,7 @@ export const updateChecklistsInPlace = async (
 
   if (checklist === null) {
     throw new Error(
-      `Checklist found but not returned by the updater: ${checklistData.name}`
+      `Checklist found but not returned by the updater: ${checklistData.name}`,
     )
   }
 
@@ -55,7 +56,7 @@ export const updateChecklistsInPlace = async (
   for (let i = 0; i < checklistData.items.length; i++) {
     const item = checklistData.items[i]
     const itemData = ChecklistItemObjectSchema.parse(
-      typeof item === 'string' ? { displayText: item } : item
+      typeof item === 'string' ? { displayText: item } : item,
     )
 
     checklistItemCreateManyInput.push({
@@ -74,7 +75,7 @@ export const updateChecklistsInPlace = async (
 
   const checklistItems = await deleteObsoleteChecklistItems(
     checklist,
-    checklistItemCreateManyInput
+    checklistItemCreateManyInput,
   )
   console.log(`deleteObsoleteChecklistItems done for: ${checklistData.name}`)
   await updateUserChecklists(checklist, checklistItems)
@@ -85,7 +86,7 @@ export const updateChecklistsInPlace = async (
 
 const updateUserChecklists = async (
   checklist: Checklist,
-  checklistItems: ChecklistItem[]
+  checklistItems: ChecklistItem[],
 ) => {
   const userChecklists = await db.userChecklist.findMany({
     where: {
@@ -112,7 +113,7 @@ const updateUserChecklists = async (
 
 const deleteObsoleteChecklistItems = async (
   checklist: Checklist & { checklistItems: ChecklistItem[] },
-  newChecklistItemsData: Prisma.ChecklistItemCreateManyInput[]
+  newChecklistItemsData: Prisma.ChecklistItemCreateManyInput[],
 ): Promise<ChecklistItem[]> => {
   const newItemsSet = new Set(
     newChecklistItemsData.map((item) => {
@@ -123,7 +124,7 @@ const deleteObsoleteChecklistItems = async (
         item.linkText +
         item.linkUri
       )
-    })
+    }),
   )
 
   const obsoleteChecklistItems: ChecklistItem[] =
@@ -168,7 +169,7 @@ const deleteObsoleteChecklistItems = async (
     throw new Error(
       `Checklist items count mismatch for: ${checklist.name}.\n` +
         `Expected: ${expectedItemCount}, ` +
-        `Found: ${actualItemCount}`
+        `Found: ${actualItemCount}`,
     )
   }
 
