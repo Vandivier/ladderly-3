@@ -43,7 +43,7 @@ const AuthenticatedMenuItems = ({ session }: { session: LadderlySession }) => {
         {isSubmenuOpen && (
           <ul className="flex w-full">
             <AccountMenuItems
-              currentUser={session.user}
+              userId={session.user?.id ?? ""}
               linkClassName={MOBILE_SUBMENU_ITEM_CLASSES}
             />
           </ul>
@@ -101,9 +101,9 @@ export function MobileMenuContent({
     setIsCommunitySubmenuOpen(!isCommunitySubmenuOpen);
   };
 
-  const toggleTopHonorsSubmenu = () => {
-    setIsTopHonorsSubmenuOpen(!isTopHonorsSubmenuOpen);
-  };
+//   const toggleTopHonorsSubmenu = () => {
+//     setIsTopHonorsSubmenuOpen(!isTopHonorsSubmenuOpen);
+//   };
 
   return (
     <ThemeProvider>

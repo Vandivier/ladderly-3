@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { api } from "~/trpc/server";
 import { LargeCard } from "~/app/core/components/LargeCard";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
-import { SettingsFormWrapper } from "./components/SettingsFormWrapper";
+import { SettingsFormWrapper, type UserSettings } from "./components/SettingsFormWrapper";
 import { redirect } from "next/navigation";
 import { PaymentTierEnum } from "@prisma/client";
 
@@ -13,7 +13,7 @@ export const metadata = {
 
 export default async function SettingsPage() {
   try {
-    const settings = await api.user.getSettings();
+    const settings = await api.user.getSettings() as UserSettings;
     const isPremium = settings.subscription.tier === PaymentTierEnum.FREE;
 
     return (

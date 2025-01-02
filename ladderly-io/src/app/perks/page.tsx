@@ -1,5 +1,10 @@
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 
+export const metadata = {
+  title: "Perks",
+  description: "Earn a discount with recommended partners!",
+};
+
 interface Perk {
   title: string;
   description: string;
@@ -158,7 +163,7 @@ const PerkCard = ({
 
 const PerksPage = () => {
   return (
-    <LadderlyPageWrapper title="Perks">
+    <LadderlyPageWrapper>
       <div className="flex flex-col items-center justify-center">
         <h1 className="mb-4 mt-4 text-2xl font-semibold">Ladderly Perks!</h1>
         <h2 className="mb-3 text-center text-xl">
