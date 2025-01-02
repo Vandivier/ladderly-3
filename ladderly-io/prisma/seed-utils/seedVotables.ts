@@ -1,36 +1,37 @@
-import fs from 'fs'
-import path from 'path'
-import db, { Prisma, VotableType } from '../index'
+import { Prisma, VotableType } from "@prisma/client";
+import fs from "fs";
+import path from "path";
+import { db } from "../../src/server/db";
 
 type VotableSeedData = {
-  type: string
-  name: string
-  description?: string
-  tags?: string[]
-  prestigeScore?: number
-  voteCount?: number
-  registeredUserVotes?: number
-  guestVotes?: number
-  website?: string
-  miscInfo?: Prisma.JsonValue
-}
+  type: string;
+  name: string;
+  description?: string;
+  tags?: string[];
+  prestigeScore?: number;
+  voteCount?: number;
+  registeredUserVotes?: number;
+  guestVotes?: number;
+  website?: string;
+  miscInfo?: Prisma.NullableJsonNullValueInput;
+};
 
 export const seedVotables = async () => {
-  const filePath = path.resolve(__dirname, './votables.json')
+  const filePath = path.resolve(__dirname, "./votables.json");
 
   if (!fs.existsSync(filePath)) {
-    console.warn(`File ${filePath} does not exist.\nContinuing to seed...`)
-    return
+    console.warn(`File ${filePath} does not exist.\nContinuing to seed...`);
+    return;
   }
 
-  const rawData = fs.readFileSync(filePath)
-  const votables: VotableSeedData[] = JSON.parse(rawData.toString())
+  const rawData = fs.readFileSync(filePath);
+  const votables: VotableSeedData[] = JSON.parse(rawData.toString());
 
   for (const votableData of votables) {
-    const { type, name, ...optionalData } = votableData
+    const { type, name, ...optionalData } = votableData;
 
     if (!Object.values(VotableType).includes(type as VotableType)) {
-      throw new Error(`Invalid VotableType: ${type}`)
+      throw new Error(`Invalid VotableType: ${type}`);
     }
 
     try {
@@ -42,14 +43,14 @@ export const seedVotables = async () => {
             name,
           },
         },
-      })
+      });
 
       if (existingVotable) {
         // Check if any fields need to be updated
-        const updatedFields: Prisma.VotableUpdateInput = {}
+        const updatedFields: Prisma.VotableUpdateInput = {};
         for (const [key, value] of Object.entries(optionalData)) {
-          if (existingVotable[key] !== value) {
-            updatedFields[key] = value
+          if (existingVotable[key as keyof typeof existingVotable] !== value) {
+            updatedFields[key as keyof Prisma.VotableUpdateInput] = value;
           }
         }
 
@@ -58,10 +59,10 @@ export const seedVotables = async () => {
           await db.votable.update({
             where: { id: existingVotable.id },
             data: updatedFields,
-          })
-          console.log(`Updated Votable: ${type} - ${name}`)
+          });
+          console.log(`Updated Votable: ${type} - ${name}`);
         } else {
-          console.log(`No updates needed for Votable: ${type} - ${name}`)
+          console.log(`No updates needed for Votable: ${type} - ${name}`);
         }
       } else {
         // Create a new record if it doesn't exist
@@ -70,16 +71,16 @@ export const seedVotables = async () => {
           name,
           ...optionalData,
           miscInfo: optionalData.miscInfo ?? undefined,
-        }
+        };
         await db.votable.create({
           data: createData,
-        })
-        console.log(`Created new Votable: ${type} - ${name}`)
+        });
+        console.log(`Created new Votable: ${type} - ${name}`);
       }
     } catch (error) {
-      console.error(`Error processing Votable ${type} - ${name}:`, error)
+      console.error(`Error processing Votable ${type} - ${name}:`, error);
     }
   }
 
-  console.log('Votables seeded successfully.')
-}
+  console.log("Votables seeded successfully.");
+};
