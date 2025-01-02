@@ -43,7 +43,7 @@ const AuthenticatedMenuItems = ({ session }: { session: LadderlySession }) => {
         {isSubmenuOpen && (
           <ul className="flex w-full">
             <AccountMenuItems
-              currentUser={session.user}
+              userId={session.user?.id ?? ""}
               linkClassName={MOBILE_SUBMENU_ITEM_CLASSES}
             />
           </ul>

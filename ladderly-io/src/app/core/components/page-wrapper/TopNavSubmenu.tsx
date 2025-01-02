@@ -6,22 +6,19 @@ import Link from "next/link";
 import React from "react";
 
 import { MenuContext } from "./MenuProvider";
-import { useRouter } from "next/navigation";
 
 export const TOP_NAV_STANDARD_CLASSES = "ml-6 font-bold";
 export const MENU_ITEM_STANDARD_CLASSES =
   "font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:bg-purple-300/20";
 
 export const AccountMenuItems = ({
-  currentUser,
+  userId,
   linkClassName = MENU_ITEM_STANDARD_CLASSES,
 }: {
-  currentUser: Partial<User>;
+  userId: string;
   linkClassName?: string;
-}) => {
-  const userId = currentUser.id;
-
-  return userId ? (
+}) =>
+  userId ? (
     <MenuItemsWrapper>
       <Link href={`/community/${userId}`} className={linkClassName}>
         My Profile
@@ -32,7 +29,6 @@ export const AccountMenuItems = ({
       <LogoutButton className={linkClassName} />
     </MenuItemsWrapper>
   ) : null;
-};
 
 const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
   <div
