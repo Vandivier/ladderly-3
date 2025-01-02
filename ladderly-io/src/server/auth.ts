@@ -8,7 +8,7 @@
 
 import {
   getServerSession,
-  Session,
+  type Session,
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
@@ -40,6 +40,7 @@ export interface LadderlySession extends DefaultSession {
 }
 
 declare module "next-auth" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Session extends LadderlySession {}
 }
 
@@ -113,7 +114,7 @@ export const authOptions: NextAuthOptions = {
 
       return newSession;
     },
-    signIn: async ({ user, account, profile, email, credentials }) => {
+    signIn: async ({ user, account }) => {
       // signIn is called by both social login and credentials login
 
       if (account?.provider && user.email) {

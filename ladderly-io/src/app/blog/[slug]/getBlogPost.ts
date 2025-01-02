@@ -10,7 +10,7 @@ import rehypeHighlight from 'rehype-highlight'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeStringify from 'rehype-stringify'
-import { Element, Root } from 'hast'
+import type { Element, Root } from 'hast'
 import { visit } from 'unist-util-visit'
 
 interface TableOfContentsItem {

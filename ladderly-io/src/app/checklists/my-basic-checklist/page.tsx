@@ -17,7 +17,7 @@ const NewestChecklistQueryHandler: React.FC = () => {
   const { mutateAsync: createUserChecklistAsClone } =
     api.checklist.createAsClone.useMutation({
       onSuccess: () => {
-        utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
+        void utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
       },
     });
 
@@ -64,7 +64,7 @@ const UserChecklistItems: React.FC = () => {
 
   const { mutate: toggleItem } = api.checklist.toggleItem.useMutation({
     onSuccess: () => {
-      utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
+      void utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
     },
   });
 

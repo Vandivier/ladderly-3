@@ -2,10 +2,10 @@
 
 import React from "react";
 import { UpdateSettingsSchema } from "src/app/settings/schemas";
-import { Form, FormProps } from "~/app/core/components/Form";
+import type { z } from "zod";
+import { Form, type FormProps } from "~/app/core/components/Form";
 import LabeledCheckboxField from "~/app/core/components/LabeledCheckboxField";
 import LabeledTextField from "~/app/core/components/LabeledTextField";
-import { z } from "zod";
 import { CountryDropdown } from "./CountryDropdown";
 import { USStateDropdown } from "./USStateDropdown";
 
