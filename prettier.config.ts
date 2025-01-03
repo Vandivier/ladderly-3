@@ -4,7 +4,7 @@ const config = {
   printWidth: 80,
   semi: false,
   singleQuote: true,
-  tailwindConfig: './tailwind.config.js',
+  tailwindConfig: 'ladderly-io/tailwind.config.ts',
   tailwindFunctions: ['tw'],
 }
 
