@@ -1,16 +1,16 @@
-"use client";
+'use client'
 
-import { LabeledTextField } from "~/app/core/components/LabeledTextField";
-import { Form, FORM_ERROR } from "~/app/core/components/Form";
-import { ResetPassword } from "src/app/(auth)/schemas";
-import { api } from "~/trpc/react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { LabeledTextField } from '~/app/core/components/LabeledTextField'
+import { Form, FORM_ERROR } from '~/app/core/components/Form'
+import { ResetPassword } from 'src/app/(auth)/schemas'
+import { api } from '~/trpc/react'
+import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 
 const ResetPasswordClientPageClient = () => {
-  const searchParams = useSearchParams();
-  const token = searchParams?.get("token")?.toString();
-  const resetPasswordMutation = api.auth.resetPassword.useMutation();
+  const searchParams = useSearchParams()
+  const token = searchParams?.get('token')?.toString()
+  const resetPasswordMutation = api.auth.resetPassword.useMutation()
 
   return (
     <>
@@ -23,7 +23,7 @@ const ResetPasswordClientPageClient = () => {
             </Link>
           </p>
           <p className="mt-4">
-            Go to the{" "}
+            Go to the{' '}
             <Link className="underline" href="/">
               homepage
             </Link>
@@ -34,23 +34,24 @@ const ResetPasswordClientPageClient = () => {
           submitText="Reset Password"
           schema={ResetPassword}
           initialValues={{
-            password: "",
-            passwordConfirmation: "",
+            password: '',
+            passwordConfirmation: '',
             token,
           }}
           onSubmit={async (values) => {
             try {
-              if (!token) throw new Error("Token is required.");
+              if (!token) throw new Error('Token is required.')
               await resetPasswordMutation.mutateAsync({
                 ...values,
                 token,
-              });
-            } catch (error: any) {
+              })
+            } catch (error) {
               return {
                 [FORM_ERROR]:
-                  error.message ||
-                  "Sorry, we had an unexpected error. Please try again.",
-              };
+                  error instanceof Error
+                    ? error.message
+                    : 'Sorry, we had an unexpected error. Please try again.',
+              }
             }
           }}
         >
@@ -67,7 +68,7 @@ const ResetPasswordClientPageClient = () => {
         </Form>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ResetPasswordClientPageClient;
+export default ResetPasswordClientPageClient

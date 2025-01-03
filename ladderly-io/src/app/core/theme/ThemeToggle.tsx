@@ -10,9 +10,9 @@ export function ThemeToggle() {
       aria-label="Toggle theme"
     >
       {theme === 'light' ? (
-        <div className="flex h-5 w-5 items-center justify-center">🌙</div>
+        <div className="flex size-5 items-center justify-center">🌙</div>
       ) : (
-        <div className="flex h-5 w-5 items-center justify-center">☀️</div>
+        <div className="flex size-5 items-center justify-center">☀️</div>
       )}
     </button>
   )

@@ -5,6 +5,10 @@ import LabeledTextField from "~/app/core/components/LabeledTextField";
 import { ForgotPassword } from "../schemas";
 import { api } from "~/trpc/react";
 
+type ForgotPasswordValues = {
+  email: string;
+};
+
 export function ForgotPasswordForm() {
   const forgotPasswordMutation = api.auth.forgotPassword.useMutation();
 
@@ -25,13 +29,18 @@ export function ForgotPasswordForm() {
             submitText="Send Reset Password Instructions"
             schema={ForgotPassword}
             initialValues={{ email: "" }}
-            onSubmit={async (values: any) => {
+            onSubmit={async (values: ForgotPasswordValues) => {
               try {
+                if (!values.email) {
+                  throw new Error("Email is required.");
+                }
                 await forgotPasswordMutation.mutateAsync(values);
               } catch (error: any) {
                 return {
                   [FORM_ERROR]:
-                    "Sorry, we had an unexpected error. Please try again.",
+                    error instanceof Error
+                      ? error.message
+                      : "Sorry, we had an unexpected error. Please try again.",
                 };
               }
             }}
