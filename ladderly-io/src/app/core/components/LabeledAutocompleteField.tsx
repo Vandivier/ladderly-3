@@ -25,7 +25,6 @@ const LabeledAutocompleteField: React.FC<LabeledAutocompleteFieldProps> = ({
             className="mt-1"
             options={options}
             onChange={(value) => input.onChange(value)}
-            onBlur={() => input.onBlur(input.value)}
             placeholder={`Select ${label}`}
           />
         )}
