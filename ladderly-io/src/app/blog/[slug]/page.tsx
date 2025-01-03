@@ -1,12 +1,13 @@
 import fs from 'fs'
 import matter from 'gray-matter'
+import type { Heading, Text } from 'mdast'
 import type { Metadata } from 'next'
-import path from 'path'
 import { notFound } from 'next/navigation'
-import { BlogPostContent } from './BlogPostContent'
-import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
+import path from 'path'
 import { remark } from 'remark'
 import { visit } from 'unist-util-visit'
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
+import { BlogPostContent } from './BlogPostContent'
 
 // This generates static params for all blog posts at build time
 export async function generateStaticParams() {
@@ -59,12 +60,12 @@ async function getTableOfContents(
 ): Promise<TableOfContentsItem[]> {
   const toc: TableOfContentsItem[] = []
 
-  const tree = await remark().parse(content)
+  const tree = remark().parse(content)
 
-  visit(tree, 'heading', (node: any) => {
+  visit(tree, 'heading', (node: Heading) => {
     const text = node.children
-      .filter((child: any) => child.type === 'text')
-      .map((child: any) => child.value)
+      .filter((child): child is Text => child.type === 'text')
+      .map((child) => child.value)
       .join('')
 
     const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
