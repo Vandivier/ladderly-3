@@ -76,7 +76,7 @@ const LogoutButton = ({ className }: { className: string }) => {
     <button
       className={className}
       onClick={() => {
-        setMenu(null, "");
+        setMenu?.(null, "");
         void signOut({
           callbackUrl: "/",
         });

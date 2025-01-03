@@ -38,18 +38,18 @@ export const TopNavRight = () => {
   const handleCommunityClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (openMenuName === "community") {
-      setMenu(null, "");
+      setMenu?.(null, "");
     } else {
-      setMenu(<CommunityMenuItems />, "community");
+      setMenu?.(<CommunityMenuItems />, "community");
     }
   };
 
   const handleAccountClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (openMenuName === "account") {
-      setMenu(null, "");
+      setMenu?.(null, "");
     } else if (currentUser) {
-      setMenu(<AccountMenuItems userId={currentUser.id.toString()} />, "account");
+      setMenu?.(<AccountMenuItems userId={currentUser.id.toString()} />, "account");
     }
   };
 
