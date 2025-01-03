@@ -1,37 +1,37 @@
-import fs from "fs";
-import matter from "gray-matter";
-import { Metadata } from "next";
-import path from "path";
-import { notFound } from "next/navigation";
-import { BlogPostContent } from "./BlogPostContent";
-import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
-import { remark } from "remark";
-import { visit } from "unist-util-visit";
+import fs from 'fs'
+import matter from 'gray-matter'
+import type { Metadata } from 'next'
+import path from 'path'
+import { notFound } from 'next/navigation'
+import { BlogPostContent } from './BlogPostContent'
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
+import { remark } from 'remark'
+import { visit } from 'unist-util-visit'
 
 // This generates static params for all blog posts at build time
 export async function generateStaticParams() {
-  const files = fs.readdirSync(path.join(process.cwd(), "src/app/blog"));
+  const files = fs.readdirSync(path.join(process.cwd(), 'src/app/blog'))
   const paths = files
-    .filter((filename) => filename.endsWith(".md"))
+    .filter((filename) => filename.endsWith('.md'))
     .map((filename) => ({
-      slug: filename.replace(".md", ""),
-    }));
+      slug: filename.replace('.md', ''),
+    }))
 
-  return paths;
+  return paths
 }
 
 // This generates metadata for each blog post
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { slug: string }
 }): Promise<Metadata> {
-  const post = await getBlogPost(params.slug);
+  const post = await getBlogPost(params.slug)
 
   if (!post) {
     return {
-      title: "Post Not Found",
-    };
+      title: 'Post Not Found',
+    }
   }
 
   return {
@@ -41,57 +41,57 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      type: "article",
+      type: 'article',
       publishedTime: post.date,
       authors: [post.author],
     },
-  };
+  }
 }
 
 interface TableOfContentsItem {
-  id: string;
-  text: string;
-  level: number;
+  id: string
+  text: string
+  level: number
 }
 
 async function getTableOfContents(
-  content: string
+  content: string,
 ): Promise<TableOfContentsItem[]> {
-  const toc: TableOfContentsItem[] = [];
+  const toc: TableOfContentsItem[] = []
 
-  const tree = await remark().parse(content);
+  const tree = await remark().parse(content)
 
-  visit(tree, "heading", (node: any) => {
+  visit(tree, 'heading', (node: any) => {
     const text = node.children
-      .filter((child: any) => child.type === "text")
+      .filter((child: any) => child.type === 'text')
       .map((child: any) => child.value)
-      .join("");
+      .join('')
 
-    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
 
     toc.push({
       id,
       text,
       level: node.depth,
-    });
-  });
+    })
+  })
 
-  return toc;
+  return toc
 }
 
 async function getBlogPost(slug: string) {
-  const markdownFile = path.join(process.cwd(), "src/app/blog", `${slug}.md`);
+  const markdownFile = path.join(process.cwd(), 'src/app/blog', `${slug}.md`)
 
   if (!fs.existsSync(markdownFile)) {
-    return null;
+    return null
   }
 
-  const fileContents = fs.readFileSync(markdownFile, "utf8");
-  const { data, content } = matter(fileContents);
+  const fileContents = fs.readFileSync(markdownFile, 'utf8')
+  const { data, content } = matter(fileContents)
 
   // Get first paragraph as excerpt
-  const excerpt = content.split("\n\n")[0];
-  const toc = await getTableOfContents(content);
+  const excerpt = content.split('\n\n')[0]
+  const toc = await getTableOfContents(content)
 
   return {
     slug,
@@ -101,25 +101,25 @@ async function getBlogPost(slug: string) {
     content,
     excerpt,
     toc,
-  };
+  }
 }
 
 export default async function BlogPost({
   params,
 }: {
-  params: { slug: string };
+  params: { slug: string }
 }) {
-  const post = await getBlogPost(params.slug);
+  const post = await getBlogPost(params.slug)
 
   if (!post) {
-    notFound();
+    notFound()
   }
 
   return (
     <LadderlyPageWrapper>
-      <article className="w-full prose prose-lg prose-violet mx-auto max-w-3xl px-4 overflow-hidden">
+      <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
         <header className="pb-4">
-          <h1 className="mt-4 mb-0 text-3xl font-bold text-ladderly-violet-600">
+          <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
             {post.title}
           </h1>
           <p className="my-0 text-gray-600">
@@ -137,7 +137,7 @@ export default async function BlogPost({
                 <li
                   key={item.id}
                   style={{ marginLeft: `${(item.level - 2) * 20}px` }}
-                  className={`my-1 ${item.level === 1 ? "list-none -ml-5" : ""}`}
+                  className={`my-1 ${item.level === 1 ? '-ml-5 list-none' : ''}`}
                 >
                   <a
                     href={`#${item.id}`}
@@ -154,5 +154,5 @@ export default async function BlogPost({
         <BlogPostContent content={post.content} />
       </article>
     </LadderlyPageWrapper>
-  );
+  )
 }

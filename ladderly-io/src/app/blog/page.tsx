@@ -1,47 +1,47 @@
-import fs from "fs";
-import matter from "gray-matter";
-import { Metadata } from "next";
-import Link from "next/link";
-import path from "path";
+import fs from 'fs'
+import matter from 'gray-matter'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import path from 'path'
 
-import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 
 export const metadata: Metadata = {
-  title: "Blog | Ladderly",
-  description: "Articles about programming and career development",
-};
+  title: 'Blog | Ladderly',
+  description: 'Articles about programming and career development',
+}
 
 interface BlogPost {
-  slug: string;
-  title: string;
-  date: string;
-  author: string;
+  slug: string
+  title: string
+  date: string
+  author: string
 }
 
 async function getBlogPosts(): Promise<BlogPost[]> {
-  const files = fs.readdirSync(path.join(process.cwd(), "src/app/blog"));
+  const files = fs.readdirSync(path.join(process.cwd(), 'src/app/blog'))
   const posts = files
-    .filter((filename) => path.extname(filename) === ".md")
+    .filter((filename) => path.extname(filename) === '.md')
     .map((filename) => {
-      const slug = filename.replace(".md", "");
+      const slug = filename.replace('.md', '')
       const markdownWithMetadata = fs
-        .readFileSync(path.join(process.cwd(), "src/app/blog", filename))
-        .toString();
-      const { data } = matter(markdownWithMetadata);
+        .readFileSync(path.join(process.cwd(), 'src/app/blog', filename))
+        .toString()
+      const { data } = matter(markdownWithMetadata)
       return {
         slug,
         title: data.title,
         date: data.date,
         author: data.author,
-      };
+      }
     })
-    .reverse();
+    .reverse()
 
-  return posts;
+  return posts
 }
 
 export default async function BlogIndex() {
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts()
 
   return (
     <LadderlyPageWrapper>
@@ -64,5 +64,5 @@ export default async function BlogIndex() {
         ))}
       </main>
     </LadderlyPageWrapper>
-  );
+  )
 }
