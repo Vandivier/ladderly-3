@@ -38,11 +38,14 @@ export const SignupForm = (props: SignupFormProps) => {
         router.push('/?refresh_current_user=true')
         router.refresh()
       }
-    } catch (error: any) {
-      if (error.message === 'User already exists') {
-        return { email: 'This email is already being used' }
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message) {
+        if (error.message === 'User already exists') {
+          return { email: 'This email is already being used' }
+        }
+        return { [FORM_ERROR]: error.message }
       }
-      return { [FORM_ERROR]: error.message || 'Something went wrong!' }
+      return { [FORM_ERROR]: 'Something went wrong!' }
     }
   }
 
