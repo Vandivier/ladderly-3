@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import { LabeledTextField } from "~/app/core/components/LabeledTextField";
-import { Form, FORM_ERROR } from "~/app/core/components/Form";
-import { ForgotPassword } from "src/app/(auth)/schemas";
-import { api } from "~/trpc/react";
-import Link from "next/link";
+import { LabeledTextField } from '~/app/core/components/LabeledTextField'
+import { Form, FORM_ERROR } from '~/app/core/components/Form'
+import { ForgotPassword } from 'src/app/(auth)/schemas'
+import { api } from '~/trpc/react'
+import Link from 'next/link'
 
 const ForgotPasswordPage = () => {
-  const forgotPasswordMutation = api.auth.forgotPassword.useMutation();
+  const forgotPasswordMutation = api.auth.forgotPassword.useMutation()
 
   return (
     <div className="relative min-h-screen">
@@ -20,7 +20,7 @@ const ForgotPasswordPage = () => {
         </Link>
       </nav>
       <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-        <div className="w-full max-w-md rounded-lg bg-white m-2 p-8 shadow-md">
+        <div className="m-2 w-full max-w-md rounded-lg bg-white p-8 shadow-md">
           <h1 className="mb-4 text-2xl font-bold text-gray-800">
             Reset Your Password
           </h1>
@@ -37,15 +37,15 @@ const ForgotPasswordPage = () => {
             <Form
               submitText="Send Reset Password Instructions"
               schema={ForgotPassword}
-              initialValues={{ email: "" }}
+              initialValues={{ email: '' }}
               onSubmit={async (values) => {
                 try {
-                  await forgotPasswordMutation.mutateAsync(values);
+                  await forgotPasswordMutation.mutateAsync(values)
                 } catch (error: any) {
                   return {
                     [FORM_ERROR]:
-                      "Sorry, we had an unexpected error. Please try again.",
-                  };
+                      'Sorry, we had an unexpected error. Please try again.',
+                  }
                 }
               }}
             >
@@ -74,7 +74,7 @@ const ForgotPasswordPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ForgotPasswordPage;
+export default ForgotPasswordPage
