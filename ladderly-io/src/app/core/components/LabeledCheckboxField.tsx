@@ -72,4 +72,5 @@ export const LabeledCheckboxField = forwardRef<
   }
 )
 
+LabeledCheckboxField.displayName = 'LabeledCheckboxField'
 export default LabeledCheckboxField

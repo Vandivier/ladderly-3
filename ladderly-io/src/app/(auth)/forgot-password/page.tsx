@@ -53,6 +53,7 @@ const ForgotPasswordPage = () => {
                 name="email"
                 label="Email"
                 placeholder="Email"
+                type="email"
               />
             </Form>
           )}
