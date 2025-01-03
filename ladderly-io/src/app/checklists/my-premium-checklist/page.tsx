@@ -17,7 +17,7 @@ const NewestChecklistQueryHandler: React.FC = () => {
   const { mutateAsync: createUserChecklistAsClone } =
     api.checklist.createAsClone.useMutation({
       onSuccess: () => {
-        utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
+        void utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
       },
     });
 
@@ -64,7 +64,7 @@ const UserChecklistItems: React.FC = () => {
 
   const { mutate: toggleItem } = api.checklist.toggleItem.useMutation({
     onSuccess: () => {
-      utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
+      void utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
     },
   });
 
@@ -89,7 +89,7 @@ const UserChecklistItems: React.FC = () => {
           rel="noopener noreferrer"
           className="text-ladderly-pink hover:underline"
         >
-          {linkText || "here"}
+          {linkText ?? "here"}
         </a>
         {parts[1]}
       </>
@@ -109,7 +109,7 @@ const UserChecklistItems: React.FC = () => {
                 isComplete: !item.isComplete,
               })
             }
-            className="mt-1 h-4 w-4 rounded border-gray-300"
+            className="mt-1 size-4 rounded border-gray-300"
           />
           <div className="relative flex-1">
             <div className="flex items-start gap-1">
@@ -126,12 +126,12 @@ const UserChecklistItems: React.FC = () => {
                   onClick={() => setActiveTooltip(activeTooltip === item.id ? null : item.id)}
                   className="mt-1 text-gray-500 hover:text-gray-700"
                 >
-                  <InfoIcon className="h-4 w-4" />
+                  <InfoIcon className="size-4" />
                 </button>
               )}
             </div>
             {activeTooltip === item.id && item.checklistItem.detailText && (
-              <div className="absolute left-0 top-6 z-10 w-full max-w-sm rounded-lg bg-white p-3 shadow-lg ring-1 ring-black ring-opacity-5 border-4 border-ladderly-violet-700">
+              <div className="absolute left-0 top-6 z-10 w-full max-w-sm rounded-lg bg-white p-3 shadow-lg ring-1 ring-black/5 border-4 border-ladderly-violet-700">
                 <div className="flex justify-between items-start gap-2">
                   <div className="flex-1">
                     {renderText(
@@ -144,7 +144,7 @@ const UserChecklistItems: React.FC = () => {
                     onClick={() => setActiveTooltip(null)}
                     className="text-gray-500 hover:text-gray-700 -mt-1 -mr-1"
                   >
-                    <X className="h-4 w-4" />
+                    <X className="size-4" />
                   </button>
                 </div>
               </div>
