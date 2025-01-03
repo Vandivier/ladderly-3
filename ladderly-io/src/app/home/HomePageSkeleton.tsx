@@ -12,7 +12,7 @@ const HomePageSkeleton = () => (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="flex items-center">
-              <div className="mr-3 h-8 w-8 rounded-full bg-gray-300"></div>
+              <div className="mr-3 size-8 rounded-full bg-gray-300"></div>
               <div className="h-8 w-3/4 rounded bg-gray-300"></div>
             </div>
           ))}

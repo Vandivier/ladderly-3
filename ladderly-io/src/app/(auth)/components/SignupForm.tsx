@@ -59,7 +59,7 @@ export const SignupForm = (props: SignupFormProps) => {
         <img
           src="https://www.google.com/favicon.ico"
           alt="Google"
-          className="h-5 w-5"
+          className="size-5"
         />
         Sign up with Google
       </button>

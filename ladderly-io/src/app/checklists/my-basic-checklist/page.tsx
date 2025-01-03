@@ -114,7 +114,7 @@ const UserChecklistItems: React.FC = () => {
                 isComplete: !item.isComplete,
               })
             }
-            className="mt-1 h-4 w-4 rounded border-gray-300"
+            className="mt-1 size-4 rounded border-gray-300"
           />
           <div className="relative flex-1">
             <div className="flex items-start gap-1">
@@ -133,7 +133,7 @@ const UserChecklistItems: React.FC = () => {
                   }
                   className="mt-1 text-gray-500 hover:text-gray-700"
                 >
-                  <InfoIcon className="h-4 w-4" />
+                  <InfoIcon className="size-4" />
                 </button>
               )}
             </div>
@@ -151,7 +151,7 @@ const UserChecklistItems: React.FC = () => {
                     onClick={() => setActiveTooltip(null)}
                     className="-mr-1 -mt-1 text-gray-500 hover:text-gray-700"
                   >
-                    <X className="h-4 w-4" />
+                    <X className="size-4" />
                   </button>
                 </div>
               </div>
