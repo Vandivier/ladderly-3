@@ -1,50 +1,52 @@
-"use client";
+'use client'
 
-import React, { Suspense } from "react";
-import { LadderlyToast } from "~/app/core/components/LadderlyToast";
-import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
-import { api } from "~/trpc/react";
-import { InfoIcon, X } from "lucide-react";
+import React, { Suspense } from 'react'
+import { LadderlyToast } from '~/app/core/components/LadderlyToast'
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
+import { api } from '~/trpc/react'
+import { InfoIcon, X } from 'lucide-react'
 
-const CURRENT_CHECKLIST_NAME = "Advanced Programming Job Checklist";
+const CURRENT_CHECKLIST_NAME = 'Advanced Programming Job Checklist'
 
 const NewestChecklistQueryHandler: React.FC = () => {
-  const utils = api.useUtils();
+  const utils = api.useUtils()
   const { data: userChecklistData } = api.checklist.getLatestByName.useQuery({
     name: CURRENT_CHECKLIST_NAME,
-  });
+  })
 
   const { mutateAsync: createUserChecklistAsClone } =
     api.checklist.createAsClone.useMutation({
       onSuccess: () => {
-        void utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
+        void utils.checklist.getLatestByName.invalidate({
+          name: CURRENT_CHECKLIST_NAME,
+        })
       },
-    });
+    })
 
   const [showToast, setShowToast] = React.useState(
     userChecklistData?.userChecklistCascade.userChecklist?.checklistId !==
-      userChecklistData?.latestChecklistId
-  );
+      userChecklistData?.latestChecklistId,
+  )
   const [toastMessage, setToastMessage] = React.useState(
-    "A New Checklist Version is Available."
-  );
+    'A New Checklist Version is Available.',
+  )
 
   const handleToastConfirmClick = async () => {
-    const checklistId = userChecklistData?.latestChecklistId;
-    if (!checklistId) return;
-    setToastMessage("Update in progress...");
+    const checklistId = userChecklistData?.latestChecklistId
+    if (!checklistId) return
+    setToastMessage('Update in progress...')
 
     try {
-      await createUserChecklistAsClone({ checklistId });
-      setShowToast(false);
+      await createUserChecklistAsClone({ checklistId })
+      setShowToast(false)
     } catch (error) {
-      alert("Error updating checklist items.");
+      alert('Error updating checklist items.')
     }
-  };
+  }
 
   const handleToastCloseClick = () => {
-    setShowToast(false);
-  };
+    setShowToast(false)
+  }
 
   return showToast ? (
     <LadderlyToast
@@ -52,33 +54,36 @@ const NewestChecklistQueryHandler: React.FC = () => {
       onClick={handleToastConfirmClick}
       onClose={handleToastCloseClick}
     />
-  ) : null;
-};
+  ) : null
+}
 
 const UserChecklistItems: React.FC = () => {
-  const utils = api.useUtils();
+  const utils = api.useUtils()
   const { data: userChecklistData } = api.checklist.getLatestByName.useQuery({
     name: CURRENT_CHECKLIST_NAME,
-  });
-  const [activeTooltip, setActiveTooltip] = React.useState<number | null>(null);
+  })
+  const [activeTooltip, setActiveTooltip] = React.useState<number | null>(null)
 
   const { mutate: toggleItem } = api.checklist.toggleItem.useMutation({
     onSuccess: () => {
-      void utils.checklist.getLatestByName.invalidate({ name: CURRENT_CHECKLIST_NAME });
+      void utils.checklist.getLatestByName.invalidate({
+        name: CURRENT_CHECKLIST_NAME,
+      })
     },
-  });
+  })
 
   if (!userChecklistData?.userChecklistCascade.userChecklist) {
-    return <div>No checklist found.</div>;
+    return <div>No checklist found.</div>
   }
 
-  const { userChecklistItems } = userChecklistData.userChecklistCascade.userChecklist;
+  const { userChecklistItems } =
+    userChecklistData.userChecklistCascade.userChecklist
 
   const renderText = (text: string, linkUri?: string, linkText?: string) => {
-    if (!linkUri) return text;
+    if (!linkUri) return text
 
-    const parts = text.split("###LINK###");
-    if (parts.length === 1) return text;
+    const parts = text.split('###LINK###')
+    if (parts.length === 1) return text
 
     return (
       <>
@@ -89,12 +94,12 @@ const UserChecklistItems: React.FC = () => {
           rel="noopener noreferrer"
           className="text-ladderly-pink hover:underline"
         >
-          {linkText ?? "here"}
+          {linkText ?? 'here'}
         </a>
         {parts[1]}
       </>
-    );
-  };
+    )
+  }
 
   return (
     <ul className="space-y-4">
@@ -117,13 +122,15 @@ const UserChecklistItems: React.FC = () => {
                 {renderText(
                   item.checklistItem.displayText,
                   item.checklistItem.linkUri,
-                  item.checklistItem.linkText
+                  item.checklistItem.linkText,
                 )}
-                {item.checklistItem.isRequired && "*"}
+                {item.checklistItem.isRequired && '*'}
               </span>
               {item.checklistItem.detailText && (
                 <button
-                  onClick={() => setActiveTooltip(activeTooltip === item.id ? null : item.id)}
+                  onClick={() =>
+                    setActiveTooltip(activeTooltip === item.id ? null : item.id)
+                  }
                   className="mt-1 text-gray-500 hover:text-gray-700"
                 >
                   <InfoIcon className="size-4" />
@@ -131,18 +138,18 @@ const UserChecklistItems: React.FC = () => {
               )}
             </div>
             {activeTooltip === item.id && item.checklistItem.detailText && (
-              <div className="absolute left-0 top-6 z-10 w-full max-w-sm rounded-lg bg-white p-3 shadow-lg ring-1 ring-black/5 border-4 border-ladderly-violet-700">
-                <div className="flex justify-between items-start gap-2">
+              <div className="absolute left-0 top-6 z-10 w-full max-w-sm rounded-lg border-4 border-ladderly-violet-700 bg-white p-3 shadow-lg ring-1 ring-black/5">
+                <div className="flex items-start justify-between gap-2">
                   <div className="flex-1">
                     {renderText(
                       item.checklistItem.detailText,
                       item.checklistItem.linkUri,
-                      item.checklistItem.linkText
+                      item.checklistItem.linkText,
                     )}
                   </div>
                   <button
                     onClick={() => setActiveTooltip(null)}
-                    className="text-gray-500 hover:text-gray-700 -mt-1 -mr-1"
+                    className="-mr-1 -mt-1 text-gray-500 hover:text-gray-700"
                   >
                     <X className="size-4" />
                   </button>
@@ -153,8 +160,8 @@ const UserChecklistItems: React.FC = () => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}
 
 export default function MyPremiumChecklist() {
   return (
@@ -181,5 +188,5 @@ export default function MyPremiumChecklist() {
         </div>
       </div>
     </LadderlyPageWrapper>
-  );
+  )
 }
