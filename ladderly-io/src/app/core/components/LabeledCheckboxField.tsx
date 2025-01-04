@@ -1,5 +1,9 @@
-import { ComponentPropsWithoutRef, PropsWithoutRef, forwardRef } from 'react'
-import { UseFieldConfig, useField } from 'react-final-form'
+import {
+  type ComponentPropsWithoutRef,
+  type PropsWithoutRef,
+  forwardRef,
+} from 'react'
+import { type UseFieldConfig, useField } from 'react-final-form'
 
 export const defaultCheckboxFieldLabelProps = {
   className: 'flex items-baseline my-1',
@@ -29,7 +33,7 @@ export const LabeledCheckboxField = forwardRef<
       labelProps = defaultCheckboxFieldLabelProps,
       ...props
     },
-    ref
+    ref,
   ) => {
     const {
       input,
@@ -69,7 +73,8 @@ export const LabeledCheckboxField = forwardRef<
         `}</style>
       </div>
     )
-  }
+  },
 )
 
+LabeledCheckboxField.displayName = 'LabeledCheckboxField'
 export default LabeledCheckboxField

@@ -1,6 +1,6 @@
 // src/app/HomePageSkeleton.tsx
 
-import styles from "src/styles/Home.module.css";
+import styles from 'src/styles/Home.module.css'
 
 const HomePageSkeleton = () => (
   <div className={styles.wrapper}>
@@ -12,7 +12,7 @@ const HomePageSkeleton = () => (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="flex items-center">
-              <div className="mr-3 h-8 w-8 rounded-full bg-gray-300"></div>
+              <div className="mr-3 size-8 rounded-full bg-gray-300"></div>
               <div className="h-8 w-3/4 rounded bg-gray-300"></div>
             </div>
           ))}
@@ -21,19 +21,19 @@ const HomePageSkeleton = () => (
     </div>
     <div className="space-y-4">
       <div
-        className={`${styles["next-steps-card"]} animate-pulse rounded-lg bg-white p-6 shadow-lg`}
+        className={`${styles['next-steps-card']} animate-pulse rounded-lg bg-white p-6 shadow-lg`}
       >
         <div className="mb-4 h-8 w-3/4 rounded bg-gray-300"></div>
         <div className="h-24 w-full rounded bg-gray-300"></div>
       </div>
       <div
-        className={`${styles["next-steps-card"]} animate-pulse rounded-lg bg-white p-2 shadow-lg`}
+        className={`${styles['next-steps-card']} animate-pulse rounded-lg bg-white p-2 shadow-lg`}
       >
         <div className="h-6 w-full rounded bg-gray-300"></div>
       </div>
       <div className="h-64 w-full animate-pulse rounded bg-gray-300"></div>
     </div>
   </div>
-);
+)
 
-export default HomePageSkeleton;
+export default HomePageSkeleton

@@ -1,6 +1,6 @@
 'use client'
-import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from 'react'
-import { useField, UseFieldConfig } from 'react-final-form'
+import { forwardRef, type ComponentPropsWithoutRef, type PropsWithoutRef } from 'react'
+import { useField, type UseFieldConfig } from 'react-final-form'
 
 export interface LabeledTextFieldProps
   extends PropsWithoutRef<JSX.IntrinsicElements['input']> {
@@ -23,11 +23,7 @@ export const LabeledTextField = forwardRef<
     input,
     meta: { touched, error, submitError, submitting },
   } = useField(name, {
-    parse:
-      props.type === 'number'
-        ? (Number as any)
-        : // Converting `""` to `null` ensures empty values will be set to null in the DB
-          (v) => (v === '' ? null : v),
+    parse: (val) => String(val),
     ...fieldProps,
   })
 
@@ -68,4 +64,5 @@ export const LabeledTextField = forwardRef<
   )
 })
 
+LabeledTextField.displayName = 'LabeledTextField'
 export default LabeledTextField

@@ -2,10 +2,10 @@
 
 import React from "react";
 import { UpdateSettingsSchema } from "src/app/settings/schemas";
-import { Form, FormProps } from "~/app/core/components/Form";
+import type { z } from "zod";
+import { Form, type FormProps } from "~/app/core/components/Form";
 import LabeledCheckboxField from "~/app/core/components/LabeledCheckboxField";
 import LabeledTextField from "~/app/core/components/LabeledTextField";
-import { z } from "zod";
 import { CountryDropdown } from "./CountryDropdown";
 import { USStateDropdown } from "./USStateDropdown";
 
@@ -30,18 +30,21 @@ export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
           label="Primary Email"
           outerProps={{ className: "mt-2" }}
           placeholder="Primary Email"
+          type="email"
         />
         <LabeledTextField
           name="emailBackup"
           label="Backup Email"
           outerProps={{ className: "mt-2" }}
           placeholder="Backup Email"
+          type="email"
         />
         <LabeledTextField
           name="emailStripe"
           label="Stripe Email"
           outerProps={{ className: "mt-2" }}
           placeholder="Stripe Email"
+          type="email"
         />
       </section>
       <section>
@@ -51,12 +54,14 @@ export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
           label="First Name"
           outerProps={{ className: "mt-2" }}
           placeholder="First Name"
+          type="text"
         />
         <LabeledTextField
           name="nameLast"
           label="Last Name"
           outerProps={{ className: "mt-2" }}
           placeholder="Last Name"
+          type="text"
         />
 
         <LabeledCheckboxField name="hasOpenToWork" label="Open To Work" />
@@ -70,30 +75,35 @@ export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
           label="Profile Blurb"
           outerProps={{ className: "mt-2" }}
           placeholder="Profile Blurb"
+          type="text"
         />
         <LabeledTextField
           name="profileContactEmail"
           label="Public Contact Email"
           outerProps={{ className: "mt-2" }}
           placeholder="Public Contact Email"
+          type="email"
         />
         <LabeledTextField
           name="profileGitHubUri"
           label="GitHub URL"
           outerProps={{ className: "mt-2" }}
           placeholder="GitHub URL"
+          type="text"
         />
         <LabeledTextField
           name="profileHomepageUri"
           label="Homepage URL"
           outerProps={{ className: "mt-2" }}
           placeholder="Homepage URL"
+          type="text"
         />
         <LabeledTextField
           name="profileLinkedInUri"
           label="LinkedIn URL"
           outerProps={{ className: "mt-2" }}
           placeholder="LinkedIn URL"
+          type="text"
         />
 
         <CountryDropdown outerProps={{ className: "mt-2 items-baseline" }} />

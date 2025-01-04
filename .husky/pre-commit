@@ -4,7 +4,7 @@
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
 # Change to the blitz-app directory
-cd "$REPO_ROOT/blitz-app" || exit
+cd "$REPO_ROOT" || exit
 
 # Run pretty-quick only on staged files in the blitz-app directory
-git diff --staged --name-only | xargs npx pretty-quick --staged
+git diff --staged --name-only | xargs npx pretty-quick --staged --config prettier.config.mjs

@@ -1,4 +1,4 @@
-import React, { PropsWithoutRef } from 'react'
+import React, { type PropsWithoutRef } from 'react'
 import { Field } from 'react-final-form'
 import Select from 'react-select'
 
@@ -25,7 +25,6 @@ const LabeledAutocompleteField: React.FC<LabeledAutocompleteFieldProps> = ({
             className="mt-1"
             options={options}
             onChange={(value) => input.onChange(value)}
-            onBlur={() => input.onBlur(input.value)}
             placeholder={`Select ${label}`}
           />
         )}

@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { LoginForm } from "~/app/(auth)/components/LoginForm";
-import { getServerAuthSession } from "~/server/auth";
-import { LadderlySession } from "~/server/auth";
+import Link from 'next/link'
+import { LoginForm } from '~/app/(auth)/components/LoginForm'
+import { getServerAuthSession } from '~/server/auth'
+import type { LadderlySession } from '~/server/auth'
 
 export const metadata = {
-  title: "Log In",
-};
+  title: 'Log In',
+}
 
 const LoginPage = async () => {
-  const session: LadderlySession | null = await getServerAuthSession();
+  const session: LadderlySession | null = await getServerAuthSession()
 
   return (
     <div className="relative min-h-screen">
@@ -24,7 +24,7 @@ const LoginPage = async () => {
         {session?.user ? <p>You are already logged in.</p> : <LoginForm />}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

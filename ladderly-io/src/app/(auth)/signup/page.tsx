@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { SignupForm } from "~/app/(auth)/components/SignupForm";
-import { getServerAuthSession, LadderlySession } from "~/server/auth";
+import Link from 'next/link'
+import { SignupForm } from '~/app/(auth)/components/SignupForm'
+import { getServerAuthSession, type LadderlySession } from '~/server/auth'
 
 export const metadata = {
-  title: "Create Account",
-};
+  title: 'Create Account',
+}
 
 const CreateAccountPage = async () => {
-  const session: LadderlySession | null = await getServerAuthSession();
+  const session: LadderlySession | null = await getServerAuthSession()
 
   return (
     <div className="relative min-h-screen">
@@ -23,7 +23,7 @@ const CreateAccountPage = async () => {
         {session?.user ? <p>You are already logged in.</p> : <SignupForm />}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreateAccountPage;
+export default CreateAccountPage

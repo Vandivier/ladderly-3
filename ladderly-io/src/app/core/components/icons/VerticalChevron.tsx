@@ -1,6 +1,6 @@
 export const IconVerticalChevron = ({ isPointingUp = false }) => (
   <svg
-    className={`ml-2 inline h-5 w-5 transition-transform duration-200 ${
+    className={`ml-2 inline size-5 transition-transform duration-200 ${
       isPointingUp ? '' : 'rotate-180'
     }`}
     fill="currentColor"

@@ -1,61 +1,72 @@
 // app/settings/SettingsForm.tsx
 
-"use client";
+'use client'
 
-import { useState } from "react";
-import { api } from "~/trpc/react";
-import { SettingsForm } from "./SettingsForm";
+import { useState } from 'react'
+import { api } from '~/trpc/react'
+import { SettingsForm } from './SettingsForm'
+import type { PaymentTierEnum } from '@prisma/client'
+import type { z } from 'zod'
+import type { UpdateSettingsSchema } from '~/app/settings/schemas'
 
-// Define the settings type based on the schema
-type UserSettings = {
-  id: number;
-  email: string;
-  emailBackup: string;
-  emailStripe: string;
-  nameFirst: string;
-  nameLast: string;
-  hasOpenToWork: boolean;
-  hasShoutOutsEnabled: boolean;
-  profileBlurb: string | null;
-  profileContactEmail: string | null;
-  profileGitHubUri: string | null;
-  profileHomepageUri: string | null;
-  profileLinkedInUri: string | null;
-  residenceCountry: string;
-  residenceUSState: string;
-  hasPublicProfileEnabled: boolean;
-  hasSmallGroupInterest: boolean;
-  hasLiveStreamInterest: boolean;
-  hasOnlineEventInterest: boolean;
-  hasInPersonEventInterest: boolean;
+// Base form values from schema
+type FormValues = z.infer<typeof UpdateSettingsSchema>
+
+// Settings type that matches the API response
+export type UserSettings = FormValues & {
+  id: number
+  createdAt: Date
+  updatedAt: Date
+  adminNotes: string
+  emailVerified: Date | null
+  hashedPassword: string | null
+  uuid: string
   subscription: {
-    tier: string;
-    type: string;
-  };
-};
+    type: string
+    tier: PaymentTierEnum
+  }
+}
 
 interface SettingsFormWrapperProps {
-  initialSettings: UserSettings;
+  initialSettings: UserSettings
 }
 
 export function SettingsFormWrapper({
   initialSettings,
 }: SettingsFormWrapperProps) {
-  const [settings, setSettings] = useState<UserSettings>(initialSettings);
+  const [settings, setSettings] = useState<UserSettings>(initialSettings)
   const { mutate: updateSettings } = api.user.updateSettings.useMutation({
     onSuccess: (updatedSettings) => {
-      setSettings((prev: UserSettings) => ({ ...prev, ...updatedSettings }));
-      alert("Updated successfully.");
+      setSettings((prev) => ({ ...prev, ...updatedSettings }) as UserSettings)
+      alert('Updated successfully.')
     },
     onError: (error) => {
-      console.error("Failed to update settings:", error);
-      alert("Update failed: " + error.message);
+      console.error('Failed to update settings:', error)
+      alert('Update failed: ' + error.message)
     },
-  });
+  })
 
-  const handleSubmit = async (values: UserSettings) => {
-    updateSettings(values);
-  };
+  const handleSubmit = async (values: FormValues) => {
+    const sanitizedValues = {
+      ...values,
+      emailBackup: values.emailBackup ?? null,
+      emailStripe: values.emailStripe ?? null,
+      nameFirst: values.nameFirst ?? null,
+      nameLast: values.nameLast ?? null,
+      profileBlurb: values.profileBlurb ?? null,
+      profileContactEmail: values.profileContactEmail ?? null,
+      profileGitHubUri: values.profileGitHubUri ?? null,
+      profileHomepageUri: values.profileHomepageUri ?? null,
+      profileLinkedInUri: values.profileLinkedInUri ?? null,
+    }
 
-  return <SettingsForm initialValues={settings} onSubmit={handleSubmit} />;
+    updateSettings(sanitizedValues)
+  }
+
+  return (
+    <SettingsForm
+      initialValues={settings as unknown as FormValues}
+      onSubmit={handleSubmit}
+    />
+  )
 }

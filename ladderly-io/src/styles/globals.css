@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .text-link-fancy {
+    @apply text-ladderly-violet-600 
+           relative
+           pb-0.5;
+  }
+  .text-link-fancy::after {
+    @apply content-['']
+           absolute
+           left-0
+           bottom-0
+           w-full
+           h-[1px]
+           bg-purple-50
+           transition-all
+           duration-300
+           ease-in-out;
+    background-image: linear-gradient(
+      to right,
+      rgb(99, 1, 235),
+      rgb(124, 58, 237),
+      rgb(231, 216, 246)
+    );
+    background-size: 0 100%;
+    background-repeat: no-repeat;
+  }
+  .text-link-fancy:hover::after {
+    background-size: 100% 100%;
+  }
+  .prose table {
+    @apply border-collapse;
+  }
+  .prose th {
+    @apply bg-ladderly-light-purple-1 px-4 py-2 text-left;
+  }
+  .prose td {
+    @apply border-t border-ladderly-light-purple-2 px-4 py-2;
+  }
+}

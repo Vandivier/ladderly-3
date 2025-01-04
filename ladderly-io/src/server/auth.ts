@@ -8,124 +8,125 @@
 
 import {
   getServerSession,
-  Session,
+  type Session,
   type DefaultSession,
   type NextAuthOptions,
-} from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
-import LinkedInProvider from "next-auth/providers/linkedin";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { PaymentTierEnum } from "@prisma/client";
-import * as argon2 from "argon2";
+} from 'next-auth'
+import DiscordProvider from 'next-auth/providers/discord'
+import GithubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
+import LinkedInProvider from 'next-auth/providers/linkedin'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import { PaymentTierEnum } from '@prisma/client'
+import * as argon2 from 'argon2'
 
-import { env } from "~/env";
-import { db } from "~/server/db";
-import { LadderlyMigrationAdapter } from "./LadderlyMigrationAdapter";
-import { TRPCError } from "@trpc/server";
-import { JWT } from "next-auth/jwt";
+import { env } from '~/env'
+import { db } from '~/server/db'
+import { LadderlyMigrationAdapter } from './LadderlyMigrationAdapter'
+import { TRPCError } from '@trpc/server'
+import type { JWT } from 'next-auth/jwt'
 
 export interface LadderlySession extends DefaultSession {
   user?: {
-    id: string;
+    id: string
     subscription: {
-      tier: PaymentTierEnum;
-      type: string;
-    };
-    email: string | null;
-    name: string | null;
-    image?: string | null;
-  };
+      tier: PaymentTierEnum
+      type: string
+    }
+    email: string | null
+    name: string | null
+    image?: string | null
+  }
 }
 
-declare module "next-auth" {
+declare module 'next-auth' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Session extends LadderlySession {}
 }
 
 // Helper function to verify password
 async function verifyPassword(
   hashedPassword: string,
-  plaintext: string
+  plaintext: string,
 ): Promise<boolean> {
   try {
-    return await argon2.verify(hashedPassword, plaintext);
+    return await argon2.verify(hashedPassword, plaintext)
   } catch (error) {
-    console.error("Password verification failed:", error);
-    return false;
+    console.error('Password verification failed:', error)
+    return false
   }
 }
 
 export const authOptions: NextAuthOptions = {
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   callbacks: {
     jwt: async ({ token, user, account }) => {
       // Initial sign in
       if (account && user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
-        token.picture = user.image;
+        token.id = user.id
+        token.email = user.email
+        token.name = user.name
+        token.picture = user.image
         // Add any additional user data you want to include in the token
         const dbUser = await db.user.findUnique({
           where: { id: parseInt(user.id) },
           include: {
             subscriptions: {
-              where: { type: "ACCOUNT_PLAN" },
+              where: { type: 'ACCOUNT_PLAN' },
               select: { tier: true, type: true },
             },
           },
-        });
-        token.subscription = dbUser?.subscriptions[0] || {
+        })
+        token.subscription = dbUser?.subscriptions[0] ?? {
           tier: PaymentTierEnum.FREE,
-          type: "ACCOUNT_PLAN",
-        };
+          type: 'ACCOUNT_PLAN',
+        }
       }
-      return token;
+      return token
     },
     session: async ({
       session,
       token,
     }: {
-      session: Session;
-      token: JWT;
+      session: Session
+      token: JWT
     }): Promise<LadderlySession> => {
       // jwt() is executed first then session()
-      const user = session.user as LadderlySession["user"];
-      const userId = user?.id?.toString() || token.id?.toString() || null;
+      const user = session.user as LadderlySession['user']
+      const userId = user?.id?.toString() ?? token.id?.toString() ?? null
       const newSession: LadderlySession = {
         ...session,
         user: userId
           ? {
               id: userId,
-              email: session.user?.email || token.email?.toString() || null,
-              name: token.name?.toString() || null,
-              image: token.picture?.toString() || null,
+              email: session.user?.email ?? token.email?.toString() ?? null,
+              name: token.name?.toString() ?? null,
+              image: token.picture?.toString() ?? null,
               subscription: token.subscription as {
-                tier: PaymentTierEnum;
-                type: string;
+                tier: PaymentTierEnum
+                type: string
               },
             }
           : undefined,
-      };
+      }
 
-      return newSession;
+      return newSession
     },
-    signIn: async ({ user, account, profile, email, credentials }) => {
+    signIn: async ({ user, account }) => {
       // signIn is called by both social login and credentials login
 
       if (account?.provider && user.email) {
         const existingUser = await db.user.findUnique({
           where: { email: user.email },
           include: { accounts: true },
-        });
+        })
 
         if (existingUser) {
           const existingAccount = existingUser.accounts.find(
-            (acc) => acc.provider === account.provider
-          );
+            (acc) => acc.provider === account.provider,
+          )
 
           if (!existingAccount) {
             const newAccount = await db.account.create({
@@ -141,18 +142,18 @@ export const authOptions: NextAuthOptions = {
                 id_token: account.id_token,
                 session_state: account.session_state,
               },
-            });
+            })
             console.log(
-              `New Account Created with User ID: ${existingUser.id} and Account ID: ${newAccount.id}`
-            );
+              `New Account Created with User ID: ${existingUser.id} and Account ID: ${newAccount.id}`,
+            )
           }
         } else {
-          console.log(`User not found by email with User ID: ${user.id}`);
-          return false;
+          console.log(`User not found by email with User ID: ${user.id}`)
+          return false
         }
       }
 
-      return true;
+      return true
     },
   },
   adapter: LadderlyMigrationAdapter(db),
@@ -179,7 +180,7 @@ export const authOptions: NextAuthOptions = {
       ? LinkedInProvider({
           authorization: {
             params: {
-              scope: "openid profile email",
+              scope: 'openid profile email',
             },
           },
           clientId: env.LINKEDIN_CLIENT_ID,
@@ -187,76 +188,76 @@ export const authOptions: NextAuthOptions = {
         })
       : null,
     CredentialsProvider({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
         email: {
-          label: "Email",
-          type: "email",
-          placeholder: "your-email@example.com",
+          label: 'Email',
+          type: 'email',
+          placeholder: 'your-email@example.com',
         },
-        password: { label: "Password", type: "password" },
+        password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
-        if (!credentials?.email || !credentials?.password) {
+      async authorize(credentials) {
+        if (!credentials?.email ?? !credentials?.password) {
           throw new TRPCError({
-            code: "UNAUTHORIZED",
-            message: "Invalid credentials",
-          });
+            code: 'UNAUTHORIZED',
+            message: 'Invalid credentials',
+          })
         }
 
         const user = await db.user.findUnique({
           where: { email: credentials.email },
-        });
+        })
 
         if (!user) {
           throw new TRPCError({
-            code: "UNAUTHORIZED",
-            message: "Invalid email or password",
-          });
+            code: 'UNAUTHORIZED',
+            message: 'Invalid email or password',
+          })
         }
 
         if (!user.hashedPassword) {
           // Trigger password reset flow
           throw new TRPCError({
-            code: "UNAUTHORIZED",
+            code: 'UNAUTHORIZED',
             message:
-              "Password reset required. Please check your email to reset your password.",
-          });
+              'Password reset required. Please check your email to reset your password.',
+          })
         }
 
         try {
           const isValid = await verifyPassword(
             user.hashedPassword,
-            credentials.password
-          );
+            credentials.password,
+          )
 
           if (!isValid) {
             throw new TRPCError({
-              code: "UNAUTHORIZED",
-              message: "Invalid email or password",
-            });
+              code: 'UNAUTHORIZED',
+              message: 'Invalid email or password',
+            })
           }
 
           return {
             id: user.id.toString(),
             email: user.email,
-            name: `${user.nameFirst} ${user.nameLast}`.trim() || null,
-            image: user.image || null,
-          };
+            name: `${user.nameFirst} ${user.nameLast}`.trim() ?? null,
+            image: user.image ?? null,
+          }
         } catch (error) {
-          console.error("Password verification failed:", error);
+          console.error('Password verification failed:', error)
           throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
+            code: 'INTERNAL_SERVER_ERROR',
             message:
-              "An error occurred during authentication. " +
-              "You may need to reset your password. " +
-              "If the issue persists, please contact support at admin@ladderly.io or through Discord.",
-          });
+              'An error occurred during authentication. ' +
+              'You may need to reset your password. ' +
+              'If the issue persists, please contact support at admin@ladderly.io or through Discord.',
+          })
         }
       },
     }),
-  ].filter(Boolean) as NextAuthOptions["providers"],
-};
+  ].filter(Boolean) as NextAuthOptions['providers'],
+}
 
-export const getServerAuthSession = () =>
-  getServerSession(authOptions) as Promise<LadderlySession | null>;
+export const getServerAuthSession: () => Promise<LadderlySession | null> = () =>
+  getServerSession(authOptions)

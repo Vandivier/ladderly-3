@@ -3,13 +3,13 @@ import React from 'react'
 type MenuContextType = {
   menuContent: React.ReactNode
   openMenuName: string | null
-  setMenu: (menuContent: React.ReactNode, openMenuName: string) => void
+  setMenu: null | ((menuContent: React.ReactNode, openMenuName: string) => void)
 }
 
 export const MenuContext = React.createContext<MenuContextType>({
   menuContent: null,
   openMenuName: null,
-  setMenu: (menuContent: React.ReactNode, openMenuName: string) => {},
+  setMenu: null,
 })
 
 export const MenuProvider: React.FC<{ children: React.ReactNode }> = ({

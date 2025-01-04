@@ -1,8 +1,6 @@
 import { LargeCard } from "~/app/core/components/LargeCard";
 import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
 
-import styles from "src/app/styles/Home.module.css";
-
 export const metadata = {
   title: "Privacy Policy",
 };
@@ -60,7 +58,7 @@ const PrivacyPolicyPage = () => {
             href="https://vercel.com"
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.textLink}
+            className="text-link-fancy"
           >
             Vercel
           </a>{" "}
@@ -69,7 +67,7 @@ const PrivacyPolicyPage = () => {
             href="https://supabase.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.textLink}
+            className="text-link-fancy"
           >
             Supabase
           </a>

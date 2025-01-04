@@ -9,7 +9,7 @@ import {
   AccountMenuItems,
   CommunityMenuItems,
   TOP_NAV_STANDARD_CLASSES,
-  TopHonorsMenuItems,
+  // TopHonorsMenuItems,
 } from "./TopNavSubmenu";
 
 const TOP_NAV_RIGHT_SECTION_CLASSES = "ml-auto flex items-center space-x-6";
@@ -31,36 +31,36 @@ export const TopNavRight = () => {
       router.replace(`?${newQuery.toString()}`);
 
       // Refetch the current user
-      currentUserQuery.refetch();
+      void currentUserQuery.refetch();
     }
   }, [searchParams, currentUserQuery, router]);
 
   const handleCommunityClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (openMenuName === "community") {
-      setMenu(null, "");
+      setMenu?.(null, "");
     } else {
-      setMenu(<CommunityMenuItems />, "community");
+      setMenu?.(<CommunityMenuItems />, "community");
     }
   };
 
   const handleAccountClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (openMenuName === "account") {
-      setMenu(null, "");
+      setMenu?.(null, "");
     } else if (currentUser) {
-      setMenu(<AccountMenuItems currentUser={currentUser} />, "account");
+      setMenu?.(<AccountMenuItems userId={currentUser.id.toString()} />, "account");
     }
   };
 
-  const handleLeaderboardClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (openMenuName === "leaderboard") {
-      setMenu(null, "");
-    } else {
-      setMenu(<TopHonorsMenuItems />, "leaderboard");
-    }
-  };
+  // const handleLeaderboardClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   if (openMenuName === "leaderboard") {
+  //     setMenu(null, "");
+  //   } else {
+  //     setMenu(<TopHonorsMenuItems />, "leaderboard");
+  //   }
+  // };
 
   return (
     <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>

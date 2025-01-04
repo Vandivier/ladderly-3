@@ -1,4 +1,4 @@
-import React, { PropsWithoutRef } from "react";
+import React, { type PropsWithoutRef } from "react";
 import LabeledAutocompleteField from "~/app/core/components/LabeledAutocompleteField";
 
 const usStates = [
