@@ -26,7 +26,7 @@ const LabeledAutocompleteField: React.FC<LabeledAutocompleteFieldProps> = ({
             classNamePrefix="react-select"
             options={options}
             value={
-              options.find((option) => option.value === input.value) || null
+              options.find((option) => option.value === input.value) ?? null
             }
             onChange={(option) => input.onChange(option?.value ?? '')}
             placeholder={`Select ${label}`}
