@@ -1,20 +1,23 @@
-import Link from "next/link";
-import { Suspense } from "react";
-import { api } from "~/trpc/server";
-import { LargeCard } from "~/app/core/components/LargeCard";
-import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
-import { SettingsFormWrapper, type UserSettings } from "./components/SettingsFormWrapper";
-import { redirect } from "next/navigation";
-import { PaymentTierEnum } from "@prisma/client";
+import Link from 'next/link'
+import { Suspense } from 'react'
+import { api } from '~/trpc/server'
+import { LargeCard } from '~/app/core/components/LargeCard'
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
+import {
+  SettingsFormWrapper,
+  type UserSettings,
+} from './components/SettingsFormWrapper'
+import { redirect } from 'next/navigation'
+import { PaymentTierEnum } from '@prisma/client'
 
 export const metadata = {
-  title: "Settings",
-};
+  title: 'Settings',
+}
 
 export default async function SettingsPage() {
   try {
-    const settings = await api.user.getSettings() as UserSettings;
-    const isPremium = settings.subscription.tier === PaymentTierEnum.FREE;
+    const settings = (await api.user.getSettings()) as UserSettings
+    const isPremium = settings.subscription.tier === PaymentTierEnum.FREE
 
     return (
       <LadderlyPageWrapper>
@@ -24,11 +27,14 @@ export default async function SettingsPage() {
               Edit User Settings
             </h1>
             <p className="mt-4">
-              Welcome, User ID {settings.id}!{" "}
+              Welcome, User ID {settings.id}!{' '}
               {isPremium
-                ? "You are signed in to a free account."
-                : "You are signed in to a premium account."}{" "}
-              Please email admin@ladderly.io to update your subscription tier.
+                ? 'You are signed in to a free account.'
+                : 'You are signed in to a premium account.'}{' '}
+            </p>
+            <p className="mt-4">
+              Please email admin@ladderly.io for help requests, to update your
+              subscription tier, or for general inquiries.
             </p>
 
             <Link
@@ -44,8 +50,8 @@ export default async function SettingsPage() {
           </LargeCard>
         </div>
       </LadderlyPageWrapper>
-    );
+    )
   } catch (error) {
-    redirect("/");
+    redirect('/')
   }
 }
