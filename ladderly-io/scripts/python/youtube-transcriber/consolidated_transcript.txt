@@ -1068,30 +1068,6 @@ like busted right now this job
 description has those keywords nowhere
 in it
 
-URL: https://youtu.be/lBg0D5X9ln4
-Title: Two open source projects for you to check out!
-Transcript:
-do you have any public code on github i
-want to take a look at production level
-code yeah hey kevin i do so what we're
-working on right now is totally open
-source actually basically everything
-that i do is open source so if you want
-to support an open source creator you
-came to the right place so go to ar
-tale.com and look at the footer there's
-the
-github um actually you can get to the
-github from the heading as well you can
-also go to Ladderly dot io and this is
-also totally open source you can sign up
-to Ladderly free to learn to code and
-land a programming job but i would
-encourage you to pay what you can you'll
-unlock the advanced checklist that has
-even more tips to improve your job
-search
-
 URL: https://youtu.be/hjYMng65R3o
 Title: ADDICTED TO LEETCODE?
 Transcript:
@@ -7063,27 +7039,6 @@ editing and web design yeah so i just
 made an update to my website and we
 added a bunch of gifs sorry gif sorry
 gifs sorry gifs sorry gifs sorry gif
-
-URL: https://youtu.be/8BpsOMwLaPA
-Title: Stream recap: Stripe is integrated!
-Transcript:
-stream recap here's the current state of
-the Ladderly website you can go to
-Ladderly.io and it will forward you to
-versaille you can also go to the link in
-my bio this top one it'll forward you to
-the same place i integrated stripes so
-now you can leave a tip or book an
-expert session securely through the
-stripe checkout form here is what the
-form looks like i also integrated
-subscription plans here's premium
-starting at 30 a month and pay what you
-can as little as a dollar a month also
-through the secure stripe form follow
-for more
-foreign
-[music]
 
 URL: https://youtu.be/7Pn_SrmLXo8
 Title: Simple Plan (for coding)
