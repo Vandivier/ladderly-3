@@ -4,17 +4,17 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
-} from "~/server/api/trpc";
-import { PaymentTierEnum } from "@prisma/client";
-import { z } from "zod";
-import { TRPCError } from '@trpc/server';
-import { NULL_RESULT_TRPC_INT } from "~/server/constants";
+} from '~/server/api/trpc'
+import { PaymentTierEnum } from '@prisma/client'
+import { z } from 'zod'
+import { TRPCError } from '@trpc/server'
+import { NULL_RESULT_TRPC_INT } from '~/server/constants'
 
 const tiersOrder = {
   FREE: 0,
   PAY_WHAT_YOU_CAN: 1,
   PREMIUM: 2,
-} as const;
+} as const
 
 // Define the settings input type
 export const UpdateSettingsSchema = z.object({
@@ -37,7 +37,7 @@ export const UpdateSettingsSchema = z.object({
   hasLiveStreamInterest: z.boolean(),
   hasOnlineEventInterest: z.boolean(),
   hasInPersonEventInterest: z.boolean(),
-});
+})
 
 // Define the settings output type
 export const UserSettingsSchema = z.object({
@@ -65,16 +65,16 @@ export const UserSettingsSchema = z.object({
     tier: z.nativeEnum(PaymentTierEnum),
     type: z.string(),
   }),
-});
+})
 
-export type UserSettings = z.infer<typeof UserSettingsSchema>;
+export type UserSettings = z.infer<typeof UserSettingsSchema>
 
 export const userRouter = createTRPCRouter({
   getCurrentUser: publicProcedure.query(async ({ ctx }) => {
-    const email = ctx?.session?.user?.email;
+    const email = ctx?.session?.user?.email
 
     if (!email) {
-      return NULL_RESULT_TRPC_INT;
+      return NULL_RESULT_TRPC_INT
     }
 
     const user = await ctx.db.user.findUnique({
@@ -82,15 +82,15 @@ export const userRouter = createTRPCRouter({
         email,
       },
       include: {
-        subscriptions: true
-      }
-    });
+        subscriptions: true,
+      },
+    })
 
     if (!user) {
-      throw new Error("User not found");
+      throw new Error('User not found')
     }
 
-    return user;
+    return user
   }),
 
   getSubscriptionLevel: protectedProcedure.query(async ({ ctx }) => {
@@ -99,38 +99,38 @@ export const userRouter = createTRPCRouter({
         id: parseInt(ctx.session.user.id),
       },
       include: {
-        subscriptions: true
-      }
-    });
+        subscriptions: true,
+      },
+    })
 
     if (!user) {
-      throw new Error("User not found");
+      throw new Error('User not found')
     }
 
     if (user.subscriptions.length === 0) {
-      return { tier: PaymentTierEnum.FREE };
+      return { tier: PaymentTierEnum.FREE }
     }
 
-    let minTier: PaymentTierEnum = PaymentTierEnum.PREMIUM;
+    let minTier: PaymentTierEnum = PaymentTierEnum.PREMIUM
 
     for (const subscription of user.subscriptions) {
       if (subscription.tier === PaymentTierEnum.PREMIUM) {
-        minTier = PaymentTierEnum.PREMIUM;
-        break;
+        minTier = PaymentTierEnum.PREMIUM
+        break
       } else if (
         subscription.tier === PaymentTierEnum.PAY_WHAT_YOU_CAN &&
         tiersOrder[minTier] > tiersOrder[PaymentTierEnum.PAY_WHAT_YOU_CAN]
       ) {
-        minTier = PaymentTierEnum.PAY_WHAT_YOU_CAN;
+        minTier = PaymentTierEnum.PAY_WHAT_YOU_CAN
       } else if (
         subscription.tier === PaymentTierEnum.FREE &&
         tiersOrder[minTier] > tiersOrder[PaymentTierEnum.FREE]
       ) {
-        minTier = PaymentTierEnum.FREE;
+        minTier = PaymentTierEnum.FREE
       }
     }
 
-    return { tier: minTier };
+    return { tier: minTier }
   }),
 
   // TODO: should this be protected?
@@ -139,10 +139,10 @@ export const userRouter = createTRPCRouter({
       z.object({
         skip: z.number(),
         take: z.number(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
-      const { skip, take } = input;
+      const { skip, take } = input
 
       const users = await ctx.db.user.findMany({
         where: {
@@ -167,15 +167,15 @@ export const userRouter = createTRPCRouter({
           profileLinkedInUri: true,
           totalContributions: true,
         },
-      });
+      })
 
-      const hasMore = users.length > take;
-      const paginatedUsers = hasMore ? users.slice(0, -1) : users;
+      const hasMore = users.length > take
+      const paginatedUsers = hasMore ? users.slice(0, -1) : users
 
       return {
         users: paginatedUsers,
         hasMore,
-      };
+      }
     }),
 
   getUser: publicProcedure
@@ -183,13 +183,13 @@ export const userRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       // Validate ID is an integer
       if (input.id !== parseInt(input.id.toString())) {
-        throw new TRPCError({ 
+        throw new TRPCError({
           code: 'NOT_FOUND',
-          message: 'User not found'
-        });
+          message: 'User not found',
+        })
       }
 
-      const isOwnData = ctx.session?.user?.id === input.id.toString();
+      const isOwnData = ctx.session?.user?.id === input.id.toString()
 
       const user = await ctx.db.user.findUnique({
         where: { id: input.id },
@@ -219,28 +219,28 @@ export const userRouter = createTRPCRouter({
             },
           },
         },
-      });
+      })
 
       if (!user) {
-        throw new TRPCError({ 
+        throw new TRPCError({
           code: 'NOT_FOUND',
-          message: 'User not found'
-        });
+          message: 'User not found',
+        })
       }
 
       if (!isOwnData && !user.hasPublicProfileEnabled) {
-        throw new TRPCError({ 
+        throw new TRPCError({
           code: 'UNAUTHORIZED',
-          message: 'You do not have permission to view this user data.'
-        });
+          message: 'You do not have permission to view this user data.',
+        })
       }
 
-      return user;
+      return user
     }),
 
   getSettings: protectedProcedure.query(async ({ ctx }) => {
-    const id = parseInt(ctx.session.user.id);
-    
+    const id = parseInt(ctx.session.user.id)
+
     const result = await ctx.db.$transaction(async (tx) => {
       const user = await tx.user.findUnique({
         where: { id },
@@ -250,16 +250,16 @@ export const userRouter = createTRPCRouter({
             select: { tier: true, type: true },
           },
         },
-      });
+      })
 
       if (!user) {
-        throw new TRPCError({ 
+        throw new TRPCError({
           code: 'NOT_FOUND',
-          message: 'User not found'
-        });
+          message: 'User not found',
+        })
       }
 
-      let subscription = user.subscriptions[0];
+      let subscription = user.subscriptions[0]
 
       if (!subscription) {
         subscription = await tx.subscription.create({
@@ -268,7 +268,7 @@ export const userRouter = createTRPCRouter({
             tier: PaymentTierEnum.FREE,
             type: 'ACCOUNT_PLAN',
           },
-        });
+        })
       }
 
       const settings: UserSettings = {
@@ -296,25 +296,25 @@ export const userRouter = createTRPCRouter({
           tier: subscription.tier,
           type: subscription.type,
         },
-      };
+      }
 
-      return UserSettingsSchema.parse(settings);
-    });
+      return UserSettingsSchema.parse(settings)
+    })
 
-    return result;
+    return result
   }),
 
   updateSettings: protectedProcedure
     .input(UpdateSettingsSchema)
     .mutation(async ({ ctx, input }) => {
-      const userId = parseInt(ctx.session.user.id);
-      const email = input.email.toLowerCase().trim();
-      const emailBackup = input.emailBackup?.toLowerCase().trim() ?? '';
-      const emailStripe = input.emailStripe?.toLowerCase().trim() ?? '';
+      const userId = parseInt(ctx.session.user.id)
+      const email = input.email.toLowerCase().trim()
+      const emailBackup = input.emailBackup?.toLowerCase().trim() ?? ''
+      const emailStripe = input.emailStripe?.toLowerCase().trim() ?? ''
 
       // Basic email validation
-      const isValidEmail = (email: string) => 
-        email === '' ?? (email.includes('@') && email.includes('.'));
+      const isValidEmail = (email: string) =>
+        email === '' || (email.includes('@') && email.includes('.'))
 
       if (
         !isValidEmail(email) ||
@@ -323,8 +323,8 @@ export const userRouter = createTRPCRouter({
       ) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: 'Invalid email format'
-        });
+          message: 'Invalid email format',
+        })
       }
 
       const user = await ctx.db.user.update({
@@ -343,7 +343,8 @@ export const userRouter = createTRPCRouter({
           nameFirst: input.nameFirst?.trim() ?? '',
           nameLast: input.nameLast?.trim() ?? '',
           profileBlurb: input.profileBlurb?.trim() ?? null,
-          profileContactEmail: input.profileContactEmail?.toLowerCase().trim() ?? null,
+          profileContactEmail:
+            input.profileContactEmail?.toLowerCase().trim() ?? null,
           profileGitHubUri: input.profileGitHubUri?.trim() ?? null,
           profileHomepageUri: input.profileHomepageUri?.trim() ?? null,
           profileLinkedInUri: input.profileLinkedInUri?.trim() ?? null,
@@ -356,18 +357,18 @@ export const userRouter = createTRPCRouter({
             select: { tier: true, type: true },
           },
         },
-      });
+      })
 
       const subscription = user.subscriptions[0] ?? {
         tier: PaymentTierEnum.FREE,
         type: 'ACCOUNT_PLAN',
-      };
+      }
 
       const settings: UserSettings = {
         ...user,
         subscription,
-      };
+      }
 
-      return UserSettingsSchema.parse(settings);
+      return UserSettingsSchema.parse(settings)
     }),
-});
+})
