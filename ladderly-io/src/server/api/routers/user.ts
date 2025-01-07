@@ -5,7 +5,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from '~/server/api/trpc'
-import { PaymentTierEnum } from '@prisma/client'
+import { PaymentTierEnum, Subscription, User } from '@prisma/client'
 import { z } from 'zod'
 import { TRPCError } from '@trpc/server'
 import { NULL_RESULT_TRPC_INT } from '~/server/constants'
@@ -68,30 +68,36 @@ export const UserSettingsSchema = z.object({
 })
 
 export type UserSettings = z.infer<typeof UserSettingsSchema>
+export type UserWithSubscriptions = User & { subscriptions: Subscription[] }
+export type UserWithSubscriptionsOrZero =
+  | UserWithSubscriptions
+  | typeof NULL_RESULT_TRPC_INT
 
 export const userRouter = createTRPCRouter({
-  getCurrentUser: publicProcedure.query(async ({ ctx }) => {
-    const email = ctx?.session?.user?.email
+  getCurrentUser: publicProcedure.query(
+    async ({ ctx }): Promise<UserWithSubscriptionsOrZero> => {
+      const email = ctx?.session?.user?.email
 
-    if (!email) {
-      return NULL_RESULT_TRPC_INT
-    }
+      if (!email) {
+        return NULL_RESULT_TRPC_INT
+      }
 
-    const user = await ctx.db.user.findUnique({
-      where: {
-        email,
-      },
-      include: {
-        subscriptions: true,
-      },
-    })
+      const user: UserWithSubscriptions | null = await ctx.db.user.findUnique({
+        where: {
+          email,
+        },
+        include: {
+          subscriptions: true,
+        },
+      })
 
-    if (!user) {
-      throw new Error('User not found')
-    }
+      if (!user) {
+        throw new Error('User not found')
+      }
 
-    return user
-  }),
+      return user
+    },
+  ),
 
   getSubscriptionLevel: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.user.findUnique({

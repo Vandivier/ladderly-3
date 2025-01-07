@@ -3,6 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { api } from '~/trpc/server'
+import { UserWithSubscriptionsOrZero } from '~/server/api/routers/user'
 
 type Benefit = {
   paragraphContent?: React.ReactNode
@@ -82,8 +83,43 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
   </Link>
 )
 
+const PlanCard: React.FC<{
+  plan: Plan
+  shouldRenderLoggedInLink: boolean
+  currentUser: UserWithSubscriptionsOrZero
+}> = ({ plan, shouldRenderLoggedInLink, currentUser }) => (
+  <div
+    key={plan.planId}
+    className="flex flex-col rounded-lg bg-white p-6 shadow-lg"
+  >
+    <div className="mb-4 flex items-center justify-between">
+      <h2 className="text-2xl font-bold">{plan.name}</h2>
+      <p className="text-xl">{plan.price}</p>
+    </div>
+
+    <ul className="mb-4 space-y-2">
+      {plan.benefits.map((benefit) => (
+        <BenefitListItem benefit={benefit} key={benefit.text} />
+      ))}
+    </ul>
+
+    {shouldRenderLoggedInLink ? (
+      <Link
+        href={{ pathname: plan.loggedInLink }}
+        className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
+        target="_blank"
+      >
+        {plan.buttonText}
+      </Link>
+    ) : null}
+
+    {currentUser ? null : <LoggedOutPlanButton planId={plan.planId} />}
+  </div>
+)
+
 const PricingGrid: React.FC = async () => {
-  const currentUser = await api.user.getCurrentUser()
+  const currentUser: UserWithSubscriptionsOrZero =
+    await api.user.getCurrentUser()
 
   return (
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
@@ -107,49 +143,20 @@ const PricingGrid: React.FC = async () => {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {plans.map((plan, i) => {
-          const shouldRenderLoggedInLink =
+          const shouldRenderLoggedInLink = Boolean(
             currentUser &&
-            plan.buttonText &&
-            plan.loggedInLink &&
-            !plan.stripeProductPriceId
+              plan.buttonText &&
+              plan.loggedInLink &&
+              !plan.stripeProductPriceId,
+          )
 
           return (
-            <div
-              key={i}
-              className="flex flex-col rounded-lg bg-white p-6 shadow-lg"
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-2xl font-bold">{plan.name}</h2>
-                <p className="text-xl">{plan.price}</p>
-              </div>
-
-              <ul className="mb-4 space-y-2">
-                {plan.benefits.map((benefit) => (
-                  <BenefitListItem benefit={benefit} key={benefit.text} />
-                ))}
-              </ul>
-
-              {shouldRenderLoggedInLink ? (
-                <Link
-                  href={{ pathname: plan.loggedInLink }}
-                  className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
-                  target="_blank"
-                >
-                  {plan.buttonText}
-                </Link>
-              ) : null}
-
-              {/* {currentUser && plan.buttonText && plan.stripeProductPriceId && (
-                <StripeCheckoutButton
-                  stripeProductPriceId={plan.stripeProductPriceId}
-                  userId={currentUser.id}
-                />
-              )} */}
-
-              {!currentUser ? (
-                <LoggedOutPlanButton planId={plan.planId} />
-              ) : null}
-            </div>
+            <PlanCard
+              key={plan.planId}
+              currentUser={currentUser}
+              plan={plan}
+              shouldRenderLoggedInLink={shouldRenderLoggedInLink}
+            />
           )
         })}
       </div>
