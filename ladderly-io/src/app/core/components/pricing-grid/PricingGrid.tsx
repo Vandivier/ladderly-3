@@ -30,11 +30,6 @@ const plans: Plan[] = [
       { text: 'Video Course Access' },
       { text: 'Advanced Checklist Access' },
       { text: 'Paywalled Article Access' },
-      // { text: "Exclusive events and early access to new features!" },
-      // {
-      //   text: "Recognition in the Hall of Fame (Optional)",
-      //   url: "https://www.ladderly.io/community/hall-of-fame",
-      // },
     ],
     buttonText: 'Join Now',
     loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
@@ -52,11 +47,6 @@ const plans: Plan[] = [
       },
       { text: 'Standard Checklist' },
       { text: 'Access the Social Community' },
-      // {
-      //   text: "24/7 Support with AI Chat",
-      //   url: "https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt",
-      // },
-      // { text: "Schedule Expert Consultations" },
     ],
     buttonText: null,
   },
@@ -99,22 +89,18 @@ const PricingGrid: React.FC = async () => {
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
       <h2 className="mb-4 text-center text-2xl font-bold">Pricing Plans</h2>
 
-      <div
-        className={`mb-2 w-[300px] rounded-lg bg-white p-2 shadow-lg lg:w-auto`}
-      >
+      <div className="mb-2 w-[300px] rounded-lg bg-white p-2 shadow-lg lg:w-auto">
         <h3 className="mb-2 text-2xl font-bold">Get Premium for Free!</h3>
         <p className="text-gray-800">
           Use this{' '}
           <Link
             className="text-m font-bold text-ladderly-pink hover:underline"
-            href={
-              'https://docs.google.com/document/d/1DtwRvBRimmSiuQ-jkKo_P9QNBPLKQkFemR9vT_Kl9Jg'
-            }
+            href="https://docs.google.com/document/d/1DtwRvBRimmSiuQ-jkKo_P9QNBPLKQkFemR9vT_Kl9Jg"
             target="_blank"
           >
             Reimbursement Request Letter
           </Link>{' '}
-          to request coverage through your employer{`'`}s training and education
+          to request coverage through your employer's training and education
           budget.
         </p>
       </div>
@@ -125,8 +111,10 @@ const PricingGrid: React.FC = async () => {
             key={i}
             className="flex flex-col rounded-lg bg-white p-6 shadow-lg"
           >
-            <h2 className="mb-2 text-2xl font-bold">{plan.name}</h2>
-            <p className="mb-4 text-xl">{plan.price}</p>
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-2xl font-bold">{plan.name}</h2>
+              <p className="text-xl">{plan.price}</p>
+            </div>
 
             <ul className="mb-4 space-y-2">
               {plan.benefits.map((benefit) => (
@@ -148,11 +136,11 @@ const PricingGrid: React.FC = async () => {
               )}
 
             {/* {currentUser && plan.buttonText && plan.stripeProductPriceId && (
-              <StripeCheckoutButton
-                stripeProductPriceId={plan.stripeProductPriceId}
-                userId={currentUser.id}
-              />
-            )} */}
+                <StripeCheckoutButton
+                  stripeProductPriceId={plan.stripeProductPriceId}
+                  userId={currentUser.id}
+                />
+              )} */}
 
             {!currentUser ? <LoggedOutPlanButton planId={plan.planId} /> : null}
           </div>
