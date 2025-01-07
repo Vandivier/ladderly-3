@@ -1,57 +1,57 @@
-"use server";
+'use server'
 
-import React from "react";
-import Link from "next/link";
-import { api } from "~/trpc/server";
+import React from 'react'
+import Link from 'next/link'
+import { api } from '~/trpc/server'
 
 type Benefit = {
-  paragraphContent?: React.ReactNode;
-  text: string;
-  url?: string;
-};
+  paragraphContent?: React.ReactNode
+  text: string
+  url?: string
+}
 
 type Plan = {
-  name: string;
-  planId: number;
-  price: string;
-  benefits: Benefit[];
-  buttonText: string | null;
-  loggedInLink?: string;
-  stripeProductPriceId?: string;
-  stripeProductId?: string;
-};
+  name: string
+  planId: number
+  price: string
+  benefits: Benefit[]
+  buttonText: string | null
+  loggedInLink?: string
+  stripeProductPriceId?: string
+  stripeProductId?: string
+}
 
 const plans: Plan[] = [
   {
-    name: "Premium",
+    name: 'Premium',
     planId: 40,
-    price: "$40/mo",
+    price: '$40/mo',
     benefits: [
-      { text: "Video Course Access" },
-      { text: "Advanced Checklist Access" },
-      { text: "Paywalled Article Access" },
+      { text: 'Video Course Access' },
+      { text: 'Advanced Checklist Access' },
+      { text: 'Paywalled Article Access' },
       // { text: "Exclusive events and early access to new features!" },
       // {
       //   text: "Recognition in the Hall of Fame (Optional)",
       //   url: "https://www.ladderly.io/community/hall-of-fame",
       // },
     ],
-    buttonText: "Join Now",
-    loggedInLink: "https://buy.stripe.com/fZe2bF4mo6Td7lK004",
+    buttonText: 'Join Now',
+    loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },
   {
-    name: "Free",
+    name: 'Free',
     planId: 0,
-    price: "$0",
+    price: '$0',
     benefits: [
       {
-        text: "Open Source Curriculum",
-        url: "https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md",
+        text: 'Open Source Curriculum',
+        url: 'https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md',
       },
-      { text: "Standard Checklist" },
-      { text: "Access the Social Community" },
+      { text: 'Standard Checklist' },
+      { text: 'Access the Social Community' },
       // {
       //   text: "24/7 Support with AI Chat",
       //   url: "https://chat.openai.com/g/g-kc5v7DPAm-ladderly-custom-gpt",
@@ -60,7 +60,7 @@ const plans: Plan[] = [
     ],
     buttonText: null,
   },
-];
+]
 
 const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
   if (benefit.url) {
@@ -72,7 +72,7 @@ const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
       >
         {benefit.text}
       </Link>
-    );
+    )
   }
 
   return (
@@ -80,8 +80,8 @@ const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
       <span className="mr-2">⭐</span>
       <p className="text-left">{benefit.paragraphContent ?? benefit.text}</p>
     </li>
-  );
-};
+  )
+}
 
 const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
   <Link
@@ -90,30 +90,30 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
   >
     Join Now
   </Link>
-);
+)
 
 const PricingGrid: React.FC = async () => {
-  const currentUser = await api.user.getCurrentUser();
+  const currentUser = await api.user.getCurrentUser()
 
   return (
     <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
       <h2 className="mb-4 text-center text-2xl font-bold">Pricing Plans</h2>
 
       <div
-        className={`m-2 w-[300px] rounded-lg bg-white p-2 shadow-lg lg:w-auto`}
+        className={`mb-2 w-[300px] rounded-lg bg-white p-2 shadow-lg lg:w-auto`}
       >
         <h3 className="mb-2 text-2xl font-bold">Get Premium for Free!</h3>
         <p className="text-gray-800">
-          Use this{" "}
+          Use this{' '}
           <Link
             className="text-m font-bold text-ladderly-pink hover:underline"
             href={
-              "https://docs.google.com/document/d/1DtwRvBRimmSiuQ-jkKo_P9QNBPLKQkFemR9vT_Kl9Jg"
+              'https://docs.google.com/document/d/1DtwRvBRimmSiuQ-jkKo_P9QNBPLKQkFemR9vT_Kl9Jg'
             }
             target="_blank"
           >
             Reimbursement Request Letter
-          </Link>{" "}
+          </Link>{' '}
           to request coverage through your employer{`'`}s training and education
           budget.
         </p>
@@ -159,7 +159,7 @@ const PricingGrid: React.FC = async () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PricingGrid;
+export default PricingGrid
