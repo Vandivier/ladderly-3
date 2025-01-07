@@ -106,26 +106,30 @@ const PricingGrid: React.FC = async () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {plans.map((plan, i) => (
-          <div
-            key={i}
-            className="flex flex-col rounded-lg bg-white p-6 shadow-lg"
-          >
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-2xl font-bold">{plan.name}</h2>
-              <p className="text-xl">{plan.price}</p>
-            </div>
+        {plans.map((plan, i) => {
+          const shouldRenderLoggedInLink =
+            currentUser &&
+            plan.buttonText &&
+            plan.loggedInLink &&
+            !plan.stripeProductPriceId
 
-            <ul className="mb-4 space-y-2">
-              {plan.benefits.map((benefit) => (
-                <BenefitListItem benefit={benefit} key={benefit.text} />
-              ))}
-            </ul>
+          return (
+            <div
+              key={i}
+              className="flex flex-col rounded-lg bg-white p-6 shadow-lg"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-2xl font-bold">{plan.name}</h2>
+                <p className="text-xl">{plan.price}</p>
+              </div>
 
-            {currentUser &&
-              plan.buttonText &&
-              plan.loggedInLink &&
-              !plan.stripeProductPriceId && (
+              <ul className="mb-4 space-y-2">
+                {plan.benefits.map((benefit) => (
+                  <BenefitListItem benefit={benefit} key={benefit.text} />
+                ))}
+              </ul>
+
+              {shouldRenderLoggedInLink ? (
                 <Link
                   href={{ pathname: plan.loggedInLink }}
                   className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
@@ -133,18 +137,21 @@ const PricingGrid: React.FC = async () => {
                 >
                   {plan.buttonText}
                 </Link>
-              )}
+              ) : null}
 
-            {/* {currentUser && plan.buttonText && plan.stripeProductPriceId && (
+              {/* {currentUser && plan.buttonText && plan.stripeProductPriceId && (
                 <StripeCheckoutButton
                   stripeProductPriceId={plan.stripeProductPriceId}
                   userId={currentUser.id}
                 />
               )} */}
 
-            {!currentUser ? <LoggedOutPlanButton planId={plan.planId} /> : null}
-          </div>
-        ))}
+              {!currentUser ? (
+                <LoggedOutPlanButton planId={plan.planId} />
+              ) : null}
+            </div>
+          )
+        })}
       </div>
     </div>
   )
