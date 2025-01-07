@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { api } from '~/trpc/server'
-import { UserWithSubscriptionsOrZero } from '~/server/api/routers/user'
+import type { UserWithSubscriptionsOrZero } from '~/server/api/routers/user'
 
 type Benefit = {
   paragraphContent?: React.ReactNode
@@ -136,7 +136,7 @@ const PricingGrid: React.FC = async () => {
           >
             Reimbursement Request Letter
           </Link>{' '}
-          to request coverage through your employer's training and education
+          to request coverage through your employer{`'`}s training and education
           budget.
         </p>
       </div>
