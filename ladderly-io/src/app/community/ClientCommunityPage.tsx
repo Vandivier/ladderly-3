@@ -7,7 +7,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import React from 'react'
 import { api } from '~/trpc/react'
 
-const ITEMS_PER_PAGE = 10
+const ITEMS_PER_PAGE = 20
 
 interface User {
   id: number
@@ -30,10 +30,12 @@ export default function ClientCommunityPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const page = Number(searchParams?.get('page') ?? '0')
+  const searchTerm = searchParams?.get('q') ?? ''
 
   const { data, isLoading } = api.user.getPaginatedUsers.useQuery({
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
+    searchTerm,
   })
 
   const goToPreviousPage = () => {

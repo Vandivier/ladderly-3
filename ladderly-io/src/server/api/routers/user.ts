@@ -139,21 +139,32 @@ export const userRouter = createTRPCRouter({
     return { tier: minTier }
   }),
 
-  // TODO: should this be protected?
   getPaginatedUsers: publicProcedure
     .input(
       z.object({
         skip: z.number(),
         take: z.number(),
+        searchTerm: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { skip, take } = input
+      const { skip, take, searchTerm } = input
+
+      const where = {
+        hasPublicProfileEnabled: true,
+        ...(searchTerm
+          ? {
+              OR: [
+                { profileBlurb: { contains: searchTerm, mode: 'insensitive' } },
+                { nameFirst: { contains: searchTerm, mode: 'insensitive' } },
+                { nameLast: { contains: searchTerm, mode: 'insensitive' } },
+              ],
+            }
+          : {}),
+      }
 
       const users = await ctx.db.user.findMany({
-        where: {
-          hasPublicProfileEnabled: true,
-        },
+        where,
         orderBy: { createdAt: 'desc' },
         skip,
         take: take + 1,
