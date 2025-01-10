@@ -116,7 +116,6 @@ export const authOptions: NextAuthOptions = {
     },
     signIn: async ({ user, account }) => {
       // signIn is called by both social login and credentials login
-
       if (account?.provider && user.email) {
         const existingUser = await db.user.findUnique({
           where: { email: user.email },
@@ -129,7 +128,7 @@ export const authOptions: NextAuthOptions = {
           )
 
           if (!existingAccount) {
-            const newAccount = await db.account.create({
+            await db.account.create({
               data: {
                 userId: existingUser.id,
                 type: account.type,
@@ -143,13 +142,37 @@ export const authOptions: NextAuthOptions = {
                 session_state: account.session_state,
               },
             })
-            console.log(
-              `New Account Created with User ID: ${existingUser.id} and Account ID: ${newAccount.id}`,
-            )
           }
         } else {
-          console.log(`User not found by email with User ID: ${user.id}`)
-          return false
+          const newUser = await db.user.create({
+            data: {
+              email: user.email,
+              emailVerified: new Date(),
+              image: user.image,
+              nameFirst: user.name?.split(' ')[0] ?? '',
+              nameLast: user.name?.split(' ').slice(1).join(' ') ?? '',
+              subscriptions: {
+                create: {
+                  tier: PaymentTierEnum.FREE,
+                  type: 'ACCOUNT_PLAN',
+                },
+              },
+              accounts: {
+                create: {
+                  type: account.type,
+                  provider: account.provider,
+                  providerAccountId: account.providerAccountId,
+                  access_token: account.access_token,
+                  expires_at: account.expires_at,
+                  token_type: account.token_type,
+                  scope: account.scope,
+                  id_token: account.id_token,
+                  session_state: account.session_state,
+                },
+              },
+            },
+          })
+          console.log(`Created new user with email: ${newUser.email}`)
         }
       }
 
