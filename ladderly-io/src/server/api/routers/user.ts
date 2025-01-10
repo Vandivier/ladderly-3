@@ -1,13 +1,18 @@
 // src/server/api/routers/user.ts
 
 import {
+  PaymentTierEnum,
+  Prisma,
+  type Subscription,
+  type User,
+} from '@prisma/client'
+import { TRPCError } from '@trpc/server'
+import { z } from 'zod'
+import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from '~/server/api/trpc'
-import { PaymentTierEnum, type Subscription, type User } from '@prisma/client'
-import { z } from 'zod'
-import { TRPCError } from '@trpc/server'
 import { NULL_RESULT_TRPC_INT } from '~/server/constants'
 
 const tiersOrder = {
@@ -155,9 +160,24 @@ export const userRouter = createTRPCRouter({
         ...(searchTerm
           ? {
               OR: [
-                { profileBlurb: { contains: searchTerm, mode: 'insensitive' } },
-                { nameFirst: { contains: searchTerm, mode: 'insensitive' } },
-                { nameLast: { contains: searchTerm, mode: 'insensitive' } },
+                {
+                  profileBlurb: {
+                    contains: searchTerm,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                },
+                {
+                  nameFirst: {
+                    contains: searchTerm,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                },
+                {
+                  nameLast: {
+                    contains: searchTerm,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                },
               ],
             }
           : {}),
