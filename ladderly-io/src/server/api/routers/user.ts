@@ -1,13 +1,18 @@
 // src/server/api/routers/user.ts
 
 import {
+  PaymentTierEnum,
+  Prisma,
+  type Subscription,
+  type User,
+} from '@prisma/client'
+import { TRPCError } from '@trpc/server'
+import { z } from 'zod'
+import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from '~/server/api/trpc'
-import { PaymentTierEnum, type Subscription, type User } from '@prisma/client'
-import { z } from 'zod'
-import { TRPCError } from '@trpc/server'
 import { NULL_RESULT_TRPC_INT } from '~/server/constants'
 
 const tiersOrder = {
@@ -139,21 +144,47 @@ export const userRouter = createTRPCRouter({
     return { tier: minTier }
   }),
 
-  // TODO: should this be protected?
   getPaginatedUsers: publicProcedure
     .input(
       z.object({
         skip: z.number(),
         take: z.number(),
+        searchTerm: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { skip, take } = input
+      const { skip, take, searchTerm } = input
+
+      const where = {
+        hasPublicProfileEnabled: true,
+        ...(searchTerm
+          ? {
+              OR: [
+                {
+                  profileBlurb: {
+                    contains: searchTerm,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                },
+                {
+                  nameFirst: {
+                    contains: searchTerm,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                },
+                {
+                  nameLast: {
+                    contains: searchTerm,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                },
+              ],
+            }
+          : {}),
+      }
 
       const users = await ctx.db.user.findMany({
-        where: {
-          hasPublicProfileEnabled: true,
-        },
+        where,
         orderBy: { createdAt: 'desc' },
         skip,
         take: take + 1,
