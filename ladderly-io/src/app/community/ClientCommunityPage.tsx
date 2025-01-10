@@ -7,7 +7,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import React from 'react'
 import { api } from '~/trpc/react'
 
-const ITEMS_PER_PAGE = 100
+const ITEMS_PER_PAGE = 10
 
 interface User {
   id: number
@@ -53,6 +53,7 @@ export default function ClientCommunityPage() {
   }
 
   const { users, hasMore } = data ?? { users: [], hasMore: false }
+  const hasPreviousPage = page > 0
 
   return (
     <div>
@@ -71,12 +72,26 @@ export default function ClientCommunityPage() {
         ))}
       </ul>
 
-      <button disabled={page === 0} onClick={goToPreviousPage}>
-        Previous
-      </button>
-      <button disabled={!hasMore} onClick={goToNextPage} className="pl-4">
-        Next
-      </button>
+      {hasPreviousPage ? (
+        <button
+          className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+          disabled={!hasPreviousPage}
+          onClick={goToPreviousPage}
+        >
+          Previous
+        </button>
+      ) : null}
+      {hasMore ? (
+        <button
+          disabled={!hasMore}
+          onClick={goToNextPage}
+          className={`mt-4 rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 ${
+            hasPreviousPage ? 'ml-4' : ''
+          }`}
+        >
+          Next
+        </button>
+      ) : null}
     </div>
   )
 }

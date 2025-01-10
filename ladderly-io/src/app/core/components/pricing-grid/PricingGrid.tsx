@@ -122,10 +122,10 @@ const PricingGrid: React.FC = async () => {
     await api.user.getCurrentUser()
 
   return (
-    <div className="mx-auto mt-4 max-w-7xl rounded-lg bg-frost p-6">
+    <div className="mx-auto mt-2 max-w-7xl rounded-lg bg-frost p-6">
       <h2 className="mb-4 text-center text-2xl font-bold">Pricing Plans</h2>
 
-      <div className="mb-2 w-[300px] rounded-lg bg-white p-2 shadow-lg lg:w-auto">
+      <div className="mb-2 w-[300px] rounded-lg bg-white p-6 shadow-lg lg:w-auto">
         <h3 className="mb-2 text-2xl font-bold">Get Premium for Free!</h3>
         <p className="text-gray-800">
           Use this{' '}
