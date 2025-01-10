@@ -2,12 +2,13 @@
 
 'use client'
 
-import { useState } from 'react'
-import { api } from '~/trpc/react'
-import { SettingsForm } from './SettingsForm'
 import type { PaymentTierEnum } from '@prisma/client'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import type { z } from 'zod'
 import type { UpdateSettingsSchema } from '~/app/settings/schemas'
+import { api } from '~/trpc/react'
+import { SettingsForm } from './SettingsForm'
 
 // Base form values from schema
 type FormValues = z.infer<typeof UpdateSettingsSchema>
@@ -35,10 +36,12 @@ export function SettingsFormWrapper({
   initialSettings,
 }: SettingsFormWrapperProps) {
   const [settings, setSettings] = useState<UserSettings>(initialSettings)
+  const router = useRouter()
   const { mutate: updateSettings } = api.user.updateSettings.useMutation({
     onSuccess: (updatedSettings) => {
       setSettings((prev) => ({ ...prev, ...updatedSettings }) as UserSettings)
       alert('Updated successfully.')
+      router.refresh()
     },
     onError: (error) => {
       console.error('Failed to update settings:', error)
