@@ -19,21 +19,19 @@ export async function POST(req: Request) {
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object as Stripe.Checkout.Session
+      const userId = session.client_reference_id
 
-      // Get customer email from the session
-      const customerEmail = session.customer_details?.email
-
-      if (!customerEmail) {
-        throw new Error('No customer email found')
+      if (!userId) {
+        throw new Error('No user ID found in session')
       }
 
-      // Find user by email
+      // Find user by ID
       const user = await db.user.findUnique({
-        where: { email: customerEmail },
+        where: { id: parseInt(userId) },
       })
 
       if (!user) {
-        throw new Error('No user found with email: ' + customerEmail)
+        throw new Error('No user found with ID: ' + userId)
       }
 
       // Create subscription

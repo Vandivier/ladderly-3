@@ -36,7 +36,7 @@ const plans: Plan[] = [
     ],
     buttonText: 'Join Now',
     relatedTier: PaymentTierEnum.PREMIUM,
-    stripePaymentLink: 'https://buy.stripe.com/6oE7vZdWY3H18pO6ov',
+    stripePaymentLink: `https://buy.stripe.com/6oE7vZdWY3H18pO6ov?client_reference_id={{USER_ID}}`,
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },
@@ -97,12 +97,17 @@ const PlanCard: React.FC<{
   )
 
   let elRelatedTier = null
-  if (relatedTier) {
+  if (relatedTier && currentUser !== 0) {
     elRelatedTier = hasRelatedTier ? (
       <p>You already have access to this plan!</p>
     ) : (
       <Link
-        href={{ pathname: plan.stripePaymentLink }}
+        href={{
+          pathname: plan.stripePaymentLink?.replace(
+            '{{USER_ID}}',
+            currentUser.id.toString(),
+          ),
+        }}
         className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
         target="_blank"
       >
