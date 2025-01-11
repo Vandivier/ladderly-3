@@ -2,8 +2,13 @@
 
 import fs from 'fs-extra'
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { PrismaClient, type User } from '@prisma/client'
 import dotenv from 'dotenv'
+
+// ES Module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // Configure dotenv
 dotenv.config({ path: path.resolve(__dirname, '../.env.local') })
@@ -16,8 +21,12 @@ async function backupUsers(): Promise<void> {
     const jsonUsers = JSON.stringify(users, null, 2)
     const date = new Date()
     const isoDate = date.toISOString().replace(/:/g, '-')
-    const fileName = `./db/bak.users.${isoDate}.json`
 
+    // Create backup directory if it doesn't exist
+    const backupDir = path.resolve(__dirname, './backup-data')
+    await fs.ensureDir(backupDir)
+
+    const fileName = path.join(backupDir, `bak.users.${isoDate}.json`)
     await fs.writeFile(fileName, jsonUsers)
     console.log(`Backup of ${users.length} users completed!`)
   } catch (error) {
