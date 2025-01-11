@@ -199,6 +199,8 @@ model Subscription {
   type          String          @default("ACCOUNT_PLAN")
   createdAt     DateTime        @default(now())
   contributions Contribution[]
+  stripeCustomerId String?
+  stripeSubscriptionId String?
 
   @@unique([userId, type])
 }
