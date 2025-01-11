@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { api } from '~/trpc/server'
 import type { UserWithSubscriptionsOrZero } from '~/server/api/routers/user'
+import { PaymentTierEnum, Subscription } from '@prisma/client'
 
 type Benefit = {
   paragraphContent?: React.ReactNode
@@ -17,7 +18,8 @@ type Plan = {
   price: string
   benefits: Benefit[]
   buttonText: string | null
-  loggedInLink?: string
+  relatedTier?: PaymentTierEnum
+  stripeLink?: string
   stripeProductPriceId?: string
   stripeProductId?: string
 }
@@ -33,7 +35,8 @@ const plans: Plan[] = [
       { text: 'Paywalled Article Access' },
     ],
     buttonText: 'Join Now',
-    loggedInLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
+    relatedTier: PaymentTierEnum.PREMIUM,
+    stripeLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },
@@ -85,37 +88,53 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
 
 const PlanCard: React.FC<{
   plan: Plan
-  shouldRenderLoggedInLink: boolean
+  relatedTier?: PaymentTierEnum
+  userSubscriptions: Subscription[]
   currentUser: UserWithSubscriptionsOrZero
-}> = ({ plan, shouldRenderLoggedInLink, currentUser }) => (
-  <div
-    key={plan.planId}
-    className="flex flex-col rounded-lg bg-white p-6 shadow-lg"
-  >
-    <div className="mb-4 flex items-center justify-between">
-      <h2 className="text-2xl font-bold">{plan.name}</h2>
-      <p className="text-xl">{plan.price}</p>
-    </div>
+}> = ({ plan, relatedTier, userSubscriptions, currentUser }) => {
+  const hasRelatedTier = userSubscriptions.some(
+    (subscription) => subscription.tier === relatedTier,
+  )
 
-    <ul className="mb-4 space-y-2">
-      {plan.benefits.map((benefit) => (
-        <BenefitListItem benefit={benefit} key={benefit.text} />
-      ))}
-    </ul>
-
-    {shouldRenderLoggedInLink ? (
+  let elRelatedTier = null
+  if (relatedTier) {
+    elRelatedTier = hasRelatedTier ? (
+      <p>You already have access to this plan!</p>
+    ) : (
       <Link
-        href={{ pathname: plan.loggedInLink }}
+        href={{ pathname: plan.stripeLink }}
         className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
         target="_blank"
       >
         {plan.buttonText}
       </Link>
-    ) : null}
+    )
+  }
 
-    {currentUser ? null : <LoggedOutPlanButton planId={plan.planId} />}
-  </div>
-)
+  return (
+    <div
+      key={plan.planId}
+      className="flex flex-col rounded-lg bg-white p-6 shadow-lg"
+    >
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-2xl font-bold">{plan.name}</h2>
+        <p className="text-xl">{plan.price}</p>
+      </div>
+
+      <ul className="mb-4 space-y-2">
+        {plan.benefits.map((benefit) => (
+          <BenefitListItem benefit={benefit} key={benefit.text} />
+        ))}
+      </ul>
+
+      {currentUser ? (
+        elRelatedTier
+      ) : (
+        <LoggedOutPlanButton planId={plan.planId} />
+      )}
+    </div>
+  )
+}
 
 const PricingGrid: React.FC = async () => {
   const currentUser: UserWithSubscriptionsOrZero =
@@ -142,23 +161,17 @@ const PricingGrid: React.FC = async () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {plans.map((plan, i) => {
-          const shouldRenderLoggedInLink = Boolean(
-            currentUser &&
-              plan.buttonText &&
-              plan.loggedInLink &&
-              !plan.stripeProductPriceId,
-          )
-
-          return (
-            <PlanCard
-              key={plan.planId}
-              currentUser={currentUser}
-              plan={plan}
-              shouldRenderLoggedInLink={shouldRenderLoggedInLink}
-            />
-          )
-        })}
+        {plans.map((plan, i) => (
+          <PlanCard
+            key={plan.planId}
+            currentUser={currentUser}
+            plan={plan}
+            relatedTier={plan.relatedTier}
+            userSubscriptions={
+              currentUser === 0 ? [] : currentUser.subscriptions
+            }
+          />
+        ))}
       </div>
     </div>
   )
