@@ -41,7 +41,6 @@ export default resolver.pipe(
             profileGitHubUri: true,
             profileHomepageUri: true,
             profileLinkedInUri: true,
-            totalContributions: true,
           },
         }),
     })
@@ -52,5 +51,5 @@ export default resolver.pipe(
       hasMore,
       count,
     }
-  }
+  },
 )

@@ -32,6 +32,7 @@ blitz-log.log
 # ignore physical backups of blitz db
 db/bak.user*.json
 db/premium-checklists.json
+**/backup-data/bak.user*.json
 **/db/bak.user*.json
 **/db/premium-checklists.json
 
@@ -102,3 +103,5 @@ __pycache__/
 
 # misc local, scratch, and secret files
 *.ignoreme.*
+
+

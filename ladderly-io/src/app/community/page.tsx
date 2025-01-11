@@ -14,11 +14,11 @@ export const metadata = {
 export default function CommunityPage() {
   return (
     <LadderlyPageWrapper>
-      <SmallCard className="mt-4">
+      <SmallCard className="mx-4 mt-4">
         <SearchProfiles />
       </SmallCard>
 
-      <SmallCard className="mt-4">
+      <SmallCard className="mx-4 mt-4">
         <h1 className="text-2xl font-bold text-gray-800">Member Profiles</h1>
         <h3>Sorted by Signup Date</h3>
         <Suspense fallback="Loading...">

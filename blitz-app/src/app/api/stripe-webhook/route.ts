@@ -22,14 +22,14 @@ export async function POST(req: Request) {
     console.error(`Webhook signature verification failed: ${err.message}`)
     return NextResponse.json(
       { error: 'Webhook signature verification failed.' },
-      { status: 400 }
+      { status: 400 },
     )
   }
 
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session
-      const subscriptionTier = PaymentTierEnum.PREMIUM // Use enum directly
+      const subscriptionTier = PaymentTierEnum.PREMIUM
       const userId = session?.metadata?.userId
 
       try {
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
               session.id
             }. Stripe identifies customer_email as: ${
               session.customer_email || ''
-            }`
+            }`,
           )
         }
 
@@ -62,13 +62,13 @@ export async function POST(req: Request) {
         })
 
         console.log(
-          `Successfully updated user.id ${updated.id} subscription to ${subscriptionTier}`
+          `Successfully updated user.id ${updated.id} subscription to ${subscriptionTier}`,
         )
       } catch (err) {
         console.error(`Failed to update user subscription: ${err.message}`)
         return NextResponse.json(
           { error: 'Failed to update user subscription.' },
-          { status: 500 }
+          { status: 500 },
         )
       }
 
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
       try {
         if (!userId) {
           throw new Error(
-            `Can't update canceled subscription; missing user ID.`
+            `Can't update canceled subscription; missing user ID.`,
           )
         }
 
@@ -105,13 +105,13 @@ export async function POST(req: Request) {
         })
 
         console.log(
-          `Successfully updated user.id ${updated.id} subscription to ${PaymentTierEnum.FREE} after cancellation`
+          `Successfully updated user.id ${updated.id} subscription to ${PaymentTierEnum.FREE} after cancellation`,
         )
       } catch (err) {
         console.error(`Failed to update canceled subscription: ${err.message}`)
         return NextResponse.json(
           { error: 'Failed to update canceled subscription.' },
-          { status: 500 }
+          { status: 500 },
         )
       }
 

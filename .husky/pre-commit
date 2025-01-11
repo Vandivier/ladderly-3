@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Get the root of the git repository
-REPO_ROOT=$(git rev-parse --show-toplevel)
+export REPO_ROOT=$(git rev-parse --show-toplevel)
 
 # Change to the blitz-app directory
 cd "$REPO_ROOT" || exit
