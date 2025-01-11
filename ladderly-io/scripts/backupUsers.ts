@@ -3,7 +3,7 @@
 import fs from 'fs-extra'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { PrismaClient, type User } from '@prisma/client'
+import { PrismaClient, type User, type Subscription } from '@prisma/client'
 import dotenv from 'dotenv'
 
 // ES Module equivalent of __dirname
@@ -15,9 +15,18 @@ dotenv.config({ path: path.resolve(__dirname, '../.env.local') })
 
 const prisma = new PrismaClient()
 
+type UserWithSubscriptions = User & {
+  subscriptions: Subscription[]
+}
+
 async function backupUsers(): Promise<void> {
   try {
-    const users: User[] = await prisma.user.findMany()
+    const users = (await prisma.user.findMany({
+      include: {
+        subscriptions: true,
+      },
+    })) as UserWithSubscriptions[]
+
     const jsonUsers = JSON.stringify(users, null, 2)
     const date = new Date()
     const isoDate = date.toISOString().replace(/:/g, '-')
@@ -28,7 +37,27 @@ async function backupUsers(): Promise<void> {
 
     const fileName = path.join(backupDir, `bak.users.${isoDate}.json`)
     await fs.writeFile(fileName, jsonUsers)
-    console.log(`Backup of ${users.length} users completed!`)
+    console.log(
+      `Backup of ${users.length} users completed with subscription data!`,
+    )
+
+    // Log subscription statistics
+    const usersWithSubscriptions = users.filter(
+      (user) => user.subscriptions.length > 0,
+    )
+    console.log(`Users with subscriptions: ${usersWithSubscriptions.length}`)
+
+    const subscriptionsByTier = users.reduce(
+      (acc, user) => {
+        user.subscriptions.forEach((sub) => {
+          acc[sub.tier] = (acc[sub.tier] || 0) + 1
+        })
+        return acc
+      },
+      {} as Record<string, number>,
+    )
+
+    console.log('Subscriptions by tier:', subscriptionsByTier)
   } catch (error) {
     console.error('Error during backup:', error)
     throw error
