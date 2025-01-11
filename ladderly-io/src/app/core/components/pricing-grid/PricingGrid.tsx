@@ -166,7 +166,7 @@ const PricingGrid: React.FC = async () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {plans.map((plan, i) => (
+        {plans.map((plan) => (
           <PlanCard
             key={plan.planId}
             currentUser={currentUser}
