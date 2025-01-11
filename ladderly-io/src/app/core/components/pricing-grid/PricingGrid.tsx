@@ -19,7 +19,7 @@ type Plan = {
   benefits: Benefit[]
   buttonText: string | null
   relatedTier?: PaymentTierEnum
-  stripeLink?: string
+  stripePaymentLink?: string
   stripeProductPriceId?: string
   stripeProductId?: string
 }
@@ -36,7 +36,7 @@ const plans: Plan[] = [
     ],
     buttonText: 'Join Now',
     relatedTier: PaymentTierEnum.PREMIUM,
-    stripeLink: 'https://buy.stripe.com/fZe2bF4mo6Td7lK004',
+    stripePaymentLink: 'https://buy.stripe.com/6oE7vZdWY3H18pO6ov',
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },
@@ -102,7 +102,7 @@ const PlanCard: React.FC<{
       <p>You already have access to this plan!</p>
     ) : (
       <Link
-        href={{ pathname: plan.stripeLink }}
+        href={{ pathname: plan.stripePaymentLink }}
         className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
         target="_blank"
       >
