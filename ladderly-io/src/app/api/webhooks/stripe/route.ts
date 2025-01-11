@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     const event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
 
     if (event.type === 'checkout.session.completed') {
-      const session = event.data.object as Stripe.Checkout.Session
+      const session: Stripe.Checkout.Session = event.data.object
       const userId = session.client_reference_id
 
       if (!userId) {

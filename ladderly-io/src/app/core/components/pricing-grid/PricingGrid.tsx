@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { api } from '~/trpc/server'
 import type { UserWithSubscriptionsOrZero } from '~/server/api/routers/user'
-import { PaymentTierEnum, Subscription } from '@prisma/client'
+import { PaymentTierEnum, type Subscription } from '@prisma/client'
 
 type Benefit = {
   paragraphContent?: React.ReactNode
