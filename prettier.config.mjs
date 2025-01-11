@@ -8,7 +8,7 @@ const config = {
   printWidth: 80,
   semi: false,
   singleQuote: true,
-  tailwindConfig: `${repoRoot}/ladderly-io/tailwind.config.ts`,
+  tailwindConfig: `${repoRoot}ladderly-io/tailwind.config.ts`,
   tailwindFunctions: ['tw'],
 }
 
