@@ -202,7 +202,6 @@ export const userRouter = createTRPCRouter({
           profileGitHubUri: true,
           profileHomepageUri: true,
           profileLinkedInUri: true,
-          totalContributions: true,
         },
       })
 

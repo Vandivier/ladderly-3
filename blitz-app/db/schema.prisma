@@ -41,8 +41,6 @@ model User {
   profilePicture      String  @default("")
   residenceCountry    String  @default("")
   residenceUSState    String  @default("")
-  totalContributions  Float   @default(0)
-  totalStoreSpend     Float   @default(0)
 
   accounts           Account[]
   authoredVotables   Votable[]           @relation("AuthoredVotables")

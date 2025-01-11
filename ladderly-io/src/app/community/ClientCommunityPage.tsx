@@ -23,7 +23,6 @@ interface User {
   profileGitHubUri: string | null
   profileHomepageUri: string | null
   profileLinkedInUri: string | null
-  totalContributions: number
 }
 
 export default function ClientCommunityPage() {
