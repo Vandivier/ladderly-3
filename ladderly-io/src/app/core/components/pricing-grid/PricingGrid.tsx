@@ -109,7 +109,7 @@ const PlanCard: React.FC<{
           },
         }}
         className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
-        target="_blank"
+        target="_self"
       >
         {plan.buttonText}
       </Link>
