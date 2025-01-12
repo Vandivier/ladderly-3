@@ -17,32 +17,59 @@ export async function POST(req: Request) {
   try {
     const event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
 
-    if (event.type === 'checkout.session.completed') {
-      const session: Stripe.Checkout.Session = event.data.object
-      const userId = session.client_reference_id
+    switch (event.type) {
+      case 'checkout.session.completed': {
+        const session: Stripe.Checkout.Session = event.data.object
+        const userId = session.client_reference_id
 
-      if (!userId) {
-        throw new Error('No user ID found in session')
+        if (!userId) {
+          throw new Error('No user ID found in session')
+        }
+
+        // Find user by ID
+        const user = await db.user.findUnique({
+          where: { id: parseInt(userId) },
+        })
+
+        if (!user) {
+          throw new Error('No user found with ID: ' + userId)
+        }
+
+        // Create subscription
+        await db.subscription.create({
+          data: {
+            userId: user.id,
+            tier: PaymentTierEnum.PREMIUM,
+            stripeCustomerId: session.customer as string,
+            stripeSubscriptionId: session.subscription as string,
+          },
+        })
+        break
       }
 
-      // Find user by ID
-      const user = await db.user.findUnique({
-        where: { id: parseInt(userId) },
-      })
+      case 'customer.subscription.deleted': {
+        const subscription: Stripe.Subscription = event.data.object
+        const userId = subscription.metadata?.userId
 
-      if (!user) {
-        throw new Error('No user found with ID: ' + userId)
+        if (!userId) {
+          throw new Error('No user ID found in subscription metadata')
+        }
+
+        // Update the subscription to FREE tier
+        await db.subscription.updateMany({
+          where: {
+            userId: parseInt(userId),
+            tier: PaymentTierEnum.PREMIUM,
+          },
+          data: {
+            tier: PaymentTierEnum.FREE,
+          },
+        })
+        break
       }
 
-      // Create subscription
-      await db.subscription.create({
-        data: {
-          userId: user.id,
-          tier: PaymentTierEnum.PREMIUM,
-          stripeCustomerId: session.customer as string,
-          stripeSubscriptionId: session.subscription as string,
-        },
-      })
+      default:
+        console.log(`Unhandled event type: ${event.type}`)
     }
 
     return NextResponse.json({ received: true })
