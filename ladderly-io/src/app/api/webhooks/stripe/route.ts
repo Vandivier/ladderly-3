@@ -15,7 +15,11 @@ export async function POST(req: Request) {
   const signature = headers().get('stripe-signature')!
 
   try {
-    const event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+    const event = await stripe.webhooks.constructEventAsync(
+      body,
+      signature,
+      webhookSecret,
+    )
 
     switch (event.type) {
       case 'checkout.session.completed': {
