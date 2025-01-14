@@ -30,24 +30,28 @@ export async function POST(req: Request) {
           throw new Error('No user ID found in session')
         }
 
-        // Find user by ID
-        const user = await db.user.findUnique({
-          where: { id: parseInt(userId) },
-        })
-
-        if (!user) {
-          throw new Error('No user found with ID: ' + userId)
-        }
-
-        // Create subscription
-        await db.subscription.create({
+        // Update existing subscription
+        const subscription = await db.subscription.update({
+          where: {
+            userId_type: {
+              userId: parseInt(userId),
+              type: 'ACCOUNT_PLAN',
+            },
+          },
           data: {
-            userId: user.id,
             tier: PaymentTierEnum.PREMIUM,
-            stripeCustomerId: session.customer as string,
-            stripeSubscriptionId: session.subscription as string,
+            stripeCustomerId: String(session.customer),
+            stripeSubscriptionId: String(session.subscription),
           },
         })
+
+        if (!subscription) {
+          throw new Error(`No subscription found for user ID: ${userId}`)
+        }
+
+        console.log(
+          `Successfully upgraded subscription for user ${userId} to PREMIUM`,
+        )
         break
       }
 
@@ -59,16 +63,28 @@ export async function POST(req: Request) {
           throw new Error('No user ID found in subscription metadata')
         }
 
-        // Update the subscription to FREE tier
-        await db.subscription.updateMany({
+        // Update existing subscription back to FREE
+        const updated = await db.subscription.update({
           where: {
-            userId: parseInt(userId),
-            tier: PaymentTierEnum.PREMIUM,
+            userId_type: {
+              userId: parseInt(userId),
+              type: 'ACCOUNT_PLAN',
+            },
           },
           data: {
             tier: PaymentTierEnum.FREE,
+            stripeCustomerId: null,
+            stripeSubscriptionId: null,
           },
         })
+
+        if (!updated) {
+          throw new Error(`No subscription found for user ID: ${userId}`)
+        }
+
+        console.log(
+          `Successfully downgraded subscription for user ${userId} to FREE`,
+        )
         break
       }
 

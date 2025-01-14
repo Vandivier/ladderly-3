@@ -195,15 +195,11 @@ model Subscription {
   tier          PaymentTierEnum @default(FREE)
   type          String          @default("ACCOUNT_PLAN")
   createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
   stripeCustomerId String?
   stripeSubscriptionId String?
 
   @@unique([userId, type])
-}
-
-enum ContributionTypeEnum {
-  ONE_TIME
-  RECURRING
 }
 
 model Transaction {
