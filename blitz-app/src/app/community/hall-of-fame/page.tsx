@@ -15,8 +15,6 @@ const UsersList = () => {
   const searchParams = useSearchParams()
   const page = Number(searchParams?.get('page') ?? '0')
   const [{ users, hasMore }] = usePaginatedQuery(getUsers, {
-    orderBy: [{ totalContributions: 'desc' }, { createdAt: 'desc' }],
-    where: { totalContributions: { gt: 0 } },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
@@ -47,10 +45,6 @@ const UsersList = () => {
                 Open to Work
               </span>
             )}
-
-            <p className="mb-3">
-              Lifetime Contribution: ${user.totalContributions}
-            </p>
           </li>
         ))}
       </ul>

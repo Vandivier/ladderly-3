@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { api } from '~/trpc/server'
 import type { UserWithSubscriptionsOrZero } from '~/server/api/routers/user'
-import { PaymentTierEnum, Subscription } from '@prisma/client'
+import { PaymentTierEnum, type Subscription } from '@prisma/client'
 
 type Benefit = {
   paragraphContent?: React.ReactNode
@@ -36,7 +36,7 @@ const plans: Plan[] = [
     ],
     buttonText: 'Join Now',
     relatedTier: PaymentTierEnum.PREMIUM,
-    stripePaymentLink: 'https://buy.stripe.com/6oE7vZdWY3H18pO6ov',
+    stripePaymentLink: `https://buy.stripe.com/6oE7vZdWY3H18pO6ov`,
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },
@@ -97,14 +97,19 @@ const PlanCard: React.FC<{
   )
 
   let elRelatedTier = null
-  if (relatedTier) {
+  if (relatedTier && currentUser !== 0) {
     elRelatedTier = hasRelatedTier ? (
       <p>You already have access to this plan!</p>
     ) : (
       <Link
-        href={{ pathname: plan.stripePaymentLink }}
+        href={{
+          pathname: plan.stripePaymentLink,
+          query: {
+            client_reference_id: currentUser.id.toString(),
+          },
+        }}
         className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
-        target="_blank"
+        target="_self"
       >
         {plan.buttonText}
       </Link>
@@ -161,7 +166,7 @@ const PricingGrid: React.FC = async () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {plans.map((plan, i) => (
+        {plans.map((plan) => (
           <PlanCard
             key={plan.planId}
             currentUser={currentUser}

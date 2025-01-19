@@ -85,9 +85,6 @@ async function updateSubscriptionTiers() {
       where: {
         id: user.id,
       },
-      data: {
-        totalContributions: totalAmountContributed._sum.amount || 0,
-      },
     })
 
     // Determine subscription tier
