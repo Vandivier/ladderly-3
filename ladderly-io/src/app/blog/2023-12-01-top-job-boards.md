@@ -1,36 +1,37 @@
 ---
 title: '4. Leveraging Top Job Boards to Land Your Next Programming Role'
-date: 5/07/24
+date: 1/19/25
 author: John Vandivier
 ---
 
-The purpose of this guide is to maximize the performance of your job search as a software engineer. This guide is provided by John, a seasoned software engineer with a decade of experience at well-known companies like Amazon and Capital One.
+The purpose of this guide is to maximize the performance of your job search as a software engineer.
 
-This article summarizes the highlights of a detailed data analysis on the topic from John titled "75+ Job Boards Analyzed! Use these Top 8 to Succeed!" Watch the [full video](https://www.youtube.com/watch?v=Wof3HPOLnPo&list=PL4hsXTgWARMzFezKkj7vGJKmtX0ugC49t) for a comprehensive understanding and explore the detailed [spreadsheet](https://docs.google.com/spreadsheets/d/1-g88F96DqkbheGxswzCBRzdnOU-257aZ9u6zL7j-7Gw?usp=sharing) for more data, including additional platforms.
+This list was originally built on insights from a [data analysis by John Vandivier of 75+ job boards](https://www.youtube.com/watch?v=Wof3HPOLnPo&list=PL4hsXTgWARMzFezKkj7vGJKmtX0ugC49t). It has since been continuously updated for various reasons visible [here](https://github.com/Vandivier/ladderly-3/commits/main/ladderly-io/src/app/blog/2023-12-01-top-job-boards.md) in the GitHub file changelog.
 
 ### The Methodology: Optimizing the Job Search
 
 John's approach focuses on job boards that offer one-click or easy apply options, as well as bulk apply features. These criteria are designed to maximize a candidate's efficiency and exposure to potential employers.
 
+Remember to apply with social neworking. Applying without social networking constitutes a [low-effort application which can reduce your application to interview ratio by 30x](https://www.ladderly.io/blog/2024-08-04-no-cover-letters#an-original-contribution-of-data)!
+
 ### The Top Recommended Job Boards
 
-1. [**Hired.com**](https://hired.com/): Known for its bulk apply feature, it requires candidates to pass an initial assessment. Candidates must complete skill assessments which are crucial for unlocking opportunities on this platform.
-2. [**LinkedIn Jobs**](https://www.linkedin.com/jobs/): Offers easy apply and optional premium features for increased visibility.
-3. [**Indeed**](https://www.indeed.com/): Easy apply available with additional services for resume optimization.
-4. [**Interviewing.io**](https://interviewing.io/): Offers bulk apply and optional career coaching services.
-5. [**Otta**](https://otta.com/)
+1. [**LinkedIn Jobs**](https://www.linkedin.com/jobs/): Offers easy apply and optional premium features for increased visibility.
+2. [**Indeed**](https://www.indeed.com/): Easy apply available with additional services for resume optimization.
+3. [**Interviewing.io**](https://interviewing.io/): Offers bulk apply and optional career coaching services.
+4. [**TrueUp**](https://www.trueup.io/jobs): Many AI features including gap analysis, draft intro, suggested questions to ask, and more!
+5. [**Welcome to the Jungle**](https://us.welcometothejungle.com/)
 6. [**Wellfound**](https://www.wellfound.com/): Known for its easy apply feature.
 7. [**BuiltIn**](https://builtin.com/)
 8. [**WorkAtAStartup**](https://www.workatastartup.com/): Offers a bulk apply feature. Affiliated with Y Combinator.
-9. [**Underdog.io**](https://underdog.io/)
 
-### Specialized Services for High-Value Candidates
+### Additional Job Search Tools
 
-For individuals with a high time value, services like The Ladders and Wonsulting offer an 'Apply for Me' service, albeit at a cost. This is especially useful for those willing to invest financially in their job search.
+This section lists tools that can improve your job search results per time, though they are not job boards.
 
-### Additional Platforms with Potential
-
-There are seven additional platforms identified by John, which could be beneficial for specific needs. They are detailed on the provided [spreadsheet](https://docs.google.com/spreadsheets/d/1-g88F96DqkbheGxswzCBRzdnOU-257aZ9u6zL7j-7Gw?usp=sharing).
+1. [**Use Massive**](https://usemassive.com/?via=john): Use AI to rapidly search for jobs and apply to them.
+2. [**Simplify.jobs**](https://simplify.jobs/): Another tool to use AI to rapidly search for jobs and apply to them.
+3. [**The Ladders**](https://www.theladders.com/): Offers an 'Apply for Me' service.
 
 ### Qualified Job Titles
 
@@ -40,46 +41,64 @@ Ladderly recommends consulting the Google Trends 12 month view. In this view, fo
 
 Job Titles include:
 
-1. Front End Developer
-2. Fullstack Developer
-3. UI Developer, UX Developer, and/or UI/UX Developer
-4. Software Developer
-5. Web Developer or Web Application Developer
-6. JavaScript Developer
-7. TypeScript Developer
-8. React Developer
-9. Angular Developer
-10. Vue Developer
-11. App Developer or Application Developer
-12. Junior Developer
+1. Frontend Developer
+2. Backend Developer
+3. Fullstack Developer
+4. UI Developer, UX Developer, and/or UI/UX Developer
+5. Software Developer
+6. Web Developer or Web Application Developer
+7. JavaScript Developer
+8. TypeScript Developer
+9. React Developer
+10. Angular Developer
+11. Vue Developer
+12. App Developer or Application Developer
+13. Junior Developer
+14. Sales Engineer
 
-Specializations can include:
+In all of these titles, you can also search for "Engineer" in addition to "Developer".
 
-- Security, Infosec, or Cybersec
-- DevOps\*
-- Testing\*
-- SEO\*
-- Accessibility\*
-- Data Visualization\*
-- Backend Development
-- Mobile Development
-- Data Engineering, Data Science, and DataOps
-- Learning Other Languages\*\*
+In addition to searching by title, you can also search by skillset. Here is [a prepared Indeed.com search](https://www.indeed.com/jobs?q=HTML+OR+CSS+OR+JAVASCRIPT+OR+TYPESCRIPT+OR+SQL+OR+REACT+OR+VUE+OR+ANGULAR&l=United+States) for the following skills:
 
-Ladderly recommends continuous skill development concurrent with the job search. You can learn a specialization after obtaining an entry-level role, or you can potentially start to specialize even while you are on the entry-level role job search!
+1. HTML
+2. CSS
+3. JavaScript
+4. TypeScript
+5. SQL
+6. React
+7. Vue
+8. Angular
 
-\*Specializations marked with an asterisk are considered junior-friendly specializations.
+As you add skills, you can qualify for additional titles. After learning fullstack basics through [the Big 4 Projects](https://www.ladderly.io/blog/2023-10-01-quality-course-and-projects#the-big-4-projects), Ladderly recommends learning Python. Here are some other titles you can qualify for once SQL and Python are added to your skillset:
 
-\*\*Learning multiple languages as a junior is discouraged. This is a great specialization at the intermediate to senior level.
+1. AI Engineer
+2. AI Trainer
+3. Applied Scientist
+4. Business Analyst
+5. Data Analyst
+6. Data Engineer
+7. Data Scientist
+8. Database Administrator
+9. Database Architect
+10. Machine Learning Engineer
+11. Member of Technical Staff
+12. Python Developer
+13. Research Scientist
 
-### The Takeaway
+Here are some other specializations that you can learn beyond fullstack basics and Python:
 
-John recommends using 3-10 job boards to strike the right balance in your job search. Applying to 50-100 positions per week using these platforms can significantly enhance your job search effectiveness.
+1. Cyber Security / Cybersecurity and InfoSec
+2. DevOps
+3. Testing
+4. SEO
+5. Accessibility / Section 508
+6. Data Visualization
+7. Backend Development
+8. Mobile Development
+9. Learning Other Languages
 
-### Conclusion
+### Final Thoughts
 
-John's blend of personal experience and analytical approach makes this guide a must-follow for anyone in the programming field. Remember, it’s about finding the right tools and striking the balance for your unique situation.
+Ladderly.io recommends using the above-specified job boards and tools to to quickly access a large number of relevant job opportunities. Ladderly recommends continuous skill development concurrent with the job search.
 
----
-
-> **Tip:** Don’t forget to like, share, and subscribe to John's channel for more insightful content. Explore the detailed [spreadsheet](https://docs.google.com/spreadsheets/d/1-g88F96DqkbheGxswzCBRzdnOU-257aZ9u6zL7j-7Gw?usp=sharing) for an in-depth look at the job boards and watch the [full video](https://www.youtube.com/watch?v=Wof3HPOLnPo) for comprehensive insights.
+Ladderly recommends applying to 100 positions per week as a starting point in order to enable statistical measurement of your job search performance. Once interviews begin taking up your time, you can reduce the number of applications you submit. You can also reduce the number of applications you submit if you are only passively looking and/or being highly selective.
