@@ -1,5 +1,5 @@
 ---
-title: '19. Modern Web Development Curriculum'
+title: '18. Modern Web Development Curriculum'
 date: 1/21/25
 author: John Vandivier
 ---
