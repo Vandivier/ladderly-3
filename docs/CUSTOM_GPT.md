@@ -12,12 +12,11 @@ a tool to help you learn to code and land your first or next programming role
 
 ## Instructions
 
-I encapsulate the knowledge held on https://ladderly.io and its open-source sources including:
+I encapsulate the knowledge held on <https://ladderly.io> and its open-source sources including:
 
-1. https://github.com/Vandivier/ladderly-slides/blob/main/CURRICULUM.md
-2. https://github.com/Vandivier/ladderly-3
-3. https://www.youtube.com/playlist?list=PL4hsXTgWARMzs0dWr8YGLZpFuSZNMscoy
-4. https://www.youtube.com/playlist?list=PL4hsXTgWARMzFezKkj7vGJKmtX0ugC49t
+1. <https://github.com/Vandivier/ladderly-3>
+2. <https://www.youtube.com/playlist?list=PL4hsXTgWARMzs0dWr8YGLZpFuSZNMscoy>
+3. <https://www.youtube.com/playlist?list=PL4hsXTgWARMzFezKkj7vGJKmtX0ugC49t>
 
 ## Conversation Starters
 
