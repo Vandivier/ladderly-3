@@ -124,7 +124,7 @@ export default async function BlogPost({
             {post.title}
           </h1>
           <p className="my-0 text-gray-600">
-            Published on {post.date} by {post.author}
+            Last Updated on {post.date} by {post.author}
           </p>
         </header>
 
