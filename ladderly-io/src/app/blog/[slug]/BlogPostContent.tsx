@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import Image from "next/image";
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import Image from 'next/image'
 
 interface BlogPostContentProps {
-  content: string;
+  content: string
 }
 
 export function BlogPostContent({ content }: BlogPostContentProps) {
@@ -21,8 +21,8 @@ export function BlogPostContent({ content }: BlogPostContentProps) {
         img: ({ src, alt }) => (
           <div className="my-8 flex justify-center">
             <Image
-              src={src ?? ""}
-              alt={alt ?? ""}
+              src={src ?? ''}
+              alt={alt ?? ''}
               width={540}
               height={300}
               className="rounded-lg"
@@ -30,19 +30,31 @@ export function BlogPostContent({ content }: BlogPostContentProps) {
           </div>
         ),
         h1: ({ children }) => {
-          const text = children?.toString() ?? "";
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-          return <h1 id={id}>{children}</h1>;
+          const text = children?.toString() ?? ''
+          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+          return <h1 id={id}>{children}</h1>
         },
         h2: ({ children }) => {
-          const text = children?.toString() ?? "";
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-          return <h2 id={id}>{children}</h2>;
+          const text = children?.toString() ?? ''
+          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+          return (
+            <h2 id={id}>
+              <a className="text-black" href={`#${id}`}>
+                {children}
+              </a>
+            </h2>
+          )
         },
         h3: ({ children }) => {
-          const text = children?.toString() ?? "";
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-          return <h3 id={id}>{children}</h3>;
+          const text = children?.toString() ?? ''
+          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+          return (
+            <h3 id={id}>
+              <a className="text-black" href={`#${id}`}>
+                {children}
+              </a>
+            </h3>
+          )
         },
         table: ({ children }) => (
           <div className="my-8 overflow-x-auto">
@@ -55,5 +67,5 @@ export function BlogPostContent({ content }: BlogPostContentProps) {
     >
       {content}
     </ReactMarkdown>
-  );
+  )
 }
