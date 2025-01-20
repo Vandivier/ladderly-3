@@ -6,10 +6,9 @@ author: John Vandivier
 
 This article walks you through recommended practices for social and professional networking, including specific scripts or templates for messaging other professionals.
 
-It's a good idea to tailor the language in these scripts to your specific situation,
-but if you are uncomfortable with the risk introduced by modifying them you can also use them as-is.
-Specific scripts are given for talking to individuals in three roles: engineers, managers, and recruiters.
+Ladderly.io also recommends content creation and community engagement as part of a social networking strategy. Read more in [Ladderly.io's Endorsed Communities Guide](/blog/2025-01-22-endorsed-communities)!
 
+Ladderly.io recommends A/B testing these scripts with and without tailoring and variation, in order to find the best fit for you.
 The goal of these scripts is to improve the odds of achieving any of several positive outcomes, including:
 
 1. Obtaining an interview
