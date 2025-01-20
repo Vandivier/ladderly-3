@@ -19,21 +19,8 @@ interface TableOfContentsItem {
   level: number
 }
 
-const tipUrl =
-  'https://checkout.stripe.com/c/pay/cs_live_a10YyjvS4xEbZJ9Th74ZTitGd2NZoHBILwU0K8AdL1P5INh5a9ry7h1Bj9#fidkdWxOYHwnPyd1blppbHNgWlIzUk5qNVddT2AyYGM8PURQN01fTUFSYjU1bX9nPX1KZ1InKSd1aWxrbkB9dWp2YGFMYSc%2FJ2BTZDxAMjdgYmBpQ2NWYmNcXycpJ3dgY2B3d2B3SndsYmxrJz8nbXFxdXY%2FKipycnIraWRhYWB3aXwrbGoqJ3gl'
-
-const sBlogCallToAction = `<p class="call-to-action"
-  style="font-size: 1rem; font-style: italic; margin: 0 auto;">
-
-    Thanks for reading! Ladderly is open source and community driven.
-    Consider supporting the maintainers by
-    <a href="${tipUrl}" target="_blank">
-      leaving a tip!
-    </a>
-  </p>`
-
 export async function getBlogPost(
-  slug: string
+  slug: string,
 ): Promise<{ title: string; content: string; toc: TableOfContentsItem[] }> {
   const markdownWithMetadata = fs
     .readFileSync(path.join(process.cwd(), 'src/app/blog', `${slug}.md`))
@@ -81,7 +68,7 @@ export async function getBlogPost(
           if (!node.properties.className) node.properties.className = []
           ;(node.properties.className as string[]).push(
             'no-underline',
-            'hover:underline'
+            'hover:underline',
           )
         }
 
@@ -93,7 +80,7 @@ export async function getBlogPost(
             'border-collapse',
             'text-left',
             'text-sm',
-            'my-4'
+            'my-4',
           )
         }
 
@@ -104,7 +91,7 @@ export async function getBlogPost(
             'px-4',
             'py-2',
             'border',
-            'border-gray-300'
+            'border-gray-300',
           )
         }
       })
@@ -127,13 +114,9 @@ export async function getBlogPost(
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 
-  const updatedHtml = htmlContent
-    .toString()
-    .replaceAll('{{ BlogCallToAction }}', sBlogCallToAction)
-
   return {
     title: data.title,
-    content: updatedHtml,
+    content: htmlContent.toString(),
     toc,
   }
 }
