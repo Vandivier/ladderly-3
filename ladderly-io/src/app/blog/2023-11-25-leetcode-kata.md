@@ -1,14 +1,23 @@
 ---
-title: '3. Ladderly Leetcode Kata'
-date: 11/25/23
+title: '3. Ladderly Standard Leetcode Kata'
+date: 1/19/25
 author: John Vandivier
 ---
 
-Whiteboard interviews featuring leetcode-style coding problems are the current standard in Big Tech. It's possible to land a programming role [without intensive whiteboard interview preparation](https://github.com/poteto/hiring-without-whiteboards), but even if you aren't seeking a Big Tech role, this is a valuable skill that will improve your job search performance. The official guidance from Ladderly is to begin your job search even if you don't feel confident with problems like these. Do work on this skill in parallel to your job search, but don't block yourself from starting a job search until you have reached leetcode mastery.
+This article describes several problem sets that are designed to help you prepare for technical interviews. Before diving into the problem sets, I describe the history of technical interview prep and how these problems were selected. If you are not interested in this background material, feel free to skip to the problem sets using the table of contents above. Solutions are documented in [this seperate article](/blog/2024-01-23-leetcode-solutions).
 
-Given that you would like to improve your skill with data structures and algorithms, or leetcode-style coding challenges, where should you begin? This article describes standard advice and builds on top of that advice to provide the Ladderly Leetcode Kata, a series of problems designed to help you warm up and prime engineers of any level for their coding interview rounds.
+Whiteboard interviews featuring leetcode-style coding problems are standard in Big Tech.
+They are less common at Tier 2 and Tier 3 companies, but even in those markets these kinds of problems make up a significant proportion of interviews.
+As we think about the job search for programmers, two facts are apparent:
 
-This article defines kata, describes historical standard guidance for coding round interview preparation, lays out the recommended Ladderly Leetcode Kata, and lastly discusses some potential dangers and pitfalls of kata-oriented preparation.
+1. It's possible to [land a programming role without leetcode](https://github.com/poteto/hiring-without-whiteboards).
+2. Leetcode practice is a great return on investment, improving access to more job opportunities, including opportunities with industry-leading compensation.
+
+Importantly, practicing with Ladderly's problem sets can improve your technical interview performance for both leetcode and non-leetcode interviews! How well do LeetCode ratings predict interview performance? See this [article](https://interviewing.io/blog/how-well-do-leetcode-ratings-predict-interview-performance) for the data showing that serious diminishing returns are associated with doing more than 500 questions. Ladderly's largest set has 690 problems, and it's intended as a joke. It's definitely overkill for the vast majority of job seekers.
+
+Given this information, Ladderly.io recommends that you begin your job search before you feel confident with any of these problem sets. Ladderly.io also recommends that you allocate a proportion of your time during the job search and during periods of employment to work on these problems throughout your career, improving your speed to promotion, maximizing compensation, and protecting yourself against the risk of layoffs or similar events.
+
+After you have solved your first problem, we recommend splitting your time 50/50 between trying new problems and revisiting old problems.
 
 ## What is Leetcode Kata?
 
@@ -16,79 +25,73 @@ Kata is a term of Japanese origin that refers to a choreographed pattern of mart
 
 [Code kata](https://en.wikipedia.org/w/index.php?title=Kata&oldid=1177927890#Outside_martial_arts) are code snippets that are repeatedly typed out as a technique for memorizing solutions to programming problems and also to improve productivity or implementation time for those problems.
 
-Leetcode kata are code kata designed from a list of code problems from the popular [Leetcode website](http://leetcode.com/). The Ladderly Leetcode Kata is composed with a few criteria in mind:
+Leetcode kata are code kata designed sourced from the popular [Leetcode website](http://leetcode.com/).
+Ladderly problem sets are crafted with several principles in mind:
 
-1. Cover the Top 5 Patterns from the [5 to 23 Patterns article](https://hackernoon.com/5-to-23-patterns-to-ace-any-coding-interview).
-2. Warm up the brain, don't exhaust it.
-3. Represent high-frequency problems according to Leetcode frequency data. Notice that this makes the Ladderly Leetcode Kata a living guide, in contrast to legacy guides such as the Blind 75.
-4. Completable in about thirty minutes.
-5. Solutions are well-documented.
-6. No premium or paywalled questions.
-7. Prefer series problems when possible to encourage flow and reduce cognitive switching costs.
+1. Unapologetically weaponize repitition, drilling, memorization, and brute force to crush interviews.
+2. Provide a beginner-friendly onboarding experience that scales to the senior-plus level.
+3. Ensure strong pattern coverage over all types of problems that are frequently asked in interviews.
+4. The Ladderly Standard Leetcode Kata should not contain any premium or paywalled questions.
+5. Achieve high cognitive load with comfort by:
+    1. Starting with easy problems and working up to harder problems in the same pattern
+    2. Ordering the patterns themselves so that initial patterns reflect concepts already encountered in project-based learning
+    3. Encouraging flow state through pattern grouping and repitition of known problems
+    4. Emphasizing timeboxing
+    5. Ensuring problems have well-documented solutions
 
-The Ladderly Leetcode Kata are also arranged by the progressive complexity of their patterns, so that every later pattern builds on a former pattern, creating a pattern-level flow:
+Ladderly recommends timeboxing problem execution to 20 minutes, and reviewing the solution for 10 minutes. It is fine and expected that you will not be able to solve most problems during the first attempt. In later sessions, you will return to the same problem and you can expect incremental improvement. This is an evidence-based technique called [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition).
 
-In order of difficulty, the Top 5 Patterns can be arranged this way:
+## Standard Historical Guidance
 
-1. String and Array Manipulation
-2. Linked Lists
-3. Graphs
-4. Tree Algorithms
-5. Sorting and Searching
+[Yangshun Tay](https://www.linkedin.com/in/yangshun/) published the [Blind 75](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU) in late 2018. It quickly became the best practice guide for Big Tech coding round preparation. It is now outdated. Several resources have improved on it:
 
-Notice that these concepts are arranged such that we start with primitives, then move to collections of primitives, then we can arrange those collections into graphs and trees, and finally, we can sort and search across those collections and structures.
+1. Many in the tech community began to emphasize the importance of learning patterns over solving specific problems, and [the 14 Patterns article](https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed) became a smash hit.
+2. Yangshun himself created an updated list called [the Grind 75](https://www.techinterviewhandbook.org/grind75/about), which actually includes 169 problems.
+3. Building on the 14 Patterns, Sean Prashad launched the [Leetcode Patterns tool](https://seanprashad.com/leetcode-patterns/), capturing 22 patterns across 174 problems.
+4. John Vandivier, the creator of Ladderly.io, created the [5 to 23 Patterns article](https://hackernoon.com/5-to-23-patterns-to-ace-any-coding-interview), embracing both the movement to lower the barrier to entry and also raising the bar on the total addressed pattern set compared to Prashad's tool.
+5. LeetCode itself created the [Leetcode 75](https://leetcode.com/studyplan/leetcode-75/), a program targeted around 1-3 months of study and covering many essential patterns.
+6. Formation.dev published [The Engineering Method](https://formation.dev/blog/the-engineering-method/), a step-by-step process to solve any leetcode problem
+7. [Neetcode.io](https://neetcode.io/) created the bar-raising Neetcode 250
+8. [John Vandivier](https://www.linkedin.com/in/john-vandivier/) wrote [6 Problem Picking Patterns for Technical Success](https://hackernoon.com/mastering-leetcode-6-problem-picking-patterns-for-technical-success). This article defines an evergreen process for finding highly relevant problems and patterns at any point in time.
+9. Ladderly.io releases our Standard and Expanded Leetcode Kata.
+10. [Interviewing.io documents](https://interviewing.io/blog/how-well-do-leetcode-ratings-predict-interview-performance) that serious diminishing returns are associated with doing more than 500 problems.
+11. Ladderly.io releases additional problem sets to scale up and past the documented point of serious diminishing returns:
+    1. The Ladderly 300
+    2. The Ladderly 420
+    3. The Ladderly 500
+    4. The Ladderly 690
 
-## Standard Historical Guidance: When am I Ready to Interview?
+## The Ladderly Standard Leetcode Kata
 
-The Blind 75 was a watershed guide that helped spread knowledge on common questions and patterns under assessment at Big Tech whiteboard interviews or coding interview rounds. That advice is dated. Several resources have improved on it:
-
-1. The creator of the Blind 75 created an updated list called the Grind 75. [Read more here](https://www.techinterviewhandbook.org/grind75/about).
-2. Many in the tech community began to emphasize the importance of learning patterns over solving specific problems, and [the 14 Patterns article](https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed) became a smash hit.
-3. Building on the 14 Patterns, Sean Prashad launched the Leetcode Patterns tool, capturing 22 patterns across 180 problems.
-4. [AlgoExpert and Neetcode.io](https://www.reddit.com/r/leetcode/comments/vt5hyr/neetcode_vs_sean_prashad/) sought to improve over existing resources through high-quality educational videos, making learning data structures and algorithms (DS&A) easier and less intimidating.
-5. John Vandivier, the creator of Ladderly.io, created the [5 to 23 Patterns article](https://hackernoon.com/5-to-23-patterns-to-ace-any-coding-interview), embracing both the movement to lower the barrier to entry and also raising the bar on the total addressed pattern set compared to Prashad's tool.
-6. LeetCode itself created the Leetcode 75, a program targeted around 1-3 months of study and covering many essential patterns.
-7. John Vandivier wrote [6 Problem Picking Patterns for Technical Success](https://hackernoon.com/mastering-leetcode-6-problem-picking-patterns-for-technical-success). Building on the 5 to 23 patterns article and other work, this article defines a living, abstract, and evergreen process for finding highly relevant problems and patterns at any point in time.
-
-The current article contributes to the literature by providing a leetcode kata. This kata is a compliment to prior work, not a substitute for prior guidance. Ladderly considers the 6 Problem Picking Patterns article to be state-of-the-art advice for the broader learning journey. The kata described in this article has a different purpose which is to prime the engineer for a coding interview, rather than to guide the learning journey.
-
-As a secondary purpose, it is possible to use these kata as a stepping stone in the larger learning journey. Ladderly presents two kata here: A standard form and an expanded form. The standard form has twelve challenges and the expanded form has twenty challenges. As such, this article represents a new cutting-edge in a reduced barrier to entry for leetcode-style technical interview preparation. The standard kata can be sufficient for entry-level technical interview preparation, although it is not optimal for senior-level job seekers. Here is a relevant quote from the [5 to 23 Patterns](https://hackernoon.com/5-to-23-patterns-to-ace-any-coding-interview) article, but do browse it further for additional context:
-
-> I think interviews themselves are excellent practice, and I hesitate to require too much studying in a blocking way before beginning interviews...Whatever problem you are given, let’s target solving the problem in 20 minutes. With that context in mind, here are some of my recommendations by job level:
->
-> 1. Entry/Junior Level: Feel confident solving an easy from the Top 7 Patterns in 20 minutes.
->
-> 2. SWE II to III...Feel somewhat comfortable (better than 25% chance of success) solving a hard from the Top 11 Patterns in 40 minutes. Consider training with a service like [interviewing.io](https://iio.sh/r/1OhF) or practicing until getting a green light from another current Big Tech engineer.
-
-{{ BlogCallToAction }}
-
-## The Ladderly Leetcode Kata
-
-Solve these problems in order. Step through each problem as if it were a coding interview round. That means you should say things out loud as you go:
+Solve these problems in the given order. Step through each problem as if it were a coding interview round and leverage [Formation's Engineering Method](https://formation.dev/blog/the-engineering-method/). That means you should say things out loud as you go:
 
 1. Recite the problem
 2. Ask clarifying questions. (Yes, even though you are alone, practice asking a question out loud.)
-3. Declare a basic or brute force approach with its best conceivable runtime.
-4. Implement the brute force
-5. Ask how the solution can be improved
-6. Implement the optimal form (if it is different than the brute force)
-7. Declare the worst-case time and space complexity
-8. If the kata has a finishing statement, recite the statement out loud before proceeding to the next problem.
+3. Come up with happy cases and edge cases.
+4. Plan by declaring a basic or brute force approach with its worst-case time and space complexity.
+    1. Learn more about Big O notation for time and space complexity analysis [here with NeetCode](https://www.youtube.com/watch?v=BgLTDT03QtU).
+5. Brainstorm additional approaches and select the pattern most appropriate, with a bias towards minimizing time complexity in a feasible timeframe for implementation.
+6. Implement the solution
+7. Verify the solution
+8. Time permitting, further optimize the solution if possible.
 
-As a beginner, you might only be able to solve one problem each day. Eventually, you will have solved these many times and you should be able to complete all steps for all standard kata problems in under 30 minutes. Ideally, this kata is performed 1-2 hours in advance of the interview round, allowing for at least 30 minutes of rest time before beginning the interview. Make sure to eat, hydrate, sleep the night before, mind your attitude and attire, and remind yourself of all of those non-technical aspects of the interview during your rest period.
+As a practice tool, with timeboxing, you should be able to solve 1-4 problems per session.
+This kata is also a fantastic interview preperation and warmup tool!
+To prepare for a coding interview, begin this kata 2 hours before the interview, timeboxing kata performance to one hour at most, then take a break and relax before greeting your interviewer.
+Remember other basics of preparation including rest, nutrition, hydration, appearance management, and positive mindset!
 
 Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
 1. [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 
    1. Patterns: Array, Two Pointers, Monotonic Stack
-   2. Finishing Statement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
+   2. Acknowledgement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
    3. Related Resources: [Monotonic Functions](https://en.wikipedia.org/w/index.php?title=Monotonic_function&oldid=1178555210)
 
 2. [15. 3Sum](https://leetcode.com/problems/3sum/)
 
    1. Patterns: Array, Two Pointers
-   2. Finishing Statement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
+   2. Acknowledgement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
    3. Note: Write out each of the three solutions: Two Pointers, Hashset, and No-Sort.
 
 3. [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
@@ -97,13 +100,13 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
 4. [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 
-   1. Patterns: Linked List
+   1. Patterns: Linked List, Two Pointers, Fast and Slow Pointers
 
 5. [234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/description/)
 
-   1. Patterns: Linked List, Fast and Slow Pointers, Recursion
+   1. Patterns: Linked List, Two Pointers, Fast and Slow Pointers, Recursion
 
-   2. Finishing Statement: I realize that the only way to avoid O(n) space complexity is to modify the input in place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
+   2. Acknowledgement: I realize that the only way to avoid O(n) space complexity is to modify the input in place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
 
 6. [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 
@@ -117,11 +120,11 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
 9. [112. Path Sum](https://leetcode.com/problems/path-sum/)
 
-   1. Tree Algorithms, DFS, BFS
+   1. Patterns: Tree Algorithms, DFS, BFS
 
 10. [113. Path Sum II](https://leetcode.com/problems/path-sum-ii/)
 
-    1. Tree Algorithms, DFS, Recursion
+    1. Patterns: Tree Algorithms, DFS, Recursion
 
 11. [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 
@@ -131,9 +134,17 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
     1. Patterns: Array, Backtracking, Matrix, String
 
-## The Ladderly Leetcode Expanded Kata
+13. [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
 
-The Ladderly Leetcode Expanded Kata is a list of 20 challenges that are a superset of the standard kata.
+    1. Patterns: Math
+
+14. [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
+
+    1. Patterns: Math, String, Hash Table
+
+## The Ladderly Expanded Kata
+
+The Ladderly Expanded Kata is a list of 20 challenges that are a superset of the standard kata.
 The additional challenges cover a broader set of patterns and techniques, such as the prefix sum and priority queue, while also improving reinforcement for minimally covered patterns.
 
 This expanded kata will frequently take an hour for even experienced leetcoders. If you find the expanded kata to be exhausting, consider running this kata the day or weekend before interviews and only doing the standard kata on interview day.
@@ -144,98 +155,111 @@ The 20 challenges are intentionally divided into three groups, so you have the o
 2. Group 2, 8 Problems, Covers Linked Lists and Graphs
 3. Group 3, 4 Problems, Covers Tree Algorithms and Topological Sort
 
-Here is the list of code challenges in the Ladderly Leetcode Expanded Kata:
+Here is the list of code challenges in The Ladderly Expanded Kata:
 
-1.  [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+1. [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 
     1. Patterns: Array, Two Pointers, Monotonic Stack
 
-    2. Finishing Statement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
+    2. Acknowledgement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
 
     3. Related Resources: [Monotonic Functions](https://en.wikipedia.org/w/index.php?title=Monotonic_function&oldid=1178555210)
 
-2.  [15. 3Sum](https://leetcode.com/problems/3sum/)
+2. [15. 3Sum](https://leetcode.com/problems/3sum/)
 
     1. Patterns: Array, Two Pointers
 
-    2. Finishing Statement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
+    2. Acknowledgement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
 
     3. Note: Write out each of the three solutions: Two Pointers, Hashset, and No-Sort.
 
-3.  [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/description/)
+3. [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/description/)
 
     1. Patterns: Array, Two Pointers, Binary Search
 
-4.  [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
+4. [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
 
-5.  [79. Word Search](https://leetcode.com/problems/word-search/)
+5. [79. Word Search](https://leetcode.com/problems/word-search/)
 
     1. Patterns: Array, Backtracking, Matrix, String
 
-6.  [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
+6. [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
 
     1. Patterns: Array, DFS, Matrix, String, Trie
 
-7.  [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+7. [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+
+   1. Patterns: Math, Dynamic Programming
+
+8. [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
+
+    1. Patterns: Math
+
+9. [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
+
+    1. Patterns: Math, String, Hash Table
+
+10. [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words)
+
+    1. Patterns: Math, String, Recursion
+
+11. [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
     1. Patterns: String, Sliding Window
 
-8.  [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix)
+12. [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix)
 
     1. Patterns: Array, Matrix
 
-9.  [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
+13. [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 
     1. Patterns: Linked List
 
-10. [234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/description/)
+14. [234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/description/)
 
     1. Patterns: Linked List, Fast and Slow Pointers, Recursion
 
-    2. Finishing Statement: I realize that the only way to avoid O(n) space complexity is to modify the input in-place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
+    2. Acknowledgement: I realize that the only way to avoid O(n) space complexity is to modify the input in-place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
 
-11. [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
+15. [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
     Patterns: Linked List
 
-12. [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
+16. [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 
     1. Patterns: BFS, DFS, Graphs
 
-13. [207. Course Schedule](https://leetcode.com/problems/course-schedule/)
+17. [207. Course Schedule](https://leetcode.com/problems/course-schedule/)
 
     1. Patterns: BFS, DFS, Graphs, Topological Sort
 
-14. [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
+18. [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
 
-15. [630. Course Schedule III](https://leetcode.com/problems/course-schedule-iii/editorial/)
+19. [630. Course Schedule III](https://leetcode.com/problems/course-schedule-iii/editorial/)
 
     1. Patterns: Array, Greedy, Heap / Priority Queue, Memoization, Recursion
 
-16. [112. Path Sum](https://leetcode.com/problems/path-sum/)
+20. [112. Path Sum](https://leetcode.com/problems/path-sum/)
 
-    1. Tree Algorithms, DFS, BFS
+    1. Patterns: Tree Algorithms, DFS, BFS
 
-17. [113. Path Sum II](https://leetcode.com/problems/path-sum-ii/)
+21. [113. Path Sum II](https://leetcode.com/problems/path-sum-ii/)
 
-    1. Tree Algorithms, DFS, Recursion
+    1. Patterns: Tree Algorithms, DFS, Recursion
 
-18. [437. Path Sum III](https://leetcode.com/problems/path-sum-iii/)
+22. [437. Path Sum III](https://leetcode.com/problems/path-sum-iii/)
 
-    1. Tree Algorithms, DFS, Prefix Sum
+    1. Patterns: Tree Algorithms, DFS, Prefix Sum
 
-19. [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
+23. [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
 
-20. [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+24. [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 
     1. After completion: Review [other common tree traversal patterns](https://en.wikipedia.org/wiki/Tree_traversal) and their use cases.
 
-{{ BlogCallToAction }}
-
-## Honorable Mentions
-
-1. [Combination Sum](https://leetcode.com/problems/combination-sum/) and [N-Queens](https://leetcode.com/problems/n-queens/) for backtracking. Both of these are series problems.
-2. Sudoku problems like [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/). These are great for learning string matrix algorithms, but they are more cognitively demanding compared to word search with no added pattern coverage. For learning as opposed to kata, Sudoku's higher cognitive load makes it an even better choice than word search. Of course, you can do both for even more load!
-3. For additional drilling on sliding window, consider the premium question [340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/).
+25. [39. Combination Sum](https://leetcode.com/problems/combination-sum/)
+26. [51. N-Queens](https://leetcode.com/problems/n-queens/)
+27. [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
+28. [340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/).
 
 ## Calculating Estimated Coverage
 
@@ -246,7 +270,7 @@ Here is the list of code challenges in the Ladderly Leetcode Expanded Kata:
 3. Two Pointers: 10.5%
 4. Linked Lists: 6.3%
 5. Breadth-First Search: 4.9%
-6. Math: 4.9%
+6. [Math](https://leetcode.com/problem-list/math/): 4.9%
 7. [Hash](https://leetcode.com/tag/hash-table/): 4.2%
 8. Binary Search 3.5%
 9. Stack: 3.5%
@@ -259,13 +283,13 @@ Here is the list of code challenges in the Ladderly Leetcode Expanded Kata:
 
 While this makes up the labeled region of the pie chart the total here is only 78.4%. Other groups like tries and greedy algorithms took up some small and unlabeled slices in the analysis across companies, but they sometimes made significant contributions to company-specific question pools.
 
-The Ladderly Leetcode Expanded Kata covers all of these except:
+The Ladderly Expanded Kata covers all of these except:
 
-1. Dynamic Programming
+1. Dynamic Programming (Technically there's one DP problem but let's consider it not covered)
 2. Bit Manipulation
 3. Divide and Conquer
 
-Ignoring the unlabeled patterns, the Ladderly Leetcode Expanded Kata therefore conservatively covers 72.8 (= 78.4 - 0.7 - 2.1 - 2.8) percent of expected questions.
+Ignoring the unlabeled patterns, The Ladderly Expanded Kata therefore conservatively covers 72.8 (= 78.4 - 0.7 - 2.1 - 2.8) percent of expected questions.
 
 The standard kata further leaves out prefix sum and binary search, so it has 4.2% less coverage. Still, the basic kata conservatively covers more than two-thirds of the expected questions! This is a substantial reduction to your risk at coding challenge time.
 
@@ -274,33 +298,25 @@ The standard kata further leaves out prefix sum and binary search, so it has 4.2
 There are six main dangers to using code kata from Ladderly or elsewhere:
 
 1. Underutilization. As kata, the benefits will not be realized if you only do these problems a few times. You should practice them many times to the point that you can easily solve any problem on the list without much time or effort.
+
 2. Overutilization. The job search involves more than leetcode. Make time for rest, social networking, applications, portfolio development, working on non-kata code challenges, and the other elements of the job search.
+
 3. Substituting memorization for learning. Kata is a memorization tool, and memorization is not a substitute for learning. While these problems can serve as a starting point for learning, you should continue to study many other variations to reduce the chance that a surprise question or twist during an interview will throw you into a difficult situation. Make a practice of calmly facing unexpected questions by:
    1. Participating in Leetcode weekly competitions
    2. Referring back to the Standard Historical Guidance for continued learning
    3. Taking on many real and practice interviews and viewing them as a learning experience, acknowledging that you may be surprised and accepting it
-4. Treating the kata pattern set as an end goal rather than a market of basic competency. Recalling the 5 to 23 Patterns article, notice that only the most important five are covered in the Ladderly Leetcode Kata. These five explain
+
+4. Treating the kata pattern set as an end goal rather than a market of basic competency. Recalling the 5 to 23 Patterns article, notice that only the most important five are covered in the Ladderly Standard Leetcode Kata. These five explain
+
 5. Prioritizing generic kata over company-specific information is a mistake. If you are able to access a company-specific list of frequently used questions, prioritize those. You can use the kata in addition to those tools, or modify the standard kata for your own situation.
+
 6. Neglecting others is a danger of becoming an elite programmer. You may forget how hard it was in the beginning. You may think that since you went through this difficult process other people should also do the same in order to earn their place as a software engineer. At Ladderly, we hope that you adopt an attitude of empathy toward others instead, and we'd welcome your personal support and contributions of time, resources, and effort to ensure that it gets easier for people to break into tech over time.
 
-{{ BlogCallToAction }}
+## Ladderly 300 to 690
 
-## Now for a Little Fun!
+Links to problem lists on leetcode are forthcoming. For now, I'll just define the problem selection strategies:
 
-In order to motivate community participation and conversation, Ladderly is providing a special reward to our users who publish a video of an attempt to complete either a kata.
-
-After creating a free or paid account on Ladderly, upload or stream a kata attempt to the platform of your choice. The upload must be publicly accessible and mention this article in the video or in the video description. Then, send the video to the Ladderly team through Discord and we will add a special achievement badge to your profile with a public congratulations over social media!
-
-Here are the reward tiers:
-
-1. Ladderly Kata Participant: Attempt at least one problem from either kata
-2. Ladderly Kata Completionist: Complete all 12 problems from the Standard Kata in under 8 hours
-3. Ladderly Expanded Kata Completionist: Complete all 20 problems from the Expanded Kata in under 8 hours
-4. Ladderly Bronze Star: Complete the standard kata in under 4 hours
-5. Ladderly Silver Star: Complete the standard kata in under 1 hour
-6. Ladderly Gold Star: Complete the standard kata in under 30 minutes
-7. Ladderly Expanded Bronze Star: Complete the expanded kata in under 4 hours
-8. Ladderly Expanded Silver Star: Complete the expanded kata in under 2 hours
-9. Ladderly Expanded Gold Star: Complete the expanded kata in under 1 hour
-10. Laddery Gold Crown: Be a former record holder for a completion time of any kata
-11. Laddery Diamond Crown: Be the current record holder for completion time of any kata
+1. Ladderly 300: Neetcode 250, less bit manipulation and DP (43 problems), plus Ladderly Expanded Kata (28 problems), plus 65 hard problems
+2. Ladderly 420: Ladderly 300, plus frequent-pattern deltas from Grind 75, Leetcode 75, Prashad's 174, and some extra problems.
+3. Ladderly 500: Ladderly 420 plus dynamic programming and some extra problems.
+4. Ladderly 690: Total superset of all referenced problem lists inclusive of all patterns, including exotic patterns and pure trivia problems for ultimate overkill and bragging rights with zero respect for ROI on time spent.
