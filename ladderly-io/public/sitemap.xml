@@ -6,11 +6,6 @@
     </url>
     <url>
         <loc>
-            https://ladderly.io/404
-        </loc>
-    </url>
-    <url>
-        <loc>
             https://ladderly.io/about
         </loc>
     </url>
@@ -91,12 +86,17 @@
     </url>
     <url>
         <loc>
-            https://ladderly.io/blog/2024-08-05-the-century-project
+            https://ladderly.io/blog/2025-01-20-social-networking-scripts
         </loc>
     </url>
     <url>
         <loc>
-            https://ladderly.io/checklist-items
+            https://ladderly.io/blog/2025-01-21-ai-first-curriculum
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2025-01-22-endorsed-communities
         </loc>
     </url>
     <url>
@@ -121,16 +121,6 @@
     </url>
     <url>
         <loc>
-            https://ladderly.io/community/hall-of-fame
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/events-calendar
-        </loc>
-    </url>
-    <url>
-        <loc>
             https://ladderly.io/forgot-password
         </loc>
     </url>
@@ -146,17 +136,12 @@
     </url>
     <url>
         <loc>
+            https://ladderly.io/perks
+        </loc>
+    </url>
+    <url>
+        <loc>
             https://ladderly.io/privacy-policy
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/questions
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/questions/ask
         </loc>
     </url>
     <url>
@@ -172,21 +157,6 @@
     <url>
         <loc>
             https://ladderly.io/signup
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/success
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/top-honors
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/vote
         </loc>
     </url>
 </urlset>
