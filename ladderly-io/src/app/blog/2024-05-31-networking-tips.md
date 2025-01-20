@@ -10,7 +10,7 @@ This article provides three long-term and ten short-term networking tips, plus a
 
 Three key long-term networking techniques include:
 
-1. Participating in [social and professional communities](https://github.com/Vandivier/ladderly-slides/blob/main/docs/ENDORSED-COMMUNITIES.md). Attending relevant events like conferences.
+1. Participating in [social and professional communities](/blog/2025-01-22-endorsed-communities). Attending relevant events like conferences.
 2. Learning, building, and creating content online. Remaining active on major social media platforms.
 3. Intentionally capturing and formalizing LinkedIn connections based on those prior items.
 
@@ -33,7 +33,7 @@ Warm outreach means contacting someone in your network or close to it. Here are 
 2. Ask for a practice interview round, or resources and advice about interview preparation.
 3. Ask your direct contact for an introduction at their current or former company, or with a relevant contact in their network.
 
-Ladderly provides [these suggested networking scripts](https://github.com/Vandivier/ladderly-slides/blob/main/docs/NETWORKING-SCRIPTS.md) and communication targets for cold outreach while on the job search. The three target job families are fellow individual contributors, hiring managers, and technical recruiters.
+Ladderly provides [these suggested networking scripts](blog/2025-01-20-social-networking-scripts) and communication targets for cold outreach while on the job search. The three target job families are fellow individual contributors, hiring managers, and technical recruiters.
 
 Beyond the previously-mentioned networking scripts, here are several additional tips for cold outreach:
 
@@ -53,11 +53,11 @@ Beyond the previously-mentioned networking scripts, here are several additional 
 3. Connect with Multiple People
 
    - Reach out to several individuals within the company to increase your chances of getting a response and diverse opinions.
-   - Reach out to a recruiter, the hiring manager, and a few contributors with relevant job titles. If you don't hear back after a few business days, follow up using [the Three Strikes Rule mentioned in the scripts document](https://github.com/Vandivier/ladderly-slides/blob/main/docs/NETWORKING-SCRIPTS.md#follow-up-script-preface-the-three-strikes-rule).
+   - Reach out to a recruiter, the hiring manager, and a few contributors with relevant job titles. If you don't hear back after a few business days, follow up using [the Three Strikes Rules mentioned in the social networking scripts article](http://localhost:3000/blog/2025-01-20-social-networking-scripts#the-three-strikes-rules).
 
 4. Say Thank You!
 
-   - Directly and clearly express that you appreciate their time and effort. You can say `TYIA`, `thanks!`, or `thanks in advance!`.
+   - Directly and clearly express that you appreciate their time and effort. You can say `Thank you for your time!`, `TYIA`, `thanks!`, or `thanks in advance!`.
    - There's no need to wait until after they help to thank them. This simple gesture can have a powerful impact on their willingness to help.
 
 5. Overvalue the pre-application referral, but persue as post-application referral over no referral.
