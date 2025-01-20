@@ -4,7 +4,8 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "build": "next build",
+    "build": "node --experimental-strip-types scripts/generate-sitemap.ts && next build",
+    "better-build": "npm run lint && node --experimental-strip-types scripts/generate-sitemap.ts && next build",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
@@ -19,7 +20,6 @@
     "@auth/prisma-adapter": "^1.6.0",
     "@prisma/client": "^5.14.0",
     "@stripe/stripe-js": "^5.4.0",
-    "stripe": "^14.18.0",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tanstack/react-query": "^5.50.0",
@@ -50,7 +50,9 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",
     "server-only": "^0.0.1",
+    "stripe": "^14.18.0",
     "superjson": "^2.2.1",
+    "xml-beautifier": "^0.5.0",
     "zod": "^3.23.3"
   },
   "devDependencies": {

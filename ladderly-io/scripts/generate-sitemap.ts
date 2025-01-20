@@ -1,34 +1,45 @@
-const fs = require('fs')
-const path = require('path')
-const beautify = require('xml-beautifier')
+import {
+  readFileSync,
+  writeFileSync,
+  existsSync,
+  readdirSync,
+  statSync,
+} from 'node:fs'
+import { join, relative, dirname } from 'node:path'
+import beautify from 'xml-beautifier'
+import { fileURLToPath } from 'node:url'
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 // Replace this with your site's actual base URL
 const baseURL = 'https://ladderly.io'
 
-const pagesDirectory = path.join(__dirname, '..', 'src', 'pages')
-const appDirectory = path.join(__dirname, '..', 'src', 'app')
-const publicDirectory = path.join(__dirname, '..', 'public')
+const pagesDirectory = join(__dirname, '..', 'src', 'pages')
+const appDirectory = join(__dirname, '..', 'src', 'app')
+const publicDirectory = join(__dirname, '..', 'public')
 
-function checkAuthenticationRequired(filePath) {
-  const fileContents = fs.readFileSync(filePath, 'utf8')
+function checkAuthenticationRequired(filePath: string): boolean {
+  const fileContents = readFileSync(filePath, 'utf8')
   return (
     fileContents.includes('authenticate = true') ||
     fileContents.includes('requireAuth()')
   )
 }
 
-function getPathsFromDirectory(directory) {
-  let paths = []
+function getPathsFromDirectory(directory: string): string[] {
+  let paths: string[] = []
 
-  if (!fs.existsSync(directory)) {
+  if (!existsSync(directory)) {
     return paths
   }
 
-  const items = fs.readdirSync(directory)
+  const items = readdirSync(directory)
 
   for (const item of items) {
-    const fullPath = path.join(directory, item)
-    const stat = fs.statSync(fullPath)
+    const fullPath = join(directory, item)
+    const stat = statSync(fullPath)
 
     if (stat.isDirectory()) {
       paths = [...paths, ...getPathsFromDirectory(fullPath)]
@@ -43,8 +54,8 @@ function getPathsFromDirectory(directory) {
 const allPagePaths = getPathsFromDirectory(pagesDirectory)
 const allAppPaths = getPathsFromDirectory(appDirectory)
 
-function filePathToUrlPath(filePath, baseDir) {
-  const relativePath = path.relative(baseDir, filePath)
+function filePathToUrlPath(filePath: string, baseDir: string): string {
+  const relativePath = relative(baseDir, filePath)
   return relativePath
     .replace(/\\/g, '/') // Replace backslashes with forward slashes for URL
     .replace(/\.(tsx|ts|js|jsx|md)$/, '') // Remove file extensions
@@ -53,7 +64,7 @@ function filePathToUrlPath(filePath, baseDir) {
     .replace(/\(auth\),?/, '')
 }
 
-function isValidPagePath(urlPath) {
+function isValidPagePath(urlPath: string): boolean {
   const excludePatterns = [
     'api',
     'components',
@@ -66,7 +77,11 @@ function isValidPagePath(urlPath) {
   return !excludePatterns.some((pattern) => urlPath.includes(pattern))
 }
 
-function getUrlsFromPaths(paths, baseDir, isAppRouter = false) {
+function getUrlsFromPaths(
+  paths: string[],
+  baseDir: string,
+  isAppRouter = false,
+): string[] {
   return paths
     .filter((filePath) => {
       if (
@@ -85,7 +100,7 @@ function getUrlsFromPaths(paths, baseDir, isAppRouter = false) {
         !filePath.includes('[') &&
         !filePath.includes(']') &&
         !['_app', '_document', '.DS_Store', '.css'].some((exclude) =>
-          filePath.includes(exclude)
+          filePath.includes(exclude),
         ) &&
         !checkAuthenticationRequired(filePath) &&
         isValidPagePath(urlPath)
@@ -115,6 +130,6 @@ const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </urlset>`
 
 // Beautify and Write sitemap to public directory
-fs.writeFileSync(path.join(publicDirectory, 'sitemap.xml'), beautify(sitemap))
+writeFileSync(join(publicDirectory, 'sitemap.xml'), beautify(sitemap))
 
 console.log(`Sitemap generated with ${urls.length} URLs`)
