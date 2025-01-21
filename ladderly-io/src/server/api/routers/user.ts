@@ -24,8 +24,8 @@ const tiersOrder = {
 // Define the settings input type
 export const UpdateSettingsSchema = z.object({
   email: z.string(),
-  emailBackup: z.string().nullable(),
-  emailStripe: z.string().nullable(),
+  emailBackup: z.string().optional(),
+  emailStripe: z.string().optional(),
   hasInPersonEventInterest: z.boolean(),
   hasLiveStreamInterest: z.boolean(),
   hasOnlineEventInterest: z.boolean(),
@@ -52,34 +52,30 @@ export const UpdateSettingsSchema = z.object({
 })
 
 // Define the settings output type
-export const UserSettingsSchema = z.object({
+export const UserGetSettingsSchema = UpdateSettingsSchema.extend({
   id: z.number(),
-  email: z.string(),
   emailBackup: z.string().nullable(),
-  emailStripe: z.string().nullable(),
+  emailStripe: z.string().optional(),
   nameFirst: z.string().nullable(),
   nameLast: z.string().nullable(),
-  hasOpenToWork: z.boolean(),
-  hasShoutOutsEnabled: z.boolean(),
   profileBlurb: z.string().nullable(),
   profileContactEmail: z.string().nullable(),
+  profileCurrentJobCompany: z.string().nullable(),
+  profileCurrentJobTitle: z.string().nullable(),
   profileGitHubUri: z.string().nullable(),
+  profileHighestDegree: z.string().nullable(),
   profileHomepageUri: z.string().nullable(),
   profileLinkedInUri: z.string().nullable(),
-  residenceCountry: z.string(),
-  residenceUSState: z.string(),
-  hasPublicProfileEnabled: z.boolean(),
-  hasSmallGroupInterest: z.boolean(),
-  hasLiveStreamInterest: z.boolean(),
-  hasOnlineEventInterest: z.boolean(),
-  hasInPersonEventInterest: z.boolean(),
+  profileTopNetworkingReasons: z.array(z.string()).nullable(),
+  profileTopSkills: z.array(z.string()).nullable(),
+  profileYearsOfExperience: z.number().nullable(),
   subscription: z.object({
     tier: z.nativeEnum(PaymentTierEnum),
     type: z.string(),
   }),
 })
 
-export type UserSettings = z.infer<typeof UserSettingsSchema>
+export type UserSettings = z.infer<typeof UserGetSettingsSchema>
 export type UserWithSubscriptions = User & { subscriptions: Subscription[] }
 export type UserWithSubscriptionsOrZero =
   | UserWithSubscriptions
@@ -315,33 +311,40 @@ export const userRouter = createTRPCRouter({
       }
 
       const settings: UserSettings = {
-        id: user.id,
         email: user.email,
         emailBackup: user.emailBackup,
         emailStripe: user.emailStripe,
-        nameFirst: user.nameFirst,
-        nameLast: user.nameLast,
-        hasOpenToWork: user.hasOpenToWork,
-        hasShoutOutsEnabled: user.hasShoutOutsEnabled,
-        profileBlurb: user.profileBlurb,
-        profileContactEmail: user.profileContactEmail,
-        profileGitHubUri: user.profileGitHubUri,
-        profileHomepageUri: user.profileHomepageUri,
-        profileLinkedInUri: user.profileLinkedInUri,
-        residenceCountry: user.residenceCountry,
-        residenceUSState: user.residenceUSState,
-        hasPublicProfileEnabled: user.hasPublicProfileEnabled,
-        hasSmallGroupInterest: user.hasSmallGroupInterest,
+        hasInPersonEventInterest: user.hasInPersonEventInterest,
         hasLiveStreamInterest: user.hasLiveStreamInterest,
         hasOnlineEventInterest: user.hasOnlineEventInterest,
-        hasInPersonEventInterest: user.hasInPersonEventInterest,
+        hasOpenToRelocation: user.hasOpenToRelocation,
+        hasOpenToWork: user.hasOpenToWork,
+        hasPublicProfileEnabled: user.hasPublicProfileEnabled,
+        hasShoutOutsEnabled: user.hasShoutOutsEnabled,
+        hasSmallGroupInterest: user.hasSmallGroupInterest,
+        id: user.id,
+        nameFirst: user.nameFirst,
+        nameLast: user.nameLast,
+        profileBlurb: user.profileBlurb,
+        profileContactEmail: user.profileContactEmail,
+        profileCurrentJobCompany: user.profileCurrentJobCompany,
+        profileCurrentJobTitle: user.profileCurrentJobTitle,
+        profileGitHubUri: user.profileGitHubUri,
+        profileHighestDegree: user.profileHighestDegree,
+        profileHomepageUri: user.profileHomepageUri,
+        profileLinkedInUri: user.profileLinkedInUri,
+        profileTopNetworkingReasons: user.profileTopNetworkingReasons,
+        profileTopSkills: user.profileTopSkills,
+        profileYearsOfExperience: user.profileYearsOfExperience,
+        residenceCountry: user.residenceCountry,
+        residenceUSState: user.residenceUSState,
         subscription: {
           tier: subscription.tier,
           type: subscription.type,
         },
       }
 
-      return UserSettingsSchema.parse(settings)
+      return UserGetSettingsSchema.parse(settings)
     })
 
     return result
@@ -393,7 +396,7 @@ export const userRouter = createTRPCRouter({
           profileCurrentJobCompany: input.profileCurrentJobCompany,
           profileCurrentJobTitle: input.profileCurrentJobTitle,
           profileGitHubUri: input.profileGitHubUri?.trim() ?? null,
-          profileHighestDegree: input.profileHighestDegree,
+          profileHighestDegree: input.profileHighestDegree?.trim() ?? undefined,
           profileHomepageUri: input.profileHomepageUri?.trim() ?? null,
           profileLinkedInUri: input.profileLinkedInUri?.trim() ?? null,
           profileTopNetworkingReasons: input.profileTopNetworkingReasons,
@@ -420,6 +423,6 @@ export const userRouter = createTRPCRouter({
         subscription,
       }
 
-      return UserSettingsSchema.parse(settings)
+      return UserGetSettingsSchema.parse(settings)
     }),
 })
