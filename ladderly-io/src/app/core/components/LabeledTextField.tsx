@@ -1,5 +1,9 @@
 'use client'
-import { forwardRef, type ComponentPropsWithoutRef, type PropsWithoutRef } from 'react'
+import {
+  forwardRef,
+  type ComponentPropsWithoutRef,
+  type PropsWithoutRef,
+} from 'react'
 import { useField, type UseFieldConfig } from 'react-final-form'
 
 export interface LabeledTextFieldProps
@@ -18,11 +22,11 @@ export interface LabeledTextFieldProps
 export const LabeledTextField = forwardRef<
   HTMLInputElement,
   LabeledTextFieldProps
->(({ name, label, outerProps, fieldProps, labelProps, ...props }, ref) => {
+>(({ name, label, outerProps, fieldProps = {}, labelProps, ...props }, ref) => {
   const {
     input,
     meta: { touched, error, submitError, submitting },
-  } = useField(name, {
+  } = useField(String(name), {
     parse: (val) => String(val),
     ...fieldProps,
   })
