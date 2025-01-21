@@ -138,7 +138,7 @@ const UserChecklistItems: React.FC = () => {
               )}
             </div>
             {activeTooltip === item.id && item.checklistItem.detailText && (
-              <div className="absolute left-0 top-6 z-10 w-full max-w-sm rounded-lg border-4 border-ladderly-violet-700 bg-white p-3 shadow-lg ring-1 ring-black ring-opacity-5">
+              <div className="absolute left-0 top-6 z-10 w-full max-w-sm rounded-lg border-4 border-ladderly-violet-700/50 bg-white p-3 shadow-lg">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1">
                     {renderText(
