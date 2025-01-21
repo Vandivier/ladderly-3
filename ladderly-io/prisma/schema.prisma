@@ -29,18 +29,24 @@ model User {
   hasLiveStreamInterest    Boolean @default(false)
   hasOnlineEventInterest   Boolean @default(false)
   hasOpenToWork            Boolean @default(false)
+  hasOpenToRelocation      Boolean @default(false)
   hasPublicProfileEnabled  Boolean @default(false)
   hasShoutOutsEnabled      Boolean @default(false)
   hasSmallGroupInterest    Boolean @default(false)
 
-  profileBlurb        String?
-  profileContactEmail String?
-  profileGitHubUri    String?
-  profileHomepageUri  String?
-  profileLinkedInUri  String?
-  profilePicture      String  @default("")
-  residenceCountry    String  @default("")
-  residenceUSState    String  @default("")
+  profileBlurb                String?
+  profileContactEmail         String?
+  profileCurrentJobCompany    String   @default("")
+  profileCurrentJobTitle      String   @default("")
+  profileGitHubUri            String?
+  profileHomepageUri          String?
+  profileLinkedInUri          String?
+  profileTopNetworkingReasons String[]
+  profileTopSkills            String[]
+  profileYearsOfExperience    String   @default("")
+  profilePicture              String   @default("")
+  residenceCountry            String   @default("")
+  residenceUSState            String   @default("")
 
   accounts           Account[]
   authoredVotables   Votable[]           @relation("AuthoredVotables")
@@ -189,14 +195,14 @@ model Checklist {
 }
 
 model Subscription {
-  id            Int             @id @default(autoincrement())
-  userId        Int
-  user          User            @relation(fields: [userId], references: [id])
-  tier          PaymentTierEnum @default(FREE)
-  type          String          @default("ACCOUNT_PLAN")
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  stripeCustomerId String?
+  id                   Int             @id @default(autoincrement())
+  userId               Int
+  user                 User            @relation(fields: [userId], references: [id])
+  tier                 PaymentTierEnum @default(FREE)
+  type                 String          @default("ACCOUNT_PLAN")
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  stripeCustomerId     String?
   stripeSubscriptionId String?
 
   @@unique([userId, type])
