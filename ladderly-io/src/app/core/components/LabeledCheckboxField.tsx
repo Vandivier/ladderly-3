@@ -29,7 +29,7 @@ export const LabeledCheckboxField = forwardRef<
       name,
       label,
       outerProps,
-      fieldProps,
+      fieldProps = {},
       labelProps = defaultCheckboxFieldLabelProps,
       ...props
     },
@@ -38,7 +38,7 @@ export const LabeledCheckboxField = forwardRef<
     const {
       input,
       meta: { touched, error, submitError, submitting },
-    } = useField(name, {
+    } = useField(String(name), {
       type: 'checkbox',
       ...fieldProps,
     })

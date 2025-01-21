@@ -39,7 +39,7 @@ export default async function SettingsPage() {
 
             <Link
               className="mt-4 block text-ladderly-violet-700 underline"
-              href={`/blog/2024-02-16-user-settings` as any}
+              href={`/blog/2024-02-16-user-settings`}
             >
               Learn More About User Settings
             </Link>
