@@ -43,7 +43,7 @@ model User {
   profileLinkedInUri          String?
   profileTopNetworkingReasons String[]
   profileTopSkills            String[]
-  profileYearsOfExperience    String   @default("")
+  profileYearsOfExperience    Int?
   profilePicture              String   @default("")
   residenceCountry            String   @default("")
   residenceUSState            String   @default("")
