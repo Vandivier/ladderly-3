@@ -5,8 +5,8 @@ import styles from 'src/styles/Home.module.css'
 const HomePageSkeleton = () => (
   <div className={styles.wrapper}>
     <div className="mx-auto my-6 flex animate-pulse flex-wrap gap-0 rounded-lg bg-frost p-2 sm:flex-nowrap sm:gap-16">
-      <div className="m-auto block h-[270px] w-[270px] rounded-lg bg-gray-300 shadow-lg sm:hidden"></div>
-      <div className="m-6 hidden h-[330px] w-[330px] rounded-lg bg-gray-300 shadow-lg sm:block"></div>
+      <div className="m-auto block size-[270px] rounded-lg bg-gray-300 shadow-lg sm:hidden"></div>
+      <div className="m-6 hidden size-[330px] rounded-lg bg-gray-300 shadow-lg sm:block"></div>
       <div className="w-full">
         <div className="mb-4 h-8 w-3/4 rounded bg-gray-300"></div>
         <div className="space-y-3">
