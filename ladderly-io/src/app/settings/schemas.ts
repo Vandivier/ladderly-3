@@ -36,7 +36,8 @@ const optionalLinkedInUriValidator = z
   .nullable()
   .optional()
 
-export const UpdateSettingsSchema = z.object({
+// form schema is parsed into trpc schema in onSubmit
+export const UpdateSettingsFormSchema = z.object({
   email: z.string().email(),
   emailBackup: optionalEmailValidator,
   emailStripe: optionalEmailValidator,
@@ -59,7 +60,7 @@ export const UpdateSettingsSchema = z.object({
   profileTopNetworkingReasons: z.array(z.string()).default([]),
   profileTopServices: z.array(z.string()).default([]),
   profileTopSkills: z.array(z.string()).default([]),
-  profileYearsOfExperience: z.number().nullable(),
+  profileYearsOfExperience: z.string().nullable().optional(),
   residenceCountry: z.string().optional().default(''),
   residenceUSState: z.string().optional().default(''),
 })

@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { UpdateSettingsSchema } from 'src/app/settings/schemas'
+import { UpdateSettingsFormSchema } from 'src/app/settings/schemas'
 import type { z } from 'zod'
 import { Form, type FormProps } from '~/app/core/components/Form'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
@@ -13,14 +13,14 @@ import { USStateDropdown } from './USStateDropdown'
 export { FORM_ERROR } from '~/app/core/components/Form'
 
 type SettingsFormProps = {
-  initialValues: z.infer<typeof UpdateSettingsSchema>
-  onSubmit: FormProps<typeof UpdateSettingsSchema>['onSubmit']
+  initialValues: z.infer<typeof UpdateSettingsFormSchema>
+  onSubmit: FormProps<typeof UpdateSettingsFormSchema>['onSubmit']
 }
 
 export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
   return (
     <Form
-      schema={UpdateSettingsSchema}
+      schema={UpdateSettingsFormSchema}
       initialValues={initialValues}
       onSubmit={onSubmit}
     >
@@ -107,9 +107,29 @@ export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
           type="text"
         />
 
+        <LabeledTextField
+          name="profileYearsOfExperience"
+          label="Years of Experience"
+          outerProps={{ className: 'mt-2' }}
+          placeholder="Years of Experience"
+          type="number"
+        />
+
+        <LabeledChipCollection
+          name="profileTopNetworkingReasons"
+          label="Top Networking Reasons"
+          outerProps={{ className: 'mt-2' }}
+        />
+
         <LabeledChipCollection
           name="profileTopServices"
           label="Top Services"
+          outerProps={{ className: 'mt-2' }}
+        />
+
+        <LabeledChipCollection
+          name="profileTopSkills"
+          label="Top Skills"
           outerProps={{ className: 'mt-2' }}
         />
 
