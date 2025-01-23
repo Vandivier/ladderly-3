@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import type { z } from 'zod'
 import type { UpdateSettingsSchema } from '~/app/settings/schemas'
+import { UpdateUserSettingsSchema } from '~/server/schemas'
 import { api } from '~/trpc/react'
 import { SettingsForm } from './SettingsForm'
 
@@ -50,7 +51,7 @@ export function SettingsFormWrapper({
   })
 
   const handleSubmit = async (values: FormValues) => {
-    const sanitizedValues = {
+    const sanitizedValues = UpdateUserSettingsSchema.parse({
       ...values,
       emailBackup: values.emailBackup ?? null,
       emailStripe: values.emailStripe ?? null,
@@ -61,7 +62,11 @@ export function SettingsFormWrapper({
       profileGitHubUri: values.profileGitHubUri ?? null,
       profileHomepageUri: values.profileHomepageUri ?? null,
       profileLinkedInUri: values.profileLinkedInUri ?? null,
-    }
+      profileTopNetworkingReasons: values.profileTopNetworkingReasons ?? [],
+      profileTopServices: values.profileTopServices ?? [],
+      profileTopSkills: values.profileTopSkills ?? [],
+      profileYearsOfExperience: values.profileYearsOfExperience ?? null,
+    })
 
     updateSettings(sanitizedValues)
   }

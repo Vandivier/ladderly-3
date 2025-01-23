@@ -56,7 +56,10 @@ export const UpdateSettingsSchema = z.object({
   profileGitHubUri: optionalGitHubUriValidator,
   profileHomepageUri: uriValidator,
   profileLinkedInUri: optionalLinkedInUriValidator,
+  profileTopNetworkingReasons: z.array(z.string()).default([]),
   profileTopServices: z.array(z.string()).default([]),
+  profileTopSkills: z.array(z.string()).default([]),
+  profileYearsOfExperience: z.number().nullable(),
   residenceCountry: z.string().optional().default(''),
   residenceUSState: z.string().optional().default(''),
 })
