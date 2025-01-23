@@ -22,7 +22,7 @@ const tiersOrder = {
 } as const
 
 // Define the settings input type
-export const UpdateSettingsSchema = z.object({
+export const UpdateUserSettingsSchema = z.object({
   email: z.string(),
   emailBackup: z.string().optional(),
   emailStripe: z.string().optional(),
@@ -52,7 +52,7 @@ export const UpdateSettingsSchema = z.object({
 })
 
 // Define the settings output type
-export const UserGetSettingsSchema = UpdateSettingsSchema.extend({
+export const GetUserSettingsSchema = UpdateUserSettingsSchema.extend({
   id: z.number(),
   emailBackup: z.string().nullable(),
   emailStripe: z.string().optional(),
@@ -67,6 +67,7 @@ export const UserGetSettingsSchema = UpdateSettingsSchema.extend({
   profileHomepageUri: z.string().nullable(),
   profileLinkedInUri: z.string().nullable(),
   profileTopNetworkingReasons: z.array(z.string()).nullable(),
+  profileTopServices: z.array(z.string()).nullable(),
   profileTopSkills: z.array(z.string()).nullable(),
   profileYearsOfExperience: z.number().nullable(),
   subscription: z.object({
@@ -75,7 +76,7 @@ export const UserGetSettingsSchema = UpdateSettingsSchema.extend({
   }),
 })
 
-export type UserSettings = z.infer<typeof UserGetSettingsSchema>
+export type UserSettings = z.infer<typeof GetUserSettingsSchema>
 export type UserWithSubscriptions = User & { subscriptions: Subscription[] }
 export type UserWithSubscriptionsOrZero =
   | UserWithSubscriptions
@@ -335,6 +336,7 @@ export const userRouter = createTRPCRouter({
         profileLinkedInUri: user.profileLinkedInUri,
         profileTopNetworkingReasons: user.profileTopNetworkingReasons,
         profileTopSkills: user.profileTopSkills,
+        profileTopServices: user.profileTopServices,
         profileYearsOfExperience: user.profileYearsOfExperience,
         residenceCountry: user.residenceCountry,
         residenceUSState: user.residenceUSState,
@@ -344,14 +346,14 @@ export const userRouter = createTRPCRouter({
         },
       }
 
-      return UserGetSettingsSchema.parse(settings)
+      return GetUserSettingsSchema.parse(settings)
     })
 
     return result
   }),
 
   updateSettings: protectedProcedure
-    .input(UpdateSettingsSchema)
+    .input(UpdateUserSettingsSchema)
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
       const email = input.email.toLowerCase().trim()
@@ -423,6 +425,6 @@ export const userRouter = createTRPCRouter({
         subscription,
       }
 
-      return UserGetSettingsSchema.parse(settings)
+      return GetUserSettingsSchema.parse(settings)
     }),
 })
