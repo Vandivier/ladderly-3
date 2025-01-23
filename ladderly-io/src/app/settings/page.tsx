@@ -3,12 +3,10 @@ import { Suspense } from 'react'
 import { api } from '~/trpc/server'
 import { LargeCard } from '~/app/core/components/LargeCard'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
-import {
-  SettingsFormWrapper,
-  type UserSettings,
-} from './components/SettingsFormWrapper'
+import { SettingsFormWrapper } from './components/SettingsFormWrapper'
 import { redirect } from 'next/navigation'
 import { PaymentTierEnum } from '@prisma/client'
+import { UserSettingsFormValues } from '~/server/schemas'
 
 export const metadata = {
   title: 'Settings',
@@ -16,7 +14,8 @@ export const metadata = {
 
 export default async function SettingsPage() {
   try {
-    const settings = (await api.user.getSettings()) as UserSettings
+    const rawSettings = await api.user.getSettings()
+    const settings = UserSettingsFormValues.parse(rawSettings)
     const isPremium = settings.subscription.tier === PaymentTierEnum.FREE
 
     return (
@@ -52,6 +51,8 @@ export default async function SettingsPage() {
       </LadderlyPageWrapper>
     )
   } catch (error) {
+    // redirect unauthorized users to home page
+    console.error(error)
     redirect('/')
   }
 }

@@ -1,47 +1,34 @@
-// app/settings/SettingsForm.tsx
+// app/settings/components/SettingsFormWrapper.tsx
 
 'use client'
 
-import type { PaymentTierEnum } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import type { z } from 'zod'
 import { UpdateSettingsFormSchema } from '~/app/settings/schemas'
-import { UpdateUserSettingsSchema } from '~/server/schemas'
+import {
+  UpdateUserSettingsSchema,
+  UserSettingsFormValuesType,
+} from '~/server/schemas'
 import { api } from '~/trpc/react'
 import { SettingsForm } from './SettingsForm'
 
-// Base form values from schema
 type FormValues = z.infer<typeof UpdateSettingsFormSchema>
-
-// Settings type that matches the API response
-export type UserSettings = FormValues & {
-  id: number
-  createdAt: Date
-  updatedAt: Date
-  adminNotes: string
-  emailVerified: Date | null
-  hashedPassword: string | null
-  uuid: string
-  subscription: {
-    type: string
-    tier: PaymentTierEnum
-  }
-}
-
 interface SettingsFormWrapperProps {
-  initialSettings: UserSettings
+  initialSettings: UserSettingsFormValuesType
 }
 
 export function SettingsFormWrapper({
   initialSettings,
 }: SettingsFormWrapperProps) {
-  const [settings, setSettings] = useState<UserSettings>(initialSettings)
+  const [settings, setSettings] =
+    useState<UserSettingsFormValuesType>(initialSettings)
   const router = useRouter()
   const { mutate: updateSettings } = api.user.updateSettings.useMutation({
     onSuccess: (updatedSettings) => {
       setSettings(
-        (prev: any) => ({ ...prev, ...updatedSettings }) as UserSettings,
+        (prev: any) =>
+          ({ ...prev, ...updatedSettings }) as UserSettingsFormValuesType,
       )
       alert('Updated successfully.')
       router.refresh()

@@ -65,6 +65,15 @@ export const GetUserSettingsSchema = UpdateUserSettingsSchema.extend({
   }),
 })
 
+export const UserSettingsFormValues = GetUserSettingsSchema.extend({
+  profileYearsOfExperience: z
+    .number()
+    .nullable()
+    .optional()
+    .transform((val) => (val === null ? '' : String(val))),
+})
+
+export type UserSettingsFormValuesType = z.infer<typeof UserSettingsFormValues>
 export type UserSettings = z.infer<typeof GetUserSettingsSchema>
 export type UserWithSubscriptions = User & { subscriptions: Subscription[] }
 export type UserWithSubscriptionsOrZero =
