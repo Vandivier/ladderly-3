@@ -90,13 +90,24 @@ export const userRouter = createTRPCRouter({
         skip: z.number(),
         take: z.number(),
         searchTerm: z.string().optional(),
+        openToWork: z.boolean().optional(),
+        hasContact: z.boolean().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { skip, take, searchTerm } = input
+      const { skip, take, searchTerm, openToWork, hasContact } = input
 
       const where = {
         hasPublicProfileEnabled: true,
+        ...(openToWork ? { hasOpenToWork: true } : {}),
+        ...(hasContact
+          ? {
+              OR: [
+                { profileContactEmail: { not: null } },
+                { profileLinkedInUri: { not: null } },
+              ],
+            }
+          : {}),
         ...(searchTerm
           ? {
               OR: [
