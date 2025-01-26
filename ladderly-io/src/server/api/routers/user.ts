@@ -92,10 +92,20 @@ export const userRouter = createTRPCRouter({
         searchTerm: z.string().optional(),
         openToWork: z.boolean().optional(),
         hasContact: z.boolean().optional(),
+        hasNetworking: z.boolean().optional(),
+        hasServices: z.boolean().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { skip, take, searchTerm, openToWork, hasContact } = input
+      const {
+        skip,
+        take,
+        searchTerm,
+        openToWork,
+        hasContact,
+        hasNetworking,
+        hasServices,
+      } = input
       const lowerCaseSearchTerm = searchTerm?.toLowerCase()
 
       const where = {
@@ -107,6 +117,20 @@ export const userRouter = createTRPCRouter({
                 { profileContactEmail: { not: null } },
                 { profileLinkedInUri: { not: null } },
               ],
+            }
+          : {}),
+        ...(hasNetworking
+          ? {
+              profileTopNetworkingReasons: {
+                isEmpty: false,
+              },
+            }
+          : {}),
+        ...(hasServices
+          ? {
+              profileTopServices: {
+                isEmpty: false,
+              },
             }
           : {}),
         ...(searchTerm && lowerCaseSearchTerm

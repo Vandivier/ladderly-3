@@ -27,6 +27,8 @@ interface User {
   profileYearsOfExperience: number | null
   profileHighestDegree: string | null
   profileCurrentJobTitle: string | null
+  profileTopNetworkingReasons: string[]
+  profileTopServices: string[]
 }
 
 interface FilterChipProps {
@@ -59,6 +61,8 @@ export default function ClientCommunityPage() {
   const searchTerm = searchParams?.get('q') ?? ''
   const openToWork = searchParams?.get('openToWork') === 'true'
   const hasContact = searchParams?.get('hasContact') === 'true'
+  const hasNetworking = searchParams?.get('hasNetworking') === 'true'
+  const hasServices = searchParams?.get('hasServices') === 'true'
 
   const updateFilters = (updates: Record<string, string | null>) => {
     const params = new URLSearchParams(searchParams?.toString() ?? '')
@@ -84,12 +88,22 @@ export default function ClientCommunityPage() {
     updateFilters({ hasContact: hasContact ? null : 'true' })
   }
 
+  const toggleHasNetworking = () => {
+    updateFilters({ hasNetworking: hasNetworking ? null : 'true' })
+  }
+
+  const toggleHasServices = () => {
+    updateFilters({ hasServices: hasServices ? null : 'true' })
+  }
+
   const { data, isLoading } = api.user.getPaginatedUsers.useQuery({
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
     searchTerm,
     openToWork,
     hasContact,
+    hasNetworking,
+    hasServices,
   })
 
   const goToPreviousPage = () => {
@@ -129,76 +143,128 @@ export default function ClientCommunityPage() {
         >
           Has Contact Info
         </FilterChip>
+        <FilterChip
+          active={hasNetworking}
+          onClick={toggleHasNetworking}
+          className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-800"
+        >
+          Has Networking Interests
+        </FilterChip>
+        <FilterChip
+          active={hasServices}
+          onClick={toggleHasServices}
+          className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800"
+        >
+          Offers Services
+        </FilterChip>
       </div>
 
-      <ul className="my-4 space-y-4">
-        {users.map((user: User) => (
-          <li key={user.id} className="rounded-lg border border-gray-200 p-4">
-            <div className="flex flex-col gap-2">
-              {/* Name and Job Title */}
-              <div>
-                <Link
-                  href={`/community/${user.id}`}
-                  className="text-lg font-semibold hover:text-blue-600"
-                >
-                  {user.nameFirst ? user.nameFirst : `User ${user.id}`}
-                  {user.nameLast ? ` ${user.nameLast}` : ''}
-                </Link>
-                {user.profileCurrentJobTitle && (
-                  <span className="ml-2 text-gray-600">
-                    • {user.profileCurrentJobTitle}
-                  </span>
-                )}
-              </div>
-
-              {/* Status Chips */}
-              <div className="flex flex-wrap gap-2">
-                {user.hasOpenToWork && (
-                  <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">
-                    Open to Work
-                  </span>
-                )}
-                {user.profileYearsOfExperience && (
-                  <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
-                    YOE: {user.profileYearsOfExperience}
-                  </span>
-                )}
-                {user.profileHighestDegree && (
-                  <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-800">
-                    {user.profileHighestDegree}
-                  </span>
-                )}
-                {(user.profileContactEmail || user.profileLinkedInUri) && (
-                  <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-800">
-                    {user.profileContactEmail && user.profileLinkedInUri
-                      ? 'Email + LinkedIn'
-                      : user.profileContactEmail
-                        ? 'Email'
-                        : 'LinkedIn'}
-                  </span>
-                )}
-              </div>
-
-              {/* Skills */}
-              {user.profileTopSkills?.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {user.profileTopSkills
-                    .slice(0, 3)
-                    .sort()
-                    .map((skill, index) => (
-                      <span
-                        key={index}
-                        className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-800"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+      {users.length > 0 ? (
+        <ul className="my-4 space-y-4">
+          {users.map((user: User) => (
+            <li key={user.id} className="rounded-lg border border-gray-200 p-4">
+              <div className="flex flex-col gap-2">
+                {/* Name and Job Title */}
+                <div>
+                  <Link
+                    href={`/community/${user.id}`}
+                    className="text-lg font-semibold hover:text-blue-600"
+                  >
+                    {user.nameFirst ? user.nameFirst : `User ${user.id}`}
+                    {user.nameLast ? ` ${user.nameLast}` : ''}
+                  </Link>
+                  {user.profileCurrentJobTitle && (
+                    <span className="ml-2 text-gray-600">
+                      • {user.profileCurrentJobTitle}
+                    </span>
+                  )}
                 </div>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+
+                {/* Status Chips */}
+                <div className="flex flex-wrap gap-2">
+                  {user.hasOpenToWork && (
+                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">
+                      Open to Work
+                    </span>
+                  )}
+                  {user.profileYearsOfExperience && (
+                    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
+                      YOE: {user.profileYearsOfExperience}
+                    </span>
+                  )}
+                  {user.profileHighestDegree && (
+                    <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-800">
+                      {user.profileHighestDegree}
+                    </span>
+                  )}
+                  {(user.profileContactEmail || user.profileLinkedInUri) && (
+                    <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-800">
+                      {user.profileContactEmail && user.profileLinkedInUri
+                        ? 'Email + LinkedIn'
+                        : user.profileContactEmail
+                          ? 'Email'
+                          : 'LinkedIn'}
+                    </span>
+                  )}
+                </div>
+
+                {/* Skills */}
+                {user.profileTopSkills?.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {user.profileTopSkills
+                      .slice(0, 3)
+                      .sort()
+                      .map((skill, index) => (
+                        <span
+                          key={index}
+                          className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-800"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                  </div>
+                )}
+
+                {/* Services */}
+                {user.profileTopServices?.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {user.profileTopServices
+                      .slice(0, 3)
+                      .sort()
+                      .map((service, index) => (
+                        <span
+                          key={index}
+                          className="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-800"
+                        >
+                          {service}
+                        </span>
+                      ))}
+                  </div>
+                )}
+
+                {/* Networking Interests */}
+                {user.profileTopNetworkingReasons?.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {user.profileTopNetworkingReasons
+                      .slice(0, 3)
+                      .sort()
+                      .map((reason, index) => (
+                        <span
+                          key={index}
+                          className="rounded-full bg-purple-100 px-3 py-1 text-xs text-purple-800"
+                        >
+                          {reason}
+                        </span>
+                      ))}
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="p-2">No Results Found.</p>
+      )}
 
       <div className="mt-6 flex gap-4">
         {hasPreviousPage && (
