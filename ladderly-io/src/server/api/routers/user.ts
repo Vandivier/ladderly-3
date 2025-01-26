@@ -96,6 +96,7 @@ export const userRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const { skip, take, searchTerm, openToWork, hasContact } = input
+      const lowerCaseSearchTerm = searchTerm?.toLowerCase()
 
       const where = {
         hasPublicProfileEnabled: true,
@@ -108,7 +109,7 @@ export const userRouter = createTRPCRouter({
               ],
             }
           : {}),
-        ...(searchTerm
+        ...(searchTerm && lowerCaseSearchTerm
           ? {
               OR: [
                 {
@@ -127,6 +128,21 @@ export const userRouter = createTRPCRouter({
                   nameLast: {
                     contains: searchTerm,
                     mode: Prisma.QueryMode.insensitive,
+                  },
+                },
+                {
+                  profileTopSkills: {
+                    has: lowerCaseSearchTerm,
+                  },
+                },
+                {
+                  profileTopServices: {
+                    has: lowerCaseSearchTerm,
+                  },
+                },
+                {
+                  profileTopNetworkingReasons: {
+                    has: lowerCaseSearchTerm,
                   },
                 },
               ],
