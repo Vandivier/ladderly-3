@@ -98,9 +98,7 @@ async function UserProfile({ userId }: { userId: number }) {
               ))}
             </ul>
           </>
-        ) : (
-          <p>This user has not completed any checklists.</p>
-        )}
+        ) : null}
       </main>
     )
   } catch (error) {
