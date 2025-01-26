@@ -54,7 +54,7 @@ const LabeledChipCollection: React.FC<LabeledChipCollectionProps> = ({
     <div {...outerProps}>
       <label>
         {label}
-        <Field name={name} initialValue={[]}>
+        <Field name={name}>
           {({ input }) => (
             <div className="mt-1">
               <div className="flex flex-wrap gap-2 rounded-md border border-purple-500 p-2">
