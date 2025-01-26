@@ -1,28 +1,28 @@
-import { Suspense } from "react";
-import { LargeCard } from "~/app/core/components/LargeCard";
-import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
-import { api } from "~/trpc/server";
-import { TRPCError } from "@trpc/server";
+import { Suspense } from 'react'
+import { LargeCard } from '~/app/core/components/LargeCard'
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
+import { api } from '~/trpc/server'
+import { TRPCError } from '@trpc/server'
 
 // TODO: can we include user name in the title?
 export const metadata = {
-  title: "Public Profile",
-};
+  title: 'Public Profile',
+}
 
 interface ChecklistType {
-  id: number;
+  id: number
   checklist: {
-    name: string;
-    version: string;
-  };
-  createdAt: Date;
-  isComplete: boolean;
-  updatedAt: Date;
+    name: string
+    version: string
+  }
+  createdAt: Date
+  isComplete: boolean
+  updatedAt: Date
 }
 
 async function UserProfile({ userId }: { userId: number }) {
   try {
-    const user = await api.user.getUser({ id: userId });
+    const user = await api.user.getUser({ id: userId })
 
     return (
       <main>
@@ -33,7 +33,7 @@ async function UserProfile({ userId }: { userId: number }) {
         <div className="my-4">
           <p>Blurb: {user.profileBlurb}</p>
           <p>
-            Contact Email:{" "}
+            Contact Email:{' '}
             <a
               href={`mailto:${user.profileContactEmail}`}
               className="text-blue-600 hover:text-blue-700"
@@ -43,7 +43,7 @@ async function UserProfile({ userId }: { userId: number }) {
           </p>
           {user.profileGitHubUri ? (
             <p>
-              GitHub:{" "}
+              GitHub:{' '}
               <a
                 href={user.profileGitHubUri}
                 target="_blank"
@@ -56,7 +56,7 @@ async function UserProfile({ userId }: { userId: number }) {
           ) : null}
           {user.profileHomepageUri ? (
             <p>
-              Homepage:{" "}
+              Homepage:{' '}
               <a
                 href={user.profileHomepageUri}
                 target="_blank"
@@ -69,7 +69,7 @@ async function UserProfile({ userId }: { userId: number }) {
           ) : null}
           {user.profileLinkedInUri ? (
             <p>
-              LinkedIn:{" "}
+              LinkedIn:{' '}
               <a
                 href={user.profileLinkedInUri}
                 target="_blank"
@@ -91,7 +91,7 @@ async function UserProfile({ userId }: { userId: number }) {
                   <p>Checklist: {checklist.checklist.name}</p>
                   <p>Version: {checklist.checklist.version}</p>
                   <p>
-                    Completed at:{" "}
+                    Completed at:{' '}
                     {new Date(checklist.updatedAt).toLocaleString()}
                   </p>
                 </li>
@@ -102,26 +102,26 @@ async function UserProfile({ userId }: { userId: number }) {
           <p>This user has not completed any checklists.</p>
         )}
       </main>
-    );
+    )
   } catch (error) {
     if (error instanceof TRPCError) {
-      if (error.code === "UNAUTHORIZED") {
-        return <div>This profile is private.</div>;
+      if (error.code === 'UNAUTHORIZED') {
+        return <div>This profile is private.</div>
       }
-      if (error.code === "NOT_FOUND") {
-        return <div>User not found.</div>;
+      if (error.code === 'NOT_FOUND') {
+        return <div>User not found.</div>
       }
     }
-    return <div>An error occurred while loading this profile.</div>;
+    return <div>An error occurred while loading this profile.</div>
   }
 }
 
 export default async function ShowUserPage({
   params,
 }: {
-  params: { userId: string };
+  params: { userId: string }
 }) {
-  const userId = parseInt(params.userId);
+  const userId = parseInt(params.userId)
 
   return (
     <LadderlyPageWrapper>
@@ -131,5 +131,5 @@ export default async function ShowUserPage({
         </Suspense>
       </LargeCard>
     </LadderlyPageWrapper>
-  );
+  )
 }
