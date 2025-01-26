@@ -9,6 +9,10 @@ export const tiersOrder = {
   PREMIUM: 2,
 } as const
 
+const lowercaseStringList = z
+  .array(z.string())
+  .transform((val) => val?.map((reason) => reason.toLowerCase()))
+
 // Define the settings input type
 export const UpdateUserSettingsSchema = z.object({
   email: z.string(),
@@ -32,10 +36,10 @@ export const UpdateUserSettingsSchema = z.object({
   profileHighestDegree: z.string().nullable(),
   profileHomepageUri: z.string().nullable(),
   profileLinkedInUri: z.string().nullable(),
-  profileTopNetworkingReasons: z.array(z.string()).nullable(),
-  profileTopServices: z.array(z.string()).nullable(),
-  profileTopSkills: z.array(z.string()).nullable(),
-  profileYearsOfExperience: z.number().nullable(), // TODO: optional or nullable?
+  profileTopNetworkingReasons: lowercaseStringList,
+  profileTopServices: lowercaseStringList,
+  profileTopSkills: lowercaseStringList,
+  profileYearsOfExperience: z.number().nullable(),
   residenceCountry: z.string(),
   residenceUSState: z.string(),
 })
