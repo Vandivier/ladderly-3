@@ -106,35 +106,64 @@ export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
           placeholder="LinkedIn URL"
           type="text"
         />
+        <section>
+          <h4 className="mt-8 text-lg">Skills and Experience</h4>
+          <LabeledTextField
+            name="profileCurrentJobCompany"
+            label="Current Company"
+            outerProps={{ className: 'mt-2' }}
+            placeholder="Current Company"
+            type="text"
+          />
+          <LabeledTextField
+            name="profileCurrentJobTitle"
+            label="Current Job Title"
+            outerProps={{ className: 'mt-2' }}
+            placeholder="Current Job Title"
+            type="text"
+          />
+          <LabeledTextField
+            name="profileHighestDegree"
+            label="Highest Completed Degree"
+            outerProps={{ className: 'mt-2' }}
+            placeholder="High School, Some College, Associate's, PhD, etc."
+            type="text"
+          />
 
-        <LabeledTextField
-          name="profileYearsOfExperience"
-          label="Years of Experience"
-          outerProps={{ className: 'mt-2' }}
-          placeholder="Years of Experience"
-          type="number"
-        />
+          <LabeledTextField
+            name="profileYearsOfExperience"
+            label="Years of Experience"
+            outerProps={{ className: 'mt-2' }}
+            placeholder="Years of Experience"
+            type="number"
+          />
 
-        <LabeledChipCollection
-          name="profileTopNetworkingReasons"
-          label="Top Networking Reasons"
-          outerProps={{ className: 'mt-2' }}
-        />
+          <LabeledChipCollection
+            name="profileTopNetworkingReasons"
+            label="Top Networking Reasons"
+            outerProps={{ className: 'mt-2' }}
+          />
 
-        <LabeledChipCollection
-          name="profileTopServices"
-          label="Top Services"
-          outerProps={{ className: 'mt-2' }}
-        />
+          <LabeledChipCollection
+            name="profileTopServices"
+            label="Top Services"
+            outerProps={{ className: 'mt-2' }}
+          />
 
-        <LabeledChipCollection
-          name="profileTopSkills"
-          label="Top Skills"
-          outerProps={{ className: 'mt-2' }}
-        />
+          <LabeledChipCollection
+            name="profileTopSkills"
+            label="Top Skills"
+            outerProps={{ className: 'mt-2' }}
+          />
 
-        <CountryDropdown outerProps={{ className: 'mt-2 items-baseline' }} />
-        <USStateDropdown outerProps={{ className: 'mt-2 items-baseline' }} />
+          <LabeledCheckboxField
+            name="hasOpenToRelocation"
+            label="Open To Relocation"
+            outerProps={{ className: 'mt-2' }}
+          />
+          <CountryDropdown outerProps={{ className: 'mt-2 items-baseline' }} />
+          <USStateDropdown outerProps={{ className: 'mt-2 items-baseline' }} />
+        </section>
       </section>
       <section>
         <h3 className="mt-8 text-xl">Features and Interests</h3>
