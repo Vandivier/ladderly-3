@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import type { z } from 'zod'
 import type { UpdateSettingsFormSchema } from '~/app/settings/schemas'
-import {
+import type {
   UpdateUserSettingsSchema,
   UserSettingsFormValuesType,
 } from '~/server/schemas'
