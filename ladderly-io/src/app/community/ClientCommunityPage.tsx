@@ -25,8 +25,8 @@ interface User {
   profileLinkedInUri: string | null
   profileTopSkills: string[]
   profileYearsOfExperience: number | null
-  profileHighestDegree: string | null
-  profileCurrentJobTitle: string | null
+  profileHighestDegree?: string | null
+  profileCurrentJobTitle?: string | null
   profileTopNetworkingReasons: string[]
   profileTopServices: string[]
 }
