@@ -23,6 +23,9 @@ interface ChecklistType {
 async function UserProfile({ userId }: { userId: number }) {
   try {
     const user = await api.user.getUser({ id: userId })
+    const hasExperienceInfo =
+      (user.profileYearsOfExperience ?? 0) > 0 &&
+      (user.profileCurrentJobTitle ?? user.profileCurrentJobCompany)
 
     return (
       <main className="space-y-6">
@@ -168,9 +171,7 @@ async function UserProfile({ userId }: { userId: number }) {
         )}
 
         {/* Current Position */}
-        {(user.profileYearsOfExperience ||
-          user.profileCurrentJobTitle ||
-          user.profileCurrentJobCompany) && (
+        {hasExperienceInfo && (
           <div>
             <h2 className="text-xl font-semibold">Experience</h2>
             {(user.profileCurrentJobTitle || user.profileCurrentJobCompany) && (

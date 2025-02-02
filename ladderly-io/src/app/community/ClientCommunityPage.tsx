@@ -5,7 +5,10 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 import { api } from '~/trpc/react'
-import { CommunityMemberListItem, PublicUser } from './CommunityMemberListItem'
+import {
+  CommunityMemberListItem,
+  type PublicUser,
+} from './CommunityMemberListItem'
 
 const ITEMS_PER_PAGE = 10
 

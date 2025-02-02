@@ -1,6 +1,6 @@
 import { PaymentTierEnum, type Subscription, type User } from '@prisma/client'
 import { z } from 'zod'
-import { NULL_RESULT_TRPC_INT } from './constants'
+import type { NULL_RESULT_TRPC_INT } from './constants'
 
 export const tiersOrder = {
   FREE: 0,
