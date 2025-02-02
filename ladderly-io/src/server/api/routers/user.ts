@@ -1,11 +1,6 @@
 // src/server/api/routers/user.ts
 
-import {
-  PaymentTierEnum,
-  Prisma,
-  type Subscription,
-  type User,
-} from '@prisma/client'
+import { PaymentTierEnum, Prisma } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
@@ -14,69 +9,14 @@ import {
   publicProcedure,
 } from '~/server/api/trpc'
 import { NULL_RESULT_TRPC_INT } from '~/server/constants'
-
-const tiersOrder = {
-  FREE: 0,
-  PAY_WHAT_YOU_CAN: 1,
-  PREMIUM: 2,
-} as const
-
-// Define the settings input type
-export const UpdateSettingsSchema = z.object({
-  email: z.string(),
-  emailBackup: z.string().nullable(),
-  emailStripe: z.string().nullable(),
-  nameFirst: z.string().nullable(),
-  nameLast: z.string().nullable(),
-  hasOpenToWork: z.boolean(),
-  hasShoutOutsEnabled: z.boolean(),
-  profileBlurb: z.string().nullable(),
-  profileContactEmail: z.string().nullable(),
-  profileGitHubUri: z.string().nullable(),
-  profileHomepageUri: z.string().nullable(),
-  profileLinkedInUri: z.string().nullable(),
-  residenceCountry: z.string(),
-  residenceUSState: z.string(),
-  hasPublicProfileEnabled: z.boolean(),
-  hasSmallGroupInterest: z.boolean(),
-  hasLiveStreamInterest: z.boolean(),
-  hasOnlineEventInterest: z.boolean(),
-  hasInPersonEventInterest: z.boolean(),
-})
-
-// Define the settings output type
-export const UserSettingsSchema = z.object({
-  id: z.number(),
-  email: z.string(),
-  emailBackup: z.string().nullable(),
-  emailStripe: z.string().nullable(),
-  nameFirst: z.string().nullable(),
-  nameLast: z.string().nullable(),
-  hasOpenToWork: z.boolean(),
-  hasShoutOutsEnabled: z.boolean(),
-  profileBlurb: z.string().nullable(),
-  profileContactEmail: z.string().nullable(),
-  profileGitHubUri: z.string().nullable(),
-  profileHomepageUri: z.string().nullable(),
-  profileLinkedInUri: z.string().nullable(),
-  residenceCountry: z.string(),
-  residenceUSState: z.string(),
-  hasPublicProfileEnabled: z.boolean(),
-  hasSmallGroupInterest: z.boolean(),
-  hasLiveStreamInterest: z.boolean(),
-  hasOnlineEventInterest: z.boolean(),
-  hasInPersonEventInterest: z.boolean(),
-  subscription: z.object({
-    tier: z.nativeEnum(PaymentTierEnum),
-    type: z.string(),
-  }),
-})
-
-export type UserSettings = z.infer<typeof UserSettingsSchema>
-export type UserWithSubscriptions = User & { subscriptions: Subscription[] }
-export type UserWithSubscriptionsOrZero =
-  | UserWithSubscriptions
-  | typeof NULL_RESULT_TRPC_INT
+import {
+  GetUserSettingsSchema,
+  tiersOrder,
+  UpdateUserSettingsSchema,
+  type UserSettings,
+  type UserWithSubscriptions,
+  type UserWithSubscriptionsOrZero,
+} from '~/server/schemas'
 
 export const userRouter = createTRPCRouter({
   getCurrentUser: publicProcedure.query(
@@ -150,14 +90,50 @@ export const userRouter = createTRPCRouter({
         skip: z.number(),
         take: z.number(),
         searchTerm: z.string().optional(),
+        openToWork: z.boolean().optional(),
+        hasContact: z.boolean().optional(),
+        hasNetworking: z.boolean().optional(),
+        hasServices: z.boolean().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { skip, take, searchTerm } = input
+      const {
+        skip,
+        take,
+        searchTerm,
+        openToWork,
+        hasContact,
+        hasNetworking,
+        hasServices,
+      } = input
+      const lowerCaseSearchTerm = searchTerm?.toLowerCase()
 
       const where = {
         hasPublicProfileEnabled: true,
-        ...(searchTerm
+        ...(openToWork ? { hasOpenToWork: true } : {}),
+        ...(hasContact
+          ? {
+              OR: [
+                { profileContactEmail: { not: null } },
+                { profileLinkedInUri: { not: null } },
+              ],
+            }
+          : {}),
+        ...(hasNetworking
+          ? {
+              profileTopNetworkingReasons: {
+                isEmpty: false,
+              },
+            }
+          : {}),
+        ...(hasServices
+          ? {
+              profileTopServices: {
+                isEmpty: false,
+              },
+            }
+          : {}),
+        ...(searchTerm && lowerCaseSearchTerm
           ? {
               OR: [
                 {
@@ -178,6 +154,21 @@ export const userRouter = createTRPCRouter({
                     mode: Prisma.QueryMode.insensitive,
                   },
                 },
+                {
+                  profileTopSkills: {
+                    has: lowerCaseSearchTerm,
+                  },
+                },
+                {
+                  profileTopServices: {
+                    has: lowerCaseSearchTerm,
+                  },
+                },
+                {
+                  profileTopNetworkingReasons: {
+                    has: lowerCaseSearchTerm,
+                  },
+                },
               ],
             }
           : {}),
@@ -192,16 +183,22 @@ export const userRouter = createTRPCRouter({
           id: true,
           uuid: true,
           createdAt: true,
-          nameFirst: true,
-          nameLast: true,
+          hasOpenToWork: true,
           hasPublicProfileEnabled: true,
           hasShoutOutsEnabled: true,
-          hasOpenToWork: true,
+          nameFirst: true,
+          nameLast: true,
           profileBlurb: true,
           profileContactEmail: true,
           profileGitHubUri: true,
           profileHomepageUri: true,
           profileLinkedInUri: true,
+          profileTopNetworkingReasons: true,
+          profileTopServices: true,
+          profileTopSkills: true,
+          profileYearsOfExperience: true,
+          residenceCountry: true,
+          residenceUSState: true,
         },
       })
 
@@ -234,14 +231,23 @@ export const userRouter = createTRPCRouter({
           uuid: true,
           nameFirst: true,
           nameLast: true,
+          hasOpenToRelocation: true,
+          hasOpenToWork: true,
           hasPublicProfileEnabled: true,
           hasShoutOutsEnabled: true,
-          hasOpenToWork: true,
           profileBlurb: true,
           profileContactEmail: true,
+          profileCurrentJobCompany: true,
+          profileCurrentJobTitle: true,
           profileGitHubUri: true,
+          profileHighestDegree: true,
           profileHomepageUri: true,
           profileLinkedInUri: true,
+          profileTopNetworkingReasons: true,
+          profileTopServices: true,
+          profileTopSkills: true,
+          profileYearsOfExperience: true,
+          residenceCountry: true,
           userChecklists: {
             where: { isComplete: true },
             take: 3,
@@ -308,40 +314,48 @@ export const userRouter = createTRPCRouter({
       }
 
       const settings: UserSettings = {
-        id: user.id,
         email: user.email,
         emailBackup: user.emailBackup,
         emailStripe: user.emailStripe,
-        nameFirst: user.nameFirst,
-        nameLast: user.nameLast,
-        hasOpenToWork: user.hasOpenToWork,
-        hasShoutOutsEnabled: user.hasShoutOutsEnabled,
-        profileBlurb: user.profileBlurb,
-        profileContactEmail: user.profileContactEmail,
-        profileGitHubUri: user.profileGitHubUri,
-        profileHomepageUri: user.profileHomepageUri,
-        profileLinkedInUri: user.profileLinkedInUri,
-        residenceCountry: user.residenceCountry,
-        residenceUSState: user.residenceUSState,
-        hasPublicProfileEnabled: user.hasPublicProfileEnabled,
-        hasSmallGroupInterest: user.hasSmallGroupInterest,
+        hasInPersonEventInterest: user.hasInPersonEventInterest,
         hasLiveStreamInterest: user.hasLiveStreamInterest,
         hasOnlineEventInterest: user.hasOnlineEventInterest,
-        hasInPersonEventInterest: user.hasInPersonEventInterest,
+        hasOpenToRelocation: user.hasOpenToRelocation,
+        hasOpenToWork: user.hasOpenToWork,
+        hasPublicProfileEnabled: user.hasPublicProfileEnabled,
+        hasShoutOutsEnabled: user.hasShoutOutsEnabled,
+        hasSmallGroupInterest: user.hasSmallGroupInterest,
+        id: user.id,
+        nameFirst: user.nameFirst,
+        nameLast: user.nameLast,
+        profileBlurb: user.profileBlurb,
+        profileContactEmail: user.profileContactEmail,
+        profileCurrentJobCompany: user.profileCurrentJobCompany,
+        profileCurrentJobTitle: user.profileCurrentJobTitle,
+        profileGitHubUri: user.profileGitHubUri,
+        profileHighestDegree: user.profileHighestDegree,
+        profileHomepageUri: user.profileHomepageUri,
+        profileLinkedInUri: user.profileLinkedInUri,
+        profileTopNetworkingReasons: user.profileTopNetworkingReasons,
+        profileTopSkills: user.profileTopSkills,
+        profileTopServices: user.profileTopServices,
+        profileYearsOfExperience: user.profileYearsOfExperience,
+        residenceCountry: user.residenceCountry,
+        residenceUSState: user.residenceUSState,
         subscription: {
           tier: subscription.tier,
           type: subscription.type,
         },
       }
 
-      return UserSettingsSchema.parse(settings)
+      return GetUserSettingsSchema.parse(settings)
     })
 
     return result
   }),
 
   updateSettings: protectedProcedure
-    .input(UpdateSettingsSchema)
+    .input(UpdateUserSettingsSchema)
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
       const email = input.email.toLowerCase().trim()
@@ -363,6 +377,8 @@ export const userRouter = createTRPCRouter({
         })
       }
 
+      const profileContactEmail =
+        input.profileContactEmail?.toLowerCase().trim() ?? null
       const user = await ctx.db.user.update({
         where: { id: userId },
         data: {
@@ -370,8 +386,9 @@ export const userRouter = createTRPCRouter({
           emailBackup,
           emailStripe,
           hasInPersonEventInterest: input.hasInPersonEventInterest,
-          hasOnlineEventInterest: input.hasOnlineEventInterest,
           hasLiveStreamInterest: input.hasLiveStreamInterest,
+          hasOnlineEventInterest: input.hasOnlineEventInterest,
+          hasOpenToRelocation: input.hasOpenToRelocation,
           hasOpenToWork: input.hasOpenToWork,
           hasPublicProfileEnabled: input.hasPublicProfileEnabled,
           hasShoutOutsEnabled: input.hasShoutOutsEnabled,
@@ -379,11 +396,17 @@ export const userRouter = createTRPCRouter({
           nameFirst: input.nameFirst?.trim() ?? '',
           nameLast: input.nameLast?.trim() ?? '',
           profileBlurb: input.profileBlurb?.trim() ?? null,
-          profileContactEmail:
-            input.profileContactEmail?.toLowerCase().trim() ?? null,
+          profileContactEmail,
+          profileCurrentJobCompany: input.profileCurrentJobCompany,
+          profileCurrentJobTitle: input.profileCurrentJobTitle,
           profileGitHubUri: input.profileGitHubUri?.trim() ?? null,
+          profileHighestDegree: input.profileHighestDegree?.trim() ?? undefined,
           profileHomepageUri: input.profileHomepageUri?.trim() ?? null,
           profileLinkedInUri: input.profileLinkedInUri?.trim() ?? null,
+          profileTopNetworkingReasons: input.profileTopNetworkingReasons ?? [],
+          profileTopServices: input.profileTopServices ?? [],
+          profileTopSkills: input.profileTopSkills ?? [],
+          profileYearsOfExperience: input.profileYearsOfExperience,
           residenceCountry: input.residenceCountry?.trim() ?? '',
           residenceUSState: input.residenceUSState?.trim() ?? '',
         },
@@ -405,6 +428,6 @@ export const userRouter = createTRPCRouter({
         subscription,
       }
 
-      return UserSettingsSchema.parse(settings)
+      return GetUserSettingsSchema.parse(settings)
     }),
 })

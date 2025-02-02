@@ -1,7 +1,6 @@
 // src/app/community/page.tsx
 
 import { Suspense } from 'react'
-import { LargeCard } from '~/app/core/components/LargeCard'
 import { SmallCard } from '~/app/core/components/SmallCard'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import ClientCommunityPage from './ClientCommunityPage'
@@ -19,8 +18,9 @@ export default function CommunityPage() {
       </SmallCard>
 
       <SmallCard className="mx-4 mt-4">
-        <h1 className="text-2xl font-bold text-gray-800">Member Profiles</h1>
-        <h3>Sorted by Signup Date</h3>
+        <h1 className="mb-4 text-2xl font-bold text-gray-800">
+          Member Profiles
+        </h1>
         <Suspense fallback="Loading...">
           <ClientCommunityPage />
         </Suspense>

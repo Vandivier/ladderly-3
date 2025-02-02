@@ -1,45 +1,35 @@
-// app/settings/SettingsForm.tsx
+// app/settings/components/SettingsFormWrapper.tsx
 
 'use client'
 
-import type { PaymentTierEnum } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import type { z } from 'zod'
-import type { UpdateSettingsSchema } from '~/app/settings/schemas'
+import type { UpdateSettingsFormSchema } from '~/app/settings/schemas'
+import {
+  UpdateUserSettingsSchema,
+  type UserSettingsFormValuesType,
+} from '~/server/schemas'
 import { api } from '~/trpc/react'
 import { SettingsForm } from './SettingsForm'
 
-// Base form values from schema
-type FormValues = z.infer<typeof UpdateSettingsSchema>
-
-// Settings type that matches the API response
-export type UserSettings = FormValues & {
-  id: number
-  createdAt: Date
-  updatedAt: Date
-  adminNotes: string
-  emailVerified: Date | null
-  hashedPassword: string | null
-  uuid: string
-  subscription: {
-    type: string
-    tier: PaymentTierEnum
-  }
-}
-
+type FormValues = z.infer<typeof UpdateSettingsFormSchema>
 interface SettingsFormWrapperProps {
-  initialSettings: UserSettings
+  initialSettings: UserSettingsFormValuesType
 }
 
 export function SettingsFormWrapper({
   initialSettings,
 }: SettingsFormWrapperProps) {
-  const [settings, setSettings] = useState<UserSettings>(initialSettings)
+  const [settings, setSettings] =
+    useState<UserSettingsFormValuesType>(initialSettings)
   const router = useRouter()
   const { mutate: updateSettings } = api.user.updateSettings.useMutation({
     onSuccess: (updatedSettings) => {
-      setSettings((prev) => ({ ...prev, ...updatedSettings }) as UserSettings)
+      setSettings(
+        (prev: any) =>
+          ({ ...prev, ...updatedSettings }) as UserSettingsFormValuesType,
+      )
       alert('Updated successfully.')
       router.refresh()
     },
@@ -50,18 +40,33 @@ export function SettingsFormWrapper({
   })
 
   const handleSubmit = async (values: FormValues) => {
-    const sanitizedValues = {
+    const maybeYearsOfExperience = parseInt(
+      values.profileYearsOfExperience ?? '',
+    )
+    const profileYearsOfExperience = isNaN(maybeYearsOfExperience)
+      ? null
+      : maybeYearsOfExperience
+
+    const sanitizedValues = UpdateUserSettingsSchema.parse({
       ...values,
       emailBackup: values.emailBackup ?? null,
       emailStripe: values.emailStripe ?? null,
+      hasOpenToRelocation: values.hasOpenToRelocation ?? false,
       nameFirst: values.nameFirst ?? null,
       nameLast: values.nameLast ?? null,
       profileBlurb: values.profileBlurb ?? null,
       profileContactEmail: values.profileContactEmail ?? null,
+      profileCurrentJobCompany: values.profileCurrentJobCompany ?? '',
+      profileCurrentJobTitle: values.profileCurrentJobTitle ?? '',
       profileGitHubUri: values.profileGitHubUri ?? null,
+      profileHighestDegree: values.profileHighestDegree ?? null,
       profileHomepageUri: values.profileHomepageUri ?? null,
       profileLinkedInUri: values.profileLinkedInUri ?? null,
-    }
+      profileTopNetworkingReasons: values.profileTopNetworkingReasons ?? [],
+      profileTopServices: values.profileTopServices ?? [],
+      profileTopSkills: values.profileTopSkills ?? [],
+      profileYearsOfExperience,
+    })
 
     updateSettings(sanitizedValues)
   }

@@ -36,7 +36,8 @@ const optionalLinkedInUriValidator = z
   .nullable()
   .optional()
 
-export const UpdateSettingsSchema = z.object({
+// form schema is parsed into trpc schema in onSubmit
+export const UpdateSettingsFormSchema = z.object({
   email: z.string().email(),
   emailBackup: optionalEmailValidator,
   emailStripe: optionalEmailValidator,
@@ -44,6 +45,7 @@ export const UpdateSettingsSchema = z.object({
   hasInPersonEventInterest: z.boolean().default(false),
   hasLiveStreamInterest: z.boolean().default(false),
   hasOnlineEventInterest: z.boolean().default(false),
+  hasOpenToRelocation: z.boolean().default(false),
   hasOpenToWork: z.boolean().default(false),
   hasPublicProfileEnabled: z.boolean().default(false),
   hasShoutOutsEnabled: z.boolean().default(false),
@@ -53,9 +55,16 @@ export const UpdateSettingsSchema = z.object({
   nameLast: z.string().nullable().optional(),
   profileBlurb: z.string().nullable().optional(),
   profileContactEmail: optionalEmailValidator,
+  profileCurrentJobCompany: z.string(),
+  profileCurrentJobTitle: z.string(),
   profileGitHubUri: optionalGitHubUriValidator,
+  profileHighestDegree: z.string().nullable().optional(),
   profileHomepageUri: uriValidator,
   profileLinkedInUri: optionalLinkedInUriValidator,
-  residenceCountry: z.string().optional().default(""),
-  residenceUSState: z.string().optional().default(""),
+  profileTopNetworkingReasons: z.array(z.string()).default([]),
+  profileTopServices: z.array(z.string()).default([]),
+  profileTopSkills: z.array(z.string()).default([]),
+  profileYearsOfExperience: z.string().nullable().optional(),
+  residenceCountry: z.string().optional().default(''),
+  residenceUSState: z.string().optional().default(''),
 })

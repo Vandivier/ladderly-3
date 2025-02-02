@@ -1,10 +1,10 @@
 'use server'
 
-import React from 'react'
-import Link from 'next/link'
-import { api } from '~/trpc/server'
-import type { UserWithSubscriptionsOrZero } from '~/server/api/routers/user'
 import { PaymentTierEnum, type Subscription } from '@prisma/client'
+import Link from 'next/link'
+import React from 'react'
+import type { UserWithSubscriptionsOrZero } from '~/server/schemas'
+import { api } from '~/trpc/server'
 
 type Benefit = {
   paragraphContent?: React.ReactNode
