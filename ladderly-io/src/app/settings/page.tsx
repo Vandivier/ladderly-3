@@ -8,6 +8,8 @@ import { redirect } from 'next/navigation'
 import { PaymentTierEnum } from '@prisma/client'
 import { UserSettingsFormValues } from '~/server/schemas'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: 'Settings',
 }
