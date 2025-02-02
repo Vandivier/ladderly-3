@@ -1,4 +1,4 @@
-import type { PaymentTierEnum, Subscription, User } from '@prisma/client'
+import { PaymentTierEnum, type Subscription, type User } from '@prisma/client'
 import { z } from 'zod'
 import { NULL_RESULT_TRPC_INT } from './constants'
 
