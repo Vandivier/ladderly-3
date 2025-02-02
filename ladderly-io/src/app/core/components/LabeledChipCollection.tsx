@@ -55,7 +55,11 @@ const LabeledChipCollection: React.FC<LabeledChipCollectionProps> = ({
       <label>
         {label}
         <Field name={name}>
-          {({ input }) => (
+          {({
+            input,
+          }: {
+            input: { value: string[]; onChange: (value: string[]) => void }
+          }) => (
             <div className="mt-1">
               <div className="flex flex-wrap gap-2 rounded-md border border-purple-500 p-2">
                 {input.value.map((chip: string, index: number) => (
