@@ -11,12 +11,12 @@ import {
 import { NULL_RESULT_TRPC_INT } from '~/server/constants'
 import {
   GetUserSettingsSchema,
+  tiersOrder,
   UpdateUserSettingsSchema,
-  UserSettings,
-  UserWithSubscriptions,
-  UserWithSubscriptionsOrZero,
+  type UserSettings,
+  type UserWithSubscriptions,
+  type UserWithSubscriptionsOrZero,
 } from '~/server/schemas'
-import { tiersOrder } from '~/server/schemas'
 
 export const userRouter = createTRPCRouter({
   getCurrentUser: publicProcedure.query(
