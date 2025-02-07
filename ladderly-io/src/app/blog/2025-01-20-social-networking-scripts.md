@@ -1,6 +1,6 @@
 ---
 title: '17. Social Networking Scripts'
-date: 1/20/25
+date: 2/6/25
 author: John Vandivier
 ---
 
@@ -27,6 +27,12 @@ The goal of these scripts is to improve the odds of achieving any of several pos
 2. "Punch up down and sideways" by connecting with people at, above, and below your level.
 3. When you identify a target role, immediately send connection requests to multiple people at the company. Don't wait for one person to time out before connecting with others.
 4. When you identify a target role, apply a 2 day timebox in order to seek a referral before applying. If you don't get a referral, apply anyway.
+
+## Slack and Discord Networking
+
+1. When you join a new server, if there's an introduction channel, use it! Make sure to post your LinkedIn profile URL, if allowable, so that you are actually growing your network.
+2. Once you meet folks on a server, leverage that as a a reason to connect on LinkedIn. Use the "Add Note" feature to send a message, and directly state "Hello from [SERVER NAME]!"
+3. You can browse Ladderly.io Public Profiles and many members will explicitly mention their [Discord handle and networking interests](https://www.ladderly.io/community?page=0&hasNetworking=true)! These can range from practice interviews to casual conversations. Feel free to use this material in your initial outreach message. [Don't just say hello](https://nohello.net/en/)!
 
 ## Main Cold Referral Seeking Script
 
