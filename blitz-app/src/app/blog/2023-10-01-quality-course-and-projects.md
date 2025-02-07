@@ -22,6 +22,11 @@ Identify a prestigious Coding Bootcamp by following this procedure, based on res
 2. Browse all schools
 3. Sort by Most Reviewed
 4. Find a school with a rating of 4.25/5 or higher and a minimum of 400 reviews
+
+   a. This is called the Prestige Rule for Coding Bootcamps.
+   b. The top bootcamp officially recommended by Ladderly.io is CareerFoundry. CareerFoundry offers guaranteed job placement and [Ladderly.io/perks](https://www.ladderly.io/perks) offers an exclusive 10% discount.
+   c. CareerFoundry meets the Prestige Rule and meets an even higher bar called the [First Resilience Rule](https://www.youtube.com/watch?v=HyIPNNU83NU&t=2700).
+
 5. Prefer schools with a job placement guarantee and other options suitable to you such as schedule compatibility and affordability.
 
 ## The Big 4 Projects
