@@ -20,9 +20,9 @@ The goal of these scripts is to improve the odds of achieving any of several pos
 
 1. Message people through LinkedIn by using "Add Note" when you send a connection request.
 
-    a. Do NOT simply "Connect" and then send a message days later if they happen to accept your messageless request.
+   a. Do NOT simply "Connect" and then send a message days later if they happen to accept your messageless request.
 
-    b. Do modify templates as needed to respect the character limit of the Add Note feature. Casual expressions like "ur" over "you are" are fine.
+   b. Do modify templates as needed to respect the character limit of the Add Note feature. Casual expressions like "ur" over "you are" are fine.
 
 2. "Punch up down and sideways" by connecting with people at, above, and below your level.
 3. When you identify a target role, immediately send connection requests to multiple people at the company. Don't wait for one person to time out before connecting with others.
@@ -146,6 +146,12 @@ Remove deprioritization from an employer after the shorter time window among two
 2. Three Job Search Cycles
 
 On a related note, Ladderly recommends considering a new job search every six months, if for no other reason than to maintain interview skill.
+
+## Post-Application Script: Resume Floater
+
+Hi [CONTACT NAME]! I just applied to the below [ROLE NAME] role at [COMPANY NAME]. I wanted to reach out and introduce myself personally - I think this role would be a great fit! I recently [MENTION RELEVANT ACHIEVEMENT]. My resume is attached for convenience. Thanks for your time!
+
+[PASTE JOB POST URL]
 
 ## Follow-Up Script
 
