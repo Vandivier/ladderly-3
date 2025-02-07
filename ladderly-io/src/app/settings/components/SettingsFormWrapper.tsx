@@ -58,6 +58,7 @@ export function SettingsFormWrapper({
       profileContactEmail: values.profileContactEmail ?? null,
       profileCurrentJobCompany: values.profileCurrentJobCompany ?? '',
       profileCurrentJobTitle: values.profileCurrentJobTitle ?? '',
+      profileDiscordHandle: values.profileDiscordHandle ?? null,
       profileGitHubUri: values.profileGitHubUri ?? null,
       profileHighestDegree: values.profileHighestDegree ?? null,
       profileHomepageUri: values.profileHomepageUri ?? null,

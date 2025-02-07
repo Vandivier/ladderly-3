@@ -38,6 +38,7 @@ model User {
   profileContactEmail         String?
   profileCurrentJobCompany    String   @default("")
   profileCurrentJobTitle      String   @default("")
+  profileDiscordHandle        String?
   profileGitHubUri            String?
   profileHomepageUri          String?
   profileLinkedInUri          String?

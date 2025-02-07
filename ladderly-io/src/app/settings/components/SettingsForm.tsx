@@ -86,6 +86,13 @@ export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
           type="email"
         />
         <LabeledTextField
+          name="profileDiscordHandle"
+          label="Discord Handle"
+          outerProps={{ className: 'mt-2' }}
+          placeholder="Discord Handle"
+          type="text"
+        />
+        <LabeledTextField
           name="profileGitHubUri"
           label="GitHub URL"
           outerProps={{ className: 'mt-2' }}
