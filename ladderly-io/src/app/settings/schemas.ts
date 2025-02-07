@@ -57,6 +57,7 @@ export const UpdateSettingsFormSchema = z.object({
   profileContactEmail: optionalEmailValidator,
   profileCurrentJobCompany: z.string(),
   profileCurrentJobTitle: z.string(),
+  profileDiscordHandle: z.string().nullable().optional(),
   profileGitHubUri: optionalGitHubUriValidator,
   profileHighestDegree: z.string().nullable().optional(),
   profileHomepageUri: uriValidator,

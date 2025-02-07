@@ -12,6 +12,7 @@ export type PublicUser = {
   hasOpenToWork: boolean
   profileBlurb: string | null
   profileContactEmail: string | null
+  profileDiscordHandle: string | null
   profileGitHubUri: string | null
   profileHomepageUri: string | null
   profileLinkedInUri: string | null

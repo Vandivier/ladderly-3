@@ -76,6 +76,19 @@ async function UserProfile({ userId }: { userId: number }) {
                 </a>
               </p>
             )}
+            {user.profileDiscordHandle && (
+              <p>
+                <span className="font-medium">Discord: </span>
+                <a
+                  href={`https://discord.com/users/${user.profileDiscordHandle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700"
+                >
+                  {user.profileDiscordHandle}
+                </a>
+              </p>
+            )}
             {user.profileGitHubUri && (
               <p>
                 <span className="font-medium">GitHub: </span>
