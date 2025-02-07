@@ -12,6 +12,9 @@ Three key long-term networking techniques include:
 
 1. Participating in [social and professional communities](/blog/2025-01-22-endorsed-communities). Attending relevant events like conferences.
 2. Learning, building, and creating content online. Remaining active on major social media platforms.
+
+   a. Review [this playlist of recommended content creation videos](https://www.youtube.com/playlist?list=PL4hsXTgWARMzZRMexcC-yaWkSIdN3qb4O), and in particular [this video on Content Creation for Career Acceleration](https://www.youtube.com/watch?v=RWTaRvF7sSU&list=PL4hsXTgWARMzZRMexcC-yaWkSIdN3qb4O&index=1&t=212s).
+
 3. Intentionally capturing and formalizing LinkedIn connections based on those prior items.
 
 Ladderly recommends applying these strategies from the first day of learning. That's why joining the Discord is [our first recommended step on the basic checklist](https://www.ladderly.io/checklists/my-basic-checklist), far before anything related to code.
