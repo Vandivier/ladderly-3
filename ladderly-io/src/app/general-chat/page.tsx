@@ -1,4 +1,3 @@
-import Script from 'next/script'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 
 export const metadata = {
