@@ -12,6 +12,7 @@ import { LadderlyHelpsBlock } from './LadderlyHelpsBlock'
 import { TestimonialBlock } from './TestimonialBlock'
 
 import styles from '~/styles/Home.module.css'
+import Script from 'next/script'
 
 // note: do not extract `DARK_MODE_STANDARD_CLASSES` out of file.
 // it is duplicated intentionally between files to ensure tailwind classes are bundled
@@ -51,6 +52,31 @@ const AdvancedChecklistContentBlock = ({
 
 const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
   <LadderlyPageWrapper>
+    <div
+      id="chatbot-subheading"
+      className="bg-pink-300 text-center text-ladderly-dark-purple-2 dark:bg-ladderly-dark-purple-2 dark:text-white"
+    >
+      <h2>
+        New: 5 Ladderly AI Tools!{' '}
+        <Link
+          className="mx-2 font-bold underline"
+          href="/blog/2025-02-07-ladderly-chat-ai"
+        >
+          Read the announcement
+        </Link>
+        or
+        <Link className="mx-2 font-bold underline" href="/general-chat">
+          chat now!
+        </Link>
+      </h2>
+
+      <Script id="chatbase-script">
+        {`
+        // ref: https://www.chatbase.co/docs/developer-guides/identity-verification
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="NnbDY2pCxZROnVKZwpjaW";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+        `}
+      </Script>
+    </div>
     <main style={{ padding: '0rem 1rem' }}>
       <div className={styles.wrapper}>
         <div
