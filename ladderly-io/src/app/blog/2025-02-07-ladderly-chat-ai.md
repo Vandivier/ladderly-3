@@ -6,7 +6,7 @@ author: John Vandivier
 
 Ladderly.io is pleased to announce five new AI tools for you to use!
 
-This article describes each tool with its area of focus. The first tool is available at zero cost today!
+This article describes each tool with its area of focus. The first tool is available at zero cost today. [Try General Consultant AI now!](https://ladderly.io/general-chat)
 
 Check back weekly as the other tools are released for premium members.
 
