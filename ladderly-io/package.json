@@ -81,7 +81,7 @@
     "typescript": "^5.7.3"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": "20.x"
   },
   "ct3aMetadata": {
     "initVersion": "7.36.2"
