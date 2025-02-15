@@ -52,6 +52,7 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",
     "server-only": "^0.0.1",
+    "sharp": "^0.33.5",
     "stripe": "^14.18.0",
     "superjson": "^2.2.1",
     "xml-beautifier": "^0.5.0",
