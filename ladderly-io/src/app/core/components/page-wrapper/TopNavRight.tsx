@@ -1,57 +1,60 @@
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import React, { useEffect } from "react";
-import { api } from "~/trpc/react";
-import { IconVerticalChevron } from "../icons/VerticalChevron";
-import { MenuContext } from "./MenuProvider";
+import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
+import React, { useEffect } from 'react'
+import { api } from '~/trpc/react'
+import { IconVerticalChevron } from '../icons/VerticalChevron'
+import { MenuContext } from './MenuProvider'
 import {
   AccountMenuItems,
   CommunityMenuItems,
   TOP_NAV_STANDARD_CLASSES,
   // TopHonorsMenuItems,
-} from "./TopNavSubmenu";
+} from './TopNavSubmenu'
 
-const TOP_NAV_RIGHT_SECTION_CLASSES = "ml-auto flex items-center space-x-6";
+const TOP_NAV_RIGHT_SECTION_CLASSES = 'ml-auto flex items-center space-x-6'
 
 export const TopNavRight = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const currentUserQuery = api.user.getCurrentUser.useQuery();
-  const currentUser = currentUserQuery.data;
-  const { setMenu, openMenuName } = React.useContext(MenuContext);
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const currentUserQuery = api.user.getCurrentUser.useQuery()
+  const currentUser = currentUserQuery.data
+  const { setMenu, openMenuName } = React.useContext(MenuContext)
 
   useEffect(() => {
-    const refreshCurrentUser = searchParams.get("refresh_current_user");
+    const refreshCurrentUser = searchParams.get('refresh_current_user')
 
-    if (refreshCurrentUser === "true") {
+    if (refreshCurrentUser === 'true') {
       // Remove the query parameter and refetch data
-      const newQuery = new URLSearchParams(searchParams);
-      newQuery.delete("refresh_current_user");
-      router.replace(`?${newQuery.toString()}`);
+      const newQuery = new URLSearchParams(searchParams)
+      newQuery.delete('refresh_current_user')
+      router.replace(`?${newQuery.toString()}`)
 
       // Refetch the current user
-      void currentUserQuery.refetch();
+      void currentUserQuery.refetch()
     }
-  }, [searchParams, currentUserQuery, router]);
+  }, [searchParams, currentUserQuery, router])
 
   const handleCommunityClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (openMenuName === "community") {
-      setMenu?.(null, "");
+    e.preventDefault()
+    if (openMenuName === 'community') {
+      setMenu?.(null, '')
     } else {
-      setMenu?.(<CommunityMenuItems />, "community");
+      setMenu?.(<CommunityMenuItems />, 'community')
     }
-  };
+  }
 
   const handleAccountClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (openMenuName === "account") {
-      setMenu?.(null, "");
+    e.preventDefault()
+    if (openMenuName === 'account') {
+      setMenu?.(null, '')
     } else if (currentUser) {
-      setMenu?.(<AccountMenuItems userId={currentUser.id.toString()} />, "account");
+      setMenu?.(
+        <AccountMenuItems userId={currentUser.id.toString()} />,
+        'account',
+      )
     }
-  };
+  }
 
   // const handleLeaderboardClick = (e: React.MouseEvent<HTMLButtonElement>) => {
   //   e.preventDefault();
@@ -74,6 +77,9 @@ export const TopNavRight = () => {
       <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
         Perks
       </Link>
+      <Link href="/chat" className={TOP_NAV_STANDARD_CLASSES}>
+        Chat
+      </Link>
       <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
         Blog
       </Link>
@@ -82,7 +88,7 @@ export const TopNavRight = () => {
         className={TOP_NAV_STANDARD_CLASSES}
       >
         Community
-        <IconVerticalChevron isPointingUp={openMenuName === "community"} />
+        <IconVerticalChevron isPointingUp={openMenuName === 'community'} />
       </button>
       {currentUser ? (
         <button
@@ -90,7 +96,7 @@ export const TopNavRight = () => {
           className={TOP_NAV_STANDARD_CLASSES}
         >
           Account
-          <IconVerticalChevron isPointingUp={openMenuName === "account"} />
+          <IconVerticalChevron isPointingUp={openMenuName === 'account'} />
         </button>
       ) : (
         <>
@@ -103,8 +109,8 @@ export const TopNavRight = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
 export const TopNavRightSkeleton = () => (
   <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
@@ -115,4 +121,4 @@ export const TopNavRightSkeleton = () => (
       Blog
     </Link>
   </div>
-);
+)
