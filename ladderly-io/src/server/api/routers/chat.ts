@@ -58,7 +58,7 @@ export const chatRouter = createTRPCRouter({
         }
 
         const response = await chat.sendMessage(lastMessage.parts[0].text)
-        const result = await response.response
+        const result = response.response
         return result.text()
       } catch (error) {
         console.error('Chat error:', error)
