@@ -47,7 +47,14 @@ let messageId = 0
 const generateMessageId = () => `msg_${messageId++}`
 
 export const ClientChat = () => {
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: generateMessageId(),
+      role: 'assistant',
+      content:
+        'Welcome to Ladderly Chat! You are currently using the default Gemini model. How can I help?',
+    },
+  ])
   const [input, setInput] = useState('')
 
   const chatMutation = api.chat.chat.useMutation({
