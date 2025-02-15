@@ -12,7 +12,8 @@
     "prisma.prisma",
     "stylelint.vscode-stylelint",
     "jmkrivocapich.drawfolderstructure",
-    "DavidAnson.vscode-markdownlint"
+    "DavidAnson.vscode-markdownlint",
+    "ms-vscode.cpptools"
   ],
   "unwantedRecommendations": []
 }
