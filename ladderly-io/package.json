@@ -4,7 +4,7 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "build": "npm run lint && node --experimental-strip-types scripts/generate-sitemap.ts && next build",
+    "build": "npm run lint && next build",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
