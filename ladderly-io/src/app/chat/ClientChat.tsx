@@ -49,13 +49,34 @@ const generateMessageId = () => `msg_${messageId++}`
 export const ClientChat = () => {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
 
-  const utils = api.useUtils()
+  const chatMutation = api.chat.chat.useMutation({
+    onSuccess: (response) => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: generateMessageId(),
+          role: 'assistant',
+          content: response,
+        },
+      ])
+    },
+    onError: (error) => {
+      console.error('Chat error:', error)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: generateMessageId(),
+          role: 'assistant',
+          content: 'Sorry, there was an error processing your request.',
+        },
+      ])
+    },
+  })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!input.trim() || isLoading) return
+    if (!input.trim() || chatMutation.isPending) return
 
     const userMessage: Message = {
       id: generateMessageId(),
@@ -65,60 +86,10 @@ export const ClientChat = () => {
 
     setMessages((prev) => [...prev, userMessage])
     setInput('')
-    setIsLoading(true)
 
-    try {
-      const subscription = utils.client.chat.streamChat.subscribe(
-        {
-          messages: [...messages, { role: 'user', content: input.trim() }],
-        },
-        {
-          onData: (data) => {
-            setMessages((prev) => {
-              const lastMessage = prev[prev.length - 1]
-              if (lastMessage?.role === 'assistant') {
-                // Update existing assistant message
-                return prev.map((msg) =>
-                  msg.id === lastMessage.id
-                    ? { ...msg, content: msg.content + data }
-                    : msg,
-                )
-              } else {
-                // Create new assistant message
-                return [
-                  ...prev,
-                  {
-                    id: generateMessageId(),
-                    role: 'assistant',
-                    content: data,
-                  },
-                ]
-              }
-            })
-          },
-          onError: (error) => {
-            console.error('Streaming error:', error)
-            setMessages((prev) => [
-              ...prev,
-              {
-                id: generateMessageId(),
-                role: 'assistant',
-                content: 'Sorry, there was an error processing your request.',
-              },
-            ])
-          },
-        },
-      )
-
-      // Cleanup subscription when done
-      return () => {
-        subscription.unsubscribe()
-        setIsLoading(false)
-      }
-    } catch (error) {
-      console.error('Chat error:', error)
-      setIsLoading(false)
-    }
+    chatMutation.mutate({
+      messages: [...messages, { role: 'user', content: input.trim() }],
+    })
   }
 
   return (
@@ -127,7 +98,7 @@ export const ClientChat = () => {
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
         ))}
-        {isLoading && (
+        {chatMutation.isPending && (
           <div className="container mx-auto max-w-3xl px-4 py-4">
             <div className="flex gap-2">
               <div className="h-2 w-2 animate-bounce rounded-full bg-gray-500 [animation-delay:-0.3s] dark:bg-gray-400"></div>
@@ -148,13 +119,13 @@ export const ClientChat = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message here..."
-              disabled={isLoading}
+              disabled={chatMutation.isPending}
               className="flex-1 rounded-lg border border-gray-300 bg-white p-3 text-gray-800 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-offset-gray-900"
             />
             <button
               type="submit"
               className="flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 dark:focus:ring-offset-gray-900"
-              disabled={!input.trim() || isLoading}
+              disabled={!input.trim() || chatMutation.isPending}
             >
               <Send className="h-5 w-5" />
             </button>

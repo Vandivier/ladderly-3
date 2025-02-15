@@ -2,14 +2,24 @@ import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { env } from '~/env'
-import { observable } from '@trpc/server/observable'
 import { TRPCError } from '@trpc/server'
 
+const SYSTEM_PROMPT = `You are Ladderly Chat, an AI assistant from the creators of Ladderly.io
+You are direct, friendly, and always aim to provide practical, actionable advice.
+You should:
+- Keep responses concise and to the point
+- Use examples when helpful
+- Encourage best practices
+- Be honest when you're not sure about something`
+
 const genAI = new GoogleGenerativeAI(env.GOOGLE_AI_API_KEY)
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+const model = genAI.getGenerativeModel({
+  model: 'gemini-1.5-flash',
+  systemInstruction: SYSTEM_PROMPT,
+})
 
 export const chatRouter = createTRPCRouter({
-  streamChat: publicProcedure
+  chat: publicProcedure
     .input(
       z.object({
         messages: z.array(
@@ -20,8 +30,7 @@ export const chatRouter = createTRPCRouter({
         ),
       }),
     )
-    .subscription(async ({ input }) => {
-      // Ensure we have messages
+    .mutation(async ({ input }) => {
       if (input.messages.length === 0) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -29,37 +38,34 @@ export const chatRouter = createTRPCRouter({
         })
       }
 
-      return observable<string>((emit) => {
-        const abortController = new AbortController()
+      const geminiMessages = input.messages.map((message) => ({
+        role: message.role === 'user' ? 'user' : 'model',
+        parts: [{ text: message.content }],
+      }))
 
-        const geminiMessages = input.messages.map((message) => ({
-          role: message.role === 'user' ? 'user' : 'model',
-          parts: [{ text: message.content }],
-        }))
+      try {
+        // Initialize chat with history
+        const chat = model.startChat({
+          history: geminiMessages.slice(0, -1),
+        })
 
-        void (async () => {
-          try {
-            const chat = model.startChat({
-              history: geminiMessages.slice(0, -1),
-            })
-
-            const lastMessage = geminiMessages[geminiMessages.length - 1]
-            if (!lastMessage) {
-              throw new Error('No message to send')
-            }
-
-            const response = await chat.sendMessage(lastMessage.parts[0].text)
-            const result = await response.response
-            emit.next(result.text())
-            emit.complete()
-          } catch (error) {
-            emit.error(error)
-          }
-        })()
-
-        return () => {
-          abortController.abort()
+        const lastMessage = geminiMessages[geminiMessages.length - 1]
+        if (!lastMessage?.parts?.[0]?.text) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'Invalid message format',
+          })
         }
-      })
+
+        const response = await chat.sendMessage(lastMessage.parts[0].text)
+        const result = await response.response
+        return result.text()
+      } catch (error) {
+        console.error('Chat error:', error)
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Failed to generate response',
+        })
+      }
     }),
 })
