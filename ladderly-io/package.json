@@ -11,6 +11,10 @@
     "db:studio": "prisma studio",
     "dev": "next dev",
     "install:vercel": "npm install && npm rebuild argon2 --build-from-source && npm run postinstall",
+    "vercel:build": "next build",
+    "vercel:local-build": "npm run install:vercel && npm run vercel:build",
+    "vercel:deploy-preview-from-local": "vercel deploy --cwd .. --yes --debug",
+    "vercel:preview": "npm run vercel:local-build && npm run vercel:deploy-preview-from-local",
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start"
@@ -53,6 +57,7 @@
     "server-only": "^0.0.1",
     "stripe": "^14.18.0",
     "superjson": "^2.2.1",
+    "vercel": "^41.1.4",
     "xml-beautifier": "^0.5.0",
     "zod": "^3.23.3"
   },
@@ -76,7 +81,7 @@
     "typescript": "^5.7.3"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.0.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.36.2"

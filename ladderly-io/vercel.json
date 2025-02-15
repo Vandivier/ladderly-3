@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "NODE_ENV__COMMENT": "NODE_ENV=production doesn't auto-deploy to prod env",
+    "NODE_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "NODE_VERSION": "20.x"
+    }
+  }
+}
