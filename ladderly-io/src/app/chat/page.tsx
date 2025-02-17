@@ -53,8 +53,8 @@ export default async function ChatPage() {
               className="text-blue-600 hover:underline"
             >
               upgrade to premium
-            </Link>
-            .
+            </Link>{' '}
+            - it's only $6/month!
           </p>
         </div>
       </LadderlyPageWrapper>
