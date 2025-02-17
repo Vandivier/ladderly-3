@@ -65,7 +65,7 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
           Read the announcement
         </Link>
         or
-        <Link className="mx-2 font-bold underline" href="/general-chat">
+        <Link className="mx-2 font-bold underline" href="/special-chat">
           chat now!
         </Link>
       </h2>
