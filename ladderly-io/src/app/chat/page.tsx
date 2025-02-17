@@ -54,7 +54,7 @@ export default async function ChatPage() {
             >
               upgrade to premium
             </Link>{' '}
-            - it's only $6/month!
+            - only $6/month!
           </p>
         </div>
       </LadderlyPageWrapper>
