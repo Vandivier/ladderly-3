@@ -6,7 +6,7 @@ author: John Vandivier
 
 Ladderly.io is pleased to announce five new AI tools for you to use!
 
-This article describes each tool with its area of focus. The first tool is available at zero cost today. [Try General Consultant AI now!](https://ladderly.io/general-chat)
+This article describes each tool with its area of focus. The first tool is available at zero cost today. [Try General Consultant AI now!](https://ladderly.io/special-chat)
 
 Check back weekly as the other tools are released for premium members.
 
@@ -22,7 +22,7 @@ You can ask the General Consultant AI anything, and you hopefully get some value
 
 This tool is available for free. It is trained on Ladderly.io's open source curriculum, the website, and an additional text corpus to answer frequently asked questions and provide certain features like quizzes.
 
-Try it out now at [ladderly.io/general-chat](https://ladderly.io/general-chat)! Ask the tool anything and it will try to answer or point you to another resource as appropriate. In this way it serves as a search tool on the entire Ladderly.io knowledge base - the website, social media content, the open source curriculum, and more!
+Try it out now at [ladderly.io/special-chat](https://ladderly.io/special-chat)! Ask the tool anything and it will try to answer or point you to another resource as appropriate. In this way it serves as a search tool on the entire Ladderly.io knowledge base - the website, social media content, the open source curriculum, and more!
 
 Here are some other use cases and suggested questions:
 
