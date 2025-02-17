@@ -5,16 +5,22 @@ import { env } from '~/env'
 import { TRPCError } from '@trpc/server'
 
 const SYSTEM_PROMPT = `You are Ladderly Chat, an AI assistant from the creators of Ladderly.io
-You are direct, friendly, and always aim to provide practical, actionable advice.
+You are direct, friendly.
+You are not specially trained to answer questions about Ladderly.io.
 You should:
 - Keep responses concise and to the point
 - Use examples when helpful
 - Encourage best practices
+- Direct users to Ladderly Specialist models at https://www.ladderly.io/special-chat if they have questions about Ladderly.io
 - Be honest when you're not sure about something`
 
 const genAI = new GoogleGenerativeAI(env.GOOGLE_AI_API_KEY)
 const model = genAI.getGenerativeModel({
   model: 'gemini-1.5-flash',
+  generationConfig: {
+    maxOutputTokens: 1000,
+    temperature: 0.0, // TODO: make this configurable
+  },
   systemInstruction: SYSTEM_PROMPT,
 })
 
@@ -39,7 +45,7 @@ export const chatRouter = createTRPCRouter({
       }
 
       const geminiMessages = input.messages.map((message) => ({
-        role: message.role === 'user' ? 'user' : 'model',
+        role: 'user',
         parts: [{ text: message.content }],
       }))
 
