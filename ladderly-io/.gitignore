@@ -47,3 +47,7 @@ yarn-error.log*
 
 # python
 .venv
+
+# temp files
+temp.*
+*-temp.*
