@@ -28,7 +28,7 @@ const plans: Plan[] = [
   {
     name: 'Premium',
     planId: 40,
-    price: '$40/mo',
+    price: '$6/mo',
     benefits: [
       { text: 'Video Course Access' },
       { text: 'Advanced Checklist Access' },
