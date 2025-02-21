@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { db } from '~/server/db'
 import { PaymentTierEnum } from '@prisma/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
@@ -58,33 +59,46 @@ export async function POST(req: Request) {
       case 'customer.subscription.deleted': {
         const subscription: Stripe.Subscription = event.data.object
         const userId = subscription.metadata?.userId
+        const subscriptionId = subscription.id
 
         if (!userId) {
-          throw new Error('No user ID found in subscription metadata')
+          console.log(
+            `No user ID found in subscription metadata for subscription: ${subscriptionId}`,
+          )
+          return NextResponse.json({ received: true })
         }
 
-        // Update existing subscription back to FREE
-        const updated = await db.subscription.update({
-          where: {
-            userId_type: {
-              userId: parseInt(userId),
-              type: 'ACCOUNT_PLAN',
+        try {
+          // Update existing subscription back to FREE
+          await db.subscription.update({
+            where: {
+              userId_type: {
+                userId: parseInt(userId),
+                type: 'ACCOUNT_PLAN',
+              },
             },
-          },
-          data: {
-            tier: PaymentTierEnum.FREE,
-            stripeCustomerId: null,
-            stripeSubscriptionId: null,
-          },
-        })
+            data: {
+              tier: PaymentTierEnum.FREE,
+              stripeCustomerId: null,
+              stripeSubscriptionId: null,
+            },
+          })
 
-        if (!updated) {
-          throw new Error(`No subscription found for user ID: ${userId}`)
+          console.log(
+            `Successfully downgraded subscription for user ${userId} to FREE`,
+          )
+        } catch (error) {
+          if (
+            error instanceof PrismaClientKnownRequestError &&
+            error.code === 'P2025'
+          ) {
+            console.log(
+              `Attempted to delete a subscription that was not found. User ID: ${userId}, Subscription ID: ${subscriptionId}`,
+            )
+            return NextResponse.json({ received: true })
+          }
+          throw error
         }
-
-        console.log(
-          `Successfully downgraded subscription for user ${userId} to FREE`,
-        )
         break
       }
 
