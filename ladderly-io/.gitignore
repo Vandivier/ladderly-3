@@ -51,3 +51,4 @@ yarn-error.log*
 # temp files
 temp.*
 *-temp.*
+temp/
