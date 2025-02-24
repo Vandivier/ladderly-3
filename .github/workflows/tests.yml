@@ -14,10 +14,10 @@ jobs:
         working-directory: ./ladderly-io
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '22'
           cache: 'npm'
@@ -32,8 +32,8 @@ jobs:
           OUTPUT=$(npm run test:cov)
           echo "$OUTPUT"
 
-          # Extract branch coverage using grep and awk
-          BRANCH_COVERAGE=$(echo "$OUTPUT" | grep "All files" | awk '{print $4}')
+          # Extract branch coverage using grep and awk (get second percentage)
+          BRANCH_COVERAGE=$(echo "$OUTPUT" | grep "All files" | awk -F'|' '{print $3}' | tr -d ' %')
 
           if [ -z "$BRANCH_COVERAGE" ]; then
             echo "Error: Could not find branch coverage in test output!"
@@ -41,7 +41,7 @@ jobs:
           fi
 
           if (( $(echo "$BRANCH_COVERAGE < 50" | bc -l) )); then
-            echo "Branch coverage ($BRANCH_COVERAGE%) is below minimum threshold (30%)"
+            echo "Branch coverage ($BRANCH_COVERAGE%) is below minimum threshold (50%)"
             exit 1
           fi
           echo "Branch coverage: $BRANCH_COVERAGE%"
