@@ -14,10 +14,10 @@ jobs:
         working-directory: ./ladderly-io
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '22'
           cache: 'npm'
@@ -31,7 +31,18 @@ jobs:
 
       - name: Check coverage thresholds
         run: |
+          if [ ! -f coverage/coverage-summary.json ]; then
+            echo "Error: coverage/coverage-summary.json not found!"
+            ls -la coverage/
+            exit 1
+          fi
+
           BRANCH_COVERAGE=$(cat coverage/coverage-summary.json | jq -r '.total.branches.pct')
+          if [ $? -ne 0 ]; then
+            echo "Error: Failed to parse coverage JSON!"
+            exit 1
+          fi
+
           if (( $(echo "$BRANCH_COVERAGE < 30" | bc -l) )); then
             echo "Branch coverage ($BRANCH_COVERAGE%) is below minimum threshold (30%)"
             exit 1
@@ -39,7 +50,8 @@ jobs:
           echo "Branch coverage: $BRANCH_COVERAGE%"
 
       - name: Upload coverage reports
-        uses: actions/upload-artifact@v4
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: ladderly-io/coverage/
+          path: ladderly-io/coverage/coverage-summary.json
