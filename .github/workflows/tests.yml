@@ -14,10 +14,10 @@ jobs:
         working-directory: ./ladderly-io
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
@@ -26,24 +26,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests with coverage
-        run: npm run test:cov
-
-      - name: Check coverage thresholds
+      - name: Check test coverage
         run: |
-          if [ ! -f coverage/coverage-summary.json ]; then
-            echo "Error: coverage/coverage-summary.json not found!"
-            ls -la coverage/
+          # Run tests and capture output
+          OUTPUT=$(npm run test:cov)
+          echo "$OUTPUT"
+
+          # Extract branch coverage using grep and awk
+          BRANCH_COVERAGE=$(echo "$OUTPUT" | grep "All files" | awk '{print $4}')
+
+          if [ -z "$BRANCH_COVERAGE" ]; then
+            echo "Error: Could not find branch coverage in test output!"
             exit 1
           fi
 
-          BRANCH_COVERAGE=$(cat coverage/coverage-summary.json | jq -r '.total.branches.pct')
-          if [ $? -ne 0 ]; then
-            echo "Error: Failed to parse coverage JSON!"
-            exit 1
-          fi
-
-          if (( $(echo "$BRANCH_COVERAGE < 30" | bc -l) )); then
+          if (( $(echo "$BRANCH_COVERAGE < 50" | bc -l) )); then
             echo "Branch coverage ($BRANCH_COVERAGE%) is below minimum threshold (30%)"
             exit 1
           fi
