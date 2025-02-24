@@ -48,10 +48,3 @@ jobs:
             exit 1
           fi
           echo "Branch coverage: $BRANCH_COVERAGE%"
-
-      - name: Upload coverage reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: ladderly-io/coverage/coverage-summary.json
