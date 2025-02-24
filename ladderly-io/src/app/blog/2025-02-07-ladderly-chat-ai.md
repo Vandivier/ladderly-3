@@ -29,7 +29,7 @@ Here are some other use cases and suggested questions:
 2. How can I land more interviews?
 3. What projects should I build?
 4. How can I identify a high-quality coding bootcamp?
-5. What are some social networking and communcation tips?
+5. What are some social networking and communication tips?
 6. As a software engineer, why should I bother with content creation? How should I get started?
 7. What are some important concepts in HTML, CSS, and JavaScript? Can you generate a quiz for me?
 8. What are some markers of a Senior+ engineer as distinct from an early career developer?
