@@ -61,12 +61,14 @@ const PremiumCard = () => (
     <p className="mt-2 text-ladderly-violet-600">
       Unlock this full article and all premium content with Ladderly Premium.
     </p>
-    <Link
+    <a
       href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || '#'}
       className="mt-4 inline-block rounded-md bg-ladderly-violet-600 px-4 py-2 text-white hover:bg-ladderly-violet-700"
+      target="_blank"
+      rel="noopener noreferrer"
     >
       Upgrade to Premium
-    </Link>
+    </a>
   </div>
 )
 
