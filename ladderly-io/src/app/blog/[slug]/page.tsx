@@ -8,6 +8,8 @@ import { remark } from 'remark'
 import { visit } from 'unist-util-visit'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { BlogPostContent } from './BlogPostContent'
+import { PaymentTierEnum } from '@prisma/client'
+import { LockIcon } from 'lucide-react'
 
 // This generates static params for all blog posts at build time
 export async function generateStaticParams() {
@@ -100,8 +102,31 @@ async function getBlogPost(slug: string) {
     content,
     excerpt,
     toc,
+    premium: data.premium || false,
   }
 }
+
+const PremiumCard = () => (
+  <div className="border-ladderly-violet-200 bg-ladderly-violet-50 my-8 rounded-lg border p-6 shadow-sm">
+    <div className="flex items-center gap-3">
+      <LockIcon className="h-6 w-6 text-ladderly-violet-500" />
+      <h3 className="text-lg font-semibold text-ladderly-violet-700">
+        Ladderly Premium Content
+      </h3>
+    </div>
+    <p className="mt-2 text-ladderly-violet-600">
+      Unlock this full article and all premium content with Ladderly Premium.
+    </p>
+    <a
+      href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || '#'}
+      className="mt-4 inline-block rounded-md bg-ladderly-violet-600 px-4 py-2 text-white hover:bg-ladderly-violet-700"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Upgrade to Premium
+    </a>
+  </div>
+)
 
 export default async function BlogPost({
   params,
@@ -109,10 +134,16 @@ export default async function BlogPost({
   params: { slug: string }
 }) {
   const post = await getBlogPost(params.slug)
+  const userTier = PaymentTierEnum.FREE // This should come from your auth context
 
   if (!post) {
     notFound()
   }
+
+  const showPreview = post.premium && userTier === PaymentTierEnum.FREE
+  const previewContent = showPreview
+    ? post.content.split('\n\n')[0]
+    : post.content
 
   return (
     <LadderlyPageWrapper>
@@ -123,7 +154,7 @@ export default async function BlogPost({
           </h1>
         </header>
 
-        {post.toc.length > 0 && (
+        {post.toc.length > 0 && !showPreview && (
           <section className="mb-8 rounded-lg bg-ladderly-light-purple-1 p-4 shadow-lg">
             <h2 className="mb-2 text-xl font-bold text-ladderly-violet-600">
               Table of Contents
@@ -147,7 +178,8 @@ export default async function BlogPost({
           </section>
         )}
 
-        <BlogPostContent content={post.content} />
+        <BlogPostContent content={previewContent} />
+        {showPreview && <PremiumCard />}
       </article>
     </LadderlyPageWrapper>
   )
