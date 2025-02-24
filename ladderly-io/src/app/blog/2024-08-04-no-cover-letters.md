@@ -1,6 +1,5 @@
 ---
 title: '15. On Cover Letters and Resume Tailoring'
-date: 8/4/24
 author: John Vandivier
 ---
 

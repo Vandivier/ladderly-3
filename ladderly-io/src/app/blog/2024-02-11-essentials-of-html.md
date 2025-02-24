@@ -1,6 +1,5 @@
 ---
 title: '8. Essentials of HTML'
-date: 2/11/24
 author: John Vandivier
 ---
 

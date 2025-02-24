@@ -1,6 +1,5 @@
 ---
 title: '4. Leveraging Top Job Boards to Land Your Next Programming Role'
-date: 1/19/25
 author: John Vandivier
 ---
 

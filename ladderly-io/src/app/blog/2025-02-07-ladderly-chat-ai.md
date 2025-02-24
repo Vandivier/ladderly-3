@@ -1,6 +1,5 @@
 ---
 title: '20. Ladderly AI Tools'
-date: 2/7/25
 author: John Vandivier
 ---
 

@@ -43,7 +43,6 @@ export async function generateMetadata({
       title: post.title,
       description: post.excerpt,
       type: 'article',
-      publishedTime: post.date,
       authors: [post.author],
     },
   }
@@ -97,7 +96,6 @@ async function getBlogPost(slug: string) {
   return {
     slug,
     title: data.title,
-    date: data.date,
     author: data.author,
     content,
     excerpt,
@@ -123,9 +121,6 @@ export default async function BlogPost({
           <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
             {post.title}
           </h1>
-          <p className="my-0 text-gray-600">
-            Last Updated on {post.date} by {post.author}
-          </p>
         </header>
 
         {post.toc.length > 0 && (
