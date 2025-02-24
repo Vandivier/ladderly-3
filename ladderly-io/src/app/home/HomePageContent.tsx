@@ -12,7 +12,6 @@ import { LadderlyHelpsBlock } from './LadderlyHelpsBlock'
 import { TestimonialBlock } from './TestimonialBlock'
 
 import styles from '~/styles/Home.module.css'
-import Script from 'next/script'
 
 // note: do not extract `DARK_MODE_STANDARD_CLASSES` out of file.
 // it is duplicated intentionally between files to ensure tailwind classes are bundled
@@ -69,13 +68,6 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
           chat now!
         </Link>
       </h2>
-
-      <Script id="chatbase-script">
-        {`
-        // ref: https://www.chatbase.co/docs/developer-guides/identity-verification
-        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="NnbDY2pCxZROnVKZwpjaW";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-        `}
-      </Script>
     </div>
     <main style={{ padding: '0rem 1rem' }}>
       <div className={styles.wrapper}>
