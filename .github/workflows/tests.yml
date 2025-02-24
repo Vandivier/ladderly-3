@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  tests-and-cov:
     runs-on: ubuntu-latest
     defaults:
       run:
