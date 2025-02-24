@@ -91,9 +91,11 @@ Specifically, his data showed no significant correlation between different resum
 
 Referral and inbound opportinities were essentially all that mattered. Social networking, brand building, and LinkedIn optimization drove these variables. In addition, a low effort application is partly described as an application in which no social networking occured.
 
+Learn more about Ladderly.io's proven approach to social networking and professional brand development in [12. At Least Ten Networking Tips](/blog/2024-05-31-networking-tips).
+
 This particular job search took place during a particularly difficult market for candidates, or a favorable market from the employer point of view. Magnitudes are expected to shift over time and in association with software engineer labor market conditions. In particular, the constant is likely to increase in a market that favors candidates more strongly.
 
-The data can be found [here](https://github.com/Vandivier/ladderly-3/blob/main/blitz-app/scripts/analytical/blog-15-job-search-regression.csv) and the analytical script used for the above regression table can be found [here](https://github.com/Vandivier/ladderly-3/blob/main/blitz-app/scripts/analytical/blog-15-job-search-regression.py).
+The data can be found [here](https://github.com/Vandivier/ladderly-3/blob/main/ladderly-io/scripts/python/analytical/blog-15-job-search-regression.csv) and the analytical script used for the above regression table can be found [here](https://github.com/Vandivier/ladderly-3/blob/main/ladderly-io/scripts/python/analytical/blog-15-job-search-regression.py).
 
 A caveat in this result is that even the earliest version of the resume could be describe as fair in quality, without obvious grammatical errors, major ATS parsing issues, or other major issues. So the fact that the variation in resume version did not correlate with outcomes does not mean that resume quality has no impact, but it does mean that once you have a fairly high quality resume, fine-tuning it into an ultra-high quality resume has negligible return, which is exactly applicable to the discussion of whether a resume should be optimized per job post or simply at the level of the job family or role.
 
