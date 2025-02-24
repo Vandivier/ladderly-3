@@ -5,8 +5,6 @@ import { getServerAuthSession } from '~/server/auth'
 import Link from 'next/link'
 import { PaymentTierEnum } from '@prisma/client'
 
-const STRIPE_PREMIUM_PAYMENT_LINK = 'https://buy.stripe.com/6oE7vZdWY3H18pO6ov'
-
 export default async function ChatPage() {
   const session = await getServerAuthSession()
   const user = session?.user
@@ -45,7 +43,7 @@ export default async function ChatPage() {
             A premium subscription is required to use Ladderly Chat. Please{' '}
             <Link
               href={{
-                pathname: STRIPE_PREMIUM_PAYMENT_LINK,
+                pathname: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK,
                 query: {
                   client_reference_id: user.id.toString(),
                 },
