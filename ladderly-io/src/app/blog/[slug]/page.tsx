@@ -107,19 +107,25 @@ async function getBlogPost(slug: string) {
 }
 
 const PremiumCard = () => (
-  <div className="border-ladderly-violet-200 bg-ladderly-violet-50 my-8 rounded-lg border p-6 shadow-sm">
+  <div className="my-8 rounded-lg border border-ladderly-violet-100 bg-ladderly-violet-100 p-6 shadow-sm">
     <div className="flex items-center gap-3">
-      <LockIcon className="h-6 w-6 text-ladderly-violet-500" />
-      <h3 className="text-lg font-semibold text-ladderly-violet-700">
+      <LockIcon className="size-6 text-ladderly-violet-500" />
+      <h3 className="my-1 mr-auto text-lg font-semibold text-ladderly-violet-700">
         Ladderly Premium Content
       </h3>
     </div>
     <p className="mt-2 text-ladderly-violet-600">
-      Unlock this full article and all premium content with Ladderly Premium.
+      Unlock this full article and all premium content with Ladderly Premium for
+      only one latte per month! ☕
+    </p>
+    <p className="mt-2 text-ladderly-violet-600">
+      In addition to premium blog articles, Ladderly Premium includes 2 AI tools
+      to supercharge your learning and job search journey, all for 6 dollars per
+      month!
     </p>
     <a
       href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || '#'}
-      className="mt-4 inline-block rounded-md bg-ladderly-violet-600 px-4 py-2 text-white hover:bg-ladderly-violet-700"
+      className="inline-block rounded-md bg-ladderly-violet-600 px-4 py-2 text-white hover:bg-ladderly-violet-700"
       target="_blank"
       rel="noopener noreferrer"
     >
