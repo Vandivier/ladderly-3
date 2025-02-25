@@ -48,7 +48,9 @@ So, a list of stories following Ladderly.io's format will use the acronym STOARR
 5. Result
 6. Reflection
 
-## Story Formation
+## Story Generation
+
+Ladderly.io recommends creating a [Google Doc](https://docs.new) to track your stories.
 
 While on the job, story material is generated every sprint. It is a good practice to keep a Brag Sheet or a running document of accomplishments. You can also query your project management software for tasks completed, consult notes from meetings, and even search the codebase for changes you made to mine stories retrospectively if you have forgotten.
 
@@ -97,25 +99,44 @@ The second step is to practice the behavioral interview. You can also leverage t
 
 It is important to have a degree of practice where you speak the solutions out loud. Here are some approaches to practice, in increasing order of utility:
 
-1.  Flashcard-style LLM Practice: Provide the LLM context on the company and ask it to give you behavioral interview questions. Don't walk through the whole story, but simply practice matching quickly to the story that you would tell.
-2.  Shadow interviews with an LLM. Provide an LLM the context for the company and ask it to give you behavioral interviews, acting as an interviewer. Use voice mode to speak out your full answer. Practice omitting filler words. At the end, ask it to grade your answer on a scale from 1 to 10 and provide feedback on what to do better.
-3.  Practice interview with a real programmer
-4.  Practice interview with a programmer that has experience conducting interviews at your target company. Interviewing.io is a great resource for FAANG interview preperation in this regard.
+1. Flashcard-style LLM Practice: Provide the LLM context on the company and ask it to give you behavioral interview questions. Don't walk through the whole story, but simply practice matching quickly to the story that you would tell.
+2. Shadow interviews with an LLM. Provide an LLM the context for the company and ask it to give you behavioral interviews, acting as an interviewer. Use voice mode to speak out your full answer. Practice omitting filler words. At the end, ask it to grade your answer on a scale from 1 to 10 and provide feedback on what to do better.
+3. Practice interview with a real programmer
+4. Practice interview with a programmer that has experience conducting interviews at your target company. Interviewing.io is a great resource for FAANG interview preperation in this regard.
 
 ## Tactical Usage
 
 Preperation is concerned with actions before the interview round. For this section on tactical STOARR anecdote usage, imagine that you are already in an interview round.
 
 1. When receiving a question, first pause to show the interviewer that you are thinking. It's fine to take several seconds to think. Then smile and introduce the situation.
+
 2. To comfortably introduce the situation, use a standard template:
+
    1. Standard prefix: "When I think about this question and my experience, I think a great story to tell is..."
    2. Introduce the year, quarter, company, team, and project title: "from 2022 in Q3, when I was working at Capital One. I was working in the CreditWise team on the COVID Information Rollout Project."
+   3. Optionally give an overview of the scope and size of the company and team: "At this time, the CreditWise application had about 30 million monthly active users."
+
+3. Now describe the task that you were supposed to complete and emphasize the pain point of an obstacle encountered.
+
+   1. Emphasize why this task is considered difficult and important. Besides the metrics, we want to create an emotionally engaging story.
+   2. Unexpected wrinkles and urgent deadlines are examples of sources of pain and frustration that might complicate an otherwise straightforward task and make the story more emotionally engaging and relatable to the interviewer, triggering empathy and helping them understand the impact of your action.
+
+4. Now describe the action(s) you took to solve the problem.
+   1. Sometimes an action leads to a wrinkle. Mentioning one of these is fine but it's not necessary to review multiple complications. You can simply mention if there were more and they can dive deeper during follow-up questions.
+   2. Try to get through your story including reflection in 3 minutes, leaving time for follow-up questions.
+5. Describe the result including SMART metrics.
+6. Add a reflection step:
+
+   1. "With the benefit of hindsight, one thing I would have done differently is..."
+   2. Finish with a positive affirmation of a relevant signal. "Overall, I like this story because I think it demonstrates my ability to handle complex but impactful UI changes under a tight deadline."
+
+<!-- TODO: complete below -->
 
 Now that you have a list of STOARR anecdotes, how should you go about using one in a particular interview?
 
-1. Prepare specifically for every final round by gathering information about the engineering values of the company you are applying at.
+7. Prepare specifically for every final round by gathering information about the engineering values of the company you are applying at.
    Listen for queues that a question is behavioral. A common prefix to this kind of question is "Tell me about a time..."
-2. When asked a q
+8. When asked a q
 
 explicit signals and a reflection step:
 
@@ -133,3 +154,5 @@ When we consider advanced interview preperation, there are some tactical items w
 
 When you begin applying the Advanced Behavioral Strategy, impact will be small in the first few
 which allow the strategic plan to achieve impact over time. It is unlikely that applying
+
+<https://formation.dev/blog/how-to-pass-hiring-manager-interviews/>
