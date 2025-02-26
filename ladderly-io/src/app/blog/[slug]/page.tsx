@@ -140,7 +140,7 @@ export default async function BlogPost({
   params: { slug: string }
 }) {
   const post = await getBlogPost(params.slug)
-  const userTier = PaymentTierEnum.FREE // This should come from your auth context
+  const userTier = PaymentTierEnum.FREE // TODO: compare from session
 
   if (!post) {
     notFound()
@@ -184,7 +184,7 @@ export default async function BlogPost({
           </section>
         )}
 
-        <BlogPostContent content={previewContent} />
+        <BlogPostContent content={previewContent ?? ''} />
         {showPreview && <PremiumCard />}
       </article>
     </LadderlyPageWrapper>
