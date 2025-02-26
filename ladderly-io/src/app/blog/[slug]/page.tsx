@@ -1,5 +1,6 @@
 import fs from 'fs'
 import matter from 'gray-matter'
+import { LockIcon } from 'lucide-react'
 import type { Heading, Text } from 'mdast'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -7,9 +8,8 @@ import path from 'path'
 import { remark } from 'remark'
 import { visit } from 'unist-util-visit'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
+import { getServerAuthSession } from '~/server/auth'
 import { BlogPostContent } from './BlogPostContent'
-import { PaymentTierEnum } from '@prisma/client'
-import { LockIcon } from 'lucide-react'
 
 // This generates static params for all blog posts at build time
 export async function generateStaticParams() {
@@ -106,7 +106,7 @@ async function getBlogPost(slug: string) {
   }
 }
 
-const PremiumCard = () => (
+const PremiumCard = ({ isAuthenticated = false }) => (
   <div className="my-8 rounded-lg border border-ladderly-violet-100 bg-ladderly-violet-100 p-6 shadow-sm">
     <div className="flex items-center gap-3">
       <LockIcon className="size-6 text-ladderly-violet-500" />
@@ -124,12 +124,17 @@ const PremiumCard = () => (
       month!
     </p>
     <a
-      href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || '#'}
+      href={
+        isAuthenticated
+          ? process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || '#'
+          : '/signup'
+      }
       className="inline-block rounded-md bg-ladderly-violet-600 px-4 py-2 text-white hover:bg-ladderly-violet-700"
-      target="_blank"
-      rel="noopener noreferrer"
+      {...(!isAuthenticated
+        ? {}
+        : { target: '_blank', rel: 'noopener noreferrer' })}
     >
-      Upgrade to Premium
+      {isAuthenticated ? 'Upgrade to Premium' : 'Sign Up Now'}
     </a>
   </div>
 )
@@ -162,12 +167,14 @@ const BlogPostLayout = ({
   children,
   post,
   requireAuth = false,
+  isAuthenticated = false,
 }: {
   children: React.ReactNode
   post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>
   requireAuth?: boolean
-}) => (
-  <LadderlyPageWrapper authenticate={requireAuth} requirePremium={requireAuth}>
+  isAuthenticated?: boolean
+}) => {
+  const previewView = (
     <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
       <header className="pb-4">
         <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
@@ -175,12 +182,30 @@ const BlogPostLayout = ({
         </h1>
       </header>
 
-      {post.toc.length > 0 && <TableOfContents items={post.toc} />}
-
-      {children}
+      <BlogPostContent content={post.content.split('\n\n')[0] ?? ''} />
+      <PremiumCard isAuthenticated={isAuthenticated} />
     </article>
-  </LadderlyPageWrapper>
-)
+  )
+
+  return (
+    <LadderlyPageWrapper
+      authenticate={requireAuth}
+      requirePremium={requireAuth}
+      unauthenticatedView={post.premium ? previewView : undefined}
+    >
+      <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
+        <header className="pb-4">
+          <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
+            {post.title}
+          </h1>
+        </header>
+
+        {post.toc.length > 0 && <TableOfContents items={post.toc} />}
+        {children}
+      </article>
+    </LadderlyPageWrapper>
+  )
+}
 
 export default async function BlogPost({
   params,
@@ -188,13 +213,18 @@ export default async function BlogPost({
   params: { slug: string }
 }) {
   const post = await getBlogPost(params.slug)
+  const session = await getServerAuthSession()
 
   if (!post) {
     notFound()
   }
 
   return (
-    <BlogPostLayout post={post} requireAuth={post.premium}>
+    <BlogPostLayout
+      post={post}
+      requireAuth={post.premium}
+      isAuthenticated={!!session}
+    >
       <BlogPostContent content={post.content} />
     </BlogPostLayout>
   )

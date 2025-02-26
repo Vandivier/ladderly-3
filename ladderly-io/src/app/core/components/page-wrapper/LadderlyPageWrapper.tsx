@@ -12,12 +12,14 @@ interface LadderlyPageWrapperProps {
   children: React.ReactNode
   authenticate?: boolean
   requirePremium?: boolean
+  unauthenticatedView?: React.ReactNode
 }
 
 export async function LadderlyPageWrapper({
   children,
   authenticate = false,
   requirePremium = false,
+  unauthenticatedView,
 }: LadderlyPageWrapperProps) {
   let content = children
 
@@ -26,7 +28,7 @@ export async function LadderlyPageWrapper({
     const user = session?.user
 
     if (!session) {
-      content = (
+      content = unauthenticatedView || (
         <div className="container mx-auto max-w-3xl px-4 py-8">
           <p className="text-center text-gray-800 dark:text-gray-200">
             Please{' '}
