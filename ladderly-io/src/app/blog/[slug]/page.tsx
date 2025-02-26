@@ -134,59 +134,68 @@ const PremiumCard = () => (
   </div>
 )
 
+const TableOfContents = ({ items }: { items: TableOfContentsItem[] }) => (
+  <section className="mb-8 rounded-lg bg-ladderly-light-purple-1 p-4 shadow-lg">
+    <h2 className="my-2 text-xl font-bold text-ladderly-violet-600">
+      Table of Contents
+    </h2>
+    <ol className="mb-2 list-decimal pl-5">
+      {items.map((item) => (
+        <li
+          key={item.id}
+          style={{ marginLeft: `${(item.level - 2) * 20}px` }}
+          className={`my-1 ${item.level === 1 ? '-ml-5 list-none' : ''}`}
+        >
+          <a
+            href={`#${item.id}`}
+            className="text-ladderly-violet-500 hover:text-ladderly-violet-600"
+          >
+            {item.text}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+)
+
+const BlogPostLayout = ({
+  children,
+  post,
+  requireAuth = false,
+}: {
+  children: React.ReactNode
+  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>
+  requireAuth?: boolean
+}) => (
+  <LadderlyPageWrapper authenticate={requireAuth} requirePremium={requireAuth}>
+    <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
+      <header className="pb-4">
+        <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
+          {post.title}
+        </h1>
+      </header>
+
+      {post.toc.length > 0 && <TableOfContents items={post.toc} />}
+
+      {children}
+    </article>
+  </LadderlyPageWrapper>
+)
+
 export default async function BlogPost({
   params,
 }: {
   params: { slug: string }
 }) {
   const post = await getBlogPost(params.slug)
-  const userTier = PaymentTierEnum.FREE // TODO: compare from session
 
   if (!post) {
     notFound()
   }
 
-  const showPreview = post.premium && userTier === PaymentTierEnum.FREE
-  const previewContent = showPreview
-    ? post.content.split('\n\n')[0]
-    : post.content
-
   return (
-    <LadderlyPageWrapper>
-      <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
-        <header className="pb-4">
-          <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
-            {post.title}
-          </h1>
-        </header>
-
-        {post.toc.length > 0 && !showPreview && (
-          <section className="mb-8 rounded-lg bg-ladderly-light-purple-1 p-4 shadow-lg">
-            <h2 className="mb-2 text-xl font-bold text-ladderly-violet-600">
-              Table of Contents
-            </h2>
-            <ol className="list-decimal pl-5">
-              {post.toc.map((item) => (
-                <li
-                  key={item.id}
-                  style={{ marginLeft: `${(item.level - 2) * 20}px` }}
-                  className={`my-1 ${item.level === 1 ? '-ml-5 list-none' : ''}`}
-                >
-                  <a
-                    href={`#${item.id}`}
-                    className="text-ladderly-violet-500 hover:text-ladderly-violet-600"
-                  >
-                    {item.text}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </section>
-        )}
-
-        <BlogPostContent content={previewContent ?? ''} />
-        {showPreview && <PremiumCard />}
-      </article>
-    </LadderlyPageWrapper>
+    <BlogPostLayout post={post} requireAuth={post.premium}>
+      <BlogPostContent content={post.content} />
+    </BlogPostLayout>
   )
 }
