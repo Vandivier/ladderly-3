@@ -4,7 +4,7 @@ author: John Vandivier
 premium: true
 ---
 
-Behavioral interviews are a standard component of hiring at every tier of the programming industry. These rounds are often formally declared, but this style of question is common even in recruiter screens, conversational interviews, and ordinary conversations outside of an interview setting.
+Behavioral interviews are a standard component of hiring at every tier of the programming industry. These rounds are often formally declared, but this style of question is common even in recruiter screens, conversational interviews like a [hiring manager interview](https://formation.dev/blog/how-to-pass-hiring-manager-interviews/), and ordinary conversations outside of an interview setting.
 
 Preparing answers for this type of interview question will also benefit your social networking and job performance because:
 
@@ -15,6 +15,8 @@ Preparing answers for this type of interview question will also benefit your soc
 3. Fluent storytelling around a group of stories allows for the creation of a metastory between those stories. This allows you to generate a cohesive and powerful personal professional brand narrative, building additional authority, influence, and confidence in domains related to this narrative.
 
 It is also important to note that a high-quality resume is aligned to these same stories of achievement. From a natural language perspective, a list of well-crafted behavioral interview stories can be directly distilled into a resume.
+
+## Industry-Standard Advice
 
 Amazon provides the industry-standard advice which is to use the STAR method, which stands for the following:
 
@@ -32,7 +34,7 @@ Meta provides a similar approach with a focus on the key pain point solved or ob
 3. Action
 4. Result
 
-## Advanced Behavioral Strategy
+## Ladderly.io's Bar-Raising Advanced Behavioral Strategy
 
 Ladderly.io's `Advanced Behavioral Strategy` involves merging the STAR and SOAR methods then adding four components:
 
@@ -49,6 +51,9 @@ So, a list of stories following Ladderly.io's format will use the acronym STOARR
 4. Action
 5. Result
 6. Reflection
+   1. For each story, tag it with a list of 1-5 engineering values that you believe the story demonstrates.
+   2. Start by tagging stories with the list of signals from [Formation's Valued Engineer Traits](https://formation.dev/blog/how-to-pass-behavioral-interviews-understanding-valued-engineer-traits/)and [Amazon Leadership Principles](https://www.amazon.jobs/content/en/our-workplace/leadership-principles).
+   3. Later, you can collect company-specific value tags to your stories as you research various companies.
 
 ## Story Generation
 
@@ -60,7 +65,7 @@ Some pain points occur when you haven't been at a company for a while. Here are 
 
 1. Don't worry about weekly or monthly accomplishments. Simply try to recall one story per quarter.
 2. Contact a prior coworker to see if they are open to a chat which might jog your memory or if they would even be willing to query project management software or version control for you.
-3. Leverage ballparking to establish impact. Estimating measures is fine when you no longer have access to exact data. This technique is developed in detail in blog article [22. Ballparking in the Job Search](/blog/2025-02-24-ballparking-in-the-job-search).
+3. Leverage ballparking to establish impact. Estimating measures is fine when you no longer have access to exact data. This technique is developed in detail in blog article [22. Ballparking in the Job Search](/blog/2025-02-25-ballparking).
 
 Even if you have professional experience, you may benefit from creating even more stories outside of this professional experience.
 
@@ -109,22 +114,37 @@ With the early mover advantage in mind, strategic advocacy includes three prelim
 
 By repeatedly applying this loop to incrementally larger and more valuable opportunities over time, you will create a positive feedback loop and accrue a kind of social capital that enables you to perform at an increasingly higher level over time, without needing to work harder or longer. You can scale yourself to higher impact with this kind of leadership and influence snowball.
 
-## Tactical Preparation
+## Tactical Preperation
 
-After constructing a list of STOARR anecdotes, prepare for company interviews with two steps. Research the company and obtaining a list of engineering and cultural values at the company. With a bit of research or by asking current employees, you may even be able to access the official leveling matrix at the company!
+After constructing a list of STOARR anecdotes, prepare for company interviews with two steps:
 
-The second step is to practice the behavioral interview. You can also leverage the snowball method for the job search, so that real interviews at less-preferred companies act as preparation for preferred companies. Not only does this improve your interview performance through repitition, it may also generate an offer which can allow you to negotiate higher compensation, prevent lowballing, and generate confidence through demonstrated success.
+1. Research the company and obtain a list of engineering and cultural values at the company. With a bit of research or by asking current employees, you may even be able to access the official leveling matrix at the company!
 
-It is important to have a degree of practice where you speak the solutions out loud. Here are some approaches to practice, in increasing order of utility:
+2. Practice the behavioral interview, specifically incorporating company-specific value into the reflection step.
+
+How should you practice? Here are five general principles:
+
+1. Speak your solutions outloud
+2. Filter filler words
+3. Deliver the initial story in 3 minutes
+4. Anticipate follow-up questions
+5. Practice with volume, checking for weekly improvement or seeking help if a stubborn plateau is encountered
+
+Here are five specific modes of practice, in approximate order of increasing utility:
 
 1. Flashcard-style LLM Practice: Provide the LLM context on the company and ask it to give you behavioral interview questions. Don't walk through the whole story, but simply practice matching quickly to the story that you would tell.
+
 2. Shadow interviews with an LLM. Provide an LLM the context for the company and ask it to give you behavioral interviews, acting as an interviewer. Use voice mode to speak out your full answer. Practice omitting filler words. At the end, ask it to grade your answer on a scale from 1 to 10 and provide feedback on what to do better.
+
 3. Practice interview with a real programmer
+
 4. Practice interview with a programmer that has experience conducting interviews at your target company. Interviewing.io is a great resource for FAANG interview preperation in this regard.
 
-## Tactical Usage
+5. Have real interviews. A real interview at one company is extremely good practice for real interviews at other companies, even though valued engineering traits and cultural values may differ. For this reason, Ladderly.io encourages the `Snowball Method` for the job search. Interview at less-preferred companies early in the process to provide practice and potentially even generating offers. Not only does this improve your interview performance through repitition, it may also generate an offer which can allow you to negotiate higher compensation, prevent lowballing, and generate confidence through demonstrated success.
 
-Preperation is concerned with actions before the interview round. For this section on tactical STOARR anecdote usage, imagine that you are already in an interview round.
+## Tactical Delivery
+
+For this section on tactical STOARR anecdote usage, imagine that you are already in an interview round.
 
 1. When receiving a question, first pause to show the interviewer that you are thinking. It's fine to take several seconds to think. Then smile and introduce the situation.
 
@@ -140,37 +160,18 @@ Preperation is concerned with actions before the interview round. For this secti
    2. Unexpected wrinkles and urgent deadlines are examples of sources of pain and frustration that might complicate an otherwise straightforward task and make the story more emotionally engaging and relatable to the interviewer, triggering empathy and helping them understand the impact of your action.
 
 4. Now describe the action(s) you took to solve the problem.
+
    1. Sometimes an action leads to a wrinkle. Mentioning one of these is fine but it's not necessary to review multiple complications. You can simply mention if there were more and they can dive deeper during follow-up questions.
    2. Try to get through your story including reflection in 3 minutes, leaving time for follow-up questions.
-5. Describe the result including SMART metrics.
+
+5. Describe the result including 1-3 [SMART metrics](https://www.sopact.com/guides/smart-metrics), or quantifiable results that demonstrate business value.
+
+   1. If your primary metric is technical, such as a CICD performance improvement, adding a second metric that translates this into clear business value often improves the overall quality of the story. If CICD performance saves engineering time, you can ballpark a financial figure by estimating "Approximately what does an engineering hour cost at this company or in this industry?"
+
+   2. Limit to 3 metrics because you want to move on quickly and not overwhelm the interviewer. If you have more, simply say "I have some other results metrics that I can walk you through if you're curious and time allows." In this way you can steer follow-up questions and further improve your demonstrated impact for a double-benefit!
+
 6. Add a reflection step:
 
    1. "With the benefit of hindsight, one thing I would have done differently is..."
    2. Finish with a positive affirmation of a relevant signal. "Overall, I like this story because I think it demonstrates my ability to handle complex but impactful UI changes under a tight deadline."
-
-<!-- TODO: complete below -->
-
-Now that you have a list of STOARR anecdotes, how should you go about using one in a particular interview?
-
-7. Prepare specifically for every final round by gathering information about the engineering values of the company you are applying at.
-   Listen for queues that a question is behavioral. A common prefix to this kind of question is "Tell me about a time..."
-8. When asked a q
-
-explicit signals and a reflection step:
-
-1. Directly map each story to generic engineering qualities
-
-Add a reflection step after declaring the result 2. Map
-
-## Advanced Behavioral Strategy
-
-## Tactical Preperation
-
-When we consider advanced interview preperation, there are some tactical items worth mentioning:
-
-1. You must practice delivering your
-
-When you begin applying the Advanced Behavioral Strategy, impact will be small in the first few
-which allow the strategic plan to achieve impact over time. It is unlikely that applying
-
-<https://formation.dev/blog/how-to-pass-hiring-manager-interviews/>
+   3. Reflection should take under 20 seconds and it can greatly differentiate your story from the competition.
