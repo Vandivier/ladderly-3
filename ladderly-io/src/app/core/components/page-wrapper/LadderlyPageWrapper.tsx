@@ -13,6 +13,7 @@ interface LadderlyPageWrapperProps {
   authenticate?: boolean
   requirePremium?: boolean
   unauthenticatedView?: React.ReactNode
+  previewView?: React.ReactNode
 }
 
 export async function LadderlyPageWrapper({
@@ -20,6 +21,7 @@ export async function LadderlyPageWrapper({
   authenticate = false,
   requirePremium = false,
   unauthenticatedView,
+  previewView,
 }: LadderlyPageWrapperProps) {
   let content = children
 
@@ -47,7 +49,7 @@ export async function LadderlyPageWrapper({
       requirePremium &&
       user?.subscription.tier === PaymentTierEnum.FREE
     ) {
-      content = (
+      content = previewView || (
         <div className="container mx-auto max-w-3xl px-4 py-8">
           <p className="text-center text-gray-800 dark:text-gray-200">
             A premium subscription is required to access this content. Please{' '}

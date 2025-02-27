@@ -163,6 +163,27 @@ const TableOfContents = ({ items }: { items: TableOfContentsItem[] }) => (
   </section>
 )
 
+const PreviewBlogContent = ({
+  post,
+  isAuthenticated,
+}: {
+  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>
+  isAuthenticated: boolean
+}) => (
+  <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
+    <header className="pb-4">
+      <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
+        {post.title}
+      </h1>
+    </header>
+
+    {post.toc.length > 0 && <TableOfContents items={post.toc} />}
+
+    <BlogPostContent content={post.content.split('\n\n')[0] ?? ''} />
+    <PremiumCard isAuthenticated={isAuthenticated} />
+  </article>
+)
+
 const BlogPostLayout = ({
   children,
   post,
@@ -174,24 +195,20 @@ const BlogPostLayout = ({
   requireAuth?: boolean
   isAuthenticated?: boolean
 }) => {
-  const previewView = (
-    <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
-      <header className="pb-4">
-        <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
-          {post.title}
-        </h1>
-      </header>
-
-      <BlogPostContent content={post.content.split('\n\n')[0] ?? ''} />
-      <PremiumCard isAuthenticated={isAuthenticated} />
-    </article>
-  )
-
   return (
     <LadderlyPageWrapper
       authenticate={requireAuth}
       requirePremium={requireAuth}
-      unauthenticatedView={post.premium ? previewView : undefined}
+      unauthenticatedView={
+        post.premium ? (
+          <PreviewBlogContent post={post} isAuthenticated={isAuthenticated} />
+        ) : undefined
+      }
+      previewView={
+        post.premium ? (
+          <PreviewBlogContent post={post} isAuthenticated={isAuthenticated} />
+        ) : undefined
+      }
     >
       <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
         <header className="pb-4">
