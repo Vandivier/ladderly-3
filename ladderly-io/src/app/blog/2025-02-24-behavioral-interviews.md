@@ -4,13 +4,15 @@ author: John Vandivier
 premium: true
 ---
 
-Behavioral interviews are a standard component of hiring at every tier of the programming industry. These rounds are often formally declared, but this style of question is common even in recruiter screens and casual interviews.
+Behavioral interviews are a standard component of hiring at every tier of the programming industry. These rounds are often formally declared, but this style of question is common even in recruiter screens, conversational interviews, and ordinary conversations outside of an interview setting.
 
-Preparing answers for this type of interview also has external benefits into your social networking and on the job performance because:
+Preparing answers for this type of interview question will also benefit your social networking and job performance because:
 
-1. Communication skill and influence have impact on the job. Fluent storytelling, particularly when paired with concrete examples and metrics, are powerful tools in design conversations and for continuous influence growth as you deliver and seek recognition for achievement on the job.
-2. These sorts of anecdotes are great material for interpersonal networking outside of the job, at events, for online communication, and in day-to-day conversations when people simply ask about your work and career.
-3. This material can solidify and empower your professional brand growth and social media content creation.
+1. Deliberate practice with communication of any kind of material improves general communication skill and confidence. These attributes are highly valuable and transferable into all performance domains including job performance, interview performance, and conversational skill in your personal life including networking situations.
+
+2. Fluent storytelling of technical work accomplishments empowers your ability to lead, persuade, and influence on the job because. Describing a story of accomplishment and the way it relates to a new problem allows you to propose actions to your team in a way that naturally yields confidence in success. It worked once, so it can plausibly work again!
+
+3. Fluent storytelling around a group of stories allows for the creation of a metastory between those stories. This allows you to generate a cohesive and powerful personal professional brand narrative, building additional authority, influence, and confidence in domains related to this narrative.
 
 It is also important to note that a high-quality resume is aligned to these same stories of achievement. From a natural language perspective, a list of well-crafted behavioral interview stories can be directly distilled into a resume.
 
@@ -58,7 +60,7 @@ Some pain points occur when you haven't been at a company for a while. Here are 
 
 1. Don't worry about weekly or monthly accomplishments. Simply try to recall one story per quarter.
 2. Contact a prior coworker to see if they are open to a chat which might jog your memory or if they would even be willing to query project management software or version control for you.
-3. Leverage ballparking to establish impact. Estimating measures is fine when you no longer have access to exact data. This technique is developed in detail in blog article `22. Ballparking in the Job Search`.
+3. Leverage ballparking to establish impact. Estimating measures is fine when you no longer have access to exact data. This technique is developed in detail in blog article [22. Ballparking in the Job Search](/blog/2025-02-24-ballparking-in-the-job-search).
 
 Even if you have professional experience, you may benefit from creating even more stories outside of this professional experience.
 
@@ -91,7 +93,23 @@ Here is a list of achievements, some small, some large, but the point is to star
 9. Saved time
 10. Improved satisfaction (of users, fellow contributors, or any stakeholder)
 
-## Tactical Preperation
+### The Leadership Snowball
+
+Accomplishments can open the door to bigger accomplishments by building trust with your team. In some cases, your team will watch you work and develop trust in your future actions autonomously. In most cases, however, you will build trust by advocating for yourself strategically.
+
+Strategic advocacy can happen at any time, but there is an early mover advantage to those who can propose solutions early in the problem lifecycle, because once an organization begins to implement a particular solution there is high costs of switching.
+
+With the early mover advantage in mind, strategic advocacy includes three preliminary steps:
+
+1. Situational awareness: You need to be aware of a pain point to solve it. Achieve this by attending important meetings, conducting 1:1s across the company, and getting into the technical weeds on a regular basis.
+
+2. Self-prioritization: You will become aware of many pain points and you shouldn't seek to solve them all. Target 1-3 items at a time, and only target a new opportunity if it appears more valuable than another one on your list, in which case you should drop the other one.
+
+3. Proposal: Finally, you present a proposal to some stakeholders. Proposals come in many forms and this article won't detail the various tradeoffs. The key insight in this article is to include a reference to your prior accomplishments as part of the proposal in order to build trust and confidence with your team.
+
+By repeatedly applying this loop to incrementally larger and more valuable opportunities over time, you will create a positive feedback loop and accrue a kind of social capital that enables you to perform at an increasingly higher level over time, without needing to work harder or longer. You can scale yourself to higher impact with this kind of leadership and influence snowball.
+
+## Tactical Preparation
 
 After constructing a list of STOARR anecdotes, prepare for company interviews with two steps. Research the company and obtaining a list of engineering and cultural values at the company. With a bit of research or by asking current employees, you may even be able to access the official leveling matrix at the company!
 
