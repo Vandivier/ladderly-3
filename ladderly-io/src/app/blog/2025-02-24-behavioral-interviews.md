@@ -65,7 +65,7 @@ Some pain points occur when you haven't been at a company for a while. Here are 
 
 1. Don't worry about weekly or monthly accomplishments. Simply try to recall one story per quarter.
 2. Contact a prior coworker to see if they are open to a chat which might jog your memory or if they would even be willing to query project management software or version control for you.
-3. Leverage ballparking to establish impact. Estimating measures is fine when you no longer have access to exact data. This technique is developed in detail in blog article [22. Ballparking in the Job Search](/blog/2025-02-25-ballparking).
+3. Leverage ballparking to establish impact. Estimating measures is fine when you no longer have access to exact data. This technique is developed in detail in blog article [22. Ballparking Project Impact](/blog/2025-02-25-ballparking).
 
 Even if you have professional experience, you may benefit from creating even more stories outside of this professional experience.
 
