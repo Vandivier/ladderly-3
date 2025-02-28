@@ -1,6 +1,5 @@
 ---
 title: '13. Selecting Your Next Skill to Develop'
-date: 6/12/24
 author: John Vandivier, Max Tapp
 ---
 

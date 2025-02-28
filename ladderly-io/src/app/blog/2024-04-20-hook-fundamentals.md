@@ -1,6 +1,5 @@
 ---
 title: '11. Hook Fundamentals'
-date: 4/20/24
 author: John Vandivier
 ---
 
@@ -77,7 +76,7 @@ import React from 'react'
  */
 function useLocalStorage<T>(
   key: string,
-  initialValue: T | (() => T)
+  initialValue: T | (() => T),
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
   // Define a state managed by this hook
   const [storedValue, setStoredValue] = React.useState<T>(() => {
@@ -88,8 +87,8 @@ function useLocalStorage<T>(
       return item
         ? JSON.parse(item)
         : initialValue instanceof Function
-        ? initialValue()
-        : initialValue
+          ? initialValue()
+          : initialValue
     } catch (error) {
       // If error also return initialValue
       console.error(error)
@@ -114,7 +113,7 @@ function useLocalStorage<T>(
         console.error(error)
       }
     },
-    [key, storedValue]
+    [key, storedValue],
   )
 
   return [storedValue, setValue]
@@ -158,8 +157,8 @@ function useLocalStorage(key, initialValue) {
       return item
         ? JSON.parse(item)
         : initialValue instanceof Function
-        ? initialValue()
-        : initialValue
+          ? initialValue()
+          : initialValue
     } catch (error) {
       // If error also return initialValue
       console.error(error)
@@ -184,7 +183,7 @@ function useLocalStorage(key, initialValue) {
         console.error(error)
       }
     },
-    [key, storedValue]
+    [key, storedValue],
   )
 
   return [storedValue, setValue]

@@ -1,6 +1,5 @@
 ---
 title: '18. Modern Web Development Curriculum'
-date: 1/21/25
 author: John Vandivier
 ---
 
@@ -92,6 +91,7 @@ Key skills you'll develop:
 After completing your Day 1 foundations, you'll progress through:
 
 1. HTML Fundamentals
+
    - Common Tags and Their Uses
      - Document structure: html, head, body
      - Text content: p, h1-h6, span
@@ -107,6 +107,7 @@ After completing your Day 1 foundations, you'll progress through:
    - Forms and validation
 
 2. CSS Fundamentals
+
    - Common Properties
      - Layout: display, position, margin, padding
      - Typography: font-size, color, text-align
@@ -121,6 +122,7 @@ After completing your Day 1 foundations, you'll progress through:
    - CSS variables and modern features
 
 3. JavaScript Essentials
+
    - Modern ES6+ features
    - Async programming
    - DOM manipulation

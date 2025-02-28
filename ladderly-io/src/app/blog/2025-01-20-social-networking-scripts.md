@@ -1,6 +1,5 @@
 ---
 title: '17. Social Networking Scripts'
-date: 2/6/25
 author: John Vandivier
 ---
 

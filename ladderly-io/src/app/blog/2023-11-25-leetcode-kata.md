@@ -1,6 +1,5 @@
 ---
 title: '3. Ladderly Standard Leetcode Kata'
-date: 1/19/25
 author: John Vandivier
 ---
 
@@ -33,11 +32,11 @@ Ladderly problem sets are crafted with several principles in mind:
 3. Ensure strong pattern coverage over all types of problems that are frequently asked in interviews.
 4. The Ladderly Standard Leetcode Kata should not contain any premium or paywalled questions.
 5. Achieve high cognitive load with comfort by:
-    1. Starting with easy problems and working up to harder problems in the same pattern
-    2. Ordering the patterns themselves so that initial patterns reflect concepts already encountered in project-based learning
-    3. Encouraging flow state through pattern grouping and repitition of known problems
-    4. Emphasizing timeboxing
-    5. Ensuring problems have well-documented solutions
+   1. Starting with easy problems and working up to harder problems in the same pattern
+   2. Ordering the patterns themselves so that initial patterns reflect concepts already encountered in project-based learning
+   3. Encouraging flow state through pattern grouping and repitition of known problems
+   4. Emphasizing timeboxing
+   5. Ensuring problems have well-documented solutions
 
 Ladderly recommends timeboxing problem execution to 20 minutes, and reviewing the solution for 10 minutes. It is fine and expected that you will not be able to solve most problems during the first attempt. In later sessions, you will return to the same problem and you can expect incremental improvement. This is an evidence-based technique called [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition).
 
@@ -69,7 +68,7 @@ Solve these problems in the given order. Step through each problem as if it were
 2. Ask clarifying questions. (Yes, even though you are alone, practice asking a question out loud.)
 3. Come up with happy cases and edge cases.
 4. Plan by declaring a basic or brute force approach with its worst-case time and space complexity.
-    1. Learn more about Big O notation for time and space complexity analysis [here with NeetCode](https://www.youtube.com/watch?v=BgLTDT03QtU).
+   1. Learn more about Big O notation for time and space complexity analysis [here with NeetCode](https://www.youtube.com/watch?v=BgLTDT03QtU).
 5. Brainstorm additional approaches and select the pattern most appropriate, with a bias towards minimizing time complexity in a feasible timeframe for implementation.
 6. Implement the solution
 7. Verify the solution
@@ -159,33 +158,33 @@ Here is the list of code challenges in The Ladderly Expanded Kata:
 
 1. [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 
-    1. Patterns: Array, Two Pointers, Monotonic Stack
+   1. Patterns: Array, Two Pointers, Monotonic Stack
 
-    2. Acknowledgement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
+   2. Acknowledgement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
 
-    3. Related Resources: [Monotonic Functions](https://en.wikipedia.org/w/index.php?title=Monotonic_function&oldid=1178555210)
+   3. Related Resources: [Monotonic Functions](https://en.wikipedia.org/w/index.php?title=Monotonic_function&oldid=1178555210)
 
 2. [15. 3Sum](https://leetcode.com/problems/3sum/)
 
-    1. Patterns: Array, Two Pointers
+   1. Patterns: Array, Two Pointers
 
-    2. Acknowledgement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
+   2. Acknowledgement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
 
-    3. Note: Write out each of the three solutions: Two Pointers, Hashset, and No-Sort.
+   3. Note: Write out each of the three solutions: Two Pointers, Hashset, and No-Sort.
 
 3. [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/description/)
 
-    1. Patterns: Array, Two Pointers, Binary Search
+   1. Patterns: Array, Two Pointers, Binary Search
 
 4. [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
 
 5. [79. Word Search](https://leetcode.com/problems/word-search/)
 
-    1. Patterns: Array, Backtracking, Matrix, String
+   1. Patterns: Array, Backtracking, Matrix, String
 
 6. [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
 
-    1. Patterns: Array, DFS, Matrix, String, Trie
+   1. Patterns: Array, DFS, Matrix, String, Trie
 
 7. [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
 
@@ -193,11 +192,11 @@ Here is the list of code challenges in The Ladderly Expanded Kata:
 
 8. [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
 
-    1. Patterns: Math
+   1. Patterns: Math
 
 9. [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
 
-    1. Patterns: Math, String, Hash Table
+   1. Patterns: Math, String, Hash Table
 
 10. [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words)
 
@@ -302,6 +301,7 @@ There are six main dangers to using code kata from Ladderly or elsewhere:
 2. Overutilization. The job search involves more than leetcode. Make time for rest, social networking, applications, portfolio development, working on non-kata code challenges, and the other elements of the job search.
 
 3. Substituting memorization for learning. Kata is a memorization tool, and memorization is not a substitute for learning. While these problems can serve as a starting point for learning, you should continue to study many other variations to reduce the chance that a surprise question or twist during an interview will throw you into a difficult situation. Make a practice of calmly facing unexpected questions by:
+
    1. Participating in Leetcode weekly competitions
    2. Referring back to the Standard Historical Guidance for continued learning
    3. Taking on many real and practice interviews and viewing them as a learning experience, acknowledging that you may be surprised and accepting it

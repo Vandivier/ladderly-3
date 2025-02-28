@@ -1,6 +1,5 @@
 ---
 title: "5. Aria's Tale: An Emergent Social Gaming Experience"
-date: 12/25/23
 author: John Vandivier
 ---
 
