@@ -45,6 +45,11 @@ A story is implausible if it is likely to be a fiction. Merely filtering irrelev
 
 A truth can also be implausible if it is simply extremely unusual. So, as a storyteller, I might actually want to tone down my achievements in some cases to avoid triggering this kind of suspicion. In many cases we can modify our presentation in a way that is conservative or modest to this end. If I delivered a multi-million dollar project with three days of effort, this might appear unbelievable, or it might appear as an implausible data point for the use of forecasting a design delivery schedule. Instead I can say that I delivered such a project within half a quarter, in less than a month, and so on.
 
+Two other techniques to raise plausibility:
+
+1. Use multiple metrics. I recommend 2-3 because more than that begins to generate too much complexity in most conversations.
+2. Consider changing the level or format of the metric. Absolute numbers, percentages, and annualized figures may be more or less imprecisive and understanable to the listener. Again, much of this pain is just solve by presenting more than one metric.
+
 As a storyteller, it's a smart idea to A/B test the way you tell the story to find a version that is both easy to tell and resonates with most audiences. In the design world we sometimes call this workshopping, and you can leverage an Onion Strategy to ensure a final and public design is high quality.
 
 ### The Onion Strategy
@@ -53,27 +58,7 @@ The Onion Strategy is the simple collaboration strategy that is useful to ensure
 
 Start off by presenting a draft of a design, article, speech, or other material to a small and trusted group, even just a single person. Get their feedback and ensure their support then move on to an incrementally larger group that includes the already-aligned subgroup. After a few iterations you can move forward with public communication expecting a high level of quality and alignment.
 
----
-
-Ballparked metrics derive part of their value from their simplicity, but sometimes a simple fact can be wrapped in a verbose container. This ultimately devalues the use of a ballparked metric to some degree. If your audience has the time to listen or read a verbose case, you could be using relatively sophisticated
-
-Ballparking estimates face a key problem due to their nature as estimates under low rigor: Why should they be trusted?
-
-To ballpark effectively:
-
-1. Ensure your metrics are purposeful and plausible.
-
-In both the job search and in solution design, a key component of ballparking
-
-It turns out that the optimal level of analytical rigor in the industry is lower than the standard level of rigor in an acadmic journal.
-
-This makes sense because researchers are specialists, so they occupy themselves with tasks
-
-Even for valuable projects, the optimal level of analytical rigor design often falls short of what would be considred allowable at top journals.
-
-This article will specifically focus on the case of project design and the job search.
-
-Analysis takes time and money to perform, then it often has a communication cost due to the complexity of the analysis. It's a smart move to have two different design processes within your engineering company, so that you can support thorough design when needed and a lighter weight design most of the time, perhaps moving work descriptions directly into your project management software.
+## Ballparking in the Job Search
 
 In the case of a resume or an interview, you have much less time to communicate results:
 
@@ -153,6 +138,33 @@ In telling this story in interviews, I initially struggled to communicate the va
 5. Let's assume the Custom Documents feature explains a minority of the contract value. We can estimate a 25% multiplier as the as the middle option between zero and 50%. This results in a ballparked value of $1 million.
 6. This estimate is independently plausible given the headcount of the Custom Document feature team within the larger OC team.
 
-## In Solution Design - TODO
+## In Solution Design
 
-...
+There are at least three important roles for metrics when designing a solution:
+
+1. Business justification to take on the work
+2. Verifying delivery has been completed without error or concern
+3. Measuring impact of the solution after delivery
+
+The typical advice applies here: Use multiple measures to increase plausibility and reduce risk.
+
+It's also worth calling out that there are some normal particular metrics to consider here.
+
+For business justification:
+
+1. Reduced cost
+2. Increased revenue
+3. Time saved
+4. Stakeholder satisfaction
+5. Reduced risk
+6. Enablement of future work
+
+For technical assurance:
+
+1. Error rate
+2. Latency - Generally more is better but the key is to understand the range acceptable to the stakeholders in the case of the current solution, and then to instrument monitoring to verify that the solution is meeting the requirements.
+3. Cost
+4. Usage
+5. Uptime
+6. Level of effort
+7. Test coverage, type coverage, and logging
