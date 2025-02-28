@@ -8,24 +8,60 @@ Ballparking is estimation with low rigor. When we talk about ballparking a metri
 
 ## When is Ballparking Useful?
 
-Ballparking is useful any time empirical data is relevant to a decision. This article will focus on two specific cases, but there are many more:
+Ballparking is useful:
+
+1. When empirical data is relevant to a decision.
+2. When precise and relevant data is absent or inefficient for the purpose of communication.
+
+This article will focus on two specific cases, but there are many more:
 
 1. Project Evaluation for the Job Search
 2. Project Evaluation in Solution Design
 
-Instead of choosing cases where low rigor is allowable, flip your mental model and realize that all measures are primitively observed or created in a state of low rigor. At every stage of analysis, we can optionally choose to apply marginally more analytical rigor. We should only make that investment if the marginal benefit is worth the marginal cost.
+In the analytical lifecycle, ballparked metrics are useful in at least two key locations:
+
+1. At the outset, when raw data is observed. Analysis is costly and sometimes working with raw data is efficient from a process perspective.
+2. After final analysis is done, when communicating a complex story subject to constraints around time and complexity. Similar to the process of rounding decimal numbers, we prune complexity and precision to make communication easier, efficient, or right-sized to the conversation at hand.
+
+A little more in defense of working with raw data: Notice that all measures are primitively observed or created in a state of low rigor. At every stage of analysis, we can optionally choose to apply marginally more analytical rigor. We should only make that investment if the marginal benefit is worth the marginal cost.
 
 It turns out that the normal level of rigor in the software engineering industry is lower than the standard level in academic research, which is intuitive for many reasons including the fact that researchers are specialists.
 
 You might worry, then, that this pattern breaks for scientific work, and it does but not much. Researchers do have slightly longer resumes on average. If you are interested in applying for SWE and DS roles you can simply maintain two resumes, and you may highlight different metrics within each resume. You can ballpark figures on both of them.
 
-## General Tips - TODO
+## General Tips
 
-SMART metrics are useful in the job search and in solution design because they allow the audience to make an informed decision.
+Whether you are using ballparked metrics for design or the job search, three general tips apply. You should communicate your metric with:
 
-Ballparked metrics, similar to any other metrics, are useful as a component of media for at least two reasons:
+1. Parsimony - Ballparking is value in part due to simplicity. By hiding a simple fact in a verbose container, we undermine total value.
+2. Plausibility - Ballparked metrics are low rigor, so they tend to trigger rational questions around plausability. Read on for techniques to check for plausibility.
+3. Purpose - We use metrics to drive towards some larger goal. When you check for parsimony and plausibility, don't merely check that the value of the metric is plausible, but also that it's relation to your overall goal is plausible. If your audience deems the metric irrelvant to your overall goal, it's not useful.
 
-1.
+### Checking for Plausibility
+
+Whenever we tell a story, it's important to consider the audience. With this skill of empathy active, we can consider our story from their perspective and ask "Does this seem plausible?"
+
+A story is implausible if it is likely to be a fiction. Merely filtering irrelevant details doesn't make a story implausible. To test whether a metric is a fiction, one thing we can do is simply ask, "How did you come up with this number?" So, as the storyteller, we should generally be prepared to describe the way a metric was derived.
+
+A truth can also be implausible if it is simply extremely unusual. So, as a storyteller, I might actually want to tone down my achievements in some cases to avoid triggering this kind of suspicion. In many cases we can modify our presentation in a way that is conservative or modest to this end. If I delivered a multi-million dollar project with three days of effort, this might appear unbelievable, or it might appear as an implausible data point for the use of forecasting a design delivery schedule. Instead I can say that I delivered such a project within half a quarter, in less than a month, and so on.
+
+As a storyteller, it's a smart idea to A/B test the way you tell the story to find a version that is both easy to tell and resonates with most audiences. In the design world we sometimes call this workshopping, and you can leverage an Onion Strategy to ensure a final and public design is high quality.
+
+### The Onion Strategy
+
+The Onion Strategy is the simple collaboration strategy that is useful to ensure high quality of broadly communicated material.
+
+Start off by presenting a draft of a design, article, speech, or other material to a small and trusted group, even just a single person. Get their feedback and ensure their support then move on to an incrementally larger group that includes the already-aligned subgroup. After a few iterations you can move forward with public communication expecting a high level of quality and alignment.
+
+---
+
+Ballparked metrics derive part of their value from their simplicity, but sometimes a simple fact can be wrapped in a verbose container. This ultimately devalues the use of a ballparked metric to some degree. If your audience has the time to listen or read a verbose case, you could be using relatively sophisticated
+
+Ballparking estimates face a key problem due to their nature as estimates under low rigor: Why should they be trusted?
+
+To ballpark effectively:
+
+1. Ensure your metrics are purposeful and plausible.
 
 In both the job search and in solution design, a key component of ballparking
 
