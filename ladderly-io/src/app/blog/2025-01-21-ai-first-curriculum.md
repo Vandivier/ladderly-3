@@ -82,7 +82,7 @@ Key skills you'll develop:
 
 - Effective prompt engineering for coding assistance
 - Strategic use of AI pair programming
-- Advanced technical search techniques
+- Advanced technical [search techniques](https://www.youtube.com/live/J2-BF64-sGQ)
 - Documentation navigation
 - Problem-solving patterns
 

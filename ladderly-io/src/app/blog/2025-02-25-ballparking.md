@@ -11,7 +11,7 @@ Ballparking is estimation with low rigor. When we talk about ballparking a metri
 Ballparking is useful:
 
 1. When empirical data is relevant to a decision.
-2. When precise and relevant data is absent or inefficient for the purpose of communication.
+2. When precise and relevant data is absent, costly to obtain, or inefficient for the purpose of communication.
 
 This article will focus on two specific cases, but there are many more:
 
@@ -29,6 +29,12 @@ It turns out that the normal level of rigor in the software engineering industry
 
 You might worry, then, that this pattern breaks for scientific work, and it does but not much. Researchers do have slightly longer resumes on average. If you are interested in applying for SWE and DS roles you can simply maintain two resumes, and you may highlight different metrics within each resume. You can ballpark figures on both of them.
 
+## When is Ballparking Not Useful?
+
+When you can easily access precise and relevant data, that same data is easy to interpret and communicate, and it is already trusted or subject to low risk of measurement error.
+
+Ballparking may also be of little value in cases where all parties have high and overlapping context, so that nuanced data can be shared and mutually understood.
+
 ## General Tips
 
 Whether you are using ballparked metrics for design or the job search, three general tips apply. You should communicate your metric with:
@@ -41,7 +47,7 @@ Whether you are using ballparked metrics for design or the job search, three gen
 
 Whenever we tell a story, it's important to consider the audience. With this skill of empathy active, we can consider our story from their perspective and ask "Does this seem plausible?"
 
-A story is implausible if it is likely to be a fiction. Merely filtering irrelevant details doesn't make a story implausible. To test whether a metric is a fiction, one thing we can do is simply ask, "How did you come up with this number?" So, as the storyteller, we should generally be prepared to describe the way a metric was derived.
+A story is plausible if there is a reasonable chance it is true. Merely filtering irrelevant details doesn't make a story implausible. To test whether a metric is a fiction, one thing we can do is simply ask, "How did you come up with this number?" So, as the storyteller, we should generally be prepared to describe the way a metric was derived.
 
 A truth can also be implausible if it is simply extremely unusual. So, as a storyteller, I might actually want to tone down my achievements in some cases to avoid triggering this kind of suspicion. In many cases we can modify our presentation in a way that is conservative or modest to this end. If I delivered a multi-million dollar project with three days of effort, this might appear unbelievable, or it might appear as an implausible data point for the use of forecasting a design delivery schedule. Instead I can say that I delivered such a project within half a quarter, in less than a month, and so on.
 
@@ -60,33 +66,38 @@ Start off by presenting a draft of a design, article, speech, or other material 
 
 ## Ballparking in the Job Search
 
-In the case of a resume or an interview, you have much less time to communicate results:
+In the case of a resume or an interview, you have little time to communicate results:
 
-1. A recruiter looks at your resume for [six to seven seconds](https://www.indeed.com/career-advice/resumes-cover-letters/how-long-do-employers-look-at-resumes) and the best practice for your resume is to take a single page if possible.
-2. Recruiters and interviewers don't have the means to verify your scientific claims even if they wanted to.
-3. Your competitors are ballparking,
+1. A recruiter looks at your resume for [six to seven seconds](https://www.indeed.com/career-advice/resumes-cover-letters/how-long-do-employers-look-at-resumes).
+2. Resume best practice includes sticking to a single page for most applicants and keeping achievement statements to a single sentence within each experience block.
+3. [Best practices for behavioral and conversational interviews](blog/2025-02-24-behavioral-interviews) include being able to describe a story in under 3 minutes.
 
-It turns out that the best practice for a resume is to take a single page if possible, and project descriptions are often a single sentence. Your design documents should be longer than a single sentence. Your ballparked project metrics
+These constraints make it valuable to present impact in a way that's easily consumed and understood by a wide business audience. The most broadly understood metrics include profit and its components:
 
-In the case of design,
+1. Revenue or net revenue
+2. Cost
+3. Profit or net income
 
-ow rigor. Rigor has a cost and you should add rigor only when the benefit of investing in the process outweighs the cost.
+Here are some examples of metrics with less obvious business value:
 
-Not only is rigorous science costly to perform, it is also costly to communicate:
+1. Error frequency
+2. Element engagement rate
+3. Latency changes
+4. Test coverage
 
-1. It takes time and space. You, your audience, your resume, your employer, and so on, all lack time and space.
-2. Most people don't understand scientific methods and you don't h
+One way to use ballparking is to convert a metric into another metric which is more consumable. You can to this by using basic math to change the unit of measurement, eg:
 
-I am tempted to say that ballparking is always useful because it fills two roles:
+1. I reduced latency by 50%
+2. Latency causes end user dissatisfaction
+3. End user disatisfaction causes churn
+4. Churn reduces revenue
+5. Latency reduction is also associated with increased infrastructure cost
 
-1. Providing baseline signal or description.
-2. Providing cardinal information, allowing for choice between
+So, we can plug in estimates for each multiplier and come up with a ballparked estimate of the total impact. Notice that rounding at any or every step is fine and multipliers may conflate correlation with causation. If you can make an appropriate correction, do so, otherwise you can just explain that you're assuming a linear relationship for the purpose of estimation if you are asked about how the value was calculated.
 
-Ballparking is always useful, science is sometimes useful. Science can be thought of as the application of rigor to estimation, and rigor has cost.
+Data that you observed at the company is best, but if this data is not available then we can use industry data or academic estimates. For example, [a 2020 report by SaaS Analytics estimates the relationship between customer satisfaction and churn](https://akitaapp.com/blog/the-correlation-between-customer-satisfaction-and-retention). I found this with a simple search on Google for `correlation between customer satisfaction and churn`. You might also consider using performing an AI search or utilizing [other standard search techniques](https://www.youtube.com/live/J2-BF64-sGQ).
 
-Ballparking is almost always useful, at least as a starting point. Scientific measures should be thought of as refinements of ballparked measures instead of a different category.
-
-Ballparking can be used to quickly evaluate task value for forward-facing purposes such as triage, design, and prioritization, as well as for retrospective purposes, such as to provide a SMART metric to go along with a project completed at a prior company.
+---
 
 Ballparking can give confidence to designs and behavioral stories by providing robust project evaluation. Robust evaluation refers to a project evaluation using a basket of statistics instead of a single metric. Very often, optimizing on a single metric becomes a pitfall resulting in design overfitting, but if a project provides positive signals across a range of relatively independent metrics, the project is in some sense less risky and can lead to higher confidence.
 
@@ -168,3 +179,5 @@ For technical assurance:
 5. Uptime
 6. Level of effort
 7. Test coverage, type coverage, and logging
+
+It's important to ensure that the technical and business metrics are aligned. Mini

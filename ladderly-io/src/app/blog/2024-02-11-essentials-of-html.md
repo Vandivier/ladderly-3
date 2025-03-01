@@ -23,7 +23,7 @@ Web developers sometimes make the mistake of trying to learn a modern framework 
 
 An even more common, if less discussed, mistake is for developers to spend too much time learning HTML before continuing on to more important subjects. It is not optimal in terms of return on investment to time and effort to attempt to master HTML before continuing to CSS and JavaScript. The [official HTML specification](https://html.spec.whatwg.org/) is constantly changing and contains over 760,000 words of content.
 
-The [Ladderly Standard Checklist](https://www.ladderly.io/checklists/my-basic-checklist) recommends starting to program by learning search techniques. The checklist then walks students through a high-level overview of HTML, CSS, and JavaScript in about an hour in an exercise called the Trial by Fire. Diving deeper into HTML is recommended after doing that initial overview.
+The [Ladderly Standard Checklist](https://www.ladderly.io/checklists/my-basic-checklist) recommends starting to program by learning [search techniques](https://www.youtube.com/live/J2-BF64-sGQ). The checklist then walks students through a high-level overview of HTML, CSS, and JavaScript in about an hour in an exercise called the Trial by Fire. Diving deeper into HTML is recommended after doing that initial overview.
 
 This video describes the [9 essential topics in HTML](https://youtube.com/watch?v=YTTp7I7mLVI) that Ladderly recommends for students to learn before proceeding to CSS. The video is about 30 minutes long. Most students should be able to learn the essentials of HTML in under two weeks.
 

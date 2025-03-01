@@ -38,7 +38,7 @@ Please do refer to the official documentation on the hooks. Here are some additi
       3. Another common use case is the use case of an enterprise logger. In this case, our software logs something to the server, but the React render chain doesn't directly know or care about any such logs.
 2. `useState` enables state management, data manipulation, and data persistence.
    1. [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) describe data manipulation. `useState` provides two return values which can support all CRUD operations.
-   2. Each of those topics can be talked about at length. You should spend at least thirty minutes applying [search techniques](https://www.youtube.com/watch?v=oHQiJ3kq52M) to learn more about these topics outside of the Ladderly website.
+   2. Each of those topics can be talked about at length. You should spend at least thirty minutes applying [search techniques](https://www.youtube.com/live/J2-BF64-sGQ) to learn more about these topics outside of the Ladderly website.
    3. A simple way to think about application state is that it is the data which alters the way users view and use your website.
       1. Authentication state is one common and important kind of state because many applications allow users to see and do different things when they are logged in.
       2. Color themes including dark mode and light mode and language state are also examples of application state. Your site can have an English state and a Spanish state which changes the way the site looks.
@@ -54,7 +54,7 @@ In this section, I transcribe a prompt conversation with GPT-4. I recommend you 
 1. GPT-4 begins with a complex implementation and I strip the complexity away with chained prompts. This means you will see the simplest implementation last. After you understand that, it will be easier to understand the former implementations.
 2. After you have seen these implementations, reviewing earlier sections which discuss hooks at a higher level will make more sense and the repetition between low and high level descriptions will lead to stronger concept reinforcement.
 
-### The Transcript:
+### The Transcript
 
 User:
 For a Next.js application using the app router, provide an example implementation of a custom `useLocalStorage.ts` hook. As a matter of style, call built-in hooks explicitly on their object container, like `React.useState` instead of importing them individually.
