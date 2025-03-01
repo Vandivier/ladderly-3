@@ -106,6 +106,12 @@ async function getBlogPost(slug: string) {
   }
 }
 
+function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 238 // ref: https://www.sciencedirect.com/science/article/abs/pii/S0749596X19300786
+  const wordCount = content.trim().split(/\s+/).length
+  return Math.round(wordCount / wordsPerMinute)
+}
+
 const PremiumCard = ({ isAuthenticated = false }) => (
   <div className="my-8 rounded-lg border border-ladderly-violet-100 bg-ladderly-violet-100 p-6 shadow-sm">
     <div className="flex items-center gap-3">
@@ -175,6 +181,9 @@ const PreviewBlogContent = ({
       <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
         {post.title}
       </h1>
+      <div className="mt-2 text-sm text-gray-600">
+        Estimated read time: {calculateReadingTime(post.content)} minutes
+      </div>
     </header>
 
     {post.toc.length > 0 && <TableOfContents items={post.toc} />}
@@ -215,6 +224,9 @@ const BlogPostLayout = ({
           <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
             {post.title}
           </h1>
+          <div className="mt-2 text-sm text-gray-600">
+            Estimated read time: {calculateReadingTime(post.content)} minutes
+          </div>
         </header>
 
         {post.toc.length > 0 && <TableOfContents items={post.toc} />}
