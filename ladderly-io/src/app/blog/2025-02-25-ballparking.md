@@ -43,6 +43,25 @@ Whether you are using ballparked metrics for design or the job search, three gen
 2. Plausibility - Ballparked metrics are low rigor, so they tend to trigger rational questions around plausability. Read on for techniques to check for plausibility.
 3. Purpose - We use metrics to drive towards some larger goal. When you check for parsimony and plausibility, don't merely check that the value of the metric is plausible, but also that it's relation to your overall goal is plausible. If your audience deems the metric irrelvant to your overall goal, it's not useful.
 
+### Statistical Reasoning Under Uncertainty
+
+Ballparking can be thought of as armchair statistics, or applied statistical reasoning under uncertainty. Here are four useful examples of this kind of reasoning and how we can use it to create reasonable estimates even without precise data:
+
+1. Fractions under ignorance: Given N outcomes, the risk-minimizing estimate of the probability of any particular outcome under ignorance is 1/N.
+   1. Examples: Tossing a coin or rolling a die.
+2. Correlation under ignorance: Consider two variables that are known to correlate.
+   1. Under ignorance about the mathematical relationship between two variables, a simple linear relation is the simplest, least risky, and standard approach to statistical estimation.
+   2. Under ignorance about the coefficient of correlation, a one to one relation is the simplest, least risky, and standard approach to statistical estimation.
+3. Point estimate from a range:
+   1. Given a range of unknown distribution, the risk-minimizing estimate is the midpoint of the range.
+   2. Application: See `Case Study: Ballparking Renewed Contract Value`, where I selected a 0.25 multiplier using this logic.
+   3. Application: This is a great way to make stories simpler. Using a point estimate is less confusing and less verbose than a range estimate for many audiences.
+4. Use of aggregate variables under uncertainty:
+   1. The null hypothesis is that an individual observation is close to the mean of the population, so you can substitute aggregate values for estimates.
+   2. Application: See `Case Study: Onboarding Jira Service Desk`.
+   3. You can often make various adjustments for better estimates, eg if you know that a particular observation is in the top half or you know that a distribution has a long tail in a specific direction.
+   4. If you don't know about direction or magnitude of skew though, just assume an approximately normal distribution. It's a risk minimizing guess between the options that range from heavy left to heavy right skew.
+
 ### Checking for Plausibility
 
 Whenever we tell a story, it's important to consider the audience. With this skill of empathy active, we can consider our story from their perspective and ask "Does this seem plausible?"
@@ -65,6 +84,19 @@ The Onion Strategy is the simple collaboration strategy that is useful to ensure
 Start off by presenting a draft of a design, article, speech, or other material to a small and trusted group, even just a single person. Get their feedback and ensure their support then move on to an incrementally larger group that includes the already-aligned subgroup. After a few iterations you can move forward with public communication expecting a high level of quality and alignment.
 
 ## Ballparking in the Job Search
+
+Here are four cases where impact metrics can be beneficial for the job search:
+
+1. [During interviews including behavioral interviews](blog/2025-02-24-behavioral-interviews), hiring manager conversations, recruiter screens, and more.
+2. In the resume, which is a distillation of the behavioral interview.
+3. When social networking and creating social media content. See, for instance, [this suggested referral seeking script](/blog/2025-01-20-social-networking-scripts#main-cold-referral-seeking-script) which references a recent achievement.
+
+Ballparking helps us with impact metrics in at least two ways:
+
+1. When we don't have direct access to precise impact measures. For example:
+   1. When a project or task was completed but no one involved has an estimate of impact. There may be observability or other issues, so precise impact measures may not be available.
+   2. When we no longer work at a company, so we don't have access to precise data regardless of whether the company has it.
+2. When we do have precise data, but it's not easy to communicate, so we can alter the unit of measurement to make it more consumable.
 
 In the case of a resume or an interview, you have little time to communicate results:
 
@@ -97,42 +129,17 @@ So, we can plug in estimates for each multiplier and come up with a ballparked e
 
 Data that you observed at the company is best, but if this data is not available then we can use industry data or academic estimates. For example, [a 2020 report by SaaS Analytics estimates the relationship between customer satisfaction and churn](https://akitaapp.com/blog/the-correlation-between-customer-satisfaction-and-retention). I found this with a simple search on Google for `correlation between customer satisfaction and churn`. You might also consider using performing an AI search or utilizing [other standard search techniques](https://www.youtube.com/live/J2-BF64-sGQ).
 
----
+### Case Study: Onboarding Jira Service Desk
 
-Ballparking can give confidence to designs and behavioral stories by providing robust project evaluation. Robust evaluation refers to a project evaluation using a basket of statistics instead of a single metric. Very often, optimizing on a single metric becomes a pitfall resulting in design overfitting, but if a project provides positive signals across a range of relatively independent metrics, the project is in some sense less risky and can lead to higher confidence.
+An engineer led the onboarding of Jira Service Desk several years ago. They did not have business impact data. To ballpark the impact, I conducted an AI-assisted search for "typical ROI for teams onboarding Jira Service Desk for tech support and client service teams?"
 
-Even if a collection of metrics are highly correlated or endogenous, rather than independent, using multiple metrics can improve project communication because stakeholders may be familiar with certain metrics. In fact, you may want some redundant metrics as this provides robustness against measurement error and improves observability.
+ChatGPT using the o3-mini-high model with search enabled provided some impressive metrics, but when asked for source references [it referred to non-existant articles](https://chatgpt.com/share/67c38015-baf8-800d-9240-07445689caa1). Still, search on Google referring to some of the LLM's output provided [a current and relevant source from Atlassian with multiple useful metrics](https://www.atlassian.com/whitepapers/forrester-total-economic-impact-atlassian-for-itsm):
 
-Ballparked figures are typical for use in the behavioral interview, the resume, the job search, and ordinary conversation. When you make a claim around your project impact in a non-scientific context, there are four important norms to consider:
+1. End users save an average of 25 minutes per submitted request.
+2. IT operations teams approve change requests 35% faster thanks to better risk assessment, routing, and recommendations.
+3. 275 percent total return on investment over a three year period.
 
-1. Your claim should be plausible.
-2. Your claim should be relevant.
-3. Your claim should not be scientific.
-
-four main norms apply in non-scientific contexts:
-
-1. There is no expectation of scientific rigor. You don't need to perform a causal analysis. You don't need to prove signifant difference from a counterfactual. It's fine to round numbers.
-2. There is an expectation of reasonability
-
-3. It should be relevant.
-
-Ballparked figures are subject to interrogation, but the method
-
-The resume and behavioral interviews both draw on a list of accomplishments on the part of the job candidate. The candidate is ideally able to tell a cohesive story using these accomplishments which signals to the employer that the candidate meets or exceeds the criteria the employer hopes to hire. An important component of the storytelling is the use of quantified impact metrics.
-
-This article will focus on solving a common pitfall which is a lack of quantified impact. See `21. Advanced Behavioral Interview Prep` for a discussion focused on the storytelling component. Indeed, from a language model perspective, much of a good resume is a distillation of the behavioral interview, so understanding the behavioral interview is key to writing a good resume.
-
-A common pitfall in the job search is the lack of quantified impact in the resume, which is often an indication of weak behavioral interview material as well because the same achievements and metrics which perform well in the behavioral interview are typically noted on the resume.
-
-Let's assume that you have a list of STOARR anecdotes.
-
-## In the Job Search
-
-Ballparking provides achievement metrics, and here are a few examples of when to use those metrics on the job search:
-
-1. [During interviews including behavioral interviews](blog/2025-02-24-behavioral-interviews), hiring manager conversations, recruiter screens, and more.
-2. In the resume, which is a distillation of the behavioral interview.
-3. When social networking and creating social media content. See, for instance, [this suggested referral seeking script](/blog/2025-01-20-social-networking-scripts#main-cold-referral-seeking-script) which references a recent achievement.
+These metrics are averages across businesses studied, not specific to the company under estimation, but given the logic of reasoning under uncertainty we can assume the company under estimation saw normal results, so the aggregate values can be treated as estimates of impact at the company under estimation.
 
 ### Case Study: Ballparking Renewed Contract Value
 
@@ -180,4 +187,6 @@ For technical assurance:
 6. Level of effort
 7. Test coverage, type coverage, and logging
 
-It's important to ensure that the technical and business metrics are aligned. Mini
+It's important to ensure that the technical and business metrics are aligned. If the business justification involves a cost reduction, minimizing latency may not be optimal, given that latency minimization can be expensive. If the business goal is to improve customer satisfaction, then a solution with a user experience associated with unknown user satisfaction increases risk.
+
+A risky solution doesn't necessarily mean a bad solution, but it may be worth investing in derisking strategies. For example, we can conduct user surveys or interviews with a wireframe or other proof of concept to derisk an otherwise unknown user experience.
