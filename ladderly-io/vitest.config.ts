@@ -10,11 +10,20 @@ export default defineConfig({
     setupFiles: './tests/setup.ts',
     coverage: {
       reporter: ['text', 'json', 'html'],
+      reportsDirectory: './tests/coverage',
+      exclude: [
+        'coverage/**',
+        'dist/**',
+        '**/node_modules/**',
+        '.next/**',
+        'scripts/**/*',
+      ],
     },
   },
   resolve: {
     alias: {
       '~': path.resolve(__dirname, './src'),
+      '@tests': path.resolve(__dirname, './tests'),
     },
   },
 })
