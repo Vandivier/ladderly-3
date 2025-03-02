@@ -1,6 +1,5 @@
 ---
 title: '9. Resume Optimization'
-date: 2/12/24
 author: John Vandivier
 ---
 
@@ -36,6 +35,8 @@ It's important to ensure that you have a high-quality LinkedIn and GitHub before
 
 Apply with a job board profile when possible. This means using `Apply with LinkedIn` to LinkedIn job opportunities, using the Indeed profile to `Apply with Indeed` for job posts you encounter on Indeed, and so on. Only use your own resume when a board-native approach is not available.
 
-After you apply, make sure to to follow up with an individual from a relevant role at your target company, and maintain a spreadsheet of your job funnel performance. Suggested networking scripts and descriptions of ideal contacts for networking are located [here](https://github.com/Vandivier/ladderly-slides/blob/main/docs/NETWORKING-SCRIPTS.md).
+After you apply, make sure to to follow up with an individual from a relevant role at your target company, and maintain a spreadsheet of your job funnel performance. [Here's a job search tracker template](https://docs.google.com/spreadsheets/d/1gRL8zSSgDAQ_Rs5kHglUEZnH4-kQwLnXZ0e9oh0YvK0) you can use. Each row in this recommended template represents a job post.
+
+Suggested networking scripts and descriptions of ideal contacts for networking are located [here](https://github.com/Vandivier/ladderly-slides/blob/main/docs/NETWORKING-SCRIPTS.md).
 
 If you apply to a particular role and you do not here back within two weeks, consider this a failed response. Do not worry about your response rate during the first two weeks of your job search. Beginning in your third week, if your weekly response rate is less than ten percent, Ladderly considers this a critically low response rate and recommends that you [seek expert help](https://buy.stripe.com/cN2bMfbOQ2CX5dC7su) to understand bottlenecks in your search process. Of course, you can optionally and proactively seek help at any time, even if your response rate isn't critically low.

@@ -1,6 +1,5 @@
 ---
 title: '2. Building a Quality Portfolio'
-date: 10/1/23
 author: John Vandivier
 ---
 
