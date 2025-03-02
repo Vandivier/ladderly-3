@@ -1,6 +1,5 @@
 ---
 title: '19. Endorsed Communities'
-date: 1/22/25
 author: John Vandivier
 ---
 
@@ -22,7 +21,7 @@ Ladderly.io recommends you:
 3. Join one or more Discord communities of different kinds
 4. DO leverage tools like BrandGhost, Repurpose.io, and OpusClips to efficiently create large amounts of content for multiple social media platforms with low effort.
 
-    - Access exclusive discounts on these tools and more at [https://www.ladderly.io/perks](https://www.ladderly.io/perks)!
+   - Access exclusive discounts on these tools and more at [https://www.ladderly.io/perks](https://www.ladderly.io/perks)!
 
 5. DO NOT just "post and ghost" on social media or in communities. Engaging must include both creating original content and also replying to others.
 6. DO experiment and adjust your time allocation to maximize your personal results.
