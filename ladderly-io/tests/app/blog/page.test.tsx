@@ -1,14 +1,24 @@
-import React from 'react'
-import { expect, test, vi, describe, beforeEach } from 'vitest'
+import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import fs from 'fs'
-import path from 'path'
 import matter from 'gray-matter'
+import path from 'path'
+import React from 'react'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 // Mock fs module
 vi.mock('fs', () => ({
   default: {
-    readdirSync: vi.fn(),
+    readdirSync: vi.fn(() => [
+      {
+        name: 'test-post-1.md',
+        isFile: () => true,
+      },
+      {
+        name: 'test-post-2.md',
+        isFile: () => true,
+      },
+    ]),
     readFileSync: vi.fn(),
   },
 }))

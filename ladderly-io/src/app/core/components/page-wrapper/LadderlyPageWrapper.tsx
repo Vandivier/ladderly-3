@@ -30,7 +30,7 @@ export async function LadderlyPageWrapper({
     const user = session?.user
 
     if (!session) {
-      content = unauthenticatedView || (
+      content = unauthenticatedView ?? (
         <div className="container mx-auto max-w-3xl px-4 py-8">
           <p className="text-center text-gray-800 dark:text-gray-200">
             Please{' '}
@@ -49,12 +49,12 @@ export async function LadderlyPageWrapper({
       requirePremium &&
       user?.subscription.tier === PaymentTierEnum.FREE
     ) {
-      content = previewView || (
+      content = previewView ?? (
         <div className="container mx-auto max-w-3xl px-4 py-8">
           <p className="text-center text-gray-800 dark:text-gray-200">
             A premium subscription is required to access this content. Please{' '}
             <a
-              href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || '#'}
+              href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? '#'}
               className="text-blue-600 hover:underline"
               target="_blank"
               rel="noopener noreferrer"

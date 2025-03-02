@@ -1,3 +1,5 @@
+'use server'
+
 /* TODO:
  * let's abandon compatability with blitz.js passwords and simply force users to reset passwords as part of this migration.
  * I'll mark user passwords as empty strings
