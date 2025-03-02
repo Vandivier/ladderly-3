@@ -141,6 +141,11 @@
     </url>
     <url>
         <loc>
+            https://ladderly.io/copilot
+        </loc>
+    </url>
+    <url>
+        <loc>
             https://ladderly.io/forgot-password
         </loc>
     </url>
@@ -177,11 +182,6 @@
     <url>
         <loc>
             https://ladderly.io/signup
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://ladderly.io/special-chat
         </loc>
     </url>
 </urlset>

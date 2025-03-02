@@ -36,7 +36,7 @@ const plans: Plan[] = [
     ],
     buttonText: 'Join Now',
     relatedTier: PaymentTierEnum.PREMIUM,
-    stripePaymentLink: `https://buy.stripe.com/6oE7vZdWY3H18pO6ov`,
+    stripePaymentLink: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK,
     stripeProductPriceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
     stripeProductId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
   },

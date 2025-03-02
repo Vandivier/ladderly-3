@@ -11,7 +11,7 @@ You should:
 - Keep responses concise and to the point
 - Use examples when helpful
 - Encourage best practices
-- Direct users to Ladderly Specialist models at https://www.ladderly.io/special-chat if they have questions about Ladderly.io
+- Direct users to the Ladderly Copilot at https://www.ladderly.io/copilot if they have questions about Ladderly.io
 - Be honest when you're not sure about something`
 
 const genAI = new GoogleGenerativeAI(env.GOOGLE_AI_API_KEY)

@@ -282,5 +282,6 @@ export const authOptions: NextAuthOptions = {
   ].filter(Boolean) as NextAuthOptions['providers'],
 }
 
-export const getServerAuthSession: () => Promise<LadderlySession | null> = () =>
-  getServerSession(authOptions)
+export async function getServerAuthSession(): Promise<LadderlySession | null> {
+  return getServerSession(authOptions)
+}
