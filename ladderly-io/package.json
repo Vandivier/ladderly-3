@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node --experimental-strip-types scripts/generate-sitemap.ts && next build",
     "better-build": "npm run lint && node --experimental-strip-types scripts/generate-sitemap.ts && next build",
+    "clean-branches": "git for-each-ref --format '%(refname:short)' refs/heads | grep -v 'main' | xargs git branch -D",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
