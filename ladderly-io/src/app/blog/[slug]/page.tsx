@@ -260,3 +260,6 @@ export default async function BlogPost({
     </BlogPostLayout>
   )
 }
+
+// Make calculateReadingTime available for testing
+export { calculateReadingTime }
