@@ -40,8 +40,8 @@ jobs:
             exit 1
           fi
 
-          if (( $(echo "$BRANCH_COVERAGE < 45" | bc -l) )); then
-            echo "Branch coverage ($BRANCH_COVERAGE%) is below minimum threshold (45%)"
+          if (( $(echo "$BRANCH_COVERAGE < 51" | bc -l) )); then
+            echo "Branch coverage ($BRANCH_COVERAGE%) is below minimum threshold (51%)"
             exit 1
           fi
           echo "Branch coverage: $BRANCH_COVERAGE%"
