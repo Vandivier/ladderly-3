@@ -15,12 +15,6 @@ const config = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   webpack: (config, { isServer }) => {
-    // Handle HTML files
-    config.module.rules.push({
-      test: /\.html$/,
-      loader: 'raw-loader',
-    })
-
     // Ignore node-specific modules on client-side
     if (!isServer) {
       config.resolve.fallback = {
