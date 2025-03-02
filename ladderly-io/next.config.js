@@ -32,6 +32,11 @@ const config = {
       }
     }
 
+    // Add argon2 to externals
+    if (!isServer) {
+      config.externals = [...(config.externals || []), 'argon2']
+    }
+
     // Ignore scripts directory during build
     config.watchOptions = {
       ...config.watchOptions,
