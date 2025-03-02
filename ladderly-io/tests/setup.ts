@@ -1,8 +1,6 @@
-import { expect, afterEach } from 'vitest'
-import { cleanup } from '@testing-library/react'
 import * as matchers from '@testing-library/jest-dom/matchers'
-import React from 'react'
-import { vi } from 'vitest'
+import { cleanup } from '@testing-library/react'
+import { afterEach, expect, vi } from 'vitest'
 
 // Extend Vitest's expect method with React Testing Library's matchers
 expect.extend(matchers)
@@ -19,3 +17,13 @@ vi.mock('next/navigation', () => ({
 
 // Set up global fetch mock
 global.fetch = vi.fn()
+
+// Simple CSS mock
+vi.mock('**/*.css', () => ({
+  default: new Proxy(
+    {},
+    {
+      get: (target, prop) => prop,
+    },
+  ),
+}))

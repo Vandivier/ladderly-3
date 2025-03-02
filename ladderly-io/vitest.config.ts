@@ -24,6 +24,12 @@ export default defineConfig({
     alias: {
       '~': path.resolve(__dirname, './src'),
       '@tests': path.resolve(__dirname, './tests'),
+      src: path.resolve(__dirname, './src'),
+    },
+  },
+  css: {
+    modules: {
+      generateScopedName: '[local]',
     },
   },
 })
