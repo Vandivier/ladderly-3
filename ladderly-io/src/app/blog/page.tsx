@@ -36,7 +36,7 @@ async function getBlogPosts(): Promise<BlogPost[]> {
         title: data.title,
         date: data.date,
         author: data.author,
-        premium: data.premium === 'true',
+        premium: data.premium === true,
       }
     })
     .reverse()

@@ -103,7 +103,7 @@ async function getBlogPost(slug: string) {
     content,
     excerpt,
     toc,
-    premium: data.premium === 'true',
+    premium: data.premium === true,
   }
 }
 
