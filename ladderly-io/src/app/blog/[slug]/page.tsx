@@ -1,5 +1,3 @@
-'use server'
-
 import fs from 'fs'
 import matter from 'gray-matter'
 import { LockIcon } from 'lucide-react'
@@ -9,6 +7,7 @@ import { notFound } from 'next/navigation'
 import path from 'path'
 import { remark } from 'remark'
 import { visit } from 'unist-util-visit'
+import { calculateReadingTime } from '~/app/blog/blog-utils'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { getServerAuthSession } from '~/server/auth'
 import { BlogPostContent } from './BlogPostContent'
@@ -106,12 +105,6 @@ async function getBlogPost(slug: string) {
     toc,
     premium: data.premium || false,
   }
-}
-
-export const calculateReadingTime = (content: string): number => {
-  const wordsPerMinute = 238 // ref: https://www.sciencedirect.com/science/article/abs/pii/S0749596X19300786
-  const wordCount = content.trim().split(/\s+/).length
-  return Math.round(wordCount / wordsPerMinute)
 }
 
 const PremiumCard = ({ isAuthenticated = false }) => (

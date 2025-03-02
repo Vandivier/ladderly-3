@@ -1,11 +1,12 @@
-import React from 'react'
-import { expect, test, vi, describe, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import fs from 'fs'
-import path from 'path'
 import matter from 'gray-matter'
-import { getServerAuthSession } from '~/server/auth'
 import { notFound } from 'next/navigation'
+import path from 'path'
+import React from 'react'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { calculateReadingTime } from '~/app/blog/blog-utils'
+import { getServerAuthSession } from '~/server/auth'
 
 // Mock all external components and modules
 vi.mock('fs', () => ({
@@ -65,8 +66,8 @@ vi.mock('~/app/core/components/page-wrapper/LadderlyPageWrapper', () => ({
   },
 }))
 
-// Import after mocks
-import BlogPost, { calculateReadingTime } from '~/app/blog/[slug]/page'
+// Import BlogPost without the calculateReadingTime
+import BlogPost from '~/app/blog/[slug]/page'
 
 describe('calculateReadingTime', () => {
   test('calculates reading time correctly', () => {
