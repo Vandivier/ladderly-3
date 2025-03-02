@@ -18,7 +18,7 @@ type Plan = {
   price: string
   benefits: Benefit[]
   buttonText: string | null
-  relatedTier?: PaymentTierEnum
+  relatedTier: PaymentTierEnum
   stripePaymentLink?: string
   stripeProductPriceId?: string
   stripeProductId?: string
@@ -53,6 +53,7 @@ const plans: Plan[] = [
       { text: 'Access the Social Community' },
     ],
     buttonText: null,
+    relatedTier: PaymentTierEnum.FREE,
   },
 ]
 
@@ -88,16 +89,25 @@ const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
 
 const PlanCard: React.FC<{
   plan: Plan
-  relatedTier?: PaymentTierEnum
+  relatedTier: PaymentTierEnum
   userSubscriptions: Subscription[]
   currentUser: UserWithSubscriptionsOrZero
 }> = ({ plan, relatedTier, userSubscriptions, currentUser }) => {
-  const hasRelatedTier = userSubscriptions.some(
-    (subscription) => subscription.tier === relatedTier,
-  )
+  let hasRelatedTier = false
+  const isGuest = currentUser === 0
+
+  if (!isGuest) {
+    if (relatedTier === PaymentTierEnum.FREE) {
+      hasRelatedTier = true
+    } else {
+      hasRelatedTier = userSubscriptions.some(
+        (subscription) => subscription.tier === relatedTier,
+      )
+    }
+  }
 
   let elRelatedTier = null
-  if (relatedTier && currentUser !== 0) {
+  if (relatedTier && !isGuest) {
     elRelatedTier = hasRelatedTier ? (
       <p>You already have access to this plan!</p>
     ) : (

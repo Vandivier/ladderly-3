@@ -90,8 +90,6 @@ export function MobileMenuContent({
   const router = useRouter()
   const [isCommunitySubmenuOpen, setIsCommunitySubmenuOpen] =
     React.useState(false)
-  //   const [isTopHonorsSubmenuOpen, setIsTopHonorsSubmenuOpen] =
-  //     React.useState(false);
 
   const handleClose = () => {
     router.back()
@@ -100,10 +98,6 @@ export function MobileMenuContent({
   const toggleCommunitySubmenu = () => {
     setIsCommunitySubmenuOpen(!isCommunitySubmenuOpen)
   }
-
-  //   const toggleTopHonorsSubmenu = () => {
-  //     setIsTopHonorsSubmenuOpen(!isTopHonorsSubmenuOpen);
-  //   };
 
   return (
     <ThemeProvider>
@@ -160,36 +154,6 @@ export function MobileMenuContent({
                 </ul>
               )}
             </li>
-            {/* <li>
-              <button
-                onClick={toggleTopHonorsSubmenu}
-                className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
-                  isTopHonorsSubmenuOpen
-                    ? "border border-gray-200 bg-gray-100"
-                    : ""
-                }`}
-              >
-                Top Honors
-                <IconVerticalChevron isPointingUp={isTopHonorsSubmenuOpen} />
-              </button>
-              {isTopHonorsSubmenuOpen && (
-                <ul>
-                  <li>
-                    <Link href="/vote" className={MOBILE_SUBMENU_ITEM_CLASSES}>
-                      Vote
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/top-honors"
-                      className={MOBILE_SUBMENU_ITEM_CLASSES}
-                    >
-                      View Top Honors
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li> */}
           </ul>
         </nav>
       </div>

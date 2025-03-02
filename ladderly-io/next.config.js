@@ -31,16 +31,20 @@ const config = {
       config.externals = [...(config.externals || []), 'argon2']
     }
 
-    // Ignore scripts directory during build
+    // Ignore scripts and tests directories during build
     config.watchOptions = {
       ...config.watchOptions,
       ignored: Array.isArray(config.watchOptions?.ignored)
-        ? [...config.watchOptions.ignored, '**/scripts/**']
-        : ['**/scripts/**'],
+        ? [...config.watchOptions.ignored, '**/scripts/**', '**/tests/**']
+        : ['**/scripts/**', '**/tests/**'],
     }
 
     return config
   },
+  // Explicitly exclude test files from being processed by Next.js
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'].filter(
+    (ext) => !ext.includes('test.'),
+  ),
 }
 
 export default config
