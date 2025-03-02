@@ -103,7 +103,7 @@ async function getBlogPost(slug: string) {
     content,
     excerpt,
     toc,
-    premium: data.premium || false,
+    premium: data.premium === 'true',
   }
 }
 
@@ -127,7 +127,7 @@ const PremiumCard = ({ isAuthenticated = false }) => (
     <a
       href={
         isAuthenticated
-          ? process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || '#'
+          ? (process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? '#')
           : '/signup'
       }
       className="inline-block rounded-md bg-ladderly-violet-600 px-4 py-2 text-white hover:bg-ladderly-violet-700"
