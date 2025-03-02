@@ -36,7 +36,7 @@ async function getBlogPosts(): Promise<BlogPost[]> {
         title: data.title,
         date: data.date,
         author: data.author,
-        premium: data.premium || false,
+        premium: data.premium === 'true',
       }
     })
     .reverse()
@@ -46,7 +46,7 @@ async function getBlogPosts(): Promise<BlogPost[]> {
 
 const PremiumBadge = () => (
   <a
-    href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || '#'}
+    href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? '#'}
     target="_blank"
     rel="noopener noreferrer"
     className="group relative"
