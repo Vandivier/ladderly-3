@@ -41,10 +41,7 @@ export default function ClientCommunityPage() {
   const hasContact = searchParams.get('hasContact') === 'true'
   const hasNetworking = searchParams.get('hasNetworking') === 'true'
   const hasServices = searchParams.get('hasServices') === 'true'
-
-  // New state for skill filters
-  const [skillFilters, setSkillFilters] = useState<string[]>([])
-  const [topSkills, setTopSkills] = useState<string[]>([])
+  const hasTopSkills = searchParams.get('hasTopSkills') === 'true'
 
   const { data, isLoading } = api.user.getPaginatedUsers.useQuery({
     skip: ITEMS_PER_PAGE * page,
@@ -54,34 +51,8 @@ export default function ClientCommunityPage() {
     hasContact,
     hasNetworking,
     hasServices,
+    hasTopSkills,
   })
-
-  // Extract top skills from all users
-  useEffect(() => {
-    if (data?.users) {
-      // Collect all skills from all users
-      const allSkills = data.users.flatMap(
-        (user) => user.profileTopSkills || [],
-      )
-
-      // Count occurrences of each skill
-      const skillCounts = allSkills.reduce(
-        (acc, skill) => {
-          acc[skill] = (acc[skill] || 0) + 1
-          return acc
-        },
-        {} as Record<string, number>,
-      )
-
-      // Sort by frequency and take top 3
-      const sortedSkills = Object.entries(skillCounts)
-        .sort((a, b) => b[1] - a[1])
-        .map(([skill]) => skill)
-        .slice(0, 3)
-
-      setTopSkills(sortedSkills)
-    }
-  }, [data])
 
   const users = data?.users || []
   const hasMore = data?.hasMore || false
@@ -118,25 +89,11 @@ export default function ClientCommunityPage() {
     updateSearchParams({ hasServices: hasServices ? null : 'true', page: '0' })
   }
 
-  // New function to toggle skill filter
-  const toggleSkillFilter = (skill: string) => {
-    const isActive = skillFilters.includes(skill)
-
-    if (isActive) {
-      setSkillFilters(skillFilters.filter((s) => s !== skill))
-      // Remove from search term if it's there
-      if (searchTerm.includes(skill)) {
-        updateSearchParams({
-          q: searchTerm.replace(skill, '').trim(),
-          page: '0',
-        })
-      }
-    } else {
-      setSkillFilters([...skillFilters, skill])
-      // Add to search term
-      const newSearchTerm = searchTerm ? `${searchTerm} ${skill}` : skill
-      updateSearchParams({ q: newSearchTerm, page: '0' })
-    }
+  const toggleHasTopSkills = () => {
+    updateSearchParams({
+      hasTopSkills: hasTopSkills ? null : 'true',
+      page: '0',
+    })
   }
 
   const goToNextPage = () => {
@@ -200,25 +157,14 @@ export default function ClientCommunityPage() {
         >
           Offers Services
         </FilterChip>
+        <FilterChip
+          active={hasTopSkills}
+          onClick={toggleHasTopSkills}
+          className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800"
+        >
+          Has Skills
+        </FilterChip>
       </div>
-
-      {topSkills.length > 0 && (
-        <>
-          <div className="mb-2 font-medium">Top Skills:</div>
-          <div className="mb-4 flex flex-wrap gap-2">
-            {topSkills.map((skill) => (
-              <FilterChip
-                key={skill}
-                active={skillFilters.includes(skill)}
-                onClick={() => toggleSkillFilter(skill)}
-                className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800"
-              >
-                {skill}
-              </FilterChip>
-            ))}
-          </div>
-        </>
-      )}
 
       {users.length > 0 ? (
         <ul className="my-4 space-y-4">

@@ -94,6 +94,7 @@ export const userRouter = createTRPCRouter({
         hasContact: z.boolean().optional(),
         hasNetworking: z.boolean().optional(),
         hasServices: z.boolean().optional(),
+        hasTopSkills: z.boolean().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -105,6 +106,7 @@ export const userRouter = createTRPCRouter({
         hasContact,
         hasNetworking,
         hasServices,
+        hasTopSkills,
       } = input
 
       // Build the where clause
@@ -127,6 +129,11 @@ export const userRouter = createTRPCRouter({
 
       if (hasServices) {
         where.profileTopServices = { isEmpty: false }
+      }
+
+      // Update the skill filter to check if the array is not empty
+      if (hasTopSkills) {
+        where.profileTopSkills = { isEmpty: false }
       }
 
       // Enhanced search functionality
@@ -183,6 +190,8 @@ export const userRouter = createTRPCRouter({
           profilePicture: true,
           profileTopNetworkingReasons: true,
           profileTopServices: true,
+          profileTopSkills: true,
+          profileYearsOfExperience: true,
         },
         orderBy: {
           id: 'desc',
