@@ -87,8 +87,8 @@ export const userRouter = createTRPCRouter({
   getPaginatedUsers: publicProcedure
     .input(
       z.object({
-        skip: z.number().default(0),
-        take: z.number().default(10),
+        skip: z.number().optional().default(0),
+        take: z.number().optional().default(10),
         searchTerm: z.string().optional(),
         openToWork: z.boolean().optional(),
         hasContact: z.boolean().optional(),
@@ -107,12 +107,12 @@ export const userRouter = createTRPCRouter({
         hasServices,
       } = input
 
-      // Build the where clause for the query
+      // Build the where clause
       const where: Prisma.UserWhereInput = {
         hasPublicProfileEnabled: true,
       }
 
-      // Apply filters based on input
+      // Add filters
       if (openToWork) {
         where.hasOpenToWork = true
       }
@@ -160,27 +160,29 @@ export const userRouter = createTRPCRouter({
                     SELECT 1 FROM unnest("profileTopNetworkingReasons") AS reason
                     WHERE LOWER(reason) LIKE ${`%${term}%`}
                   )
-              `.then((rows: { id: number }[]) => rows.map((row) => row.id)),
+              `.then((rows: unknown) =>
+                (rows as { id: number }[]).map((row) => row.id),
+              ),
             },
           },
         ]
       }
 
-      // Fetch one more than requested to determine if there are more results
+      // Get one more user than requested to check if there are more
       const users = await ctx.db.user.findMany({
         where,
         select: {
+          hasOpenToWork: true,
+          hasPublicProfileEnabled: true,
           id: true,
           nameFirst: true,
           nameLast: true,
-          profilePicture: true,
-          profileCurrentJobTitle: true,
-          profileCurrentJobCompany: true,
-          hasOpenToWork: true,
           profileContactEmail: true,
+          profileCurrentJobCompany: true,
+          profileCurrentJobTitle: true,
+          profilePicture: true,
           profileTopNetworkingReasons: true,
           profileTopServices: true,
-          hasPublicProfileEnabled: true,
         },
         orderBy: {
           id: 'desc',

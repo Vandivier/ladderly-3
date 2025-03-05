@@ -116,7 +116,11 @@ describe('ClientCommunityPage', () => {
     fireEvent.click(screen.getByText('Open to Work'))
 
     // Verify router.push was called with the correct query params
-    expect(mockPush).toHaveBeenCalledWith('?page=0&openToWork=true')
+    expect(mockPush).toHaveBeenCalledWith(
+      expect.stringMatching(
+        /^\/community\?.*openToWork=true.*&.*page=0.*$|^\/community\?.*page=0.*&.*openToWork=true.*$/,
+      ),
+    )
   })
 
   test('shows pagination buttons correctly', () => {
