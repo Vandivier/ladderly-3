@@ -3,12 +3,9 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { api } from '~/trpc/react'
-import {
-  CommunityMemberListItem,
-  type PublicUser,
-} from './CommunityMemberListItem'
+import { CommunityMemberListItem } from './CommunityMemberListItem'
 
 const ITEMS_PER_PAGE = 10
 
@@ -38,44 +35,16 @@ const FilterChip: React.FC<FilterChipProps> = ({
 export default function ClientCommunityPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const page = Number(searchParams?.get('page') ?? '0')
-  const searchTerm = searchParams?.get('q') ?? ''
-  const openToWork = searchParams?.get('openToWork') === 'true'
-  const hasContact = searchParams?.get('hasContact') === 'true'
-  const hasNetworking = searchParams?.get('hasNetworking') === 'true'
-  const hasServices = searchParams?.get('hasServices') === 'true'
+  const page = parseInt(searchParams.get('page') || '0')
+  const searchTerm = searchParams.get('q') || ''
+  const openToWork = searchParams.get('openToWork') === 'true'
+  const hasContact = searchParams.get('hasContact') === 'true'
+  const hasNetworking = searchParams.get('hasNetworking') === 'true'
+  const hasServices = searchParams.get('hasServices') === 'true'
 
-  const updateFilters = (updates: Record<string, string | null>) => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '')
-    // Reset to first page when filters change
-    params.set('page', '0')
-
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value === null) {
-        params.delete(key)
-      } else {
-        params.set(key, value)
-      }
-    })
-
-    router.push(`?${params.toString()}`)
-  }
-
-  const toggleOpenToWork = () => {
-    updateFilters({ openToWork: openToWork ? null : 'true' })
-  }
-
-  const toggleHasContact = () => {
-    updateFilters({ hasContact: hasContact ? null : 'true' })
-  }
-
-  const toggleHasNetworking = () => {
-    updateFilters({ hasNetworking: hasNetworking ? null : 'true' })
-  }
-
-  const toggleHasServices = () => {
-    updateFilters({ hasServices: hasServices ? null : 'true' })
-  }
+  // New state for skill filters
+  const [skillFilters, setSkillFilters] = useState<string[]>([])
+  const [topSkills, setTopSkills] = useState<string[]>([])
 
   const { data, isLoading } = api.user.getPaginatedUsers.useQuery({
     skip: ITEMS_PER_PAGE * page,
@@ -87,28 +56,121 @@ export default function ClientCommunityPage() {
     hasServices,
   })
 
-  const goToPreviousPage = () => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '')
-    params.set('page', String(page - 1))
-    router.push(`?${params.toString()}`)
+  // Extract top skills from all users
+  useEffect(() => {
+    if (data?.users) {
+      // Collect all skills from all users
+      const allSkills = data.users.flatMap(
+        (user) => user.profileTopSkills || [],
+      )
+
+      // Count occurrences of each skill
+      const skillCounts = allSkills.reduce(
+        (acc, skill) => {
+          acc[skill] = (acc[skill] || 0) + 1
+          return acc
+        },
+        {} as Record<string, number>,
+      )
+
+      // Sort by frequency and take top 3
+      const sortedSkills = Object.entries(skillCounts)
+        .sort((a, b) => b[1] - a[1])
+        .map(([skill]) => skill)
+        .slice(0, 3)
+
+      setTopSkills(sortedSkills)
+    }
+  }, [data])
+
+  const users = data?.users || []
+  const hasMore = data?.hasMore || false
+  const hasPreviousPage = page > 0
+
+  const updateSearchParams = (params: Record<string, string | null>) => {
+    const newParams = new URLSearchParams(searchParams.toString())
+    Object.entries(params).forEach(([key, value]) => {
+      if (value === null) {
+        newParams.delete(key)
+      } else {
+        newParams.set(key, value)
+      }
+    })
+    router.push(`/community?${newParams.toString()}`)
+  }
+
+  const toggleOpenToWork = () => {
+    updateSearchParams({ openToWork: openToWork ? null : 'true', page: '0' })
+  }
+
+  const toggleHasContact = () => {
+    updateSearchParams({ hasContact: hasContact ? null : 'true', page: '0' })
+  }
+
+  const toggleHasNetworking = () => {
+    updateSearchParams({
+      hasNetworking: hasNetworking ? null : 'true',
+      page: '0',
+    })
+  }
+
+  const toggleHasServices = () => {
+    updateSearchParams({ hasServices: hasServices ? null : 'true', page: '0' })
+  }
+
+  // New function to toggle skill filter
+  const toggleSkillFilter = (skill: string) => {
+    const isActive = skillFilters.includes(skill)
+
+    if (isActive) {
+      setSkillFilters(skillFilters.filter((s) => s !== skill))
+      // Remove from search term if it's there
+      if (searchTerm.includes(skill)) {
+        updateSearchParams({
+          q: searchTerm.replace(skill, '').trim(),
+          page: '0',
+        })
+      }
+    } else {
+      setSkillFilters([...skillFilters, skill])
+      // Add to search term
+      const newSearchTerm = searchTerm ? `${searchTerm} ${skill}` : skill
+      updateSearchParams({ q: newSearchTerm, page: '0' })
+    }
   }
 
   const goToNextPage = () => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '')
-    params.set('page', String(page + 1))
-    router.push(`?${params.toString()}`)
+    updateSearchParams({ page: (page + 1).toString() })
+  }
+
+  const goToPreviousPage = () => {
+    updateSearchParams({ page: (page - 1).toString() })
+  }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    updateSearchParams({ q: value || null, page: '0' })
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div className="p-4">Loading...</div>
   }
 
-  const { users, hasMore } = data ?? { users: [], hasMore: false }
-  const hasPreviousPage = page > 0
-
   return (
-    <div>
-      {/* Active Filters */}
+    <div className="p-4">
+      <h1 className="mb-6 text-2xl font-bold">Community Members</h1>
+
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search by name, job title, or skills..."
+          className="w-full rounded-md border border-gray-300 p-2"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
+
+      <div className="mb-2 font-medium">Filters:</div>
       <div className="mb-4 flex flex-wrap gap-2">
         <FilterChip
           active={openToWork}
@@ -140,9 +202,27 @@ export default function ClientCommunityPage() {
         </FilterChip>
       </div>
 
+      {topSkills.length > 0 && (
+        <>
+          <div className="mb-2 font-medium">Top Skills:</div>
+          <div className="mb-4 flex flex-wrap gap-2">
+            {topSkills.map((skill) => (
+              <FilterChip
+                key={skill}
+                active={skillFilters.includes(skill)}
+                onClick={() => toggleSkillFilter(skill)}
+                className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800"
+              >
+                {skill}
+              </FilterChip>
+            ))}
+          </div>
+        </>
+      )}
+
       {users.length > 0 ? (
         <ul className="my-4 space-y-4">
-          {users.map((user: PublicUser) => (
+          {users.map((user) => (
             <CommunityMemberListItem key={user.id} user={user} />
           ))}
         </ul>

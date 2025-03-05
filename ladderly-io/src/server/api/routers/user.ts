@@ -87,8 +87,8 @@ export const userRouter = createTRPCRouter({
   getPaginatedUsers: publicProcedure
     .input(
       z.object({
-        skip: z.number(),
-        take: z.number(),
+        skip: z.number().default(0),
+        take: z.number().default(10),
         searchTerm: z.string().optional(),
         openToWork: z.boolean().optional(),
         hasContact: z.boolean().optional(),
@@ -106,105 +106,99 @@ export const userRouter = createTRPCRouter({
         hasNetworking,
         hasServices,
       } = input
-      const lowerCaseSearchTerm = searchTerm?.toLowerCase()
 
-      const where = {
+      // Build the where clause for the query
+      const where: Prisma.UserWhereInput = {
         hasPublicProfileEnabled: true,
-        ...(openToWork ? { hasOpenToWork: true } : {}),
-        ...(hasContact
-          ? {
-              OR: [
-                { profileContactEmail: { not: null } },
-                { profileLinkedInUri: { not: null } },
-              ],
-            }
-          : {}),
-        ...(hasNetworking
-          ? {
-              profileTopNetworkingReasons: {
-                isEmpty: false,
-              },
-            }
-          : {}),
-        ...(hasServices
-          ? {
-              profileTopServices: {
-                isEmpty: false,
-              },
-            }
-          : {}),
-        ...(searchTerm && lowerCaseSearchTerm
-          ? {
-              OR: [
-                {
-                  profileBlurb: {
-                    contains: searchTerm,
-                    mode: Prisma.QueryMode.insensitive,
-                  },
-                },
-                {
-                  nameFirst: {
-                    contains: searchTerm,
-                    mode: Prisma.QueryMode.insensitive,
-                  },
-                },
-                {
-                  nameLast: {
-                    contains: searchTerm,
-                    mode: Prisma.QueryMode.insensitive,
-                  },
-                },
-                {
-                  profileTopSkills: {
-                    has: lowerCaseSearchTerm,
-                  },
-                },
-                {
-                  profileTopServices: {
-                    has: lowerCaseSearchTerm,
-                  },
-                },
-                {
-                  profileTopNetworkingReasons: {
-                    has: lowerCaseSearchTerm,
-                  },
-                },
-              ],
-            }
-          : {}),
       }
 
+      // Apply filters based on input
+      if (openToWork) {
+        where.hasOpenToWork = true
+      }
+
+      if (hasContact) {
+        where.profileContactEmail = { not: null }
+      }
+
+      if (hasNetworking) {
+        where.profileTopNetworkingReasons = { isEmpty: false }
+      }
+
+      if (hasServices) {
+        where.profileTopServices = { isEmpty: false }
+      }
+
+      // Enhanced search functionality
+      if (searchTerm && searchTerm.trim() !== '') {
+        const term = searchTerm.trim().toLowerCase()
+
+        where.OR = [
+          // Name search
+          { nameFirst: { contains: term, mode: 'insensitive' } },
+          { nameLast: { contains: term, mode: 'insensitive' } },
+
+          // Job title and company search
+          { profileCurrentJobTitle: { contains: term, mode: 'insensitive' } },
+          { profileCurrentJobCompany: { contains: term, mode: 'insensitive' } },
+
+          // Use raw SQL for substring matching in arrays
+          {
+            id: {
+              in: await ctx.db.$queryRaw`
+                SELECT id FROM "User"
+                WHERE 
+                  EXISTS (
+                    SELECT 1 FROM unnest("profileTopSkills") AS skill
+                    WHERE LOWER(skill) LIKE ${`%${term}%`}
+                  )
+                  OR EXISTS (
+                    SELECT 1 FROM unnest("profileTopServices") AS service
+                    WHERE LOWER(service) LIKE ${`%${term}%`}
+                  )
+                  OR EXISTS (
+                    SELECT 1 FROM unnest("profileTopNetworkingReasons") AS reason
+                    WHERE LOWER(reason) LIKE ${`%${term}%`}
+                  )
+              `.then((rows: { id: number }[]) => rows.map((row) => row.id)),
+            },
+          },
+        ]
+      }
+
+      // Fetch one more than requested to determine if there are more results
       const users = await ctx.db.user.findMany({
         where,
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: take + 1,
         select: {
           id: true,
-          uuid: true,
-          createdAt: true,
-          hasOpenToWork: true,
-          hasPublicProfileEnabled: true,
-          hasShoutOutsEnabled: true,
           nameFirst: true,
           nameLast: true,
-          profileBlurb: true,
+          profilePicture: true,
+          profileCurrentJobTitle: true,
+          profileCurrentJobCompany: true,
+          hasOpenToWork: true,
           profileContactEmail: true,
-          profileDiscordHandle: true,
-          profileGitHubUri: true,
-          profileHomepageUri: true,
-          profileLinkedInUri: true,
           profileTopNetworkingReasons: true,
           profileTopServices: true,
-          profileTopSkills: true,
-          profileYearsOfExperience: true,
-          residenceCountry: true,
-          residenceUSState: true,
+          hasPublicProfileEnabled: true,
         },
+        orderBy: {
+          id: 'desc',
+        },
+        skip,
+        take: take + 1,
       })
 
-      const hasMore = users.length > take
-      const paginatedUsers = hasMore ? users.slice(0, -1) : users
+      // Add a name field to each user by combining nameFirst and nameLast
+      const usersWithName = users.map((user) => ({
+        ...user,
+        name: `${user.nameFirst} ${user.nameLast}`.trim(),
+      }))
+
+      const hasMore = usersWithName.length > take
+      const paginatedUsers = hasMore
+        ? usersWithName.slice(0, take)
+        : usersWithName
 
       return {
         users: paginatedUsers,
