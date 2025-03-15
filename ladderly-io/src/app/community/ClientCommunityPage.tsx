@@ -40,7 +40,9 @@ const FilterChip: React.FC<FilterChipProps> = ({
 export default function ClientCommunityPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const page = parseInt(searchParams.get('page') || '0')
+  const page = isNaN(parseInt(searchParams.get('page') ?? '0'))
+    ? 0
+    : parseInt(searchParams.get('page') ?? '0')
   const searchTerm = searchParams.get('q') ?? ''
   const openToWork = searchParams.get('openToWork') === 'true'
   const hasContact = searchParams.get('hasContact') === 'true'
