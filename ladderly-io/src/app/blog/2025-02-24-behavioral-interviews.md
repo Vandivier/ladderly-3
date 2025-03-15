@@ -52,7 +52,7 @@ So, a list of stories following Ladderly.io's format will use the acronym STOARR
 5. Result
 6. Reflection
    1. For each story, tag it with a list of 1-5 engineering values that you believe the story demonstrates.
-   2. Start by tagging stories with the list of signals from [Formation's Valued Engineer Traits](https://formation.dev/blog/how-to-pass-behavioral-interviews-understanding-valued-engineer-traits/)and [Amazon Leadership Principles](https://www.amazon.jobs/content/en/our-workplace/leadership-principles).
+   2. Start by tagging stories with the list of signals from [Formation's Valued Engineer Traits](https://formation.dev/blog/how-to-pass-behavioral-interviews-understanding-valued-engineer-traits/) and [Amazon Leadership Principles](https://www.amazon.jobs/content/en/our-workplace/leadership-principles).
    3. Later, you can collect company-specific value tags to your stories as you research various companies.
 
 ## Story Generation
