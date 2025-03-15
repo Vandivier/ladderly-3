@@ -10,6 +10,7 @@ import {
   type CommunityMemberListUser,
 } from './CommunityMemberListItem'
 import { SearchProfiles } from './SearchProfiles'
+import { SearchUserInformation } from './SearchUserInformation'
 
 const ITEMS_PER_PAGE = 10
 
@@ -115,6 +116,8 @@ export default function ClientCommunityPage() {
   return (
     <div className="p-4">
       <SearchProfiles />
+
+      {searchTerm && <SearchUserInformation />}
 
       <div className="mb-2 font-medium">Filters:</div>
       <div className="mb-4 flex flex-wrap gap-2">
