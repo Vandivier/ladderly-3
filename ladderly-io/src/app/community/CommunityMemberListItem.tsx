@@ -107,12 +107,20 @@ export const CommunityMemberListItem = ({
             </span>
           ))}
 
-          {/* Contact info indicator */}
-          {user.profileContactEmail && (
+          {/* Contact info indicators */}
+          {user.profileContactEmail && user.profileLinkedInUri ? (
             <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
-              Has Contact
+              Email+LinkedIn
             </span>
-          )}
+          ) : user.profileContactEmail ? (
+            <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
+              Email
+            </span>
+          ) : user.profileLinkedInUri ? (
+            <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
+              LinkedIn
+            </span>
+          ) : null}
         </div>
       </div>
     </li>

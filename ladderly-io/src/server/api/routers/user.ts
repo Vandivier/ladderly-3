@@ -120,7 +120,10 @@ export const userRouter = createTRPCRouter({
       }
 
       if (hasContact) {
-        where.profileContactEmail = { not: null }
+        where.OR = [
+          { profileContactEmail: { not: null } },
+          { profileLinkedInUri: { not: null } },
+        ]
       }
 
       if (hasNetworking) {
@@ -192,6 +195,7 @@ export const userRouter = createTRPCRouter({
           profileTopServices: true,
           profileTopSkills: true,
           profileYearsOfExperience: true,
+          profileLinkedInUri: true,
         },
         orderBy: {
           id: 'desc',
