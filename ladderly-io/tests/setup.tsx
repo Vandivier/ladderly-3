@@ -123,25 +123,25 @@ vi.mock('next/headers', () => ({
 // Update the trpc mock in setup.tsx
 vi.mock('~/server/api/trpc', () => {
   return {
-    createTRPCRouter: (routes) => routes,
+    createTRPCRouter: (routes: any) => routes,
     publicProcedure: {
-      query: (fn) => fn,
-      mutation: (fn) => fn,
-      input: (schema) => ({
-        query: (fn) => fn,
-        mutation: (fn) => fn,
+      query: (fn: any) => fn,
+      mutation: (fn: any) => fn,
+      input: (schema: any) => ({
+        query: (fn: any) => fn,
+        mutation: (fn: any) => fn,
       }),
     },
     protectedProcedure: {
-      query: (fn) => fn,
-      mutation: (fn) => fn,
-      input: (schema) => ({
-        query: (fn) => fn,
-        mutation: (fn) => fn,
+      query: (fn: any) => fn,
+      mutation: (fn: any) => fn,
+      input: (schema: any) => ({
+        query: (fn: any) => fn,
+        mutation: (fn: any) => fn,
       }),
     },
-    createCallerFactory: (router) => {
-      return (ctx) => {
+    createCallerFactory: (router: any) => {
+      return (ctx: any) => {
         return Object.fromEntries(
           Object.entries(router).map(([key, value]) => {
             if (typeof value === 'object') {
