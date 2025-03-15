@@ -38,10 +38,5 @@
     "**/*.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "scripts/**/*",
-    "coverage/**/*",
-    "tests/coverage/**/*"
-  ]
+  "exclude": ["node_modules", "scripts/**/*", "coverage/**/*", "tests/**/*"]
 }

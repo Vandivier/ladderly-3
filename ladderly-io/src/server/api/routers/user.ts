@@ -1,6 +1,6 @@
 // src/server/api/routers/user.ts
 
-import { PaymentTierEnum, Prisma } from '@prisma/client'
+import { PaymentTierEnum, type Prisma } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
@@ -87,13 +87,14 @@ export const userRouter = createTRPCRouter({
   getPaginatedUsers: publicProcedure
     .input(
       z.object({
-        skip: z.number(),
-        take: z.number(),
+        skip: z.number().optional().default(0),
+        take: z.number().optional().default(10),
         searchTerm: z.string().optional(),
         openToWork: z.boolean().optional(),
         hasContact: z.boolean().optional(),
         hasNetworking: z.boolean().optional(),
         hasServices: z.boolean().optional(),
+        hasTopSkills: z.boolean().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -105,106 +106,116 @@ export const userRouter = createTRPCRouter({
         hasContact,
         hasNetworking,
         hasServices,
+        hasTopSkills,
       } = input
-      const lowerCaseSearchTerm = searchTerm?.toLowerCase()
 
-      const where = {
+      // Build the where clause
+      const where: Prisma.UserWhereInput = {
         hasPublicProfileEnabled: true,
-        ...(openToWork ? { hasOpenToWork: true } : {}),
-        ...(hasContact
-          ? {
-              OR: [
-                { profileContactEmail: { not: null } },
-                { profileLinkedInUri: { not: null } },
-              ],
-            }
-          : {}),
-        ...(hasNetworking
-          ? {
-              profileTopNetworkingReasons: {
-                isEmpty: false,
-              },
-            }
-          : {}),
-        ...(hasServices
-          ? {
-              profileTopServices: {
-                isEmpty: false,
-              },
-            }
-          : {}),
-        ...(searchTerm && lowerCaseSearchTerm
-          ? {
-              OR: [
-                {
-                  profileBlurb: {
-                    contains: searchTerm,
-                    mode: Prisma.QueryMode.insensitive,
-                  },
-                },
-                {
-                  nameFirst: {
-                    contains: searchTerm,
-                    mode: Prisma.QueryMode.insensitive,
-                  },
-                },
-                {
-                  nameLast: {
-                    contains: searchTerm,
-                    mode: Prisma.QueryMode.insensitive,
-                  },
-                },
-                {
-                  profileTopSkills: {
-                    has: lowerCaseSearchTerm,
-                  },
-                },
-                {
-                  profileTopServices: {
-                    has: lowerCaseSearchTerm,
-                  },
-                },
-                {
-                  profileTopNetworkingReasons: {
-                    has: lowerCaseSearchTerm,
-                  },
-                },
-              ],
-            }
-          : {}),
       }
 
+      // Add filters
+      if (openToWork) {
+        where.hasOpenToWork = true
+      }
+
+      if (hasContact) {
+        where.OR = [
+          { profileContactEmail: { not: null } },
+          { profileLinkedInUri: { not: null } },
+        ]
+      }
+
+      if (hasNetworking) {
+        where.profileTopNetworkingReasons = { isEmpty: false }
+      }
+
+      if (hasServices) {
+        where.profileTopServices = { isEmpty: false }
+      }
+
+      // Update the skill filter to check if the array is not empty
+      if (hasTopSkills) {
+        where.profileTopSkills = { isEmpty: false }
+      }
+
+      // Enhanced search functionality
+      if (searchTerm && searchTerm.trim() !== '') {
+        const term = searchTerm.trim().toLowerCase()
+
+        where.OR = [
+          // Name search
+          { nameFirst: { contains: term, mode: 'insensitive' } },
+          { nameLast: { contains: term, mode: 'insensitive' } },
+
+          // Job title, company, and blurb search
+          { profileCurrentJobTitle: { contains: term, mode: 'insensitive' } },
+          { profileCurrentJobCompany: { contains: term, mode: 'insensitive' } },
+          { profileBlurb: { contains: term, mode: 'insensitive' } },
+
+          // Use raw SQL for substring matching in arrays
+          {
+            id: {
+              in: await ctx.db.$queryRaw`
+                SELECT id FROM "User"
+                WHERE 
+                  EXISTS (
+                    SELECT 1 FROM unnest("profileTopSkills") AS skill
+                    WHERE LOWER(skill) LIKE ${`%${term}%`}
+                  )
+                  OR EXISTS (
+                    SELECT 1 FROM unnest("profileTopServices") AS service
+                    WHERE LOWER(service) LIKE ${`%${term}%`}
+                  )
+                  OR EXISTS (
+                    SELECT 1 FROM unnest("profileTopNetworkingReasons") AS reason
+                    WHERE LOWER(reason) LIKE ${`%${term}%`}
+                  )
+              `.then((rows: unknown) =>
+                (rows as { id: number }[]).map((row) => row.id),
+              ),
+            },
+          },
+        ]
+      }
+
+      // Get one more user than requested to check if there are more
       const users = await ctx.db.user.findMany({
         where,
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: take + 1,
         select: {
-          id: true,
-          uuid: true,
-          createdAt: true,
           hasOpenToWork: true,
           hasPublicProfileEnabled: true,
-          hasShoutOutsEnabled: true,
+          id: true,
           nameFirst: true,
           nameLast: true,
-          profileBlurb: true,
           profileContactEmail: true,
-          profileDiscordHandle: true,
-          profileGitHubUri: true,
-          profileHomepageUri: true,
-          profileLinkedInUri: true,
+          profileCurrentJobCompany: true,
+          profileCurrentJobTitle: true,
+          profilePicture: true,
           profileTopNetworkingReasons: true,
           profileTopServices: true,
           profileTopSkills: true,
           profileYearsOfExperience: true,
-          residenceCountry: true,
-          residenceUSState: true,
+          profileLinkedInUri: true,
+          profileBlurb: true,
         },
+        orderBy: {
+          id: 'desc',
+        },
+        skip,
+        take: take + 1,
       })
 
-      const hasMore = users.length > take
-      const paginatedUsers = hasMore ? users.slice(0, -1) : users
+      // Add a name field to each user by combining nameFirst and nameLast
+      const usersWithName = users.map((user) => ({
+        ...user,
+        name: `${user.nameFirst} ${user.nameLast}`.trim(),
+      }))
+
+      const hasMore = usersWithName.length > take
+      const paginatedUsers = hasMore
+        ? usersWithName.slice(0, take)
+        : usersWithName
 
       return {
         users: paginatedUsers,

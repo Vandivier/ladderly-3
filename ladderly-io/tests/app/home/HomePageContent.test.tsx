@@ -4,34 +4,6 @@ import { describe, expect, test, vi } from 'vitest'
 import HomePageContent from '~/app/home/HomePageContent'
 import type { LadderlySession } from '~/server/auth'
 
-// Mock server-side modules
-vi.mock('~/server/db', () => ({
-  db: {},
-}))
-
-vi.mock('~/server/env', () => ({
-  env: {
-    NODE_ENV: 'test',
-  },
-}))
-
-// Mock Next.js components
-vi.mock('next/link', () => ({
-  default: ({
-    children,
-    href,
-  }: {
-    children: React.ReactNode
-    href: string
-  }) => <a href={href}>{children}</a>,
-}))
-
-vi.mock('next/image', () => ({
-  default: ({ alt, src }: { alt: string; src: string }) => (
-    <img alt={alt} src={src} />
-  ),
-}))
-
 // Mock PricingGrid component
 vi.mock('~/app/core/components/pricing-grid/PricingGrid', () => ({
   default: () => <div>Pricing Plans</div>,

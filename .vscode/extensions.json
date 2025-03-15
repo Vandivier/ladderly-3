@@ -13,7 +13,8 @@
     "stylelint.vscode-stylelint",
     "jmkrivocapich.drawfolderstructure",
     "DavidAnson.vscode-markdownlint",
-    "sailhenz.copy-path-linux"
+    "sailhenz.copy-path-linux",
+    "zhuangtongfa.Material-theme"
   ],
   "unwantedRecommendations": []
 }

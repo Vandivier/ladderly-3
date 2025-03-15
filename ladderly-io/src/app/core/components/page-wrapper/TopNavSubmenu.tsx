@@ -9,10 +9,11 @@ import { MenuContext } from './MenuProvider'
 export const TOP_NAV_STANDARD_CLASSES = 'ml-6 font-bold'
 export const MENU_ITEM_STANDARD_CLASSES =
   'font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-purple-300/20'
+const DESKTOP_MENU_ITEM_STANDARD_CLASSES = `${MENU_ITEM_STANDARD_CLASSES} dark:text-gray-100`
 
 export const AccountMenuItems = ({
   userId,
-  linkClassName = MENU_ITEM_STANDARD_CLASSES,
+  linkClassName = DESKTOP_MENU_ITEM_STANDARD_CLASSES,
 }: {
   userId: string
   linkClassName?: string
@@ -41,7 +42,7 @@ const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
 )
 
 export const CommunityMenuItems = ({
-  linkClassName = MENU_ITEM_STANDARD_CLASSES,
+  linkClassName = DESKTOP_MENU_ITEM_STANDARD_CLASSES,
 }: {
   linkClassName?: string
 }) => (

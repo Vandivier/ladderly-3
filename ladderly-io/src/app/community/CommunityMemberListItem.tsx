@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+// Full public user type for detailed views
 export type PublicUser = {
   id: number
   uuid: string
@@ -22,115 +23,124 @@ export type PublicUser = {
   profileCurrentJobTitle?: string | null
   profileTopNetworkingReasons: string[]
   profileTopServices: string[]
+  profilePicture?: string | null
+}
+
+// Simplified type for list view
+export type CommunityMemberListUser = {
+  id: number
+  nameFirst: string | null
+  nameLast: string | null
+  hasPublicProfileEnabled: boolean
+  hasOpenToWork: boolean
+  profileContactEmail: string | null
+  profileCurrentJobTitle: string | null
+  profileLinkedInUri: string | null
+  profileTopSkills: string[]
+  profileTopNetworkingReasons: string[]
+  profileTopServices: string[]
+  profileYearsOfExperience: number | null
+  profilePicture: string | null
+  profileBlurb: string | null
 }
 
 interface CommunityMemberListItemProps {
-  user: PublicUser
+  user: CommunityMemberListUser
 }
 
-export const CommunityMemberListItem: React.FC<
-  CommunityMemberListItemProps
-> = ({ user }) => {
-  const hasUserContactInfo =
-    (user.profileContactEmail ?? user.profileLinkedInUri ?? '').length > 0
+export const CommunityMemberListItem = ({
+  user,
+}: CommunityMemberListItemProps) => {
+  // Get up to 3 items for each category
+  const topSkills = user.profileTopSkills?.slice(0, 3) || []
+  const topNetworkingReasons =
+    user.profileTopNetworkingReasons?.slice(0, 3) || []
+  const topServices = user.profileTopServices?.slice(0, 3) || []
+
+  // Construct the user's full name
+  const fullName = user.nameFirst
+    ? user.nameFirst + (user.nameLast ? ` ${user.nameLast}` : '')
+    : user.nameLast
+      ? user.nameLast
+      : 'User'
 
   return (
-    <li className="rounded-lg border border-gray-200 p-4">
+    <li className="rounded-lg border p-4 shadow-sm">
       <div className="flex flex-col gap-2">
-        {/* Name and Job Title */}
-        <div>
-          <Link
-            href={`/community/${user.id}`}
-            className="text-lg font-semibold hover:text-blue-600"
-          >
-            {user.nameFirst ? user.nameFirst : `User ${user.id}`}
-            {user.nameLast ? ` ${user.nameLast}` : ''}
-          </Link>
-          {user.profileCurrentJobTitle && (
-            <span className="ml-2 text-gray-600">
-              • {user.profileCurrentJobTitle}
-            </span>
-          )}
-        </div>
+        {/* First row: Name, title, YOE */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="font-semibold">
+              <Link
+                href={`/community/${user.id}`}
+                className="hover:text-blue-600 hover:underline"
+              >
+                {fullName}
+              </Link>
+            </h3>
+            <p className="text-sm text-gray-600">
+              {user.profileCurrentJobTitle}
+              {user.profileYearsOfExperience
+                ? ` • ${user.profileYearsOfExperience} YOE`
+                : ''}
+            </p>
+          </div>
 
-        {/* Status Chips */}
-        <div className="flex flex-wrap gap-2">
+          {/* Open to work badge */}
           {user.hasOpenToWork && (
-            <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">
+            <span className="m-1 min-w-[102px] self-baseline rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">
               Open to Work
             </span>
           )}
-          {user.profileYearsOfExperience && (
-            <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
-              YOE: {user.profileYearsOfExperience}
-            </span>
-          )}
-          {user.profileHighestDegree && (
-            <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-800">
-              {user.profileHighestDegree}
-            </span>
-          )}
-          {hasUserContactInfo && (
-            <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-800">
-              {user.profileContactEmail && user.profileLinkedInUri
-                ? 'Email + LinkedIn'
-                : user.profileContactEmail
-                  ? 'Email'
-                  : 'LinkedIn'}
-            </span>
-          )}
         </div>
 
-        {/* Skills */}
-        {user.profileTopSkills?.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {user.profileTopSkills
-              .slice(0, 3)
-              .sort()
-              .map((skill, index) => (
-                <span
-                  key={index}
-                  className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-800"
-                >
-                  {skill}
-                </span>
-              ))}
-          </div>
-        )}
+        {/* Second row: All filter chips */}
+        <div className="flex flex-wrap gap-1">
+          {/* Skills */}
+          {topSkills.map((skill) => (
+            <span
+              key={`skill-${skill}`}
+              className="rounded-full bg-indigo-100 px-2 py-1 text-xs text-indigo-700"
+            >
+              {skill}
+            </span>
+          ))}
 
-        {/* Services */}
-        {user.profileTopServices?.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {user.profileTopServices
-              .slice(0, 3)
-              .sort()
-              .map((service, index) => (
-                <span
-                  key={index}
-                  className="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-800"
-                >
-                  {service}
-                </span>
-              ))}
-          </div>
-        )}
+          {/* Networking reasons */}
+          {topNetworkingReasons.map((reason) => (
+            <span
+              key={`networking-${reason}`}
+              className="rounded-full bg-purple-100 px-2 py-1 text-xs text-purple-700"
+            >
+              {reason}
+            </span>
+          ))}
 
-        {/* Networking Interests */}
-        {user.profileTopNetworkingReasons?.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {user.profileTopNetworkingReasons
-              .slice(0, 3)
-              .sort()
-              .map((reason, index) => (
-                <span
-                  key={index}
-                  className="rounded-full bg-purple-100 px-3 py-1 text-xs text-purple-800"
-                >
-                  {reason}
-                </span>
-              ))}
-          </div>
-        )}
+          {/* Services */}
+          {topServices.map((service) => (
+            <span
+              key={`service-${service}`}
+              className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700"
+            >
+              {service}
+            </span>
+          ))}
+
+          {/* Contact info indicators */}
+          {user.profileContactEmail && user.profileLinkedInUri ? (
+            <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
+              Email+LinkedIn
+            </span>
+          ) : user.profileContactEmail ? (
+            <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
+              Email
+            </span>
+          ) : user.profileLinkedInUri ? (
+            <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
+              LinkedIn
+            </span>
+          ) : null}
+        </div>
       </div>
     </li>
   )

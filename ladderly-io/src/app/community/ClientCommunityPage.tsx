@@ -7,8 +7,10 @@ import React from 'react'
 import { api } from '~/trpc/react'
 import {
   CommunityMemberListItem,
-  type PublicUser,
+  type CommunityMemberListUser,
 } from './CommunityMemberListItem'
+import { SearchProfiles } from './SearchProfiles'
+import { SearchUserInformation } from './SearchUserInformation'
 
 const ITEMS_PER_PAGE = 10
 
@@ -38,44 +40,15 @@ const FilterChip: React.FC<FilterChipProps> = ({
 export default function ClientCommunityPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const page = Number(searchParams?.get('page') ?? '0')
-  const searchTerm = searchParams?.get('q') ?? ''
-  const openToWork = searchParams?.get('openToWork') === 'true'
-  const hasContact = searchParams?.get('hasContact') === 'true'
-  const hasNetworking = searchParams?.get('hasNetworking') === 'true'
-  const hasServices = searchParams?.get('hasServices') === 'true'
-
-  const updateFilters = (updates: Record<string, string | null>) => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '')
-    // Reset to first page when filters change
-    params.set('page', '0')
-
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value === null) {
-        params.delete(key)
-      } else {
-        params.set(key, value)
-      }
-    })
-
-    router.push(`?${params.toString()}`)
-  }
-
-  const toggleOpenToWork = () => {
-    updateFilters({ openToWork: openToWork ? null : 'true' })
-  }
-
-  const toggleHasContact = () => {
-    updateFilters({ hasContact: hasContact ? null : 'true' })
-  }
-
-  const toggleHasNetworking = () => {
-    updateFilters({ hasNetworking: hasNetworking ? null : 'true' })
-  }
-
-  const toggleHasServices = () => {
-    updateFilters({ hasServices: hasServices ? null : 'true' })
-  }
+  const page = isNaN(parseInt(searchParams.get('page') ?? '0'))
+    ? 0
+    : parseInt(searchParams.get('page') ?? '0')
+  const searchTerm = searchParams.get('q') ?? ''
+  const openToWork = searchParams.get('openToWork') === 'true'
+  const hasContact = searchParams.get('hasContact') === 'true'
+  const hasNetworking = searchParams.get('hasNetworking') === 'true'
+  const hasServices = searchParams.get('hasServices') === 'true'
+  const hasTopSkills = searchParams.get('hasTopSkills') === 'true'
 
   const { data, isLoading } = api.user.getPaginatedUsers.useQuery({
     skip: ITEMS_PER_PAGE * page,
@@ -85,30 +58,70 @@ export default function ClientCommunityPage() {
     hasContact,
     hasNetworking,
     hasServices,
+    hasTopSkills,
   })
 
-  const goToPreviousPage = () => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '')
-    params.set('page', String(page - 1))
-    router.push(`?${params.toString()}`)
+  const users = (data?.users ?? []) as CommunityMemberListUser[]
+  const hasMore = data?.hasMore ?? false
+  const hasPreviousPage = page > 0
+
+  const updateSearchParams = (params: Record<string, string | null>) => {
+    const newParams = new URLSearchParams(searchParams.toString())
+    Object.entries(params).forEach(([key, value]) => {
+      if (value === null) {
+        newParams.delete(key)
+      } else {
+        newParams.set(key, value)
+      }
+    })
+    router.push(`/community?${newParams.toString()}`)
+  }
+
+  const toggleOpenToWork = () => {
+    updateSearchParams({ openToWork: openToWork ? null : 'true', page: '0' })
+  }
+
+  const toggleHasContact = () => {
+    updateSearchParams({ hasContact: hasContact ? null : 'true', page: '0' })
+  }
+
+  const toggleHasNetworking = () => {
+    updateSearchParams({
+      hasNetworking: hasNetworking ? null : 'true',
+      page: '0',
+    })
+  }
+
+  const toggleHasServices = () => {
+    updateSearchParams({ hasServices: hasServices ? null : 'true', page: '0' })
+  }
+
+  const toggleHasTopSkills = () => {
+    updateSearchParams({
+      hasTopSkills: hasTopSkills ? null : 'true',
+      page: '0',
+    })
   }
 
   const goToNextPage = () => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '')
-    params.set('page', String(page + 1))
-    router.push(`?${params.toString()}`)
+    updateSearchParams({ page: (page + 1).toString() })
+  }
+
+  const goToPreviousPage = () => {
+    updateSearchParams({ page: (page - 1).toString() })
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div className="p-4">Loading...</div>
   }
 
-  const { users, hasMore } = data ?? { users: [], hasMore: false }
-  const hasPreviousPage = page > 0
-
   return (
-    <div>
-      {/* Active Filters */}
+    <div className="p-4">
+      <SearchProfiles />
+
+      {searchTerm && <SearchUserInformation />}
+
+      <div className="mb-2 font-medium">Filters:</div>
       <div className="mb-4 flex flex-wrap gap-2">
         <FilterChip
           active={openToWork}
@@ -138,11 +151,18 @@ export default function ClientCommunityPage() {
         >
           Offers Services
         </FilterChip>
+        <FilterChip
+          active={hasTopSkills}
+          onClick={toggleHasTopSkills}
+          className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800"
+        >
+          Has Skills
+        </FilterChip>
       </div>
 
       {users.length > 0 ? (
         <ul className="my-4 space-y-4">
-          {users.map((user: PublicUser) => (
+          {users.map((user) => (
             <CommunityMemberListItem key={user.id} user={user} />
           ))}
         </ul>
