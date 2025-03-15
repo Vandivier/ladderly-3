@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+// Full public user type for detailed views
 export type PublicUser = {
   id: number
   uuid: string
@@ -25,8 +26,25 @@ export type PublicUser = {
   profilePicture?: string | null
 }
 
+// Simplified type for list view
+export type CommunityMemberListUser = {
+  id: number
+  nameFirst: string | null
+  nameLast: string | null
+  hasPublicProfileEnabled: boolean
+  hasOpenToWork: boolean
+  profileContactEmail: string | null
+  profileCurrentJobTitle: string | null
+  profileLinkedInUri: string | null
+  profileTopSkills: string[]
+  profileTopNetworkingReasons: string[]
+  profileTopServices: string[]
+  profileYearsOfExperience: number | null
+  profilePicture: string | null
+}
+
 interface CommunityMemberListItemProps {
-  user: PublicUser
+  user: CommunityMemberListUser
 }
 
 export const CommunityMemberListItem = ({

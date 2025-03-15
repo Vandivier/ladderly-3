@@ -3,9 +3,12 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { api } from '~/trpc/react'
-import { CommunityMemberListItem } from './CommunityMemberListItem'
+import {
+  CommunityMemberListItem,
+  type CommunityMemberListUser,
+} from './CommunityMemberListItem'
 
 const ITEMS_PER_PAGE = 10
 
@@ -54,7 +57,7 @@ export default function ClientCommunityPage() {
     hasTopSkills,
   })
 
-  const users = data?.users || []
+  const users = (data?.users || []) as CommunityMemberListUser[]
   const hasMore = data?.hasMore || false
   const hasPreviousPage = page > 0
 
@@ -169,7 +172,6 @@ export default function ClientCommunityPage() {
       {users.length > 0 ? (
         <ul className="my-4 space-y-4">
           {users.map((user) => (
-            // TODO: fix user type
             <CommunityMemberListItem key={user.id} user={user} />
           ))}
         </ul>
