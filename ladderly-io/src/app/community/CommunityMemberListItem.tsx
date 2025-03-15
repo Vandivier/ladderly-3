@@ -41,6 +41,7 @@ export type CommunityMemberListUser = {
   profileTopServices: string[]
   profileYearsOfExperience: number | null
   profilePicture: string | null
+  profileBlurb: string | null
 }
 
 interface CommunityMemberListItemProps {

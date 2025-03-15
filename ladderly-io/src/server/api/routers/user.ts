@@ -148,9 +148,10 @@ export const userRouter = createTRPCRouter({
           { nameFirst: { contains: term, mode: 'insensitive' } },
           { nameLast: { contains: term, mode: 'insensitive' } },
 
-          // Job title and company search
+          // Job title, company, and blurb search
           { profileCurrentJobTitle: { contains: term, mode: 'insensitive' } },
           { profileCurrentJobCompany: { contains: term, mode: 'insensitive' } },
+          { profileBlurb: { contains: term, mode: 'insensitive' } },
 
           // Use raw SQL for substring matching in arrays
           {
@@ -196,6 +197,7 @@ export const userRouter = createTRPCRouter({
           profileTopSkills: true,
           profileYearsOfExperience: true,
           profileLinkedInUri: true,
+          profileBlurb: true,
         },
         orderBy: {
           id: 'desc',

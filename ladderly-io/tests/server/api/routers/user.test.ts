@@ -352,6 +352,57 @@ describe('userRouter', () => {
       // Similar test for networking reasons
       // ...
     })
+
+    it('finds users with substring matches in profile blurb', async () => {
+      const coffeeUser = {
+        id: 3,
+        nameFirst: 'Alice',
+        nameLast: 'Smith',
+        profileTopSkills: [],
+        hasOpenToWork: true,
+        hasPublicProfileEnabled: true,
+        profileContactEmail: 'alice@example.com',
+        profileCurrentJobTitle: 'Coffee Shop Owner',
+        profileCurrentJobCompany: 'Coffee Co',
+        profilePicture: 'alice.jpg',
+        profileTopNetworkingReasons: [],
+        profileTopServices: [],
+        profileBlurb:
+          'I am passionate about coffee and building community through my local coffee shop.',
+      }
+
+      // Mock the raw query to return empty array since we're not searching in arrays
+      mockDb.$queryRaw.mockResolvedValue([])
+      // Mock findMany to return the user since we're searching in profileBlurb
+      mockDb.user.findMany.mockResolvedValue([coffeeUser])
+
+      const caller = createCaller({
+        db: mockDb,
+        session: mockSession,
+        headers: new Headers(),
+      })
+
+      const result = await caller.getPaginatedUsers({ searchTerm: 'coffee' })
+
+      // Verify results
+      expect(result.users.length).toBe(1)
+      expect(result.users[0].id).toBe(3)
+      expect(result.users[0].nameFirst).toBe('Alice')
+      expect(result.users[0].profileBlurb).toContain('coffee')
+
+      // Verify the search query included profileBlurb in the OR conditions
+      expect(mockDb.user.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            OR: expect.arrayContaining([
+              expect.objectContaining({
+                profileBlurb: { contains: 'coffee', mode: 'insensitive' },
+              }),
+            ]),
+          }),
+        }),
+      )
+    })
   })
 
   describe('getUser', () => {
