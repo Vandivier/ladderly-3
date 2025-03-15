@@ -9,6 +9,7 @@ import {
   CommunityMemberListItem,
   type CommunityMemberListUser,
 } from './CommunityMemberListItem'
+import { SearchProfiles } from './SearchProfiles'
 
 const ITEMS_PER_PAGE = 10
 
@@ -107,28 +108,13 @@ export default function ClientCommunityPage() {
     updateSearchParams({ page: (page - 1).toString() })
   }
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    updateSearchParams({ q: value || null, page: '0' })
-  }
-
   if (isLoading) {
     return <div className="p-4">Loading...</div>
   }
 
   return (
     <div className="p-4">
-      <h1 className="mb-6 text-2xl font-bold">Community Members</h1>
-
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search by name, job title, or skills..."
-          className="w-full rounded-md border border-gray-300 p-2"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-      </div>
+      <SearchProfiles />
 
       <div className="mb-2 font-medium">Filters:</div>
       <div className="mb-4 flex flex-wrap gap-2">
