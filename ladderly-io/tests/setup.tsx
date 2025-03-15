@@ -122,36 +122,55 @@ vi.mock('next/headers', () => ({
 
 // Update the trpc mock in setup.tsx
 vi.mock('~/server/api/trpc', () => {
+  type AnyRouter = Record<string, unknown>
+  type AnyProcedure = {
+    query?: (args: { ctx: any; input: any }) => Promise<unknown>
+    mutation?: (args: { ctx: any; input: any }) => Promise<unknown>
+  }
+  type RouterFactory = (routes: Record<string, AnyProcedure>) => AnyRouter
+
+  const createCallerFactory = (router: AnyRouter) => {
+    return (ctx: Record<string, unknown>) => {
+      return Object.fromEntries(
+        Object.entries(router).map(([key, value]) => {
+          if (typeof value === 'object' && value !== null) {
+            return [key, createCallerFactory(value as AnyRouter)(ctx)]
+          }
+          return [
+            key,
+            (input: unknown) =>
+              (value as AnyProcedure)?.query?.({ ctx, input }) ??
+              (value as AnyProcedure)?.mutation?.({ ctx, input }),
+          ]
+        }),
+      )
+    }
+  }
+
   return {
-    createTRPCRouter: (routes: any) => routes,
+    createTRPCRouter: ((routes: Record<string, AnyProcedure>) =>
+      routes) as RouterFactory,
     publicProcedure: {
-      query: (fn: any) => fn,
-      mutation: (fn: any) => fn,
-      input: (schema: any) => ({
-        query: (fn: any) => fn,
-        mutation: (fn: any) => fn,
+      query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+      mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+        fn,
+      input: (schema: unknown) => ({
+        query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+        mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+          fn,
       }),
     },
     protectedProcedure: {
-      query: (fn: any) => fn,
-      mutation: (fn: any) => fn,
-      input: (schema: any) => ({
-        query: (fn: any) => fn,
-        mutation: (fn: any) => fn,
+      query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+      mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+        fn,
+      input: (schema: unknown) => ({
+        query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+        mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+          fn,
       }),
     },
-    createCallerFactory: (router: any) => {
-      return (ctx: any) => {
-        return Object.fromEntries(
-          Object.entries(router).map(([key, value]) => {
-            if (typeof value === 'object') {
-              return [key, createCallerFactory(value)(ctx)]
-            }
-            return [key, (...args) => value({ ctx, ...args })]
-          }),
-        )
-      }
-    },
+    createCallerFactory,
     createTRPCContext: ({ headers = new Headers(), ...rest } = {}) => ({
       headers,
       ...rest,
