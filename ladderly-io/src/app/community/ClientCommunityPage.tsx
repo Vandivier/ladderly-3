@@ -41,7 +41,7 @@ export default function ClientCommunityPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const page = parseInt(searchParams.get('page') || '0')
-  const searchTerm = searchParams.get('q') || ''
+  const searchTerm = searchParams.get('q') ?? ''
   const openToWork = searchParams.get('openToWork') === 'true'
   const hasContact = searchParams.get('hasContact') === 'true'
   const hasNetworking = searchParams.get('hasNetworking') === 'true'
@@ -59,8 +59,8 @@ export default function ClientCommunityPage() {
     hasTopSkills,
   })
 
-  const users = (data?.users || []) as CommunityMemberListUser[]
-  const hasMore = data?.hasMore || false
+  const users = (data?.users ?? []) as CommunityMemberListUser[]
+  const hasMore = data?.hasMore ?? false
   const hasPreviousPage = page > 0
 
   const updateSearchParams = (params: Record<string, string | null>) => {

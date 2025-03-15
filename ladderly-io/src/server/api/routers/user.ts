@@ -1,6 +1,6 @@
 // src/server/api/routers/user.ts
 
-import { PaymentTierEnum, Prisma } from '@prisma/client'
+import { PaymentTierEnum, type Prisma } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
