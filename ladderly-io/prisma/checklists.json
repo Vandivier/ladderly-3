@@ -1,7 +1,7 @@
 [
   {
     "name": "Programming Job Checklist",
-    "version": "2023-07-19T05:40:33.654Z",
+    "version": "ignoreme_version_field_deprecation_in_progress",
     "items": [
       {
         "detailText": "Social networking and social learning improve learning outcomes, motivation, and job search outcomes.",
@@ -139,20 +139,8 @@
         "linkText": "Mastering Leetcode",
         "linkUri": "https://hackernoon.com/mastering-leetcode-6-problem-picking-patterns-for-technical-success"
       },
-      {
-        "detailText": "",
-        "displayText": "Every two weeks, I am getting one or more phone screen or initial interview requests from employers. If I don't, I will reach out to a mentor to help investigate the lack of phone screening progress.",
-        "isRequired": true,
-        "linkText": "",
-        "linkUri": ""
-      },
-      {
-        "detailText": "",
-        "displayText": "I have had at least one interview. After every interview, I have sought feedback, reflected, and incorporated at least one change to improve my job search going forward",
-        "isRequired": true,
-        "linkText": "",
-        "linkUri": ""
-      },
+      "Every two weeks, I am getting one or more phone screen or initial interview requests from employers. If I don't, I will reach out to a mentor to help investigate the lack of phone screening progress.",
+      "I have had at least one interview. After every interview, I have sought feedback, reflected, and incorporated at least one change to improve my job search going forward",
       "I commit to reach out for help whenever needed in the Ladderly community, endorsed communities, or through independent outreach using social media and my personal social network",
       {
         "detailText": "",
@@ -165,7 +153,7 @@
   },
   {
     "name": "Python Checklist",
-    "version": "2023-07-19T05:40:33.654Z",
+    "version": "ignoreme_version_field_deprecation_in_progress",
     "items": [
       "Learn Numpy",
       "Learn Pandas",
