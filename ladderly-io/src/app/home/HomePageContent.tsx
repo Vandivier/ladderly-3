@@ -126,7 +126,14 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
                   >
                     Standard Checklist
                   </Link>
-                  , consider one of the paid plans below, and{' '}
+                  , consider{' '}
+                  <Link
+                    className="text-ladderly-pink hover:underline"
+                    href="/blog/2025-03-16-benefits-of-premium"
+                  >
+                    Ladderly Premium
+                  </Link>
+                  , and{' '}
                   <Link
                     className="text-ladderly-pink hover:underline"
                     href={'https://buy.stripe.com/cN2bMfbOQ2CX5dC7su'}

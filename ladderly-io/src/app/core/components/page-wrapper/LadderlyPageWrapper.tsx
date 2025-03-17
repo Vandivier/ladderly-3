@@ -39,7 +39,10 @@ export async function LadderlyPageWrapper({
       content = previewView ?? (
         <div className="container mx-auto max-w-3xl px-4 py-8">
           <p className="text-center text-gray-800 dark:text-gray-200">
-            A premium subscription is required to access this content. Please{' '}
+            A premium subscription is required to access this content.
+          </p>
+          <p className="text-center text-gray-800 dark:text-gray-200">
+            Please{' '}
             <a
               href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? '#'}
               className="text-blue-600 hover:underline"
