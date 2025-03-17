@@ -29,9 +29,10 @@ const AdvancedChecklistContentBlock = ({
 }: {
   session: LadderlySession | null
 }) => {
+  const isLoggedIn = !!session?.user
   const isPaid = session?.user?.subscription.tier !== PaymentTierEnum.FREE
 
-  return isPaid ? (
+  return isLoggedIn && isPaid ? (
     <div
       className={`m-2 w-[300px] rounded-lg bg-white p-2 shadow-lg lg:w-auto`}
     >
