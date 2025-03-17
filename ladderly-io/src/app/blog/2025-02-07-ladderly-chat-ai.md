@@ -3,57 +3,82 @@ title: '20. Ladderly AI Tools'
 author: John Vandivier
 ---
 
-Ladderly.io is pleased to announce five new AI tools for you to use!
+Ladderly.io is pleased to announce two different AI tools for you to use!
 
-This article describes each tool with its area of focus. The first tool is available at zero cost today. [Try Ladderly Copilot now!](https://ladderly.io/copilot)
+This article describes each tool with its area of focus. Both tools are available as part of Ladderly Premium:
 
-Check back weekly as the other tools are released for premium members.
+1. [Ladderly Chat](/chat)
+2. [Ladderly Copilot](/copilot)
 
-## Why Use a Specialist Model?
+## Ladderly Chat
 
-You can ask the General Consultant AI anything, and you hopefully get some value, but in many cases a specialist model will do a better job for three main reasons:
+Ladderly.io Chat is a chat app similar to [ChatGPT](https://chat.openai.com/) or [T3 Chat](https://t3.chat/chat).
 
-1. Specialist models are trained on additional instructions in order to improve performance in certain use cases.
-2. Specialist models omit information irrelevant to their designated use case, improving focus and domain-relevant result with less chance of irrelevant feedback, at the cost of not being able to answer questions outside of their domain.
-3. Specialist models are trained on an opinionated process, so they can assume certain next steps that you may not have even asked about. Where the general consultant mainly seeks to answer your questions, specialist models will sometimes push back, reframe, or disregard certain instructions. These tools are sometimes meant to train you rather than to automate your work.
+Ladderly Chat is a blank or untrained mode of chat which directly sends your messages to the underlying foundation model. We do not use any of this data for training at Ladderly.io.
 
-## The Ladderly.io General Consultant AI
+## Ladderly Copilot
 
-This tool is available for free. It is trained on Ladderly.io's open source curriculum, the website, and an additional text corpus to answer frequently asked questions and provide certain features like quizzes.
+Ladderly Copilot is a trained model which is aware of:
 
-Try it out now at [ladderly.io/copilot](https://ladderly.io/copilot)! Ask the tool anything and it will try to answer or point you to another resource as appropriate. In this way it serves as a search tool on the entire Ladderly.io knowledge base - the website, social media content, the open source curriculum, and more!
+1. Ladderly.io site content
+2. Thousands of Ladderly.io videos and social media posts
+3. Curated additional content, tools, and answers to frequently asked questions
 
-Here are some other use cases and suggested questions:
+Use cases include:
+
+1. Language-based search: Find relevant Ladderly content using natural language queries
+2. Career guidance: Get personalized advice on your tech career path
+3. Technical assistance: Get help with coding problems and project ideas
+4. Interview preparation: Practice technical and behavioral interviews with feedback aligned to Ladderly.io's unique approach
+5. Learning support: Access curated learning resources and study plans
+6. Trained role play for soft skill development
+
+## Sample Questions
+
+Here are some common questions that Ladderly Copilot is trained to help with:
 
 1. How should I learn to code?
 2. How can I land more interviews?
 3. What projects should I build?
 4. How can I identify a high-quality coding bootcamp?
 5. What are some social networking and communication tips?
-6. As a software engineer, why should I bother with content creation? How should I get started?
-7. What are some important concepts in HTML, CSS, and JavaScript? Can you generate a quiz for me?
-8. What are some markers of a Senior+ engineer as distinct from an early career developer?
+6. How should I approach content creation as a software engineer?
+7. What are key concepts in web development?
+8. What distinguishes senior engineers from junior developers?
+9. What are some job offer negotation tips?
+10. How can I design and evaluate a technical project?
 
-## The Interview Simulator AI
+## Interview Simulation Tips
 
-This tool can provide mock interviews of various kinds:
+Practice different types of tech interviews:
 
-1. Coding round: leetcode-style, practical questions, or take-home projects.
-2. Behavioral rounds
-3. System design
-4. Recruiter screen simulation
-5. Causal and technical conversation
+1. Coding rounds (algorithms, practical problems, take-home projects)
+2. Behavioral questions
+3. System design discussions
+4. Recruiter screenings
+5. Technical conversations
 
-The tool can perform the interview, grade your performance, provide tips on improving results, and it can also help you translate your experience into a collection of STAR+ Method responses.
+Get feedback on your performance and learn how to improve your perceived impact with the [Pirate Store (STOARR) Method](/blog/2025-02-24-behavioral-interviews).
 
-## Job Offer Negotiation AI
+## Game-Based Soft Skill Development Usage
 
-This tool walks you through how to obtain high-pay competing offers, identify whether you are being compensated fairly, and provides specific tactics on how to improve your offer.
+Improve your soft skills through LLM-assisted role play with:
 
-## The Professional RPG AI
+1. Simulated workplace scenarios
+2. Communication practice
+3. Performance feedback and coaching
 
-This tool generates role playing scenarios based on professional situations then evaluates your performance and coaches you to improved communication, collaboration, problem solving, and a variety of other skills with an emphasis on the soft skills.
+A sample prompt for this use case might be:
+"Provide a simulated workplace RPG episode. Let's focus on team communication."
 
-## PMTLM AI
+Additional prompts can be found in [this video](https://www.youtube.com/watch?v=FvoNVvHFGCI).
 
-This tool is a product manager and a tech lead manager rolled into one. Given a product idea, business idea, or design problem, it helps build and evaluate the business case, an optional PRD, and then it seamlessly moves into technical design, walking you through opinionated design document construction, to ultimately evaluate potential risk-adjusted ROI and priority of work inclusive of business and technical considerations.
+## Technical Design Usage
+
+Ladderly Copilot can help you construct a design document for a technical project, or ballpark impact related to a previously completed project.
+
+Three pro tips for this use case include:
+
+1. Be explicit about whether you are estimating a prior project or asking for assistance in authoring a new design document.
+2. Consider drafting the design document and then further refining on a section-by-section basis. You might ask, for example, "Help me refine the Risks and Mitigations section of this design doc."
+3. Use the [Paste from Markdown](https://support.google.com/docs/answer/12014036) feature when copying output into a [new Google document](https://docs.new/).
