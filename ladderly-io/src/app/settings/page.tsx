@@ -18,7 +18,7 @@ export default async function SettingsPage() {
   try {
     const rawSettings = await api.user.getSettings()
     const settings = UserSettingsFormValues.parse(rawSettings)
-    const isPremium = settings.subscription.tier === PaymentTierEnum.FREE
+    const isPremium = settings.subscription.tier !== PaymentTierEnum.FREE
 
     return (
       <LadderlyPageWrapper authenticate>
@@ -30,13 +30,22 @@ export default async function SettingsPage() {
             <p className="mt-4">
               Welcome, User ID {settings.id}!{' '}
               {isPremium
-                ? 'You are signed in to a free account.'
-                : 'You are signed in to a premium account.'}{' '}
+                ? 'You are signed in to a premium account.'
+                : 'You are signed in to a free account.'}
             </p>
             <p className="mt-4">
               Please email admin@ladderly.io for help requests, to update your
               subscription tier, or for general inquiries.
             </p>
+
+            {isPremium ? null : (
+              <Link
+                className="mt-4 block text-ladderly-violet-700 underline"
+                href={`/blog/2025-03-16-benefits-of-premium`}
+              >
+                Learn more about Ladderly Premium!
+              </Link>
+            )}
 
             <Link
               className="mt-4 block text-ladderly-violet-700 underline"

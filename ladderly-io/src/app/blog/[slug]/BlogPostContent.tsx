@@ -6,18 +6,41 @@ import Image from 'next/image'
 
 interface BlogPostContentProps {
   content: string
+  userId?: string
 }
 
-export function BlogPostContent({ content }: BlogPostContentProps) {
+const PREMIUM_SIGNUP_LINK = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
+
+export function BlogPostContent({ content, userId }: BlogPostContentProps) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
-        a: ({ children, ...props }) => (
-          <a {...props} target="_blank" rel="noopener noreferrer">
-            {children}
-          </a>
-        ),
+        a: ({ children, href, ...props }) => {
+          // Handle the premium signup link specially
+          if (href === 'PREMIUM_SIGNUP_LINK') {
+            const targetHref = userId
+              ? `${PREMIUM_SIGNUP_LINK}${PREMIUM_SIGNUP_LINK?.includes('?') ? '&' : '?'}client_reference_id=${userId}`
+              : '/signup'
+            return (
+              <a
+                href={targetHref}
+                className="font-bold"
+                {...(userId
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+                {...props}
+              >
+                {children}
+              </a>
+            )
+          }
+          return (
+            <a href={href} {...props} target="_blank" rel="noopener noreferrer">
+              {children}
+            </a>
+          )
+        },
         img: ({ src, alt }) => (
           <div className="my-8 flex justify-center">
             <Image

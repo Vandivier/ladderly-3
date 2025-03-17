@@ -249,7 +249,7 @@ export default async function BlogPost({
       requireAuth={post.premium}
       isAuthenticated={!!session}
     >
-      <BlogPostContent content={post.content} />
+      <BlogPostContent content={post.content} userId={session?.user?.id} />
     </BlogPostLayout>
   )
 }
