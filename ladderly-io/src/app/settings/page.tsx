@@ -1,12 +1,12 @@
+import { PaymentTierEnum } from '@prisma/client'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { api } from '~/trpc/server'
 import { LargeCard } from '~/app/core/components/LargeCard'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
-import { SettingsFormWrapper } from './components/SettingsFormWrapper'
-import { redirect } from 'next/navigation'
-import { PaymentTierEnum } from '@prisma/client'
 import { UserSettingsFormValues } from '~/server/schemas'
+import { api } from '~/trpc/server'
+import { LadderlyPitch } from '../core/components/LadderlyPitch'
+import { SettingsFormWrapper } from './components/SettingsFormWrapper'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,10 +18,10 @@ export default async function SettingsPage() {
   try {
     const rawSettings = await api.user.getSettings()
     const settings = UserSettingsFormValues.parse(rawSettings)
-    const isPremium = settings.subscription.tier === PaymentTierEnum.FREE
+    const isPremium = settings.subscription.tier !== PaymentTierEnum.FREE
 
     return (
-      <LadderlyPageWrapper>
+      <LadderlyPageWrapper authenticate>
         <div className="flex items-center justify-center">
           <LargeCard>
             <h1 className="text-2xl font-bold text-gray-800">
@@ -30,13 +30,22 @@ export default async function SettingsPage() {
             <p className="mt-4">
               Welcome, User ID {settings.id}!{' '}
               {isPremium
-                ? 'You are signed in to a free account.'
-                : 'You are signed in to a premium account.'}{' '}
+                ? 'You are signed in to a premium account.'
+                : 'You are signed in to a free account.'}
             </p>
             <p className="mt-4">
               Please email admin@ladderly.io for help requests, to update your
               subscription tier, or for general inquiries.
             </p>
+
+            {isPremium ? null : (
+              <Link
+                className="mt-4 block text-ladderly-violet-700 underline"
+                href={`/blog/2025-03-16-benefits-of-premium`}
+              >
+                Learn more about Ladderly Premium!
+              </Link>
+            )}
 
             <Link
               className="mt-4 block text-ladderly-violet-700 underline"
@@ -53,8 +62,12 @@ export default async function SettingsPage() {
       </LadderlyPageWrapper>
     )
   } catch (error) {
-    // redirect unauthorized users to home page
+    // show pitch to unauthorized users
     console.error(error)
-    redirect('/')
+    return (
+      <LadderlyPageWrapper>
+        <LadderlyPitch />
+      </LadderlyPageWrapper>
+    )
   }
 }

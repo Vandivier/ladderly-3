@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function MyPremiumChecklistPage() {
   return (
-    <LadderlyPageWrapper>
+    <LadderlyPageWrapper authenticate requirePremium>
       <div className="relative min-h-screen">
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
           <div className="m-8 w-full max-w-md rounded-lg border border-gray-200 bg-white p-8 shadow-xl">
