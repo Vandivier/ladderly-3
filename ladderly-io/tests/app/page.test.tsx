@@ -131,7 +131,7 @@ describe('HomePage', () => {
     const page = await HomePage()
     render(page)
 
-    expect(screen.getByText(/New: 5 Ladderly AI Tools!/)).toBeInTheDocument()
+    expect(screen.getByText(/New: Ladderly AI Tools!/)).toBeInTheDocument()
     expect(screen.getByText('Read the announcement')).toHaveAttribute(
       'href',
       '/blog/2025-02-07-ladderly-chat-ai',
