@@ -7,6 +7,7 @@ import { LadderlyAnalytics } from '../LadderlyAnalytics'
 import { TopNav } from './TopNav'
 
 import styles from 'src/styles/Home.module.css'
+import { LadderlyPitch } from '../LadderlyPitch'
 
 interface LadderlyPageWrapperProps {
   children: React.ReactNode
@@ -30,21 +31,7 @@ export async function LadderlyPageWrapper({
     const user = session?.user
 
     if (!session) {
-      content = unauthenticatedView ?? (
-        <div className="container mx-auto max-w-3xl px-4 py-8">
-          <p className="text-center text-gray-800 dark:text-gray-200">
-            Please{' '}
-            <Link href="/signup" className="text-blue-600 hover:underline">
-              sign up
-            </Link>{' '}
-            or{' '}
-            <Link href="/login" className="text-blue-600 hover:underline">
-              log in
-            </Link>{' '}
-            to continue.
-          </p>
-        </div>
-      )
+      content = unauthenticatedView ?? <LadderlyPitch />
     } else if (
       requirePremium &&
       user?.subscription.tier === PaymentTierEnum.FREE
