@@ -27,7 +27,7 @@ vi.mock('~/app/page', () => ({
             <a href="/checklists/my-premium-checklist">Advanced Checklist</a>
           )}
           <div>
-            <span>New: 5 Ladderly AI Tools!</span>
+            <span>New: Ladderly AI Tools!</span>
             <a href="/blog/2025-02-07-ladderly-chat-ai">
               Read the announcement
             </a>

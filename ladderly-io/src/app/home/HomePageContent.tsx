@@ -57,7 +57,7 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
       className="bg-pink-300 text-center text-ladderly-dark-purple-2 dark:bg-ladderly-dark-purple-2 dark:text-white"
     >
       <h2>
-        New: 5 Ladderly AI Tools!{' '}
+        New: Ladderly AI Tools!{' '}
         <Link
           className="mx-2 font-bold underline"
           href="/blog/2025-02-07-ladderly-chat-ai"
