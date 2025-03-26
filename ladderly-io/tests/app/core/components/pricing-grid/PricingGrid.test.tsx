@@ -109,7 +109,7 @@ describe('PricingGrid', () => {
     expect(screen.getByText('$0')).toBeInTheDocument()
 
     // Check if benefits are displayed
-    expect(screen.getByText('Video Course Access')).toBeInTheDocument()
+    expect(screen.getByText('AI Tool Access')).toBeInTheDocument()
     expect(screen.getByText('Open Source Curriculum')).toBeInTheDocument()
   })
 
