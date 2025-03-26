@@ -18,7 +18,7 @@ vi.mock('~/app/page', () => ({
           <h2>Why Users Love Us:</h2>
           <h2>Recommended Next Steps:</h2>
           <h2>Pricing Plans</h2>
-          <img alt="Ladderly Logo" src="/logo.png" />
+          <img alt="Ladderly Logo" src="/logo.webp" />
           <a href="/checklists/my-basic-checklist">Standard Checklist</a>
           <a href="https://buy.stripe.com/cN2bMfbOQ2CX5dC7su">
             Book an Expert Session
