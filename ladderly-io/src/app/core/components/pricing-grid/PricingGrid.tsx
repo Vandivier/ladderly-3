@@ -5,8 +5,7 @@ import Link from 'next/link'
 import React from 'react'
 import type { UserWithSubscriptionsOrZero } from '~/server/schemas'
 import { api } from '~/trpc/server'
-import { event } from 'nextjs-google-analytics'
-
+import { ReimbursmentLetterLink } from './ReimbursmentLetterLink'
 type Benefit = {
   paragraphContent?: React.ReactNode
   text: string
@@ -163,22 +162,8 @@ const PricingGrid: React.FC = async () => {
       <div className="mb-2 w-[300px] rounded-lg bg-white p-6 shadow-lg lg:w-auto">
         <h3 className="mb-2 text-2xl font-bold">Get Premium for Free!</h3>
         <p className="text-gray-800">
-          Use this{' '}
-          <Link
-            className="text-m font-bold text-ladderly-pink hover:underline"
-            href="https://docs.google.com/document/d/1DtwRvBRimmSiuQ-jkKo_P9QNBPLKQkFemR9vT_Kl9Jg"
-            onClick={() => {
-              event('click', {
-                category: 'Link',
-                label: 'Reimbursment Request Letter Link Click',
-              })
-            }}
-            target="_blank"
-          >
-            Reimbursement Request Letter
-          </Link>{' '}
-          to request coverage through your employer{`'`}s training and education
-          budget.
+          Use this <ReimbursmentLetterLink /> to request coverage through your
+          employer{`'`}s training and education budget.
         </p>
       </div>
 
