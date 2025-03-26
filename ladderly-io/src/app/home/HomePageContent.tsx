@@ -81,12 +81,10 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
             height={330}
             priority={true}
             quality={85}
-            sizes="(max-width: 640px) 270px, (max-width: 1024px) 330px, 400px"
+            sizes="(max-width: 640px) 270px, 330px"
             src="/logo.webp"
             style={{ alignSelf: 'center', maxHeight: '200px' }}
             width={330}
-            loading="eager"
-            decoding="async"
           />
 
           <LadderlyHelpsBlock />
