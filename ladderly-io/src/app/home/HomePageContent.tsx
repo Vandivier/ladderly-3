@@ -77,20 +77,12 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
         >
           <Image
             alt="Ladderly Logo"
-            className="m-auto block rounded-lg shadow-lg sm:hidden"
-            height={270}
-            priority={true}
-            src="/logo.png"
-            style={{ alignSelf: 'center', maxHeight: '160px' }}
-            width={270}
-          />
-
-          <Image
-            alt="Ladderly Logo"
+            className="m-6 block rounded-lg shadow-lg"
             height={330}
-            className="m-6 hidden rounded-lg shadow-lg sm:block"
             priority={true}
-            src="/logo.png"
+            quality={85}
+            sizes="(max-width: 640px) 270px, 330px"
+            src="/logo.webp"
             style={{ alignSelf: 'center', maxHeight: '200px' }}
             width={330}
           />

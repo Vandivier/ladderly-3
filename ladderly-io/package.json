@@ -94,5 +94,10 @@
   "ct3aMetadata": {
     "initVersion": "7.36.2"
   },
-  "packageManager": "npm@10.8.2"
+  "packageManager": "npm@10.8.2",
+  "overrides": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "next": "^14.2.4"
+  }
 }

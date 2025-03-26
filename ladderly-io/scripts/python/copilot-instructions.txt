@@ -178,6 +178,7 @@ public/
     favicon-32x32.png
     favicon.ico
     logo.png
+    logo.webp
     robots.txt
     site.webmanifest
     sitemap.xml

@@ -37,9 +37,7 @@ describe('HomePageContent', () => {
 
     // Test logo is present (using getAllByAltText since there are two logo images for different screen sizes)
     const logoImages = screen.getAllByAltText('Ladderly Logo')
-    expect(logoImages.length).toBe(2)
-    expect(logoImages[0]).toBeInTheDocument()
-    expect(logoImages[1]).toBeInTheDocument()
+    expect(logoImages.length).toBe(1)
 
     // Test links are present
     expect(screen.getByText('Standard Checklist')).toHaveAttribute(
