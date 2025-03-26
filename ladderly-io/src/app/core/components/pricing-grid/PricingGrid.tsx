@@ -30,7 +30,11 @@ const plans: Plan[] = [
     planId: 40,
     price: '$6/mo',
     benefits: [
-      { text: 'Video Course Access' },
+      {
+        text: 'AI Tool Access',
+        url: 'https://www.ladderly.io/blog/2025-03-16-benefits-of-premium',
+      },
+      // { text: 'Video Course Access' },
       { text: 'Advanced Checklist Access' },
       { text: 'Paywalled Article Access' },
     ],
