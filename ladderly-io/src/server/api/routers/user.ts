@@ -445,4 +445,72 @@ export const userRouter = createTRPCRouter({
 
       return GetUserSettingsSchema.parse(settings)
     }),
+
+  getLeadEmailPreferences: protectedProcedure.query(async ({ ctx }) => {
+    const userId = parseInt(ctx.session.user.id)
+    const email = ctx.session.user.email
+
+    if (!email) {
+      throw new TRPCError({
+        code: 'UNAUTHORIZED',
+        message: 'User email not found',
+      })
+    }
+
+    // First try to find an existing lead
+    let lead = await ctx.db.lead.findUnique({
+      where: { email },
+    })
+
+    // If no lead exists, create one
+    if (!lead) {
+      lead = await ctx.db.lead.create({
+        data: {
+          email,
+          userId,
+          isRecruiter: false,
+          hasOptOutMarketing: false,
+          hasOptOutFeatureUpdates: false,
+          hasOptOutEventAnnouncements: false,
+          hasOptOutNewsletterAndBlog: false,
+        },
+      })
+    }
+
+    return lead
+  }),
+
+  updateEmailPreferences: protectedProcedure
+    .input(
+      z.object({
+        isRecruiter: z.boolean(),
+        hasOptOutMarketing: z.boolean(),
+        hasOptOutFeatureUpdates: z.boolean(),
+        hasOptOutEventAnnouncements: z.boolean(),
+        hasOptOutNewsletterAndBlog: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const email = ctx.session.user.email
+
+      if (!email) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'User email not found',
+        })
+      }
+
+      const lead = await ctx.db.lead.update({
+        where: { email },
+        data: {
+          isRecruiter: input.isRecruiter,
+          hasOptOutMarketing: input.hasOptOutMarketing,
+          hasOptOutFeatureUpdates: input.hasOptOutFeatureUpdates,
+          hasOptOutEventAnnouncements: input.hasOptOutEventAnnouncements,
+          hasOptOutNewsletterAndBlog: input.hasOptOutNewsletterAndBlog,
+        },
+      })
+
+      return lead
+    }),
 })

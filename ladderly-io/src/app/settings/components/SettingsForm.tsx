@@ -9,6 +9,7 @@ import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledChipCollection from '~/app/core/components/LabeledChipCollection'
 import { CountryDropdown } from './CountryDropdown'
 import { USStateDropdown } from './USStateDropdown'
+import Link from 'next/link'
 
 export { FORM_ERROR } from '~/app/core/components/Form'
 
@@ -195,6 +196,15 @@ export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
           name="hasInPersonEventInterest"
           label="Interested in In-Person Hackathons and Events"
         />
+      </section>
+
+      <section>
+        <Link
+          className="mt-4 block text-ladderly-violet-700 underline"
+          href="/settings/email-preferences"
+        >
+          Manage Email Subscription Preferences
+        </Link>
       </section>
 
       <button

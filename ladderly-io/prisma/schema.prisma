@@ -63,6 +63,7 @@ model User {
   uuid               String              @default(uuid())
   userChecklistItems UserChecklistItem[]
   votes              Vote[]
+  Lead               Lead[]
 }
 
 enum RoleEnum {
@@ -364,4 +365,20 @@ model Vote {
 enum VoteType {
   UPVOTE
   DOWNVOTE
+}
+
+model Lead {
+  id                          Int      @id @default(autoincrement())
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+  email                       String   @unique
+  userId                      Int?
+  isRecruiter                 Boolean  @default(false)
+  hasOptOutMarketing          Boolean  @default(false)
+  hasOptOutFeatureUpdates     Boolean  @default(false)
+  hasOptOutEventAnnouncements Boolean  @default(false)
+  hasOptOutNewsletterAndBlog  Boolean  @default(false)
+  user                        User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }

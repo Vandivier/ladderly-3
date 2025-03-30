@@ -1,15 +1,17 @@
-import { LargeCard } from "~/app/core/components/LargeCard";
-import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
+import Link from 'next/link'
+import { LargeCard } from '~/app/core/components/LargeCard'
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 
 export const metadata = {
-  title: "Privacy Policy",
-};
+  title: 'Privacy Policy',
+}
 
 const PrivacyPolicyPage = () => {
   return (
     <LadderlyPageWrapper>
       <LargeCard>
         <h1 className="mb-4 text-2xl font-semibold">Ladderly Privacy Policy</h1>
+        <h2>Including Terms and Conditions</h2>
 
         <h2 className="mb-3 mt-5 text-xl">
           Does ladderly.io collect anonymous data?
@@ -26,9 +28,9 @@ const PrivacyPolicyPage = () => {
         </h2>
         <p>
           If you create a ladderly.io account, we collect some personal data to
-          track your progress and to customize your user experience. If you make
-          a purchase in the ladderly.io store, we collect data to ensure proper
-          delivery and for tax accounting reasons.
+          track your progress and to customize your user experience. If you
+          subscribe to our newsletter or email updates, we collect your email
+          address.
         </p>
 
         <h2 className="mb-3 mt-5 text-xl">
@@ -44,8 +46,11 @@ const PrivacyPolicyPage = () => {
         </h2>
         <p>
           A valid email address is required to create an account. You can also
-          add more information about yourself in your user profile, though this
-          is entirely optional.
+          add more information about yourself in your{' '}
+          <Link href="/settings" className="underline">
+            user settings page
+          </Link>
+          , though this is entirely optional.
         </p>
 
         <h2 className="mb-3 mt-5 text-xl">
@@ -53,7 +58,7 @@ const PrivacyPolicyPage = () => {
         </h2>
         <p>
           We do not sell your data, though we do utilize some third party tools.
-          For example, ladderly.io utilizes{" "}
+          For example, ladderly.io utilizes{' '}
           <a
             href="https://vercel.com"
             target="_blank"
@@ -61,8 +66,8 @@ const PrivacyPolicyPage = () => {
             className="text-link-fancy"
           >
             Vercel
-          </a>{" "}
-          and{" "}
+          </a>{' '}
+          and{' '}
           <a
             href="https://supabase.com/"
             target="_blank"
@@ -78,7 +83,7 @@ const PrivacyPolicyPage = () => {
           I have questions about my privacy on Ladderly
         </h2>
         <p>
-          We{`'`}re here to help. Reach out at{" "}
+          We{`'`}re here to help. Reach out at{' '}
           <a className="underline" href="mailto:admin@ladderly.io">
             admin@ladderly.io
           </a>
@@ -88,12 +93,12 @@ const PrivacyPolicyPage = () => {
         <h2 className="mb-3 mt-5 text-xl">How can I find out about changes?</h2>
         <p>
           This version of the ladderly.io privacy Q&A was last updated on
-          9/30/2023. Keep an eye on your emails for any future updates or
+          3/29/2025. Keep an eye on your emails for any future updates or
           changes.
         </p>
       </LargeCard>
     </LadderlyPageWrapper>
-  );
-};
+  )
+}
 
-export default PrivacyPolicyPage;
+export default PrivacyPolicyPage
