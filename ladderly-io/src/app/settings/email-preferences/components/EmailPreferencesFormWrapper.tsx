@@ -1,20 +1,23 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { api } from '~/trpc/react'
-import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
-import { Form } from '~/app/core/components/Form'
 import { z } from 'zod'
+import { Form } from '~/app/core/components/Form'
+import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
+import { api } from '~/trpc/react'
 
 const EmailPreferencesSchema = z.object({
   isRecruiter: z.boolean(),
-  hasOptOutMarketing: z.boolean(),
-  hasOptOutFeatureUpdates: z.boolean(),
-  hasOptOutEventAnnouncements: z.boolean(),
-  hasOptOutNewsletterAndBlog: z.boolean(),
+  wantsMarketing: z.boolean(),
+  wantsFeatureUpdates: z.boolean(),
+  wantsEventAnnouncements: z.boolean(),
+  wantsNewsletterAndBlog: z.boolean(),
 })
 
-type EmailPreferencesFormValues = z.infer<typeof EmailPreferencesSchema>
+type EmailPreferencesFormSubmittedValues = z.infer<
+  typeof EmailPreferencesSchema
+>
 
 interface EmailPreferencesFormWrapperProps {
   initialSettings: {
@@ -31,15 +34,29 @@ interface EmailPreferencesFormWrapperProps {
 export function EmailPreferencesFormWrapper({
   initialSettings,
 }: EmailPreferencesFormWrapperProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
   const updateSettings = api.user.updateEmailPreferences.useMutation({
     onSuccess: () => {
-      // You could add a success toast here
-      console.log('Email preferences updated successfully')
+      setIsSubmitting(false)
+      alert('Updated successfully.')
+      router.refresh()
+    },
+    onError: (error) => {
+      console.error('Failed to update settings:', error)
+      alert('Update failed: ' + error.message)
     },
   })
 
-  const handleSubmit = async (values: EmailPreferencesFormValues) => {
-    updateSettings.mutate(values)
+  const handleSubmit = async (values: EmailPreferencesFormSubmittedValues) => {
+    setIsSubmitting(true)
+    updateSettings.mutate({
+      isRecruiter: values.isRecruiter,
+      hasOptOutMarketing: !values.wantsMarketing,
+      hasOptOutFeatureUpdates: !values.wantsFeatureUpdates,
+      hasOptOutEventAnnouncements: !values.wantsEventAnnouncements,
+      hasOptOutNewsletterAndBlog: !values.wantsNewsletterAndBlog,
+    })
   }
 
   return (
@@ -47,11 +64,10 @@ export function EmailPreferencesFormWrapper({
       schema={EmailPreferencesSchema}
       initialValues={{
         isRecruiter: initialSettings.isRecruiter,
-        hasOptOutMarketing: initialSettings.hasOptOutMarketing,
-        hasOptOutFeatureUpdates: initialSettings.hasOptOutFeatureUpdates,
-        hasOptOutEventAnnouncements:
-          initialSettings.hasOptOutEventAnnouncements,
-        hasOptOutNewsletterAndBlog: initialSettings.hasOptOutNewsletterAndBlog,
+        wantsMarketing: !initialSettings.hasOptOutMarketing,
+        wantsFeatureUpdates: !initialSettings.hasOptOutFeatureUpdates,
+        wantsEventAnnouncements: !initialSettings.hasOptOutEventAnnouncements,
+        wantsNewsletterAndBlog: !initialSettings.hasOptOutNewsletterAndBlog,
       }}
       onSubmit={handleSubmit}
     >
@@ -64,22 +80,22 @@ export function EmailPreferencesFormWrapper({
 
         <div className="space-y-4">
           <LabeledCheckboxField
-            name="hasOptOutMarketing"
+            name="wantsMarketing"
             label="Marketing emails (product updates, promotions)"
           />
 
           <LabeledCheckboxField
-            name="hasOptOutFeatureUpdates"
+            name="wantsFeatureUpdates"
             label="Feature updates and new functionality"
           />
 
           <LabeledCheckboxField
-            name="hasOptOutEventAnnouncements"
+            name="wantsEventAnnouncements"
             label="Event announcements and invitations"
           />
 
           <LabeledCheckboxField
-            name="hasOptOutNewsletterAndBlog"
+            name="wantsNewsletterAndBlog"
             label="Newsletter and blog updates"
           />
 
@@ -92,10 +108,10 @@ export function EmailPreferencesFormWrapper({
 
       <button
         type="submit"
-        disabled={updateSettings.isLoading}
+        disabled={isSubmitting}
         className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
       >
-        {updateSettings.isLoading ? 'Saving...' : 'Save Preferences'}
+        {isSubmitting ? 'Saving...' : 'Save Preferences'}
       </button>
     </Form>
   )

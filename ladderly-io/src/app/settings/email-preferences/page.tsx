@@ -13,7 +13,7 @@ export const metadata = {
 
 export default async function EmailPreferencesPage() {
   try {
-    const rawSettings = await api.user.getSettings()
+    const leadPreferences = await api.user.getLeadEmailPreferences()
 
     return (
       <LadderlyPageWrapper authenticate>
@@ -24,7 +24,7 @@ export default async function EmailPreferencesPage() {
             </h1>
 
             <Suspense fallback={<div>Loading form...</div>}>
-              <EmailPreferencesFormWrapper initialSettings={rawSettings} />
+              <EmailPreferencesFormWrapper initialSettings={leadPreferences} />
             </Suspense>
           </LargeCard>
         </div>
