@@ -19,8 +19,21 @@ const CreateAccountPage = async () => {
           Back to Home
         </Link>
       </nav>
-      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-        {session?.user ? <p>You are already logged in.</p> : <SignupForm />}
+      <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center">
+        {session?.user ? (
+          <p>You are already logged in.</p>
+        ) : (
+          <>
+            <SignupForm />
+            <p className="mt-4 text-sm text-gray-600">
+              By signing up, you agree to our{' '}
+              <Link href="/privacy-policy" className="underline">
+                Terms of Service
+              </Link>
+              .
+            </p>
+          </>
+        )}
       </div>
     </div>
   )
