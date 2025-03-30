@@ -54,3 +54,5 @@ yarn-error.log*
 temp.*
 *-temp.*
 temp/
+
+scripts/data/
