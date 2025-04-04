@@ -99,7 +99,36 @@ Ladderly.io recommends AI-driven development, also called Vibe Coding, and AI-dr
 
 ## Code-Based Debugging
 
-Loggers + Breakpoints + Scripts (particularly for DB issues)
+Here are eleven debugging tips using code tools and techniques:
+
+1. Logging and Alerting
+   1. Logging is a general term which includes client-side logs, server-side logs, remote commercial loggers, and so on.
+   2. Alerting in a web app is like logging, except you call the [alert()](https://www.w3schools.com/jsref/met_win_alert.asp) function which causes a popup in the UI to present alerted text, which will be visible even without opening the [browser's developer tools](https://developer.chrome.com/docs/devtools).
+2. Breakpoints. You can use breakpoint keywords, such as `debugger` in JavaScript, or IDE-based breakpoints.
+3. In-memory debugging, or attaching to a running process. [Here's how to do this with the Chrome Remote Debugger](https://developers.google.com/cast/docs/debugging/remote_debugger)
+4. Launching a wrapped process
+   1. This is a common pattern for use in conjuction with an IDE.
+   2. Here's how to do this [with Python and VS Code](http://code.visualstudio.com/docs/python/debugging)
+5. Elimination-Based Debugging
+   1. You can stub, mock, comment, or replace sections of code in order to isolate the root cause of a bug from a process flow perspective.
+   2. For instance, if a FruitTree component wraps an Apple component, you can try commenting out the Apple component, or replacing with a trivial "hello world" paragraph, in order to see if the issue remains. If it does, the Apple component can't be the root cause by process of elimination.
+6. Element Substitution
+   1. This is a special case of elimination-based debugging which works especially well for rendered media like web pages, games, and audio output.
+   2. Work backwards from the final rendering code and substitute in a particularly obvious element, such as a large and vibrant visual element or a loud and easily detected noise in the case of audio production.
+   3. Push the element backwards in the rendering logic one function at a time. When the obvious element is eliminating, this may imply an issue in the last functional step between the current location and the final render.
+7. Rubber Ducking and Social Consultation
+   1. Thinking of root causes involves an ideation process which can be difficult for a single person, particularly in a large idea space, or when the troubleshooting developer is stressed, tired, or in an unfamiliar code region.
+   2. Talking to almost anyone can sometimes help trigger new thoughts, particularly if the person is technical.
+   3. You can use a language model to help with this discussion and ideation process as well!
+8. Test-Driven Debugging
+   1. We can use automated tests to quickly change inputs and view the resulting behavior in a component, which can give insight into potential cases that are more or less suspect.
+   2. We can also make changes to tests in order to improve the feedback loop speed of elimination-based debugging, instead of having to redeploy the application.
+   3. Tests allow us to try many permutations by scripting, which can also help us cover more ground in a rapid fashion.
+   4. When a test suite exists with high branch coverage, we can get even better insight into particular logical branches which may be problematic.
+   5. If a region of code is weakly tested, implementing new tests can reveal misalignment between expected and actual behavior.
+9. Type Checking. If a region of code is weakly typed, implementing stronger types can reveal misalignment between expected and actual behavior.
+10. Data store interrogation. Review your database and application state. If there are instances of unexpected data, work backwards from where the data is saved to where the data is created and you may be able to identify a root cause of the problem.
+11. Implementation from Scratch. Sometimes it's easier to build a system or subsystem from scratch, get it working properly, then compare it to the system under error.
 
 ## Commercial Patterns
 
