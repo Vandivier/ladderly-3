@@ -164,6 +164,6 @@ In an interview, prefer these techniques:
 
 1. Write out pseudocode ahead of time. If you encounter an issue, try simply reading through the code line-by-line or simulating a test case with a mental debugger before writing any code.
 2. If you step through and find mental debugging difficult, you can proceed to write some light code. A simple logger is typically your best tool in this case.
-   1. Alternatively, sometimez an assertion-style expression can be a quick way to verify the code is working as expected up to a certain point.
+   1. Alternatively, sometimes an assertion-style expression can be a quick way to verify the code is working as expected up to a certain point.
 3. In rare cases, it may be worth quickly writing a test case, if you are confident you can quickly write it down.
 4. For frontend development in particular, it is fine to use an alert() call or visual element highlighting as appropriate.
