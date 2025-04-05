@@ -41,7 +41,7 @@ You can add your own networking interests and services offered here on your [set
 
 There are also marketplaces for mentors and career coaches outside of the Ladderly.io community. High-quality marketplaces are useful because they provide transparent ratings and pricing. Outside of the Ladderly.io platform, we recommend searching [MentorCruise](https://mentorcruise.com/) for a mentor with 13 or more reviews and an average rating of 4.25 or better, which corresponds to the top quarter of engineering mentors on the site at the time of analysis.
 
-Many companies offer internal mentorship programs and budget for employee training and education. Ask about these, and ask whether the training and education budget can be used to pay for a personalized mentorship or career coaching! Ladderly.io provides <a href="https://docs.google.com/document/d/1DtwRvBRimmSiuQ-jkKo_P9QNBPLKQkFemR9vT_Kl9Jg" id="reimbursment-letter-link-from-blog" target="_blank">this template letter</a> which can help you craft your request to an employer.
+Many companies offer internal mentorship programs and budget for employee training and education. Ask about these, and ask whether the training and education budget can be used to pay for a personalized mentorship or career coaching! Ladderly.io provides [this template letter](https://docs.google.com/document/d/1DtwRvBRimmSiuQ-jkKo_P9QNBPLKQkFemR9vT_Kl9Jg){#reimbursment-letter-link-from-blog} which can help you craft your request to an employer.
 
 ## Programs, Platforms, and Perks
 
