@@ -152,6 +152,8 @@ Don't hide logic in a get or set function. Avoid magic which assumes developer k
 
 Good software respects *all* its humans: maintainers, stakeholders, and end‑users. BDD scenarios capture stakeholder intent; clear error messages and accessible UIs respect consumers; tidy repos and helpful docs respect contributors.
 
+Ladderly.io emphasizes investing in the developer experience, also known as DX, DevX, or DevEx. We also want our software to consider customers, users, and other stakeholders. A complicated system can easily fail to achieve business impact if the user interface (UI) or user experience (UX) is less than ideal.
+
 Antipattern Examples:
 
 1. Setting up comprehensive tooling for code quality without consulting your team on their preferences.
