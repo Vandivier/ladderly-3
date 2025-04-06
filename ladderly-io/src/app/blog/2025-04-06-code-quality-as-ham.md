@@ -1,5 +1,5 @@
 ---
-title: 'Quality Software as a CUTE TYPE HAM'
+title: '26. Build Quality Software: The CUTE TYPE HAM Way'
 author: John Vandivier
 ---
 
