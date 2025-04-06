@@ -28,13 +28,26 @@ export async function generateStaticParams() {
   return paths
 }
 
+// Function to strip basic markdown formatting for excerpt
+function stripMarkdown(markdown: string): string {
+  return (
+    markdown
+      // Remove images
+      .replace(/!\([^\)]*\)\(.*?\)/g, '')
+      // Remove links but keep text
+      .replace(/\[([^\]]+)\]\([^\)]*\)/g, '$1')
+      // Remove bold/italics/etc.
+      .replace(/[*_`~]+/g, '')
+      .trim()
+  )
+}
+
 // This generates metadata for each blog post
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string }
 }): Promise<Metadata> {
-  // Use the external getBlogPost function
   const post = await getBlogPost(params.slug)
 
   if (!post) {
@@ -43,15 +56,35 @@ export async function generateMetadata({
     }
   }
 
+  // --- Metadata Improvements ---
+  // 1. Construct absolute image URL
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ladderly.io' // Fallback needed?
+  const heroImage = '/cute-type-ham.webp' // Relative path to the specific hero
+  const ogImageUrl = `${siteUrl}${heroImage}`
+
+  // 2. Create plain text description
+  // Use excerpt (first paragraph) and strip markdown
+  const plainTextDescription = stripMarkdown(post.excerpt)
+  // --- End Improvements ---
+
   return {
     title: post.title,
-    description: post.excerpt, // Assuming getBlogPost returns excerpt
+    description: plainTextDescription, // Use plain text
     authors: [{ name: post.author }],
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description: plainTextDescription, // Use plain text
       type: 'article',
       authors: [post.author],
+      // 3. Add og:image tag
+      images: [
+        {
+          url: ogImageUrl,
+          // Optionally add width/height if known
+          // width: 1200,
+          // height: 630,
+        },
+      ],
     },
   }
 }
