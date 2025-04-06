@@ -59,15 +59,20 @@ export async function generateMetadata({
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.ladderly.io'
   const plainTextDescription = stripMarkdown(post.excerpt)
 
-  // Dynamically construct image URL if available
-  let ogImageMetadata: { url: string }[] | undefined = undefined
+  let ogImageUrl: string
+  // Use found image if available
   if (post.ogImageUrlRelative) {
-    // Ensure the path starts with / if it's relative
     const imageUrl = post.ogImageUrlRelative.startsWith('/')
       ? post.ogImageUrlRelative
       : `/${post.ogImageUrlRelative}`
-    ogImageMetadata = [{ url: `${siteUrl}${imageUrl}` }]
+    ogImageUrl = `${siteUrl}${imageUrl}` // Set the dynamic URL
+  } else {
+    // Use default image if none found
+    ogImageUrl = `${siteUrl}/logo.webp` // Set the default URL
   }
+
+  // Construct the images metadata array
+  const ogImageMetadata = [{ url: ogImageUrl }]
 
   return {
     title: post.title,
@@ -78,8 +83,8 @@ export async function generateMetadata({
       description: plainTextDescription,
       type: 'article',
       authors: [post.author],
-      // Add images array only if we found an image
-      ...(ogImageMetadata && { images: ogImageMetadata }),
+      // Always include the images array now
+      images: ogImageMetadata,
     },
   }
 }
