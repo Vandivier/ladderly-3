@@ -1,122 +1,117 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import { unified } from 'unified'
+import { unified, type Plugin } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkGfm from 'remark-gfm'
+import remarkDirective from 'remark-directive'
 import remarkRehype from 'remark-rehype'
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeHighlight from 'rehype-highlight'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
-import type { Element, Root } from 'hast'
+import type { Root as MdastRoot, Node as MdastNode } from 'mdast'
+import type { Root as HastRoot } from 'hast'
 import { visit } from 'unist-util-visit'
+import { h } from 'hastscript'
 
-interface TableOfContentsItem {
-  id: string
-  text: string
-  level: number
-}
+// Helper function to generate HAST for the :a directive (no userId needed)
+function handleAnchorDirectiveHast(directive: any) {
+  const attributes = directive.attributes || {}
+  let href = attributes.href || '#' // Use let for potential modification
+  const id = attributes.id
+  delete attributes.id
 
-export async function getBlogPost(
-  slug: string,
-): Promise<{ title: string; content: string; toc: TableOfContentsItem[] }> {
-  const markdownWithMetadata = fs
-    .readFileSync(path.join(process.cwd(), 'src/app/blog', `${slug}.md`))
-    .toString()
+  const hastProperties: Record<string, any> = { ...attributes, id }
 
-  const { data, content } = matter(markdownWithMetadata)
-
-  const toc: TableOfContentsItem[] = []
-
-  const addStylesAndClasses = () => {
-    return (tree: Root) => {
-      visit(tree, 'element', (node: Element) => {
-        if (/^h[1-6]$/.test(node.tagName)) {
-          if (!node.properties) node.properties = {}
-          if (!node.properties.className) node.properties.className = []
-          ;(node.properties.className as string[]).push('font-bold')
-
-          if (node.properties.id && typeof node.properties.id === 'string') {
-            let headingText = ''
-            visit(node, 'text', (textNode) => {
-              headingText += textNode.value
-            })
-
-            toc.push({
-              id: node.properties.id,
-              text: headingText,
-              level: parseInt(node.tagName.charAt(1)),
-            })
-          }
-
-          if (node.children && node.children.length > 0) {
-            const firstChild = node.children[0] as Element
-            if (firstChild.tagName === 'a') {
-              if (!firstChild.properties) firstChild.properties = {}
-              if (!firstChild.properties.className) {
-                firstChild.properties.className = []
-                firstChild.properties.className.push('font-bold')
-              }
-            }
-          }
-        }
-
-        if (node.tagName === 'a') {
-          if (!node.properties) node.properties = {}
-          if (!node.properties.className) node.properties.className = []
-          ;(node.properties.className as string[]).push(
-            'no-underline',
-            'hover:underline',
-          )
-        }
-
-        if (node.tagName === 'table') {
-          if (!node.properties) node.properties = {}
-          if (!node.properties.className) node.properties.className = []
-          ;(node.properties.className as string[]).push(
-            'min-w-full',
-            'border-collapse',
-            'text-left',
-            'text-sm',
-            'my-4',
-          )
-        }
-
-        if (node.tagName === 'th' || node.tagName === 'td') {
-          if (!node.properties) node.properties = {}
-          if (!node.properties.className) node.properties.className = []
-          ;(node.properties.className as string[]).push(
-            'px-4',
-            'py-2',
-            'border',
-            'border-gray-300',
-          )
-        }
-      })
-    }
+  // Check for premium link placeholder and add data attribute
+  if (href === 'PREMIUM_SIGNUP_LINK') {
+    hastProperties['data-premium-link'] = 'true'
+    // Keep href as the placeholder for client-side replacement
   }
 
-  const htmlContent = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeExternalLinks, { target: '_blank' })
-    .use(rehypeHighlight, {
-      subset: ['javascript', 'typescript', 'css', 'html', 'python', 'java'],
-    })
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, {
-      behavior: 'wrap',
-    })
-    .use(addStylesAndClasses)
-    .use(rehypeStringify, { allowDangerousHtml: true })
-    .process(content)
+  // Add target/rel for external links
+  if (typeof href === 'string' && href.startsWith('http')) {
+    hastProperties.target = '_blank'
+    hastProperties.rel = 'noopener noreferrer'
+  }
 
-  return {
-    title: data.title,
-    content: htmlContent.toString(),
-    toc,
+  const hastNode = h('a', hastProperties, directive.children)
+
+  const data = directive.data || (directive.data = {})
+  data.hName = hastNode.tagName
+  data.hProperties = hastNode.properties
+  data.hChildren = hastNode.children
+}
+
+// Custom plugin (no userId needed)
+const transformDirectivesPlugin: Plugin<[], MdastRoot> = () => {
+  return (tree: MdastRoot) => {
+    visit(tree, (node: MdastNode) => {
+      if (
+        node.type === 'textDirective' ||
+        node.type === 'leafDirective' ||
+        node.type === 'containerDirective'
+      ) {
+        if ((node as any).name === 'a') {
+          handleAnchorDirectiveHast(node)
+        }
+      }
+    })
+  }
+}
+
+interface BlogPostData {
+  title: string
+  author: string
+  contentHtml: string
+  toc: any[]
+  premium: boolean
+  excerpt: string
+}
+
+export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
+  const markdownFile = path.join(process.cwd(), 'src/app/blog', `${slug}.md`)
+
+  if (!fs.existsSync(markdownFile)) {
+    return null
+  }
+
+  const markdownWithMetadata = fs.readFileSync(markdownFile).toString()
+  const { data, content } = matter(markdownWithMetadata)
+
+  const toc: any[] = []
+  const excerpt = content.split('\n\n')[0] ?? ''
+
+  try {
+    const processor = unified()
+      .use(remarkParse)
+      .use(remarkGfm)
+      .use(remarkDirective)
+      // Use the simpler plugin without options
+      .use(transformDirectivesPlugin)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
+      .use(rehypeStringify)
+
+    const file = await processor.process(content)
+    const contentHtml = file.toString()
+
+    return {
+      title: data.title || 'Untitled',
+      author: data.author || 'Unknown',
+      contentHtml,
+      toc,
+      premium: data.premium === true,
+      excerpt,
+    }
+  } catch (error) {
+    console.error(`Error processing markdown for ${slug}:`, error)
+    return {
+      title: data.title || 'Untitled',
+      author: data.author || 'Unknown',
+      contentHtml: '<p>Error processing content.</p>',
+      toc: [],
+      premium: data.premium === true,
+      excerpt,
+    }
   }
 }
