@@ -8,51 +8,75 @@ import remarkDirective from 'remark-directive'
 import remarkRehype from 'remark-rehype'
 import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
-import type { Root as MdastRoot, Node as MdastNode } from 'mdast'
-import type { Root as HastRoot, Element } from 'hast'
+import type { Root as MdastRoot, Node as MdastNode, Parent } from 'mdast'
+import type {
+  Root as HastRoot,
+  Element as HastElement,
+  Properties as HastProperties,
+} from 'hast'
 import { visit } from 'unist-util-visit'
 import { h } from 'hastscript'
 
-// Helper function to generate HAST for the :a directive (no userId needed)
-function handleAnchorDirectiveHast(directive: any) {
-  const attributes = directive.attributes || {}
-  let href = attributes.href || '#' // Use let for potential modification
+// Interface for nodes created by remark-directive
+interface DirectiveNode extends Parent {
+  type: 'textDirective' | 'leafDirective' | 'containerDirective'
+  name: string
+  attributes?: Record<string, string>
+  // Ensure data property and its sub-properties are properly typed/optional
+  data?: {
+    hName?: string
+    hProperties?: HastProperties // Use HastProperties type
+    hChildren?: Array<HastNode> // Use a more specific HAST node type if available
+    [key: string]: unknown // Allow other potential data properties
+  }
+}
+// Define a simple HastNode type for children if needed, or use any for now if complex
+type HastNode = any
+
+// Helper function to set HAST properties for the :a directive
+function handleAnchorDirectiveHast(directive: DirectiveNode) {
+  const attributes = directive.attributes ?? {}
+  const href = attributes.href ?? '#'
   const id = attributes.id
-  delete attributes.id
+  // Don't delete id from original attributes, create new properties object
+  const hProperties: HastProperties = { ...attributes, id }
 
-  const hastProperties: Record<string, any> = { ...attributes, id }
+  // Set hName and hProperties on the directive node's data
+  // remark-rehype will use these when converting the node
+  const data = directive.data ?? (directive.data = {})
+  data.hName = 'a' // Tell rehype to create an <a> tag
+  data.hProperties = hProperties // Pass the attributes
+  // DO NOT set data.hChildren - let rehype handle child conversion
 
-  // Check for premium link placeholder and add data attribute
-  if (href === 'PREMIUM_SIGNUP_LINK') {
-    hastProperties['data-premium-link'] = 'true'
-    // Keep href as the placeholder for client-side replacement
-  }
-
-  // Add target/rel for external links
+  // Add target/rel to the hProperties directly
   if (typeof href === 'string' && href.startsWith('http')) {
-    hastProperties.target = '_blank'
-    hastProperties.rel = 'noopener noreferrer'
+    hProperties.target = '_blank'
+    hProperties.rel = 'noopener noreferrer'
   }
 
-  const hastNode = h('a', hastProperties, directive.children)
-
-  const data = directive.data || (directive.data = {})
-  data.hName = hastNode.tagName
-  data.hProperties = hastNode.properties
-  data.hChildren = hastNode.children
+  // Add data-premium-link to hProperties
+  if (href === 'PREMIUM_SIGNUP_LINK') {
+    hProperties['data-premium-link'] = 'true'
+  }
 }
 
-// Custom plugin (no userId needed)
+// Custom plugin for Remark directives
 const transformDirectivesPlugin: Plugin<[], MdastRoot> = () => {
+  // List of directive types we are interested in
+  const directiveTypes = [
+    'textDirective',
+    'leafDirective',
+    'containerDirective',
+  ]
+
   return (tree: MdastRoot) => {
     visit(tree, (node: MdastNode) => {
-      if (
-        node.type === 'textDirective' ||
-        node.type === 'leafDirective' ||
-        node.type === 'containerDirective'
-      ) {
-        if ((node as any).name === 'a') {
-          handleAnchorDirectiveHast(node)
+      // Check if the node type is one of the directive types using .includes()
+      if (directiveTypes.includes(node.type)) {
+        // Cast to DirectiveNode is safe here because we checked the type
+        const directive = node as DirectiveNode
+        if (directive.name === 'a') {
+          handleAnchorDirectiveHast(directive)
         }
       }
     })
@@ -62,28 +86,30 @@ const transformDirectivesPlugin: Plugin<[], MdastRoot> = () => {
 // Custom Rehype plugin to add classes to the hero image
 const addHeroImageClasses: Plugin<[], HastRoot> = () => {
   return (tree: HastRoot) => {
-    visit(tree, 'element', (node: Element) => {
+    // Visit HAST Elements
+    visit(tree, 'element', (node: HastElement) => {
+      // Use HastElement type
       if (
         node.tagName === 'img' &&
         node.properties?.src === '/cute-type-ham.webp'
       ) {
+        // Properties should now be accessible on HastElement
         const props = node.properties || {}
         const existingClasses = props.className || []
         const classList = (
           Array.isArray(existingClasses) ? existingClasses : [existingClasses]
         ).filter((c) => typeof c === 'string' || typeof c === 'number')
 
-        // Add not-prose to exclude from typography plugin's img margins
         if (!classList.includes('not-prose')) classList.push('not-prose')
-        // Add rounded corners
         if (!classList.includes('rounded-lg')) classList.push('rounded-lg')
-        // Remove m-0 if present, as not-prose handles the margin override
+
         const marginIndex = classList.indexOf('m-0')
         if (marginIndex > -1) {
           classList.splice(marginIndex, 1)
         }
 
         props.className = classList
+        // Assign properties back (safe due to HastElement type)
         node.properties = props
       }
     })
@@ -127,8 +153,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
     const contentHtml = file.toString()
 
     return {
-      title: data.title || 'Untitled',
-      author: data.author || 'Unknown',
+      title: data.title ?? 'Untitled', // Use ??
+      author: data.author ?? 'Unknown', // Use ??
       contentHtml,
       toc,
       premium: data.premium === true,
@@ -137,8 +163,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
   } catch (error) {
     console.error(`Error processing markdown for ${slug}:`, error)
     return {
-      title: data.title || 'Untitled',
-      author: data.author || 'Unknown',
+      title: data.title ?? 'Untitled', // Use ?? in catch block
+      author: data.author ?? 'Unknown', // Use ?? in catch block
       contentHtml: '<p>Error processing content.</p>',
       toc: [],
       premium: data.premium === true,
