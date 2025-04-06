@@ -121,6 +121,21 @@
     </url>
     <url>
         <loc>
+            https://ladderly.io/blog/2025-03-30-debugging-tips
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2025-04-05-benefits-of-mentorship
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/blog/2025-04-06-code-quality-as-ham
+        </loc>
+    </url>
+    <url>
+        <loc>
             https://ladderly.io/chat
         </loc>
     </url>
@@ -182,6 +197,11 @@
     <url>
         <loc>
             https://ladderly.io/settings
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://ladderly.io/settings/email-preferences
         </loc>
     </url>
     <url>
