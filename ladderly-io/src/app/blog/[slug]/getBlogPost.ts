@@ -15,7 +15,6 @@ import type {
   Properties as HastProperties,
 } from 'hast'
 import { visit } from 'unist-util-visit'
-import { h } from 'hastscript'
 
 // Interface for nodes created by remark-directive
 interface DirectiveNode extends Parent {
@@ -98,7 +97,7 @@ const addHeroImageClasses: Plugin<[], HastRoot> = () => {
         const existingClasses = props.className ?? []
         const classList = (
           Array.isArray(existingClasses) ? existingClasses : [existingClasses]
-        ).filter((c) => typeof c === 'string' || typeof c === 'number')
+        ).filter((c) => typeof c !== 'boolean')
 
         if (!classList.includes('not-prose')) classList.push('not-prose')
         if (!classList.includes('rounded-lg')) classList.push('rounded-lg')
@@ -116,6 +115,24 @@ const addHeroImageClasses: Plugin<[], HastRoot> = () => {
   }
 }
 
+// Function to extract the first image URL from markdown content
+function findFirstImageUrl(content: string): string | null {
+  // Regex for standard markdown image: ![alt](url)
+  const markdownMatch = content.match(/!\([^\)]*\)\(([^\)"\s]+)[^\)]*\)/)
+  if (markdownMatch?.[2]) {
+    return markdownMatch[2]
+  }
+
+  // Regex for directive image (assuming :img[alt]{src="url" ...})
+  // This is just an example, adjust if your directive syntax is different
+  const directiveMatch = content.match(/:img\[.*?\]\{.*?src="([^"]+)".*?\}/)
+  if (directiveMatch?.[1]) {
+    return directiveMatch[1]
+  }
+
+  return null // No image found
+}
+
 interface BlogPostData {
   title: string
   author: string
@@ -123,6 +140,7 @@ interface BlogPostData {
   toc: any[]
   premium: boolean
   excerpt: string
+  ogImageUrlRelative?: string | null
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
@@ -134,6 +152,9 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
 
   const markdownWithMetadata = fs.readFileSync(markdownFile).toString()
   const { data, content } = matter(markdownWithMetadata)
+
+  // Find the first image URL from the raw content
+  const firstImageUrl = findFirstImageUrl(content)
 
   const toc: any[] = []
   const excerpt = content.split('\n\n')[0] ?? ''
@@ -153,22 +174,24 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
     const contentHtml = file.toString()
 
     return {
-      title: data.title ?? 'Untitled', // Use ??
-      author: data.author ?? 'Unknown', // Use ??
+      title: data.title ?? 'Untitled',
+      author: data.author ?? 'Unknown',
       contentHtml,
       toc,
       premium: data.premium === true,
       excerpt,
+      ogImageUrlRelative: firstImageUrl, // Return the found image URL
     }
   } catch (error) {
     console.error(`Error processing markdown for ${slug}:`, error)
     return {
-      title: data.title ?? 'Untitled', // Use ?? in catch block
-      author: data.author ?? 'Unknown', // Use ?? in catch block
+      title: data.title ?? 'Untitled',
+      author: data.author ?? 'Unknown',
       contentHtml: '<p>Error processing content.</p>',
       toc: [],
       premium: data.premium === true,
       excerpt,
+      ogImageUrlRelative: null, // Ensure null on error
     }
   }
 }

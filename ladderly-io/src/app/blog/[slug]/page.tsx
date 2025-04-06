@@ -56,33 +56,30 @@ export async function generateMetadata({
     }
   }
 
-  // 1. Construct absolute image URL
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.ladderly.io'
-  const heroImage = '/cute-type-ham.webp'
-  const ogImageUrl = `${siteUrl}${heroImage}`
-
-  // 2. Create plain text description
-  // Use excerpt (first paragraph) and strip markdown
   const plainTextDescription = stripMarkdown(post.excerpt)
+
+  // Dynamically construct image URL if available
+  let ogImageMetadata: { url: string }[] | undefined = undefined
+  if (post.ogImageUrlRelative) {
+    // Ensure the path starts with / if it's relative
+    const imageUrl = post.ogImageUrlRelative.startsWith('/')
+      ? post.ogImageUrlRelative
+      : `/${post.ogImageUrlRelative}`
+    ogImageMetadata = [{ url: `${siteUrl}${imageUrl}` }]
+  }
 
   return {
     title: post.title,
-    description: plainTextDescription, // Use plain text
+    description: plainTextDescription,
     authors: [{ name: post.author }],
     openGraph: {
       title: post.title,
-      description: plainTextDescription, // Use plain text
+      description: plainTextDescription,
       type: 'article',
       authors: [post.author],
-      // 3. Add og:image tag
-      images: [
-        {
-          url: ogImageUrl,
-          // Optionally add width/height if known
-          // width: 1200,
-          // height: 630,
-        },
-      ],
+      // Add images array only if we found an image
+      ...(ogImageMetadata && { images: ogImageMetadata }),
     },
   }
 }
