@@ -56,16 +56,14 @@ export async function generateMetadata({
     }
   }
 
-  // --- Metadata Improvements ---
   // 1. Construct absolute image URL
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ladderly.io' // Fallback needed?
-  const heroImage = '/cute-type-ham.webp' // Relative path to the specific hero
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.ladderly.io'
+  const heroImage = '/cute-type-ham.webp'
   const ogImageUrl = `${siteUrl}${heroImage}`
 
   // 2. Create plain text description
   // Use excerpt (first paragraph) and strip markdown
   const plainTextDescription = stripMarkdown(post.excerpt)
-  // --- End Improvements ---
 
   return {
     title: post.title,
