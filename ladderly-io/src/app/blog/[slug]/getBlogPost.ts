@@ -9,7 +9,7 @@ import remarkRehype from 'remark-rehype'
 import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
 import type { Root as MdastRoot, Node as MdastNode } from 'mdast'
-import type { Root as HastRoot } from 'hast'
+import type { Root as HastRoot, Element } from 'hast'
 import { visit } from 'unist-util-visit'
 import { h } from 'hastscript'
 
@@ -59,6 +59,37 @@ const transformDirectivesPlugin: Plugin<[], MdastRoot> = () => {
   }
 }
 
+// Custom Rehype plugin to add classes to the hero image
+const addHeroImageClasses: Plugin<[], HastRoot> = () => {
+  return (tree: HastRoot) => {
+    visit(tree, 'element', (node: Element) => {
+      if (
+        node.tagName === 'img' &&
+        node.properties?.src === '/cute-type-ham.webp'
+      ) {
+        const props = node.properties || {}
+        const existingClasses = props.className || []
+        const classList = (
+          Array.isArray(existingClasses) ? existingClasses : [existingClasses]
+        ).filter((c) => typeof c === 'string' || typeof c === 'number')
+
+        // Add not-prose to exclude from typography plugin's img margins
+        if (!classList.includes('not-prose')) classList.push('not-prose')
+        // Add rounded corners
+        if (!classList.includes('rounded-lg')) classList.push('rounded-lg')
+        // Remove m-0 if present, as not-prose handles the margin override
+        const marginIndex = classList.indexOf('m-0')
+        if (marginIndex > -1) {
+          classList.splice(marginIndex, 1)
+        }
+
+        props.className = classList
+        node.properties = props
+      }
+    })
+  }
+}
+
 interface BlogPostData {
   title: string
   author: string
@@ -86,10 +117,10 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       .use(remarkParse)
       .use(remarkGfm)
       .use(remarkDirective)
-      // Use the simpler plugin without options
       .use(transformDirectivesPlugin)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeRaw)
+      .use(addHeroImageClasses)
       .use(rehypeStringify)
 
     const file = await processor.process(content)

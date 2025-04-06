@@ -1,7 +1,9 @@
 ---
-title: '26. Build Quality Software: The CUTE TYPE HAM Way'
-author: John Vandivier
+title: '26. Build Quality Software: The CUTE TYPE HAM Way'
+author: John Vandivier
 ---
+
+![CUTE TYPE HAM Mnemonic Table](/cute-type-ham.webp)
 
 Ladderly.io is a platform for programming education, so it's fitting that we lay out some principles for code quality, system design, and the software development lifecycle (SDLC).
 
@@ -12,7 +14,7 @@ Ladderly.io's `CUTE TYPE HAM` mnemonic for quality software:
 3. Applies beyond the code to system design, process, and organizational concerns
 4. Includes proper examples and antipattern examples to concretize the mnemonic
 
-## The CUTE TYPE HAM Table
+## The CUTE TYPE HAM Table
 
 | Letter | Expansion | Brief Explanation |
 |--------|-----------|-----------|
@@ -64,7 +66,7 @@ Proper Examples:
 3. Organizing code, processes, and teams inline with domains of expertise
 4. When two solutions are equally performant, avoid [shiny object syndrome](https://en.wikipedia.org/wiki/Shiny_object_syndrome) and select the option which is more well-known, documented, and popular.
 
-Borrowed from [CUPID](https://principles.dev/), composability pushes us toward functions and modules that do *one* thing and chain together cleanly. It’s the antidote to “god objects” and tangled dependency graphs.
+Borrowed from [CUPID](https://principles.dev/), composability pushes us toward functions and modules that do *one* thing and chain together cleanly. It's the antidote to "god objects" and tangled dependency graphs.
 
 ### U — Understandable
 
@@ -132,7 +134,7 @@ When building a solution, prioritize getting the system shipped and making the s
 
 ### P — Pragmatic
 
-Prefer shipping to polishing. Choose stable tools over shiny objects. Accept tech debt strategically and set your quality bar on the basis of evidence-based return on investment calculations. Optimize for business outcomes and stakeholder value over axiomatic technical principles. Use engineering principles, including the current `CUTE TYPE HAM` principles, as a useful mental checklist and toolkit over a set of hard requirements that must be accomodated at all times.
+Prefer shipping to polishing. Choose stable tools over shiny objects. Accept tech debt strategically and set your quality bar on the basis of evidence-based return on investment calculations. Optimize for business outcomes and stakeholder value over axiomatic technical principles. Use engineering principles, including the current `CUTE TYPE HAM` principles, as a useful mental checklist and toolkit over a set of hard requirements that must be accomodated at all times.
 
 Antipattern Examples:
 
@@ -175,4 +177,4 @@ If a tree falls in the prod forest and nobody gets an alert, did it crash? Instr
 
 ## Conclusion
 
-`CUTE TYPE HAM` principles aren't a silver bullet; they are a compass. They point your team toward composable, understandable, environment‑agnostic, human‑friendly software that's a joy to build, maintain, modify, and use. Consider printing the table out and pinning it nearby!
+`CUTE TYPE HAM` principles aren't a silver bullet; they are a compass. They point your team toward composable, understandable, environment‑agnostic, human‑friendly software that's a joy to build, maintain, modify, and use. Consider printing the table out and pinning it nearby!
