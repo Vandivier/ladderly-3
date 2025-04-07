@@ -1,19 +1,19 @@
 import fs from 'fs'
 import matter from 'gray-matter'
-import path from 'path'
-import { unified, type Plugin } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkGfm from 'remark-gfm'
-import remarkDirective from 'remark-directive'
-import remarkRehype from 'remark-rehype'
-import rehypeRaw from 'rehype-raw'
-import rehypeStringify from 'rehype-stringify'
-import type { Root as MdastRoot, Node as MdastNode, Parent } from 'mdast'
 import type {
-  Root as HastRoot,
   Element as HastElement,
   Properties as HastProperties,
+  Root as HastRoot,
 } from 'hast'
+import type { Node as MdastNode, Root as MdastRoot, Parent } from 'mdast'
+import path from 'path'
+import rehypeRaw from 'rehype-raw'
+import rehypeStringify from 'rehype-stringify'
+import remarkDirective from 'remark-directive'
+import remarkGfm from 'remark-gfm'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import { unified, type Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 // Interface for nodes created by remark-directive
@@ -137,6 +137,7 @@ interface BlogPostData {
   premium: boolean
   excerpt: string
   ogImageUrlRelative?: string | null
+  description?: string
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
@@ -151,7 +152,6 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
 
   // Prioritize ogImage from front matter, then find first image
   const ogImageUrlRelative = data.ogImage || findFirstImageUrl(content)
-
   const toc: any[] = []
   const excerpt = content.split('\n\n')[0] ?? ''
 
@@ -176,7 +176,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       toc,
       premium: data.premium === true,
       excerpt,
-      ogImageUrlRelative: ogImageUrlRelative, // Use the determined URL
+      ogImageUrlRelative: ogImageUrlRelative,
+      description: data.description as string | undefined,
     }
   } catch (error) {
     console.error(`Error processing markdown for ${slug}:`, error)
@@ -187,7 +188,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       toc: [],
       premium: data.premium === true,
       excerpt,
-      ogImageUrlRelative: data.ogImage || null, // Use front matter if available, else null
+      ogImageUrlRelative: data.ogImage || null,
+      description: data.description as string | undefined,
     }
   }
 }

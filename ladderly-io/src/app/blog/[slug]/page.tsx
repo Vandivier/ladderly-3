@@ -1,20 +1,14 @@
 import fs from 'fs'
-// Remove matter, remark, visit, mdast types as processing is external now
-// import matter from 'gray-matter'
 import { LockIcon } from 'lucide-react'
-// import type { Heading, Text } from 'mdast'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import path from 'path'
-// import { remark } from 'remark'
-// import { visit } from 'unist-util-visit'
 import { calculateReadingTime } from '~/app/blog/blog-utils'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { getServerAuthSession } from '~/server/auth'
 
-// Import the external processing function and the simplified content component
-import { getBlogPost } from './getBlogPost' // Use the external function
 import { BlogPostContent } from './BlogPostContent'
+import { getBlogPost } from './getBlogPost'
 
 // This generates static params for all blog posts at build time
 export async function generateStaticParams() {
@@ -26,20 +20,6 @@ export async function generateStaticParams() {
       slug: filename.replace('.md', ''),
     }))
   return paths
-}
-
-// Function to strip basic markdown formatting to create social preview posts
-function stripMarkdown(markdown: string): string {
-  return (
-    markdown
-      // Correct regex for images: ![alt text](URL)
-      .replace(/!\[([^\]]*)\]\((.*?)\)/g, '')
-      // Remove links but keep text
-      .replace(/\[([^\]]+)\]\(([^)]*)\)/g, '$1')
-      // Remove bold/italics/etc.
-      .replace(/[*_`~]+/g, '')
-      .trim()
-  )
 }
 
 // This generates metadata for each blog post
@@ -57,10 +37,8 @@ export async function generateMetadata({
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.ladderly.io'
-  const plainTextDescription = stripMarkdown(post.excerpt)
-
   let ogImageUrl: string
-  const defaultImageUrl = new URL('/logo.webp', siteUrl).toString() // Default using URL constructor
+  const defaultImageUrl = new URL('/logo.webp', siteUrl).toString()
 
   // Use found image if available
   if (post.ogImageUrlRelative) {
@@ -69,26 +47,23 @@ export async function generateMetadata({
       ogImageUrl = new URL(post.ogImageUrlRelative, siteUrl).toString()
     } catch (e) {
       console.error('Error constructing OG Image URL:', e)
-      ogImageUrl = defaultImageUrl // Fallback to default on error
+      ogImageUrl = defaultImageUrl
     }
   } else {
-    // Use default image if none found
     ogImageUrl = defaultImageUrl
   }
 
   // Construct the images metadata array
   const ogImageMetadata = [{ url: ogImageUrl }]
-
   return {
     title: post.title,
-    description: plainTextDescription,
+    description: post.description,
     authors: [{ name: post.author }],
     openGraph: {
       title: post.title,
-      description: plainTextDescription,
+      description: post.description,
       type: 'article',
       authors: [post.author],
-      // Always include the images array now
       images: ogImageMetadata,
     },
   }
