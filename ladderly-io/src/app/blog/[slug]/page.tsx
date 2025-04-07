@@ -36,25 +36,6 @@ export async function generateMetadata({
     }
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.ladderly.io'
-  let ogImageUrl: string
-  const defaultImageUrl = new URL('/logo.webp', siteUrl).toString()
-
-  // Use found image if available
-  if (post.ogImageUrlRelative) {
-    try {
-      // Use URL constructor for robust path joining
-      ogImageUrl = new URL(post.ogImageUrlRelative, siteUrl).toString()
-    } catch (e) {
-      console.error('Error constructing OG Image URL:', e)
-      ogImageUrl = defaultImageUrl
-    }
-  } else {
-    ogImageUrl = defaultImageUrl
-  }
-
-  // Construct the images metadata array
-  const ogImageMetadata = [{ url: ogImageUrl }]
   return {
     title: post.title,
     description: post.description,
@@ -64,7 +45,7 @@ export async function generateMetadata({
       description: post.description,
       type: 'article',
       authors: [post.author],
-      images: ogImageMetadata,
+      images: [post.ogImage],
     },
   }
 }

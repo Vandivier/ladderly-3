@@ -112,23 +112,6 @@ const addHeroImageClasses: Plugin<[], HastRoot> = () => {
   }
 }
 
-// Function to extract the first image URL from markdown content
-function findFirstImageUrl(content: string): string | null {
-  // Correct Regex for standard markdown image: ![alt text](URL)
-  const markdownMatch = content.match(/!\[([^\]]*)\]\(([^\)"\s]+)[^\)]*\)/)
-  if (markdownMatch?.[2]) {
-    return markdownMatch[2]
-  }
-
-  // Regex for directive image (assuming :img[alt]{src="url" ...})
-  const directiveMatch = content.match(/:img\[.*?\]\{.*?src="([^"]+)".*?\}/)
-  if (directiveMatch?.[1]) {
-    return directiveMatch[1]
-  }
-
-  return null // No image found
-}
-
 interface BlogPostData {
   title: string
   author: string
@@ -136,7 +119,7 @@ interface BlogPostData {
   toc: any[]
   premium: boolean
   excerpt: string
-  ogImageUrlRelative?: string | null
+  ogImage: string
   description?: string
 }
 
@@ -151,7 +134,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
   const { data, content } = matter(markdownWithMetadata)
 
   // Prioritize ogImage from front matter, then find first image
-  const ogImageUrlRelative = data.ogImage || findFirstImageUrl(content)
+  const ogImage = data.ogImage ?? '/logo.png'
   const toc: any[] = []
   const excerpt = content.split('\n\n')[0] ?? ''
 
@@ -176,7 +159,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       toc,
       premium: data.premium === true,
       excerpt,
-      ogImageUrlRelative: ogImageUrlRelative,
+      ogImage,
       description: data.description as string | undefined,
     }
   } catch (error) {
@@ -188,7 +171,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       toc: [],
       premium: data.premium === true,
       excerpt,
-      ogImageUrlRelative: data.ogImage || null,
+      ogImage,
       description: data.description as string | undefined,
     }
   }
