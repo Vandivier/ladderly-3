@@ -117,15 +117,18 @@ const addHeroImageClasses: Plugin<[], HastRoot> = () => {
 
 // Function to extract the first image URL from markdown content
 function findFirstImageUrl(content: string): string | null {
-  // Regex for standard markdown image: ![alt](url)
-  const markdownMatch = content.match(/!\([^\)]*\)\(([^\)"\s]+)[^\)]*\)/)
+  // Correct Regex for standard markdown image: ![alt text](URL)
+  const markdownMatch = content.match(
+    /!\\\[([^\\\]]*)\\\]\\(([^\\)\"\\s]+)[^\\)]*\\)/,
+  )
   if (markdownMatch?.[2]) {
     return markdownMatch[2]
   }
 
-  // Regex for directive image (assuming :img[alt]{src="url" ...})
-  // This is just an example, adjust if your directive syntax is different
-  const directiveMatch = content.match(/:img\[.*?\]\{.*?src="([^"]+)".*?\}/)
+  // Regex for directive image (assuming :img[alt]{src=\"url\" ...})
+  const directiveMatch = content.match(
+    /:img\\[.*?\\]\\{.*?src=\"([^\"]+)\".*?\\}/,
+  )
   if (directiveMatch?.[1]) {
     return directiveMatch[1]
   }
