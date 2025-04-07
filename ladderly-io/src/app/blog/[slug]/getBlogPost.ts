@@ -1,122 +1,178 @@
 import fs from 'fs'
 import matter from 'gray-matter'
+import type {
+  Element as HastElement,
+  Properties as HastProperties,
+  Root as HastRoot,
+} from 'hast'
+import type { Node as MdastNode, Root as MdastRoot, Parent } from 'mdast'
 import path from 'path'
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkGfm from 'remark-gfm'
-import remarkRehype from 'remark-rehype'
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeHighlight from 'rehype-highlight'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
-import type { Element, Root } from 'hast'
+import remarkDirective from 'remark-directive'
+import remarkGfm from 'remark-gfm'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import { unified, type Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
-interface TableOfContentsItem {
-  id: string
-  text: string
-  level: number
+// Interface for nodes created by remark-directive
+interface DirectiveNode extends Parent {
+  type: 'textDirective' | 'leafDirective' | 'containerDirective'
+  name: string
+  attributes?: Record<string, string>
+  // Ensure data property and its sub-properties are properly typed/optional
+  data?: {
+    hName?: string
+    hProperties?: HastProperties // Use HastProperties type
+    hChildren?: Array<HastNode> // Use a more specific HAST node type if available
+    [key: string]: unknown // Allow other potential data properties
+  }
 }
+// Define a simple HastNode type for children if needed, or use any for now if complex
+type HastNode = any
 
-export async function getBlogPost(
-  slug: string,
-): Promise<{ title: string; content: string; toc: TableOfContentsItem[] }> {
-  const markdownWithMetadata = fs
-    .readFileSync(path.join(process.cwd(), 'src/app/blog', `${slug}.md`))
-    .toString()
+// Helper function to set HAST properties for the :a directive
+function handleAnchorDirectiveHast(directive: DirectiveNode) {
+  const attributes = directive.attributes ?? {}
+  const href = attributes.href ?? '#'
+  const id = attributes.id
+  // Don't delete id from original attributes, create new properties object
+  const hProperties: HastProperties = { ...attributes, id }
 
-  const { data, content } = matter(markdownWithMetadata)
+  // Set hName and hProperties on the directive node's data
+  // remark-rehype will use these when converting the node
+  const data = directive.data ?? (directive.data = {})
+  data.hName = 'a' // Tell rehype to create an <a> tag
+  data.hProperties = hProperties // Pass the attributes
+  // DO NOT set data.hChildren - let rehype handle child conversion
 
-  const toc: TableOfContentsItem[] = []
-
-  const addStylesAndClasses = () => {
-    return (tree: Root) => {
-      visit(tree, 'element', (node: Element) => {
-        if (/^h[1-6]$/.test(node.tagName)) {
-          if (!node.properties) node.properties = {}
-          if (!node.properties.className) node.properties.className = []
-          ;(node.properties.className as string[]).push('font-bold')
-
-          if (node.properties.id && typeof node.properties.id === 'string') {
-            let headingText = ''
-            visit(node, 'text', (textNode) => {
-              headingText += textNode.value
-            })
-
-            toc.push({
-              id: node.properties.id,
-              text: headingText,
-              level: parseInt(node.tagName.charAt(1)),
-            })
-          }
-
-          if (node.children && node.children.length > 0) {
-            const firstChild = node.children[0] as Element
-            if (firstChild.tagName === 'a') {
-              if (!firstChild.properties) firstChild.properties = {}
-              if (!firstChild.properties.className) {
-                firstChild.properties.className = []
-                firstChild.properties.className.push('font-bold')
-              }
-            }
-          }
-        }
-
-        if (node.tagName === 'a') {
-          if (!node.properties) node.properties = {}
-          if (!node.properties.className) node.properties.className = []
-          ;(node.properties.className as string[]).push(
-            'no-underline',
-            'hover:underline',
-          )
-        }
-
-        if (node.tagName === 'table') {
-          if (!node.properties) node.properties = {}
-          if (!node.properties.className) node.properties.className = []
-          ;(node.properties.className as string[]).push(
-            'min-w-full',
-            'border-collapse',
-            'text-left',
-            'text-sm',
-            'my-4',
-          )
-        }
-
-        if (node.tagName === 'th' || node.tagName === 'td') {
-          if (!node.properties) node.properties = {}
-          if (!node.properties.className) node.properties.className = []
-          ;(node.properties.className as string[]).push(
-            'px-4',
-            'py-2',
-            'border',
-            'border-gray-300',
-          )
-        }
-      })
-    }
+  // Add target/rel to the hProperties directly
+  if (typeof href === 'string' && href.startsWith('http')) {
+    hProperties.target = '_blank'
+    hProperties.rel = 'noopener noreferrer'
   }
 
-  const htmlContent = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeExternalLinks, { target: '_blank' })
-    .use(rehypeHighlight, {
-      subset: ['javascript', 'typescript', 'css', 'html', 'python', 'java'],
-    })
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, {
-      behavior: 'wrap',
-    })
-    .use(addStylesAndClasses)
-    .use(rehypeStringify, { allowDangerousHtml: true })
-    .process(content)
+  // Add data-premium-link to hProperties
+  if (href === 'PREMIUM_SIGNUP_LINK') {
+    hProperties['data-premium-link'] = 'true'
+  }
+}
 
-  return {
-    title: data.title,
-    content: htmlContent.toString(),
-    toc,
+// Custom plugin for Remark directives
+const transformDirectivesPlugin: Plugin<[], MdastRoot> = () => {
+  // List of directive types we are interested in
+  const directiveTypes = [
+    'textDirective',
+    'leafDirective',
+    'containerDirective',
+  ]
+
+  return (tree: MdastRoot) => {
+    visit(tree, (node: MdastNode) => {
+      // Check if the node type is one of the directive types using .includes()
+      if (directiveTypes.includes(node.type)) {
+        // Cast to DirectiveNode is safe here because we checked the type
+        const directive = node as DirectiveNode
+        if (directive.name === 'a') {
+          handleAnchorDirectiveHast(directive)
+        }
+      }
+    })
+  }
+}
+
+// Custom Rehype plugin to add classes to the hero image
+const addHeroImageClasses: Plugin<[], HastRoot> = () => {
+  return (tree: HastRoot) => {
+    // Visit HAST Elements
+    visit(tree, 'element', (node: HastElement) => {
+      // Use HastElement type
+      if (node.tagName === 'img') {
+        // Properties should now be accessible on HastElement
+        const props = node.properties ?? {}
+        const existingClasses = props.className ?? []
+        const classList = (
+          Array.isArray(existingClasses) ? existingClasses : [existingClasses]
+        ).filter((c) => typeof c !== 'boolean')
+
+        if (!classList.includes('not-prose')) classList.push('not-prose')
+        if (!classList.includes('rounded-lg')) classList.push('rounded-lg')
+
+        const marginIndex = classList.indexOf('m-0')
+        if (marginIndex > -1) {
+          classList.splice(marginIndex, 1)
+        }
+
+        props.className = classList
+        // Assign properties back (safe due to HastElement type)
+        node.properties = props
+      }
+    })
+  }
+}
+
+interface BlogPostData {
+  title: string
+  author: string
+  contentHtml: string
+  toc: any[]
+  premium: boolean
+  excerpt: string
+  ogImage: string
+  description?: string
+}
+
+export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
+  const markdownFile = path.join(process.cwd(), 'src/app/blog', `${slug}.md`)
+
+  if (!fs.existsSync(markdownFile)) {
+    return null
+  }
+
+  const markdownWithMetadata = fs.readFileSync(markdownFile).toString()
+  const { data, content } = matter(markdownWithMetadata)
+
+  // Prioritize ogImage from front matter, then find first image
+  const ogImage = data.ogImage ?? '/logo.png'
+  const toc: any[] = []
+  const excerpt = content.split('\n\n')[0] ?? ''
+
+  try {
+    const processor = unified()
+      .use(remarkParse)
+      .use(remarkGfm)
+      .use(remarkDirective)
+      .use(transformDirectivesPlugin)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
+      .use(addHeroImageClasses)
+      .use(rehypeStringify)
+
+    const file = await processor.process(content)
+    const contentHtml = file.toString()
+
+    return {
+      title: data.title ?? 'Untitled',
+      author: data.author ?? 'Unknown',
+      contentHtml,
+      toc,
+      premium: data.premium === true,
+      excerpt,
+      ogImage,
+      description: data.description as string | undefined,
+    }
+  } catch (error) {
+    console.error(`Error processing markdown for ${slug}:`, error)
+    return {
+      title: data.title ?? 'Untitled',
+      author: data.author ?? 'Unknown',
+      contentHtml: '<p>Error processing content.</p>',
+      toc: [],
+      premium: data.premium === true,
+      excerpt,
+      ogImage,
+      description: data.description as string | undefined,
+    }
   }
 }

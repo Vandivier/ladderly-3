@@ -1,94 +1,52 @@
 'use client'
 
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import Image from 'next/image'
+import React, { useEffect, useRef } from 'react'
 
+// Update props to accept HTML string
 interface BlogPostContentProps {
-  content: string
+  contentHtml: string
   userId?: string
 }
 
 const PREMIUM_SIGNUP_LINK = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
 
-export function BlogPostContent({ content, userId }: BlogPostContentProps) {
+// Simplified component to render pre-processed HTML
+export function BlogPostContent({ contentHtml, userId }: BlogPostContentProps) {
+  const contentRef = useRef<HTMLDivElement>(null) // Ref to access the rendered content
+
+  // Restore useEffect to handle client-side link modifications
+  useEffect(() => {
+    if (!contentRef.current || !PREMIUM_SIGNUP_LINK) return
+
+    // Find all potential premium links within the rendered HTML
+    const premiumLinks = contentRef.current.querySelectorAll<HTMLAnchorElement>(
+      'a[data-premium-link="true"]',
+    )
+
+    premiumLinks.forEach((link) => {
+      // Determine the correct target href based on userId
+      const targetHref = userId
+        ? `${PREMIUM_SIGNUP_LINK}${PREMIUM_SIGNUP_LINK.includes('?') ? '&' : '?'}client_reference_id=${userId}`
+        : '/signup' // Fallback if no userId (user not logged in)
+
+      // Update the link's href
+      link.href = targetHref
+
+      // Set target/rel appropriately
+      if (userId) {
+        // External Stripe link
+        link.target = '_blank'
+        link.rel = 'noopener noreferrer'
+      } else {
+        // Internal /signup link
+        link.removeAttribute('target')
+        link.removeAttribute('rel')
+      }
+    })
+    // Rerun effect if userId changes or contentHtml changes
+  }, [userId, contentHtml])
+
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      components={{
-        a: ({ children, href, ...props }) => {
-          // Handle the premium signup link specially
-          if (href === 'PREMIUM_SIGNUP_LINK') {
-            const targetHref = userId
-              ? `${PREMIUM_SIGNUP_LINK}${PREMIUM_SIGNUP_LINK?.includes('?') ? '&' : '?'}client_reference_id=${userId}`
-              : '/signup'
-            return (
-              <a
-                href={targetHref}
-                className="font-bold"
-                {...(userId
-                  ? { target: '_blank', rel: 'noopener noreferrer' }
-                  : {})}
-                {...props}
-              >
-                {children}
-              </a>
-            )
-          }
-          return (
-            <a href={href} {...props} target="_blank" rel="noopener noreferrer">
-              {children}
-            </a>
-          )
-        },
-        img: ({ src, alt }) => (
-          <div className="my-8 flex justify-center">
-            <Image
-              src={src ?? ''}
-              alt={alt ?? ''}
-              width={540}
-              height={300}
-              className="rounded-lg"
-            />
-          </div>
-        ),
-        h1: ({ children }) => {
-          const text = children?.toString() ?? ''
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-          return <h1 id={id}>{children}</h1>
-        },
-        h2: ({ children }) => {
-          const text = children?.toString() ?? ''
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-          return (
-            <h2 id={id}>
-              <a className="text-black" href={`#${id}`}>
-                {children}
-              </a>
-            </h2>
-          )
-        },
-        h3: ({ children }) => {
-          const text = children?.toString() ?? ''
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-          return (
-            <h3 id={id}>
-              <a className="text-black" href={`#${id}`}>
-                {children}
-              </a>
-            </h3>
-          )
-        },
-        table: ({ children }) => (
-          <div className="my-8 overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              {children}
-            </table>
-          </div>
-        ),
-      }}
-    >
-      {content}
-    </ReactMarkdown>
+    <div ref={contentRef} dangerouslySetInnerHTML={{ __html: contentHtml }} />
   )
 }

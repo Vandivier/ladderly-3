@@ -143,8 +143,7 @@ These patterns overlap with previously mentioned categories, but they are partic
 3. Observability and Telemetry
    1. Commercial loggers often capture telemetry data, but companies will have distinct tool for this.
    2. These tools may aide in the creation of dashboards, providing a place you can visit to easily see uptime, system health, and anomolous requests.
-4. On-Call Alerts
-   4. On-call alerts can be triggered for all sorts of reasons, such as failing health checks. They can be triggered by monitors set up in a telemetry tool. As a best practices, an on-call alert should be paired with recommended remediation activities. A common tool for this would be [PagerDuty](https://www.pagerduty.com/).
+4. On-Call Alerts. These can be triggered for all sorts of reasons, such as failing health checks. They can be triggered by monitors set up in a telemetry tool. As a best practices, an on-call alert should be paired with recommended remediation activities. A common tool for this would be [PagerDuty](https://www.pagerduty.com/).
 5. Enterprise documentation
    1. Knowledge stores like an enterprise [Confluence](https://www.atlassian.com/software/confluence/resources/guides/get-started/overview#hosting-options) instance or a similar tool may contain troubleshooting documentation.
    2. Sometimes these are outright equivalent to a runbook, though that term may not be used.

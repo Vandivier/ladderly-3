@@ -3,7 +3,7 @@ title: '23. Benefits of Premium Membership'
 author: John Vandivier
 ---
 
-[Click to sign up for premium now!](PREMIUM_SIGNUP_LINK)
+:a[Click to sign up for premium now!]{href="PREMIUM_SIGNUP_LINK"}
 
 Note: You must already be logged in to purchase premium. If you are not logged in, you will be redirected to sign up for a free account before purchasing premium.
 

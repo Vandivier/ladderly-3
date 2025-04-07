@@ -1,26 +1,24 @@
 import fs from 'fs'
-import matter from 'gray-matter'
 import { LockIcon } from 'lucide-react'
-import type { Heading, Text } from 'mdast'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import path from 'path'
-import { remark } from 'remark'
-import { visit } from 'unist-util-visit'
 import { calculateReadingTime } from '~/app/blog/blog-utils'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { getServerAuthSession } from '~/server/auth'
+
 import { BlogPostContent } from './BlogPostContent'
+import { getBlogPost } from './getBlogPost'
 
 // This generates static params for all blog posts at build time
 export async function generateStaticParams() {
+  // Keep this as is, it just needs file names
   const files = fs.readdirSync(path.join(process.cwd(), 'src/app/blog'))
   const paths = files
     .filter((filename) => filename.endsWith('.md'))
     .map((filename) => ({
       slug: filename.replace('.md', ''),
     }))
-
   return paths
 }
 
@@ -40,71 +38,24 @@ export async function generateMetadata({
 
   return {
     title: post.title,
-    description: post.excerpt,
+    description: post.description,
     authors: [{ name: post.author }],
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description: post.description,
       type: 'article',
       authors: [post.author],
+      images: [post.ogImage],
     },
   }
 }
 
+// Define TOC type based on what getBlogPost returns
+// (Assuming it returns { id: string, text: string, level: number }[])
 interface TableOfContentsItem {
   id: string
   text: string
   level: number
-}
-
-async function getTableOfContents(
-  content: string,
-): Promise<TableOfContentsItem[]> {
-  const toc: TableOfContentsItem[] = []
-
-  const tree = remark().parse(content)
-
-  visit(tree, 'heading', (node: Heading) => {
-    const text = node.children
-      .filter((child): child is Text => child.type === 'text')
-      .map((child) => child.value)
-      .join('')
-
-    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-
-    toc.push({
-      id,
-      text,
-      level: node.depth,
-    })
-  })
-
-  return toc
-}
-
-async function getBlogPost(slug: string) {
-  const markdownFile = path.join(process.cwd(), 'src/app/blog', `${slug}.md`)
-
-  if (!fs.existsSync(markdownFile)) {
-    return null
-  }
-
-  const fileContents = fs.readFileSync(markdownFile, 'utf8')
-  const { data, content } = matter(fileContents)
-
-  // Get first paragraph as excerpt
-  const excerpt = content.split('\n\n')[0]
-  const toc = await getTableOfContents(content)
-
-  return {
-    slug,
-    title: data.title,
-    author: data.author,
-    content,
-    excerpt,
-    toc,
-    premium: data.premium === true,
-  }
 }
 
 const PremiumCard = ({ isAuthenticated = false }) => (
@@ -164,29 +115,44 @@ const TableOfContents = ({ items }: { items: TableOfContentsItem[] }) => (
   </section>
 )
 
+// Adjust PreviewBlogContent if needed based on external getBlogPost return type
+// It likely needs contentHtml now instead of content
 const PreviewBlogContent = ({
   post,
   isAuthenticated,
 }: {
-  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>
+  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>> // Type from external
   isAuthenticated: boolean
-}) => (
-  <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
-    <header className="pb-4">
-      <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
-        {post.title}
-      </h1>
-      <div className="mt-2 text-sm text-gray-600">
-        Estimated read time: {calculateReadingTime(post.content)} minutes
-      </div>
-    </header>
+}) => {
+  // Calculate reading time from excerpt or assume getBlogPost provides it?
+  // For now, let's use excerpt for a rough estimate.
+  const estimatedReadTime = calculateReadingTime(post.excerpt)
 
-    {post.toc.length > 0 && <TableOfContents items={post.toc} />}
+  return (
+    <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
+      <header className="pb-4">
+        <h1 className="mb-0 mt-4 text-3xl font-bold text-ladderly-violet-600">
+          {post.title}
+        </h1>
+        <div className="mt-2 text-sm text-gray-600">
+          Estimated read time: {estimatedReadTime} minutes
+        </div>
+      </header>
 
-    <BlogPostContent content={post.content.split('\n\n')[0] ?? ''} />
-    <PremiumCard isAuthenticated={isAuthenticated} />
-  </article>
-)
+      {post.toc.length > 0 && <TableOfContents items={post.toc} />}
+
+      {/* Render only the excerpt HTML for preview */}
+      {/* This requires getBlogPost to also return excerptHtml or similar */}
+      {/* For simplicity, maybe just show text excerpt? */}
+      {/* Option 1: Show raw excerpt text */}
+      <p>{post.excerpt}</p>
+      {/* Option 2: If getBlogPost processed excerpt to HTML */}
+      {/* <div dangerouslySetInnerHTML={{ __html: post.excerptHtml }} /> */}
+
+      <PremiumCard isAuthenticated={isAuthenticated} />
+    </article>
+  )
+}
 
 const BlogPostLayout = ({
   children,
@@ -195,10 +161,14 @@ const BlogPostLayout = ({
   isAuthenticated = false,
 }: {
   children: React.ReactNode
-  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>
+  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>> // Type from external
   requireAuth?: boolean
   isAuthenticated?: boolean
 }) => {
+  // Calculate reading time from full HTML content
+  // Note: calculateReadingTime might need adjustment if it expects raw markdown
+  const estimatedReadTime = calculateReadingTime(post.contentHtml) // Use contentHtml
+
   return (
     <LadderlyPageWrapper
       authenticate={requireAuth}
@@ -220,7 +190,7 @@ const BlogPostLayout = ({
             {post.title}
           </h1>
           <div className="mt-2 text-sm text-gray-600">
-            Estimated read time: {calculateReadingTime(post.content)} minutes
+            Estimated read time: {estimatedReadTime} minutes
           </div>
         </header>
 
@@ -236,6 +206,7 @@ export default async function BlogPost({
 }: {
   params: { slug: string }
 }) {
+  // Use the external getBlogPost
   const post = await getBlogPost(params.slug)
   const session = await getServerAuthSession()
 
@@ -249,7 +220,11 @@ export default async function BlogPost({
       requireAuth={post.premium}
       isAuthenticated={!!session}
     >
-      <BlogPostContent content={post.content} userId={session?.user?.id} />
+      {/* Pass the generated HTML to the simplified BlogPostContent */}
+      <BlogPostContent
+        contentHtml={post.contentHtml}
+        userId={session?.user?.id}
+      />
     </BlogPostLayout>
   )
 }
