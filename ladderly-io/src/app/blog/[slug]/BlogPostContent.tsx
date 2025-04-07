@@ -1,23 +1,14 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-// Remove markdown/remark/directive imports
-// import ReactMarkdown from 'react-markdown'
-// import remarkGfm from 'remark-gfm'
-// import remarkDirective from 'remark-directive'
-// Keep Image if still needed for other parts, or remove if only used in markdown
-// import Image from 'next/image'
 
 // Update props to accept HTML string
 interface BlogPostContentProps {
   contentHtml: string
-  userId?: string // Keep userId if needed for other logic unrelated to markdown
+  userId?: string
 }
 
 const PREMIUM_SIGNUP_LINK = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
-
-// Remove handleAnchorDirective function
-// function handleAnchorDirective(directive: any) { ... }
 
 // Simplified component to render pre-processed HTML
 export function BlogPostContent({ contentHtml, userId }: BlogPostContentProps) {
@@ -51,9 +42,6 @@ export function BlogPostContent({ contentHtml, userId }: BlogPostContentProps) {
         link.removeAttribute('target')
         link.removeAttribute('rel')
       }
-
-      // Optional: remove the data attribute after processing
-      // link.removeAttribute('data-premium-link');
     })
     // Rerun effect if userId changes or contentHtml changes
   }, [userId, contentHtml])
