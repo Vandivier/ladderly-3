@@ -60,15 +60,20 @@ export async function generateMetadata({
   const plainTextDescription = stripMarkdown(post.excerpt)
 
   let ogImageUrl: string
+  const defaultImageUrl = new URL('/logo.webp', siteUrl).toString() // Default using URL constructor
+
   // Use found image if available
   if (post.ogImageUrlRelative) {
-    const imageUrl = post.ogImageUrlRelative.startsWith('/')
-      ? post.ogImageUrlRelative
-      : `/${post.ogImageUrlRelative}`
-    ogImageUrl = `${siteUrl}${imageUrl}` // Set the dynamic URL
+    try {
+      // Use URL constructor for robust path joining
+      ogImageUrl = new URL(post.ogImageUrlRelative, siteUrl).toString()
+    } catch (e) {
+      console.error('Error constructing OG Image URL:', e)
+      ogImageUrl = defaultImageUrl // Fallback to default on error
+    }
   } else {
     // Use default image if none found
-    ogImageUrl = `${siteUrl}/logo.webp` // Set the default URL
+    ogImageUrl = defaultImageUrl
   }
 
   // Construct the images metadata array

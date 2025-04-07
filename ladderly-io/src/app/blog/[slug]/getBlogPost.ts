@@ -149,8 +149,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
   const markdownWithMetadata = fs.readFileSync(markdownFile).toString()
   const { data, content } = matter(markdownWithMetadata)
 
-  // Find the first image URL from the raw content
-  const firstImageUrl = findFirstImageUrl(content)
+  // Prioritize ogImage from front matter, then find first image
+  const ogImageUrlRelative = data.ogImage || findFirstImageUrl(content)
 
   const toc: any[] = []
   const excerpt = content.split('\n\n')[0] ?? ''
@@ -176,7 +176,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       toc,
       premium: data.premium === true,
       excerpt,
-      ogImageUrlRelative: firstImageUrl, // Return the found image URL
+      ogImageUrlRelative: ogImageUrlRelative, // Use the determined URL
     }
   } catch (error) {
     console.error(`Error processing markdown for ${slug}:`, error)
@@ -187,7 +187,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       toc: [],
       premium: data.premium === true,
       excerpt,
-      ogImageUrlRelative: null, // Ensure null on error
+      ogImageUrlRelative: data.ogImage || null, // Use front matter if available, else null
     }
   }
 }
