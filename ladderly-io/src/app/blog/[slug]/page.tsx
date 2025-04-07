@@ -28,14 +28,14 @@ export async function generateStaticParams() {
   return paths
 }
 
-// Function to strip basic markdown formatting for excerpt
+// Function to strip basic markdown formatting to create social preview posts
 function stripMarkdown(markdown: string): string {
   return (
     markdown
-      // Remove images
-      .replace(/!\([^\)]*\)\(.*?\)/g, '')
+      // Correct regex for images: ![alt text](URL)
+      .replace(/!\[([^\]]*)\]\((.*?)\)/g, '')
       // Remove links but keep text
-      .replace(/\[([^\]]+)\]\([^\)]*\)/g, '$1')
+      .replace(/\[([^\]]+)\]\(([^)]*)\)/g, '$1')
       // Remove bold/italics/etc.
       .replace(/[*_`~]+/g, '')
       .trim()
