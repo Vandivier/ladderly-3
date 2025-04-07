@@ -3,7 +3,7 @@ title: '26. Build Quality Software: The CUTE TYPE HAM Way'
 author: John Vandivier
 ---
 
-![CUTE TYPE HAM Mnemonic Table](/cute-type-ham.webp)
+![CUTE TYPE HAM Mnemonic Table](/cute-type-ham.png)
 
 This article describes a collection of software development principles that prioritize the business impact of software produced. These principles apply at the level of code, system design, team structure, and the entire software development life cycle (SDLC).
 
@@ -13,19 +13,19 @@ This article breaks down the mnemonic with examples of proper principle use and 
 
 ## The CUTE TYPE HAM Table
 
-| Letter | Expansion | Brief Explanation |
-|--------|-----------|-----------|
-| **C** | **C**UPID | Follows [the CUPID principles for joyful coding](https://dannorth.net/cupid-for-joyful-coding/)  |
-| **U** | **U**nderstandable | Intuitive and readable. Readability includes documentation. |
-| **T** | **T**ested | Your code should be tested. This doesn't imply pure TDD. |
-| **E** | **E**nvironment‑agnostic | Environmental parity, hermetic builds, and local autonomy |
-| **T** | **T**yped | Types improve code quality. |
-| **Y** | **Y**AGNI | Only build what you need now or near-term. |
-| **P** | **P**ragmatic | Prioritize outcomes over principles. |
-| **E** | **E**xplicit over implicit | Write out your low-level logic instead of using magic. |
-| **H** | **H**uman‑centred | Emphasize DX and UX. Use BDD. |
-| **A** | **A**utomated | Quality should be automatically implemented and verified. |
-| **M** | **M**onitored | System behavior and issues should be highly visible. |
+| Letter | Expansion                  | Brief Explanation                                                                               |
+| ------ | -------------------------- | ----------------------------------------------------------------------------------------------- |
+| **C**  | **C**UPID                  | Follows [the CUPID principles for joyful coding](https://dannorth.net/cupid-for-joyful-coding/) |
+| **U**  | **U**nderstandable         | Intuitive and readable. Readability includes documentation.                                     |
+| **T**  | **T**ested                 | Your code should be tested. This doesn't imply pure TDD.                                        |
+| **E**  | **E**nvironment‑agnostic   | Environmental parity, hermetic builds, and local autonomy                                       |
+| **T**  | **T**yped                  | Types improve code quality.                                                                     |
+| **Y**  | **Y**AGNI                  | Only build what you need now or near-term.                                                      |
+| **P**  | **P**ragmatic              | Prioritize outcomes over principles.                                                            |
+| **E**  | **E**xplicit over implicit | Write out your low-level logic instead of using magic.                                          |
+| **H**  | **H**uman‑centred          | Emphasize DX and UX. Use BDD.                                                                   |
+| **A**  | **A**utomated              | Quality should be automatically implemented and verified.                                       |
+| **M**  | **M**onitored              | System behavior and issues should be highly visible.                                            |
 
 ## The Letters in Depth
 
@@ -63,7 +63,7 @@ Proper Examples:
 3. Organizing code, processes, and teams inline with domains of expertise
 4. When two solutions are equally performant, avoid [shiny object syndrome](https://en.wikipedia.org/wiki/Shiny_object_syndrome) and select the option which is more well-known, documented, and popular.
 
-Borrowed from [CUPID](https://principles.dev/), composability pushes us toward functions and modules that do *one* thing and chain together cleanly. It's the antidote to "god objects" and tangled dependency graphs.
+Borrowed from [CUPID](https://principles.dev/), composability pushes us toward functions and modules that do _one_ thing and chain together cleanly. It's the antidote to "god objects" and tangled dependency graphs.
 
 ### U — Understandable
 
@@ -157,7 +157,7 @@ Don't hide logic in a get or set function. Avoid magic which assumes developer k
 
 ### H — Human‑centered
 
-Good software respects *all* its humans: maintainers, stakeholders, and end‑users. BDD scenarios capture stakeholder intent; clear error messages and accessible UIs respect consumers; tidy repos and helpful docs respect contributors.
+Good software respects _all_ its humans: maintainers, stakeholders, and end‑users. BDD scenarios capture stakeholder intent; clear error messages and accessible UIs respect consumers; tidy repos and helpful docs respect contributors.
 
 Ladderly.io emphasizes investing in the developer experience, also known as DX, DevX, or DevEx. We also want our software to consider customers, users, and other stakeholders. A complicated system can easily fail to achieve business impact if the user interface (UI) or user experience (UX) is less than ideal.
 
@@ -174,9 +174,9 @@ Proper Examples:
 
 ### A — Automated
 
-*Machines do repetitive work better than humans.* Run formatters and linters pre‑commit, spin test suites in CI, deploy via pipelines, migrate schemas on release. A green pipeline is your licence to merge.
+_Machines do repetitive work better than humans._ Run formatters and linters pre‑commit, spin test suites in CI, deploy via pipelines, migrate schemas on release. A green pipeline is your licence to merge.
 
-### M — Monitored  
+### M — Monitored
 
 If a tree falls in the prod forest and nobody gets an alert, did it crash? Instrument with structured logs, metrics, traces, alerts, and compliment issue identification with resolution tools like runbooks and documentation that includes keywords, titles, and references matched to the log messages and alert metadata in an useful way. Take advantage of dashboards
 

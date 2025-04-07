@@ -88,10 +88,7 @@ const addHeroImageClasses: Plugin<[], HastRoot> = () => {
     // Visit HAST Elements
     visit(tree, 'element', (node: HastElement) => {
       // Use HastElement type
-      if (
-        node.tagName === 'img' &&
-        node.properties?.src === '/cute-type-ham.webp'
-      ) {
+      if (node.tagName === 'img') {
         // Properties should now be accessible on HastElement
         const props = node.properties ?? {}
         const existingClasses = props.className ?? []
