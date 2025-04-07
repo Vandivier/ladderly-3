@@ -1,7 +1,10 @@
 ---
 title: '26. Build Quality Software: The CUTE TYPE HAM Way'
 author: John Vandivier
+
 description: This article describes a collection of software development principles that prioritize the business impact of software produced. These principles apply at the level of code, system design, team structure, and the entire software development life cycle (SDLC).
+
+ogImage: /cute-type-ham.png
 ---
 
 ![CUTE TYPE HAM Mnemonic Table](/cute-type-ham.png)
