@@ -5,14 +5,11 @@ author: John Vandivier
 
 ![CUTE TYPE HAM Mnemonic Table](/cute-type-ham.webp)
 
-Ladderly.io is a platform for programming education, so it's fitting that we lay out some principles for code quality, system design, and the software development lifecycle (SDLC).
+This article describes a collection of software development principles that prioritize the business impact of software produced. These principles apply at the level of code, system design, team structure, and the entire software development life cycle (SDLC).
 
-Ladderly.io's `CUTE TYPE HAM` mnemonic for quality software:
+At its core, Ladderly.io's `CUTE TYPE HAM` approach is a particular flavor of pragmatic programming that continuously priortizes work based on the risk-adjusted return on investment.
 
-1. Includes some other well-known mnemonics
-2. Specifically contrasts to some other approaches to clean code
-3. Applies beyond the code to system design, process, and organizational concerns
-4. Includes proper examples and antipattern examples to concretize the mnemonic
+This article breaks down the mnemonic with examples of proper principle use and examples of antipatterns.
 
 ## The CUTE TYPE HAM Table
 
@@ -80,6 +77,8 @@ Understandable software means software that is:
 
 These goals are targeted across stakeholders, not simply in the mind of a single developer.
 
+Documentation includes work prior to, during, and after implementation. Design documents are one kind of document that is often a very good investment of time prior to writing any code.
+
 Antipattern Examples:
 
 1. Excessively verbose or over-commented code, which actually ends up harder to comprehend
@@ -134,7 +133,13 @@ When building a solution, prioritize getting the system shipped and making the s
 
 ### P — Pragmatic
 
-Prefer shipping to polishing. Choose stable tools over shiny objects. Accept tech debt strategically and set your quality bar on the basis of evidence-based return on investment calculations. Optimize for business outcomes and stakeholder value over axiomatic technical principles. Use engineering principles, including the current `CUTE TYPE HAM` principles, as a useful mental checklist and toolkit over a set of hard requirements that must be accomodated at all times.
+By pragmatic action we mean action which prioritizes outcomes over principles. In particular, Ladderly.io recommends prioritizing the allocation of engineering time and effort according to a risk-adjusted estimate of the return on investment by task.
+
+This is the most important principle in the whole group. Principles trade off against each other in a way that is contextual. There isn't a universal solution to optimal code. Code produced in an interview, for scripting, for tests, for configuration, for user interfaces, and so on, will each properly vary. Even within a particular kind of component in a particular enterprise, conventions may properly vary by language, team, and for historical reasons.
+
+Pragmatism solves particular problems in the face of such complexity by encouraging us to look into the empirical data particular to each case and use return on investment as a mechanism to normalize across many different kinds of tasks. A pragmatic, rather than purist, approach to software encourages the use of engineering principles, including the current `CUTE TYPE HAM` principles, as tools, intelligent defaults, and a useful mental checklist rather than a set of hard requirements that must be accomodated at all times.
+
+Notably, pragmatism encourages the strategic accumulation and payoff of tech debt.
 
 Antipattern Examples:
 
