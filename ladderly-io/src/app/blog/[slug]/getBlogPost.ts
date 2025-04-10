@@ -224,9 +224,6 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
   // Extract table of contents from the markdown content
   const toc = extractTableOfContents(content)
 
-  // Get the first paragraph for excerpt
-  const paragraphs = content.split(/\n\s*\n/)
-
   try {
     const processor = unified()
       .use(remarkParse)
@@ -240,6 +237,11 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
 
     const file = await processor.process(content as string)
     let contentHtml = file.toString()
+
+    // Get the first paragraph for excerpt
+    const paragraphs = content.split(/\n\s*\n/)
+    const excerptFile = await processor.process(paragraphs[0] as string)
+    const excerpt = excerptFile.toString()
 
     // Add IDs to headings after HTML generation - wrapped in try-catch to handle any errors
     try {
@@ -255,7 +257,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       contentHtml,
       toc,
       premium: data.premium === true,
-      excerpt: paragraphs[0],
+      excerpt,
       ogImage,
       heroImage,
       description: data.description as string | undefined,
@@ -268,7 +270,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       contentHtml: '<p>Error processing content.</p>',
       toc: [],
       premium: data.premium === true,
-      excerpt: paragraphs[0],
+      excerpt: '<p>Error processing content.</p>',
       ogImage,
       heroImage,
       description: data.description as string | undefined,

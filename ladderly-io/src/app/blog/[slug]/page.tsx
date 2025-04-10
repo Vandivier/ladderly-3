@@ -145,7 +145,10 @@ const PreviewBlogContent = ({
         </div>
       )}
 
-      {post.excerpt ? <p>{post.excerpt}</p> : null}
+      {post.toc.length > 0 && <TableOfContents items={post.toc} />}
+      {post.excerpt ? (
+        <div dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
+      ) : null}
       <PremiumCard isAuthenticated={isAuthenticated} />
     </article>
   )
