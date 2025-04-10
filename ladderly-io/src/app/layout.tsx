@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     'Your tech adventure awaits! Ladderly helps you learn to code, land your first or next programming role, and grow your social and professional networks. Join our passionate community of learners and innovators. Discover tools and programs that accelerate your tech career, embrace open-source learning, and celebrate diversity and quality of life. Start your path to success with Ladderly today.',
   metadataBase: new URL('https://ladderly.io'),
   openGraph: {
+    description:
+      'Your tech adventure awaits! Ladderly helps you learn to code, land your first or next programming role, and grow your social and professional networks. Join our passionate community of learners and innovators. Discover tools and programs that accelerate your tech career, embrace open-source learning, and celebrate diversity and quality of life. Start your path to success with Ladderly today.',
     type: 'website',
     images: [
       {

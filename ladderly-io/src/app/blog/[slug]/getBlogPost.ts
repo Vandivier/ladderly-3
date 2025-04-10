@@ -1,19 +1,19 @@
 import fs from 'fs'
 import matter from 'gray-matter'
-import path from 'path'
-import { unified, type Plugin } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkGfm from 'remark-gfm'
-import remarkDirective from 'remark-directive'
-import remarkRehype from 'remark-rehype'
-import rehypeRaw from 'rehype-raw'
-import rehypeStringify from 'rehype-stringify'
-import type { Root as MdastRoot, Node as MdastNode, Parent } from 'mdast'
 import type {
-  Root as HastRoot,
   Element as HastElement,
   Properties as HastProperties,
+  Root as HastRoot,
 } from 'hast'
+import type { Node as MdastNode, Root as MdastRoot, Parent } from 'mdast'
+import path from 'path'
+import rehypeRaw from 'rehype-raw'
+import rehypeStringify from 'rehype-stringify'
+import remarkDirective from 'remark-directive'
+import remarkGfm from 'remark-gfm'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import { unified, type Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 // Interface for nodes created by remark-directive
@@ -88,10 +88,7 @@ const addHeroImageClasses: Plugin<[], HastRoot> = () => {
     // Visit HAST Elements
     visit(tree, 'element', (node: HastElement) => {
       // Use HastElement type
-      if (
-        node.tagName === 'img' &&
-        node.properties?.src === '/cute-type-ham.webp'
-      ) {
+      if (node.tagName === 'img') {
         // Properties should now be accessible on HastElement
         const props = node.properties ?? {}
         const existingClasses = props.className ?? []
@@ -115,27 +112,6 @@ const addHeroImageClasses: Plugin<[], HastRoot> = () => {
   }
 }
 
-// Function to extract the first image URL from markdown content
-function findFirstImageUrl(content: string): string | null {
-  // Correct Regex for standard markdown image: ![alt text](URL)
-  const markdownMatch = content.match(
-    /!\\\[([^\\\]]*)\\\]\\(([^\\)\"\\s]+)[^\\)]*\\)/,
-  )
-  if (markdownMatch?.[2]) {
-    return markdownMatch[2]
-  }
-
-  // Regex for directive image (assuming :img[alt]{src=\"url\" ...})
-  const directiveMatch = content.match(
-    /:img\\[.*?\\]\\{.*?src=\"([^\"]+)\".*?\\}/,
-  )
-  if (directiveMatch?.[1]) {
-    return directiveMatch[1]
-  }
-
-  return null // No image found
-}
-
 interface BlogPostData {
   title: string
   author: string
@@ -143,7 +119,8 @@ interface BlogPostData {
   toc: any[]
   premium: boolean
   excerpt: string
-  ogImageUrlRelative?: string | null
+  ogImage: string
+  description?: string
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
@@ -156,9 +133,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
   const markdownWithMetadata = fs.readFileSync(markdownFile).toString()
   const { data, content } = matter(markdownWithMetadata)
 
-  // Find the first image URL from the raw content
-  const firstImageUrl = findFirstImageUrl(content)
-
+  // Prioritize ogImage from front matter, then find first image
+  const ogImage = data.ogImage ?? '/logo.png'
   const toc: any[] = []
   const excerpt = content.split('\n\n')[0] ?? ''
 
@@ -183,7 +159,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       toc,
       premium: data.premium === true,
       excerpt,
-      ogImageUrlRelative: firstImageUrl, // Return the found image URL
+      ogImage,
+      description: data.description as string | undefined,
     }
   } catch (error) {
     console.error(`Error processing markdown for ${slug}:`, error)
@@ -194,7 +171,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       toc: [],
       premium: data.premium === true,
       excerpt,
-      ogImageUrlRelative: null, // Ensure null on error
+      ogImage,
+      description: data.description as string | undefined,
     }
   }
 }
