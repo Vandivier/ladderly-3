@@ -85,6 +85,7 @@ const BenefitListItem: React.FC<{ benefit: Benefit }> = ({ benefit }) => {
 const LoggedOutPlanButton = ({ planId }: { planId: number }) => (
   <Link
     href={`/signup?planId=${planId}`}
+    id={`join-now-button-${planId}`}
     className="mx-auto mt-auto flex rounded-lg bg-ladderly-pink px-6 py-2 text-lg font-bold text-white transition-all duration-300 ease-in-out hover:shadow-custom-purple"
   >
     Join Now
