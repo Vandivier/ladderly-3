@@ -155,10 +155,12 @@ function addIdsToHeadings(
   contentHtml: string,
   toc: TableOfContentsItem[],
 ): string {
-  if (!toc || toc.length === 0) return contentHtml
+  if (!contentHtml || !toc || toc.length === 0) return contentHtml || ''
 
   // Process each TOC item
   toc.forEach((item) => {
+    if (!item || !item.text || !item.id) return
+
     // Escape special regex characters in the heading text
     const escapedText = item.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
@@ -197,7 +199,7 @@ interface BlogPostData {
   contentHtml: string
   toc: TableOfContentsItem[]
   premium: boolean
-  excerpt: string
+  excerpt?: string
   ogImage: string
   heroImage?: string
   description?: string
@@ -222,7 +224,8 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
   // Extract table of contents from the markdown content
   const toc = extractTableOfContents(content)
 
-  const excerpt = content.split('\n\n')[0] ?? ''
+  // Get the first paragraph for excerpt
+  const paragraphs = content.split(/\n\s*\n/)
 
   try {
     const processor = unified()
@@ -235,11 +238,16 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       .use(addTargetBlankToLinks)
       .use(rehypeStringify)
 
-    const file = await processor.process(content)
+    const file = await processor.process(content as string)
     let contentHtml = file.toString()
 
-    // Add IDs to headings after HTML generation
-    contentHtml = addIdsToHeadings(contentHtml, toc)
+    // Add IDs to headings after HTML generation - wrapped in try-catch to handle any errors
+    try {
+      contentHtml = addIdsToHeadings(contentHtml, toc)
+    } catch (e) {
+      console.error('Error adding IDs to headings:', e)
+      // Continue with the unmodified contentHtml
+    }
 
     return {
       title: data.title ?? 'Untitled',
@@ -247,7 +255,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       contentHtml,
       toc,
       premium: data.premium === true,
-      excerpt,
+      excerpt: paragraphs[0],
       ogImage,
       heroImage,
       description: data.description as string | undefined,
@@ -260,7 +268,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       contentHtml: '<p>Error processing content.</p>',
       toc: [],
       premium: data.premium === true,
-      excerpt,
+      excerpt: paragraphs[0],
       ogImage,
       heroImage,
       description: data.description as string | undefined,
