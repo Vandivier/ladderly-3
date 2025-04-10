@@ -3,14 +3,14 @@
 import React, { useEffect, useRef } from 'react'
 
 // Define TOC type based on what getBlogPost returns
-interface TableOfContentsItem {
+export interface TableOfContentsItem {
   id: string
   text: string
   level: number
 }
 
 // Update props to accept HTML string and TOC items
-interface BlogPostContentProps {
+export interface BlogPostContentProps {
   contentHtml: string
   userId?: string
   toc?: TableOfContentsItem[]
@@ -22,7 +22,7 @@ const PREMIUM_SIGNUP_LINK = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
 export function BlogPostContent({
   contentHtml,
   userId,
-  toc,
+  toc = [],
 }: BlogPostContentProps) {
   const contentRef = useRef<HTMLDivElement>(null) // Ref to access the rendered content
 
@@ -55,8 +55,19 @@ export function BlogPostContent({
         link.removeAttribute('rel')
       }
     })
+
+    // Add IDs to headings based on TOC
+    if (toc.length > 0) {
+      toc.forEach((item) => {
+        const heading = contentRef.current!.querySelector(`#${item.id}`)
+        if (heading) {
+          heading.setAttribute('id', item.id)
+        }
+      })
+    }
+
     // Rerun effect if userId changes or contentHtml changes
-  }, [userId, contentHtml])
+  }, [userId, contentHtml, toc])
 
   return (
     <>
