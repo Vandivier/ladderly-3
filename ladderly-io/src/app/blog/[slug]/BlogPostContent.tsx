@@ -2,16 +2,28 @@
 
 import React, { useEffect, useRef } from 'react'
 
-// Update props to accept HTML string
+// Define TOC type based on what getBlogPost returns
+interface TableOfContentsItem {
+  id: string
+  text: string
+  level: number
+}
+
+// Update props to accept HTML string and TOC items
 interface BlogPostContentProps {
   contentHtml: string
   userId?: string
+  toc?: TableOfContentsItem[]
 }
 
 const PREMIUM_SIGNUP_LINK = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
 
 // Simplified component to render pre-processed HTML
-export function BlogPostContent({ contentHtml, userId }: BlogPostContentProps) {
+export function BlogPostContent({
+  contentHtml,
+  userId,
+  toc,
+}: BlogPostContentProps) {
   const contentRef = useRef<HTMLDivElement>(null) // Ref to access the rendered content
 
   // Restore useEffect to handle client-side link modifications
@@ -47,6 +59,8 @@ export function BlogPostContent({ contentHtml, userId }: BlogPostContentProps) {
   }, [userId, contentHtml])
 
   return (
-    <div ref={contentRef} dangerouslySetInnerHTML={{ __html: contentHtml }} />
+    <>
+      <div ref={contentRef} dangerouslySetInnerHTML={{ __html: contentHtml }} />
+    </>
   )
 }

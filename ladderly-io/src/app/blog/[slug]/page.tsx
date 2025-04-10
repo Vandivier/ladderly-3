@@ -139,6 +139,16 @@ const PreviewBlogContent = ({
         </div>
       </header>
 
+      {post.heroImage && (
+        <div className="my-6">
+          <img
+            src={post.heroImage}
+            alt={`Hero image for ${post.title}`}
+            className="not-prose w-full rounded-lg"
+          />
+        </div>
+      )}
+
       {post.toc.length > 0 && <TableOfContents items={post.toc} />}
 
       {/* Render only the excerpt HTML for preview */}
@@ -194,6 +204,16 @@ const BlogPostLayout = ({
           </div>
         </header>
 
+        {post.heroImage && (
+          <div className="my-6">
+            <img
+              src={post.heroImage}
+              alt={`Hero image for ${post.title}`}
+              className="not-prose w-full rounded-lg"
+            />
+          </div>
+        )}
+
         {post.toc.length > 0 && <TableOfContents items={post.toc} />}
         {children}
       </article>
@@ -224,6 +244,7 @@ export default async function BlogPost({
       <BlogPostContent
         contentHtml={post.contentHtml}
         userId={session?.user?.id}
+        toc={post.toc}
       />
     </BlogPostLayout>
   )

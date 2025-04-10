@@ -16,6 +16,13 @@ import remarkRehype from 'remark-rehype'
 import { unified, type Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
+// Define the TableOfContentsItem interface
+export interface TableOfContentsItem {
+  id: string
+  text: string
+  level: number
+}
+
 // Interface for nodes created by remark-directive
 interface DirectiveNode extends Parent {
   type: 'textDirective' | 'leafDirective' | 'containerDirective'
@@ -82,44 +89,117 @@ const transformDirectivesPlugin: Plugin<[], MdastRoot> = () => {
   }
 }
 
-// Custom Rehype plugin to add classes to the hero image
-const addHeroImageClasses: Plugin<[], HastRoot> = () => {
+// Custom rehype plugin to make all external links open in a new tab
+const addTargetBlankToLinks: Plugin<[], HastRoot> = () => {
   return (tree: HastRoot) => {
-    // Visit HAST Elements
     visit(tree, 'element', (node: HastElement) => {
-      // Use HastElement type
-      if (node.tagName === 'img') {
-        // Properties should now be accessible on HastElement
+      if (node.tagName === 'a') {
         const props = node.properties ?? {}
-        const existingClasses = props.className ?? []
-        const classList = (
-          Array.isArray(existingClasses) ? existingClasses : [existingClasses]
-        ).filter((c) => typeof c !== 'boolean')
+        const href = props.href
 
-        if (!classList.includes('not-prose')) classList.push('not-prose')
-        if (!classList.includes('rounded-lg')) classList.push('rounded-lg')
-
-        const marginIndex = classList.indexOf('m-0')
-        if (marginIndex > -1) {
-          classList.splice(marginIndex, 1)
+        // Skip fragment links (starting with #)
+        if (
+          typeof href === 'string' &&
+          !href.startsWith('#') &&
+          !href.startsWith('javascript:')
+        ) {
+          // Add target and rel attributes for external links
+          if (
+            href.startsWith('http') ||
+            href.startsWith('https') ||
+            href.startsWith('//')
+          ) {
+            props.target = '_blank'
+            props.rel = 'noopener noreferrer'
+          }
         }
 
-        props.className = classList
-        // Assign properties back (safe due to HastElement type)
         node.properties = props
       }
     })
   }
 }
 
+// Function to extract table of contents from markdown content
+function extractTableOfContents(content: string): TableOfContentsItem[] {
+  const toc: TableOfContentsItem[] = []
+
+  // Use a more direct regex to find all headings in the content
+  const headingRegex = /^(#{1,6})\s+(.+)$/gm
+
+  let match
+  while ((match = headingRegex.exec(content)) !== null) {
+    if (match[1] && match[2]) {
+      const level = match[1].length
+      const text = match[2].trim()
+
+      // Create a URL-friendly ID from the heading text
+      const id = text
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+
+      toc.push({
+        id,
+        text,
+        level,
+      })
+    }
+  }
+
+  return toc
+}
+
+// Function to add IDs to headings in HTML content based on TOC
+function addIdsToHeadings(
+  contentHtml: string,
+  toc: TableOfContentsItem[],
+): string {
+  if (!toc || toc.length === 0) return contentHtml
+
+  // Process each TOC item
+  toc.forEach((item) => {
+    // Escape special regex characters in the heading text
+    const escapedText = item.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+    // Create regex to find the heading tag with the exact text
+    // This looks for h1-h6 tags that contain the exact text of the TOC item
+    const regex = new RegExp(
+      `(<h[1-6])([^>]*)>(${escapedText})(</h[1-6]>)`,
+      'g',
+    )
+
+    // Replace with the same tag but with an id attribute
+    // If the tag already has attributes, we add the id to them
+    // Otherwise, we add the id as a new attribute
+    contentHtml = contentHtml.replace(
+      regex,
+      (match, openTag, attrs, text, closeTag) => {
+        const hasId = attrs.includes('id=')
+
+        if (hasId) {
+          // If already has ID, don't modify it
+          return match
+        } else {
+          // Add ID attribute
+          return `${openTag}${attrs} id="${item.id}">${text}${closeTag}`
+        }
+      },
+    )
+  })
+
+  return contentHtml
+}
+
 interface BlogPostData {
   title: string
   author: string
   contentHtml: string
-  toc: any[]
+  toc: TableOfContentsItem[]
   premium: boolean
   excerpt: string
   ogImage: string
+  heroImage?: string
   description?: string
 }
 
@@ -135,7 +215,13 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
 
   // Prioritize ogImage from front matter, then find first image
   const ogImage = data.ogImage ?? '/logo.png'
-  const toc: any[] = []
+
+  // Read heroImage from front matter
+  const heroImage = data.heroImage as string | undefined
+
+  // Extract table of contents from the markdown content
+  const toc = extractTableOfContents(content)
+
   const excerpt = content.split('\n\n')[0] ?? ''
 
   try {
@@ -146,11 +232,14 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       .use(transformDirectivesPlugin)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeRaw)
-      .use(addHeroImageClasses)
+      .use(addTargetBlankToLinks)
       .use(rehypeStringify)
 
     const file = await processor.process(content)
-    const contentHtml = file.toString()
+    let contentHtml = file.toString()
+
+    // Add IDs to headings after HTML generation
+    contentHtml = addIdsToHeadings(contentHtml, toc)
 
     return {
       title: data.title ?? 'Untitled',
@@ -160,6 +249,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       premium: data.premium === true,
       excerpt,
       ogImage,
+      heroImage,
       description: data.description as string | undefined,
     }
   } catch (error) {
@@ -172,6 +262,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       premium: data.premium === true,
       excerpt,
       ogImage,
+      heroImage,
       description: data.description as string | undefined,
     }
   }
