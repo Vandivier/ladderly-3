@@ -35,6 +35,7 @@ export const LadderlyHelpsBlock = () => {
         <li className="m-3">
           <a
             href="https://www.producthunt.com/posts/ladderly-io?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ladderly&#0045;io"
+            id="product-hunt-link"
             target="_blank"
           >
             <Image

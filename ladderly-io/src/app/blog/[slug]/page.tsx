@@ -149,7 +149,8 @@ const PreviewBlogContent = ({
         </div>
       )}
 
-      {post.toc.length > 0 && <TableOfContents items={post.toc} />}
+      {/* Don't show table of contents in preview since the headings it links to aren't visible */}
+      {/* {post.toc.length > 0 && <TableOfContents items={post.toc} />} */}
 
       {/* Render only the excerpt HTML for preview */}
       {/* This requires getBlogPost to also return excerptHtml or similar */}
