@@ -10,62 +10,111 @@ Here is the project.json file for this project which describes the dependencies:
 Full package.json content:
 {
   "name": "ladderly-io",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "type": "module",
   "scripts": {
-    "build": "next build",
+    "build": "node --experimental-strip-types scripts/generate-sitemap.ts && next build",
+    "better-build": "npm run lint && node --experimental-strip-types scripts/generate-sitemap.ts && next build",
+    "clean-branches": "git for-each-ref --format '%(refname:short)' refs/heads | grep -v 'main' | xargs git branch -D",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "dev": "next dev",
+    "install:vercel": "npm install && npm rebuild argon2 --build-from-source && npm run postinstall",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "test:cov": "vitest run --coverage"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.6.0",
-    "@prisma/client": "^5.14.0",
+    "@google/generative-ai": "^0.21.0",
+    "@prisma/client": "^6.2.1",
+    "@stripe/stripe-js": "^5.4.0",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tanstack/react-query": "^5.50.0",
     "@trpc/client": "^11.0.0-rc.446",
     "@trpc/react-query": "^11.0.0-rc.446",
     "@trpc/server": "^11.0.0-rc.446",
-    "argon2": "^0.41.1",
+    "@vercel/analytics": "^1.4.1",
+    "@vercel/speed-insights": "^1.1.0",
+    "ai": "^4.1.40",
+    "argon2": "0.31.2",
+    "eslint-plugin-tailwindcss": "^3.17.5",
     "geist": "^1.3.0",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.469.0",
     "next": "^14.2.4",
     "next-auth": "^4.24.7",
+    "nextjs-google-analytics": "^2.3.7",
     "postmark": "^4.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-final-form": "^6.5.9",
+    "react-markdown": "^9.0.1",
     "react-select": "^5.8.3",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-external-links": "^3.0.0",
+    "rehype-highlight": "^7.0.1",
+    "rehype-slug": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark": "^15.0.1",
+    "remark-directive": "^4.0.0",
+    "remark-gfm": "^4.0.0",
     "server-only": "^0.0.1",
+    "stripe": "^14.18.0",
     "superjson": "^2.2.1",
+    "xml-beautifier": "^0.5.0",
     "zod": "^3.23.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "@types/eslint": "^8.56.10",
-    "@types/node": "^20.14.10",
+    "@types/fs-extra": "^11.0.4",
+    "@types/hast": "^3.0.4",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^22.0.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
-    "eslint": "^8.57.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^3.0.6",
+    "@vitest/ui": "^3.0.6",
+    "dotenv": "^16.4.7",
+    "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.4",
+    "fs-extra": "^11.2.0",
+    "hastscript": "^9.0.1",
+    "jsdom": "^26.0.0",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "prisma": "^5.14.0",
+    "prisma": "^6.2.1",
+    "rehype-raw": "^7.0.0",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.5.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.6"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.36.2"
   },
-  "packageManager": "npm@10.8.2"
+  "packageManager": "npm@10.8.2",
+  "overrides": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "next": "^14.2.4"
+  }
 }
 
 
@@ -83,6 +132,7 @@ Here is the folder structure of the project:
     start-database.sh
     tailwind.config.ts
     tsconfig.json
+    vitest.config.ts
 .next/
 prisma/
     checklists.json
@@ -174,6 +224,7 @@ public/
     android-chrome-192x192.png
     android-chrome-512x512.png
     apple-touch-icon.png
+    cute-type-ham.png
     favicon-16x16.png
     favicon-32x32.png
     favicon.ico
@@ -182,21 +233,27 @@ public/
     robots.txt
     site.webmanifest
     sitemap.xml
+public\blog/
+public\blog\images/
+    cover-letters-poll.png
 scripts/
-    backupChecklists.js
-    backupUsers.js
+    backupChecklists.ts
+    backupUsers.ts
     cascadeDeleteChecklist.ts
+    createLeadsFromTextList.ts
+    createLeadsFromUsers.ts
     deleteUnusedChecklistItems.js
     deleteUnusedChecklists.js
-    deleteUser.js
+    deleteUser.ts
     ensureSubscriptions.js
-    generate-sitemap.js
+    generate-sitemap.ts
     restoreUsers.js
     tableScraperStripe.js
     tableScraperTeachable.js
     updateUserSubscriptionsFromStripe.js
 scripts\ci/
     custom-blog-lint.js
+scripts\data/
 scripts\one-offs/
     2023-07-21-ensureUserSubscriptions.js
     2023-07-22-nuke-user-checklists.js
@@ -204,6 +261,7 @@ scripts\python/
     .python-version
     copilot-instructions.txt
     create-copilot-instructions.py
+    create-unified-leecode-list.py
     pyproject.toml
     README.md
     uv.lock
@@ -213,6 +271,12 @@ scripts\python\analytical/
     blog-16-game-based-evaluation-ai-risk-analysis.csv
     README.md
     requirements.txt
+scripts\python\leetcode-problems/
+    leetcode-grind-75.json
+    leetcode-ladderly-expanded-kata.json
+    leetcode-neetcode-250.json
+    leetcode-sean-prashad-leetcode-patterns.json
+    unified-leetcode-problems.json
 scripts\python\youtube-transcriber/
     .env.template
     consolidate.py
@@ -247,28 +311,87 @@ src\app\(auth)\reset-password/
     ResetPasswordClientPageClient.tsx
 src\app\(auth)\signup/
     page.tsx
+src\app\about/
+    page.tsx
 src\app\api/
 src\app\api\auth/
 src\app\api\auth\[...nextauth]/
     route.ts
+src\app\api\chat/
 src\app\api\trpc/
 src\app\api\trpc\[trpc]/
     route.ts
+src\app\api\webhooks/
+src\app\api\webhooks\stripe/
+    route.ts
+src\app\blog/
+    2023-10-01-quality-course-and-projects.md
+    2023-11-25-leetcode-kata.md
+    2023-12-01-top-job-boards.md
+    2023-12-25-arias-tale.md
+    2024-01-20-hardware.md
+    2024-01-23-leetcode-solutions.md
+    2024-02-11-essentials-of-html.md
+    2024-02-12-resume-optimization.md
+    2024-02-16-user-settings.md
+    2024-04-20-hook-fundamentals.md
+    2024-05-31-networking-tips.md
+    2024-06-12-selecting-your-next-skill.md
+    2024-07-31-impact-accounting.md
+    2024-08-04-no-cover-letters.md
+    2025-01-20-social-networking-scripts.md
+    2025-01-21-ai-first-curriculum.md
+    2025-01-22-endorsed-communities.md
+    2025-02-07-ladderly-chat-ai.md
+    2025-02-24-behavioral-interviews.md
+    2025-02-25-ballparking.md
+    2025-03-16-benefits-of-premium.md
+    2025-03-30-debugging-tips.md
+    2025-04-05-benefits-of-mentorship.md
+    2025-04-06-code-quality-as-ham.md
+    blog-utils.ts
+    page.tsx
+src\app\blog\[slug]/
+    BlogPostContent.tsx
+    getBlogPost.ts
+    page.tsx
+    types.ts
+src\app\chat/
+    ClientChat.tsx
+    page.tsx
+src\app\checklists/
+    ChecklistsList.tsx
+    page.tsx
+src\app\checklists\my-basic-checklist/
+    ClientBasicChecklist.tsx
+    page.tsx
+src\app\checklists\my-premium-checklist/
+    ClientPremiumChecklist.tsx
+    page.tsx
 src\app\community/
     ClientCommunityPage.tsx
+    CommunityMemberListItem.tsx
     page.tsx
+    SearchProfiles.tsx
+    SearchUserInformation.tsx
 src\app\community\[userId]/
+    page.tsx
+src\app\copilot/
     page.tsx
 src\app\core/
 src\app\core\components/
     Form.tsx
     LabeledAutocompleteField.tsx
     LabeledCheckboxField.tsx
+    LabeledChipCollection.tsx
     LabeledSelectField.tsx
     LabeledTextField.tsx
+    LadderlyAnalytics.tsx
+    LadderlyPitch.tsx
     LadderlyToast.tsx
     LargeCard.tsx
     ProviderProvider.tsx
+    SmallCard.tsx
 src\app\core\components\icons/
     Home.tsx
     VerticalChevron.tsx
@@ -281,6 +404,7 @@ src\app\core\components\page-wrapper/
     TopNavSubmenu.tsx
 src\app\core\components\pricing-grid/
     PricingGrid.tsx
+    ReimbursmentLetterLink.tsx
     StripeCheckoutButton.tsx
 src\app\core\theme/
     ThemeContext.tsx
@@ -292,7 +416,12 @@ src\app\home/
     HomePageSkeleton.tsx
     LadderlyHelpsBlock.tsx
     TestimonialBlock.tsx
+src\app\mobile-menu/
+    MobileMenuContent.tsx
+    page.tsx
 src\app\perks/
+    page.tsx
+src\app\privacy-policy/
     page.tsx
 src\app\settings/
     page.tsx
@@ -302,16 +431,23 @@ src\app\settings\components/
     SettingsForm.tsx
     SettingsFormWrapper.tsx
     USStateDropdown.tsx
+src\app\settings\email-preferences/
+    page.tsx
+src\app\settings\email-preferences\components/
+    EmailPreferencesFormWrapper.tsx
 src\server/
     auth.ts
     constants.ts
     db.ts
     LadderlyMigrationAdapter.ts
+    schemas.ts
 src\server\api/
     root.ts
     trpc.ts
 src\server\api\routers/
     auth.ts
+    chat.ts
+    checklist.ts
     post.ts
     user.ts
 src\server\mailers/
@@ -323,3 +459,30 @@ src\trpc/
     query-client.ts
     react.tsx
     server.ts
+src\types/
+temp/
+tests/
+    setup.tsx
+tests\app/
+    page.test.tsx
+tests\app\api/
+tests\app\api\webhooks/
+tests\app\api\webhooks\stripe/
+    route.test.ts
+tests\app\blog/
+    page.test.tsx
+tests\app\blog\[slug]/
+    BlogPostContent.test.tsx
+    page.test.tsx
+tests\app\community/
+    ClientCommunityPage.test.tsx
+tests\app\core/
+tests\app\core\components/
+tests\app\core\components\pricing-grid/
+    PricingGrid.test.tsx
+tests\app\home/
+    HomePageContent.test.tsx
+tests\server/
+tests\server\api/
+tests\server\api\routers/
+    user.test.ts

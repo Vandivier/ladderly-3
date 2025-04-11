@@ -60,6 +60,10 @@ Why call it the `Pirate Store Method`? A few reasons:
 1. The notion of a pirate emphasizes the ending with multiple instances of the letter 'r'.
 2. It's memorable and facilitates memes!
 
+## STOARR Template
+
+[Here is a STOARR template Google Doc](https://docs.google.com/document/d/1UlznIV_aRWZLup2wt6iRklkUcld9D_K-rUXJYKbYDwo) which includes a few example stories. You can use this as a personal or language model reference to assist in formatting structured stories from raw notes.
+
 ## Story Generation
 
 Ladderly.io recommends creating a [Google Doc](https://docs.new) to track your stories.
@@ -119,12 +123,11 @@ With the early mover advantage in mind, strategic advocacy includes three prelim
 
 By repeatedly applying this loop to incrementally larger and more valuable opportunities over time, you will create a positive feedback loop and accrue a kind of social capital that enables you to perform at an increasingly higher level over time, without needing to work harder or longer. You can scale yourself to higher impact with this kind of leadership and influence snowball.
 
-## Tactical Preperation
+## Tactical Preparation
 
-After constructing a list of STOARR anecdotes, prepare for company interviews with two steps:
+After constructing [a list of STOARR anecdotes](https://docs.google.com/document/d/1UlznIV_aRWZLup2wt6iRklkUcld9D_K-rUXJYKbYDwo), prepare for company interviews with two steps:
 
 1. Research the company and obtain a list of engineering and cultural values at the company. With a bit of research or by asking current employees, you may even be able to access the official leveling matrix at the company!
-
 2. Practice the behavioral interview, specifically incorporating company-specific value into the reflection step.
 
 How should you practice? Here are five general principles:
