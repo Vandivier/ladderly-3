@@ -52,11 +52,11 @@ const PremiumBadge = () => (
     className="group relative"
   >
     <span className="inline-flex items-center justify-center rounded bg-ladderly-violet-100 p-1.5 text-ladderly-violet-500 transition-all hover:bg-ladderly-violet-500 hover:text-white">
-      <LockIcon className="h-4 w-4" />
+      <LockIcon className="size-4" />
     </span>
     <div className="invisible absolute left-0 top-full z-10 mt-2 w-64 rounded-lg bg-ladderly-violet-500 p-2 text-sm text-white opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
       <p>Premium Article. Sign up for Premium for $6 per month!</p>
-      <div className="absolute -top-1 left-3 h-2 w-2 rotate-45 bg-ladderly-violet-500"></div>
+      <div className="absolute -top-1 left-3 size-2 rotate-45 bg-ladderly-violet-500"></div>
     </div>
   </a>
 )

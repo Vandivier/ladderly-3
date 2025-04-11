@@ -22,14 +22,14 @@ function ChatMessage({ message }: { message: Message }) {
       <div className="container mx-auto max-w-3xl">
         <div className="flex gap-4">
           <div
-            className={`flex h-8 w-8 items-center justify-center rounded-full ${
+            className={`flex size-8 items-center justify-center rounded-full ${
               message.role === 'assistant' ? 'bg-blue-600' : 'bg-gray-600'
             }`}
           >
             {message.role === 'assistant' ? (
-              <Bot className="h-5 w-5 text-white" />
+              <Bot className="size-5 text-white" />
             ) : (
-              <User className="h-5 w-5 text-white" />
+              <User className="size-5 text-white" />
             )}
           </div>
           <div className="flex-1">
@@ -108,9 +108,9 @@ export const ClientChat = () => {
         {chatMutation.isPending && (
           <div className="container mx-auto max-w-3xl px-4 py-4">
             <div className="flex gap-2">
-              <div className="h-2 w-2 animate-bounce rounded-full bg-gray-500 [animation-delay:-0.3s] dark:bg-gray-400"></div>
-              <div className="h-2 w-2 animate-bounce rounded-full bg-gray-500 [animation-delay:-0.15s] dark:bg-gray-400"></div>
-              <div className="h-2 w-2 animate-bounce rounded-full bg-gray-500 dark:bg-gray-400"></div>
+              <div className="size-2 animate-bounce rounded-full bg-gray-500 [animation-delay:-0.3s] dark:bg-gray-400"></div>
+              <div className="size-2 animate-bounce rounded-full bg-gray-500 [animation-delay:-0.15s] dark:bg-gray-400"></div>
+              <div className="size-2 animate-bounce rounded-full bg-gray-500 dark:bg-gray-400"></div>
             </div>
           </div>
         )}
@@ -127,7 +127,7 @@ export const ClientChat = () => {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message here..."
               disabled={chatMutation.isPending}
-              className="flex-1 rounded-lg border border-gray-300 bg-white p-3 text-gray-800 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-offset-gray-900"
+              className="flex-1 rounded-lg border border-gray-300 bg-white p-3 text-gray-800 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-400 dark:focus:ring-offset-gray-900"
             />
             <button
               type="submit"

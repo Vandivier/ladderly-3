@@ -10,6 +10,24 @@ import { getServerAuthSession } from '~/server/auth'
 import { BlogPostContent } from './BlogPostContent'
 import { getBlogPost } from './getBlogPost'
 
+const HeroImage = ({
+  post,
+}: {
+  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>
+}) => {
+  if (!post.heroImage) return null
+
+  return (
+    <div>
+      <img
+        src={post.heroImage}
+        alt={`Hero image for ${post.title}`}
+        className="not-prose mb-4 w-full rounded-lg"
+      />
+    </div>
+  )
+}
+
 // This generates static params for all blog posts at build time
 export async function generateStaticParams() {
   // Keep this as is, it just needs file names
@@ -115,18 +133,14 @@ const TableOfContents = ({ items }: { items: TableOfContentsItem[] }) => (
   </section>
 )
 
-// Adjust PreviewBlogContent if needed based on external getBlogPost return type
-// It likely needs contentHtml now instead of content
 const PreviewBlogContent = ({
   post,
   isAuthenticated,
 }: {
-  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>> // Type from external
+  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>
   isAuthenticated: boolean
 }) => {
-  // Calculate reading time from excerpt or assume getBlogPost provides it?
-  // For now, let's use excerpt for a rough estimate.
-  const estimatedReadTime = calculateReadingTime(post.excerpt)
+  const estimatedReadTime = calculateReadingTime(post.contentHtml)
 
   return (
     <article className="prose prose-lg prose-violet mx-auto w-full max-w-3xl overflow-hidden px-4">
@@ -139,16 +153,11 @@ const PreviewBlogContent = ({
         </div>
       </header>
 
+      <HeroImage post={post} />
       {post.toc.length > 0 && <TableOfContents items={post.toc} />}
-
-      {/* Render only the excerpt HTML for preview */}
-      {/* This requires getBlogPost to also return excerptHtml or similar */}
-      {/* For simplicity, maybe just show text excerpt? */}
-      {/* Option 1: Show raw excerpt text */}
-      <p>{post.excerpt}</p>
-      {/* Option 2: If getBlogPost processed excerpt to HTML */}
-      {/* <div dangerouslySetInnerHTML={{ __html: post.excerptHtml }} /> */}
-
+      {post.excerpt ? (
+        <div dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
+      ) : null}
       <PremiumCard isAuthenticated={isAuthenticated} />
     </article>
   )
@@ -165,9 +174,7 @@ const BlogPostLayout = ({
   requireAuth?: boolean
   isAuthenticated?: boolean
 }) => {
-  // Calculate reading time from full HTML content
-  // Note: calculateReadingTime might need adjustment if it expects raw markdown
-  const estimatedReadTime = calculateReadingTime(post.contentHtml) // Use contentHtml
+  const estimatedReadTime = calculateReadingTime(post.contentHtml)
 
   return (
     <LadderlyPageWrapper
@@ -194,6 +201,7 @@ const BlogPostLayout = ({
           </div>
         </header>
 
+        <HeroImage post={post} />
         {post.toc.length > 0 && <TableOfContents items={post.toc} />}
         {children}
       </article>
@@ -224,6 +232,7 @@ export default async function BlogPost({
       <BlogPostContent
         contentHtml={post.contentHtml}
         userId={session?.user?.id}
+        toc={post.toc}
       />
     </BlogPostLayout>
   )
