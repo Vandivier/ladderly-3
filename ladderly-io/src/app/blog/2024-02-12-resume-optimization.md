@@ -60,9 +60,9 @@ The same job post may be posted to multiple job boards, but different companies 
 
 While applying on a company website is typically best in terms of the rate of conversion to interview, using a job board that has an ability to apply with your job board profile is much better than not applying at all. Job boards can also make discovery of interesting job opportunities easier for you.
 
-Take advantage of features like job alerts and filters for recency to improve your application to interview ratio. Research shows that:
+Take advantage of features like job alerts and filters for recency to improve your application to interview ratio. [Research from Paul van der Laken](https://paulvanderlaken.com/2017/10/24/talent-works-data-science-to-improve-job-application-chances/) and [others](https://chatgpt.com/share/67c647fe-fd84-800d-b43b-a10dfa893c6b) indicates that:
 
-1. Applications submitted to an open role in the first 96 hours (about four days) of a job posting were up to 8 times more likely to lead to an interview than those submitted after that window​. This is sometimes called the Golden Window.
-2. Applications submitted to an open role after 10 days have an interview probability around 1.5%. This is sometimes called a Black Hole Scenario.
+1. Applications submitted between 2-4 days after a job is posted have the highest chance of getting an interview. You have up to an 8x higher chance of getting an interview during this period, sometimes called the Golden Hours or Golden Window.
+2. Applications submitted to an open role after 10 days have an interview probability around 1.5%. This is sometimes called a Black Hole Scenario or the Resume Blackhole.
 
 These statistics are important markers but the do miss some nuance. For instance, if you encounter a hiring manager seeking applications for a role, it is probably smart to connect and apply even if the role has been up for a while. You may be getting an early signal that the role will be reposted or the applicants processed so far have not been satisfactory. Statistics on typical application rates are not representative of edge cases like these. When in doubt, go ahead an apply!
