@@ -159,7 +159,7 @@ function addIdsToHeadings(
 
   // Process each TOC item
   toc.forEach((item) => {
-    if (!item || !item.text || !item.id) return
+    if (!item?.text || !item?.id) return
 
     // Escape special regex characters in the heading text
     const escapedText = item.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -176,7 +176,13 @@ function addIdsToHeadings(
     // Otherwise, we add the id as a new attribute
     contentHtml = contentHtml.replace(
       regex,
-      (match, openTag, attrs, text, closeTag) => {
+      (
+        match: string,
+        openTag: string,
+        attrs: string,
+        text: string,
+        closeTag: string,
+      ): string => {
         const hasId = attrs.includes('id=')
 
         if (hasId) {
@@ -235,12 +241,18 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       .use(addTargetBlankToLinks)
       .use(rehypeStringify)
 
-    const file = await processor.process(content as string)
+    const file = await processor.process(content)
     let contentHtml = file.toString()
 
     // Get the first paragraph for excerpt
     const paragraphs = content.split(/\n\s*\n/)
-    const excerptFile = await processor.process(paragraphs[0] as string)
+    const firstParagraph = paragraphs?.[0] ?? ''
+
+    if (!firstParagraph) {
+      throw new Error('No first paragraph found for excerpt')
+    }
+
+    const excerptFile = await processor.process(firstParagraph)
     const excerpt = excerptFile.toString()
 
     // Add IDs to headings after HTML generation - wrapped in try-catch to handle any errors
