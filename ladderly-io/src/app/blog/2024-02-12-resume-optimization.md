@@ -24,7 +24,7 @@ If you decide to engage in an A/B test, Ladderly.io suggests applying to a minim
 There are a variety of ATS tools on the market of varying quality, but [Ladderly.io research shows a consistent bar of resume performance](https://www.ladderly.io/blog/2024-08-04-no-cover-letters#an-original-contribution-of-data) with a variety of resumes that meet the following criteria:
 
 1. [enhancv](https://enhancv.com/) ATS Parse Rate at 100%. Note that their ATS Parse Rate is a specific subscore which is not the same as their overall resume score.
-2. An overall resume score of 70+ on [Resume Worded](resumeworded.com)
+2. An overall resume score of 70+ on [Resume Worded](https://resumeworded.com/)
 
 You may find that further changes to your resume make it easier to upload to particular websites, but such changes will generally be a matter of saving you time on particular websites, rather than a general improvement to your job search performance.
 
@@ -52,7 +52,7 @@ It's important to ensure that you have a high-quality LinkedIn and GitHub before
 
 LinkedIn connection count has a significant impact on your job search performance. Having more than 500 connections is associated with much stronger job search performance. LinkedIn Premium is also a powerful tool. Premium members are [2.6x more likely to get hired](https://premium.linkedin.com/career-features) on LinkedIn.
 
-[Resume Worded](resumeworded.com) has an automated LinkedIn profile review tool. This tool can currently check text in your profile but it cannot analyze your profile picture and other media. It also does not analyze your posts or comments. Having an overall score over 50 does not guarantee a high-quality profile, but it is a useful indicator to protect against a definitely low-quality profile.
+[Resume Worded](https://resumeworded.com/) has an automated LinkedIn profile review tool. This tool can currently check text in your profile but it cannot analyze your profile picture and other media. It also does not analyze your posts or comments. Having an overall score over 50 does not guarantee a high-quality profile, but it is a useful indicator to protect against a definitely low-quality profile.
 
 ## Indeed and Other Job Boards
 
