@@ -10,6 +10,24 @@ import { getServerAuthSession } from '~/server/auth'
 import { BlogPostContent } from './BlogPostContent'
 import { getBlogPost } from './getBlogPost'
 
+const HeroImage = ({
+  post,
+}: {
+  post: NonNullable<Awaited<ReturnType<typeof getBlogPost>>>
+}) => {
+  if (!post.heroImage) return null
+
+  return (
+    <div>
+      <img
+        src={post.heroImage}
+        alt={`Hero image for ${post.title}`}
+        className="not-prose mb-4 w-full rounded-lg"
+      />
+    </div>
+  )
+}
+
 // This generates static params for all blog posts at build time
 export async function generateStaticParams() {
   // Keep this as is, it just needs file names
@@ -135,16 +153,7 @@ const PreviewBlogContent = ({
         </div>
       </header>
 
-      {post.heroImage && (
-        <div>
-          <img
-            src={post.heroImage}
-            alt={`Hero image for ${post.title}`}
-            className="not-prose w-full rounded-lg"
-          />
-        </div>
-      )}
-
+      <HeroImage post={post} />
       {post.toc.length > 0 && <TableOfContents items={post.toc} />}
       {post.excerpt ? (
         <div dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
@@ -192,16 +201,7 @@ const BlogPostLayout = ({
           </div>
         </header>
 
-        {post.heroImage && (
-          <div>
-            <img
-              src={post.heroImage}
-              alt={`Hero image for ${post.title}`}
-              className="not-prose w-full rounded-lg"
-            />
-          </div>
-        )}
-
+        <HeroImage post={post} />
         {post.toc.length > 0 && <TableOfContents items={post.toc} />}
         {children}
       </article>
