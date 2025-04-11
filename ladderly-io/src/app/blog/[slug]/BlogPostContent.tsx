@@ -18,6 +18,13 @@ export interface BlogPostContentProps {
 
 const PREMIUM_SIGNUP_LINK = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
 
+// Helper function to properly escape ID selectors for querySelector
+const escapeSelector = (id: string) => {
+  // CSS selectors cannot start with a digit, a hyphen followed by a digit, or a hyphen followed by a hyphen
+  // We need to escape these characters
+  return id.replace(/^(\d)/, '\\3$1 ').replace(/([^\w\-])/g, '\\$1')
+}
+
 // Simplified component to render pre-processed HTML
 export function BlogPostContent({
   contentHtml,
@@ -59,9 +66,15 @@ export function BlogPostContent({
     // Add IDs to headings based on TOC
     if (toc.length > 0) {
       toc.forEach((item) => {
-        const heading = contentRef.current!.querySelector(`#${item.id}`)
-        if (heading) {
-          heading.setAttribute('id', item.id)
+        try {
+          // Use the escape helper to properly format the ID selector
+          const escapedId = escapeSelector(item.id)
+          const heading = contentRef.current!.querySelector(`#${escapedId}`)
+          if (heading) {
+            heading.setAttribute('id', item.id)
+          }
+        } catch (error) {
+          console.error(`Error finding element with ID ${item.id}:`, error)
         }
       })
     }
