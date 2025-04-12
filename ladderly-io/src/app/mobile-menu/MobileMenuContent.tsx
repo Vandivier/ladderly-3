@@ -3,19 +3,16 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { Suspense } from 'react'
-import { IconVerticalChevron } from '~/app/core/components/icons/VerticalChevron'
 import { TopNavFlexContainer } from '~/app/core/components/page-wrapper/TopNav'
 import { TopNavLeft } from '~/app/core/components/page-wrapper/TopNavLeft'
-import {
-  CommunityMenuItems,
-  TOP_NAV_STANDARD_CLASSES,
-} from '~/app/core/components/page-wrapper/TopNavSubmenu'
+import { TOP_NAV_STANDARD_CLASSES } from '~/app/core/components/page-wrapper/TopNavSubmenu'
 import { ThemeProvider } from '~/app/core/theme/ThemeContext'
 import { type LadderlySession } from '~/server/auth'
 import { LadderlyAnalytics } from '../core/components/LadderlyAnalytics'
 import {
   MOBILE_LINK_CLASSES,
   MobileAccountDropdown,
+  MobileCommunityDropdown,
 } from './MobileMenuDropdowns'
 
 const AuthenticatedMenuItems = ({ session }: { session: LadderlySession }) => {
@@ -113,26 +110,10 @@ export function MobileMenuContent({
                 Blog
               </Link>
             </li>
-            <li>
-              <button
-                onClick={toggleCommunitySubmenu}
-                className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
-                  isCommunitySubmenuOpen
-                    ? 'border border-gray-200 bg-gray-100'
-                    : ''
-                }`}
-              >
-                Community
-                <IconVerticalChevron isPointingUp={isCommunitySubmenuOpen} />
-              </button>
-              {isCommunitySubmenuOpen && (
-                <ul>
-                  <CommunityMenuItems
-                    linkClassName={MOBILE_SUBMENU_ITEM_CLASSES}
-                  />
-                </ul>
-              )}
-            </li>
+            <MobileCommunityDropdown
+              toggleCommunitySubmenu={toggleCommunitySubmenu}
+              isCommunitySubmenuOpen={isCommunitySubmenuOpen}
+            />
           </ul>
         </nav>
       </div>

@@ -2,6 +2,7 @@ import { LadderlySession } from '~/server/auth'
 import { IconVerticalChevron } from '../core/components/icons/VerticalChevron'
 import {
   AccountMenuItems,
+  CommunityMenuItems,
   MENU_ITEM_STANDARD_CLASSES,
 } from '../core/components/page-wrapper/TopNavSubmenu'
 
@@ -36,6 +37,31 @@ export const MobileAccountDropdown = ({
           userId={session.user?.id ?? ''}
           linkClassName={MOBILE_SUBMENU_ITEM_CLASSES}
         />
+      </ul>
+    )}
+  </li>
+)
+
+export const MobileCommunityDropdown = ({
+  toggleCommunitySubmenu,
+  isCommunitySubmenuOpen,
+}: {
+  toggleCommunitySubmenu: () => void
+  isCommunitySubmenuOpen: boolean
+}) => (
+  <li>
+    <button
+      onClick={toggleCommunitySubmenu}
+      className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
+        isCommunitySubmenuOpen ? 'border border-gray-200 bg-gray-100' : ''
+      }`}
+    >
+      Community
+      <IconVerticalChevron isPointingUp={isCommunitySubmenuOpen} />
+    </button>
+    {isCommunitySubmenuOpen && (
+      <ul>
+        <CommunityMenuItems linkClassName={MOBILE_SUBMENU_ITEM_CLASSES} />
       </ul>
     )}
   </li>
