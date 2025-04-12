@@ -202,10 +202,10 @@ const AddJobSearchStep: React.FC<AddJobSearchStepProps> = ({
           />
         </div>
 
-        <div className="mb-4 flex items-center space-x-4">
+        <div className="mb-4 flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
           <div>
             <label className="mb-1 block text-sm font-medium">Result</label>
-            <div className="flex space-x-2">
+            <div className="flex flex-wrap gap-2">
               <button
                 type="button"
                 onClick={() => setIsPassed(true)}
@@ -408,8 +408,8 @@ export const JobPostDetails = ({ id }: { id: number }) => {
       </div>
 
       <div className="mb-6 rounded-md border border-gray-200 p-4">
-        <div className="grid grid-cols-2 gap-x-4 gap-y-6">
-          {/* First row - Status and dates */}
+        <div className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+          {/* First row - Status */}
           <div>
             <div className="mb-2 flex items-center space-x-2">
               <span className="text-sm text-gray-500">Status</span>
@@ -433,11 +433,12 @@ export const JobPostDetails = ({ id }: { id: number }) => {
             </select>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          {/* Dates section */}
+          <div className="xs:grid-cols-2 grid grid-cols-1 gap-4">
             {jobPost.initialApplicationDate && (
               <div>
                 <p className="mb-1 text-sm text-gray-500">Applied Date</p>
-                <p className="font-medium">
+                <p className="truncate font-medium">
                   {new Date(
                     jobPost.initialApplicationDate,
                   ).toLocaleDateString()}
@@ -448,7 +449,7 @@ export const JobPostDetails = ({ id }: { id: number }) => {
             {jobPost.lastActionDate && (
               <div>
                 <p className="mb-1 text-sm text-gray-500">Last Action</p>
-                <p className="font-medium">
+                <p className="truncate font-medium">
                   {new Date(jobPost.lastActionDate).toLocaleDateString()}
                 </p>
               </div>
@@ -468,48 +469,54 @@ export const JobPostDetails = ({ id }: { id: number }) => {
             </p>
           </div>
 
-          {/* Additional information */}
-          {jobPost.resumeVersion && (
-            <div>
-              <p className="mb-1 text-sm text-gray-500">Resume Version</p>
-              <p className="font-medium">{jobPost.resumeVersion}</p>
-            </div>
-          )}
+          {/* Additional information - Stacked with flex-wrap by default, 2 columns on larger screens */}
+          <div className="col-span-1 sm:col-span-2">
+            <div className="-mx-2 flex flex-wrap">
+              {jobPost.resumeVersion && (
+                <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
+                  <p className="mb-1 text-sm text-gray-500">Resume Version</p>
+                  <p className="truncate font-medium">
+                    {jobPost.resumeVersion}
+                  </p>
+                </div>
+              )}
 
-          {jobPost.jobPostUrl && (
-            <div>
-              <p className="mb-1 text-sm text-gray-500">Job Post URL</p>
-              <a
-                href={jobPost.jobPostUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-blue-500 hover:underline"
-              >
-                View Job Post
-              </a>
-            </div>
-          )}
+              {jobPost.jobPostUrl && (
+                <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
+                  <p className="mb-1 text-sm text-gray-500">Job Post URL</p>
+                  <a
+                    href={jobPost.jobPostUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block truncate font-medium text-blue-500 hover:underline"
+                  >
+                    View Job Post
+                  </a>
+                </div>
+              )}
 
-          {jobPost.contactName && (
-            <div>
-              <p className="mb-1 text-sm text-gray-500">Contact</p>
-              <p className="font-medium">{jobPost.contactName}</p>
-            </div>
-          )}
+              {jobPost.contactName && (
+                <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
+                  <p className="mb-1 text-sm text-gray-500">Contact</p>
+                  <p className="truncate font-medium">{jobPost.contactName}</p>
+                </div>
+              )}
 
-          {jobPost.contactUrl && (
-            <div>
-              <p className="mb-1 text-sm text-gray-500">Contact URL</p>
-              <a
-                href={jobPost.contactUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-blue-500 hover:underline"
-              >
-                View Contact
-              </a>
+              {jobPost.contactUrl && (
+                <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
+                  <p className="mb-1 text-sm text-gray-500">Contact URL</p>
+                  <a
+                    href={jobPost.contactUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block truncate font-medium text-blue-500 hover:underline"
+                  >
+                    View Contact
+                  </a>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
 
         {jobPost.notes && (
