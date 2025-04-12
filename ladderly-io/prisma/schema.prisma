@@ -53,6 +53,7 @@ model User {
 
   accounts           Account[]
   authoredVotables   Votable[]           @relation("AuthoredVotables")
+  jobSearches        JobSearch[]
   quizResults        QuizResult[]
   role               RoleEnum            @default(USER)
   sessions           Session[]
@@ -381,4 +382,104 @@ model Lead {
   user                        User?    @relation(fields: [userId], references: [id])
 
   @@index([userId])
+}
+
+// Job Search Models
+enum JobApplicationStatus {
+  IN_OUTREACH
+  APPLIED
+  IN_INTERVIEW
+  REJECTED
+  OFFER_RECEIVED
+  TIMED_OUT
+  WITHDRAWN
+}
+
+model JobSearch {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+  isActive  Boolean   @default(true)
+  notes     String?
+
+  // Relations
+  user     User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
+  jobPosts JobPostForCandidate[]
+}
+
+model JobPostForCandidate {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Company info
+  company               String
+  jobTitle              String?
+  jobPostUrl            String?
+  jobBoardOrChannelName String?
+
+  // Application info
+  resumeVersion          String?
+  initialOutreachDate    DateTime?
+  initialApplicationDate DateTime?
+  lastActionDate         DateTime?
+  status                 JobApplicationStatus
+
+  // Contact info
+  contactName String?
+  contactUrl  String?
+  hasReferral Boolean
+
+  // Outreach tracking
+  isInboundOpportunity Boolean
+
+  // Compensation
+  baseSalary        Int?
+  totalCompensation Int?
+
+  // Misc
+  notes String?
+
+  // Relations
+  jobSearch      JobSearch       @relation(fields: [jobSearchId], references: [id], onDelete: Cascade)
+  jobSearchId    Int
+  jobSearchSteps JobSearchStep[]
+}
+
+enum JobSearchStepKind {
+  BACKGROUND_OR_REFERENCE_CHECK
+  BEHAVIORAL_INTERVIEW
+  HIRING_MANAGER_CALL
+  INITIAL_APPLICATION
+  MULTI_ROUND_MULTI_KIND // eg a final loop
+  NONTECHNICAL_CONVERSATION
+  OTHER
+  OUTBOUND_MESSAGE
+  PHONE_SCREEN
+  SYSTEM_DESIGN
+  TAKE_HOME_ASSIGNMENT
+  TECHNICAL_CODE_SCREEN_AUTOMATED
+  TECHNICAL_CODE_SCREEN_MANUAL
+  TECHNICAL_CONVERSATION
+  TECHNICAL_OTHER
+}
+
+model JobSearchStep {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  date       DateTime
+  kind       JobSearchStepKind
+  notes      String?
+  isPassed   Boolean?
+  isInPerson Boolean
+
+  // Relations
+  jobPost   JobPostForCandidate @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
+  jobPostId Int
 }
