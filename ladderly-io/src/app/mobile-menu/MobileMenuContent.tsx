@@ -13,6 +13,7 @@ import {
   MOBILE_LINK_CLASSES,
   MobileAccountDropdown,
   MobileCommunityDropdown,
+  MobileGrowDropdown,
 } from './MobileMenuDropdowns'
 
 const AuthenticatedMenuItems = ({ session }: { session: LadderlySession }) => {
@@ -66,6 +67,7 @@ export function MobileMenuContent({
   const router = useRouter()
   const [isCommunitySubmenuOpen, setIsCommunitySubmenuOpen] =
     React.useState(false)
+  const [isGrowSubmenuOpen, setIsGrowSubmenuOpen] = React.useState(false)
 
   const handleClose = () => {
     router.back()
@@ -73,6 +75,10 @@ export function MobileMenuContent({
 
   const toggleCommunitySubmenu = () => {
     setIsCommunitySubmenuOpen(!isCommunitySubmenuOpen)
+  }
+
+  const toggleGrowSubmenu = () => {
+    setIsGrowSubmenuOpen(!isGrowSubmenuOpen)
   }
 
   return (
@@ -105,11 +111,10 @@ export function MobileMenuContent({
                 Perks
               </Link>
             </li>
-            <li>
-              <Link href="/blog" className={MOBILE_LINK_CLASSES}>
-                Blog
-              </Link>
-            </li>
+            <MobileGrowDropdown
+              toggleGrowSubmenu={toggleGrowSubmenu}
+              isGrowSubmenuOpen={isGrowSubmenuOpen}
+            />
             <MobileCommunityDropdown
               toggleCommunitySubmenu={toggleCommunitySubmenu}
               isCommunitySubmenuOpen={isCommunitySubmenuOpen}

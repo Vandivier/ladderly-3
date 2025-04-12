@@ -16,7 +16,7 @@ const LadderlyCopilotPage = () => {
         <iframe
           src="https://www.chatbase.co/chatbot-iframe/NnbDY2pCxZROnVKZwpjaW"
           width="100%"
-          style={{ height: '100%', minHeight: '700px' }}
+          style={{ height: '100%', minHeight: '700px', borderRadius: '8px' }}
         ></iframe>
       </div>
     </LadderlyPageWrapper>

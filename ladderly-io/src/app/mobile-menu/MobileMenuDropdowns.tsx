@@ -3,6 +3,7 @@ import { IconVerticalChevron } from '../core/components/icons/VerticalChevron'
 import {
   AccountMenuItems,
   CommunityMenuItems,
+  GrowMenuItems,
   MENU_ITEM_STANDARD_CLASSES,
 } from '../core/components/page-wrapper/TopNavSubmenu'
 
@@ -62,6 +63,31 @@ export const MobileCommunityDropdown = ({
     {isCommunitySubmenuOpen && (
       <ul>
         <CommunityMenuItems linkClassName={MOBILE_SUBMENU_ITEM_CLASSES} />
+      </ul>
+    )}
+  </li>
+)
+
+export const MobileGrowDropdown = ({
+  toggleGrowSubmenu,
+  isGrowSubmenuOpen,
+}: {
+  toggleGrowSubmenu: () => void
+  isGrowSubmenuOpen: boolean
+}) => (
+  <li>
+    <button
+      onClick={toggleGrowSubmenu}
+      className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
+        isGrowSubmenuOpen ? 'border border-gray-200 bg-gray-100' : ''
+      }`}
+    >
+      Grow
+      <IconVerticalChevron isPointingUp={isGrowSubmenuOpen} />
+    </button>
+    {isGrowSubmenuOpen && (
+      <ul>
+        <GrowMenuItems linkClassName={MOBILE_SUBMENU_ITEM_CLASSES} />
       </ul>
     )}
   </li>
