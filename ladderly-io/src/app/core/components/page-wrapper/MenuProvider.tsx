@@ -29,3 +29,18 @@ export const MenuProvider: React.FC<{ children: React.ReactNode }> = ({
     </MenuContext.Provider>
   )
 }
+
+export const MenuItemsWrapper = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => (
+  <div
+    className="ml-auto flex flex-wrap py-1"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="options-menu"
+  >
+    {children}
+  </div>
+)

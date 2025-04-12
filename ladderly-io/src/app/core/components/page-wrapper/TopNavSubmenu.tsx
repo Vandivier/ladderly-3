@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 
-import { MenuContext } from './MenuProvider'
+import { MenuContext, MenuItemsWrapper } from './MenuProvider'
 
 export const TOP_NAV_STANDARD_CLASSES = 'ml-6 font-bold'
 export const MENU_ITEM_STANDARD_CLASSES =
@@ -30,17 +30,6 @@ export const AccountMenuItems = ({
     </MenuItemsWrapper>
   ) : null
 
-const MenuItemsWrapper = ({ children }: { children: React.ReactNode }) => (
-  <div
-    className="ml-auto flex flex-wrap py-1"
-    role="menu"
-    aria-orientation="vertical"
-    aria-labelledby="options-menu"
-  >
-    {children}
-  </div>
-)
-
 export const CommunityMenuItems = ({
   linkClassName = DESKTOP_MENU_ITEM_STANDARD_CLASSES,
 }: {
@@ -56,6 +45,21 @@ export const CommunityMenuItems = ({
       target="_blank"
     >
       Discord
+    </Link>
+  </MenuItemsWrapper>
+)
+
+export const GrowMenuItems = ({
+  linkClassName = DESKTOP_MENU_ITEM_STANDARD_CLASSES,
+}: {
+  linkClassName?: string
+}) => (
+  <MenuItemsWrapper>
+    <Link href="/blog" className={linkClassName}>
+      Blog
+    </Link>
+    <Link href="/copilot" className={linkClassName}>
+      Copilot
     </Link>
   </MenuItemsWrapper>
 )

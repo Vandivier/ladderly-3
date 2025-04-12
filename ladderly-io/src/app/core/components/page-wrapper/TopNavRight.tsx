@@ -8,8 +8,8 @@ import { MenuContext } from './MenuProvider'
 import {
   AccountMenuItems,
   CommunityMenuItems,
+  GrowMenuItems,
   TOP_NAV_STANDARD_CLASSES,
-  // TopHonorsMenuItems,
 } from './TopNavSubmenu'
 
 const TOP_NAV_RIGHT_SECTION_CLASSES = 'ml-auto flex items-center space-x-6'
@@ -35,15 +35,6 @@ export const TopNavRight = () => {
     }
   }, [searchParams, currentUserQuery, router])
 
-  const handleCommunityClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    if (openMenuName === 'community') {
-      setMenu?.(null, '')
-    } else {
-      setMenu?.(<CommunityMenuItems />, 'community')
-    }
-  }
-
   const handleAccountClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (openMenuName === 'account') {
@@ -56,33 +47,36 @@ export const TopNavRight = () => {
     }
   }
 
-  // const handleLeaderboardClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   if (openMenuName === "leaderboard") {
-  //     setMenu(null, "");
-  //   } else {
-  //     setMenu(<TopHonorsMenuItems />, "leaderboard");
-  //   }
-  // };
+  const handleCommunityClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    if (openMenuName === 'community') {
+      setMenu?.(null, '')
+    } else {
+      setMenu?.(<CommunityMenuItems />, 'community')
+    }
+  }
+
+  const handleGrowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    if (openMenuName === 'grow') {
+      setMenu?.(null, '')
+    } else {
+      setMenu?.(<GrowMenuItems />, 'grow')
+    }
+  }
 
   return (
     <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
-      {/* <button
-        onClick={handleLeaderboardClick}
-        className={TOP_NAV_STANDARD_CLASSES}
-      >
-        Top Honors Leaderboard
-        <IconVerticalChevron isPointingUp={openMenuName === "leaderboard"} />
-      </button> */}
       <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
         Perks
       </Link>
       <Link href="/chat" className={TOP_NAV_STANDARD_CLASSES}>
         Chat
       </Link>
-      <Link href="/blog" className={TOP_NAV_STANDARD_CLASSES}>
-        Blog
-      </Link>
+      <button onClick={handleGrowClick} className={TOP_NAV_STANDARD_CLASSES}>
+        Grow
+        <IconVerticalChevron isPointingUp={openMenuName === 'grow'} />
+      </button>
       <button
         onClick={handleCommunityClick}
         className={TOP_NAV_STANDARD_CLASSES}
