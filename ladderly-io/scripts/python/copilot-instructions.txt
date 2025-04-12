@@ -417,7 +417,17 @@ src\app\home/
     LadderlyHelpsBlock.tsx
     TestimonialBlock.tsx
 src\app\job-search/
+    CreateJobSearchModal.tsx
+    JobSearchActiveSpan.tsx
     JobSearchList.tsx
+    page.tsx
+src\app\job-search\job-post/
+src\app\job-search\job-post\[id]/
+    JobPostDetails.tsx
+    page.tsx
+src\app\job-search\[id]/
+    AddJobApplicationModal.tsx
+    JobSearchDetails.tsx
     page.tsx
 src\app\mobile-menu/
     MobileMenuContent.tsx
@@ -452,6 +462,7 @@ src\server\api\routers/
     auth.ts
     chat.ts
     checklist.ts
+    jobSearch.ts
     post.ts
     user.ts
 src\server\mailers/
