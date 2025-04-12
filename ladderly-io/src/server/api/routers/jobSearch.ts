@@ -129,7 +129,7 @@ export const jobSearchRouter = createTRPCRouter({
     .input(JobPostForCandidateCreateSchema)
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
-      const { jobSearchId, ...jobPostData } = input
+      const { jobSearchId, ...jobData } = input
 
       // Check if the job search exists and belongs to the user
       const jobSearch = await ctx.db.jobSearch.findUnique({
@@ -150,25 +150,23 @@ export const jobSearchRouter = createTRPCRouter({
         })
       }
 
-      // Create the job post
+      // Create the job post with only the fields that exist in the schema
       const jobPost = await ctx.db.jobPostForCandidate.create({
         data: {
-          company: jobPostData.company,
-          jobTitle: jobPostData.jobTitle,
-          jobPostUrl: jobPostData.jobPostUrl,
-          resumeVersion: jobPostData.resumeVersion,
-          initialOutreachDate: jobPostData.initialOutreachDate,
-          initialApplicationDate: jobPostData.initialApplicationDate,
-          lastActionDate: jobPostData.lastActionDate,
-          contactName: jobPostData.contactName,
-          contactUrl: jobPostData.contactUrl,
-          hasReferral: jobPostData.hasReferral,
-          isInboundOpportunity: jobPostData.isInboundOpportunity,
-          notes: jobPostData.notes,
+          company: jobData.company,
+          jobTitle: jobData.jobTitle,
+          jobPostUrl: jobData.jobPostUrl,
+          resumeVersion: jobData.resumeVersion,
+          initialOutreachDate: jobData.initialOutreachDate,
+          initialApplicationDate: jobData.initialApplicationDate,
+          lastActionDate: jobData.lastActionDate,
+          contactName: jobData.contactName,
+          contactUrl: jobData.contactUrl,
+          hasReferral: jobData.hasReferral,
+          isInboundOpportunity: jobData.isInboundOpportunity,
+          notes: jobData.notes,
           jobSearchId,
           status: JobApplicationStatus.APPLIED,
-          hasEmailOutreachAttempted: false,
-          hasEmailReply: false,
         },
       })
 

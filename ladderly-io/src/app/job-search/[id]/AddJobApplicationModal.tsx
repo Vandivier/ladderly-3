@@ -122,7 +122,7 @@ export const AddJobApplicationModal = ({
           </div>
 
           <LabeledTextField
-            name="jobUrl"
+            name="jobPostUrl"
             label="Job Post URL"
             placeholder="https://company.com/jobs/123"
             outerProps={{ className: 'mt-4' }}
