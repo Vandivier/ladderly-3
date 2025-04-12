@@ -253,4 +253,48 @@ export const jobSearchRouter = createTRPCRouter({
 
       return { success: true }
     }),
+
+  // Delete a job post
+  deleteJobPost: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id)
+
+      // Find the job post and verify ownership through the job search
+      const jobPost = await ctx.db.jobPostForCandidate.findUnique({
+        where: { id: input.id },
+        include: {
+          jobSearch: true,
+        },
+      })
+
+      if (!jobPost) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Job post not found',
+        })
+      }
+
+      // Check if the job search belongs to the current user
+      if (jobPost.jobSearch.userId !== userId) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'You do not have permission to delete this job post',
+        })
+      }
+
+      // Delete any job search steps first, then the job post
+      await ctx.db.$transaction([
+        ctx.db.jobSearchStep.deleteMany({
+          where: {
+            jobPostId: input.id,
+          },
+        }),
+        ctx.db.jobPostForCandidate.delete({
+          where: { id: input.id },
+        }),
+      ])
+
+      return { success: true }
+    }),
 })

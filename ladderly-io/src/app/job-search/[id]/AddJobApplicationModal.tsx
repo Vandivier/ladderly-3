@@ -34,7 +34,15 @@ export const AddJobApplicationModal = ({
 }: AddJobApplicationModalProps) => {
   // Create job application mutation
   const { mutate: createJobApplication } =
-    api.jobSearch.createJobPostForCandidate.useMutation()
+    api.jobSearch.createJobPostForCandidate.useMutation({
+      onSuccess: () => {
+        onSuccess()
+        onClose()
+      },
+      onError: (error) => {
+        console.error('Failed to create job application:', error)
+      },
+    })
 
   // Initial form values
   const initialValues: JobApplicationFormValues = {
@@ -56,15 +64,13 @@ export const AddJobApplicationModal = ({
     try {
       const currentDate = new Date()
 
-      await createJobApplication({
+      createJobApplication({
         jobSearchId,
         ...values,
         initialApplicationDate: currentDate,
         lastActionDate: currentDate,
       })
 
-      onSuccess()
-      onClose()
       return
     } catch (error: any) {
       return {
