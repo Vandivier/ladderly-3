@@ -1,11 +1,11 @@
 // src/app/job-search/ClientJobSearchPage.tsx
 
-'use client'
+// 'use client'
 
 import React from 'react'
 // import { api } from '~/trpc/react'
 
-export const ClientJobSearchPage = () => {
+export const JobSearchList = () => {
   //   const { data, isLoading } = api.jobSearch.getJobSearches.useQuery({})
 
   //   if (isLoading) {

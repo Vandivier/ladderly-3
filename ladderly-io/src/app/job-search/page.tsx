@@ -1,11 +1,9 @@
 // src/app/community/page.tsx
 
-import { Info } from 'lucide-react'
-import Link from 'next/link'
 import { Suspense } from 'react'
 import { SmallCard } from '~/app/core/components/SmallCard'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
-import { ClientJobSearchPage } from './ClientJobSearchPage'
+import { JobSearchList } from './JobSearchList'
 
 export const metadata = {
   title: 'Job Search',
@@ -23,7 +21,7 @@ export default function JobSearchPage() {
         </div>
 
         <Suspense fallback="Loading...">
-          <ClientJobSearchPage />
+          <JobSearchList />
         </Suspense>
       </SmallCard>
     </LadderlyPageWrapper>
