@@ -416,8 +416,12 @@ src\app\home/
     HomePageSkeleton.tsx
     LadderlyHelpsBlock.tsx
     TestimonialBlock.tsx
+src\app\job-search/
+    JobSearchList.tsx
+    page.tsx
 src\app\mobile-menu/
     MobileMenuContent.tsx
+    MobileMenuDropdowns.tsx
     page.tsx
 src\app\perks/
     page.tsx
