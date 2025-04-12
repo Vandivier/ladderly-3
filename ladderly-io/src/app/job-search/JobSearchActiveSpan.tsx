@@ -1,5 +1,13 @@
-export const JobSearchActiveSpan = ({ isActive }: { isActive: boolean }) => (
-  <span className={`font-bold ${isActive ? 'text-green-600' : 'text-red-600'}`}>
-    {isActive ? 'Active' : 'Inactive'}
-  </span>
-)
+interface JobSearchActiveSpanProps {
+  isActive: boolean
+}
+
+export const JobSearchActiveSpan = ({ isActive }: JobSearchActiveSpanProps) => {
+  return (
+    <span
+      className={`font-medium ${isActive ? 'text-green-500' : 'text-red-500'}`}
+    >
+      {isActive ? 'Active' : 'Inactive'}
+    </span>
+  )
+}

@@ -1,3 +1,4 @@
+import { JobApplicationStatus } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
@@ -14,6 +15,22 @@ const JobSearchCreateSchema = JobSearchSchema
 
 const JobSearchUpdateSchema = JobSearchSchema.partial().extend({
   id: z.number(),
+})
+
+const JobPostForCandidateCreateSchema = z.object({
+  jobSearchId: z.number(),
+  company: z.string().min(1, 'Company name is required'),
+  jobTitle: z.string().min(1, 'Job title is required'),
+  jobPostUrl: z.string().optional(),
+  resumeVersion: z.string().optional(),
+  initialOutreachDate: z.date().optional(),
+  initialApplicationDate: z.date().optional(),
+  lastActionDate: z.date().optional(),
+  contactName: z.string().optional(),
+  contactUrl: z.string().optional(),
+  hasReferral: z.boolean().default(false),
+  isInboundOpportunity: z.boolean().default(false),
+  notes: z.string().optional(),
 })
 
 export const jobSearchRouter = createTRPCRouter({
@@ -105,6 +122,57 @@ export const jobSearchRouter = createTRPCRouter({
       })
 
       return jobSearch
+    }),
+
+  // Create a new job post for candidate
+  createJobPostForCandidate: protectedProcedure
+    .input(JobPostForCandidateCreateSchema)
+    .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id)
+      const { jobSearchId, ...jobPostData } = input
+
+      // Check if the job search exists and belongs to the user
+      const jobSearch = await ctx.db.jobSearch.findUnique({
+        where: { id: jobSearchId },
+      })
+
+      if (!jobSearch) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Job search not found',
+        })
+      }
+
+      if (jobSearch.userId !== userId) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'You do not have permission to add to this job search',
+        })
+      }
+
+      // Create the job post
+      const jobPost = await ctx.db.jobPostForCandidate.create({
+        data: {
+          company: jobPostData.company,
+          jobTitle: jobPostData.jobTitle,
+          jobPostUrl: jobPostData.jobPostUrl,
+          resumeVersion: jobPostData.resumeVersion,
+          initialOutreachDate: jobPostData.initialOutreachDate,
+          initialApplicationDate: jobPostData.initialApplicationDate,
+          lastActionDate: jobPostData.lastActionDate,
+          contactName: jobPostData.contactName,
+          contactUrl: jobPostData.contactUrl,
+          hasReferral: jobPostData.hasReferral,
+          isInboundOpportunity: jobPostData.isInboundOpportunity,
+          notes: jobPostData.notes,
+          jobSearchId,
+          status: JobApplicationStatus.APPLIED,
+          hasEmailOutreachAttempted: false,
+          hasEmailReply: false,
+        },
+      })
+
+      return jobPost
     }),
 
   // Update an existing job search

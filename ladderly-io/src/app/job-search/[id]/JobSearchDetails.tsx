@@ -1,16 +1,20 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
 import { JobSearchActiveSpan } from '../JobSearchActiveSpan'
+import { AddJobApplicationModal } from './AddJobApplicationModal'
 
 export const JobSearchDetails = ({ id }: { id: number }) => {
   const router = useRouter()
+  const [showAddApplicationModal, setShowAddApplicationModal] = useState(false)
+
   const {
     data: jobSearch,
     isLoading,
     error,
+    refetch,
   } = api.jobSearch.getJobSearch.useQuery({ id })
 
   if (isLoading) {
@@ -93,9 +97,7 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
             Applications ({jobSearch.jobPosts.length})
           </h2>
           <button
-            onClick={() => {
-              /* TODO: Add job application */
-            }}
+            onClick={() => setShowAddApplicationModal(true)}
             className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
           >
             Add Application
@@ -133,6 +135,17 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
           </div>
         )}
       </div>
+
+      {showAddApplicationModal && (
+        <AddJobApplicationModal
+          jobSearchId={id}
+          onClose={() => setShowAddApplicationModal(false)}
+          onSuccess={() => {
+            refetch()
+            setShowAddApplicationModal(false)
+          }}
+        />
+      )}
     </div>
   )
 }
