@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
 import { JobSearchActiveSpan } from '../JobSearchActiveSpan'
 import { AddJobApplicationModal } from './AddJobApplicationModal'
+import Link from 'next/link'
 
 export const JobSearchDetails = ({ id }: { id: number }) => {
   const router = useRouter()
@@ -136,11 +137,16 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
                 className="rounded-md border border-gray-200 p-4 hover:bg-gray-50"
               >
                 <div className="flex items-center justify-between">
-                  <div className="max-w-[60%] flex-1">
+                  <div className="max-w-[50%] flex-1">
                     <div>
-                      <h3 className="break-words font-medium">
-                        {jobPost.jobTitle}
-                      </h3>
+                      <Link
+                        href={`/job-search/job-post/${jobPost.id}`}
+                        className="hover:text-blue-600"
+                      >
+                        <h3 className="break-words font-medium">
+                          {jobPost.jobTitle}
+                        </h3>
+                      </Link>
                       <p className="text-sm text-gray-600">{jobPost.company}</p>
                     </div>
                     <div className="mt-1 text-xs text-gray-500">
@@ -152,6 +158,26 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
                     <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
                       {jobPost.status}
                     </span>
+                    <Link
+                      href={`/job-search/job-post/${jobPost.id}`}
+                      className="ml-2 rounded-full p-2 text-blue-500 hover:bg-blue-50"
+                      aria-label="View application details"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </Link>
                     <button
                       onClick={(e) => handleDeleteJobPost(jobPost.id, e)}
                       className="ml-2 rounded-full p-2 text-red-500 hover:bg-red-50 disabled:opacity-50"
