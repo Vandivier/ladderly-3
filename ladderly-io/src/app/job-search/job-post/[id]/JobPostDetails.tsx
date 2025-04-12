@@ -73,7 +73,7 @@ const AddJobSearchStep: React.FC<AddJobSearchStepProps> = ({
       JobSearchStepKind.HIRING_MANAGER_CALL,
       JobSearchStepKind.PHONE_SCREEN,
       JobSearchStepKind.MULTI_ROUND_MULTI_KIND,
-    ] as const
+    ] as JobSearchStepKind[]
 
     // Any failed step should update to REJECTED
     if (passed === false) {
@@ -91,7 +91,7 @@ const AddJobSearchStep: React.FC<AddJobSearchStepProps> = ({
 
     // If we added an interview step and weren't in interview phase yet
     if (
-      interviewStepKinds.includes(kind as any) &&
+      interviewStepKinds.includes(kind) &&
       currentStatus !== JobApplicationStatus.IN_INTERVIEW &&
       passed !== false // Don't update if the step failed
     ) {
@@ -121,8 +121,8 @@ const AddJobSearchStep: React.FC<AddJobSearchStepProps> = ({
       jobPostId,
       date: new Date(date),
       kind: stepKind,
-      notes: notes || undefined,
-      isPassed: isPassed === null ? undefined : isPassed,
+      notes: notes ?? undefined,
+      isPassed: isPassed ?? undefined,
       isInPerson,
     })
   }
@@ -248,7 +248,7 @@ const AddJobSearchStep: React.FC<AddJobSearchStepProps> = ({
               id="isInPerson"
               checked={isInPerson}
               onChange={(e) => setIsInPerson(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300"
+              className="size-4 rounded border-gray-300"
             />
             <label htmlFor="isInPerson" className="ml-2 text-sm font-medium">
               In Person
@@ -323,16 +323,16 @@ export const JobPostDetails = ({ id }: { id: number }) => {
 
   const { mutate: deleteJobSearchStep } =
     api.jobSearch.deleteJobSearchStep.useMutation({
-      onSuccess: () => {
-        refetch()
+      onSuccess: async () => {
+        await refetch()
         setDeletingStepId(null)
       },
     })
 
   const { mutate: updateJobPostStatus } =
     api.jobSearch.updateJobPostStatus.useMutation({
-      onSuccess: () => {
-        refetch()
+      onSuccess: async () => {
+        await refetch()
         setIsUpdatingStatus(false)
       },
       onError: (error) => {
@@ -344,7 +344,7 @@ export const JobPostDetails = ({ id }: { id: number }) => {
   const handleDeleteStep = (stepId: number) => {
     if (confirm('Are you sure you want to delete this step?')) {
       setDeletingStepId(stepId)
-      deleteJobSearchStep({ id: stepId })
+      void deleteJobSearchStep({ id: stepId })
     }
   }
 
@@ -352,7 +352,7 @@ export const JobPostDetails = ({ id }: { id: number }) => {
     if (!jobPost) return
 
     setIsUpdatingStatus(true)
-    updateJobPostStatus({
+    void updateJobPostStatus({
       id: jobPost.id,
       status: newStatus,
     })

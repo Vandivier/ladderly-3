@@ -1,4 +1,4 @@
-import { LadderlySession } from '~/server/auth'
+import type { LadderlySession } from '~/server/auth'
 import { IconVerticalChevron } from '../core/components/icons/VerticalChevron'
 import {
   AccountMenuItems,

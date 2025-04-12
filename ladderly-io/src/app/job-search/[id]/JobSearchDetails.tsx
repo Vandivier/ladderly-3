@@ -22,8 +22,8 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
   } = api.jobSearch.getJobSearch.useQuery({ id })
 
   const { mutate: deleteJobPost } = api.jobSearch.deleteJobPost.useMutation({
-    onSuccess: () => {
-      refetch()
+    onSuccess: async () => {
+      await refetch()
       setDeletingJobPostId(null)
     },
   })
@@ -212,8 +212,8 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
         <AddJobApplicationModal
           jobSearchId={id}
           onClose={() => setShowAddApplicationModal(false)}
-          onSuccess={() => {
-            refetch()
+          onSuccess={async () => {
+            await refetch()
             setShowAddApplicationModal(false)
           }}
         />

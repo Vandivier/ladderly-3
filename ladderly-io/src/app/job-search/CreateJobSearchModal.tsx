@@ -13,8 +13,8 @@ export const CreateJobSearchModal = () => {
 
   const { mutate: createJobSearch } = api.jobSearch.createJobSearch.useMutation(
     {
-      onSuccess: () => {
-        refetch()
+      onSuccess: async () => {
+        await refetch()
         setIsOpen(false)
         setName('')
         setError('')
@@ -54,7 +54,7 @@ export const CreateJobSearchModal = () => {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="bg-opacity/50 fixed inset-0 z-50 flex items-center justify-center bg-black">
           <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
             <h2 className="mb-4 text-xl font-bold">Create New Job Search</h2>
 

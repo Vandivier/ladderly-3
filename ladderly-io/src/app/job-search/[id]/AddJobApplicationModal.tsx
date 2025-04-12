@@ -5,6 +5,7 @@ import { api } from '~/trpc/react'
 import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
+import { TRPCClientError } from '@trpc/client'
 
 // Define schema for job application form
 const JobApplicationSchema = z.object({
@@ -72,15 +73,23 @@ export const AddJobApplicationModal = ({
       })
 
       return
-    } catch (error: any) {
+    } catch (error) {
+      let errorMessage = 'Failed to create job application'
+
+      if (error instanceof TRPCClientError) {
+        errorMessage = error.message
+      } else if (error instanceof Error) {
+        errorMessage = error.message
+      }
+
       return {
-        [FORM_ERROR]: error.message || 'Failed to create job application',
+        [FORM_ERROR]: errorMessage,
       }
     }
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-xl font-bold">Add New Job Application</h2>

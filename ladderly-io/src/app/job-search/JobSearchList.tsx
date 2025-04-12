@@ -16,8 +16,8 @@ export const JobSearchList = () => {
 
   const { mutate: deleteJobSearch } = api.jobSearch.deleteJobSearch.useMutation(
     {
-      onSuccess: () => {
-        refetch()
+      onSuccess: async () => {
+        await refetch()
       },
     },
   )
