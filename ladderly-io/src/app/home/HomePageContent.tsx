@@ -64,10 +64,6 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
         >
           Read the announcement
         </Link>
-        or
-        <Link className="mx-2 font-bold underline" href="/copilot">
-          chat now!
-        </Link>
       </h2>
     </div>
     <main style={{ padding: '0rem 1rem' }}>
