@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function JobSearchPage() {
   return (
-    <LadderlyPageWrapper>
+    <LadderlyPageWrapper authenticate requirePremium>
       <SmallCard className="mx-4 mt-4">
         <h1 className="mb-6 text-2xl font-bold">Job Search Archive</h1>
         <div className="mb-4 flex items-center gap-2">
