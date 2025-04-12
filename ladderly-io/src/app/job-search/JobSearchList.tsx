@@ -5,6 +5,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { api } from '~/trpc/react'
+import { JobSearchActiveSpan } from './JobSearchActiveSpan'
 
 export const JobSearchList = () => {
   const {
@@ -54,13 +55,9 @@ export const JobSearchList = () => {
             className="block p-4 no-underline"
           >
             <div className="flex items-center justify-between">
-              <div className="flex-1">
+              <div className="max-w-[80%] flex-1">
                 <div>
-                  <span
-                    className={`font-bold ${jobSearch.isActive ? 'text-green-600' : 'text-red-600'}`}
-                  >
-                    {jobSearch.isActive ? 'Active' : 'Inactive'}
-                  </span>
+                  <JobSearchActiveSpan isActive={jobSearch.isActive} />
                   <h3 className="font-semibold">{jobSearch.name}</h3>
                 </div>
 
