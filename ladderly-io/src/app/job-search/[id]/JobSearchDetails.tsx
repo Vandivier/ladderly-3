@@ -135,24 +135,26 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
                 key={jobPost.id}
                 className="rounded-md border border-gray-200 p-4 hover:bg-gray-50"
               >
-                <div className="flex justify-between">
-                  <div>
-                    <h3 className="font-medium">{jobPost.jobTitle}</h3>
-                    <p className="text-sm text-gray-600">{jobPost.company}</p>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="text-right">
-                      <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
-                        {jobPost.status}
-                      </span>
-                      <p className="mt-1 text-xs text-gray-500">
-                        Last updated:{' '}
-                        {new Date(jobPost.updatedAt).toLocaleDateString()}
-                      </p>
+                <div className="flex items-center justify-between">
+                  <div className="max-w-[60%] flex-1">
+                    <div>
+                      <h3 className="break-words font-medium">
+                        {jobPost.jobTitle}
+                      </h3>
+                      <p className="text-sm text-gray-600">{jobPost.company}</p>
                     </div>
+                    <div className="mt-1 text-xs text-gray-500">
+                      Last updated:{' '}
+                      {new Date(jobPost.updatedAt).toLocaleDateString()}
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
+                      {jobPost.status}
+                    </span>
                     <button
                       onClick={(e) => handleDeleteJobPost(jobPost.id, e)}
-                      className="ml-3 rounded-full p-1 text-red-500 hover:bg-red-50 disabled:opacity-50"
+                      className="ml-2 rounded-full p-2 text-red-500 hover:bg-red-50 disabled:opacity-50"
                       disabled={deletingJobPostId === jobPost.id}
                       aria-label="Delete job application"
                     >
