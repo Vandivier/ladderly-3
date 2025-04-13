@@ -119,16 +119,19 @@ export const seedLeetcodeChecklist = async () => {
       const problem = problems[i]
       try {
         // Extract the source from the problem and format as a tag
-        const source = problem.source || 'unknown'
-        const sourceTags = Array.isArray(source)
-          ? source.map((s) => `source:${s}`)
-          : [`source:${source}`]
+        const source = problem?.source ?? 'unknown'
+        const sourceTags = []
+        if (Array.isArray(source)) {
+          sourceTags.push(...source.map((s) => `source:${s}`))
+        } else if (source) {
+          sourceTags.push(`source:${source}`)
+        }
 
         await db.checklistItem.create({
           data: {
             displayIndex: i + 1,
-            displayText: problem.name,
-            linkUri: problem.href,
+            displayText: problem?.name ?? 'Unknown Problem Name',
+            linkUri: problem?.href,
             linkText: 'Solve on LeetCode',
             tags: sourceTags,
             isRequired: false,
@@ -144,7 +147,7 @@ export const seedLeetcodeChecklist = async () => {
         }
       } catch (itemError) {
         console.error(
-          `Error creating checklist item for ${problem.name}:`,
+          `Error creating checklist item for ${problem?.name}:`,
           itemError,
         )
       }

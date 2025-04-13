@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { api } from '~/trpc/react'
 
@@ -57,7 +56,7 @@ function LeetCodeProblem({
 
 export function LeetCodeList() {
   const searchParams = useSearchParams()
-  const sourceFilter = searchParams.get('source') || 'all'
+  const sourceFilter = searchParams.get('source') ?? 'all'
   const utils = api.useUtils()
 
   const { data: checklistData, isLoading } =

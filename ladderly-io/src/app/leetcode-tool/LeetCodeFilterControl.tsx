@@ -7,7 +7,7 @@ export function LeetCodeFilterControl() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [sourceFilter, setSourceFilter] = useState(
-    searchParams.get('source') || 'all',
+    searchParams.get('source') ?? 'all',
   )
 
   // List of available sources based on tags in the checklist
