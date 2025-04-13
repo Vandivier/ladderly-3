@@ -311,6 +311,7 @@ enum VotableType {
   JOB_TITLE
   QUESTION
   SKILL
+  SCHOOL
   TECH_INFLUENCER
 }
 

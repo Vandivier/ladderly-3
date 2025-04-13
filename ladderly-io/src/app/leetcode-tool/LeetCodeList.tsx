@@ -1,63 +1,114 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
+import { api } from '~/trpc/react'
 
-interface LeetCodeProblem {
-  href: string
-  name: string
-  source: string
+interface LeetCodeProblemProps {
+  id: number
+  displayText: string
+  linkUri: string
+  tags: string[]
+  isComplete: boolean
+  onToggle: (id: number, isComplete: boolean) => void
+}
+
+function LeetCodeProblem({
+  id,
+  displayText,
+  linkUri,
+  tags,
+  isComplete,
+  onToggle,
+}: LeetCodeProblemProps) {
+  // Extract source from tags (format: "source:xyz")
+  const sourceTag = tags.find((tag) => tag.startsWith('source:'))
+  const source = sourceTag ? sourceTag.replace('source:', '') : 'unknown'
+
+  return (
+    <tr>
+      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            checked={isComplete}
+            onChange={() => onToggle(id, !isComplete)}
+            className="mr-3 h-4 w-4 rounded border-gray-300"
+          />
+          {displayText}
+        </div>
+      </td>
+      <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+        {source}
+      </td>
+      <td className="whitespace-nowrap px-6 py-4 text-sm text-blue-500">
+        <a
+          href={linkUri}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline"
+        >
+          Solve
+        </a>
+      </td>
+    </tr>
+  )
 }
 
 export function LeetCodeList() {
-  const [problems, setProblems] = useState<LeetCodeProblem[]>([])
-  const [isLoading, setIsLoading] = useState(true)
   const searchParams = useSearchParams()
   const sourceFilter = searchParams.get('source') || 'all'
+  const utils = api.useUtils()
 
-  useEffect(() => {
-    async function fetchProblems() {
-      try {
-        setIsLoading(true)
-        // In a real implementation, this would fetch from an API endpoint
-        const response = await fetch('/api/leetcode-problems')
-        if (!response.ok) {
-          throw new Error('Failed to fetch problems')
-        }
-        const data = await response.json()
+  const { data: checklistData, isLoading } =
+    api.checklist.getLatestByName.useQuery({
+      name: 'LeetCode Problems',
+    })
 
-        // Filter by source if needed
-        const filtered =
-          sourceFilter === 'all'
-            ? data
-            : data.filter(
-                (problem: LeetCodeProblem) =>
-                  problem.source === sourceFilter ||
-                  problem.source === 'multiple',
-              )
+  const { mutate: toggleItem } = api.checklist.toggleItem.useMutation({
+    onSuccess: () => {
+      void utils.checklist.getLatestByName.invalidate({
+        name: 'LeetCode Problems',
+      })
+    },
+  })
 
-        setProblems(filtered)
-      } catch (error) {
-        console.error('Error fetching problems:', error)
-        // Fallback to empty array on error
-        setProblems([])
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchProblems()
-  }, [sourceFilter])
+  const handleToggleItem = (itemId: number, isComplete: boolean) => {
+    toggleItem({
+      userChecklistItemId: itemId,
+      isComplete,
+    })
+  }
 
   if (isLoading) {
     return <div className="py-4 text-center">Loading problems...</div>
   }
 
-  if (problems.length === 0) {
+  if (!checklistData?.userChecklistCascade.userChecklist) {
+    return <div className="py-4 text-center">No problems found.</div>
+  }
+
+  const { userChecklistItems } =
+    checklistData.userChecklistCascade.userChecklist
+
+  // Filter items by source if needed
+  const filteredItems =
+    sourceFilter === 'all'
+      ? userChecklistItems
+      : userChecklistItems.filter((item) => {
+          const sourceTags = item.checklistItem.tags.filter((tag) =>
+            tag.startsWith('source:'),
+          )
+          return (
+            sourceTags.includes(`source:${sourceFilter}`) ||
+            sourceTags.includes('source:multiple')
+          )
+        })
+
+  if (filteredItems.length === 0) {
     return (
       <div className="py-4 text-center">
-        No problems found. Try adjusting your filters.
+        No problems found with the selected filter. Try adjusting your filters.
       </div>
     )
   }
@@ -65,7 +116,7 @@ export function LeetCodeList() {
   return (
     <div className="space-y-4">
       <p className="text-sm text-gray-500">
-        Showing {problems.length} problems{' '}
+        Showing {filteredItems.length} problems{' '}
         {sourceFilter !== 'all' ? `from ${sourceFilter}` : ''}
       </p>
 
@@ -94,25 +145,16 @@ export function LeetCodeList() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {problems.map((problem, index) => (
-              <tr key={`${problem.name}-${index}`}>
-                <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
-                  {problem.name}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                  {problem.source}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-blue-500">
-                  <a
-                    href={problem.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    Solve
-                  </a>
-                </td>
-              </tr>
+            {filteredItems.map((item) => (
+              <LeetCodeProblem
+                key={item.id}
+                id={item.id}
+                displayText={item.checklistItem.displayText}
+                linkUri={item.checklistItem.linkUri}
+                tags={item.checklistItem.tags}
+                isComplete={item.isComplete}
+                onToggle={handleToggleItem}
+              />
             ))}
           </tbody>
         </table>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export function LeetCodeFilterControl() {
   const router = useRouter()
@@ -10,7 +10,7 @@ export function LeetCodeFilterControl() {
     searchParams.get('source') || 'all',
   )
 
-  // List of available sources based on the data we have
+  // List of available sources based on tags in the checklist
   const sources = [
     { value: 'all', label: 'All Sources' },
     { value: 'ladderly-expanded-kata', label: 'Ladderly Expanded Kata' },
