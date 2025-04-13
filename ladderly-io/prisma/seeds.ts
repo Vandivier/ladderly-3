@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import { db } from '~/server/db'
+import * as fs from 'fs'
+import * as path from 'path'
+import { db } from '../src/server/db'
 import { Checklist } from '@prisma/client'
 
 import {
@@ -9,6 +9,10 @@ import {
   updateChecklistsInPlace,
 } from './seed-utils/updateChecklists'
 import { seedVotables } from './seed-utils/seedVotables'
+import { seedLeetcodeChecklist } from './seed-utils/seedLeetcodeChecklist'
+
+// Use __dirname directly since this is CommonJS
+const __dirname = process.cwd() + '/prisma'
 
 const createNewChecklist = async (
   checklistData: ChecklistSeedDataType,
@@ -58,7 +62,12 @@ const createNewChecklist = async (
 }
 
 const seed = async () => {
+  // Seed votables
+  console.log('Starting seedVotables...')
   await seedVotables()
+
+  console.log('Starting seedLeetcodeChecklist...')
+  await seedLeetcodeChecklist()
 
   const checklistNameToUpdate =
     process.argv.find((arg) => arg.startsWith('--name='))?.split('=')[1] || ''
@@ -98,4 +107,4 @@ const seed = async () => {
   }
 }
 
-export default seed
+seed()

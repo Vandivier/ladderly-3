@@ -177,6 +177,7 @@ model ChecklistItem {
   isRequired   Boolean  @default(true)
   linkText     String   @default("")
   linkUri      String   @default("")
+  tags         String[]
 
   // currently, versions are ISO
   // so we can sort lexicographically
@@ -310,6 +311,7 @@ enum VotableType {
   JOB_TITLE
   QUESTION
   SKILL
+  SCHOOL
   TECH_INFLUENCER
 }
 
