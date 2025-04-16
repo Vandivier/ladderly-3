@@ -54,7 +54,7 @@ const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
   <LadderlyPageWrapper>
     <div
       id="chatbot-subheading"
-      className="bg-pink-300 text-center text-ladderly-dark-purple-2 dark:bg-ladderly-dark-purple-2 dark:text-white"
+      className="bg-pink-300 text-center text-ladderly-dark-purple-2 dark:bg-ladderly-light-purple-3"
     >
       <h2>
         New: Ladderly AI Tools!{' '}
