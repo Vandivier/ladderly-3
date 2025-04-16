@@ -97,6 +97,12 @@ This particular job search took place during a particularly difficult market for
 
 The data can be found [here](https://github.com/Vandivier/ladderly-3/blob/main/ladderly-io/scripts/python/analytical/blog-15-job-search-regression.csv) and the analytical script used for the above regression table can be found [here](https://github.com/Vandivier/ladderly-3/blob/main/ladderly-io/scripts/python/analytical/blog-15-job-search-regression.py).
 
+Notably, 60% of first round interviews were inbound. That means the presence of inbound opportunities more than doubled the rate of interview. From 133 rows in that CSV, 20 involved a first round interview, and 12 of those were inbound. There were 17 inbound opportunities, so inbound opportunities converted to interview about two-thirds of the time. Three factors significantly explain the inbound opportunity rate:
+
+1. An [optimized LinkedIn profile](/blog/2024-02-12-resume-optimization)
+2. Inclusion of in-demand skills in the candidate profile
+3. [Content creation](/blog/2025-04-13-on-content-creation), social reach, and social network size
+
 A caveat in this result is that even the earliest version of the resume could be describe as fair in quality, without obvious grammatical errors, major ATS parsing issues, or other major issues. So the fact that the variation in resume version did not correlate with outcomes does not mean that resume quality has no impact, but it does mean that once you have a fairly high quality resume, fine-tuning it into an ultra-high quality resume has negligible return, which is exactly applicable to the discussion of whether a resume should be optimized per job post or simply at the level of the job family or role.
 
 Notably, although the effect was insignificant, it was also positive and small, which is consistent with the idea that a larger study with many rows of data may indeed find some small positive effect. It is also consistent with the idea that fine tuning the resume for each job post is not an optimal use of time and effort.
