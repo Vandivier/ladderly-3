@@ -1,5 +1,5 @@
 ---
-title: '29. More than Twenty-Five Time Management Techniques'
+title: '29. Dozens of Time Management Techniques'
 author: John Vandivier
 premium: true
 ---
@@ -10,9 +10,33 @@ Time management [enables higher productivity, better wellbeing, and lower stress
 
 [Ladderly.io's Essentials of Time Management video](https://www.youtube.com/watch?v=haqRzvQ0Unc) discusses strategies and mental models for maximizing value and achieving goals. The presenter, a staff software engineer with over 10 years of experience and a Ph.D. in economics, defines time management as the proper allocation of time to maximize value. He highlights 13 items for discussion, where each item is a tool, concept, technique, or family of techniques:
 
-1. Plan Weekly
-2. Make Time by Saying No and Prioritizing
-3. Leverage the Traditional Routine
+1. Time management is Budgeting: Plan weekly and block time on your calendar.
+2. Make time by saying no and prioritizing
+3. Follow a restful and healthy routine; more energy = more productivity = more time
+4. Leverage the Traditional Routine (if possible)
+   1. Task the 9-5 and the 5-9.
+   2. Task six days each week.
+   3. Recreation, rest, social engagement, and health activites are tasks. Plan them.
+   4. Respect your circadian rhythm: Sleep at night.
+5. Leverage your social network
+6. Leverage seasonal planning, annual planning, and vacation/staycation/breaks
+   1. To overcome big tasks without burnout using the cumulative interest of consistent effort.
+   2. Also have a loose or general 3–5 year plan and life plan.
+7. Mostly avoid working today. Do 1–3 things per day and 1–3 bigger things per year.
+8. Remember the Triangle Strategy for Long-Term Impact
+   1. During weekly planning, simultaneously consider short term and long term goals.
+   2. Align tasks so that you efficiently walk the hypotenuse to long term impact.
+9. Consider technical solutions like Agenda, doing things remotely, and apps like Poplin
+10. Minimizing cooking time.
+    1. Leverage healthy and premade food options like Kachava, which can be found at target.
+    2. Don't feel bad about paying for fast food or delivery, even regularly.
+    3. Consider intermittent fasting including the one meal a day diet.
+11. Think in Chronos and Kairos time
+    1. Chronos time is described in a calendar
+    2. Kairos time is described in a directed graph
+12. Single-tasking > multitasking, and intentional tasking > automatic behavior
+    1. Intentional tasking for a few hard weeks can build a lifetime of positive habits!
+13. Take the time value of money seriously, valuing your current and future self
 
 There are 13 items included in the video and we will walk through each:
 
