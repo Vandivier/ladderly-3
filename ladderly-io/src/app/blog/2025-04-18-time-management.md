@@ -114,43 +114,27 @@ Technology means more than software. Simply changing your communication strategy
 
 ### 9. Minimize Cooking
 
-Daily chores like cooking can eat up large chunks of time. If it fits your budget, simplify or outsource these tasks. Healthy pre-made food options (e.g., Ka'Chava at Target), meal kits, or even fast food can be worthwhile if they save hours each week. Intermittent fasting protocols such as a One Meal a Day (OMAD) can save time spent on food prep and cleanup. They can also save you dollars and help you control weight!
+Daily chores like cooking can eat up large chunks of time. If it fits your budget, simplify or outsource these tasks. Healthy pre-made food options (e.g., Ka'Chava at Target), meal kits, delivery, and fast food can be worthwhile if they save hours each week. Intermittent fasting protocols such as a One Meal a Day (OMAD) can save time spent on food prep and cleanup. They can also save you dollars and help you control weight!
 
-...
+### 11. Think in Chronos and Kairos time
 
-11. Think in Chronos and Kairos time
-    1. Chronos time is described in a calendar
-    2. Kairos time is described in a directed graph
-12. Single-tasking > multitasking, and intentional tasking > automatic behavior
-    1. Intentional tasking for a few hard weeks can build a lifetime of positive habits!
-13. Take the time value of money seriously, valuing your current and future self
+Chronos time, or metric time, is described in a calendar. Kairos time is a series or directed graph of events. Both matter. You should be aware of the hours in the day and how you’re spending them, and also thinking through each step you are taking and what is unlocks. This concept reiterates the importance of planning in terms of decision trees, backup plans, and topology, rather than a simple mapping of required to available time.
 
-There are 13 items included in the video and we will walk through each:
+### 12. Deliberate Single-Tasking and Habit Hacking
 
-1. Opportunity Identification: Finding the right opportunities is crucial [03:57].
-2. Prioritization Methods:
-   1. Eisenhower Matrix: Categorizing tasks by urgency and importance [04:31].
-   2. ABC Method: Ranking tasks (though potentially less effective in professional settings) [06:19].
-   3. Focus: Aiming to complete one to three important tasks per day [07:47].
-   4. Return on Investment (ROI): Prioritizing based on ROI per effort, adjusted for risk [11:45]. This is Ladderly.io's preferred planning approach, when required data is available.
-3. Planning & Scheduling:
-   1. Time as a Budget: Treating time like a financial budget [09:46].
-   2. Weekly Planning: Setting aside time weekly for planning and using time blocking (e.g., with Google Calendar) [13:28].
-   3. Time Blocking: Scheduling specific tasks in your calendar [23:35].
-   4. Time Boxing: Setting time limits for tasks [31:18].
-   5. Traditional Schedule Concept: Thinking of the week in terms of workdays (9-5, 5-9, rest) and weekends (rest/personal development) [15:12].
-4. Goal Setting & Execution:
-   1. SMART Goals: Ensuring goals are Specific, Measurable, Achievable, Relevant, and Time-bound [19:13].
-   2. Intentional Learning: Prioritizing active over passive learning [17:10].
-   3. Triangle Mental Model: Considering the long-term impact of decisions [19:40].
-   4. Consistent Effort: Recognizing that consistent effort leads to cumulative results [33:53].
-   5. Six-Point Mental Model: Evaluating opportunities across products, people, principles, processes, and platforms [36:41].
-5. Productivity Techniques:
-   1. Pomodoro Technique: Using frequent breaks to maintain focus [27:23].
-   2. Building Momentum: Starting with easier tasks [29:21].
-   3. Todo Lists: Writing tasks down [26:02].
-   4. Rewards: Motivating task completion with rewards [26:46].
-   5. Single-tasking: Focusing on one task at a time [52:57].
+Multitasking lowers performance. Instead, aim to single-task and stay fully engaged. Research shows that active and deliberate learning lead to skill acquisition far more effectively than passive activities like background learning from a podcast.
+
+You can mitigate automatic or non-deliberate action by interrupting yourself. To support focus, try the Pomodoro Technique, where you work for 25 minutes, then take a 5-minute break. Tinker with the intervals to suit your needs.
+
+Habits are a special case of automatic or non-deliberate action because you can build positive habits that improve your overall performance across domains. Performing similar activities at similar times of day is an example of this.
+
+### 13. Value Your Future Self
+
+Humans have a tendancy to procrastinate and delay, pushing work into the future. If you have a certain set of goals in a certain period, pushing work later means you are setting yourself up for cramming and pain towards the end of the period. As you consider the importance of sustainable practice and rest, remember that you will need rest in the future too.
+
+Remembering the time value of money and the power of cumulative interest may help motivate you to do more work now, even beyond the avoidance of future pain. If you are holding a certain amount of cash and you invest it now or later, every moment you wait deteriorates the value of that cash by inflation and incurs opportunity cost in missed investment interest. You can view tasks similarly. With an extra hour of work, you could have earned some money and invested it. The opportunity cost over time is exponential, not linear.
+
+Procrastination is particularly problematic for certain kinds of tasks which benefit from consistency over time, such as exercise, building habits, and building relationships.
 
 ## Insights from "Getting Things Done"
 
