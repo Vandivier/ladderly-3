@@ -10,7 +10,7 @@ Time management [enables higher productivity, better wellbeing, and lower stress
 
 [Ladderly.io's Essentials of Time Management video](https://www.youtube.com/watch?v=haqRzvQ0Unc) discusses strategies and mental models for maximizing value and achieving goals. The presenter, a staff software engineer with over 10 years of experience and a Ph.D. in economics, defines time management as the proper allocation of time to maximize value. He highlights 13 items for discussion, where each item is a tool, concept, technique, or family of techniques:
 
-### 1. Time Management is Budgeting
+### Time Management is Budgeting
 
 Ladderly.io encourages you to perform a weekly time budget. [Parkinson's Law](https://en.wikipedia.org/wiki/Parkinson%27s_law) states that work expands to fill the time available for its completion. We can solve this problem by giving every hour a job, similar to a zero-based budgeting method.
 
@@ -48,7 +48,7 @@ The Ivy Leed method encourages you to choose some number of A-rank tasks per day
 
 The problem with these approaches is that bucket sorting is imprecise relative to ROI calculation and any fixed number of tasks per day may not be feasible.
 
-### 2. Make Time by Saying No
+### Make Time by Saying No
 
 If you budgeted your time, then you will have a backlog of tasks. When an intake requests comes in, Ladderly.io encourages you to place requests at the back of your work queue by default. This aligns with Cal Newport's fantastic book [Deep Work](https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692).
 
@@ -58,13 +58,13 @@ As you iteratively re-plan your work you may notice groups of similar tasks scat
 
 Self-serve, scope transfer to another team, and deprioritization are soft ways of rejecting work, but you can also directly and firmly reject a change request in cases where a request is a documented non-goal for your team and its components.
 
-### 3. Be Healthy
+### Be Healthy
 
 Time management cannot be decoupled from productivity. When you budget your time, there is some implied rate of productivity. In this way, investing in productivity is an approach to making time.
 
 Health, rest, and nutrition are foundational to productivity. A consistent sleep schedule that respects your circadian rhythm, regular physical activity, and healthy eating habits all feed your ability to perform.
 
-### 4. Leverage the Traditional Routine
+### Leverage the Traditional Routine
 
 The Traditional Routine is healthy and evolved for compatibility with your circadian rhythm. It is also efficient because it is socially normative, so it works efficiently with the schedules of others.
 
@@ -82,11 +82,11 @@ We can abstract this routine slightly to make it more flexible and ensure that e
 
 Tasks include deliberate work, recreation, social activities, and healthcare.
 
-### 5. Leverage Your Social Network
+### Leverage Your Social Network
 
 Other people can be part of your time management strategy. This includes asking for help, outsourcing tasks, trading favors, or simply enlisting accountability partners. If a family member can babysit, a friend can help with errands, or a coworker can share resources, you're multiplying your effectiveness.
 
-### 6. Seasonal, Annual, and Life Planning
+### Seasonal, Annual, and Life Planning
 
 You should allocate planning time to perform your time budget once each week. Ideally, your weekly tasks are simultaneously planned with an iterative reflection on your long term goals. This is called the Triangle Strategy, because walking along the hypotenuse to your long term goals is more efficient than walking along the edges.
 
@@ -94,7 +94,7 @@ Seasons have unique characteristics as do quarters and years. If you can continu
 
 As part of your long-term planning, consider creating quarterly, annual, three-year, five-year, and lifetime goals. At each stage, Ladderly.io suggests including SMART goals alongside a mission. SMART goals are specific, measurable, achievable, relevant, and time-bound.
 
-### 7. Do One Extra Thing
+### Do One Extra Thing
 
 Distraction reduces productivity. Task queues solve this by providing focus, but our queue of tasks can't be accomplished in one day. This becomes overwhelming and stressful to some, and for others it can trigger workaholism.
 
@@ -104,7 +104,7 @@ The mental model that we should strive to do one thing beyond maintenence is a s
 
 If you have loads of motivation and energy, feel free to do more, but don't feel obligated. Craft longer term plans with this conservative rule in place.
 
-### 8. Use Technology
+### Use Technology
 
 Improvements to technology allow increased output without increased labor. So, we save time by using technologies appropriate to the tasks we are taking on.
 
@@ -112,15 +112,15 @@ During your weekly planning time, spend a bit of time researching technologies f
 
 Technology means more than software. Simply changing your communication strategy could be considered a kind of technology. Technology includes new ideas and techniques that you can sometimes implement at zero cost. Ensuring every meeting you attend has an agenda is a simple example of a process change which can be thought of as a zero cost technology that results in saving time.
 
-### 9. Minimize Cooking
+### Minimize Cooking
 
 Daily chores like cooking can eat up large chunks of time. If it fits your budget, simplify or outsource these tasks. Healthy pre-made food options (e.g., Ka'Chava at Target), meal kits, delivery, and fast food can be worthwhile if they save hours each week. Intermittent fasting protocols such as a One Meal a Day (OMAD) can save time spent on food prep and cleanup. They can also save you dollars and help you control weight!
 
-### 11. Think in Chronos and Kairos time
+### Think in Chronos and Kairos time
 
 Chronos time, or metric time, is described in a calendar. Kairos time is a series or directed graph of events. Both matter. You should be aware of the hours in the day and how you’re spending them, and also thinking through each step you are taking and what is unlocks. This concept reiterates the importance of planning in terms of decision trees, backup plans, and topology, rather than a simple mapping of required to available time.
 
-### 12. Deliberate Single-Tasking and Habit Hacking
+### Deliberate Single-Tasking and Habit Hacking
 
 Multitasking lowers performance. Instead, aim to single-task and stay fully engaged. Research shows that active and deliberate learning lead to skill acquisition far more effectively than passive activities like background learning from a podcast.
 
@@ -128,7 +128,7 @@ You can mitigate automatic or non-deliberate action by interrupting yourself. To
 
 Habits are a special case of automatic or non-deliberate action because you can build positive habits that improve your overall performance across domains. Performing similar activities at similar times of day is an example of this.
 
-### 13. Value Your Future Self
+### Value Your Future Self
 
 Humans have a tendancy to procrastinate and delay, pushing work into the future. If you have a certain set of goals in a certain period, pushing work later means you are setting yourself up for cramming and pain towards the end of the period. As you consider the importance of sustainable practice and rest, remember that you will need rest in the future too.
 
