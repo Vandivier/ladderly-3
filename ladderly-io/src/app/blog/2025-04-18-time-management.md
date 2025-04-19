@@ -10,27 +10,114 @@ Time management [enables higher productivity, better wellbeing, and lower stress
 
 [Ladderly.io's Essentials of Time Management video](https://www.youtube.com/watch?v=haqRzvQ0Unc) discusses strategies and mental models for maximizing value and achieving goals. The presenter, a staff software engineer with over 10 years of experience and a Ph.D. in economics, defines time management as the proper allocation of time to maximize value. He highlights 13 items for discussion, where each item is a tool, concept, technique, or family of techniques:
 
-1. Time management is Budgeting: Plan weekly and block time on your calendar.
-2. Make time by saying no and prioritizing
-3. Follow a restful and healthy routine; more energy = more productivity = more time
-4. Leverage the Traditional Routine (if possible)
-   1. Task the 9-5 and the 5-9.
-   2. Task six days each week.
-   3. Recreation, rest, social engagement, and health activites are tasks. Plan them.
-   4. Respect your circadian rhythm: Sleep at night.
-5. Leverage your social network
-6. Leverage seasonal planning, annual planning, and vacation/staycation/breaks
-   1. To overcome big tasks without burnout using the cumulative interest of consistent effort.
-   2. Also have a loose or general 3–5 year plan and life plan.
-7. Mostly avoid working today. Do 1–3 things per day and 1–3 bigger things per year.
-8. Remember the Triangle Strategy for Long-Term Impact
-   1. During weekly planning, simultaneously consider short term and long term goals.
-   2. Align tasks so that you efficiently walk the hypotenuse to long term impact.
-9. Consider technical solutions like Agenda, doing things remotely, and apps like Poplin
-10. Minimizing cooking time.
-    1. Leverage healthy and premade food options like Kachava, which can be found at target.
-    2. Don't feel bad about paying for fast food or delivery, even regularly.
-    3. Consider intermittent fasting including the one meal a day diet.
+### 1. Time Management is Budgeting
+
+Ladderly.io encourages you to perform a weekly time budget. [Parkinson's Law](https://en.wikipedia.org/wiki/Parkinson%27s_law) states that work expands to fill the time available for its completion. We can solve this problem by giving every hour a job, similar to a zero-based budgeting method.
+
+Estimate your tasks and assign them to days then block off time in your calendar at the start of the week.
+
+Part of this weekly time budget session will involve ideating and refining tasks into well-described and actionable tasks. Let's call the full list of your ideas and tasks the backlog, which is the standard term in Agile, a particular commercial task execution framework. If you have ideated properly through the end of the quarter, much less the end of the year and beyond, most of your backlog will not fit in your weekly schedule.
+
+So how do we decide which items to execute this week? We use prioritization.
+
+#### Prioritizing by Eisenhower Matrix
+
+In this approach we classify tasks as relatively high or low importance and high or low urgency. We think take the following actions:
+
+1. High importance, high urgency: Execute now
+2. High importance, low urgency: Plan
+3. Low importance, high urgency: Delegate
+4. Low importance, low urgency: Eliminate.
+
+Strictly followed, this can easily result in identifying an infeasibly large number of tasks for immediate execution with no way to sort inside the group to be executed immediately. Loosely followed, this makes an solid triage framework, and other processes can be applied by quadrant to further refine final execution plans.
+
+#### Prioritizing by ROI
+
+Ladderly.io's preferred technique is to sort tasks by return on investment, adjusted for risk. Investment in this context includes cost, time, and effort. This technique facilitates business case creation which is useful for stakeholder buy-in among other reasons. This technique also forces the scheduler to establish measures and estimates of outcome value, so it becomes a forcing-function for intaking demonstrably valuable work.
+
+In practical application, Ladderly.io recommends two modifications to this approach:
+
+1. If the cost of ROI estimation is higher than the time to execute, just execute the task.
+2. Re-order tasks to account for topological dependencies and urgency.
+
+#### Antipatterns: ABC and Ivy Lee Methods
+
+The ABC pattern is a bucketing approach which may be more convenient for estimation. The scheduler simply buckets tasks into some number of buckets, where A-rank tasks are considered the best opportunities.
+
+The Ivy Leed method encourages you to choose some number of A-rank tasks per day.
+
+The problem with these approaches is that bucket sorting is imprecise relative to ROI calculation and any fixed number of tasks per day may not be feasible.
+
+### 2. Make Time by Saying No
+
+If you budgeted your time, then you will have a backlog of tasks. When an intake requests comes in, Ladderly.io encourages you to place requests at the back of your work queue by default. This aligns with Cal Newport's fantastic book [Deep Work](https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692).
+
+Because you have a queue full of work with demonstrated business value, when folks seek to escalate work requests with urgency then they need to prove their request has a high level of value and urgency, otherwise they go to the back of the line.
+
+As you iteratively re-plan your work you may notice groups of similar tasks scattered across the queue. In this case you can consider implementing a self-serve solution and, once ready, asking stakeholders to resolve additional tasks themselves.
+
+Self-serve, scope transfer to another team, and deprioritization are soft ways of rejecting work, but you can also directly and firmly reject a change request in cases where a request is a documented non-goal for your team and its components.
+
+### 3. Be Healthy
+
+Time management cannot be decoupled from productivity. When you budget your time, there is some implied rate of productivity. In this way, investing in productivity is an approach to making time.
+
+Health, rest, and nutrition are foundational to productivity. A consistent sleep schedule that respects your circadian rhythm, regular physical activity, and healthy eating habits all feed your ability to perform.
+
+### 4. Leverage the Traditional Routine
+
+The Traditional Routine is healthy and evolved for compatibility with your circadian rhythm. It is also efficient because it is socially normative, so it works efficiently with the schedules of others.
+
+The traditional routine is:
+
+1. Formal work from 9 AM to 5 PM, Monday through Friday.
+2. Nights and weekends for personal activities.
+3. Rest on Sunday.
+
+We can abstract this routine slightly to make it more flexible and ensure that every hour gets a job:
+
+1. Task 9 AM to 9 PM, six days each week.
+2. Rest at night.
+3. Leave one unstructured day each week.
+
+Tasks include deliberate work, recreation, social activities, and healthcare.
+
+### 5. Leverage Your Social Network
+
+Other people can be part of your time management strategy. This includes asking for help, outsourcing tasks, trading favors, or simply enlisting accountability partners. If a family member can babysit, a friend can help with errands, or a coworker can share resources, you're multiplying your effectiveness.
+
+### 6. Seasonal, Annual, and Life Planning
+
+You should allocate planning time to perform your time budget once each week. Ideally, your weekly tasks are simultaneously planned with an iterative reflection on your long term goals. This is called the Triangle Strategy, because walking along the hypotenuse to your long term goals is more efficient than walking along the edges.
+
+Seasons have unique characteristics as do quarters and years. If you can continuously account for all of this on a weekly basis, fantastic! Practically, however, many people benefit from carving out additional designated planning time for these multi-week cycles.
+
+As part of your long-term planning, consider creating quarterly, annual, three-year, five-year, and lifetime goals. At each stage, Ladderly.io suggests including SMART goals alongside a mission. SMART goals are specific, measurable, achievable, relevant, and time-bound.
+
+### 7. Do One Extra Thing
+
+Distraction reduces productivity. Task queues solve this by providing focus, but our queue of tasks can't be accomplished in one day. This becomes overwhelming and stressful to some, and for others it can trigger workaholism.
+
+A solution to both problems is to have a daily queue-stopping condition. The simplist possible condition is simply to do one task each day, but this doesn't account for the reality that we have many tasks that simply keep our life maintaned and stable, as distinct from tasks which make forward progress towards new goals. Doing dishes, laundry, filling the car with gas, and grocery shopping are example maintenence tasks.
+
+The mental model that we should strive to do one thing beyond maintenence is a simple rule which strikes a balance between motivating forward progress and mitigating burnout, workaholism, and anxiety.
+
+If you have loads of motivation and energy, feel free to do more, but don't feel obligated. Craft longer term plans with this conservative rule in place.
+
+### 8. Use Technology
+
+Improvements to technology allow increased output without increased labor. So, we save time by using technologies appropriate to the tasks we are taking on.
+
+During your weekly planning time, spend a bit of time researching technologies for the tasks you have coming up. New tools come out frequently. Poplin is a mobile app for laundry wash, dry, pickup, and delivery, which is an example of saving time through technology. Ladderly.io has a [discount for Poplin on our perks page](https://www.ladderly.io/perks)!
+
+Technology means more than software. Simply changing your communication strategy could be considered a kind of technology. Technology includes new ideas and techniques that you can sometimes implement at zero cost. Ensuring every meeting you attend has an agenda is a simple example of a process change which can be thought of as a zero cost technology that results in saving time.
+
+### 9. Minimize Cooking
+
+Daily chores like cooking can eat up large chunks of time. If it fits your budget, simplify or outsource these tasks. Healthy pre-made food options (e.g., Ka'Chava at Target), meal kits, or even fast food can be worthwhile if they save hours each week. Intermittent fasting protocols such as a One Meal a Day (OMAD) can save time spent on food prep and cleanup. They can also save you dollars and help you control weight!
+
+...
+
 11. Think in Chronos and Kairos time
     1. Chronos time is described in a calendar
     2. Kairos time is described in a directed graph
@@ -41,8 +128,11 @@ Time management [enables higher productivity, better wellbeing, and lower stress
 There are 13 items included in the video and we will walk through each:
 
 1. Opportunity Identification: Finding the right opportunities is crucial [03:57].
-2. Prioritization Methods: 1. Eisenhower Matrix: Categorizing tasks by urgency and importance [04:31]. 2. ABC Method: Ranking tasks (though potentially less effective in professional settings) [06:19]. 3. Focus: Aiming to complete one to three important tasks per day [07:47].
-   Return on Investment (ROI): Prioritizing based on ROI per effort, adjusted for risk [11:45].
+2. Prioritization Methods:
+   1. Eisenhower Matrix: Categorizing tasks by urgency and importance [04:31].
+   2. ABC Method: Ranking tasks (though potentially less effective in professional settings) [06:19].
+   3. Focus: Aiming to complete one to three important tasks per day [07:47].
+   4. Return on Investment (ROI): Prioritizing based on ROI per effort, adjusted for risk [11:45]. This is Ladderly.io's preferred planning approach, when required data is available.
 3. Planning & Scheduling:
    1. Time as a Budget: Treating time like a financial budget [09:46].
    2. Weekly Planning: Setting aside time weekly for planning and using time blocking (e.g., with Google Calendar) [13:28].
@@ -61,17 +151,6 @@ There are 13 items included in the video and we will walk through each:
    3. Todo Lists: Writing tasks down [26:02].
    4. Rewards: Motivating task completion with rewards [26:46].
    5. Single-tasking: Focusing on one task at a time [52:57].
-6. Protecting Your Time: Delegate and Say No: Learning to decline requests to protect your time [32:34].
-7. Well-being:
-   1. Financial Budgeting: Managing finances reduces stress [24:18].
-   2. Exercise: Regular exercise boosts productivity [25:04].
-   3. Rest: Following a restful routine is important [47:40].
-8. Other Concepts:
-   1. Kronos vs. Kairos Time: Understanding clock time vs. the sequence of events [01:00:41].
-   2. Intentional Tasking and deliberate work: Focusing intentionally rather than acting automatically [01:03:18].
-9. Valuing Time: Recognizing the worth of your time [01:03:56].
-10. Tools: Utilizing agendas, remote work, and apps can save time [57:44].
-    The summary concludes with 13 key highlights covering planning, anticipating tasks, making time, routines, leveraging networks, seasonal planning, focus, task limits, single-tasking, assigning jobs to hours, goal planning, and valuing time [00:44:47 - 01:03:56].
 
 ## Insights from "Getting Things Done"
 
@@ -90,7 +169,7 @@ Here are five techniques pulled from the book:
 2. Clarify and organize tasks
    1. When capturing a task, document the specific actions needed to achieve the task.
    2. If possible, create calendar appointments for tasks.
-3. Reflect using a non-negotiable weekly
+3. Reflect using a non-negotiable weekly session
    1. Weekly, monthly, or at some other interval, take some time to reflect on your prior work interval and plan your next work interval.
    2. Compare your previously-planned work with the work completed. Use this information to help you plan the next interval in a realistic way.
    3. Reflect on your tasks which are not yet placed in the calendar and decide whether you are now able to create a proper appointment.
@@ -118,7 +197,10 @@ The habits and our time management insights for them are as follows:
 3. Put First Things First. This principle reminds us to prioritize and schedule our work, accounting for dependencies between tasks.
 4. Think Win-Win
 5. Seek First to Understand, Then to Be Understood
+   1. Plans that grapple with the empirical reality of the actual world and the specific preferences and perceptions of stakeholders are set up for success over axiomatic or armchair designs.
+   2. Welcome feedback but not interruption or mischaracterization. Ensure stakeholders actually understand you before solving for differences.
 6. Synergize
+   1. Understand yourself and your team. Assign tasks accounting for relative strengths and weaknesses or specialization.
 7. Sharpen the Saw
    1. This habit is about preserving and enhancing ourselves.
    2. It encourages us to invest time and effort to intentionally heal and upskill with four explicit dimensions of self: body, heart, mind, and spirit.
