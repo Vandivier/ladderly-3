@@ -77,7 +77,7 @@ export default async function CoursePage({
           {mainContentItem && mainContentItem.contentUrl && (
             <div className="mb-8 rounded-md bg-blue-50 p-6 dark:bg-blue-900/30">
               <h2 className="mb-3 text-xl font-semibold text-blue-900 dark:text-blue-200">
-                Primary Course Material
+                {mainContentItem.title}
               </h2>
               <p className="mb-4 text-blue-800 dark:text-blue-300">
                 {mainContentItem.description}
@@ -117,66 +117,69 @@ export default async function CoursePage({
             )}
           </div>
 
-          <div className="rounded-lg bg-white p-6 shadow-md dark:bg-gray-700">
-            <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-white">
-              Additional Course Content
-            </h2>
+          {course.contentItems.length > 1 ? (
+            <div className="rounded-lg bg-white p-6 shadow-md dark:bg-gray-700">
+              <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-white">
+                Additional Course Content
+              </h2>
 
-            <div className="space-y-6">
-              {course.contentItems
-                .filter((item) => item.order !== 0) // Skip the main content
-                .map((item) => (
-                  <div
-                    key={item.id}
-                    className="rounded-md bg-gray-50 p-4 dark:bg-gray-800"
-                  >
-                    <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
-                      {item.title}
-                    </h3>
+              <div className="space-y-6">
+                {course.contentItems
+                  .filter((item) => item.order !== 0) // Skip the main content
+                  .map((item) => (
+                    <div
+                      key={item.id}
+                      className="rounded-md bg-gray-50 p-4 dark:bg-gray-800"
+                    >
+                      <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                        {item.title}
+                      </h3>
 
-                    {item.description && (
-                      <p className="mb-3 text-gray-600 dark:text-gray-300">
-                        {item.description}
-                      </p>
-                    )}
-
-                    {item.contentUrl && item.contentType === 'VIDEO' && (
-                      <div className="mt-4">
-                        <a
-                          href={item.contentUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline dark:text-blue-400"
-                        >
-                          Watch Video
-                        </a>
-                      </div>
-                    )}
-
-                    {item.contentUrl && item.contentType === 'LINK' && (
-                      <div className="mt-4">
-                        <a
-                          href={item.contentUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline dark:text-blue-400"
-                        >
-                          View Resource
-                        </a>
-                      </div>
-                    )}
-
-                    {item.contentType === 'EXERCISE' && (
-                      <div className="mt-4 rounded-md bg-blue-50 p-3 dark:bg-blue-900">
-                        <p className="text-blue-800 dark:text-blue-200">
-                          Practice Exercise: Complete the tasks described above.
+                      {item.description && (
+                        <p className="mb-3 text-gray-600 dark:text-gray-300">
+                          {item.description}
                         </p>
-                      </div>
-                    )}
-                  </div>
-                ))}
+                      )}
+
+                      {item.contentUrl && item.contentType === 'VIDEO' && (
+                        <div className="mt-4">
+                          <a
+                            href={item.contentUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline dark:text-blue-400"
+                          >
+                            Watch Video
+                          </a>
+                        </div>
+                      )}
+
+                      {item.contentUrl && item.contentType === 'LINK' && (
+                        <div className="mt-4">
+                          <a
+                            href={item.contentUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline dark:text-blue-400"
+                          >
+                            View Resource
+                          </a>
+                        </div>
+                      )}
+
+                      {item.contentType === 'EXERCISE' && (
+                        <div className="mt-4 rounded-md bg-blue-50 p-3 dark:bg-blue-900">
+                          <p className="text-blue-800 dark:text-blue-200">
+                            Practice Exercise: Complete the tasks described
+                            above.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
       </LadderlyPageWrapper>
     )
