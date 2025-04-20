@@ -1,15 +1,32 @@
 'use client'
 
 import Link from 'next/link'
+import type { Course } from '@prisma/client'
 
-interface Course {
-  slug: string
-  title: string
-  description: string
+// Define an extended type that includes the related models
+interface CourseWithRelations extends Course {
+  contentItems: Array<{
+    id: number
+    title: string
+    description?: string | null
+    contentUrl?: string | null
+    contentType: string
+    order: number
+  }>
+  flashCardDecks: Array<{
+    id: number
+    name: string
+    description?: string | null
+  }>
+  quizzes: Array<{
+    id: number
+    name: string
+    description?: string | null
+  }>
 }
 
 interface CourseListComponentProps {
-  courses: Course[]
+  courses: CourseWithRelations[]
 }
 
 export const CourseListComponent = ({ courses }: CourseListComponentProps) => {
@@ -44,23 +61,27 @@ export const CourseListComponent = ({ courses }: CourseListComponentProps) => {
                     Course Content
                   </Link>
 
-                  <Link
-                    href={{
-                      pathname: `/courses/${course.slug}/flashcards`,
-                    }}
-                    className="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600"
-                  >
-                    Flash Cards
-                  </Link>
+                  {course.flashCardDecks.length > 0 && (
+                    <Link
+                      href={{
+                        pathname: `/courses/${course.slug}/flashcards`,
+                      }}
+                      className="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600"
+                    >
+                      Flash Cards
+                    </Link>
+                  )}
 
-                  <Link
-                    href={{
-                      pathname: `/courses/${course.slug}/quiz`,
-                    }}
-                    className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:bg-purple-500 dark:hover:bg-purple-600"
-                  >
-                    Quiz
-                  </Link>
+                  {course.quizzes.length > 0 && (
+                    <Link
+                      href={{
+                        pathname: `/courses/${course.slug}/quiz`,
+                      }}
+                      className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:bg-purple-500 dark:hover:bg-purple-600"
+                    >
+                      Quiz
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

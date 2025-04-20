@@ -5,6 +5,7 @@ import { authRouter } from './routers/auth'
 import { checklistRouter } from './routers/checklist'
 import { chatRouter } from './routers/chat'
 import { jobSearchRouter } from './routers/jobSearch'
+import { courseRouter } from './routers/course'
 
 /**
  * This is the primary router for your server.
@@ -18,6 +19,7 @@ export const appRouter = createTRPCRouter({
   checklist: checklistRouter,
   chat: chatRouter,
   jobSearch: jobSearchRouter,
+  course: courseRouter,
 })
 
 // export type definition of API
