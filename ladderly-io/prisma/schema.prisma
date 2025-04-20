@@ -234,70 +234,116 @@ model FlashCard {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  frontText String
-  backText  String
 
-  sourcePlatformId   String
-  sourcePlatformName String
-  FlashCardDeck      FlashCardDeck? @relation(fields: [flashCardDeckId], references: [id])
-  flashCardDeckId    Int?
-}
+  question      String
+  correctAnswer String
+  distractors   String[]
 
-model PossibleAnswer {
-  id                 Int       @id @default(autoincrement())
-  inputId            String    @unique
-  text               String
-  quizItemId         Int
-  quizItem           QuizItem  @relation(fields: [quizItemId], references: [id], name: "PossibleAnswersToQuizItem")
-  isCorrectAnswerFor QuizItem? @relation("CorrectAnswerToQuizItem")
-  correctAnswerForId Int?
-}
+  // Optional explanation for the answer
+  explanation String?
 
-model QuizItem {
-  id              Int              @id @default(autoincrement())
-  inputId         String           @unique
-  questionText    String
-  possibleAnswers PossibleAnswer[] @relation("PossibleAnswersToQuizItem")
-  correctAnswer   PossibleAnswer?  @relation(fields: [correctAnswerId], references: [id], name: "CorrectAnswerToQuizItem")
-  correctAnswerId Int?             @unique
-  quiz            Quiz?            @relation(fields: [quizId], references: [id], name: "QuizItemsToQuiz")
-  quizId          Int
+  // The deck this card belongs to
+  flashCardDeck   FlashCardDeck? @relation(fields: [flashCardDeckId], references: [id])
+  flashCardDeckId Int?
 }
 
 model Quiz {
-  id                 Int              @id @default(autoincrement())
-  inputId            String           @unique
-  name               String           @unique
-  quizItems          QuizItem[]       @relation("QuizItemsToQuiz")
-  sourcePlatformId   String
-  sourcePlatformName String
-  CurriculumUnit     CurriculumUnit[]
-  QuizResult         QuizResult[]
-}
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-model CurriculumUnit {
-  id              Int           @id @default(autoincrement())
-  inputId         String        @unique
-  quiz            Quiz          @relation(fields: [quizId], references: [id])
-  quizId          Int
+  name        String  @unique
+  description String?
+  timeLimit   Int? // Time limit in seconds (optional)
+
+  // Link to the course
+  course   Course? @relation(fields: [courseId], references: [id])
+  courseId Int?
+
+  // Link to the flashcard deck this quiz pulls from
   flashCardDeck   FlashCardDeck @relation(fields: [flashCardDeckId], references: [id])
   flashCardDeckId Int
+
+  // Quiz results
+  quizResults QuizResult[]
 }
 
 model FlashCardDeck {
-  id             Int              @id @default(autoincrement())
-  flashCards     FlashCard[]
-  CurriculumUnit CurriculumUnit[]
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  description String?
+
+  flashCards FlashCard[]
+
+  // Quizzes that use this deck
+  quizzes Quiz[]
+
+  // Link to the course
+  course   Course? @relation(fields: [courseId], references: [id])
+  courseId Int?
+}
+
+model Course {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  slug        String @unique
+  title       String
+  description String
+
+  // Course content
+  contentItems CourseContent[]
+
+  // Related flashcard decks
+  flashCardDecks FlashCardDeck[]
+
+  // Related quizzes
+  quizzes Quiz[]
+}
+
+model CourseContent {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String
+  description String?
+  contentUrl  String?
+  contentType ContentType @default(TEXT)
+  order       Int         @default(0)
+
+  // Link to the course
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId Int
+}
+
+enum ContentType {
+  TEXT
+  VIDEO
+  AUDIO
+  DOCUMENT
+  LINK
+  EXERCISE
 }
 
 model QuizResult {
-  id     Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
   passed Boolean
   score  Float
-  quiz   Quiz    @relation(fields: [quizId], references: [id])
+
+  quiz   Quiz @relation(fields: [quizId], references: [id])
   quizId Int
-  user   User    @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
   userId Int
+
+  // Ensure a cooldown between quiz attempts
+  @@index([userId, quizId, createdAt])
 }
 
 enum VotableType {
