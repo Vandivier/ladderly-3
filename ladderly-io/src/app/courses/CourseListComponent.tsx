@@ -31,7 +31,7 @@ interface CourseListComponentProps {
 
 export const CourseListComponent = ({ courses }: CourseListComponentProps) => {
   return (
-    <div className="w-full bg-gray-50 px-4 py-6 dark:bg-gray-800 md:px-8">
+    <div className="w-full bg-gray-50 px-4 py-6 pb-16 dark:bg-gray-800 md:px-8">
       <div className="container mx-auto max-w-5xl">
         <h1 className="mb-8 text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
           Available Courses
