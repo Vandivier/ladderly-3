@@ -13,6 +13,7 @@ tests/coverage
 /prisma/db.sqlite
 /prisma/db.sqlite-journal
 db.sqlite
+flashcards.json
 premium-checklists.json
 
 # next.js
