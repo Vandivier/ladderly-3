@@ -141,6 +141,21 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     }
   }, [isQuizInfoLoading, isQuizDataLoading, courseError])
 
+  // Format time limit in seconds to a readable format
+  const formatTimeLimit = (seconds: number | null): string => {
+    if (!seconds) return 'No time limit'
+
+    const minutes = Math.floor(seconds / 60)
+    const hours = Math.floor(minutes / 60)
+
+    if (hours > 0) {
+      const remainingMinutes = minutes % 60
+      return `${hours} hour${hours > 1 ? 's' : ''}${remainingMinutes > 0 ? ` and ${remainingMinutes} minute${remainingMinutes > 1 ? 's' : ''}` : ''}`
+    }
+
+    return `${minutes} minute${minutes > 1 ? 's' : ''}`
+  }
+
   // Format relative time (e.g., "2 hours ago")
   const formatTimeAgo = (dateString: string): string => {
     const date = new Date(dateString)
@@ -228,9 +243,9 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   const endQuiz = (earlyExit: boolean) => {
     setQuizCompleted(true)
     setEndTime(new Date())
-    const totalQuestions = earlyExit
-      ? currentQuestion + 1
-      : quizData?.flashcards.length || 0
+
+    // Always calculate score based on total questions (50)
+    const totalQuestions = 50
     const calculatedScore = Math.round((correctAnswers / totalQuestions) * 100)
     setScore(calculatedScore)
 
@@ -300,6 +315,9 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     const passed = score >= 80
     const perfect = score === 100
 
+    // Get the latest quiz result from the mutation data or API
+    const latestQuizResult = submitQuizMutation.data || null
+
     return (
       <div className="w-full bg-gray-50 px-4 py-6 pb-16 dark:bg-gray-800 md:px-8">
         <div className="container mx-auto max-w-5xl">
@@ -335,10 +353,33 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
                 {!passed && <div className="text-red-600">Quiz Failed</div>}
               </div>
               <div className="mt-2 text-gray-600">
-                You got {correctAnswers} out of{' '}
-                {quizData?.flashcards.length || 0} questions correct.
+                You got {correctAnswers} out of 50 questions correct.
               </div>
             </div>
+
+            {passed && latestQuizResult && (
+              <div className="mb-8 rounded-lg bg-green-50 p-4 dark:bg-green-900/30">
+                <h3 className="mb-2 font-semibold text-green-800 dark:text-green-200">
+                  Certificate Awarded
+                </h3>
+                <p className="mb-4 text-green-700 dark:text-green-300">
+                  Congratulations! You've earned a certificate for passing this
+                  quiz.
+                  {perfect && ' You achieved a perfect score with honors!'}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <div className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white">
+                    Certificate Earned
+                  </div>
+                  <div
+                    className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                    onClick={() => (window.location.href = '/dashboard')}
+                  >
+                    View Dashboard
+                  </div>
+                </div>
+              </div>
+            )}
 
             {!passed && (
               <div className="mb-8 rounded-lg bg-blue-50 p-4 dark:bg-blue-900/40">
@@ -389,8 +430,24 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
             </div>
             {timeLeft !== null && (
               <div className="rounded-md bg-white px-4 py-2 font-mono font-semibold text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white">
-                Time: {Math.floor(timeLeft / 60)}:
-                {(timeLeft % 60).toString().padStart(2, '0')}
+                <span className="inline-flex items-center text-red-600 dark:text-red-400">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mr-1 h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  Time Remaining: {Math.floor(timeLeft / 60)}:
+                  {(timeLeft % 60).toString().padStart(2, '0')}
+                </span>
               </div>
             )}
           </div>
@@ -399,6 +456,30 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
             <h2 className="mb-6 text-xl font-semibold text-gray-800 dark:text-white">
               {currentCard.question}
             </h2>
+
+            {currentQuestion === 0 && timeLeft !== null && (
+              <div className="mb-6 rounded border border-blue-200 bg-blue-50 p-3 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
+                <p className="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mr-2 h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  Your quiz has a time limit of{' '}
+                  {formatTimeLimit(quizData.timeLimit)}. The timer has started
+                  and will be displayed at the top of the page.
+                </p>
+              </div>
+            )}
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {options.map((option, index) => (
@@ -476,6 +557,13 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
                   A perfect score of 100% will earn you a pass with honors.
                 </li>
                 <li>
+                  Time limit:{' '}
+                  <span className="font-medium">
+                    {formatTimeLimit(quizInfo.quiz.timeLimit)}
+                  </span>
+                  .
+                </li>
+                <li>
                   If you get 11 questions wrong, the quiz will end
                   automatically.
                 </li>
@@ -548,7 +636,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
               }`}
             >
               {quizInfo.canAttempt
-                ? 'Start Quiz'
+                ? `Start Quiz ${quizInfo.quiz.timeLimit ? `(${formatTimeLimit(quizInfo.quiz.timeLimit)} time limit)` : ''}`
                 : 'Quiz Unavailable During Cooldown'}
             </button>
           </div>

@@ -18,6 +18,7 @@ interface FlashCardDeckData {
   flashCards: FlashCardData[]
   quizName?: string
   quizDescription?: string
+  timeLimit?: number // Time limit in seconds
 }
 
 async function seedFlashcardsWithQuizzes(): Promise<void> {
@@ -145,6 +146,7 @@ async function seedFlashcardsWithQuizzes(): Promise<void> {
       const quizDescription = deckData.quizDescription
         ? deckData.quizDescription
         : `Test your knowledge on ${deckData.deckName}`
+      const timeLimit = deckData.timeLimit
 
       let quiz = await db.quiz.findFirst({
         where: {
@@ -160,6 +162,7 @@ async function seedFlashcardsWithQuizzes(): Promise<void> {
           data: {
             name: quizName,
             description: quizDescription,
+            timeLimit: timeLimit,
           },
         })
         console.log(`Updated quiz for flashcard deck: ${deckData.deckName}`)
@@ -169,6 +172,7 @@ async function seedFlashcardsWithQuizzes(): Promise<void> {
           data: {
             name: quizName,
             description: quizDescription,
+            timeLimit: timeLimit,
             course: {
               connect: { id: course.id },
             },

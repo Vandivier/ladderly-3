@@ -159,6 +159,13 @@ export const quizRouter = createTRPCRouter({
           score: input.score,
           passed: input.score >= 80,
         },
+        include: {
+          quiz: {
+            include: {
+              course: true,
+            },
+          },
+        },
       })
 
       return result

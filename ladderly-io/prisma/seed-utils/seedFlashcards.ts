@@ -16,6 +16,7 @@ interface FlashCardDeckData {
   flashCards: FlashCardData[]
   quizName?: string
   quizDescription?: string
+  timeLimit?: number // Time limit in seconds
 }
 
 export async function seedFlashcards(): Promise<void> {
@@ -63,6 +64,39 @@ export async function seedFlashcards(): Promise<void> {
         console.log(
           `Flashcard deck "${deckData.deckName}" already exists for course "${deckData.courseTitle}". Skipping.`,
         )
+
+        // Check if a quiz exists for this deck and update timeLimit if needed
+        const quizName = deckData.quizName
+          ? deckData.quizName
+          : deckData.deckName
+
+        const existingQuiz = await db.quiz.findFirst({
+          where: {
+            flashCardDeckId: existingDeck.id,
+            courseId: course.id,
+          },
+        })
+
+        if (existingQuiz) {
+          // Default to 3600 seconds (1 hour) if timeLimit is not specified
+          const timeLimit = deckData.timeLimit ?? 3600
+
+          if (existingQuiz.timeLimit !== timeLimit) {
+            // Update the timeLimit for the existing quiz
+            await db.quiz.update({
+              where: { id: existingQuiz.id },
+              data: { timeLimit: timeLimit },
+            })
+            console.log(
+              `Updated timeLimit to ${timeLimit} seconds for quiz: ${existingQuiz.name}`,
+            )
+          } else {
+            console.log(
+              `Quiz "${existingQuiz.name}" already has the correct timeLimit: ${timeLimit} seconds.`,
+            )
+          }
+        }
+
         continue
       }
 
@@ -111,11 +145,14 @@ export async function seedFlashcards(): Promise<void> {
         const quizDescription = deckData.quizDescription
           ? deckData.quizDescription
           : `Test your knowledge on ${deckData.deckName}`
+        // Default to 3600 seconds (1 hour) if timeLimit is not specified
+        const timeLimit = deckData.timeLimit ?? 3600
 
         await db.quiz.create({
           data: {
             name: quizName,
             description: quizDescription,
+            timeLimit: timeLimit,
             course: {
               connect: { id: course.id },
             },
