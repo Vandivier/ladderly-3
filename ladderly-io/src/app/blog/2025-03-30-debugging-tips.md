@@ -5,8 +5,7 @@ author: John Vandivier
 
 There are loads of ways for software engineers to debug.
 
-This article describes four groups of tips and gives special notes focusing on commercial patterns
-and debugging in the interview.
+This article describes four groups of tips and gives special notes focusing on commercial patterns and debugging in the interview.
 
 These debugging tips overlap with remediation, testing, and other practices.
 
