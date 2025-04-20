@@ -26,7 +26,7 @@ export default function FlashcardsContent({
       router.push('/courses')
     }
 
-    if (course || error) {
+    if (course ?? error) {
       setIsLoading(false)
     }
   }, [course, error, router])
@@ -107,12 +107,12 @@ export default function FlashcardsContent({
       <div className="rounded-lg bg-white p-6 shadow-md dark:bg-gray-700">
         <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-white">
           Flashcard Deck:{' '}
-          {course.flashCardDecks[0]?.name || 'Course Flashcards'}
+          {course.flashCardDecks[0]?.name ?? 'Course Flashcards'}
         </h2>
 
         <div className="prose max-w-none dark:prose-invert">
           <p>
-            {course.flashCardDecks[0]?.description ||
+            {course.flashCardDecks[0]?.description ??
               'Practice with these flashcards to reinforce your learning.'}
           </p>
           <p>The interactive flashcard feature is coming soon.</p>

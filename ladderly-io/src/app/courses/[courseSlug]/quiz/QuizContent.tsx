@@ -24,7 +24,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
       router.push('/courses')
     }
 
-    if (course || error) {
+    if (course ?? error) {
       setIsLoading(false)
     }
   }, [course, error, router])
@@ -106,12 +106,12 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
 
       <div className="rounded-lg bg-white p-6 shadow-md dark:bg-gray-700">
         <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-white">
-          Quiz: {course.quizzes[0]?.name || 'Course Quiz'}
+          Quiz: {course.quizzes[0]?.name ?? 'Course Quiz'}
         </h2>
 
         <div className="prose max-w-none dark:prose-invert">
           <p>
-            {course.quizzes[0]?.description ||
+            {course.quizzes[0]?.description ??
               'Test your knowledge with this quiz.'}
           </p>
           <p>The interactive quiz feature is coming soon.</p>

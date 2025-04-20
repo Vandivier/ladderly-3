@@ -80,7 +80,7 @@ export default async function CoursePage({
             {course.description}
           </p>
 
-          {mainContentItem && mainContentItem.contentUrl && (
+          {mainContentItem?.contentUrl && (
             <div className="mb-8 rounded-md bg-blue-50 p-6 dark:bg-blue-900/30">
               <h2 className="mb-3 text-xl font-semibold text-blue-900 dark:text-blue-200">
                 {mainContentItem.title}

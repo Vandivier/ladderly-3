@@ -106,7 +106,7 @@ export const ClientChat = () => {
           <ChatMessage key={message.id} message={message} />
         ))}
         {chatMutation.isPending && (
-          <div className="container mx-auto max-w-3xl px-4 py-4">
+          <div className="container mx-auto max-w-3xl p-4">
             <div className="flex gap-2">
               <div className="size-2 animate-bounce rounded-full bg-gray-500 [animation-delay:-0.3s] dark:bg-gray-400"></div>
               <div className="size-2 animate-bounce rounded-full bg-gray-500 [animation-delay:-0.15s] dark:bg-gray-400"></div>
@@ -134,7 +134,7 @@ export const ClientChat = () => {
               className="flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 dark:focus:ring-offset-gray-900"
               disabled={!input.trim() || chatMutation.isPending}
             >
-              <Send className="h-5 w-5" />
+              <Send className="size-5" />
             </button>
           </div>
         </div>

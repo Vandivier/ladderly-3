@@ -56,9 +56,9 @@ export const courseRouter = createTRPCRouter({
             (deck) => deck.id === quiz.flashCardDeckId,
           )
 
-          if (!deck || deck.flashCards.length < 50) {
+          if (deck ? deck.flashCards.length < 50 : true) {
             console.error(
-              `Error: Course "${course.title}" (ID: ${course.id}) has quiz "${quiz.name}" (ID: ${quiz.id}) with fewer than 50 flash cards (found ${deck?.flashCards.length || 0})`,
+              `Error: Course "${course.title}" (ID: ${course.id}) has quiz "${quiz.name}" (ID: ${quiz.id}) with fewer than 50 flash cards (found ${deck?.flashCards.length ?? 0})`,
             )
             invalidQuizzes.push(quiz.id)
           }
