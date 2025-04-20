@@ -1,6 +1,5 @@
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
-import { createCaller } from '~/server/api/root'
-import { createTRPCContext } from '~/server/api/trpc'
+import { api } from '~/trpc/server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -9,10 +8,7 @@ export const revalidate = 3600 // revalidate the data at most every hour
 
 export async function generateStaticParams() {
   // Get all courses to generate static paths
-  const caller = createCaller(
-    await createTRPCContext({ headers: new Headers() }),
-  )
-  const courses = await caller.course.getAll()
+  const courses = await api.course.getAll()
 
   return courses.map((course) => ({
     courseSlug: course.slug,
@@ -25,10 +21,7 @@ export async function generateMetadata({
   params: { courseSlug: string }
 }) {
   try {
-    const caller = createCaller(
-      await createTRPCContext({ headers: new Headers() }),
-    )
-    const course = await caller.course.getBySlug({ slug: params.courseSlug })
+    const course = await api.course.getBySlug({ slug: params.courseSlug })
 
     return {
       title: `${course.title} - Ladderly Courses`,
@@ -48,10 +41,7 @@ export default async function CoursePage({
   params: { courseSlug: string }
 }) {
   try {
-    const caller = createCaller(
-      await createTRPCContext({ headers: new Headers() }),
-    )
-    const course = await caller.course.getBySlug({ slug: params.courseSlug })
+    const course = await api.course.getBySlug({ slug: params.courseSlug })
 
     // Get the main content item (first item)
     const mainContentItem = course.contentItems.find((item) => item.order === 0)

@@ -9,16 +9,78 @@ import {
 
 export const courseRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    return ctx.db.course.findMany({
+    // Get all courses with a limit of 10
+    const courses = await ctx.db.course.findMany({
+      take: 10,
       orderBy: { title: 'asc' },
       include: {
         contentItems: {
           orderBy: { order: 'asc' },
         },
-        flashCardDecks: true,
-        quizzes: true,
+        flashCardDecks: {
+          include: {
+            flashCards: true,
+          },
+        },
+        quizzes: {
+          include: {
+            flashCardDeck: true,
+          },
+        },
       },
     })
+
+    // Process courses to validate flash cards count
+    const processedCourses = courses.map((course) => {
+      // Extract the data we need without the flashCards
+      const flashCardDecksWithoutCards = course.flashCardDecks.map((deck) => ({
+        id: deck.id,
+        name: deck.name,
+        description: deck.description,
+        createdAt: deck.createdAt,
+        updatedAt: deck.updatedAt,
+        courseId: deck.courseId,
+      }))
+
+      // Copy quizzes but filter out invalid ones
+      let processedQuizzes = [...course.quizzes]
+
+      // Check each quiz
+      if (course.quizzes.length > 0) {
+        const invalidQuizzes: number[] = []
+
+        // Check if any quiz has a deck with less than 50 flash cards
+        course.quizzes.forEach((quiz) => {
+          // Find the associated deck
+          const deck = course.flashCardDecks.find(
+            (deck) => deck.id === quiz.flashCardDeckId,
+          )
+
+          if (!deck || deck.flashCards.length < 50) {
+            console.error(
+              `Error: Course "${course.title}" (ID: ${course.id}) has quiz "${quiz.name}" (ID: ${quiz.id}) with fewer than 50 flash cards (found ${deck?.flashCards.length || 0})`,
+            )
+            invalidQuizzes.push(quiz.id)
+          }
+        })
+
+        // Filter out invalid quizzes
+        if (invalidQuizzes.length > 0) {
+          processedQuizzes = processedQuizzes.filter(
+            (quiz) => !invalidQuizzes.includes(quiz.id),
+          )
+        }
+      }
+
+      // Return a new object with the structure we want
+      return {
+        ...course,
+        flashCardDecks: flashCardDecksWithoutCards,
+        quizzes: processedQuizzes,
+      }
+    })
+
+    return processedCourses
   }),
 
   getBySlug: publicProcedure
