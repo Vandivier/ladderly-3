@@ -3,33 +3,16 @@
 import Link from 'next/link'
 
 interface Course {
-  id: string
+  slug: string
   title: string
   description: string
 }
 
-const courses: Course[] = [
-  {
-    id: 'time-management',
-    title: 'Time Management',
-    description:
-      'Learn effective strategies to manage your time efficiently and boost productivity in your daily work and studies.',
-  },
-  {
-    id: 'professional-communication',
-    title: 'Professional Communication',
-    description:
-      'Master the art of professional communication in various contexts including emails, presentations, and team interactions.',
-  },
-  {
-    id: 'front-end-development',
-    title: 'Essentials of Front End Development',
-    description:
-      'Explore the core concepts and technologies that make up modern front-end development, including HTML, CSS, and JavaScript.',
-  },
-]
+interface CourseListComponentProps {
+  courses: Course[]
+}
 
-export const CourseListComponent = () => {
+export const CourseListComponent = ({ courses }: CourseListComponentProps) => {
   return (
     <div className="w-full bg-gray-50 px-4 py-6 dark:bg-gray-800 md:px-8">
       <div className="container mx-auto max-w-5xl">
@@ -40,7 +23,7 @@ export const CourseListComponent = () => {
         <div className="grid gap-6">
           {courses.map((course) => (
             <div
-              key={course.id}
+              key={course.slug}
               className="overflow-hidden rounded-lg bg-white shadow-md transition-all hover:shadow-lg dark:bg-gray-700"
             >
               <div className="p-6">
@@ -54,7 +37,7 @@ export const CourseListComponent = () => {
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href={{
-                      pathname: `/courses/${course.id}`,
+                      pathname: `/courses/${course.slug}`,
                     }}
                     className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600"
                   >
@@ -63,7 +46,7 @@ export const CourseListComponent = () => {
 
                   <Link
                     href={{
-                      pathname: `/courses/${course.id}/flashcards`,
+                      pathname: `/courses/${course.slug}/flashcards`,
                     }}
                     className="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-500 dark:hover:bg-green-600"
                   >
@@ -72,7 +55,7 @@ export const CourseListComponent = () => {
 
                   <Link
                     href={{
-                      pathname: `/courses/${course.id}/quiz`,
+                      pathname: `/courses/${course.slug}/quiz`,
                     }}
                     className="inline-flex items-center rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:bg-purple-500 dark:hover:bg-purple-600"
                   >
