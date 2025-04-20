@@ -10,6 +10,9 @@ import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/Ladderly
 export const metadata: Metadata = {
   title: 'Blog | Ladderly',
   description: 'Articles about programming and career development',
+  alternates: {
+    canonical: '/blog',
+  },
 }
 
 interface BlogPost {

@@ -32,11 +32,17 @@ export async function generateMetadata({
     return {
       title: `${course.title} - Ladderly Courses`,
       description: course.description,
+      alternates: {
+        canonical: `/courses/${params.courseSlug}`,
+      },
     }
   } catch (error) {
     return {
       title: 'Course Not Found',
       description: 'The requested course could not be found.',
+      alternates: {
+        canonical: `/courses/${params.courseSlug}`,
+      },
     }
   }
 }

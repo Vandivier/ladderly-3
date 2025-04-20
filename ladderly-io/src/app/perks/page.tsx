@@ -3,6 +3,9 @@ import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/Ladderly
 export const metadata = {
   title: 'Perks',
   description: 'Earn a discount with recommended partners!',
+  alternates: {
+    canonical: '/perks',
+  },
 }
 
 interface Perk {

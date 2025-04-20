@@ -6,6 +6,9 @@ export const metadata = {
   title: 'Courses - Ladderly',
   description:
     "Explore Ladderly's courses on Time Management, Professional Communication, and Front End Development.",
+  alternates: {
+    canonical: '/courses',
+  },
 }
 
 export default async function CoursesPage() {

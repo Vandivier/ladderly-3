@@ -9,6 +9,9 @@ export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: 'Email Preferences',
+  alternates: {
+    canonical: '/settings/email-preferences',
+  },
 }
 
 export default async function EmailPreferencesPage() {

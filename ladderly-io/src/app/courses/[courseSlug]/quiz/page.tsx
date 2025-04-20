@@ -13,6 +13,9 @@ export async function generateMetadata({
   return {
     title: `Quiz - Ladderly Courses`,
     description: `Test your knowledge with this comprehensive quiz.`,
+    alternates: {
+      canonical: `/courses/${params.courseSlug}/quiz`,
+    },
   }
 }
 

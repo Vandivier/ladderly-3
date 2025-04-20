@@ -3,6 +3,9 @@ import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/Ladderly
 export const metadata = {
   title: 'Ladderly Copilot',
   description: 'An AI tool trained on Ladderly content.',
+  alternates: {
+    canonical: '/copilot',
+  },
 }
 
 const LadderlyCopilotPage = () => {

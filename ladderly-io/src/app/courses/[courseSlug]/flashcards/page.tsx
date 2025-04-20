@@ -13,6 +13,9 @@ export async function generateMetadata({
   return {
     title: `Flashcards - Ladderly Courses`,
     description: `Practice concepts with these flashcards.`,
+    alternates: {
+      canonical: `/courses/${params.courseSlug}/flashcards`,
+    },
   }
 }
 

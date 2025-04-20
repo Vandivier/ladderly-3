@@ -8,6 +8,9 @@ import { CreateJobSearchModal } from './CreateJobSearchModal'
 
 export const metadata = {
   title: 'Job Search',
+  alternates: {
+    canonical: '/job-search',
+  },
 }
 
 export default function JobSearchPage() {
