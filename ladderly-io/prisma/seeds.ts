@@ -1,17 +1,15 @@
+import { Checklist } from '@prisma/client'
 import * as fs from 'fs'
 import * as path from 'path'
 import { db } from '../src/server/db'
-import { Checklist } from '@prisma/client'
 
+import { seedLeetcodeChecklist } from './seed-utils/seedLeetcodeChecklist'
+import { seedVotables } from './seed-utils/seedVotables'
 import {
   ChecklistSeedDataType,
   ChecklistsSchema,
   updateChecklistsInPlace,
 } from './seed-utils/updateChecklists'
-import { seedVotables } from './seed-utils/seedVotables'
-import { seedLeetcodeChecklist } from './seed-utils/seedLeetcodeChecklist'
-import { seedCourses } from './seed-utils/seedCourses'
-import { seedFlashcards } from './seed-utils/seedFlashcards'
 
 // Use __dirname directly since this is CommonJS
 const __dirname = process.cwd() + '/prisma'
@@ -64,14 +62,6 @@ const createNewChecklist = async (
 }
 
 const seed = async () => {
-  // Seed courses
-  console.log('Starting seedCourses...')
-  await seedCourses()
-
-  // Seed flashcards
-  console.log('Starting seedFlashcards...')
-  await seedFlashcards()
-
   // Seed votables
   console.log('Starting seedVotables...')
   await seedVotables()

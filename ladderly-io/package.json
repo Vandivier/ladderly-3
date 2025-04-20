@@ -11,6 +11,7 @@
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
+    "db:seed:courses": "tsx prisma/seedCoursesAndFlashcards.ts",
     "db:seed:in-place": "prisma db seed -- --update-latest-checklists",
     "db:studio": "prisma studio",
     "dev": "next dev",
