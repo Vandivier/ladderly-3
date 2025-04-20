@@ -4,7 +4,7 @@ import { CourseListComponent } from './CourseListComponent'
 
 export default async function CoursesPage() {
   return (
-    <LadderlyPageWrapper authenticate requirePremium>
+    <LadderlyPageWrapper>
       <Suspense fallback={<div>Loading...</div>}>
         <CourseListComponent />
       </Suspense>
