@@ -13,16 +13,7 @@ import { createQueryClient } from './query-client'
  * handling a tRPC call from a React Server Component.
  */
 const createContext = cache(() => {
-  let heads = new Headers()
-
-  try {
-    // This may fail during static generation (generateStaticParams)
-    heads = new Headers(headers())
-  } catch (error) {
-    // During static generation, provide a fallback empty headers object
-    console.log('Using fallback headers for static generation')
-  }
-
+  const heads = new Headers(headers())
   heads.set('x-trpc-source', 'rsc')
 
   return createTRPCContext({
