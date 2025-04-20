@@ -15,6 +15,7 @@ tests/coverage
 db.sqlite
 flashcards.json
 premium-checklists.json
+**.bak.**
 
 # next.js
 /.next/
