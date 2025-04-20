@@ -61,6 +61,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
   const [startTime, setStartTime] = useState<Date | null>(null)
   const [endTime, setEndTime] = useState<Date | null>(null)
+  const [questionOptions, setQuestionOptions] = useState<string[][]>([])
 
   // Get course data
   const { data: course, error: courseError } = api.course.getBySlug.useQuery({
@@ -212,27 +213,48 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     setQuizCompleted(false)
     setScore(0)
     setStartTime(new Date())
+    setQuestionOptions([])
   }
+
+  // Generate stable random options for each question
+  useEffect(() => {
+    if (quizStarted && quizData && !quizCompleted) {
+      // Generate options array for all questions only once when quiz starts
+      if (questionOptions.length === 0) {
+        const newOptions = quizData.flashcards.map(
+          (card: FlashcardQuestion) => {
+            const options = [
+              card.correctAnswer,
+              ...card.distractors.slice(0, 3),
+            ].sort(() => Math.random() - 0.5)
+            return options
+          },
+        )
+        setQuestionOptions(newOptions)
+      }
+    }
+  }, [quizStarted, quizData, quizCompleted, questionOptions.length])
 
   // Handle answering a question
   const handleAnswer = (answer: string) => {
     const flashcard = quizData?.flashcards[currentQuestion]
     const isCorrect = flashcard && flashcard.correctAnswer === answer
+    const currentQuestionIndex = currentQuestion
 
     // Update answers and score
-    setAnswers((prev) => ({ ...prev, [currentQuestion]: answer }))
+    setAnswers((prev) => ({ ...prev, [currentQuestionIndex]: answer }))
     if (isCorrect) {
       setCorrectAnswers((prev) => prev + 1)
     }
 
     // Check for auto-fail (11 wrong answers)
-    if (!isCorrect && currentQuestion + 1 - correctAnswers >= 11) {
+    if (!isCorrect && currentQuestionIndex + 1 - correctAnswers >= 11) {
       endQuiz(true)
       return
     }
 
     // Move to next question or end quiz
-    if (currentQuestion < (quizData?.flashcards.length || 0) - 1) {
+    if (currentQuestionIndex < (quizData?.flashcards.length || 0) - 1) {
       setCurrentQuestion((prev) => prev + 1)
     } else {
       endQuiz(false)
@@ -416,10 +438,11 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   // If quiz is in progress, show quiz interface
   if (quizStarted && quizData && !quizCompleted) {
     const currentCard = quizData.flashcards[currentQuestion]
-    const options = [
-      currentCard.correctAnswer,
-      ...currentCard.distractors.slice(0, 3),
-    ].sort(() => Math.random() - 0.5)
+    // Use pre-randomized options instead of randomizing on every render
+    const options =
+      questionOptions[currentQuestion] ||
+      // Fallback in case options aren't ready yet - use stable order
+      [currentCard.correctAnswer, ...currentCard.distractors.slice(0, 3)].sort()
 
     return (
       <div className="w-full bg-gray-50 px-4 py-6 pb-16 dark:bg-gray-800 md:px-8">
@@ -456,30 +479,6 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
             <h2 className="mb-6 text-xl font-semibold text-gray-800 dark:text-white">
               {currentCard.question}
             </h2>
-
-            {currentQuestion === 0 && timeLeft !== null && (
-              <div className="mb-6 rounded border border-blue-200 bg-blue-50 p-3 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
-                <p className="flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mr-2 h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  Your quiz has a time limit of{' '}
-                  {formatTimeLimit(quizData.timeLimit)}. The timer has started
-                  and will be displayed at the top of the page.
-                </p>
-              </div>
-            )}
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {options.map((option, index) => (
