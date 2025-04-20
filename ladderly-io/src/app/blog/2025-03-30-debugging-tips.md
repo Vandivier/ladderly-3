@@ -5,8 +5,7 @@ author: John Vandivier
 
 There are loads of ways for software engineers to debug.
 
-This article describes four groups of tips and gives special notes focusing on commercial patterns
-and debugging in the interview.
+This article describes four groups of tips and gives special notes focusing on commercial patterns and debugging in the interview.
 
 These debugging tips overlap with remediation, testing, and other practices.
 
@@ -134,26 +133,27 @@ Here are eleven debugging tips using code tools and techniques:
 
 These patterns overlap with previously mentioned categories, but they are particularly common in commercial settings and they have special names!
 
-1. Health Checks
+1. [Git Blame](https://git-scm.com/docs/git-blame) and [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) can help you identify technical subject matter experts that you can contact for help with particular concerns.
+2. Health Checks
    1. These are functions that run periodically to verify the integrity of systems.
    2. They may be conducted as part of a batch process, streaming process, or by polling. This includes processes like [Kubernetes liveliness and readiness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
    3. As a best practice, failing health checks are often paired with runbooks.
-2. Commercial Logging and Correlation IDs
+3. Commercial Logging and Correlation IDs
    1. Besides system logs, your company may have a commercial logger like [Datadog](https://www.datadoghq.com/), which may help track requests across various services, often correlated by a special ID called a correlation ID.
-3. Observability and Telemetry
+4. Observability and Telemetry
    1. Commercial loggers often capture telemetry data, but companies will have distinct tool for this.
    2. These tools may aide in the creation of dashboards, providing a place you can visit to easily see uptime, system health, and anomolous requests.
-4. On-Call Alerts. These can be triggered for all sorts of reasons, such as failing health checks. They can be triggered by monitors set up in a telemetry tool. As a best practices, an on-call alert should be paired with recommended remediation activities. A common tool for this would be [PagerDuty](https://www.pagerduty.com/).
-5. Enterprise documentation
+5. On-Call Alerts. These can be triggered for all sorts of reasons, such as failing health checks. They can be triggered by monitors set up in a telemetry tool. As a best practices, an on-call alert should be paired with recommended remediation activities. A common tool for this would be [PagerDuty](https://www.pagerduty.com/).
+6. Enterprise documentation
    1. Knowledge stores like an enterprise [Confluence](https://www.atlassian.com/software/confluence/resources/guides/get-started/overview#hosting-options) instance or a similar tool may contain troubleshooting documentation.
    2. Sometimes these are outright equivalent to a runbook, though that term may not be used.
    3. If your company has an AI knowledge store like [Glean](https://www.glean.com/) or omni-search tool, prefer that over one-by-one inspection of disparete knowledge stores.
    4. Keep an eye out for incident creation material, in case you are dealing with a potentially high urgency or high criticality issue which your company may want turned in to a formal incident.
-6. Chat Tools. Browsing and searching across messages and channels in a tool like an enterprise Slack often reveals useful information or human contacts.
-7. Org Charts and Enterprise Social Tools can often yield relevant human contacts.
+7. Chat Tools. Browsing and searching across messages and channels in a tool like an enterprise Slack often reveals useful information or human contacts.
+8. Org Charts and Enterprise Social Tools can often yield relevant human contacts.
    1. You might be aware of a component name, then a team may be named off of that component, and a tool like an org chart might help you identify individual subject matter experts to assist with remediation of an issue in the related component.
    2. You can also inspect repository contributions and code owner files for the component under investigation.
-   3. You can also look at editor name for document revisions in knowledge store entries related to the component under investigation.
+   3. You can also look at editor name for document revisions in knowledge store entries related to the component under investigation, or people mentioned in relevant tickets in task tracking software.
 
 ## Coding Interview Debugging
 

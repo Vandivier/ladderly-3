@@ -7,6 +7,12 @@ This article contains details on how to improve your resume with a focus on ATS 
 
 Feel free to [book an expert session](https://buy.stripe.com/cN2bMfbOQ2CX5dC7su) if you would like further help!
 
+## Why the Resume Matters
+
+[99% of Fortune 500 companies](https://www.selectsoftwarereviews.com/blog/applicant-tracking-system-statistics) use an applicant tracking system (ATS). Only 20% of smaller businesses use an ATS, and [recruiters don't read most of your resume](https://interviewing.io/blog/why-resume-writing-is-snake-oil), so is it worth investing time and effort into your resume if you are not targeting Fortune 500?
+
+The answer is yes, because your experience items function as talking points. Refining the experience items in your resume is a forcing function to ensure that you are able to describe your experience in a concise and impactful way. This will pay off in [social networking messages](/blog/2025-01-20-social-networking-scripts), recruiter screens, [behavioral interviews](/blog/2025-02-24-behavioral-interviews), and more!
+
 ## The Job Search as a Sales Funnel
 
 A high-quality resume is associated with standard efficacy in the application to interview ratio. A high-quality resume is easier to read for both humans and scanning programs such as the ATS. Before we dive in to making an ATS-friendly resume, this section highlights the need for a broader job search strategy that improves overall job search performance:
@@ -37,7 +43,7 @@ Now that your resume is parseable by machines, here are some tips to building a 
 1. Include 3-5 line items for each experience block. Line items should include relevant skill keywords and demonstrated quantitative impact.
 2. Ensure your name, email, LinkedIn, and GitHub profile are at the top of the resume with effective click handlers.
 3. Print your resume to PDF for application and scanning purposes.
-4. Target a single page resume. A two-page resume is fine if you have 10+ years of experience or publications.
+4. Target a [1-2 page resume with 500-600 words](https://youtu.be/sNbOUAkgxCo?si=Rt1nRCJ3tzEbTU9S&t=180).
 5. Omit graduation dates, grade point averages, and paragraphs of text outside of experience blocks.
 6. If you have more than 15 years of experience, A/B test a truncated form of your resume which only mentions the most recent 15 years of experience.
 7. Prefer a simple single-column format with only black and white font. Leverage bold or blue text color to highlight important keywords or key phrases.

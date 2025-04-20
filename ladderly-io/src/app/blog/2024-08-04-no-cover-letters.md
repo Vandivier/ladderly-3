@@ -89,7 +89,7 @@ Specifically, his data showed no significant correlation between different resum
 | Referral            | 0.2361  | 0.078   | 3.030  | 0.003 |
 | Inbound Opportunity | 0.6636  | 0.091   | 7.294  | 0.000 |
 
-Referral and inbound opportinities were essentially all that mattered. Social networking, brand building, and LinkedIn optimization drove these variables. In addition, a low effort application is partly described as an application in which no social networking occured.
+Referral and inbound opportinities were essentially all that mattered. Social networking, brand building, and [LinkedIn optimization](/blog/2024-02-12-resume-optimization#linkedin-optimization) drove these variables. In addition, a low effort application is partly described as an application in which no social networking occured.
 
 Learn more about Ladderly.io's proven approach to social networking and professional brand development in [12. At Least Ten Networking Tips](/blog/2024-05-31-networking-tips).
 
