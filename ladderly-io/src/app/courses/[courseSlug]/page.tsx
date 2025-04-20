@@ -3,23 +3,8 @@ import { api } from '~/trpc/server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-// This enables static rendering with dynamic data
-export const revalidate = 3600 // revalidate the data at most every hour
-
-export async function generateStaticParams() {
-  try {
-    // Get all courses to generate static paths
-    const courses = await api.course.getAll()
-
-    return courses.map((course) => ({
-      courseSlug: course.slug,
-    }))
-  } catch (error) {
-    console.error('Error generating static params for courses:', error)
-    // Return an empty array if we can't fetch courses during build
-    return []
-  }
-}
+// This enables revalidation at most every hour if dynamic rendering is bypassed
+export const revalidate = 3600
 
 export async function generateMetadata({
   params,
