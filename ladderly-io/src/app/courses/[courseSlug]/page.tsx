@@ -7,12 +7,18 @@ import { notFound } from 'next/navigation'
 export const revalidate = 3600 // revalidate the data at most every hour
 
 export async function generateStaticParams() {
-  // Get all courses to generate static paths
-  const courses = await api.course.getAll()
+  try {
+    // Get all courses to generate static paths
+    const courses = await api.course.getAll()
 
-  return courses.map((course) => ({
-    courseSlug: course.slug,
-  }))
+    return courses.map((course) => ({
+      courseSlug: course.slug,
+    }))
+  } catch (error) {
+    console.error('Error generating static params for courses:', error)
+    // Return an empty array if we can't fetch courses during build
+    return []
+  }
 }
 
 export async function generateMetadata({
@@ -47,7 +53,7 @@ export default async function CoursePage({
     const mainContentItem = course.contentItems.find((item) => item.order === 0)
 
     return (
-      <LadderlyPageWrapper>
+      <LadderlyPageWrapper authenticate requirePremium>
         <div className="container mx-auto max-w-5xl px-4 py-8">
           <div className="mb-6 flex items-center">
             <Link

@@ -283,5 +283,14 @@ export const authOptions: NextAuthOptions = {
 }
 
 export async function getServerAuthSession(): Promise<LadderlySession | null> {
-  return getServerSession(authOptions)
+  try {
+    return await getServerSession(authOptions)
+  } catch (error) {
+    // During static generation or other contexts where headers are not available
+    console.warn(
+      'Failed to get server auth session, likely during static generation:',
+      error,
+    )
+    return null
+  }
 }
