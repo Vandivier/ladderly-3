@@ -10,6 +10,7 @@ import {
 } from './seed-utils/updateChecklists'
 import { seedVotables } from './seed-utils/seedVotables'
 import { seedLeetcodeChecklist } from './seed-utils/seedLeetcodeChecklist'
+import { seedCourses } from './seed-utils/seedCourses'
 
 // Use __dirname directly since this is CommonJS
 const __dirname = process.cwd() + '/prisma'
@@ -62,6 +63,10 @@ const createNewChecklist = async (
 }
 
 const seed = async () => {
+  // Seed courses
+  console.log('Starting seedCourses...')
+  await seedCourses()
+
   // Seed votables
   console.log('Starting seedVotables...')
   await seedVotables()

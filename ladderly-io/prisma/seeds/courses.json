@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "time-management",
+    "title": "Time Management",
+    "description": "Learn effective strategies to manage your time efficiently and boost productivity in your daily work and studies.",
+    "contentItems": [
+      {
+        "title": "Dozens of Time Management Techniques",
+        "description": "A comprehensive guide to effective time management strategies.",
+        "contentUrl": "https://www.ladderly.io/blog/2025-04-18-time-management",
+        "contentType": "LINK",
+        "order": 0
+      }
+    ]
+  },
+  {
+    "slug": "professional-verbal-communication",
+    "title": "Foundations of Professional Verbal Communication",
+    "description": "Upskill in professional communication in various contexts including customer interactions and peer communication.",
+    "contentItems": [
+      {
+        "title": "Foundations of Professional Verbal Communication",
+        "description": "Learn the core principles of effective professional verbal communication.",
+        "contentUrl": "https://www.ladderly.io/blog/2025-04-19-professional-communication",
+        "contentType": "LINK",
+        "order": 0
+      }
+    ]
+  },
+  {
+    "slug": "front-end-development",
+    "title": "Essentials of Front End Development",
+    "description": "Explore the core concepts and technologies that make up modern front-end development, including HTML, CSS, and JavaScript.",
+    "contentItems": [
+      {
+        "title": "Essentials of HTML",
+        "description": "Introduction to HTML structure, elements, and semantic markup.",
+        "contentUrl": "https://www.ladderly.io/blog/2024-02-11-essentials-of-html",
+        "contentType": "LINK",
+        "order": 0
+      }
+    ]
+  }
+]
