@@ -77,7 +77,7 @@ const seed = async () => {
   )
 
   for (const file of files) {
-    const filePath = path.resolve(__dirname, file)
+    const filePath = path.resolve(__dirname, './seeds', file)
 
     if (!fs.existsSync(filePath)) {
       console.warn(
