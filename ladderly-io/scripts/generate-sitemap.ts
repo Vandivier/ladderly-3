@@ -14,7 +14,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 // Replace this with your site's actual base URL
-const baseURL = 'https://ladderly.io'
+const baseURL = 'https://www.ladderly.io'
 
 const pagesDirectory = join(__dirname, '..', 'src', 'pages')
 const appDirectory = join(__dirname, '..', 'src', 'app')
