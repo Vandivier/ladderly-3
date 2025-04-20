@@ -20,6 +20,8 @@ Full package.json content:
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
+    "db:seed": "prisma db seed",
+    "db:seed:in-place": "prisma db seed -- --update-latest-checklists",
     "db:studio": "prisma studio",
     "dev": "next dev",
     "install:vercel": "npm install && npm rebuild argon2 --build-from-source && npm run postinstall",
@@ -100,6 +102,7 @@ Full package.json content:
     "prisma": "^6.2.1",
     "rehype-raw": "^7.0.0",
     "tailwindcss": "^3.4.3",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.3",
     "vitest": "^3.0.6"
   },
@@ -114,6 +117,9 @@ Full package.json content:
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "next": "^14.2.4"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seeds.ts"
   }
 }
 
@@ -135,90 +141,17 @@ Here is the folder structure of the project:
     vitest.config.ts
 .next/
 prisma/
-    checklists.json
     schema.prisma
     seeds.ts
 prisma\migrations/
     migration_lock.toml
-prisma\migrations\20230619184405_/
-    migration.sql
-prisma\migrations\20230619223016_optional_user_uuid/
-    migration.sql
-prisma\migrations\20230619223254_required_uuid_user/
-    migration.sql
-prisma\migrations\20230621003315_checklist_items/
-    migration.sql
-prisma\migrations\20230621003453_init_checklist/
-    migration.sql
-prisma\migrations\20230621004105_fix_checklistitem_relation/
-    migration.sql
-prisma\migrations\20230621005853_/
-    migration.sql
-prisma\migrations\20230622023703_init_payment_tiers/
-    migration.sql
-prisma\migrations\20230622041136_default_subscription_free/
-    migration.sql
-prisma\migrations\20230717002647_nullable_versioned_checklists/
-    migration.sql
-prisma\migrations\20230717003130_required_version_checklist/
-    migration.sql
-prisma\migrations\20230717010104_temp_optional_display_idx/
-    migration.sql
-prisma\migrations\20230717225747_non_nullable_checklist_item_display_index/
-    migration.sql
-prisma\migrations\20230719034635_checklist_item_detail_text/
-    migration.sql
-prisma\migrations\20230719035112_links_for_checklist_items/
-    migration.sql
-prisma\migrations\20230719052022_versioned_checklist_items/
-    migration.sql
-prisma\migrations\20230719190420_more_email_fields_and_subscription_type/
-    migration.sql
-prisma\migrations\20230721204837_init_user_checklist_item/
-    migration.sql
-prisma\migrations\20230721205221_no_generic_checklist_item_completestate/
-    migration.sql
-prisma\migrations\20230721210438_formalize_role_enum_w_admin/
-    migration.sql
-prisma\migrations\20230802011425_public_profile_opt_in/
-    migration.sql
-prisma\migrations\20230802012631_open_to_work_bool/
-    migration.sql
-prisma\migrations\20230802013857_profile_data/
-    migration.sql
-prisma\migrations\20230806184729_init_contributions/
-    migration.sql
-prisma\migrations\20240111015249_init_total_contributions/
-    migration.sql
-prisma\migrations\20240111022632_unique_subscription_by_type/
-    migration.sql
-prisma\migrations\20240111030957_rm_unique_contrib_per_subs/
-    migration.sql
-prisma\migrations\20240128051442_small_group_interest/
-    migration.sql
-prisma\migrations\20240217162209_user_residence_location/
-    migration.sql
-prisma\migrations\20240814022244_votables/
-    migration.sql
-prisma\migrations\20240814033017_nullable_miscinfo/
-    migration.sql
-prisma\migrations\20240814042534_guest_votes/
-    migration.sql
-prisma\migrations\20240814175726_constraint_name_and_type_jointly_on_votable/
-    migration.sql
-prisma\migrations\20240815011358_content_votable_type/
-    migration.sql
-prisma\migrations\20240816201444_user_pfps/
-    migration.sql
-prisma\migrations\20240817173146_/
-    migration.sql
-prisma\migrations\20240817173340_optional_sessiontoken/
-    migration.sql
-prisma\migrations\20240817173916_cascade_delete_sessions_on_user_delete/
-    migration.sql
 prisma\seed-utils/
+    seedLeetcodeChecklist.ts
     seedVotables.ts
     updateChecklists.ts
+prisma\seeds/
+    checklists.json
+    courses.json
     votables.json
 public/
     android-chrome-192x192.png
@@ -318,6 +251,7 @@ src\app\api\auth/
 src\app\api\auth\[...nextauth]/
     route.ts
 src\app\api\chat/
+src\app\api\leetcode-problems/
 src\app\api\trpc/
 src\app\api\trpc\[trpc]/
     route.ts
@@ -349,6 +283,11 @@ src\app\blog/
     2025-03-30-debugging-tips.md
     2025-04-05-benefits-of-mentorship.md
     2025-04-06-code-quality-as-ham.md
+    2025-04-12-offer-negotiation.md
+    2025-04-13-on-content-creation.md
+    2025-04-18-time-management.md
+    2025-04-19-professional-communication.md
+    2025-04-20-onboarding-guide.md
     blog-utils.ts
     page.tsx
 src\app\blog\[slug]/
@@ -411,6 +350,15 @@ src\app\core\theme/
     ThemeToggle.tsx
 src\app\core\utils/
     parsing.ts
+src\app\courses/
+    CourseListComponent.tsx
+    page.tsx
+src\app\courses\[courseSlug]/
+    page.tsx
+src\app\courses\[courseSlug]\flashcards/
+    page.tsx
+src\app\courses\[courseSlug]\quiz/
+    page.tsx
 src\app\home/
     HomePageContent.tsx
     HomePageSkeleton.tsx
@@ -428,6 +376,10 @@ src\app\job-search\job-post\[id]/
 src\app\job-search\[id]/
     AddJobApplicationModal.tsx
     JobSearchDetails.tsx
+    page.tsx
+src\app\leetcode-tool/
+    LeetCodeFilterControl.tsx
+    LeetCodeList.tsx
     page.tsx
 src\app\mobile-menu/
     MobileMenuContent.tsx
