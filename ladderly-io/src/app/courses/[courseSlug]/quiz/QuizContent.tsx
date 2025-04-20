@@ -384,11 +384,11 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
       <div className="w-full bg-gray-50 px-4 py-6 pb-16 dark:bg-gray-800 md:px-8">
         <div className="container mx-auto max-w-5xl">
           <div className="mb-4 flex items-center justify-between">
-            <div>
+            <div className="rounded-md bg-white px-4 py-2 font-semibold text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white">
               Question {currentQuestion + 1} of {quizData.flashcards.length}
             </div>
             {timeLeft !== null && (
-              <div className="font-mono text-lg">
+              <div className="rounded-md bg-white px-4 py-2 font-mono font-semibold text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white">
                 Time: {Math.floor(timeLeft / 60)}:
                 {(timeLeft % 60).toString().padStart(2, '0')}
               </div>
@@ -562,11 +562,17 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
 
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
-                <thead className="bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                <thead className="bg-gray-100 text-gray-800 dark:bg-gray-600 dark:text-gray-100">
                   <tr>
-                    <th className="border-b p-2 text-left">Date</th>
-                    <th className="border-b p-2 text-left">Score</th>
-                    <th className="border-b p-2 text-left">Result</th>
+                    <th className="border-b border-gray-300 p-3 text-left font-semibold dark:border-gray-600">
+                      Date
+                    </th>
+                    <th className="border-b border-gray-300 p-3 text-left font-semibold dark:border-gray-600">
+                      Score
+                    </th>
+                    <th className="border-b border-gray-300 p-3 text-left font-semibold dark:border-gray-600">
+                      Result
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -575,16 +581,35 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
                       key={index}
                       className="hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
-                      <td className="p-2">
-                        {new Date(result.createdAt).toLocaleDateString()}
+                      <td className="p-3 font-medium">
+                        <span className="text-gray-900 dark:text-gray-200">
+                          {new Date(result.createdAt).toLocaleDateString(
+                            undefined,
+                            {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric',
+                            },
+                          )}
+                        </span>
                       </td>
-                      <td className="p-2">{result.score}%</td>
-                      <td className="p-2">
+                      <td className="p-3 font-medium">
+                        <span
+                          className={
+                            result.score < 80
+                              ? 'text-red-600 dark:text-red-400'
+                              : 'text-green-600 dark:text-green-400'
+                          }
+                        >
+                          {result.score}%
+                        </span>
+                      </td>
+                      <td className="p-3">
                         <span
                           className={
                             result.passed
-                              ? 'rounded-full bg-green-100 px-2 py-1 text-sm font-medium text-green-800 dark:bg-green-900/50 dark:text-green-200'
-                              : 'rounded-full bg-red-100 px-2 py-1 text-sm font-medium text-red-800 dark:bg-red-900/50 dark:text-red-200'
+                              ? 'rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800 dark:bg-green-900/50 dark:text-green-200'
+                              : 'rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-800 dark:bg-red-900/50 dark:text-red-200'
                           }
                         >
                           {result.passed ? 'Passed' : 'Failed'}
@@ -599,8 +624,8 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
         )}
 
         {!quizStarted && !quizCompleted && (
-          <div className="mx-auto mb-8 max-w-md rounded-lg bg-blue-50 p-4 shadow-sm">
-            <p className="mb-2 text-sm text-gray-700">
+          <div className="mx-auto mb-8 mt-8 max-w-md rounded-lg bg-blue-50 p-4 shadow-sm dark:bg-blue-900/30 dark:text-gray-200">
+            <p className="mb-2 text-sm">
               This quiz will test your knowledge with multiple-choice questions.
               Select the answer you think is correct and submit your response.
               You'll receive immediate feedback on your answers and a final
