@@ -48,33 +48,45 @@ This professional brand can be refined with a vocal brand. You already have topi
 
 Refine your communication by initially presenting your message to a small, trusted group or individual. Leverage their feedback into a higher quality message that now has buy-in and iteratively loop in larger groups. This approach helps improve clarity, build consensus, and increase receptiveness and adoption when communicating to larger audiences later.
 
+Here's the revised section without the emphatic dash:
+
 ### 4. Tailor Your Message to Your Audience
 
-Customize your message based on your audience’s context, role, vocabulary, and cultural background. Effective communication with different groups, such as engineers, business leaders, or customers, requires thoughtful adaptation of both content and style.
+Customize your message based on your audience’s context, professional role, vocabulary, and cultural background. Effective communication with different groups like engineers, business leaders, or customers requires thoughtfully adapting both your message content and delivery style.
+
+In some cases tailoring means talking less and in other cases it involves talking more. Here are some examples of appropriate tailoring:
+
+1. When explaining how to install and run a program, you can restrict discussion to one operating system if you know the audience exclusively uses that operating system.
+2. A certain acronym can mean various things, but there's no need to clarify when you are in a discussion where the context makes your intent obvious and the listener already understands.
+3. When discussing an advanced topic to a group of non-technical individuals, it's worth taking the extra time to explain the concept in ordinary terms, perhaps including an analogy or comparing and contrasting with concepts the audience is already familiar with.
+
+In contrast, imagine giving a highly technical explanation about software architecture in an executive meeting, assuming executives have the same depth of technical knowledge as software engineers. This often leads to confusion or disengagement, as executives typically need high-level summaries and business impact explanations rather than granular technical details.
 
 ### 5. Prioritize Clarity and Brevity
 
-Balance clarity with conciseness by providing sufficient context without overwhelming your audience. When uncertain, lean toward providing slightly more information to ensure key points remain clear and actionable.
+Balance clarity with conciseness by providing enough context to make your message understandable, without including unnecessary details that could overwhelm or distract your audience. Clearly define the purpose of your communication beforehand: ask yourself, \"What outcome or action do I want to achieve?\" From this outcome, work backwards to determine precisely what information must be shared. If you are unsure whether a piece of information is essential, lean toward slightly more explanation rather than risking confusion or misinterpretation. Over-communication is preferable to leaving important points ambiguous or misunderstood, especially in critical professional scenarios.
 
 ### 6. Use Positive Non-Verbal Cues
 
-Positive non-verbal signals, including smiling, nodding, and maintaining neutral facial expressions, convey professionalism and approachability. Smiling improves your vocal tone even during phone conversations, while a neutral expression helps manage tense or difficult interactions effectively.
+Positive non-verbal signals, such as smiling, nodding, and maintaining a neutral facial expression, convey professionalism, openness, and approachability. Smiling affects your tone positively, even when speaking on the phone or during remote meetings. Nodding demonstrates active listening and subtly encourages continued dialogue. Maintaining a neutral expression, particularly during tense or challenging interactions, helps manage emotional responses and avoids inadvertently escalating conflicts. Additionally, your posture, eye contact, and overall body language should reflect confidence and attentiveness, further reinforcing your verbal message and improving interpersonal rapport.
 
 ### 7. Plan and Practice Consistently
 
-Prepare thoroughly to enhance communication effectiveness. Anticipate potential reactions or questions and practice regularly. Record your practice sessions, seek feedback from others, and continuously refine your communication skills.
+Consistent preparation significantly enhances your ability to communicate effectively. Begin by thoroughly planning your core message, clearly defining its objectives, and anticipating likely questions or objections your audience may have. Develop a structured outline to organize your thoughts clearly and logically. Regularly practice delivering your message aloud, either privately or with trusted colleagues who can provide constructive feedback. Recording these practice sessions helps you identify areas for improvement, such as pacing, clarity, tone, or use of filler words. Over time, this disciplined practice will substantially improve your confidence, fluency, and overall effectiveness in real professional interactions.
 
-### 8. Apply “Yes, And” Thinking
+### 8. Apply "Yes, And" Thinking
 
-Constructively integrate feedback through a “Yes, and” approach. Acknowledge contributions positively and build on ideas collaboratively, encouraging mutual agreement and productive problem-solving.
+Integrate feedback constructively by adopting a "Yes, and" mindset, a principle borrowed from improvisational theatre. When someone contributes an idea or provides feedback, acknowledge it positively rather than dismissing or immediately critiquing it. Build upon their input constructively, adding to their idea or suggesting enhancements that lead towards a mutual goal. This approach fosters an inclusive and collaborative atmosphere, making participants feel valued and respected. "Yes, and" thinking transforms potential conflicts or disagreements into opportunities for creative solutions, productive compromise, and collective decision-making.
 
 ### 9. Regularly Express Appreciation
 
-Provide sincere compliments and gratitude frequently. Regular positive reinforcement strengthens professional relationships, boosts morale, and contributes to a more effective communication environment.
+Frequently providing genuine compliments and expressing sincere gratitude creates a positive professional environment and strengthens relationships. Daily expressions of appreciation reinforce positive behaviors, encourage cooperation, and increase team morale. During conversations, actively look for authentic reasons to compliment others, whether highlighting someone's contribution in a meeting, thanking a colleague for their assistance, or praising an interviewer's insightful question. Consistently recognizing the efforts and contributions of others builds trust, encourages ongoing cooperation, and enhances overall professional communication effectiveness.
+
+​Research by psychologist Dr. John Gottman, indicates that maintaining [a ratio of at least five positive interactions for every negative one](https://www.psychologytoday.com/ca/blog/curating-your-life/202206/the-gottman-ratio-happy-relationships-work) is crucial for sustaining healthy relationships. An [excitement sandwich](https://www.toptechnewsletter.com/p/37-lessons-from-300-tech-job-offer-negotiations) is a useful negotiation technique, although [sandwich techniques for delivering feedback on the job are not optimal](https://www.radicalcandor.com/blog/feedback-sandwich-praise-criticism/).
 
 ### 10. Take Personal Notes
 
-Consistently take your own notes during discussions. This practice improves recall, enhances clarity, and provides valuable documentation that supports accountability and informed decision-making.
+Always take your own notes during conversations and meetings rather than relying solely on others or automated tools. Personal note-taking reinforces memory retention, clarifies your understanding, and provides an accurate reference for future decisions and actions. Use a structured approach by summarizing key points, action items, responsibilities, and timelines clearly. Regularly reviewing your notes ensures continuity in your work and allows you to track progress and accountability over time. Additionally, personal notes serve as invaluable documentation in cases of misunderstandings, disputes, or for performance reviews, helping establish clarity and credibility in professional interactions.
 
 ## Avoid These Communication Pitfalls
 
@@ -93,15 +105,16 @@ To further enhance your communication skills, consider these highly recommended 
 3. **Mindset** by Carol Dweck introduces the importance of maintaining a growth mindset.
 4. **Radical Candor** by Kim Scott provides insights on giving feedback directly yet empathetically.
 5. **The No Asshole Rule** by Robert Sutton describes ways to foster respectful and productive workplace interactions.
+6. **Yes, And** by Tom Yorton and Kelly Leonard.
 
 ## Complementary Professional Skills
 
 Verbal communication pairs effectively with other critical professional skills:
 
-- **Social Networking:** Strategically build and maintain valuable relationships.
-- **Content Creation:** Clearly communicate ideas through digital channels.
-- **Written Communication:** Support verbal communication with precise writing skills.
-- **Search Strategies:** Efficiently identify relevant resources and opportunities.
-- **Time Management:** Effectively manage your priorities to enhance communication clarity and impact.
+1. **Social Networking:** Strategically build and maintain valuable relationships.
+2. **Content Creation:** Clearly communicate ideas through digital channels.
+3. **Written Communication:** Support verbal communication with precise writing skills.
+4. **Search Strategies:** Efficiently identify relevant resources and opportunities.
+5. **Time Management:** Effectively manage your priorities to enhance communication clarity and impact.
 
 Improving your professional verbal communication skills brings significant career benefits. Explore more resources at Ladderly.io to continuously refine your abilities and expand your professional influence.
