@@ -1,8 +1,10 @@
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import QuizContent from './QuizContent'
 
-// This enables static rendering with dynamic data
-export const revalidate = 3600 // revalidate the data at most every hour
+// This page needs to be rendered dynamically since it uses API calls that require headers
+export const dynamic = 'force-dynamic'
+// We still set a revalidation period of 1 hour in case dynamic rendering is bypassed
+export const revalidate = 3600
 
 export async function generateMetadata({
   params,

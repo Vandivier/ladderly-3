@@ -1,8 +1,8 @@
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import FlashcardsContent from './FlashcardsContent'
 
-// This enables static rendering with dynamic data
-export const revalidate = 3600 // revalidate the data at most every hour
+// This enables revalidation at most every hour
+export const revalidate = 3600
 
 export async function generateMetadata({
   params,
