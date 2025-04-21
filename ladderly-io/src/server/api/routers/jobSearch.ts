@@ -2,6 +2,7 @@ import { JobApplicationStatus, JobSearchStepKind } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
+import { Prisma } from '@prisma/client'
 
 const JobSearchSchema = z.object({
   name: z.string().min(1, 'Job search name is required'),
@@ -56,6 +57,61 @@ const JobSearchStepUpdateSchema = z.object({
   kind: z.nativeEnum(JobSearchStepKind).optional(),
   notes: z.string().optional(),
   isPassed: z.boolean().optional(),
+})
+
+// Schema for a single row parsed from the CSV
+// Match column names from temp.csv, handle type conversions
+const JobPostCsvRowSchema = z.object({
+  Company: z.string().min(1, 'Company name is required'),
+  'Job Post Title': z.string().min(1, 'Job title is required'),
+  'Job Post URL': z.string().optional().nullable(),
+  'Resume Version': z.string().optional().nullable(),
+  // ContactRole: z.string().optional(), // Skipping for now as it's not on JobPostForCandidate
+  Referral: z
+    .string()
+    .transform((val) => val.toUpperCase() === 'YES')
+    .optional(),
+  'Initial Outreach Date': z.preprocess((arg) => {
+    if (!arg || typeof arg !== 'string') return undefined
+    try {
+      return new Date(arg)
+    } catch {
+      return undefined
+    }
+  }, z.date().optional().nullable()),
+  'Initial App Date': z.preprocess((arg) => {
+    if (!arg || typeof arg !== 'string') return undefined
+    try {
+      return new Date(arg)
+    } catch {
+      return undefined
+    }
+  }, z.date().optional().nullable()),
+  'Last Action Date': z.preprocess((arg) => {
+    if (!arg || typeof arg !== 'string') return undefined
+    try {
+      return new Date(arg)
+    } catch {
+      return undefined
+    }
+  }, z.date().optional().nullable()),
+  'Inbound Opportunity': z
+    .string()
+    .transform((val) => val.toUpperCase() === 'TRUE')
+    .optional(),
+  // Skipping EM Email related fields for now
+  // Status: z.string().optional(), // We'll default status, maybe parse later if needed
+  // Salary: z.string().optional(), // Not directly mapped
+  // TC: z.string().optional(), // Not directly mapped
+  Notes: z.string().optional().nullable(),
+})
+
+// Schema for the CSV upload mutation input
+const JobSearchCreateFromCsvSchema = z.object({
+  name: z.string().min(1, 'Job search name is required'),
+  startDate: z.date(),
+  isActive: z.boolean().default(true),
+  jobPosts: z.array(JobPostCsvRowSchema), // Array of parsed CSV rows
 })
 
 export const jobSearchRouter = createTRPCRouter({
@@ -538,5 +594,52 @@ export const jobSearchRouter = createTRPCRouter({
       })
 
       return { success: true }
+    }),
+
+  // --- New Mutation for CSV Import ---
+  createJobSearchFromCsv: protectedProcedure
+    .input(JobSearchCreateFromCsvSchema)
+    .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id)
+
+      // 1. Create the Job Search
+      const newJobSearch = await ctx.db.jobSearch.create({
+        data: {
+          name: input.name,
+          startDate: input.startDate,
+          isActive: input.isActive,
+          userId: userId,
+        },
+      })
+
+      // 2. Prepare Job Post data from CSV rows
+      const jobPostsToCreate: Prisma.JobPostForCandidateCreateManyInput[] =
+        input.jobPosts.map((row) => ({
+          company: row.Company,
+          jobTitle: row['Job Post Title'],
+          jobPostUrl: row['Job Post URL'] || undefined,
+          resumeVersion: row['Resume Version'] || undefined,
+          hasReferral: row.Referral ?? false,
+          initialOutreachDate: row['Initial Outreach Date'] || undefined,
+          initialApplicationDate: row['Initial App Date'] || undefined,
+          lastActionDate: row['Last Action Date'] || undefined,
+          isInboundOpportunity: row['Inbound Opportunity'] ?? false,
+          notes: row.Notes || undefined,
+          status: JobApplicationStatus.APPLIED, // Default status
+          jobSearchId: newJobSearch.id, // Link to the created job search
+        }))
+
+      // 3. Bulk create Job Posts (more efficient than individual creates)
+      // Note: createMany doesn't return the created records, only a count.
+      const createResult = await ctx.db.jobPostForCandidate.createMany({
+        data: jobPostsToCreate,
+        skipDuplicates: true, // Optional: skip if a unique constraint fails (e.g., if you add one)
+      })
+
+      return {
+        success: true,
+        jobSearchId: newJobSearch.id,
+        jobPostsCreated: createResult.count,
+      }
     }),
 })
