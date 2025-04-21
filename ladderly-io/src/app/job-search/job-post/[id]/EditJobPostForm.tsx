@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { z } from 'zod'
-import type { JobApplicationStatus } from '@prisma/client'
+import { JobApplicationStatus } from '@prisma/client'
 import { Form, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledSelectField from '~/app/core/components/LabeledSelectField'
