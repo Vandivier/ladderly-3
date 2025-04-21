@@ -6,7 +6,7 @@ import { api } from '~/trpc/react'
 import { JobSearchActiveSpan } from '../JobSearchActiveSpan'
 import { AddJobApplicationModal } from './AddJobApplicationModal'
 import Link from 'next/link'
-import { Pencil, Check, X } from 'lucide-react'
+import { Pencil, Check, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 // Helper to format date to YYYY-MM-DD
 const formatDateForInput = (date: Date | string | undefined | null): string => {
@@ -29,13 +29,20 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
   const [editStartDate, setEditStartDate] = useState('')
   const [editIsActive, setEditIsActive] = useState(true)
   const [editError, setEditError] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 10
 
   const {
-    data: jobSearch,
+    data: jobSearchData,
     isLoading,
     error,
     refetch,
-  } = api.jobSearch.getJobSearch.useQuery({ id })
+  } = api.jobSearch.getJobSearch.useQuery(
+    { id, page: currentPage, pageSize },
+    {},
+  )
+  const jobSearch = jobSearchData
+  const pagination = jobSearchData?.pagination
 
   const { mutate: deleteJobPost } = api.jobSearch.deleteJobPost.useMutation({
     onSuccess: async () => {
@@ -56,7 +63,6 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
       },
     })
 
-  // Initialize edit state when jobSearch data loads
   useEffect(() => {
     if (jobSearch) {
       setEditName(jobSearch.name)
@@ -87,7 +93,6 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
   const handleCancelClick = () => {
     setIsEditing(false)
     setEditError(null)
-    // Reset state if needed, useEffect already does this when data loads
   }
 
   const handleSaveSubmit = (e: React.FormEvent) => {
@@ -110,7 +115,19 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
     })
   }
 
-  if (isLoading) {
+  const handleNextPage = () => {
+    if (pagination && currentPage < pagination.totalPages) {
+      setCurrentPage((prev) => prev + 1)
+    }
+  }
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1)
+    }
+  }
+
+  if (isLoading && !jobSearchData) {
     return <div>Loading job search details...</div>
   }
 
@@ -287,7 +304,7 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
       <div className="mb-6">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">
-            Applications ({jobSearch.jobPosts.length})
+            Applications ({pagination?.totalItems ?? 0})
           </h2>
           <button
             onClick={() => setShowAddApplicationModal(true)}
@@ -297,86 +314,114 @@ export const JobSearchDetails = ({ id }: { id: number }) => {
           </button>
         </div>
 
-        {jobSearch.jobPosts.length === 0 ? (
+        {jobSearch.jobPosts.length === 0 && pagination?.totalItems === 0 ? (
           <p className="mt-4 text-gray-500">
             No applications yet. Add your first job application to get started!
           </p>
         ) : (
-          <div className="mt-4 space-y-4">
-            {jobSearch.jobPosts.map((jobPost) => (
-              <div
-                key={jobPost.id}
-                className="rounded-md border border-gray-200 p-4 hover:bg-gray-50"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="max-w-[50%] flex-1">
-                    <div>
+          <>
+            <div className="mt-4 space-y-4">
+              {jobSearch.jobPosts.map((jobPost) => (
+                <div
+                  key={jobPost.id}
+                  className="rounded-md border border-gray-200 p-4 hover:bg-gray-50"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="max-w-[50%] flex-1">
+                      <div>
+                        <Link
+                          href={`/job-search/job-post/${jobPost.id}`}
+                          className="hover:text-blue-600"
+                        >
+                          <h3 className="break-words font-medium">
+                            {jobPost.jobTitle}
+                          </h3>
+                        </Link>
+                        <p className="text-sm text-gray-600">
+                          {jobPost.company}
+                        </p>
+                      </div>
+                      <div className="mt-1 text-xs text-gray-500">
+                        Last updated:{' '}
+                        {new Date(jobPost.updatedAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
+                        {jobPost.status}
+                      </span>
                       <Link
                         href={`/job-search/job-post/${jobPost.id}`}
-                        className="hover:text-blue-600"
+                        className="ml-2 rounded-full p-2 text-blue-500 hover:bg-blue-50"
+                        aria-label="View application details"
                       >
-                        <h3 className="break-words font-medium">
-                          {jobPost.jobTitle}
-                        </h3>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
                       </Link>
-                      <p className="text-sm text-gray-600">{jobPost.company}</p>
-                    </div>
-                    <div className="mt-1 text-xs text-gray-500">
-                      Last updated:{' '}
-                      {new Date(jobPost.updatedAt).toLocaleDateString()}
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
-                      {jobPost.status}
-                    </span>
-                    <Link
-                      href={`/job-search/job-post/${jobPost.id}`}
-                      className="ml-2 rounded-full p-2 text-blue-500 hover:bg-blue-50"
-                      aria-label="View application details"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                      <button
+                        onClick={(e) => handleDeleteJobPost(jobPost.id, e)}
+                        className="ml-2 rounded-full p-2 text-red-500 hover:bg-red-50 disabled:opacity-50"
+                        disabled={deletingJobPostId === jobPost.id}
+                        aria-label="Delete job application"
                       >
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                      </svg>
-                    </Link>
-                    <button
-                      onClick={(e) => handleDeleteJobPost(jobPost.id, e)}
-                      className="ml-2 rounded-full p-2 text-red-500 hover:bg-red-50 disabled:opacity-50"
-                      disabled={deletingJobPostId === jobPost.id}
-                      aria-label="Delete job application"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 6h18"></path>
-                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                      </svg>
-                    </button>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M3 6h18"></path>
+                          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {pagination && pagination.totalPages > 1 && (
+              <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4">
+                <button
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1 || isLoading}
+                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <ChevronLeft className="-ml-1 mr-1 size-5" />
+                  Previous
+                </button>
+                <span className="text-sm text-gray-700">
+                  Page {pagination.currentPage} of {pagination.totalPages}
+                </span>
+                <button
+                  onClick={handleNextPage}
+                  disabled={currentPage === pagination.totalPages || isLoading}
+                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Next
+                  <ChevronRight className="-mr-1 ml-1 size-5" />
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
 

@@ -114,6 +114,13 @@ const JobSearchCreateFromCsvSchema = z.object({
   jobPosts: z.array(JobPostCsvRowSchema), // Array of parsed CSV rows
 })
 
+// --- New Input Schema for GetJobSearch ---
+const GetJobSearchInputSchema = z.object({
+  id: z.number(),
+  page: z.number().int().positive().optional().default(1),
+  pageSize: z.number().int().positive().optional().default(10), // Default page size
+})
+
 export const jobSearchRouter = createTRPCRouter({
   // Get all job searches for the current user
   getUserJobSearches: protectedProcedure
@@ -151,25 +158,36 @@ export const jobSearchRouter = createTRPCRouter({
 
   // Get a single job search by ID
   getJobSearch: protectedProcedure
-    .input(z.object({ id: z.number() }))
+    .input(GetJobSearchInputSchema) // Use updated input schema
     .query(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
+      const { id, page, pageSize } = input
 
-      const jobSearch = await ctx.db.jobSearch.findUnique({
-        where: {
-          id: input.id,
-        },
-        include: {
-          jobPosts: {
-            include: {
-              jobSearchSteps: true,
+      const skip = (page - 1) * pageSize
+
+      // Fetch JobSearch and total count of job posts in parallel
+      const [jobSearch, totalJobPosts] = await ctx.db.$transaction([
+        ctx.db.jobSearch.findUnique({
+          where: { id },
+          include: {
+            // Fetch only the requested page of job posts
+            jobPosts: {
+              skip: skip,
+              take: pageSize,
+              include: {
+                jobSearchSteps: true, // Keep includes if needed
+              },
+              orderBy: {
+                updatedAt: 'desc',
+              },
             },
-            orderBy: {
-              updatedAt: 'desc',
-            },
+            // Remove _count from here if it existed
           },
-        },
-      })
+        }),
+        ctx.db.jobPostForCandidate.count({
+          where: { jobSearchId: id },
+        }),
+      ])
 
       if (!jobSearch) {
         throw new TRPCError({
@@ -178,7 +196,6 @@ export const jobSearchRouter = createTRPCRouter({
         })
       }
 
-      // Check if the job search belongs to the current user
       if (jobSearch.userId !== userId) {
         throw new TRPCError({
           code: 'FORBIDDEN',
@@ -186,7 +203,16 @@ export const jobSearchRouter = createTRPCRouter({
         })
       }
 
-      return jobSearch
+      // Return job search data along with pagination info
+      return {
+        ...jobSearch,
+        pagination: {
+          totalItems: totalJobPosts,
+          currentPage: page,
+          pageSize: pageSize,
+          totalPages: Math.ceil(totalJobPosts / pageSize),
+        },
+      }
     }),
 
   // Create a new job search
