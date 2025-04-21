@@ -1,10 +1,43 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
 import { JobSearchStepKind, JobApplicationStatus } from '@prisma/client'
 import Link from 'next/link'
+import {
+  Pencil,
+  Check,
+  X,
+  Trash2,
+  Eye,
+  CalendarDays,
+  LinkIcon,
+  User,
+  CheckSquare,
+  FileText,
+  ArrowLeft,
+} from 'lucide-react'
+
+// --- Form Imports ---
+import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
+import LabeledTextField from '~/app/core/components/LabeledTextField'
+import LabeledSelectField from '~/app/core/components/LabeledSelectField'
+import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
+import { z } from 'zod'
+
+// --- Helper & Other Components ---
+import { JobStepsSection } from './JobStepsSection'
+
+// Helper to format date to YYYY-MM-DD
+const formatDateForInput = (date: Date | string | undefined | null): string => {
+  if (!date) return ''
+  try {
+    return new Date(date).toISOString().split('T')[0] ?? ''
+  } catch (e) {
+    return ''
+  }
+}
 
 // Component to create a new job search step
 interface AddJobSearchStepProps {
@@ -279,40 +312,66 @@ const AddJobSearchStep: React.FC<AddJobSearchStepProps> = ({
 
 // Status badge component
 const StatusBadge = ({ status }: { status: JobApplicationStatus }) => {
-  const getStatusColor = (status: JobApplicationStatus) => {
-    switch (status) {
-      case JobApplicationStatus.APPLIED:
-        return 'bg-blue-100 text-blue-800'
-      case JobApplicationStatus.IN_INTERVIEW:
-        return 'bg-purple-100 text-purple-800'
-      case JobApplicationStatus.IN_OUTREACH:
-        return 'bg-yellow-100 text-yellow-800'
-      case JobApplicationStatus.OFFER_RECEIVED:
-        return 'bg-green-100 text-green-800'
-      case JobApplicationStatus.REJECTED:
-        return 'bg-red-100 text-red-800'
-      case JobApplicationStatus.TIMED_OUT:
-        return 'bg-gray-100 text-gray-800'
-      case JobApplicationStatus.WITHDRAWN:
-        return 'bg-gray-100 text-gray-800'
-      default:
-        return 'bg-gray-100 text-gray-800'
-    }
+  const statusStyles: Record<JobApplicationStatus, string> = {
+    APPLIED: 'bg-blue-100 text-blue-800',
+    IN_OUTREACH: 'bg-cyan-100 text-cyan-800',
+    IN_INTERVIEW: 'bg-indigo-100 text-indigo-800',
+    OFFER_RECEIVED: 'bg-yellow-100 text-yellow-800',
+    OFFER_ACCEPTED: 'bg-green-100 text-green-800',
+    OFFER_REJECTED: 'bg-orange-100 text-orange-800',
+    REJECTED: 'bg-red-100 text-red-800',
+    WITHDRAWN: 'bg-gray-100 text-gray-800',
+    TIMED_OUT: 'bg-gray-100 text-gray-500',
+    CONSOLIDATED: 'bg-purple-100 text-purple-800',
+    RESURRECTED: 'bg-lime-100 text-lime-800',
+    FIRST_ROUND_DONE: 'bg-teal-100 text-teal-800',
+    R2_DONE: 'bg-teal-100 text-teal-800',
+    R3_DONE: 'bg-teal-100 text-teal-800',
+    FINAL_DONE: 'bg-teal-100 text-teal-800',
+    POST_FINAL_ACTIVITY: 'bg-teal-100 text-teal-800',
+    R1_CANCELLED: 'bg-red-100 text-red-500',
   }
-
   return (
     <span
-      className={`rounded-full px-3 py-1 text-xs font-medium ${getStatusColor(status)}`}
+      className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${statusStyles[status] ?? 'bg-gray-100 text-gray-800'}`}
     >
       {status.replace(/_/g, ' ')}
     </span>
   )
 }
 
+// --- Define Edit Schema (Client-side subset/adaptation of backend schema) ---
+// Note: Adjust fields and validation as needed for the edit form
+const JobPostEditSchema = z.object({
+  company: z.string().min(1, 'Company name is required'),
+  jobTitle: z.string().min(1, 'Job title is required'),
+  jobPostUrl: z
+    .string()
+    .url('Must be a valid URL (e.g., https://...)')
+    .nullable()
+    .optional()
+    .or(z.literal('')), // Allow empty string or valid URL
+  resumeVersion: z.string().nullable().optional(),
+  initialOutreachDate: z.string().nullable().optional(), // Keep as string for date input
+  initialApplicationDate: z.string().nullable().optional(), // Keep as string for date input
+  contactName: z.string().nullable().optional(),
+  contactUrl: z
+    .string()
+    .url('Must be a valid URL (e.g., https://...)')
+    .nullable()
+    .optional()
+    .or(z.literal('')), // Allow empty string or valid URL
+  hasReferral: z.boolean().optional(),
+  isInboundOpportunity: z.boolean().optional(),
+  notes: z.string().nullable().optional(),
+  status: z.nativeEnum(JobApplicationStatus),
+})
+type JobPostEditValues = z.infer<typeof JobPostEditSchema>
+
 export const JobPostDetails = ({ id }: { id: number }) => {
   const router = useRouter()
+  const [isEditing, setIsEditing] = useState(false)
   const [deletingStepId, setDeletingStepId] = useState<number | null>(null)
-  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false)
 
   const {
     data: jobPost,
@@ -321,43 +380,81 @@ export const JobPostDetails = ({ id }: { id: number }) => {
     refetch,
   } = api.jobSearch.getJobPost.useQuery({ id })
 
-  const { mutate: deleteJobSearchStep } =
+  // --- Mutations ---
+  const { mutate: updateJobPost, isPending: isUpdatingPost } =
+    api.jobSearch.updateJobPost.useMutation({
+      onSuccess: async () => {
+        await refetch()
+        setIsEditing(false)
+      },
+    })
+
+  const { mutate: deleteStep, isPending: isDeletingStep } =
     api.jobSearch.deleteJobSearchStep.useMutation({
       onSuccess: async () => {
         await refetch()
         setDeletingStepId(null)
       },
+      onError: (error) => {
+        alert(`Error deleting step: ${error.message}`)
+        setDeletingStepId(null)
+      },
     })
 
-  const { mutate: updateJobPostStatus } =
+  const { mutate: updateStatus } =
     api.jobSearch.updateJobPostStatus.useMutation({
       onSuccess: async () => {
         await refetch()
-        setIsUpdatingStatus(false)
       },
       onError: (error) => {
-        console.error('Failed to update job status:', error)
-        setIsUpdatingStatus(false)
+        alert(`Error updating status: ${error.message}`)
       },
     })
 
+  // --- Handlers ---
   const handleDeleteStep = (stepId: number) => {
     if (confirm('Are you sure you want to delete this step?')) {
       setDeletingStepId(stepId)
-      void deleteJobSearchStep({ id: stepId })
+      deleteStep({ id: stepId })
     }
   }
 
   const handleStatusChange = (newStatus: JobApplicationStatus) => {
     if (!jobPost) return
-
-    setIsUpdatingStatus(true)
-    void updateJobPostStatus({
-      id: jobPost.id,
-      status: newStatus,
-    })
+    updateStatus({ id: jobPost.id, status: newStatus })
   }
 
+  const handleEditClick = () => setIsEditing(true)
+  const handleCancelClick = () => setIsEditing(false)
+
+  // Form submission handler (passed to react-final-form)
+  const handleSaveSubmit: FormProps<
+    typeof JobPostEditSchema
+  >['onSubmit'] = async (values) => {
+    try {
+      // Convert date strings back to Date or null for mutation
+      const payload = {
+        ...values,
+        initialOutreachDate: values.initialOutreachDate
+          ? new Date(values.initialOutreachDate)
+          : null,
+        initialApplicationDate: values.initialApplicationDate
+          ? new Date(values.initialApplicationDate)
+          : null,
+        jobPostUrl: values.jobPostUrl || null, // Ensure empty string becomes null
+        contactUrl: values.contactUrl || null, // Ensure empty string becomes null
+      }
+      await updateJobPost({ id, ...payload })
+    } catch (error: any) {
+      return {
+        [FORM_ERROR]:
+          error.message ??
+          'Sorry, we had an unexpected error. Please try again.',
+      }
+    }
+  }
+
+  // --- Loading / Error / Not Found ---
   if (isLoading) {
     return <div>Loading job application details...</div>
   }
@@ -367,10 +464,10 @@ export const JobPostDetails = ({ id }: { id: number }) => {
       <div className="text-center">
         <p className="text-red-500">{error.message}</p>
         <button
-          onClick={() => router.push('/job-search')}
-          className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white"
+          onClick={() => router.back()}
+          className="mt-4 inline-block text-blue-600 hover:text-blue-800 hover:underline"
         >
-          Back to Job Searches
+          ← Go Back
         </button>
       </div>
     )
@@ -379,237 +476,321 @@ export const JobPostDetails = ({ id }: { id: number }) => {
   if (!jobPost) {
     return (
       <div className="text-center">
-        <p>Job application not found</p>
+        <p>Job application not found.</p>
         <button
-          onClick={() => router.push('/job-search')}
-          className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white"
+          onClick={() => router.push(`/job-search`)}
+          className="mt-4 inline-block text-blue-600 hover:text-blue-800 hover:underline"
         >
-          Back to Job Searches
+          ← Back to Job Search Archive
         </button>
       </div>
     )
   }
 
+  // --- Prepare Initial Values for Form ---
+  const initialFormValues: Partial<JobPostEditValues> = {
+    company: jobPost.company,
+    jobTitle: jobPost.jobTitle,
+    jobPostUrl: jobPost.jobPostUrl ?? undefined,
+    resumeVersion: jobPost.resumeVersion ?? undefined,
+    initialOutreachDate: formatDateForInput(jobPost.initialOutreachDate),
+    initialApplicationDate: formatDateForInput(jobPost.initialApplicationDate),
+    contactName: jobPost.contactName ?? undefined,
+    contactUrl: jobPost.contactUrl ?? undefined,
+    hasReferral: jobPost.hasReferral,
+    isInboundOpportunity: jobPost.isInboundOpportunity,
+    notes: jobPost.notes ?? undefined,
+    status: jobPost.status,
+  }
+
+  // --- Render Logic ---
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">{jobPost.jobTitle}</h1>
-          <p className="text-lg text-gray-600">{jobPost.company}</p>
-        </div>
-        <div className="flex space-x-2">
-          <Link
-            href={`/job-search/${jobPost.jobSearchId}`}
-            className="rounded-md bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200"
-          >
-            Back to Job Search
-          </Link>
+    <div className="space-y-6">
+      {/* Back Button */}
+      <button
+        onClick={() => router.push(`/job-search/${jobPost.jobSearchId}`)}
+        className="inline-block text-blue-600 hover:text-blue-800 hover:underline"
+      >
+        <ArrowLeft className="mr-1 inline size-4" /> Back to Job Search:{' '}
+        {jobPost.jobSearch.name}
+      </button>
+
+      {/* Header & Edit Toggle */}
+      <div className="flex items-start justify-between">
+        <div className="flex flex-1 items-center gap-2 pr-4">
+          <div className="flex-1">
+            {!isEditing ? (
+              <>
+                <h1 className="text-2xl font-bold">{jobPost.jobTitle}</h1>
+                <p className="text-lg text-gray-600">{jobPost.company}</p>
+              </>
+            ) : (
+              <h1 className="text-2xl font-bold">Editing Application</h1>
+            )}
+          </div>
+          {!isEditing && (
+            <button
+              onClick={handleEditClick}
+              className="self-baseline p-2 text-gray-500 hover:text-gray-700"
+              aria-label="Edit job application details"
+            >
+              <Pencil className="size-5" />
+            </button>
+          )}
         </div>
       </div>
 
-      <div className="mb-6 rounded-md border border-gray-200 p-4">
-        <div className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
-          {/* First row - Status */}
-          <div>
-            <div className="mb-2 flex items-center space-x-2">
-              <span className="text-sm text-gray-500">Status</span>
-            </div>
-            <div className="mb-2 flex items-center space-x-2">
+      {/* --- Edit Form or Display Details --- */}
+      {isEditing ? (
+        <Form<typeof JobPostEditSchema> // Use the custom Form component
+          schema={JobPostEditSchema}
+          initialValues={initialFormValues}
+          onSubmit={handleSaveSubmit}
+          className="space-y-4 rounded-md border border-gray-200 bg-gray-50 p-4"
+        >
+          {({ submitting }: { submitting: boolean }) => (
+            <>
+              {/* Row 1: Company, Title */}
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <LabeledTextField
+                  name="company"
+                  label="Company*"
+                  placeholder="Company Name"
+                  required
+                  disabled={submitting}
+                />
+                <LabeledTextField
+                  name="jobTitle"
+                  label="Job Title*"
+                  placeholder="Job Title"
+                  required
+                  disabled={submitting}
+                />
+              </div>
+              {/* Row 2: URL, Resume */}
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <LabeledTextField
+                  name="jobPostUrl"
+                  label="Job Post URL"
+                  placeholder="https://..."
+                  disabled={submitting}
+                />
+                <LabeledTextField
+                  name="resumeVersion"
+                  label="Resume Version"
+                  placeholder="e.g., v3-blue"
+                  disabled={submitting}
+                />
+              </div>
+              {/* Row 3: Dates */}
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <LabeledTextField
+                  name="initialOutreachDate"
+                  label="Initial Outreach"
+                  type="date"
+                  disabled={submitting}
+                />
+                <LabeledTextField
+                  name="initialApplicationDate"
+                  label="Applied"
+                  type="date"
+                  disabled={submitting}
+                />
+              </div>
+              {/* Row 4: Contact */}
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <LabeledTextField
+                  name="contactName"
+                  label="Contact Name"
+                  disabled={submitting}
+                />
+                <LabeledTextField
+                  name="contactUrl"
+                  label="Contact URL"
+                  placeholder="https://linkedin.com/..."
+                  disabled={submitting}
+                />
+              </div>
+              {/* Row 5: Status, Booleans */}
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <LabeledSelectField
+                  name="status"
+                  label="Status*"
+                  required
+                  disabled={submitting}
+                >
+                  {Object.values(JobApplicationStatus).map((s) => (
+                    <option key={s} value={s}>
+                      {s.replace(/_/g, ' ')}
+                    </option>
+                  ))}
+                </LabeledSelectField>
+                <div className="flex items-end pb-1">
+                  <LabeledCheckboxField
+                    name="hasReferral"
+                    label="Has Referral?"
+                    disabled={submitting}
+                  />
+                </div>
+                <div className="flex items-end pb-1">
+                  <LabeledCheckboxField
+                    name="isInboundOpportunity"
+                    label="Inbound?"
+                    disabled={submitting}
+                  />
+                </div>
+              </div>
+              {/* Row 6: Notes */}
+              <LabeledTextField
+                name="notes"
+                label="Notes"
+                disabled={submitting}
+              />
+
+              {/* Actions (Submit button is handled by <Form>, Cancel is external) */}
+              {/* Render custom buttons here because FORM_ERROR needs to be shown */}
+              <Form.ErrorMessage />
+              <div className="flex justify-end space-x-2 border-t border-gray-200 pt-4">
+                <button
+                  type="button"
+                  onClick={handleCancelClick}
+                  disabled={submitting}
+                  className="btn-secondary"
+                >
+                  <X className="btn-icon" /> Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="btn-primary"
+                >
+                  <Check className="btn-icon" />{' '}
+                  {submitting ? 'Saving...' : 'Save Changes'}
+                </button>
+              </div>
+            </>
+          )}
+        </Form>
+      ) : (
+        /* --- Display Mode Details (Refactored for clarity) --- */
+        <div className="space-y-4 rounded-md border border-gray-200 p-4">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-3 lg:grid-cols-4">
+            {/* Use consistent styling classes */}
+            <div>
+              <p className="label-text">Status</p>{' '}
               <StatusBadge status={jobPost.status} />
             </div>
-            <select
-              value={jobPost.status}
-              onChange={(e) =>
-                handleStatusChange(e.target.value as JobApplicationStatus)
-              }
-              disabled={isUpdatingStatus}
-              className="w-full rounded-md border border-gray-300 p-1.5 text-sm"
-            >
-              {Object.values(JobApplicationStatus).map((status) => (
-                <option key={status} value={status}>
-                  {status.replace(/_/g, ' ')}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Dates section */}
-          <div className="xs:grid-cols-2 grid grid-cols-1 gap-4">
-            {jobPost.initialApplicationDate && (
-              <div>
-                <p className="mb-1 text-sm text-gray-500">Applied Date</p>
-                <p className="truncate font-medium">
-                  {new Date(
-                    jobPost.initialApplicationDate,
-                  ).toLocaleDateString()}
-                </p>
-              </div>
-            )}
-
-            {jobPost.lastActionDate && (
-              <div>
-                <p className="mb-1 text-sm text-gray-500">Last Action</p>
-                <p className="truncate font-medium">
-                  {new Date(jobPost.lastActionDate).toLocaleDateString()}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Second row - Referral and Inbound */}
-          <div>
-            <p className="mb-1 text-sm text-gray-500">Referral</p>
-            <p className="font-medium">{jobPost.hasReferral ? 'Yes' : 'No'}</p>
-          </div>
-
-          <div>
-            <p className="mb-1 text-sm text-gray-500">Inbound Opportunity</p>
-            <p className="font-medium">
-              {jobPost.isInboundOpportunity ? 'Yes' : 'No'}
-            </p>
-          </div>
-
-          {/* Additional information - Stacked with flex-wrap by default, 2 columns on larger screens */}
-          <div className="col-span-1 sm:col-span-2">
-            <div className="-mx-2 flex flex-wrap">
-              {jobPost.resumeVersion && (
-                <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
-                  <p className="mb-1 text-sm text-gray-500">Resume Version</p>
-                  <p className="truncate font-medium">
-                    {jobPost.resumeVersion}
-                  </p>
-                </div>
-              )}
-
-              {jobPost.jobPostUrl && (
-                <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
-                  <p className="mb-1 text-sm text-gray-500">Job Post URL</p>
-                  <a
-                    href={jobPost.jobPostUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block truncate font-medium text-blue-500 hover:underline"
-                  >
-                    View Job Post
-                  </a>
-                </div>
-              )}
-
-              {jobPost.contactName && (
-                <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
-                  <p className="mb-1 text-sm text-gray-500">Contact</p>
-                  <p className="truncate font-medium">{jobPost.contactName}</p>
-                </div>
-              )}
-
-              {jobPost.contactUrl && (
-                <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
-                  <p className="mb-1 text-sm text-gray-500">Contact URL</p>
-                  <a
-                    href={jobPost.contactUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block truncate font-medium text-blue-500 hover:underline"
-                  >
-                    View Contact
-                  </a>
-                </div>
+            <div>
+              <p className="label-text">Job Post Link</p>{' '}
+              {jobPost.jobPostUrl ? (
+                <a
+                  href={jobPost.jobPostUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link inline-flex items-center"
+                >
+                  <LinkIcon className="mr-1 size-4" /> View Post
+                </a>
+              ) : (
+                <span className="value-na">N/A</span>
               )}
             </div>
-          </div>
-        </div>
-
-        {jobPost.notes && (
-          <div className="mt-6 border-t border-gray-200 pt-4">
-            <p className="mb-1 text-sm text-gray-500">Notes</p>
-            <p className="whitespace-pre-wrap">{jobPost.notes}</p>
-          </div>
-        )}
-      </div>
-
-      <div className="mb-6">
-        <h2 className="mb-4 text-xl font-semibold">Application Steps</h2>
-
-        {jobPost.jobSearchSteps.length === 0 ? (
-          <p className="text-gray-500">No application steps recorded yet.</p>
-        ) : (
-          <div className="space-y-4">
-            {jobPost.jobSearchSteps
-              .sort(
-                (a, b) =>
-                  new Date(b.date).getTime() - new Date(a.date).getTime(),
-              )
-              .map((step) => (
-                <div
-                  key={step.id}
-                  className="rounded-md border border-gray-200 p-4"
+            <div>
+              <p className="label-text">Resume</p>{' '}
+              <p className="value">
+                <FileText className="mr-1 inline size-4" />{' '}
+                {jobPost.resumeVersion ?? 'N/A'}
+              </p>
+            </div>
+            <div>
+              <p className="label-text">Initial Outreach</p>{' '}
+              <p className="value">
+                <CalendarDays className="mr-1 inline size-4" />{' '}
+                {jobPost.initialOutreachDate
+                  ? new Date(jobPost.initialOutreachDate).toLocaleDateString()
+                  : 'N/A'}
+              </p>
+            </div>
+            <div>
+              <p className="label-text">Applied</p>{' '}
+              <p className="value">
+                <CalendarDays className="mr-1 inline size-4" />{' '}
+                {jobPost.initialApplicationDate
+                  ? new Date(
+                      jobPost.initialApplicationDate,
+                    ).toLocaleDateString()
+                  : 'N/A'}
+              </p>
+            </div>
+            <div>
+              <p className="label-text">Last Action</p>{' '}
+              <p className="value">
+                <CalendarDays className="mr-1 inline size-4" />{' '}
+                {jobPost.lastActionDate
+                  ? new Date(jobPost.lastActionDate).toLocaleDateString()
+                  : 'N/A'}
+              </p>
+            </div>
+            <div>
+              <p className="label-text">Contact Name</p>{' '}
+              <p className="value">
+                <User className="mr-1 inline size-4" />{' '}
+                {jobPost.contactName ?? 'N/A'}
+              </p>
+            </div>
+            <div>
+              <p className="label-text">Contact URL</p>{' '}
+              {jobPost.contactUrl ? (
+                <a
+                  href={jobPost.contactUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link inline-flex items-center"
                 >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="flex items-center space-x-2">
-                        <h3 className="font-medium">
-                          {step.kind.replace(/_/g, ' ')}
-                        </h3>
-                        {step.isInPerson && (
-                          <span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800">
-                            In Person
-                          </span>
-                        )}
-                        {step.isPassed !== null && (
-                          <span
-                            className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                              step.isPassed
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-red-100 text-red-800'
-                            }`}
-                          >
-                            {step.isPassed ? 'Passed' : 'Failed'}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm text-gray-500">
-                        {new Date(step.date).toLocaleDateString()}
-                      </p>
-                      {step.notes && (
-                        <p className="mt-2 whitespace-pre-wrap text-sm">
-                          {step.notes}
-                        </p>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => handleDeleteStep(step.id)}
-                      disabled={deletingStepId === step.id}
-                      className="rounded p-1 text-red-500 hover:bg-red-50 disabled:opacity-50"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 6h18"></path>
-                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              ))}
+                  <LinkIcon className="mr-1 size-4" /> View Profile
+                </a>
+              ) : (
+                <span className="value-na">N/A</span>
+              )}
+            </div>
+            <div>
+              <p className="label-text">Referral?</p>{' '}
+              <p className="value">
+                <CheckSquare className="mr-1 inline size-4" />{' '}
+                {jobPost.hasReferral ? 'Yes' : 'No'}
+              </p>
+            </div>
+            <div>
+              <p className="label-text">Inbound?</p>{' '}
+              <p className="value">
+                <CheckSquare className="mr-1 inline size-4" />{' '}
+                {jobPost.isInboundOpportunity ? 'Yes' : 'No'}
+              </p>
+            </div>
           </div>
-        )}
+          {jobPost.notes && (
+            <div className="border-t border-gray-100 pt-4">
+              <p className="label-text">Notes</p>
+              <p className="value whitespace-pre-wrap rounded bg-gray-50 p-2">
+                {jobPost.notes}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
-        <AddJobSearchStep
+      {/* --- Job Search Steps Section --- */}
+      {!isEditing && (
+        <JobStepsSection
           jobPostId={id}
+          steps={jobPost.jobSearchSteps}
           currentStatus={jobPost.status}
-          onSuccess={refetch}
+          onAddStepSuccess={refetch}
+          onDeleteStep={handleDeleteStep}
           onStatusChange={handleStatusChange}
+          isDeletingStepId={deletingStepId}
         />
-      </div>
+      )}
     </div>
   )
 }

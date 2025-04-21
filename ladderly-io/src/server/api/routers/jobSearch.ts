@@ -121,6 +121,41 @@ const GetJobSearchInputSchema = z.object({
   pageSize: z.number().int().positive().optional().default(10), // Default page size
 })
 
+// --- New Schema for Updating Job Post ---
+const JobPostForCandidateUpdateSchema = z
+  .object({
+    id: z.number(), // ID of the job post to update
+    company: z.string().min(1, 'Company name is required').optional(),
+    jobTitle: z.string().min(1, 'Job title is required').optional(),
+    jobPostUrl: z.string().nullable().optional(),
+    resumeVersion: z.string().nullable().optional(),
+    initialOutreachDate: z.date().nullable().optional(),
+    initialApplicationDate: z.date().nullable().optional(),
+    lastActionDate: z.date().nullable().optional(),
+    contactName: z.string().nullable().optional(),
+    contactUrl: z.string().nullable().optional(),
+    hasReferral: z.boolean().optional(),
+    isInboundOpportunity: z.boolean().optional(),
+    notes: z.string().nullable().optional(),
+    status: z.nativeEnum(JobApplicationStatus).optional(), // Allow status update too
+  })
+  .partial({
+    // Make all fields optional except id - Zod >= 3.21 needed
+    company: true,
+    jobTitle: true,
+    jobPostUrl: true,
+    resumeVersion: true,
+    initialOutreachDate: true,
+    initialApplicationDate: true,
+    lastActionDate: true,
+    contactName: true,
+    contactUrl: true,
+    hasReferral: true,
+    isInboundOpportunity: true,
+    notes: true,
+    status: true,
+  })
+
 export const jobSearchRouter = createTRPCRouter({
   // Get all job searches for the current user
   getUserJobSearches: protectedProcedure
@@ -667,5 +702,53 @@ export const jobSearchRouter = createTRPCRouter({
         jobSearchId: newJobSearch.id,
         jobPostsCreated: createResult.count,
       }
+    }),
+
+  // --- New Mutation for Updating Job Post ---
+  updateJobPost: protectedProcedure
+    .input(JobPostForCandidateUpdateSchema)
+    .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id)
+      const { id, ...updateData } = input
+
+      // Verify ownership
+      const jobPost = await ctx.db.jobPostForCandidate.findUnique({
+        where: { id: id },
+        include: {
+          jobSearch: true,
+        },
+      })
+
+      if (!jobPost) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Job post not found',
+        })
+      }
+
+      if (jobPost.jobSearch.userId !== userId) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'You do not have permission to update this job post',
+        })
+      }
+
+      // Automatically update lastActionDate if it wasn't explicitly provided
+      const dataToUpdate = {
+        ...updateData,
+        // Only update lastActionDate if other fields *besides* lastActionDate are being changed
+        ...(!updateData.lastActionDate &&
+          Object.keys(updateData).length > 0 && {
+            lastActionDate: new Date(),
+          }),
+      }
+
+      // Update the job post
+      const updatedJobPost = await ctx.db.jobPostForCandidate.update({
+        where: { id: id },
+        data: dataToUpdate,
+      })
+
+      return updatedJobPost
     }),
 })
