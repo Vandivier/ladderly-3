@@ -23,7 +23,17 @@ A low-quality resume is one which fails technical parsing tests described in thi
 
 To A/B test a resume, it is important to apply to a substantial count of job posts and collect standardized information for each job post, so that you can determine the effect of the resume itself. A common pitfall for job seekers is to try out multiple resume variations without obtaining sufficient data to prove an actual lift in performance. This resume shuffling often becomes a source of wasted time, effort, and stress. In general, as long as your resume is parseable then your time is usually best spent on additional social networking and applying, rather than crafting many varied resume versions.
 
-If you decide to engage in an A/B test, Ladderly.io suggests applying to a minimum of 80 job posts for each resume under analysis. Ladderly.io also suggests applying to 80 job posts per week as a job search baseline. One reason for this rate of application is so that the job seeker can rapidly determine resume performance, as well as performance across other activities including social networking and content creation. [Here's a job search tracker template](https://docs.google.com/spreadsheets/d/1gRL8zSSgDAQ_Rs5kHglUEZnH4-kQwLnXZ0e9oh0YvK0) that you can use.
+If you decide to engage in an A/B test, Ladderly.io suggests applying to a minimum of 80 job posts for each resume under analysis. Ladderly.io also suggests applying to 80 job posts per week as a job search baseline. One reason for this rate of application is so that the job seeker can rapidly determine resume performance, as well as performance across other activities including social networking and content creation. You can use the tools in the next section to perform and analyze an A/B test.
+
+## Job Search Spreadsheet Tools
+
+1. Here's [Ladderly.io's Premium Job Search Tool](/job-search)
+2. Here's a free [post-level job search spreadsheet template](https://docs.google.com/spreadsheets/d/1gRL8zSSgDAQ_Rs5kHglUEZnH4-kQwLnXZ0e9oh0YvK0)
+3. Stay tuned for a round-level spreadsheet!
+
+The round-level spreadsheet allows richer data analysis but requires more data entry, because you will need to create a new row for each interview round. The post-level spreadsheet just has one row for each job post. This is easier to utilize but there are some limitations on the analysis you can do with it.
+
+Specifically, you won't get quantitative data on performance for different round types. You may be able to determine this well enough by reflection without precise data analysis, so it might not be a big issue for you.
 
 ## Parsing and Keyword Density
 
