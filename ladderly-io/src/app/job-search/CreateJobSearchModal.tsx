@@ -6,6 +6,9 @@ import { api } from '~/trpc/react'
 export const CreateJobSearchModal = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState('')
+  const [startDate, setStartDate] = useState(
+    new Date().toISOString().split('T')[0]!,
+  )
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -18,6 +21,7 @@ export const CreateJobSearchModal = () => {
         setIsOpen(false)
         setName('')
         setError('')
+        setStartDate(new Date().toISOString().split('T')[0]!)
       },
       onError: (error) => {
         setError(error.message || 'Failed to create job search')
@@ -39,7 +43,7 @@ export const CreateJobSearchModal = () => {
 
     createJobSearch({
       name: name.trim(),
-      startDate: new Date(),
+      startDate: new Date(startDate),
       isActive: true,
     })
   }
@@ -77,6 +81,23 @@ export const CreateJobSearchModal = () => {
                 />
               </div>
 
+              <div className="mb-4">
+                <label
+                  htmlFor="startDate"
+                  className="mb-2 block text-sm font-medium"
+                >
+                  Start Date
+                </label>
+                <input
+                  id="startDate"
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="w-full rounded-md border border-gray-300 p-2"
+                  required
+                />
+              </div>
+
               {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
 
               <div className="flex justify-end space-x-2">
@@ -86,6 +107,7 @@ export const CreateJobSearchModal = () => {
                     setIsOpen(false)
                     setName('')
                     setError('')
+                    setStartDate(new Date().toISOString().split('T')[0]!)
                   }}
                   className="rounded-md border border-gray-300 px-4 py-2 hover:bg-gray-50"
                   disabled={isSubmitting}
