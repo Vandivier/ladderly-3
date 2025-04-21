@@ -42,7 +42,7 @@ export const LabeledDateField = forwardRef<
         {label}
         <input
           {...input}
-          value={input.value as string}
+          value={input.value!}
           type="date"
           disabled={submitting}
           {...props}

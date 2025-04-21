@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import type { JobSearchStepKind, JobApplicationStatus } from '@prisma/client'
+import { JobSearchStepKind, JobApplicationStatus } from '@prisma/client'
 import { api } from '~/trpc/react'
 
 // --- Props Interface ---

@@ -77,7 +77,7 @@ export const CreateJobSearchModal = () => {
       },
       onError: (error) => {
         let detailedError =
-          error.message || 'Failed to create job search from CSV'
+          error.message ?? 'Failed to create job search from CSV'
         try {
           const dataError = error.data?.zodError
           if (dataError?.fieldErrors) {
@@ -119,7 +119,7 @@ export const CreateJobSearchModal = () => {
         if (results.errors.length > 0) {
           console.error('CSV Parsing Errors:', results.errors)
           setError(
-            `Error parsing CSV: ${results.errors[0]?.message || 'Unknown error'}. Please check file format.`,
+            `Error parsing CSV: ${results.errors[0]?.message ?? 'Unknown error'}. Please check file format.`,
           )
           setIsSubmitting(false)
           setSubmitStatus('error')

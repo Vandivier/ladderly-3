@@ -136,19 +136,19 @@ export const JobPostDetails = ({ id }: { id: number }) => {
       } = {
         company: values.company,
         jobTitle: values.jobTitle,
-        jobPostUrl: values.jobPostUrl || null,
-        resumeVersion: values.resumeVersion || null,
+        jobPostUrl: values.jobPostUrl ?? null,
+        resumeVersion: values.resumeVersion ?? null,
         initialOutreachDate: values.initialOutreachDate
           ? new Date(values.initialOutreachDate)
           : null,
         initialApplicationDate: values.initialApplicationDate
           ? new Date(values.initialApplicationDate)
           : null,
-        contactName: values.contactName || null,
-        contactUrl: values.contactUrl || null,
+        contactName: values.contactName ?? null,
+        contactUrl: values.contactUrl ?? null,
         hasReferral: values.hasReferral,
         isInboundOpportunity: values.isInboundOpportunity,
-        notes: values.notes || null,
+        notes: values.notes ?? null,
         status: values.status,
       }
 

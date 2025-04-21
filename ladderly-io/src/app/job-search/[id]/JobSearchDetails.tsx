@@ -7,7 +7,12 @@ import { JobSearchActiveSpan } from '../JobSearchActiveSpan'
 import { AddJobApplicationModal } from './AddJobApplicationModal'
 import { Pencil, ChevronLeft, ChevronRight, Trash2, Eye } from 'lucide-react'
 import { z } from 'zod'
-import { JobSearch, JobApplicationStatus } from '@prisma/client'
+import type {
+  JobSearch,
+  JobApplicationStatus,
+  JobPostForCandidate,
+  JobSearchStep,
+} from '@prisma/client'
 import Link from 'next/link'
 import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
@@ -42,8 +47,13 @@ const JobSearchEditSchema = z.object({
 })
 type JobSearchEditValues = z.infer<typeof JobSearchEditSchema>
 
+// Define the expected shape of a Job Post within the list
+type JobPostWithSteps = JobPostForCandidate & {
+  jobSearchSteps: JobSearchStep[]
+}
+
 interface JobSearchDetailsProps {
-  initialJobSearch: JobSearch & { jobPosts: any[] } // Use imported JobSearch type
+  initialJobSearch: JobSearch & { jobPosts: JobPostWithSteps[] } // Use the defined type
 }
 
 // Status Badge component
@@ -143,17 +153,19 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     typeof JobSearchEditSchema
   >['onSubmit'] = async (values) => {
     try {
-      await updateJobSearch({
+      updateJobSearch({
         id: initialJobSearch.id,
         name: values.name.trim(),
         startDate: new Date(values.startDate),
         isActive: values.isActive,
       })
-    } catch (error: any) {
+    } catch (error: unknown) {
+      let message = 'Sorry, we had an unexpected error. Please try again.'
+      if (error instanceof Error) {
+        message = error.message
+      }
       return {
-        [FORM_ERROR]:
-          error.message ??
-          'Sorry, we had an unexpected error. Please try again.',
+        [FORM_ERROR]: message,
       }
     }
   }
@@ -354,7 +366,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
         ) : (
           <>
             <div className="mt-4 space-y-3">
-              {jobSearch?.jobPosts?.map((jobPost: any) => (
+              {jobSearch?.jobPosts?.map((jobPost: JobPostWithSteps) => (
                 <div
                   key={jobPost.id}
                   className="relative rounded-md border border-gray-200 p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800/50"
@@ -376,7 +388,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
                         Last updated: {formatLocaleDate(jobPost.updatedAt)}
                       </p>
                     </div>
-                    <div className="flex w-full flex-shrink-0 items-center justify-between gap-2 sm:w-auto sm:justify-end">
+                    <div className="flex w-full shrink-0 items-center justify-between gap-2 sm:w-auto sm:justify-end">
                       <StatusBadge status={jobPost.status} />
                       <Link
                         href={`/job-search/job-post/${jobPost.id}`}
