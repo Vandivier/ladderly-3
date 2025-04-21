@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
-import { useSession } from 'next-auth/react'
 
 interface QuizContentProps {
   courseSlug: string
@@ -24,14 +23,36 @@ interface QuizInfo {
     name: string
     description: string | null
     timeLimit: number | null
+    flashCardDeck: {
+      id: number
+      description: string | null
+      name: string
+      createdAt: Date
+      updatedAt: Date
+      courseId: number | null
+    }
+    course: {
+      id: number
+      title: string
+      description: string
+      createdAt: Date
+      updatedAt: Date
+      slug: string
+    } | null
+    createdAt: Date
+    updatedAt: Date
+    courseId: number | null
+    flashCardDeckId: number
   }
   latestAttempt: {
     id: number
     score: number
     passed: boolean
-    createdAt: string
+    createdAt: Date
+    quizId: number
+    userId: number
   } | null
-  cooldownEndsAt: string | null
+  cooldownEndsAt: Date | null
   canAttempt: boolean
 }
 
@@ -44,12 +65,24 @@ interface QuizData {
 
 interface QuizResult {
   id: number
-  createdAt: string
+  createdAt: Date
   score: number
   passed: boolean
   user?: {
     id: number
   }
+  quiz: {
+    id: number
+    description: string | null
+    name: string
+    createdAt: Date
+    updatedAt: Date
+    courseId: number | null
+    flashCardDeckId: number
+    timeLimit: number | null
+  }
+  quizId: number
+  userId: number
 }
 
 export default function QuizContent({ courseSlug }: QuizContentProps) {
@@ -162,8 +195,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   }
 
   // Format relative time (e.g., "2 hours ago")
-  const formatTimeAgo = (dateString: string): string => {
-    const date = new Date(dateString)
+  const formatTimeAgo = (date: Date): string => {
     const now = new Date()
     const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
 
@@ -191,8 +223,8 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   }
 
   // Format time remaining
-  const formatTimeRemaining = (dateString: string): string => {
-    const date = new Date(dateString)
+  const formatTimeRemaining = (date: Date | null): string => {
+    if (!date) return 'now'
     const now = new Date()
     const seconds = Math.floor((date.getTime() - now.getTime()) / 1000)
 
@@ -442,6 +474,14 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   // If quiz is in progress, show quiz interface
   if (quizStarted && quizData && !quizCompleted) {
     const currentCard = quizData.flashcards[currentQuestion]
+
+    // Add check for currentCard
+    if (!currentCard) {
+      // Handle case where currentCard might be undefined briefly
+      // Could show a loading state or just return null/empty div
+      return <div className="p-4 text-center">Loading question...</div>
+    }
+
     // Use pre-randomized options instead of randomizing on every render
     const options =
       questionOptions[currentQuestion] ||
@@ -667,21 +707,18 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {quizHistory.map((result: QuizResult, index: number) => (
+                  {quizHistory.map((result, index: number) => (
                     <tr
                       key={index}
                       className="hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <td className="p-3 font-medium">
                         <span className="text-gray-900 dark:text-gray-200">
-                          {new Date(result.createdAt).toLocaleDateString(
-                            undefined,
-                            {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                            },
-                          )}
+                          {result.createdAt.toLocaleDateString(undefined, {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          })}
                         </span>
                       </td>
                       <td className="p-3 font-medium">
