@@ -4,6 +4,9 @@ import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/Ladderly
 
 export const metadata = {
   title: 'Privacy Policy',
+  alternates: {
+    canonical: '/privacy-policy',
+  },
 }
 
 const PrivacyPolicyPage = () => {

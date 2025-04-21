@@ -20,7 +20,7 @@ type VotableSeedData = {
 }
 
 export const seedVotables = async () => {
-  const filePath = path.resolve(__dirname, './votables.json')
+  const filePath = path.resolve(__dirname, './seeds/votables.json')
 
   if (!fs.existsSync(filePath)) {
     console.warn(`File ${filePath} does not exist.\nContinuing to seed...`)

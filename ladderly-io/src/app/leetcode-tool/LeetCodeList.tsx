@@ -32,7 +32,7 @@ function LeetCodeProblem({
             type="checkbox"
             checked={isComplete}
             onChange={() => onToggle(id, !isComplete)}
-            className="mr-3 h-4 w-4 rounded border-gray-300"
+            className="mr-3 size-4 rounded border-gray-300"
           />
           {displayText}
         </div>

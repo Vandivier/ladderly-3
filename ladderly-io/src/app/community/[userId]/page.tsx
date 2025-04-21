@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import Link from 'next/link'
 import { LargeCard } from '~/app/core/components/LargeCard'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { api } from '~/trpc/server'
@@ -20,12 +21,36 @@ interface ChecklistType {
   updatedAt: Date
 }
 
+interface CertificateType {
+  id: number
+  createdAt: Date
+  score: number
+  passed: boolean
+  quiz: {
+    id: number
+    name: string
+    course: {
+      id: number
+      title: string
+      slug: string
+    } | null
+  }
+}
+
 async function UserProfile({ userId }: { userId: number }) {
   try {
     const user = await api.user.getUser({ id: userId })
     const hasExperienceInfo =
       (user.profileYearsOfExperience ?? 0) > 0 &&
       (user.profileCurrentJobTitle ?? user.profileCurrentJobCompany)
+
+    // Fetch certificates for the user
+    const certificates = await api.certificate.getUserCertificates({ userId })
+
+    // Filter out any certificates with missing data
+    const validCertificates = certificates.filter(
+      (cert) => cert.passed && cert.quiz && cert.quiz.name,
+    )
 
     return (
       <main className="space-y-6">
@@ -58,6 +83,36 @@ async function UserProfile({ userId }: { userId: number }) {
           <div>
             <h2 className="text-xl font-semibold">About</h2>
             <p className="whitespace-pre-wrap">{user.profileBlurb}</p>
+          </div>
+        )}
+
+        {/* Certificates */}
+        {validCertificates.length > 0 && (
+          <div>
+            <h2 className="text-xl font-semibold">Certificates</h2>
+            <div className="mt-4 grid gap-4">
+              {validCertificates.map((cert: CertificateType) => (
+                <Link
+                  key={cert.id}
+                  href={`/community/${userId}/certificates/${cert.id}`}
+                  className="flex flex-col rounded-lg border border-gray-200 bg-white px-4 py-2 shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                >
+                  <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">
+                    {cert.quiz.course?.title ?? 'Course'}
+                  </div>
+                  <div className="my-2 text-xs text-gray-500 dark:text-gray-400">
+                    {cert.score === 100 && (
+                      <span className="mr-2 rounded-full bg-yellow-100 px-2 py-0.5 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200">
+                        Awarded With Honors
+                      </span>
+                    )}
+                    <span>
+                      Awarded: {new Date(cert.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
 

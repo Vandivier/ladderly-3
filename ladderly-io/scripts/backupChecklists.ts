@@ -64,7 +64,7 @@ async function backup(): Promise<void> {
     }
 
     const existingChecklistsRaw = await fs.readFile(
-      path.resolve(__dirname, '../prisma/checklists.json'),
+      path.resolve(__dirname, '../prisma/seeds/checklists.json'),
     )
     let existingChecklists: ChecklistData[] = JSON.parse(
       existingChecklistsRaw.toString(),
@@ -75,7 +75,7 @@ async function backup(): Promise<void> {
 
     const premiumChecklistsPath = path.resolve(
       __dirname,
-      '../prisma/premium-checklists.json',
+      '../prisma/seeds/premium-checklists.json',
     )
     let premiumChecklists: ChecklistData[] = []
 
@@ -117,7 +117,7 @@ async function backup(): Promise<void> {
     }
 
     await fs.writeFile(
-      path.resolve(__dirname, '../prisma/checklists.json'),
+      path.resolve(__dirname, '../prisma/seeds/checklists.json'),
       JSON.stringify(existingChecklists, null, 2),
     )
     await fs.writeFile(

@@ -9,6 +9,9 @@ import ClientCommunityPage from './ClientCommunityPage'
 
 export const metadata = {
   title: 'Community',
+  alternates: {
+    canonical: '/community',
+  },
 }
 
 export default function CommunityPage() {

@@ -26,15 +26,10 @@ web_modules/
 *.sqlite*
 *.sqlite-journal
 
-# Blitz.js
-.blitz**
-blitz-log.log
 # ignore physical backups of blitz db
-db/bak.user*.json
-db/premium-checklists.json
+bak.user*.json
+**/bak.user*.json
 **/backup-data/bak.user*.json
-**/db/bak.user*.json
-**/db/premium-checklists.json
 
 # production/build
 /out/

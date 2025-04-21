@@ -12,6 +12,9 @@ export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: 'Settings',
+  alternates: {
+    canonical: '/settings',
+  },
 }
 
 export default async function SettingsPage() {

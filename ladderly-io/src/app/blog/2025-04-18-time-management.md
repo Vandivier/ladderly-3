@@ -118,7 +118,7 @@ Daily chores like cooking can eat up large chunks of time. If it fits your budge
 
 ### Think in Chronos and Kairos time
 
-Chronos time, or metric time, is described in a calendar. Kairos time is a series or directed graph of events. Both matter. You should be aware of the hours in the day and how you’re spending them, and also thinking through each step you are taking and what is unlocks. This concept reiterates the importance of planning in terms of decision trees, backup plans, and topology, rather than a simple mapping of required to available time.
+Chronos time, or metric time, is described in a calendar. Kairos time is a series or directed graph of events. Both matter. You should be aware of the hours in the day and how you're spending them, and also thinking through each step you are taking and what is unlocks. This concept reiterates the importance of planning in terms of decision trees, backup plans, and topology, rather than a simple mapping of required to available time.
 
 ### Deliberate Single-Tasking and Habit Hacking
 
@@ -222,3 +222,37 @@ Here are three more techniques to implement as part of an Inbox Zero approach:
    1. Work backwards from annual plans to quarterly and monthly goals.
    2. Self-impose monthly goals and use communication, meetings, and demos as forcing functions.
    3. If you get to a self-imposed deadline and you aren't ready, recycle the meeting into something useful or push back the deadline. Don't outright cancel.
+
+## Be a Ghost
+
+A family of additional time saving techniques for you and your team is to enable ghosting. You can be a ghost in your team, or you can actually champion a ghost culture. Ghosting is a loose way of describing not showing up to a meeting and appearing to be absent or offline (even if you are actually present and working).
+
+Here are some specific ghosting techniques:
+
+1. **Manage Notifications Aggressively**
+   - Turn off notifications in apps that aren't essential to your current focus
+   - Aggressively "turn off notifications for replies" in Slack, LinkedIn, and other platforms once you've accomplished your goal in a conversation
+   - Configure work hours and snooze notifications outside of those hours
+
+2. **Become Strategically Unavailable**
+   - When in focus time, mark yourself as away or unavailable in tools like Slack
+   - Consider blocking focus time on your calendar as "busy" to prevent meeting invites
+   - Use the "Do Not Disturb" feature on your operating system and phone during deep work sessions
+
+3. **Communication Minimalism**
+   - Resist the urge to have the last word in conversations
+   - Use emoji reactions (like a simple thumbs up) to acknowledge messages without starting new threads
+   - Leverage asynchronous communication over meetings whenever possible
+   - Keep messages concise and directly actionable
+
+4. **Meeting Efficiency**
+   - End meetings early when objectives are met
+   - Don't hesitate to leave meetings when your presence is no longer required
+   - Periodically audit recurring meetings to see if they can be canceled, merged, or reduced in frequency
+   - Consider tools like [Clockwise](https://www.getclockwise.com/ai) for intelligent meeting scheduling and optimization
+
+Avoid ghost strategies in times of critical or urgent activity. Avoid ghosting with external stakeholders and others that don't understand your operating behavior and intent. Professional ghosting is distinct from malicious ghosting exactly because your team understands and supports what you are doing, which is eliminating easy access in order to achieve focus. Your team should also have a way to break through this barrier and access you in a crisis situation. Here are a few options for such a ghost-busting escalation procedure:
+
+1. Use a tool like PagerDuty
+2. Remain responsive to direct messages, despite marking yourself away
+3. Enable your manager to call or text your cell phone directly

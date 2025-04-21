@@ -31,6 +31,11 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
     folder_structure = []
     for dirpath, dirnames, filenames in os.walk(project_root):
         relative_path = Path(dirpath).relative_to(project_root)
+        
+        # Skip prisma\migrations subdirectories
+        if str(relative_path).startswith("prisma\\migrations\\") and str(relative_path) != "prisma\\migrations":
+            continue
+            
         # Ignore directories if they match .gitignore patterns
         if ignored_paths and ignored_paths.match_file(str(relative_path)):
             continue
@@ -40,6 +45,10 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
 
         for filename in filenames:
             file_path = relative_path / filename
+            # Skip files in prisma\migrations subdirectories
+            if str(file_path).startswith("prisma\\migrations\\") and not str(file_path).startswith("prisma\\migrations\\migration_lock.toml"):
+                continue
+                
             if not ignored_paths or not ignored_paths.match_file(str(file_path)):
                 folder_structure.append(f"{indent}    {filename}")
 

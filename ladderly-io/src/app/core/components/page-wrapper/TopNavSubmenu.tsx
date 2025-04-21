@@ -8,7 +8,7 @@ import { MenuContext, MenuItemsWrapper } from './MenuProvider'
 
 export const TOP_NAV_STANDARD_CLASSES = 'ml-6 font-bold'
 export const MENU_ITEM_STANDARD_CLASSES =
-  'font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-purple-300/20'
+  'font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-purple-300/20 rounded-md'
 const DESKTOP_MENU_ITEM_STANDARD_CLASSES = `${MENU_ITEM_STANDARD_CLASSES} dark:text-gray-100`
 
 export const AccountMenuItems = ({
@@ -60,6 +60,9 @@ export const GrowMenuItems = ({
     </Link>
     <Link href="/copilot" className={linkClassName}>
       Copilot
+    </Link>
+    <Link href="/courses" className={linkClassName}>
+      Courses
     </Link>
     <Link href="/job-search" className={linkClassName}>
       Job Search

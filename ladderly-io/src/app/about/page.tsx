@@ -1,10 +1,13 @@
-import Link from "next/link";
-import { LargeCard } from "~/app/core/components/LargeCard";
-import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
+import Link from 'next/link'
+import { LargeCard } from '~/app/core/components/LargeCard'
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 
 export const metadata = {
-  title: "About",
-};
+  title: 'About',
+  alternates: {
+    canonical: '/about',
+  },
+}
 
 const AboutPage = () => {
   return (
@@ -82,11 +85,11 @@ const AboutPage = () => {
           Start Now for Free!
         </h2>
         <p className="mt-4">
-          Sign up{" "}
+          Sign up{' '}
           <Link className="text-link-fancy" href="/signup">
             here
-          </Link>{" "}
-          and check out the{" "}
+          </Link>{' '}
+          and check out the{' '}
           <a
             href="https://discord.gg/fAg6Xa4uxc"
             target="_blank"
@@ -100,7 +103,7 @@ const AboutPage = () => {
         <p>Welcome to the future of learning and growth!</p>
       </LargeCard>
     </LadderlyPageWrapper>
-  );
-};
+  )
+}
 
-export default AboutPage;
+export default AboutPage

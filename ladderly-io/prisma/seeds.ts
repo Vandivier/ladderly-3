@@ -1,15 +1,15 @@
+import { Checklist } from '@prisma/client'
 import * as fs from 'fs'
 import * as path from 'path'
 import { db } from '../src/server/db'
-import { Checklist } from '@prisma/client'
 
+import { seedLeetcodeChecklist } from './seed-utils/seedLeetcodeChecklist'
+import { seedVotables } from './seed-utils/seedVotables'
 import {
   ChecklistSeedDataType,
   ChecklistsSchema,
   updateChecklistsInPlace,
 } from './seed-utils/updateChecklists'
-import { seedVotables } from './seed-utils/seedVotables'
-import { seedLeetcodeChecklist } from './seed-utils/seedLeetcodeChecklist'
 
 // Use __dirname directly since this is CommonJS
 const __dirname = process.cwd() + '/prisma'
@@ -77,7 +77,7 @@ const seed = async () => {
   )
 
   for (const file of files) {
-    const filePath = path.resolve(__dirname, file)
+    const filePath = path.resolve(__dirname, './seeds', file)
 
     if (!fs.existsSync(filePath)) {
       console.warn(

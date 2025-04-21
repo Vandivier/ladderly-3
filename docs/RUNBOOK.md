@@ -9,7 +9,7 @@ It documents how to handle certain common manual tasks and outages.
 The base command is:
 `npm run seed:update-in-place`
 
-This will update all checklists in-place by mutating the most recently created version of each checklist. Checklist content will be mutated to match `db/checklists.json` and `db/premium-checklists.json`.
+This will update all checklists in-place by mutating the most recently created version of each checklist. Checklist content will be mutated to match `prisma/seeds/checklists.json` and `prisma/seeds/premium-checklists.json`.
 
 It is recommended to pass the `--name` flag to update a specific checklist is encouraged. You can run a command like the following:
 `npm run seed:update-in-place -- --name="Programming Job Checklist"`
