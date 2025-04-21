@@ -1,39 +1,25 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { api } from '~/trpc/react'
-import { JobSearchStepKind, JobApplicationStatus } from '@prisma/client'
-import Link from 'next/link'
+import { JobApplicationStatus } from '@prisma/client'
 import {
-  Pencil,
-  Check,
-  X,
-  Trash2,
-  Eye,
+  ArrowLeft,
   CalendarDays,
-  LinkIcon,
-  User,
   CheckSquare,
   FileText,
-  ArrowLeft,
+  LinkIcon,
+  Pencil,
+  User,
 } from 'lucide-react'
-
-// --- Form Imports ---
-import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
-import LabeledTextField from '~/app/core/components/LabeledTextField'
-import LabeledSelectField from '~/app/core/components/LabeledSelectField'
-import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
-
-// --- Helper & Other Components ---
-import { JobStepsSection } from './JobStepsSection'
-// Import the new form components and their types
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
+import { FORM_ERROR, type FormProps } from '~/app/core/components/Form'
+import { api } from '~/trpc/react'
 import {
   EditJobPostForm,
   JobPostEditSchema,
   type JobPostEditValues,
 } from './EditJobPostForm'
-import { AddJobSearchStepForm } from './AddJobSearchStepForm' // Import the new step form
+import { JobStepsSection } from './JobStepsSection'
 
 // Helper to format date to YYYY-MM-DD
 const formatDateForInput = (date: Date | string | undefined | null): string => {
@@ -47,7 +33,6 @@ const formatDateForInput = (date: Date | string | undefined | null): string => {
 
 // Status badge component
 const StatusBadge = ({ status }: { status: JobApplicationStatus }) => {
-  // Restore explicit Record type
   const statusStyles: Record<JobApplicationStatus, string> = {
     APPLIED: 'bg-blue-100 text-blue-800',
     IN_OUTREACH: 'bg-cyan-100 text-cyan-800',
@@ -56,9 +41,7 @@ const StatusBadge = ({ status }: { status: JobApplicationStatus }) => {
     REJECTED: 'bg-red-100 text-red-800',
     WITHDRAWN: 'bg-gray-100 text-gray-800',
     TIMED_OUT: 'bg-gray-100 text-gray-500',
-    // Removed other invalid keys above
   }
-  // Restore direct index access
   const style = statusStyles[status] ?? 'bg-gray-100 text-gray-800'
   return (
     <span
@@ -267,10 +250,8 @@ export const JobPostDetails = ({ id }: { id: number }) => {
           isSubmitting={isUpdatingPost} // Pass the mutation pending state
         />
       ) : (
-        /* --- Display Mode Details (Refactored for clarity) --- */
         <div className="space-y-4 rounded-md border border-gray-200 p-4">
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-3 lg:grid-cols-4">
-            {/* Use consistent styling classes */}
             <div>
               <p className="label-text">Status</p>{' '}
               <StatusBadge status={jobPost.status} />
@@ -374,7 +355,6 @@ export const JobPostDetails = ({ id }: { id: number }) => {
         </div>
       )}
 
-      {/* --- Job Search Steps Section --- */}
       {!isEditing && (
         <JobStepsSection
           jobPostId={id}
