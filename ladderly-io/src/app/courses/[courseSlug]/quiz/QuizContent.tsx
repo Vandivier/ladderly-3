@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
+import { useSession } from 'next-auth/react'
 
 interface QuizContentProps {
   courseSlug: string
@@ -46,6 +47,9 @@ interface QuizResult {
   createdAt: string
   score: number
   passed: boolean
+  user?: {
+    id: number
+  }
 }
 
 export default function QuizContent({ courseSlug }: QuizContentProps) {
@@ -379,7 +383,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
               </div>
             </div>
 
-            {passed && latestQuizResult && (
+            {passed && latestQuizResult && latestQuizResult.user && (
               <div className="mb-8 rounded-lg bg-green-50 p-4 dark:bg-green-900/30">
                 <h3 className="mb-2 font-semibold text-green-800 dark:text-green-200">
                   Certificate Awarded
@@ -393,12 +397,12 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
                   <div className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white">
                     Certificate Earned
                   </div>
-                  <div
-                    className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-                    onClick={() => (window.location.href = '/dashboard')}
+                  <Link
+                    href={`/community/${latestQuizResult.user.id}/certificates/${latestQuizResult.id}`}
+                    className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
                   >
-                    View Dashboard
-                  </div>
+                    View Certificate
+                  </Link>
                 </div>
               </div>
             )}
@@ -423,12 +427,12 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
               </div>
             )}
 
-            <button
-              onClick={() => setQuizStarted(false)}
-              className="w-full rounded-md bg-gray-200 px-4 py-2 font-medium text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+            <Link
+              href={`/courses/${course.slug}/quiz`}
+              className="block w-full rounded-md bg-gray-200 px-4 py-2 text-center font-medium text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
             >
               Return to Quiz Page
-            </button>
+            </Link>
           </div>
         </div>
       </div>

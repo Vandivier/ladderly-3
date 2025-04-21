@@ -165,6 +165,11 @@ export const quizRouter = createTRPCRouter({
               course: true,
             },
           },
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       })
 
