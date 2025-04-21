@@ -179,7 +179,6 @@ export default async function CertificatePage({
               <div className="absolute left-0 top-0 size-16 rounded-br-3xl bg-blue-600 opacity-20"></div>
               <div className="absolute bottom-0 right-0 size-16 rounded-tl-3xl bg-blue-600 opacity-20"></div>
               <div className="absolute left-1/3 top-1/4 size-32 rotate-12 rounded-full bg-blue-600 opacity-5"></div>
-              <div className="absolute bottom-1/4 right-1/3 size-32 -rotate-12 rounded-full bg-blue-600 opacity-5"></div>
             </div>
           </div>
         </div>
