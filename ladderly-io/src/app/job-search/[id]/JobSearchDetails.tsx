@@ -1,17 +1,25 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
 import { JobSearchActiveSpan } from '../JobSearchActiveSpan'
 import { AddJobApplicationModal } from './AddJobApplicationModal'
-import Link from 'next/link'
-import { Pencil, Check, X, ChevronLeft, ChevronRight } from 'lucide-react'
-// import { JobPostTable } from './JobPostTable' // Commented out - Linter couldn't find module
-import { Form, FORM_ERROR } from '~/app/core/components/Form'
-import LabeledTextField from '~/app/core/components/LabeledTextField'
+import {
+  Pencil,
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  X,
+  Trash2,
+  Eye,
+} from 'lucide-react'
 import { z } from 'zod'
-import { JobSearch } from '@prisma/client' // Import JobSearch type
+import { JobSearch, JobApplicationStatus } from '@prisma/client'
+import Link from 'next/link'
+import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
+import LabeledTextField from '~/app/core/components/LabeledTextField'
+import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
 
 // Helper to format date to YYYY-MM-DD
 const formatDateForInput = (date: Date | string | undefined | null): string => {
@@ -23,13 +31,48 @@ const formatDateForInput = (date: Date | string | undefined | null): string => {
   }
 }
 
+// Helper to format locale date
+const formatLocaleDate = (date: Date | string | undefined | null): string => {
+  if (!date) return 'N/A'
+  try {
+    return new Date(date).toLocaleDateString()
+  } catch (e) {
+    return 'Invalid Date'
+  }
+}
+
 // Schema for editing the Job Search name
 const JobSearchEditSchema = z.object({
   name: z.string().min(1, 'Name cannot be empty'),
+  startDate: z.string().min(1, 'Start date cannot be empty'),
+  isActive: z.boolean(),
 })
+type JobSearchEditValues = z.infer<typeof JobSearchEditSchema>
 
 interface JobSearchDetailsProps {
   initialJobSearch: JobSearch & { jobPosts: any[] } // Use imported JobSearch type
+}
+
+// Status Badge component
+const StatusBadge = ({ status }: { status: JobApplicationStatus }) => {
+  const statusStyles: Record<JobApplicationStatus, string> = {
+    APPLIED: 'bg-blue-100 text-blue-800',
+    IN_OUTREACH: 'bg-cyan-100 text-cyan-800',
+    IN_INTERVIEW: 'bg-indigo-100 text-indigo-800',
+    OFFER_RECEIVED: 'bg-yellow-100 text-yellow-800',
+    REJECTED: 'bg-red-100 text-red-800',
+    WITHDRAWN: 'bg-gray-100 text-gray-800',
+    TIMED_OUT: 'bg-gray-100 text-gray-500',
+    // Add other valid statuses from the enum if needed
+  }
+  const style = statusStyles[status] ?? 'bg-gray-100 text-gray-800'
+  return (
+    <span
+      className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${style}`}
+    >
+      {status.replace(/_/g, ' ')}
+    </span>
+  )
 }
 
 export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
@@ -41,10 +84,6 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     null,
   )
   const [isEditing, setIsEditing] = useState(false)
-  const [editName, setEditName] = useState('')
-  const [editStartDate, setEditStartDate] = useState('')
-  const [editIsActive, setEditIsActive] = useState(true)
-  const [editError, setEditError] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 10
   const utils = api.useUtils() // Get tRPC utils
@@ -55,7 +94,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     error,
     refetch,
   } = api.jobSearch.getJobSearch.useQuery(
-    { id: initialJobSearch.id, page: currentPage, pageSize },
+    { id: initialJobSearch?.id, page: currentPage, pageSize },
     {
       // Keep fetched data fresh but don't refetch on window focus if not needed
       // staleTime: 5 * 60 * 1000, // 5 minutes
@@ -66,6 +105,9 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
   )
   const jobSearch = jobSearchData
   const pagination = jobSearchData?.pagination
+
+  // Log the fetched data for debugging
+  console.log('JobSearchDetails - jobSearchData:', jobSearchData)
 
   const { mutate: deleteJobPost } = api.jobSearch.deleteJobPost.useMutation({
     onSuccess: async () => {
@@ -80,22 +122,11 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
         await refetch()
         await utils.jobSearch.getUserJobSearches.invalidate()
         setIsEditing(false)
-        setEditError(null)
       },
       onError: (error) => {
-        setEditError(error.message ?? 'Failed to update job search')
+        console.error('Mutation Error:', error)
       },
     })
-
-  useEffect(() => {
-    // Only update edit state if jobSearch is available
-    if (jobSearch) {
-      setEditName(jobSearch.name)
-      setEditStartDate(formatDateForInput(jobSearch.startDate))
-      setEditIsActive(jobSearch.isActive)
-    }
-    // Add initialJobSearch.id to dependency array to re-run if ID changes (although unlikely)
-  }, [jobSearch, initialJobSearch?.id])
 
   const handleDeleteJobPost = (jobPostId: number, e: React.MouseEvent) => {
     e.stopPropagation()
@@ -108,38 +139,30 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
   }
 
   const handleEditClick = () => {
-    if (!jobSearch) return
-    setEditName(jobSearch.name)
-    setEditStartDate(formatDateForInput(jobSearch.startDate))
-    setEditIsActive(jobSearch.isActive)
-    setEditError(null)
     setIsEditing(true)
   }
 
   const handleCancelClick = () => {
     setIsEditing(false)
-    setEditError(null)
   }
 
-  const handleSaveSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setEditError(null)
-    if (!editName.trim()) {
-      setEditError('Job search name cannot be empty')
-      return
+  const handleSaveSubmit: FormProps<
+    typeof JobSearchEditSchema
+  >['onSubmit'] = async (values) => {
+    try {
+      await updateJobSearch({
+        id: initialJobSearch.id,
+        name: values.name.trim(),
+        startDate: new Date(values.startDate),
+        isActive: values.isActive,
+      })
+    } catch (error: any) {
+      return {
+        [FORM_ERROR]:
+          error.message ??
+          'Sorry, we had an unexpected error. Please try again.',
+      }
     }
-    if (!editStartDate) {
-      setEditError('Start date cannot be empty')
-      return
-    }
-
-    // Call the mutation with data from state
-    updateJobSearch({
-      id: initialJobSearch.id, // Use the initial ID prop
-      name: editName.trim(),
-      startDate: new Date(editStartDate),
-      isActive: editIsActive,
-    })
   }
 
   const handleNextPage = () => {
@@ -154,11 +177,14 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     }
   }
 
-  if (isLoading && !jobSearchData) {
+  // Refined Loading / Error / Not Found checks
+  if (isLoading) {
+    // Check loading state first
     return <div>Loading job search details...</div>
   }
 
   if (error) {
+    // Then check for query errors
     return (
       <div className="text-center">
         <p className="text-red-500">{error.message}</p>
@@ -172,7 +198,13 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     )
   }
 
+  // AFTER loading and error checks, if jobSearchData is still falsy, then it's not found
   if (!jobSearch) {
+    // Note: using jobSearch which is assigned from jobSearchData
+    console.error(
+      'JobSearchDetails: Query finished but no jobSearch data found for ID:',
+      initialJobSearch?.id,
+    )
     return (
       <div className="text-center">
         <p>Job search not found</p>
@@ -184,6 +216,13 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
         </button>
       </div>
     )
+  }
+
+  // Prepare initial values for the form (only when editing)
+  const initialFormValues: JobSearchEditValues = {
+    name: jobSearch.name ?? '',
+    startDate: formatDateForInput(jobSearch.startDate),
+    isActive: jobSearch.isActive ?? true,
   }
 
   return (
@@ -215,71 +254,39 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
       </div>
 
       {isEditing ? (
-        <form
+        <Form<typeof JobSearchEditSchema>
+          schema={JobSearchEditSchema}
+          initialValues={initialFormValues}
           onSubmit={handleSaveSubmit}
           className="mb-6 space-y-4 rounded-md border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800"
         >
-          <div>
-            <label
-              htmlFor="editName"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Name*
-            </label>
-            <input
-              id="editName"
-              type="text"
-              value={editName}
-              onChange={(e) => setEditName(e.target.value)}
-              className="input-field mt-1 w-full"
-              required
-              disabled={isUpdating}
-            />
-          </div>
+          <LabeledTextField
+            name="name"
+            label="Name*"
+            required
+            disabled={isUpdating}
+            className="input-field w-full"
+          />
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div>
-              <label
-                htmlFor="editStartDate"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-              >
-                Start Date*
-              </label>
-              <input
-                id="editStartDate"
-                type="date"
-                value={editStartDate}
-                onChange={(e) => setEditStartDate(e.target.value)}
-                className="input-field mt-1 w-full"
+          <div className="grid grid-cols-1 gap-x-4 gap-y-2 md:grid-cols-3">
+            <div className="md:col-span-2">
+              <LabeledTextField
+                name="startDate"
+                label="Start Date*"
                 required
                 disabled={isUpdating}
+                className="input-field w-full"
               />
             </div>
             <div className="flex items-end pb-1">
-              <div className="flex items-center">
-                <input
-                  id="editIsActive"
-                  type="checkbox"
-                  checked={editIsActive}
-                  onChange={(e) => setEditIsActive(e.target.checked)}
-                  className="checkbox-field mr-2"
-                  disabled={isUpdating}
-                />
-                <label
-                  htmlFor="editIsActive"
-                  className="text-sm font-medium text-gray-900 dark:text-gray-100"
-                >
-                  Active
-                </label>
-              </div>
+              <LabeledCheckboxField
+                name="isActive"
+                label="Active"
+                disabled={isUpdating}
+                className="checkbox-field"
+              />
             </div>
           </div>
-
-          {editError && (
-            <p className="text-sm text-red-600 dark:text-red-400">
-              {editError}
-            </p>
-          )}
 
           <div className="flex justify-end space-x-2 border-t border-gray-200 pt-4 dark:border-gray-700">
             <button
@@ -288,14 +295,13 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
               disabled={isUpdating}
               className="btn-secondary"
             >
-              <X className="btn-icon mr-1" /> Cancel
+              Cancel
             </button>
             <button type="submit" disabled={isUpdating} className="btn-primary">
-              <Check className="btn-icon mr-1" />{' '}
               {isUpdating ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
-        </form>
+        </Form>
       ) : (
         <div className="mb-6">
           <div className="grid grid-cols-2 gap-4">
@@ -344,14 +350,60 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
         </div>
 
         {jobSearch.jobPosts.length === 0 && pagination?.totalItems === 0 ? (
-          <p className="mt-4 text-gray-500">
+          <p className="mt-4 text-gray-500 dark:text-gray-400">
             No applications yet. Add your first job application to get started!
           </p>
         ) : (
           <>
-            {/* Commented out JobPostTable usage
-            <JobPostTable jobPosts={jobSearch?.jobPosts ?? []} />
-            */}
+            <div className="mt-4 space-y-3">
+              {jobSearch?.jobPosts?.map((jobPost: any) => (
+                <div
+                  key={jobPost.id}
+                  className="relative rounded-md border border-gray-200 p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800/50"
+                >
+                  <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex-1">
+                      <Link
+                        href={`/job-search/job-post/${jobPost.id}`}
+                        className="group"
+                      >
+                        <h3 className="font-medium text-gray-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                          {jobPost.jobTitle}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {jobPost.company}
+                        </p>
+                      </Link>
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
+                        Last updated: {formatLocaleDate(jobPost.updatedAt)}
+                      </p>
+                    </div>
+                    <div className="flex w-full flex-shrink-0 items-center justify-between gap-2 sm:w-auto sm:justify-end">
+                      <StatusBadge status={jobPost.status} />
+                      <Link
+                        href={`/job-search/job-post/${jobPost.id}`}
+                        className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700"
+                        aria-label="View details"
+                      >
+                        <Eye className="size-4" />
+                      </Link>
+                      <button
+                        onClick={(e) => handleDeleteJobPost(jobPost.id, e)}
+                        disabled={deletingJobPostId === jobPost.id}
+                        className="rounded-md p-2 text-red-500 hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-red-900/20"
+                        aria-label="Delete job post"
+                      >
+                        {deletingJobPostId === jobPost.id ? (
+                          <div className="size-4 animate-spin rounded-full border-2 border-red-200 border-t-red-500"></div>
+                        ) : (
+                          <Trash2 className="size-4" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
 
             {pagination && pagination.totalPages > 1 && (
               <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4">

@@ -1,28 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
-import { api } from '~/trpc/react'
-import {
-  JobSearchStepKind,
-  JobApplicationStatus,
-  JobSearchStep,
-} from '@prisma/client'
-import { Trash2, X } from 'lucide-react'
+import React from 'react'
+import { JobApplicationStatus, JobSearchStep } from '@prisma/client'
+import { Trash2 } from 'lucide-react'
 
 // Import the extracted form component
 import { AddJobSearchStepForm } from './AddJobSearchStepForm'
-
-// REMOVE Re-defined AddJobSearchStepProps
-/*
-interface AddJobSearchStepProps { ... }
-*/
-
-// REMOVE --- AddJobSearchStep Component (duplicate) ---
-/*
-const AddJobSearchStep: React.FC<AddJobSearchStepProps> = ({ ... }) => {
-  // ... entire duplicate component logic ...
-}
-*/
 
 // --- Utility Functions (Keep if used elsewhere, e.g., formatDate) ---
 const formatDate = (date: Date | string | undefined | null): string => {
