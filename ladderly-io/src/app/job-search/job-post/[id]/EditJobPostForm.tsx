@@ -3,7 +3,7 @@
 import React from 'react'
 import { z } from 'zod'
 import { JobApplicationStatus } from '@prisma/client'
-import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
+import { Form, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledSelectField from '~/app/core/components/LabeledSelectField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
