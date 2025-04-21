@@ -5,21 +5,14 @@ import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
 import { JobSearchActiveSpan } from '../JobSearchActiveSpan'
 import { AddJobApplicationModal } from './AddJobApplicationModal'
-import {
-  Pencil,
-  ChevronLeft,
-  ChevronRight,
-  Check,
-  X,
-  Trash2,
-  Eye,
-} from 'lucide-react'
+import { Pencil, ChevronLeft, ChevronRight, Trash2, Eye } from 'lucide-react'
 import { z } from 'zod'
 import { JobSearch, JobApplicationStatus } from '@prisma/client'
 import Link from 'next/link'
 import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
+import LabeledDateField from '~/app/core/components/LabeledDateField'
 
 // Helper to format date to YYYY-MM-DD
 const formatDateForInput = (date: Date | string | undefined | null): string => {
@@ -240,8 +233,9 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
             <h1 className="text-2xl font-bold">{jobSearch.name}</h1>
             <button
               onClick={handleEditClick}
-              className="self-baseline p-2 text-gray-500 hover:text-gray-700"
+              className="rounded-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
               disabled={!jobSearch}
+              aria-label="Edit job search details"
             >
               <Pencil className="size-5" />
             </button>
@@ -270,7 +264,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
 
           <div className="grid grid-cols-1 gap-x-4 gap-y-2 md:grid-cols-3">
             <div className="md:col-span-2">
-              <LabeledTextField
+              <LabeledDateField
                 name="startDate"
                 label="Start Date*"
                 required
@@ -293,11 +287,15 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
               type="button"
               onClick={handleCancelClick}
               disabled={isUpdating}
-              className="btn-secondary"
+              className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
             >
               Cancel
             </button>
-            <button type="submit" disabled={isUpdating} className="btn-primary">
+            <button
+              type="submit"
+              disabled={isUpdating}
+              className="rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-600 disabled:opacity-50 dark:bg-blue-600 dark:hover:bg-blue-700"
+            >
               {isUpdating ? 'Saving...' : 'Save Changes'}
             </button>
           </div>

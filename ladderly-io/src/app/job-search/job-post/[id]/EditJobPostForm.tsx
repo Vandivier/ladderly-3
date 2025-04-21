@@ -7,6 +7,7 @@ import { Form, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledSelectField from '~/app/core/components/LabeledSelectField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
+import LabeledDateField from '~/app/core/components/LabeledDateField'
 import { X, Check } from 'lucide-react'
 
 // Define Edit Schema (Client-side subset/adaptation of backend schema)
@@ -56,80 +57,78 @@ export const EditJobPostForm: React.FC<EditJobPostFormProps> = ({
       schema={JobPostEditSchema}
       initialValues={initialValues}
       onSubmit={onSubmit}
-      // Removed render prop, form fields are direct children
-      className="space-y-4 rounded-md border border-gray-200 bg-gray-50 p-4"
+      className="space-y-6 rounded-md border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800"
     >
-      {/* Row 1: Company, Title */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
         <LabeledTextField
           name="company"
           label="Company*"
-          placeholder="Company Name"
-          required // Assuming LabeledTextField supports 'required' for styling/accessibility, validation is via Zod
-          disabled={isSubmitting} // Use prop
+          required
+          disabled={isSubmitting}
+          className="input-field w-full"
         />
         <LabeledTextField
           name="jobTitle"
           label="Job Title*"
-          placeholder="Job Title"
           required
-          disabled={isSubmitting} // Use prop
+          disabled={isSubmitting}
+          className="input-field w-full"
         />
       </div>
-      {/* Row 2: URL, Resume */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+      <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
         <LabeledTextField
           name="jobPostUrl"
           label="Job Post URL"
           placeholder="https://..."
-          // Removed type="url"
-          disabled={isSubmitting} // Use prop
+          disabled={isSubmitting}
+          className="input-field w-full"
         />
         <LabeledTextField
           name="resumeVersion"
           label="Resume Version"
           placeholder="e.g., v3-blue"
-          disabled={isSubmitting} // Use prop
+          disabled={isSubmitting}
+          className="input-field w-full"
         />
       </div>
-      {/* Row 3: Dates */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <LabeledTextField
+
+      <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
+        <LabeledDateField
           name="initialOutreachDate"
           label="Initial Outreach"
-          // type="date" // Keep type="date" for browser rendering, assuming LabeledTextField passes it through
-          disabled={isSubmitting} // Use prop
+          disabled={isSubmitting}
+          className="input-field w-full"
         />
-        <LabeledTextField
+        <LabeledDateField
           name="initialApplicationDate"
           label="Applied"
-          // type="date" // Keep type="date" for browser rendering
-          disabled={isSubmitting} // Use prop
+          disabled={isSubmitting}
+          className="input-field w-full"
         />
       </div>
-      {/* Row 4: Contact */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+      <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
         <LabeledTextField
           name="contactName"
           label="Contact Name"
-          disabled={isSubmitting} // Use prop
+          disabled={isSubmitting}
+          className="input-field w-full"
         />
         <LabeledTextField
           name="contactUrl"
           label="Contact URL"
           placeholder="https://linkedin.com/..."
-          // Removed type="url"
-          disabled={isSubmitting} // Use prop
+          disabled={isSubmitting}
+          className="input-field w-full"
         />
       </div>
-      {/* Row 5: Status, Booleans */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+
+      {/* Status Field - Own Row */}
+      <div className="w-full">
         <LabeledSelectField
           name="status"
-          label="Status*"
-          // Removed 'required' prop; Zod schema handles validation
-          // Removed 'disabled' prop
-          // Note: Disabling select might need specific handling if LabeledSelectField doesn't pass it
+          label="Status*" /* className="input-field w-full" */
         >
           {Object.values(JobApplicationStatus).map((s) => (
             <option key={s} value={s}>
@@ -137,53 +136,56 @@ export const EditJobPostForm: React.FC<EditJobPostFormProps> = ({
             </option>
           ))}
         </LabeledSelectField>
-        <div className="flex items-end pb-1">
+      </div>
+
+      {/* Booleans Row - Below Status */}
+      <div className="grid grid-cols-1 gap-x-6 gap-y-4 pt-2 md:grid-cols-2">
+        {' '}
+        {/* Use 2 columns for checkboxes */}
+        <div className="flex items-center">
+          {' '}
+          {/* Simple flex align */}
           <LabeledCheckboxField
             name="hasReferral"
             label="Has Referral?"
-            disabled={isSubmitting} // Use prop
+            disabled={isSubmitting}
           />
         </div>
-        <div className="flex items-end pb-1">
+        <div className="flex items-center">
+          {' '}
+          {/* Simple flex align */}
           <LabeledCheckboxField
             name="isInboundOpportunity"
             label="Inbound?"
-            disabled={isSubmitting} // Use prop
+            disabled={isSubmitting}
           />
         </div>
       </div>
-      {/* Row 6: Notes */}
+
       <LabeledTextField
         name="notes"
         label="Notes"
-        // Assuming LabeledTextField can render a textarea if props specify,
-        // otherwise, might need a LabeledTextareaField or adjust LabeledTextField
-        // Let's assume it handles multiline or we need another component.
-        // For now, keeping as LabeledTextField.
-        disabled={isSubmitting} // Use prop
-        // You might need to add props like `rows={3}` if LabeledTextField supports it.
+        disabled={isSubmitting}
+        className="input-field w-full"
       />
 
-      {/* Display submit errors - Form component handles this implicitly with FORM_ERROR */}
-      {/* We can add a placeholder for Form.ErrorMessage if needed */}
-      {/* <Form.ErrorMessage /> Component might not exist, FORM_ERROR is handled internally by Form */}
-
-      {/* Actions */}
-      <div className="flex justify-end space-x-2 border-t border-gray-200 pt-4">
+      {/* Actions - Apply SettingsForm styles */}
+      <div className="flex justify-end space-x-2 border-t border-gray-200 pt-6 dark:border-gray-700">
         <button
           type="button"
           onClick={onCancel}
-          disabled={isSubmitting} // Use prop
-          className="btn-secondary" // Assuming standard button classes exist
+          disabled={isSubmitting}
+          // Apply standard secondary button style
+          className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
         >
-          <X className="btn-icon" /> Cancel
+          Cancel
         </button>
         <button
           type="submit"
-          disabled={isSubmitting} // Use prop
-          className="btn-primary" // Assuming standard button classes exist
+          disabled={isSubmitting}
+          // Apply SettingsForm primary button style
+          className="rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-600 disabled:opacity-50 dark:bg-blue-600 dark:hover:bg-blue-700"
         >
-          <Check className="btn-icon" />{' '}
           {isSubmitting ? 'Saving...' : 'Save Changes'}
         </button>
       </div>

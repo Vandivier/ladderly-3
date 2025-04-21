@@ -1,15 +1,7 @@
 'use client'
 
 import { JobApplicationStatus } from '@prisma/client'
-import {
-  ArrowLeft,
-  CalendarDays,
-  CheckSquare,
-  FileText,
-  LinkIcon,
-  Pencil,
-  User,
-} from 'lucide-react'
+import { ArrowLeft, Pencil } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FORM_ERROR, type FormProps } from '~/app/core/components/Form'
@@ -26,6 +18,16 @@ const formatDateForInput = (date: Date | string | undefined | null): string => {
   if (!date) return ''
   try {
     return new Date(date).toISOString().split('T')[0] ?? ''
+  } catch (e) {
+    return ''
+  }
+}
+
+// Helper to format locale date (Keep)
+const formatLocaleDate = (date: Date | string | undefined | null): string => {
+  if (!date) return ''
+  try {
+    return new Date(date).toLocaleDateString()
   } catch (e) {
     return ''
   }
@@ -216,138 +218,113 @@ export const JobPostDetails = ({ id }: { id: number }) => {
         {jobPost.jobSearch.name}
       </button>
 
-      {/* Header & Edit Toggle */}
+      {/* Header Section */}
       <div className="flex items-start justify-between">
-        <div className="flex flex-1 items-center gap-2 pr-4">
-          <div className="flex-1">
-            {!isEditing ? (
-              <>
-                <h1 className="text-2xl font-bold">{jobPost.jobTitle}</h1>
-                <p className="text-lg text-gray-600">{jobPost.company}</p>
-              </>
-            ) : (
-              <h1 className="text-2xl font-bold">Editing Application</h1>
-            )}
-          </div>
-          {!isEditing && (
-            <button
-              onClick={handleEditClick}
-              className="self-baseline p-2 text-gray-500 hover:text-gray-700"
-              aria-label="Edit job application details"
-            >
-              <Pencil className="size-5" />
-            </button>
-          )}
+        <div className="flex-1 pr-4">
+          <h1 className="text-2xl font-bold">{jobPost.jobTitle}</h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400">
+            at {jobPost.company}
+          </p>
         </div>
+        <button
+          onClick={handleEditClick}
+          className="rounded-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+          disabled={!jobPost}
+          aria-label="Edit job application details"
+        >
+          <Pencil className="size-5" />
+        </button>
       </div>
 
-      {/* --- Edit Form or Display Details --- */}
+      {/* Edit Form or Display Details */}
       {isEditing ? (
         <EditJobPostForm
           initialValues={initialFormValues}
           onSubmit={handleSaveSubmit}
           onCancel={handleCancelClick}
-          isSubmitting={isUpdatingPost} // Pass the mutation pending state
+          isSubmitting={isUpdatingPost}
         />
       ) : (
-        <div className="space-y-4 rounded-md border border-gray-200 p-4">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-3 lg:grid-cols-4">
+        <div
+          id="job-post-details-main-card-container"
+          className="space-y-4 rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
             <div>
-              <p className="label-text">Status</p>{' '}
+              <p className="label-text">Status</p>
               <StatusBadge status={jobPost.status} />
             </div>
             <div>
-              <p className="label-text">Job Post Link</p>{' '}
+              <p className="label-text">Job Post Link</p>
               {jobPost.jobPostUrl ? (
                 <a
                   href={jobPost.jobPostUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link inline-flex items-center"
+                  className="link"
                 >
-                  <LinkIcon className="mr-1 size-4" /> View Post
+                  View Post
                 </a>
               ) : (
                 <span className="value-na">N/A</span>
               )}
             </div>
             <div>
-              <p className="label-text">Resume</p>{' '}
+              <p className="label-text">Applied</p>
               <p className="value">
-                <FileText className="mr-1 inline size-4" />{' '}
-                {jobPost.resumeVersion ?? 'N/A'}
+                {formatLocaleDate(jobPost.initialApplicationDate)}
               </p>
             </div>
             <div>
-              <p className="label-text">Initial Outreach</p>{' '}
+              <p className="label-text">Last Action</p>
               <p className="value">
-                <CalendarDays className="mr-1 inline size-4" />{' '}
-                {jobPost.initialOutreachDate
-                  ? new Date(jobPost.initialOutreachDate).toLocaleDateString()
-                  : 'N/A'}
+                {formatLocaleDate(jobPost.lastActionDate)}
               </p>
             </div>
             <div>
-              <p className="label-text">Applied</p>{' '}
+              <p className="label-text">Resume</p>
+              <p className="value">{jobPost.resumeVersion ?? 'N/A'}</p>
+            </div>
+            <div>
+              <p className="label-text">Initial Outreach</p>
               <p className="value">
-                <CalendarDays className="mr-1 inline size-4" />{' '}
-                {jobPost.initialApplicationDate
-                  ? new Date(
-                      jobPost.initialApplicationDate,
-                    ).toLocaleDateString()
-                  : 'N/A'}
+                {formatLocaleDate(jobPost.initialOutreachDate)}
               </p>
             </div>
             <div>
-              <p className="label-text">Last Action</p>{' '}
-              <p className="value">
-                <CalendarDays className="mr-1 inline size-4" />{' '}
-                {jobPost.lastActionDate
-                  ? new Date(jobPost.lastActionDate).toLocaleDateString()
-                  : 'N/A'}
-              </p>
+              <p className="label-text">Contact Name</p>
+              <p className="value">{jobPost.contactName ?? 'N/A'}</p>
             </div>
             <div>
-              <p className="label-text">Contact Name</p>{' '}
-              <p className="value">
-                <User className="mr-1 inline size-4" />{' '}
-                {jobPost.contactName ?? 'N/A'}
-              </p>
-            </div>
-            <div>
-              <p className="label-text">Contact URL</p>{' '}
+              <p className="label-text">Contact URL</p>
               {jobPost.contactUrl ? (
                 <a
                   href={jobPost.contactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link inline-flex items-center"
+                  className="link"
                 >
-                  <LinkIcon className="mr-1 size-4" /> View Profile
+                  View Profile
                 </a>
               ) : (
                 <span className="value-na">N/A</span>
               )}
             </div>
             <div>
-              <p className="label-text">Referral?</p>{' '}
-              <p className="value">
-                <CheckSquare className="mr-1 inline size-4" />{' '}
-                {jobPost.hasReferral ? 'Yes' : 'No'}
-              </p>
+              <p className="label-text">Referral?</p>
+              <p className="value">{jobPost.hasReferral ? 'Yes' : 'No'}</p>
             </div>
             <div>
-              <p className="label-text">Inbound?</p>{' '}
+              <p className="label-text">Inbound?</p>
               <p className="value">
-                <CheckSquare className="mr-1 inline size-4" />{' '}
                 {jobPost.isInboundOpportunity ? 'Yes' : 'No'}
               </p>
             </div>
           </div>
           {jobPost.notes && (
-            <div className="border-t border-gray-100 pt-4">
+            <div className="border-t border-gray-100 pt-4 dark:border-gray-700">
               <p className="label-text">Notes</p>
-              <p className="value whitespace-pre-wrap rounded bg-gray-50 p-2">
+              <p className="value whitespace-pre-wrap rounded bg-gray-50 p-2 dark:bg-gray-700/50">
                 {jobPost.notes}
               </p>
             </div>
