@@ -2,13 +2,12 @@
 
 import React from 'react'
 import { z } from 'zod'
-import { JobApplicationStatus } from '@prisma/client'
+import type { JobApplicationStatus } from '@prisma/client'
 import { Form, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledSelectField from '~/app/core/components/LabeledSelectField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
 import LabeledDateField from '~/app/core/components/LabeledDateField'
-import { X, Check } from 'lucide-react'
 
 // Define Edit Schema (Client-side subset/adaptation of backend schema)
 export const JobPostEditSchema = z.object({

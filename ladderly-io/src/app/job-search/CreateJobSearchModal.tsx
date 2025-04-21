@@ -48,7 +48,7 @@ export const CreateJobSearchModal = () => {
         setTimeout(() => setSubmitStatus('idle'), 3000)
       },
       onError: (error) => {
-        setError(error.message || 'Failed to create job search')
+        setError(error.message ?? 'Failed to create job search')
         setSubmitStatus('error')
         setIsSubmitting(false)
       },

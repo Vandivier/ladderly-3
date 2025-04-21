@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { JobSearchStepKind, JobApplicationStatus } from '@prisma/client'
+import type { JobSearchStepKind, JobApplicationStatus } from '@prisma/client'
 import { api } from '~/trpc/react'
 
 // --- Props Interface ---
@@ -189,8 +189,7 @@ export const AddJobSearchStepForm: React.FC<AddJobSearchStepFormProps> = ({
               <option key={kind} value={kind}>
                 {kind
                   .replace(/_/g, ' ')
-                  .replace(/\b\w/g, (l) => l.toUpperCase())}{' '}
-                // Capitalize each word
+                  .replace(/\b\w/g, (l) => l.toUpperCase())}
               </option>
             ))}
           </select>

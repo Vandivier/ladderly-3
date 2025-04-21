@@ -1,6 +1,6 @@
 'use client'
 
-import { JobApplicationStatus } from '@prisma/client'
+import type { JobApplicationStatus } from '@prisma/client'
 import { ArrowLeft, Pencil } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -8,7 +8,7 @@ import { FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import { api } from '~/trpc/react'
 import {
   EditJobPostForm,
-  JobPostEditSchema,
+  type JobPostEditSchema,
   type JobPostEditValues,
 } from './EditJobPostForm'
 import { JobStepsSection } from './JobStepsSection'
@@ -75,17 +75,16 @@ export const JobPostDetails = ({ id }: { id: number }) => {
       },
     })
 
-  const { mutate: deleteStep, isPending: isDeletingStep } =
-    api.jobSearch.deleteJobSearchStep.useMutation({
-      onSuccess: async () => {
-        await refetch()
-        setDeletingStepId(null)
-      },
-      onError: (error) => {
-        alert(`Error deleting step: ${error.message}`)
-        setDeletingStepId(null)
-      },
-    })
+  const { mutate: deleteStep } = api.jobSearch.deleteJobSearchStep.useMutation({
+    onSuccess: async () => {
+      await refetch()
+      setDeletingStepId(null)
+    },
+    onError: (error) => {
+      alert(`Error deleting step: ${error.message}`)
+      setDeletingStepId(null)
+    },
+  })
 
   const { mutate: updateStatus } =
     api.jobSearch.updateJobPostStatus.useMutation({
@@ -119,9 +118,24 @@ export const JobPostDetails = ({ id }: { id: number }) => {
   >['onSubmit'] = async (values) => {
     try {
       // Convert date strings back to Date or null for mutation
-      const payload = {
-        ...values,
-        // Ensure nullable fields are handled correctly
+      // Ensure payload type matches the expected input for the mutation
+      // Based on `JobPostForCandidateUpdateSchema`
+      const payload: {
+        company?: string | undefined
+        jobTitle?: string | undefined
+        jobPostUrl?: string | null | undefined
+        resumeVersion?: string | null | undefined
+        initialOutreachDate?: Date | null | undefined
+        initialApplicationDate?: Date | null | undefined
+        contactName?: string | null | undefined
+        contactUrl?: string | null | undefined
+        hasReferral?: boolean | undefined
+        isInboundOpportunity?: boolean | undefined
+        notes?: string | null | undefined
+        status?: JobApplicationStatus | undefined
+      } = {
+        company: values.company,
+        jobTitle: values.jobTitle,
         jobPostUrl: values.jobPostUrl || null,
         resumeVersion: values.resumeVersion || null,
         initialOutreachDate: values.initialOutreachDate
@@ -132,23 +146,30 @@ export const JobPostDetails = ({ id }: { id: number }) => {
           : null,
         contactName: values.contactName || null,
         contactUrl: values.contactUrl || null,
+        hasReferral: values.hasReferral,
+        isInboundOpportunity: values.isInboundOpportunity,
         notes: values.notes || null,
+        status: values.status,
       }
-      // Remove undefined values potentially introduced by optional fields
-      // Although the backend might handle this, explicit removal is safer
+
+      // Remove undefined keys explicitly, as backend might expect only defined optional fields
       Object.keys(payload).forEach((key) => {
         if (payload[key as keyof typeof payload] === undefined) {
           delete payload[key as keyof typeof payload]
         }
       })
 
-      await updateJobPost({ id, ...(payload as any) }) // Use payload
-    } catch (error: any) {
+      // Call mutation without await and without `as any`
+      updateJobPost({ id, ...payload })
+    } catch (error: unknown) {
+      // Catch as unknown
       // react-final-form expects error messages to be returned in this format
+      let message = 'Sorry, we had an unexpected error. Please try again.'
+      if (error instanceof Error) {
+        message = error.message
+      }
       return {
-        [FORM_ERROR]:
-          error.message ??
-          'Sorry, we had an unexpected error. Please try again.',
+        [FORM_ERROR]: message,
       }
     }
   }

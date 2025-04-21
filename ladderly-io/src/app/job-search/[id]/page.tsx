@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { SmallCard } from '~/app/core/components/SmallCard'
 import { JobSearchDetails } from './JobSearchDetails'

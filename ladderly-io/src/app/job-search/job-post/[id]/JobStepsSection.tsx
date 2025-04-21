@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { JobApplicationStatus, JobSearchStep } from '@prisma/client'
+import type { JobApplicationStatus, JobSearchStep } from '@prisma/client'
 import { Trash2 } from 'lucide-react'
 
 // Import the extracted form component

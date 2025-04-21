@@ -1,8 +1,8 @@
+import type { Prisma } from '@prisma/client'
 import { JobApplicationStatus, JobSearchStepKind } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
-import { Prisma } from '@prisma/client'
 
 const JobSearchSchema = z.object({
   name: z.string().min(1, 'Job search name is required'),
@@ -678,14 +678,14 @@ export const jobSearchRouter = createTRPCRouter({
         input.jobPosts.map((row) => ({
           company: row.Company,
           jobTitle: row['Job Post Title'],
-          jobPostUrl: row['Job Post URL'] || undefined,
-          resumeVersion: row['Resume Version'] || undefined,
+          jobPostUrl: row['Job Post URL'] ?? undefined,
+          resumeVersion: row['Resume Version'] ?? undefined,
           hasReferral: row.Referral ?? false,
-          initialOutreachDate: row['Initial Outreach Date'] || undefined,
-          initialApplicationDate: row['Initial App Date'] || undefined,
-          lastActionDate: row['Last Action Date'] || undefined,
+          initialOutreachDate: row['Initial Outreach Date'] ?? undefined,
+          initialApplicationDate: row['Initial App Date'] ?? undefined,
+          lastActionDate: row['Last Action Date'] ?? undefined,
           isInboundOpportunity: row['Inbound Opportunity'] ?? false,
-          notes: row.Notes || undefined,
+          notes: row.Notes ?? undefined,
           status: JobApplicationStatus.APPLIED, // Default status
           jobSearchId: newJobSearch.id, // Link to the created job search
         }))
