@@ -90,33 +90,25 @@ async function UserProfile({ userId }: { userId: number }) {
         {validCertificates.length > 0 && (
           <div>
             <h2 className="text-xl font-semibold">Certificates</h2>
-            <div className="mt-2 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+            <div className="mt-4 grid gap-4">
               {validCertificates.map((cert: CertificateType) => (
                 <Link
                   key={cert.id}
                   href={`/community/${userId}/certificates/${cert.id}`}
-                  className="flex flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                  className="flex flex-col rounded-lg border border-gray-200 bg-white px-4 py-2 shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
                 >
-                  <div className="mb-2 text-lg font-semibold text-blue-600 dark:text-blue-400">
+                  <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">
                     {cert.quiz.course?.title || 'Course'}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
-                    {cert.quiz.name}
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span
-                      className={`font-medium ${cert.score === 100 ? 'text-yellow-600 dark:text-yellow-400' : 'text-green-600 dark:text-green-400'}`}
-                    >
-                      {cert.score}%
-                    </span>
+                  <div className="my-2 text-xs text-gray-500 dark:text-gray-400">
                     {cert.score === 100 && (
-                      <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200">
-                        With Honors
+                      <span className="mr-2 rounded-full bg-yellow-100 px-2 py-0.5 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200">
+                        Awarded With Honors
                       </span>
                     )}
-                  </div>
-                  <div className="mt-auto text-xs text-gray-500 dark:text-gray-400">
-                    Awarded: {new Date(cert.createdAt).toLocaleDateString()}
+                    <span>
+                      Awarded: {new Date(cert.createdAt).toLocaleDateString()}
+                    </span>
                   </div>
                 </Link>
               ))}
