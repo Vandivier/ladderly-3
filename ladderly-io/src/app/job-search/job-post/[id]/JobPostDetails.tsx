@@ -28,6 +28,12 @@ import { z } from 'zod'
 
 // --- Helper & Other Components ---
 import { JobStepsSection } from './JobStepsSection'
+// Import the new form component and its types
+import {
+  EditJobPostForm,
+  JobPostEditSchema,
+  type JobPostEditValues,
+} from './EditJobPostForm'
 
 // Helper to format date to YYYY-MM-DD
 const formatDateForInput = (date: Date | string | undefined | null): string => {
@@ -312,61 +318,27 @@ const AddJobSearchStep: React.FC<AddJobSearchStepProps> = ({
 
 // Status badge component
 const StatusBadge = ({ status }: { status: JobApplicationStatus }) => {
+  // Restore explicit Record type
   const statusStyles: Record<JobApplicationStatus, string> = {
     APPLIED: 'bg-blue-100 text-blue-800',
     IN_OUTREACH: 'bg-cyan-100 text-cyan-800',
     IN_INTERVIEW: 'bg-indigo-100 text-indigo-800',
     OFFER_RECEIVED: 'bg-yellow-100 text-yellow-800',
-    OFFER_ACCEPTED: 'bg-green-100 text-green-800',
-    OFFER_REJECTED: 'bg-orange-100 text-orange-800',
     REJECTED: 'bg-red-100 text-red-800',
     WITHDRAWN: 'bg-gray-100 text-gray-800',
     TIMED_OUT: 'bg-gray-100 text-gray-500',
-    CONSOLIDATED: 'bg-purple-100 text-purple-800',
-    RESURRECTED: 'bg-lime-100 text-lime-800',
-    FIRST_ROUND_DONE: 'bg-teal-100 text-teal-800',
-    R2_DONE: 'bg-teal-100 text-teal-800',
-    R3_DONE: 'bg-teal-100 text-teal-800',
-    FINAL_DONE: 'bg-teal-100 text-teal-800',
-    POST_FINAL_ACTIVITY: 'bg-teal-100 text-teal-800',
-    R1_CANCELLED: 'bg-red-100 text-red-500',
+    // Removed other invalid keys above
   }
+  // Restore direct index access
+  const style = statusStyles[status] ?? 'bg-gray-100 text-gray-800'
   return (
     <span
-      className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${statusStyles[status] ?? 'bg-gray-100 text-gray-800'}`}
+      className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${style}`}
     >
       {status.replace(/_/g, ' ')}
     </span>
   )
 }
-
-// --- Define Edit Schema (Client-side subset/adaptation of backend schema) ---
-// Note: Adjust fields and validation as needed for the edit form
-const JobPostEditSchema = z.object({
-  company: z.string().min(1, 'Company name is required'),
-  jobTitle: z.string().min(1, 'Job title is required'),
-  jobPostUrl: z
-    .string()
-    .url('Must be a valid URL (e.g., https://...)')
-    .nullable()
-    .optional()
-    .or(z.literal('')), // Allow empty string or valid URL
-  resumeVersion: z.string().nullable().optional(),
-  initialOutreachDate: z.string().nullable().optional(), // Keep as string for date input
-  initialApplicationDate: z.string().nullable().optional(), // Keep as string for date input
-  contactName: z.string().nullable().optional(),
-  contactUrl: z
-    .string()
-    .url('Must be a valid URL (e.g., https://...)')
-    .nullable()
-    .optional()
-    .or(z.literal('')), // Allow empty string or valid URL
-  hasReferral: z.boolean().optional(),
-  isInboundOpportunity: z.boolean().optional(),
-  notes: z.string().nullable().optional(),
-  status: z.nativeEnum(JobApplicationStatus),
-})
-type JobPostEditValues = z.infer<typeof JobPostEditSchema>
 
 export const JobPostDetails = ({ id }: { id: number }) => {
   const router = useRouter()
@@ -427,7 +399,7 @@ export const JobPostDetails = ({ id }: { id: number }) => {
   const handleEditClick = () => setIsEditing(true)
   const handleCancelClick = () => setIsEditing(false)
 
-  // Form submission handler (passed to react-final-form)
+  // Form submission handler (passed to EditJobPostForm)
   const handleSaveSubmit: FormProps<
     typeof JobPostEditSchema
   >['onSubmit'] = async (values) => {
@@ -435,17 +407,30 @@ export const JobPostDetails = ({ id }: { id: number }) => {
       // Convert date strings back to Date or null for mutation
       const payload = {
         ...values,
+        // Ensure nullable fields are handled correctly
+        jobPostUrl: values.jobPostUrl || null,
+        resumeVersion: values.resumeVersion || null,
         initialOutreachDate: values.initialOutreachDate
           ? new Date(values.initialOutreachDate)
           : null,
         initialApplicationDate: values.initialApplicationDate
           ? new Date(values.initialApplicationDate)
           : null,
-        jobPostUrl: values.jobPostUrl || null, // Ensure empty string becomes null
-        contactUrl: values.contactUrl || null, // Ensure empty string becomes null
+        contactName: values.contactName || null,
+        contactUrl: values.contactUrl || null,
+        notes: values.notes || null,
       }
-      await updateJobPost({ id, ...payload })
+      // Remove undefined values potentially introduced by optional fields
+      // Although the backend might handle this, explicit removal is safer
+      Object.keys(payload).forEach((key) => {
+        if (payload[key as keyof typeof payload] === undefined) {
+          delete payload[key as keyof typeof payload]
+        }
+      })
+
+      await updateJobPost({ id, ...(payload as any) }) // Use payload
     } catch (error: any) {
+      // react-final-form expects error messages to be returned in this format
       return {
         [FORM_ERROR]:
           error.message ??
@@ -488,20 +473,24 @@ export const JobPostDetails = ({ id }: { id: number }) => {
   }
 
   // --- Prepare Initial Values for Form ---
-  const initialFormValues: Partial<JobPostEditValues> = {
-    company: jobPost.company,
-    jobTitle: jobPost.jobTitle,
-    jobPostUrl: jobPost.jobPostUrl ?? undefined,
-    resumeVersion: jobPost.resumeVersion ?? undefined,
-    initialOutreachDate: formatDateForInput(jobPost.initialOutreachDate),
-    initialApplicationDate: formatDateForInput(jobPost.initialApplicationDate),
-    contactName: jobPost.contactName ?? undefined,
-    contactUrl: jobPost.contactUrl ?? undefined,
-    hasReferral: jobPost.hasReferral,
-    isInboundOpportunity: jobPost.isInboundOpportunity,
-    notes: jobPost.notes ?? undefined,
-    status: jobPost.status,
-  }
+  const initialFormValues: Partial<JobPostEditValues> = jobPost
+    ? {
+        company: jobPost.company ?? '', // Provide default empty string
+        jobTitle: jobPost.jobTitle ?? '', // Provide default empty string
+        jobPostUrl: jobPost.jobPostUrl ?? '', // Use empty string for form
+        resumeVersion: jobPost.resumeVersion ?? '', // Use empty string for form
+        initialOutreachDate: formatDateForInput(jobPost.initialOutreachDate),
+        initialApplicationDate: formatDateForInput(
+          jobPost.initialApplicationDate,
+        ),
+        contactName: jobPost.contactName ?? '', // Use empty string for form
+        contactUrl: jobPost.contactUrl ?? '', // Use empty string for form
+        hasReferral: jobPost.hasReferral,
+        isInboundOpportunity: jobPost.isInboundOpportunity,
+        notes: jobPost.notes ?? '', // Use empty string for form
+        status: jobPost.status,
+      }
+    : {}
 
   // --- Render Logic ---
   return (
@@ -542,135 +531,12 @@ export const JobPostDetails = ({ id }: { id: number }) => {
 
       {/* --- Edit Form or Display Details --- */}
       {isEditing ? (
-        <Form<typeof JobPostEditSchema> // Use the custom Form component
-          schema={JobPostEditSchema}
+        <EditJobPostForm
           initialValues={initialFormValues}
           onSubmit={handleSaveSubmit}
-          className="space-y-4 rounded-md border border-gray-200 bg-gray-50 p-4"
-        >
-          {({ submitting }: { submitting: boolean }) => (
-            <>
-              {/* Row 1: Company, Title */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <LabeledTextField
-                  name="company"
-                  label="Company*"
-                  placeholder="Company Name"
-                  required
-                  disabled={submitting}
-                />
-                <LabeledTextField
-                  name="jobTitle"
-                  label="Job Title*"
-                  placeholder="Job Title"
-                  required
-                  disabled={submitting}
-                />
-              </div>
-              {/* Row 2: URL, Resume */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <LabeledTextField
-                  name="jobPostUrl"
-                  label="Job Post URL"
-                  placeholder="https://..."
-                  disabled={submitting}
-                />
-                <LabeledTextField
-                  name="resumeVersion"
-                  label="Resume Version"
-                  placeholder="e.g., v3-blue"
-                  disabled={submitting}
-                />
-              </div>
-              {/* Row 3: Dates */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <LabeledTextField
-                  name="initialOutreachDate"
-                  label="Initial Outreach"
-                  type="date"
-                  disabled={submitting}
-                />
-                <LabeledTextField
-                  name="initialApplicationDate"
-                  label="Applied"
-                  type="date"
-                  disabled={submitting}
-                />
-              </div>
-              {/* Row 4: Contact */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <LabeledTextField
-                  name="contactName"
-                  label="Contact Name"
-                  disabled={submitting}
-                />
-                <LabeledTextField
-                  name="contactUrl"
-                  label="Contact URL"
-                  placeholder="https://linkedin.com/..."
-                  disabled={submitting}
-                />
-              </div>
-              {/* Row 5: Status, Booleans */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <LabeledSelectField
-                  name="status"
-                  label="Status*"
-                  required
-                  disabled={submitting}
-                >
-                  {Object.values(JobApplicationStatus).map((s) => (
-                    <option key={s} value={s}>
-                      {s.replace(/_/g, ' ')}
-                    </option>
-                  ))}
-                </LabeledSelectField>
-                <div className="flex items-end pb-1">
-                  <LabeledCheckboxField
-                    name="hasReferral"
-                    label="Has Referral?"
-                    disabled={submitting}
-                  />
-                </div>
-                <div className="flex items-end pb-1">
-                  <LabeledCheckboxField
-                    name="isInboundOpportunity"
-                    label="Inbound?"
-                    disabled={submitting}
-                  />
-                </div>
-              </div>
-              {/* Row 6: Notes */}
-              <LabeledTextField
-                name="notes"
-                label="Notes"
-                disabled={submitting}
-              />
-
-              {/* Actions (Submit button is handled by <Form>, Cancel is external) */}
-              {/* Render custom buttons here because FORM_ERROR needs to be shown */}
-              <Form.ErrorMessage />
-              <div className="flex justify-end space-x-2 border-t border-gray-200 pt-4">
-                <button
-                  type="button"
-                  onClick={handleCancelClick}
-                  disabled={submitting}
-                  className="btn-secondary"
-                >
-                  <X className="btn-icon" /> Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="btn-primary"
-                >
-                  <Check className="btn-icon" />{' '}
-                  {submitting ? 'Saving...' : 'Save Changes'}
-                </button>
-              </div>
-            </>
-          )}
-        </Form>
+          onCancel={handleCancelClick}
+          isSubmitting={isUpdatingPost} // Pass the mutation pending state
+        />
       ) : (
         /* --- Display Mode Details (Refactored for clarity) --- */
         <div className="space-y-4 rounded-md border border-gray-200 p-4">
