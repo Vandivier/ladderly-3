@@ -108,7 +108,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   // Find the quiz for this course
   useEffect(() => {
     if (course?.quizzes && course.quizzes.length > 0) {
-      setQuizId(course.quizzes[0]?.id || null)
+      setQuizId(course.quizzes[0]?.id ?? null)
     }
   }, [course])
 
@@ -117,7 +117,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     api.quiz.getQuizInfo.useQuery<QuizInfo>(
       {
         courseSlug,
-        quizId: quizId || 0,
+        quizId: quizId ?? 0,
       },
       {
         enabled: quizId !== null,
@@ -128,7 +128,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   // Get flashcards for the quiz
   const { data: quizData, isLoading: isQuizDataLoading } =
     api.quiz.getQuizFlashcards.useQuery<QuizData>(
-      { quizId: quizId || 0 },
+      { quizId: quizId ?? 0 },
       {
         enabled: quizId !== null && quizStarted,
         staleTime: Infinity, // Don't refetch during an active quiz
@@ -145,7 +145,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   // Quiz history
   const { data: quizHistory } = api.quiz.getUserQuizHistory.useQuery<
     QuizResult[]
-  >({ quizId: quizId || 0 }, { enabled: quizId !== null && !quizStarted })
+  >({ quizId: quizId ?? 0 }, { enabled: quizId !== null && !quizStarted })
 
   // Set up quiz timer
   useEffect(() => {
@@ -160,7 +160,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
           if (prev && prev > 0) {
             return prev - 1
           } else {
-            // Time's up
+            // Time&apos;s up
             endQuiz(true)
             return 0
           }
@@ -290,7 +290,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     }
 
     // Move to next question or end quiz
-    if (currentQuestionIndex < (quizData?.flashcards.length || 0) - 1) {
+    if (currentQuestionIndex < (quizData?.flashcards.length ?? 0) - 1) {
       setCurrentQuestion((prev) => prev + 1)
     } else {
       endQuiz(false)
@@ -374,7 +374,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     const perfect = score === 100
 
     // Get the latest quiz result from the mutation data or API
-    const latestQuizResult = submitQuizMutation.data || null
+    const latestQuizResult = submitQuizMutation.data ?? null
 
     return (
       <div className="w-full bg-gray-50 px-4 py-6 pb-16 dark:bg-gray-800 md:px-8">
@@ -421,8 +421,8 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
                   Certificate Awarded
                 </h3>
                 <p className="mb-4 text-green-700 dark:text-green-300">
-                  Congratulations! You've earned a certificate for passing this
-                  quiz.
+                  Congratulations! You{"'"}ve earned a certificate for passing
+                  this quiz.
                   {perfect && ' You achieved a perfect score with honors!'}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -484,7 +484,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
 
     // Use pre-randomized options instead of randomizing on every render
     const options =
-      questionOptions[currentQuestion] ||
+      questionOptions[currentQuestion] ??
       // Fallback in case options aren't ready yet - use stable order
       [currentCard.correctAnswer, ...currentCard.distractors.slice(0, 3)].sort()
 
@@ -500,7 +500,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
                 <span className="inline-flex items-center text-red-600 dark:text-red-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="mr-1 h-5 w-5"
+                    className="mr-1 size-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -582,7 +582,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
             </h2>
 
             <p className="mb-4 text-gray-700 dark:text-gray-300">
-              {quizInfo.quiz.description ||
+              {quizInfo.quiz.description ??
                 `Test your knowledge of ${course.title} concepts with this quiz.`}
             </p>
 
@@ -678,87 +678,8 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
                   : 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
               }`}
             >
-              {quizInfo.canAttempt
-                ? `Start Quiz ${quizInfo.quiz.timeLimit ? `(${formatTimeLimit(quizInfo.quiz.timeLimit)} time limit)` : ''}`
-                : 'Quiz Unavailable During Cooldown'}
+              Start Quiz
             </button>
-          </div>
-        )}
-
-        {quizHistory && quizHistory.length > 0 && (
-          <div className="rounded-lg bg-white p-6 shadow-md dark:border dark:border-gray-700 dark:bg-gray-800">
-            <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-white">
-              Your Quiz History
-            </h2>
-
-            <div className="overflow-x-auto">
-              <table className="w-full table-auto">
-                <thead className="bg-gray-100 text-gray-800 dark:bg-gray-600 dark:text-gray-100">
-                  <tr>
-                    <th className="border-b border-gray-300 p-3 text-left font-semibold dark:border-gray-600">
-                      Date
-                    </th>
-                    <th className="border-b border-gray-300 p-3 text-left font-semibold dark:border-gray-600">
-                      Score
-                    </th>
-                    <th className="border-b border-gray-300 p-3 text-left font-semibold dark:border-gray-600">
-                      Result
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {quizHistory.map((result, index: number) => (
-                    <tr
-                      key={index}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-800"
-                    >
-                      <td className="p-3 font-medium">
-                        <span className="text-gray-900 dark:text-gray-200">
-                          {result.createdAt.toLocaleDateString(undefined, {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                          })}
-                        </span>
-                      </td>
-                      <td className="p-3 font-medium">
-                        <span
-                          className={
-                            result.score < 80
-                              ? 'text-red-600 dark:text-red-400'
-                              : 'text-green-600 dark:text-green-400'
-                          }
-                        >
-                          {result.score}%
-                        </span>
-                      </td>
-                      <td className="p-3">
-                        <span
-                          className={
-                            result.passed
-                              ? 'rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800 dark:bg-green-900/50 dark:text-green-200'
-                              : 'rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-800 dark:bg-red-900/50 dark:text-red-200'
-                          }
-                        >
-                          {result.passed ? 'Passed' : 'Failed'}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
-        {!quizStarted && !quizCompleted && (
-          <div className="mx-auto mb-8 mt-8 max-w-md rounded-lg bg-blue-50 p-4 shadow-sm dark:bg-blue-900/30 dark:text-gray-200">
-            <p className="mb-2 text-sm">
-              This quiz will test your knowledge with multiple-choice questions.
-              Select the answer you think is correct and submit your response.
-              You'll receive immediate feedback on your answers and a final
-              score at the end of the quiz.
-            </p>
           </div>
         )}
       </div>

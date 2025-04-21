@@ -24,7 +24,7 @@ export async function generateMetadata({
       quizResultId: certificateId,
     })
 
-    const courseName = certificate.quiz.course?.title || 'Course'
+    const courseName = certificate.quiz.course?.title ?? 'Course'
     const userName = `${certificate.user.nameFirst} ${certificate.user.nameLast}`
 
     return {
@@ -85,7 +85,7 @@ export default async function CertificatePage({
     )
 
     const isPerfect = certificate.score === 100
-    const courseName = certificate.quiz.course?.title || 'Course'
+    const courseName = certificate.quiz.course?.title ?? 'Course'
 
     return (
       <LadderlyPageWrapper>
@@ -166,21 +166,15 @@ export default async function CertificatePage({
                   >
                     Add to LinkedIn
                   </a>
-                  <DownloadButton
-                    certificateName={courseName}
-                    userName={`${certificate.user.nameFirst} ${certificate.user.nameLast}`}
-                    certificateId={certificate.id}
-                    issueDate={certificate.createdAt}
-                    score={certificate.score}
-                  />
+                  <DownloadButton />
                 </div>
               </div>
 
               {/* Decorative elements */}
-              <div className="absolute left-0 top-0 h-16 w-16 rounded-br-3xl bg-blue-600 opacity-20"></div>
-              <div className="absolute bottom-0 right-0 h-16 w-16 rounded-tl-3xl bg-blue-600 opacity-20"></div>
-              <div className="absolute left-1/3 top-1/4 h-32 w-32 rotate-12 rounded-full bg-blue-600 opacity-5"></div>
-              <div className="absolute bottom-1/4 right-1/3 h-32 w-32 -rotate-12 rounded-full bg-blue-600 opacity-5"></div>
+              <div className="absolute left-0 top-0 size-16 rounded-br-3xl bg-blue-600 opacity-20"></div>
+              <div className="absolute bottom-0 right-0 size-16 rounded-tl-3xl bg-blue-600 opacity-20"></div>
+              <div className="absolute left-1/3 top-1/4 size-32 rotate-12 rounded-full bg-blue-600 opacity-5"></div>
+              <div className="absolute bottom-1/4 right-1/3 size-32 -rotate-12 rounded-full bg-blue-600 opacity-5"></div>
             </div>
           </div>
         </div>

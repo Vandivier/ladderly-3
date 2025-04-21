@@ -98,7 +98,7 @@ async function UserProfile({ userId }: { userId: number }) {
                   className="flex flex-col rounded-lg border border-gray-200 bg-white px-4 py-2 shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
                 >
                   <div className="text-lg font-semibold text-blue-600 dark:text-blue-400">
-                    {cert.quiz.course?.title || 'Course'}
+                    {cert.quiz.course?.title ?? 'Course'}
                   </div>
                   <div className="my-2 text-xs text-gray-500 dark:text-gray-400">
                     {cert.score === 100 && (

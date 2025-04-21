@@ -2,21 +2,7 @@
 
 import { useState } from 'react'
 
-interface DownloadButtonProps {
-  certificateName: string
-  userName: string
-  certificateId: number
-  issueDate: Date | string
-  score: number
-}
-
-export default function DownloadButton({
-  certificateName,
-  userName,
-  certificateId,
-  issueDate,
-  score,
-}: DownloadButtonProps) {
+export default function DownloadButton() {
   const [isLoading, setIsLoading] = useState(false)
 
   const handlePrint = () => {

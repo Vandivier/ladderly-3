@@ -100,7 +100,7 @@ export default function FlashcardsContent({
     api.course.getFlashCardDeckBySlug.useQuery(
       {
         courseSlug,
-        deckId: course?.flashCardDecks[0]?.id || 0,
+        deckId: course?.flashCardDecks[0]?.id ?? 0,
       },
       {
         enabled:
@@ -129,7 +129,7 @@ export default function FlashcardsContent({
       router.push('/courses')
     }
 
-    if ((course && !isDeckLoading) || courseError) {
+    if ((course && !isDeckLoading) ?? courseError) {
       setIsLoading(false)
     }
   }, [course, courseError, router, isDeckLoading])
@@ -255,8 +255,8 @@ export default function FlashcardsContent({
               </div>
 
               <Flashcard
-                question={flashcards[currentCardIndex]?.question || ''}
-                answer={flashcards[currentCardIndex]?.answer || ''}
+                question={flashcards[currentCardIndex]?.question ?? ''}
+                answer={flashcards[currentCardIndex]?.answer ?? ''}
                 isFlipped={isCurrentCardFlipped}
                 setIsFlipped={handleCardFlip}
                 animateFlip={manualFlip}
