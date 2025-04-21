@@ -12,7 +12,7 @@ export const JobSearchList = () => {
     data: jobSearches,
     isLoading,
     refetch,
-  } = api.jobSearch.getUserJobSearches.useQuery()
+  } = api.jobSearch.getUserJobSearches.useQuery({ includeInactive: true })
 
   const { mutate: deleteJobSearch } = api.jobSearch.deleteJobSearch.useMutation(
     {

@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client'
 import { JobApplicationStatus, JobSearchStepKind } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
@@ -58,6 +59,103 @@ const JobSearchStepUpdateSchema = z.object({
   isPassed: z.boolean().optional(),
 })
 
+// Schema for a single row parsed from the CSV
+// Match column names from temp.csv, handle type conversions
+const JobPostCsvRowSchema = z.object({
+  Company: z.string().min(1, 'Company name is required'),
+  'Job Post Title': z.string().min(1, 'Job title is required'),
+  'Job Post URL': z.string().optional().nullable(),
+  'Resume Version': z.string().optional().nullable(),
+  // ContactRole: z.string().optional(), // Skipping for now as it's not on JobPostForCandidate
+  Referral: z
+    .string()
+    .transform((val) => val.toUpperCase() === 'YES')
+    .optional(),
+  'Initial Outreach Date': z.preprocess((arg) => {
+    if (!arg || typeof arg !== 'string') return undefined
+    try {
+      return new Date(arg)
+    } catch {
+      return undefined
+    }
+  }, z.date().optional().nullable()),
+  'Initial App Date': z.preprocess((arg) => {
+    if (!arg || typeof arg !== 'string') return undefined
+    try {
+      return new Date(arg)
+    } catch {
+      return undefined
+    }
+  }, z.date().optional().nullable()),
+  'Last Action Date': z.preprocess((arg) => {
+    if (!arg || typeof arg !== 'string') return undefined
+    try {
+      return new Date(arg)
+    } catch {
+      return undefined
+    }
+  }, z.date().optional().nullable()),
+  'Inbound Opportunity': z
+    .string()
+    .transform((val) => val.toUpperCase() === 'TRUE')
+    .optional(),
+  // Skipping EM Email related fields for now
+  // Status: z.string().optional(), // We'll default status, maybe parse later if needed
+  // Salary: z.string().optional(), // Not directly mapped
+  // TC: z.string().optional(), // Not directly mapped
+  Notes: z.string().optional().nullable(),
+})
+
+// Schema for the CSV upload mutation input
+const JobSearchCreateFromCsvSchema = z.object({
+  name: z.string().min(1, 'Job search name is required'),
+  startDate: z.date(),
+  isActive: z.boolean().default(true),
+  jobPosts: z.array(JobPostCsvRowSchema), // Array of parsed CSV rows
+})
+
+// --- New Input Schema for GetJobSearch ---
+const GetJobSearchInputSchema = z.object({
+  id: z.number(),
+  page: z.number().int().positive().optional().default(1),
+  pageSize: z.number().int().positive().optional().default(10), // Default page size
+})
+
+// --- New Schema for Updating Job Post ---
+const JobPostForCandidateUpdateSchema = z
+  .object({
+    id: z.number(), // ID of the job post to update
+    company: z.string().min(1, 'Company name is required').optional(),
+    jobTitle: z.string().min(1, 'Job title is required').optional(),
+    jobPostUrl: z.string().nullable().optional(),
+    resumeVersion: z.string().nullable().optional(),
+    initialOutreachDate: z.date().nullable().optional(),
+    initialApplicationDate: z.date().nullable().optional(),
+    lastActionDate: z.date().nullable().optional(),
+    contactName: z.string().nullable().optional(),
+    contactUrl: z.string().nullable().optional(),
+    hasReferral: z.boolean().optional(),
+    isInboundOpportunity: z.boolean().optional(),
+    notes: z.string().nullable().optional(),
+    status: z.nativeEnum(JobApplicationStatus).optional(), // Allow status update too
+  })
+  .partial({
+    // Make all fields optional except id - Zod >= 3.21 needed
+    company: true,
+    jobTitle: true,
+    jobPostUrl: true,
+    resumeVersion: true,
+    initialOutreachDate: true,
+    initialApplicationDate: true,
+    lastActionDate: true,
+    contactName: true,
+    contactUrl: true,
+    hasReferral: true,
+    isInboundOpportunity: true,
+    notes: true,
+    status: true,
+  })
+
 export const jobSearchRouter = createTRPCRouter({
   // Get all job searches for the current user
   getUserJobSearches: protectedProcedure
@@ -95,25 +193,36 @@ export const jobSearchRouter = createTRPCRouter({
 
   // Get a single job search by ID
   getJobSearch: protectedProcedure
-    .input(z.object({ id: z.number() }))
+    .input(GetJobSearchInputSchema) // Use updated input schema
     .query(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
+      const { id, page, pageSize } = input
 
-      const jobSearch = await ctx.db.jobSearch.findUnique({
-        where: {
-          id: input.id,
-        },
-        include: {
-          jobPosts: {
-            include: {
-              jobSearchSteps: true,
+      const skip = (page - 1) * pageSize
+
+      // Fetch JobSearch and total count of job posts in parallel
+      const [jobSearch, totalJobPosts] = await ctx.db.$transaction([
+        ctx.db.jobSearch.findUnique({
+          where: { id },
+          include: {
+            // Fetch only the requested page of job posts
+            jobPosts: {
+              skip: skip,
+              take: pageSize,
+              include: {
+                jobSearchSteps: true, // Keep includes if needed
+              },
+              orderBy: {
+                updatedAt: 'desc',
+              },
             },
-            orderBy: {
-              updatedAt: 'desc',
-            },
+            // Remove _count from here if it existed
           },
-        },
-      })
+        }),
+        ctx.db.jobPostForCandidate.count({
+          where: { jobSearchId: id },
+        }),
+      ])
 
       if (!jobSearch) {
         throw new TRPCError({
@@ -122,7 +231,6 @@ export const jobSearchRouter = createTRPCRouter({
         })
       }
 
-      // Check if the job search belongs to the current user
       if (jobSearch.userId !== userId) {
         throw new TRPCError({
           code: 'FORBIDDEN',
@@ -130,7 +238,16 @@ export const jobSearchRouter = createTRPCRouter({
         })
       }
 
-      return jobSearch
+      // Return job search data along with pagination info
+      return {
+        ...jobSearch,
+        pagination: {
+          totalItems: totalJobPosts,
+          currentPage: page,
+          pageSize: pageSize,
+          totalPages: Math.ceil(totalJobPosts / pageSize),
+        },
+      }
     }),
 
   // Create a new job search
@@ -538,5 +655,100 @@ export const jobSearchRouter = createTRPCRouter({
       })
 
       return { success: true }
+    }),
+
+  // --- New Mutation for CSV Import ---
+  createJobSearchFromCsv: protectedProcedure
+    .input(JobSearchCreateFromCsvSchema)
+    .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id)
+
+      // 1. Create the Job Search
+      const newJobSearch = await ctx.db.jobSearch.create({
+        data: {
+          name: input.name,
+          startDate: input.startDate,
+          isActive: input.isActive,
+          userId: userId,
+        },
+      })
+
+      // 2. Prepare Job Post data from CSV rows
+      const jobPostsToCreate: Prisma.JobPostForCandidateCreateManyInput[] =
+        input.jobPosts.map((row) => ({
+          company: row.Company,
+          jobTitle: row['Job Post Title'],
+          jobPostUrl: row['Job Post URL'] ?? undefined,
+          resumeVersion: row['Resume Version'] ?? undefined,
+          hasReferral: row.Referral ?? false,
+          initialOutreachDate: row['Initial Outreach Date'] ?? undefined,
+          initialApplicationDate: row['Initial App Date'] ?? undefined,
+          lastActionDate: row['Last Action Date'] ?? undefined,
+          isInboundOpportunity: row['Inbound Opportunity'] ?? false,
+          notes: row.Notes ?? undefined,
+          status: JobApplicationStatus.APPLIED, // Default status
+          jobSearchId: newJobSearch.id, // Link to the created job search
+        }))
+
+      // 3. Bulk create Job Posts (more efficient than individual creates)
+      // Note: createMany doesn't return the created records, only a count.
+      const createResult = await ctx.db.jobPostForCandidate.createMany({
+        data: jobPostsToCreate,
+        skipDuplicates: true, // Optional: skip if a unique constraint fails (e.g., if you add one)
+      })
+
+      return {
+        success: true,
+        jobSearchId: newJobSearch.id,
+        jobPostsCreated: createResult.count,
+      }
+    }),
+
+  // --- New Mutation for Updating Job Post ---
+  updateJobPost: protectedProcedure
+    .input(JobPostForCandidateUpdateSchema)
+    .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id)
+      const { id, ...updateData } = input
+
+      // Verify ownership
+      const jobPost = await ctx.db.jobPostForCandidate.findUnique({
+        where: { id: id },
+        include: {
+          jobSearch: true,
+        },
+      })
+
+      if (!jobPost) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Job post not found',
+        })
+      }
+
+      if (jobPost.jobSearch.userId !== userId) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'You do not have permission to update this job post',
+        })
+      }
+
+      // Automatically update lastActionDate if it wasn't explicitly provided
+      const dataToUpdate = {
+        ...updateData,
+        // Only update lastActionDate if other fields *besides* lastActionDate are being changed
+        ...(!updateData.lastActionDate &&
+          Object.keys(updateData).length > 0 && {
+            lastActionDate: new Date(),
+          }),
+      }
+
+      // Update the job post
+      const updatedJobPost = await ctx.db.jobPostForCandidate.update({
+        where: { id: id },
+        data: dataToUpdate,
+      })
+
+      return updatedJobPost
     }),
 })

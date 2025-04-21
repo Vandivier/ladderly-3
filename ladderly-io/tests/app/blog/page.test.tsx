@@ -88,11 +88,11 @@ describe('BlogIndex', () => {
   beforeEach(() => {
     vi.clearAllMocks()
 
-    // Mock fs.readdirSync to return our mock files
+    // Mock fs.readdirSync to return our mock files (as strings)
     vi.mocked(fs.readdirSync).mockReturnValue([
       'test-post-1.md',
       'test-post-2.md',
-    ])
+    ] as any) // Cast to any to bypass strict Dirent type if needed for mock
 
     // Mock path.extname to return .md
     vi.mocked(path.extname).mockReturnValue('.md')
@@ -159,27 +159,24 @@ describe('BlogIndex', () => {
     const component = await BlogIndex()
     render(component)
 
-    // Premium badge should be in a relative group
-    const premiumBadge = screen.getByTestId('lock-icon').closest('a')
-    expect(premiumBadge).toHaveClass('group')
-    expect(premiumBadge).toHaveClass('relative')
+    // Find the lock icon itself
+    const lockIcon = screen.getByTestId('lock-icon')
 
-    // Check for tooltip text
-    const tooltipText = screen.getByText(/Premium Article/i)
+    // The mock renders the icon in a span, find its parent div (the PremiumBadge wrapper)
+    const premiumBadgeWrapper = lockIcon.parentElement?.parentElement // span -> div.group.relative
+
+    expect(premiumBadgeWrapper).toBeInTheDocument() // Ensure the wrapper div is found
+    // Check if the wrapper div has the expected classes for the tooltip group behavior
+    expect(premiumBadgeWrapper).toHaveClass('group')
+    expect(premiumBadgeWrapper).toHaveClass('relative')
+
+    // Check for tooltip text (rendered within the wrapper)
+    // The tooltip div itself might be invisible initially due to CSS, but the text should be in the DOM.
+    const tooltipText = screen.getByText(/Premium Article/i) // Find text regardless of visibility
     expect(tooltipText).toBeInTheDocument()
-  })
 
-  test('displays author and date information', async () => {
-    const component = await BlogIndex()
-    render(component)
-
-    // Check if author and date info is displayed for both posts
-    mockPosts.forEach((post) => {
-      const publishInfo = screen.getByText(
-        `Published on ${post.date} by ${post.author}`,
-      )
-      expect(publishInfo).toBeInTheDocument()
-    })
+    // Optionally check if the tooltip text node is inside the premiumBadgeWrapper if needed
+    expect(premiumBadgeWrapper).toContainElement(tooltipText)
   })
 
   test('links to individual blog posts with correct URLs', async () => {

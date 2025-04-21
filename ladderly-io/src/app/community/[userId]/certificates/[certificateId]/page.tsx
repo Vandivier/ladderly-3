@@ -4,6 +4,7 @@ import { LargeCard } from '~/app/core/components/LargeCard'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { notFound } from 'next/navigation'
 import DownloadButton from './DownloadButton'
+import Link from 'next/link'
 
 // Add global styles for print media
 import './print.css'
@@ -67,7 +68,7 @@ export default async function CertificatePage({
         <LadderlyPageWrapper>
           <LargeCard>
             <div className="text-center">
-              <h1 className="mb-4 text-2xl font-bold">Private Certificate</h1>
+              <h1 className="mb-2 text-2xl font-bold">Private Certificate</h1>
               <p>This certificate is not publicly visible.</p>
             </div>
           </LargeCard>
@@ -96,8 +97,8 @@ export default async function CertificatePage({
           >
             <div className="certificate relative overflow-hidden rounded-lg border-8 border-blue-600 bg-white p-8 shadow-xl dark:bg-gray-800 print:mb-0 print:border-4 print:shadow-none">
               {/* Certificate Header */}
-              <div className="mb-8 text-center">
-                <div className="mb-4 flex justify-center">
+              <div className="mb-2 text-center">
+                <div className="mb-2 flex justify-center">
                   <Image
                     className="rounded-md"
                     src="/logo.png"
@@ -115,15 +116,19 @@ export default async function CertificatePage({
               </div>
 
               {/* Certificate Body */}
-              <div className="mb-8 text-center">
-                <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
-                  {certificate.user.nameFirst} {certificate.user.nameLast}
+              <div className="mb-2 text-center">
+                <h2 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+                  <Link href={`/community/${userId}`}>
+                    {certificate.user.nameFirst} {certificate.user.nameLast}
+                  </Link>
                 </h2>
-                <p className="mb-4 text-xl text-gray-600 dark:text-gray-300">
+                <p className="mb-2 text-xl text-gray-600 dark:text-gray-300">
                   has successfully completed
                 </p>
                 <h3 className="mb-2 text-2xl font-bold text-blue-700 dark:text-blue-300">
-                  {courseName}
+                  <Link href={`/courses/${certificate.quiz.course?.slug}`}>
+                    {courseName}
+                  </Link>
                 </h3>
                 <p className="text-md text-gray-600 dark:text-gray-300">
                   with a score of{' '}
@@ -153,7 +158,7 @@ export default async function CertificatePage({
                 <h4 className="mb-2 font-semibold text-gray-800 dark:text-gray-200">
                   Share Your Achievement
                 </h4>
-                <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mb-2 text-sm text-gray-600 dark:text-gray-400">
                   Add this certificate to your LinkedIn profile or save it as a
                   PDF.
                 </p>
@@ -174,7 +179,6 @@ export default async function CertificatePage({
               <div className="absolute left-0 top-0 size-16 rounded-br-3xl bg-blue-600 opacity-20"></div>
               <div className="absolute bottom-0 right-0 size-16 rounded-tl-3xl bg-blue-600 opacity-20"></div>
               <div className="absolute left-1/3 top-1/4 size-32 rotate-12 rounded-full bg-blue-600 opacity-5"></div>
-              <div className="absolute bottom-1/4 right-1/3 size-32 -rotate-12 rounded-full bg-blue-600 opacity-5"></div>
             </div>
           </div>
         </div>

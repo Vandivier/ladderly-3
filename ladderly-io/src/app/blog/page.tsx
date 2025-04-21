@@ -48,20 +48,23 @@ async function getBlogPosts(): Promise<BlogPost[]> {
 }
 
 const PremiumBadge = () => (
-  <a
-    href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? '#'}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group relative"
-  >
+  <div className="group relative">
     <span className="inline-flex items-center justify-center rounded bg-ladderly-violet-100 p-1.5 text-ladderly-violet-500 transition-all hover:bg-ladderly-violet-500 hover:text-white">
       <LockIcon className="size-4" />
     </span>
     <div className="invisible absolute left-0 top-full z-10 mt-2 w-64 rounded-lg bg-ladderly-violet-500 p-2 text-sm text-white opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
-      <p>Premium Article. Sign up for Premium for $6 per month!</p>
+      <a
+        href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? '#'}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline"
+      >
+        Premium Article. Click here to sign up for Ladderly.io Premium for only
+        $6 per month!
+      </a>
       <div className="absolute -top-1 left-3 size-2 rotate-45 bg-ladderly-violet-500"></div>
     </div>
-  </a>
+  </div>
 )
 
 export default async function BlogIndex() {
@@ -84,9 +87,6 @@ export default async function BlogIndex() {
                 {post.title}
               </Link>
             </div>
-            <p className="text-ladderly-violet-500">
-              Published on {post.date} by {post.author}
-            </p>
           </div>
         ))}
       </main>
