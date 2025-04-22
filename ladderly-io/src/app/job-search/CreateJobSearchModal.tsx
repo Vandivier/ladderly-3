@@ -60,7 +60,7 @@ export const CreateJobSearchModal = () => {
     })
 
   const { mutate: createJobSearchCsv } =
-    api.jobSearch.createJobSearchFromCsv.useMutation({
+    api.jobSearch.csv.createFromCsv.useMutation({
       onSuccess: async (data) => {
         router.refresh()
         await utils.jobSearch.getUserJobSearches.invalidate()
@@ -305,7 +305,7 @@ export const CreateJobSearchModal = () => {
                 <p className="mt-2 text-xs text-gray-500">
                   Find a sample CSV and format guide at{' '}
                   <a
-                    href="/blog/2024-02-12-resume-optimization#the-job-search-as-a-sales-funnel"
+                    href="/blog/2024-02-12-resume-optimization#job-search-spreadsheet-tools"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"

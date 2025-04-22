@@ -21,6 +21,7 @@ Full package.json content:
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
+    "db:seed:courses": "tsx prisma/seedCoursesAndFlashcards.ts",
     "db:seed:in-place": "prisma db seed -- --update-latest-checklists",
     "db:studio": "prisma studio",
     "dev": "next dev",
@@ -55,6 +56,7 @@ Full package.json content:
     "next": "^14.2.4",
     "next-auth": "^4.24.7",
     "nextjs-google-analytics": "^2.3.7",
+    "papaparse": "^5.5.2",
     "postmark": "^4.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -83,6 +85,7 @@ Full package.json content:
     "@types/hast": "^3.0.4",
     "@types/mdast": "^4.0.4",
     "@types/node": "^22.0.0",
+    "@types/papaparse": "^5.3.15",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
@@ -126,330 +129,434 @@ Full package.json content:
 
 Here is the folder structure of the project:
 ./
-    .env.template
-    .eslintrc.cjs
-    .gitignore
+    prettier.config.ts
     next.config.js
+    postcss.config.cjs
+    .eslintrc.cjs
+    start-database.sh
+    README.md
+    tailwind.config.ts
+    .env.template
+    .gitignore
     package-lock.json
     package.json
-    postcss.config.cjs
-    prettier.config.ts
-    README.md
-    start-database.sh
-    tailwind.config.ts
     tsconfig.json
+    .env.example
     vitest.config.ts
-.next/
 prisma/
-    schema.prisma
     seeds.ts
-prisma\migrations/
-    migration_lock.toml
-prisma\seed-utils/
-    seedLeetcodeChecklist.ts
-    seedVotables.ts
-    updateChecklists.ts
-prisma\seeds/
-    checklists.json
-    courses.json
-    votables.json
-public/
-    android-chrome-192x192.png
-    android-chrome-512x512.png
-    apple-touch-icon.png
-    cute-type-ham.png
-    favicon-16x16.png
-    favicon-32x32.png
-    favicon.ico
-    logo.png
-    logo.webp
-    robots.txt
-    site.webmanifest
-    sitemap.xml
-public\blog/
-public\blog\images/
-    cover-letters-poll.png
-scripts/
-    backupChecklists.ts
-    backupUsers.ts
-    cascadeDeleteChecklist.ts
-    createLeadsFromTextList.ts
-    createLeadsFromUsers.ts
-    deleteUnusedChecklistItems.js
-    deleteUnusedChecklists.js
-    deleteUser.ts
-    ensureSubscriptions.js
-    generate-sitemap.ts
-    restoreUsers.js
-    tableScraperStripe.js
-    tableScraperTeachable.js
-    updateUserSubscriptionsFromStripe.js
-scripts\ci/
-    custom-blog-lint.js
-scripts\data/
-scripts\one-offs/
-    2023-07-21-ensureUserSubscriptions.js
-    2023-07-22-nuke-user-checklists.js
-scripts\python/
-    .python-version
-    copilot-instructions.txt
-    create-copilot-instructions.py
-    create-unified-leecode-list.py
-    pyproject.toml
-    README.md
-    uv.lock
-scripts\python\analytical/
-    blog-15-job-search-regression.csv
-    blog-15-job-search-regression.py
-    blog-16-game-based-evaluation-ai-risk-analysis.csv
-    README.md
-    requirements.txt
-scripts\python\leetcode-problems/
-    leetcode-grind-75.json
-    leetcode-ladderly-expanded-kata.json
-    leetcode-neetcode-250.json
-    leetcode-sean-prashad-leetcode-patterns.json
-    unified-leetcode-problems.json
-scripts\python\youtube-transcriber/
-    .env.template
-    consolidate.py
-    consolidated_transcript.txt
-    main.py
-    manage_playlist.py
-    README.md
-    report.py
-    requirements.txt
-    tasks.py
-    urls_high_value_automated.json
-    urls_high_value_manual.json
-    urls_low_value_automated.json
-    urls_low_value_manual.json
-src/
-    env.js
-src\app/
-    layout.tsx
-    page.tsx
-src\app\(auth)/
-    schemas.ts
-src\app\(auth)\components/
-    ForgotPasswordForm.tsx
-    LoginForm.tsx
-    SignupForm.tsx
-src\app\(auth)\forgot-password/
-    page.tsx
-src\app\(auth)\login/
-    page.tsx
-src\app\(auth)\reset-password/
-    page.tsx
-    ResetPasswordClientPageClient.tsx
-src\app\(auth)\signup/
-    page.tsx
-src\app\about/
-    page.tsx
-src\app\api/
-src\app\api\auth/
-src\app\api\auth\[...nextauth]/
-    route.ts
-src\app\api\chat/
-src\app\api\leetcode-problems/
-src\app\api\trpc/
-src\app\api\trpc\[trpc]/
-    route.ts
-src\app\api\webhooks/
-src\app\api\webhooks\stripe/
-    route.ts
-src\app\blog/
-    2023-10-01-quality-course-and-projects.md
-    2023-11-25-leetcode-kata.md
-    2023-12-01-top-job-boards.md
-    2023-12-25-arias-tale.md
-    2024-01-20-hardware.md
-    2024-01-23-leetcode-solutions.md
-    2024-02-11-essentials-of-html.md
-    2024-02-12-resume-optimization.md
-    2024-02-16-user-settings.md
-    2024-04-20-hook-fundamentals.md
-    2024-05-31-networking-tips.md
-    2024-06-12-selecting-your-next-skill.md
-    2024-07-31-impact-accounting.md
-    2024-08-04-no-cover-letters.md
-    2025-01-20-social-networking-scripts.md
-    2025-01-21-ai-first-curriculum.md
-    2025-01-22-endorsed-communities.md
-    2025-02-07-ladderly-chat-ai.md
-    2025-02-24-behavioral-interviews.md
-    2025-02-25-ballparking.md
-    2025-03-16-benefits-of-premium.md
-    2025-03-30-debugging-tips.md
-    2025-04-05-benefits-of-mentorship.md
-    2025-04-06-code-quality-as-ham.md
-    2025-04-12-offer-negotiation.md
-    2025-04-13-on-content-creation.md
-    2025-04-18-time-management.md
-    2025-04-19-professional-communication.md
-    2025-04-20-onboarding-guide.md
-    blog-utils.ts
-    page.tsx
-src\app\blog\[slug]/
-    BlogPostContent.tsx
-    getBlogPost.ts
-    page.tsx
-    types.ts
-src\app\chat/
-    ClientChat.tsx
-    page.tsx
-src\app\checklists/
-    ChecklistsList.tsx
-    page.tsx
-src\app\checklists\my-basic-checklist/
-    ClientBasicChecklist.tsx
-    page.tsx
-src\app\checklists\my-premium-checklist/
-    ClientPremiumChecklist.tsx
-    page.tsx
-src\app\community/
-    ClientCommunityPage.tsx
-    CommunityMemberListItem.tsx
-    page.tsx
-    SearchProfiles.tsx
-    SearchUserInformation.tsx
-src\app\community\[userId]/
-    page.tsx
-src\app\copilot/
-    page.tsx
-src\app\core/
-src\app\core\components/
-    Form.tsx
-    LabeledAutocompleteField.tsx
-    LabeledCheckboxField.tsx
-    LabeledChipCollection.tsx
-    LabeledSelectField.tsx
-    LabeledTextField.tsx
-    LadderlyAnalytics.tsx
-    LadderlyPitch.tsx
-    LadderlyToast.tsx
-    LargeCard.tsx
-    ProviderProvider.tsx
-    SmallCard.tsx
-src\app\core\components\icons/
-    Home.tsx
-    VerticalChevron.tsx
-src\app\core\components\page-wrapper/
-    LadderlyPageWrapper.tsx
-    MenuProvider.tsx
-    TopNav.tsx
-    TopNavLeft.tsx
-    TopNavRight.tsx
-    TopNavSubmenu.tsx
-src\app\core\components\pricing-grid/
-    PricingGrid.tsx
-    ReimbursmentLetterLink.tsx
-    StripeCheckoutButton.tsx
-src\app\core\theme/
-    ThemeContext.tsx
-    ThemeToggle.tsx
-src\app\core\utils/
-    parsing.ts
-src\app\courses/
-    CourseListComponent.tsx
-    page.tsx
-src\app\courses\[courseSlug]/
-    page.tsx
-src\app\courses\[courseSlug]\flashcards/
-    page.tsx
-src\app\courses\[courseSlug]\quiz/
-    page.tsx
-src\app\home/
-    HomePageContent.tsx
-    HomePageSkeleton.tsx
-    LadderlyHelpsBlock.tsx
-    TestimonialBlock.tsx
-src\app\job-search/
-    CreateJobSearchModal.tsx
-    JobSearchActiveSpan.tsx
-    JobSearchList.tsx
-    page.tsx
-src\app\job-search\job-post/
-src\app\job-search\job-post\[id]/
-    JobPostDetails.tsx
-    page.tsx
-src\app\job-search\[id]/
-    AddJobApplicationModal.tsx
-    JobSearchDetails.tsx
-    page.tsx
-src\app\leetcode-tool/
-    LeetCodeFilterControl.tsx
-    LeetCodeList.tsx
-    page.tsx
-src\app\mobile-menu/
-    MobileMenuContent.tsx
-    MobileMenuDropdowns.tsx
-    page.tsx
-src\app\perks/
-    page.tsx
-src\app\privacy-policy/
-    page.tsx
-src\app\settings/
-    page.tsx
-    schemas.ts
-src\app\settings\components/
-    CountryDropdown.tsx
-    SettingsForm.tsx
-    SettingsFormWrapper.tsx
-    USStateDropdown.tsx
-src\app\settings\email-preferences/
-    page.tsx
-src\app\settings\email-preferences\components/
-    EmailPreferencesFormWrapper.tsx
-src\server/
-    auth.ts
-    constants.ts
-    db.ts
-    LadderlyMigrationAdapter.ts
-    schemas.ts
-src\server\api/
-    root.ts
-    trpc.ts
-src\server\api\routers/
-    auth.ts
-    chat.ts
-    checklist.ts
-    jobSearch.ts
-    post.ts
-    user.ts
-src\server\mailers/
-    forgotPasswordMailer.ts
-src\styles/
-    globals.css
-    Home.module.css
-src\trpc/
-    query-client.ts
-    react.tsx
-    server.ts
-src\types/
-temp/
+    schema.prisma
+    seedCoursesAndFlashcards.ts
+    prisma/migrations/
+        migration_lock.toml
+        prisma/migrations/20240814042534_guest_votes/
+            migration.sql
+        prisma/migrations/20230719052022_versioned_checklist_items/
+            migration.sql
+        prisma/migrations/20240815011358_content_votable_type/
+            migration.sql
+        prisma/migrations/20230717225747_non_nullable_checklist_item_display_index/
+            migration.sql
+        prisma/migrations/20230719034635_checklist_item_detail_text/
+            migration.sql
+        prisma/migrations/20230721205221_no_generic_checklist_item_completestate/
+            migration.sql
+        prisma/migrations/20230621005853_/
+            migration.sql
+        prisma/migrations/20230721210438_formalize_role_enum_w_admin/
+            migration.sql
+        prisma/migrations/20240814033017_nullable_miscinfo/
+            migration.sql
+        prisma/migrations/20230717002647_nullable_versioned_checklists/
+            migration.sql
+        prisma/migrations/20240816201444_user_pfps/
+            migration.sql
+        prisma/migrations/20240128051442_small_group_interest/
+            migration.sql
+        prisma/migrations/20230719035112_links_for_checklist_items/
+            migration.sql
+        prisma/migrations/20230622041136_default_subscription_free/
+            migration.sql
+        prisma/migrations/20240111030957_rm_unique_contrib_per_subs/
+            migration.sql
+        prisma/migrations/20230619184405_/
+            migration.sql
+        prisma/migrations/20240814175726_constraint_name_and_type_jointly_on_votable/
+            migration.sql
+        prisma/migrations/20230622023703_init_payment_tiers/
+            migration.sql
+        prisma/migrations/20230619223016_optional_user_uuid/
+            migration.sql
+        prisma/migrations/20240817173146_/
+            migration.sql
+        prisma/migrations/20230621003315_checklist_items/
+            migration.sql
+        prisma/migrations/20230619223254_required_uuid_user/
+            migration.sql
+        prisma/migrations/20230802011425_public_profile_opt_in/
+            migration.sql
+        prisma/migrations/20230802012631_open_to_work_bool/
+            migration.sql
+        prisma/migrations/20230621003453_init_checklist/
+            migration.sql
+        prisma/migrations/20240814022244_votables/
+            migration.sql
+        prisma/migrations/20230806184729_init_contributions/
+            migration.sql
+        prisma/migrations/20240111015249_init_total_contributions/
+            migration.sql
+        prisma/migrations/20230717010104_temp_optional_display_idx/
+            migration.sql
+        prisma/migrations/20230719190420_more_email_fields_and_subscription_type/
+            migration.sql
+        prisma/migrations/20240817173340_optional_sessiontoken/
+            migration.sql
+        prisma/migrations/20230621004105_fix_checklistitem_relation/
+            migration.sql
+        prisma/migrations/20240817173916_cascade_delete_sessions_on_user_delete/
+            migration.sql
+        prisma/migrations/20230721204837_init_user_checklist_item/
+            migration.sql
+        prisma/migrations/20240111022632_unique_subscription_by_type/
+            migration.sql
+        prisma/migrations/20230717003130_required_version_checklist/
+            migration.sql
+        prisma/migrations/20240217162209_user_residence_location/
+            migration.sql
+        prisma/migrations/20230802013857_profile_data/
+            migration.sql
+    prisma/seeds/
+        votables.json
+        checklists.json
+        courses.json
+    prisma/seed-utils/
+        updateChecklists.ts
+        seedLeetcodeChecklist.ts
+        seedCourses.ts
+        seedVotables.ts
+        seedFlashcards.ts
 tests/
     setup.tsx
-tests\app/
-    page.test.tsx
-tests\app\api/
-tests\app\api\webhooks/
-tests\app\api\webhooks\stripe/
-    route.test.ts
-tests\app\blog/
-    page.test.tsx
-tests\app\blog\[slug]/
-    BlogPostContent.test.tsx
-    page.test.tsx
-tests\app\community/
-    ClientCommunityPage.test.tsx
-tests\app\core/
-tests\app\core\components/
-tests\app\core\components\pricing-grid/
-    PricingGrid.test.tsx
-tests\app\home/
-    HomePageContent.test.tsx
-tests\server/
-tests\server\api/
-tests\server\api\routers/
-    user.test.ts
+    tests/app/
+        page.test.tsx
+        tests/app/home/
+            HomePageContent.test.tsx
+        tests/app/core/
+            tests/app/core/components/
+                tests/app/core/components/pricing-grid/
+                    PricingGrid.test.tsx
+        tests/app/blog/
+            page.test.tsx
+            tests/app/blog/[slug]/
+                page.test.tsx
+                BlogPostContent.test.tsx
+        tests/app/api/
+            tests/app/api/webhooks/
+                tests/app/api/webhooks/stripe/
+                    route.test.ts
+        tests/app/community/
+            ClientCommunityPage.test.tsx
+    tests/server/
+        tests/server/api/
+            tests/server/api/routers/
+                user.test.ts
+.next/
+public/
+    favicon-16x16.png
+    favicon.ico
+    android-chrome-192x192.png
+    apple-touch-icon.png
+    logo.webp
+    android-chrome-512x512.png
+    site.webmanifest
+    logo.png
+    sitemap.xml
+    robots.txt
+    cute-type-ham.png
+    favicon-32x32.png
+    public/blog/
+        public/blog/images/
+            cover-letters-poll.png
+scripts/
+    generate-sitemap.ts
+    cascadeDeleteChecklist.ts
+    createLeadsFromUsers.ts
+    tableScraperTeachable.js
+    backupChecklists.ts
+    restoreUsers.js
+    deleteUnusedChecklistItems.js
+    tableScraperStripe.js
+    ensureSubscriptions.js
+    updateUserSubscriptionsFromStripe.js
+    createLeadsFromTextList.ts
+    deleteUser.ts
+    backupUsers.ts
+    deleteUnusedChecklists.js
+    scripts/one-offs/
+        2023-07-21-ensureUserSubscriptions.js
+        2023-07-22-nuke-user-checklists.js
+    scripts/python/
+        uv.lock
+        pyproject.toml
+        create-copilot-instructions.py
+        README.md
+        copilot-instructions.txt
+        create-unified-leecode-list.py
+        .python-version
+        scripts/python/youtube-transcriber/
+            urls_high_value_manual.json
+            tasks.py
+            consolidate.py
+            urls_low_value_automated.json
+            requirements.txt
+            urls_low_value_manual.json
+            consolidated_transcript.txt
+            README.md
+            .env.template
+            manage_playlist.py
+            urls_high_value_automated.json
+            main.py
+            report.py
+        scripts/python/analytical/
+            blog-15-job-search-regression.py
+            requirements.txt
+            README.md
+            blog-16-game-based-evaluation-ai-risk-analysis.csv
+            blog-15-job-search-regression.csv
+        scripts/python/leetcode-problems/
+            leetcode-sean-prashad-leetcode-patterns.json
+            leetcode-neetcode-250.json
+            leetcode-ladderly-expanded-kata.json
+            unified-leetcode-problems.json
+            leetcode-grind-75.json
+    scripts/ci/
+        custom-blog-lint.js
+    scripts/backup-data/
+        bak.users.2025-01-11T03-54-11.751Z.json
+        bak.users.2025-01-11T04-03-01.357Z.json
+    scripts/data/
+src/
+    env.js
+    src/types/
+    src/app/
+        layout.tsx
+        page.tsx
+        src/app/settings/
+            schemas.ts
+            page.tsx
+            src/app/settings/components/
+                SettingsForm.tsx
+                USStateDropdown.tsx
+                SettingsFormWrapper.tsx
+                CountryDropdown.tsx
+            src/app/settings/email-preferences/
+                page.tsx
+                src/app/settings/email-preferences/components/
+                    EmailPreferencesFormWrapper.tsx
+        src/app/home/
+            HomePageSkeleton.tsx
+            HomePageContent.tsx
+            TestimonialBlock.tsx
+            LadderlyHelpsBlock.tsx
+        src/app/core/
+            src/app/core/utils/
+                parsing.ts
+            src/app/core/components/
+                LabeledAutocompleteField.tsx
+                SmallCard.tsx
+                LabeledChipCollection.tsx
+                LadderlyToast.tsx
+                LadderlyPitch.tsx
+                ProviderProvider.tsx
+                LabeledTextField.tsx
+                LadderlyAnalytics.tsx
+                LargeCard.tsx
+                LabeledSelectField.tsx
+                LabeledCheckboxField.tsx
+                LabeledDateField.tsx
+                Form.tsx
+                src/app/core/components/icons/
+                    Home.tsx
+                    VerticalChevron.tsx
+                src/app/core/components/page-wrapper/
+                    MenuProvider.tsx
+                    TopNavRight.tsx
+                    TopNavLeft.tsx
+                    LadderlyPageWrapper.tsx
+                    TopNavSubmenu.tsx
+                    TopNav.tsx
+                src/app/core/components/pricing-grid/
+                    PricingGrid.tsx
+                    ReimbursmentLetterLink.tsx
+                    StripeCheckoutButton.tsx
+            src/app/core/theme/
+                ThemeContext.tsx
+                ThemeToggle.tsx
+        src/app/chat/
+            ClientChat.tsx
+            page.tsx
+        src/app/copilot/
+            page.tsx
+        src/app/privacy-policy/
+            page.tsx
+        src/app/checklists/
+            page.tsx
+            ChecklistsList.tsx
+            src/app/checklists/my-premium-checklist/
+                ClientPremiumChecklist.tsx
+                page.tsx
+                src/app/checklists/my-premium-checklist/components/
+            src/app/checklists/my-basic-checklist/
+                page.tsx
+                ClientBasicChecklist.tsx
+        src/app/mobile-menu/
+            MobileMenuDropdowns.tsx
+            MobileMenuContent.tsx
+            page.tsx
+        src/app/job-search/
+            JobSearchActiveSpan.tsx
+            CreateJobSearchModal.tsx
+            page.tsx
+            JobSearchList.tsx
+            src/app/job-search/job-post/
+                src/app/job-search/job-post/[id]/
+                    AddJobSearchStepForm.tsx
+                    JobPostDetails.tsx
+                    EditJobPostForm.tsx
+                    page.tsx
+                    JobStepsSection.tsx
+            src/app/job-search/[id]/
+                JobSearchDetails.tsx
+                AddJobApplicationModal.tsx
+                page.tsx
+        src/app/about/
+            page.tsx
+        src/app/blog/
+            2024-02-12-resume-optimization.md
+            blog-utils.ts
+            2024-06-12-selecting-your-next-skill.md
+            2025-04-05-benefits-of-mentorship.md
+            temp-3.csv
+            2024-01-23-leetcode-solutions.md
+            2025-02-24-behavioral-interviews.md
+            2025-01-22-endorsed-communities.md
+            2024-02-16-user-settings.md
+            2025-03-30-debugging-tips.md
+            2023-12-25-arias-tale.md
+            2025-04-19-professional-communication.md
+            2025-02-07-ladderly-chat-ai.md
+            2025-04-12-offer-negotiation.md
+            2024-05-31-networking-tips.md
+            2024-04-20-hook-fundamentals.md
+            2025-03-16-benefits-of-premium.md
+            2023-12-01-top-job-boards.md
+            2025-01-21-ai-first-curriculum.md
+            2024-07-31-impact-accounting.md
+            2025-04-18-time-management.md
+            2023-11-25-leetcode-kata.md
+            2024-08-04-no-cover-letters.md
+            2025-04-13-on-content-creation.md
+            2025-04-20-onboarding-guide.md
+            2023-10-01-quality-course-and-projects.md
+            2025-04-06-code-quality-as-ham.md
+            2025-01-20-social-networking-scripts.md
+            2025-02-25-ballparking.md
+            page.tsx
+            2024-01-20-hardware.md
+            2024-02-11-essentials-of-html.md
+            src/app/blog/[slug]/
+                getBlogPost.ts
+                types.ts
+                BlogPostContent.tsx
+                page.tsx
+        src/app/courses/
+            CourseListComponent.tsx
+            page.tsx
+            src/app/courses/[courseSlug]/
+                page.tsx
+                src/app/courses/[courseSlug]/flashcards/
+                    FlashcardsContent.tsx
+                    page.tsx
+                src/app/courses/[courseSlug]/quiz/
+                    QuizContent.tsx
+                    page.tsx
+        src/app/leetcode-tool/
+            LeetCodeList.tsx
+            LeetCodeFilterControl.tsx
+            page.tsx
+        src/app/api/
+            src/app/api/chat/
+            src/app/api/create-checkout-session/
+            src/app/api/auth/
+                src/app/api/auth/[...nextauth]/
+                    route.ts
+            src/app/api/trpc/
+                src/app/api/trpc/[trpc]/
+                    route.ts
+            src/app/api/webhooks/
+                src/app/api/webhooks/stripe/
+                    route.ts
+        src/app/(auth)/
+            schemas.ts
+            src/app/(auth)/signup/
+                page.tsx
+            src/app/(auth)/components/
+                ForgotPasswordForm.tsx
+                LoginForm.tsx
+                SignupForm.tsx
+            src/app/(auth)/forgot-password/
+                page.tsx
+            src/app/(auth)/reset-password/
+                ResetPasswordClientPageClient.tsx
+                page.tsx
+            src/app/(auth)/login/
+                page.tsx
+        src/app/community/
+            CommunityMemberListItem.tsx
+            SearchUserInformation.tsx
+            ClientCommunityPage.tsx
+            SearchProfiles.tsx
+            page.tsx
+            src/app/community/[userId]/
+                page.tsx
+                src/app/community/[userId]/certificates/
+                    src/app/community/[userId]/certificates/[certificateId]/
+                        DownloadButton.tsx
+                        print.css
+                        page.tsx
+        src/app/perks/
+            page.tsx
+    src/trpc/
+        query-client.ts
+        react.tsx
+        server.ts
+    src/server/
+        schemas.ts
+        LadderlyMigrationAdapter.ts
+        constants.ts
+        db.ts
+        auth.ts
+        src/server/mailers/
+            forgotPasswordMailer.ts
+        src/server/actions/
+        src/server/api/
+            trpc.ts
+            root.ts
+            src/server/api/routers/
+                chat.ts
+                certificate.ts
+                course.ts
+                quiz.ts
+                user.ts
+                checklist.ts
+                auth.ts
+                src/server/api/routers/jobSearch/
+                    jobPost.router.ts
+                    router.ts
+                    schemas.ts
+                    csv.router.ts
+                    jobStep.router.ts
+                    csv.helpers.ts
+    src/styles/
+        globals.css
+        Home.module.css

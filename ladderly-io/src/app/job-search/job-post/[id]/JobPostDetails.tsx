@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import { api } from '~/trpc/react'
+import type { TRPCClientErrorLike } from '@trpc/client'
 import {
   EditJobPostForm,
   type JobPostEditSchema,
@@ -64,34 +65,34 @@ export const JobPostDetails = ({ id }: { id: number }) => {
     isLoading,
     error,
     refetch,
-  } = api.jobSearch.getJobPost.useQuery({ id })
+  } = api.jobSearch.jobPost.get.useQuery({ id })
 
   // --- Mutations ---
   const { mutate: updateJobPost, isPending: isUpdatingPost } =
-    api.jobSearch.updateJobPost.useMutation({
+    api.jobSearch.jobPost.update.useMutation({
       onSuccess: async () => {
         await refetch()
         setIsEditing(false)
       },
     })
 
-  const { mutate: deleteStep } = api.jobSearch.deleteJobSearchStep.useMutation({
+  const { mutate: deleteStep } = api.jobSearch.jobStep.delete.useMutation({
     onSuccess: async () => {
       await refetch()
       setDeletingStepId(null)
     },
-    onError: (error) => {
+    onError: (error: TRPCClientErrorLike<any>) => {
       alert(`Error deleting step: ${error.message}`)
       setDeletingStepId(null)
     },
   })
 
   const { mutate: updateStatus } =
-    api.jobSearch.updateJobPostStatus.useMutation({
+    api.jobSearch.jobPost.updateStatus.useMutation({
       onSuccess: async () => {
         await refetch()
       },
-      onError: (error) => {
+      onError: (error: TRPCClientErrorLike<any>) => {
         alert(`Error updating status: ${error.message}`)
       },
     })

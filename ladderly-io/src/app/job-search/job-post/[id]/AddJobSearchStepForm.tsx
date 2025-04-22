@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { JobSearchStepKind, JobApplicationStatus } from '@prisma/client'
 import { api } from '~/trpc/react'
+import type { TRPCClientErrorLike } from '@trpc/client'
 
 // --- Props Interface ---
 interface AddJobSearchStepFormProps {
@@ -32,7 +33,7 @@ export const AddJobSearchStepForm: React.FC<AddJobSearchStepFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { mutate: createJobSearchStep } =
-    api.jobSearch.createJobSearchStep.useMutation({
+    api.jobSearch.jobStep.create.useMutation({
       onSuccess: () => {
         // Auto-update application status based on step type and result
         updateStatusBasedOnStep(stepKind, isPassed)
@@ -41,7 +42,7 @@ export const AddJobSearchStepForm: React.FC<AddJobSearchStepFormProps> = ({
         resetForm()
         setIsSubmitting(false) // Reset submitting state on success
       },
-      onError: (error) => {
+      onError: (error: TRPCClientErrorLike<any>) => {
         console.error('Failed to create job search step:', error)
         alert(`Error adding step: ${error.message}`) // Provide user feedback
         setIsSubmitting(false)

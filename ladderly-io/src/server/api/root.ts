@@ -1,10 +1,9 @@
-import { postRouter } from '~/server/api/routers/post'
 import { createCallerFactory, createTRPCRouter } from '~/server/api/trpc'
 import { userRouter } from './routers/user'
 import { authRouter } from './routers/auth'
 import { checklistRouter } from './routers/checklist'
 import { chatRouter } from './routers/chat'
-import { jobSearchRouter } from './routers/jobSearch'
+import { jobSearchRouter } from './routers/jobSearch/router'
 import { courseRouter } from './routers/course'
 import { quizRouter } from './routers/quiz'
 import { certificateRouter } from './routers/certificate'
@@ -15,7 +14,6 @@ import { certificateRouter } from './routers/certificate'
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  post: postRouter,
   user: userRouter,
   auth: authRouter,
   checklist: checklistRouter,

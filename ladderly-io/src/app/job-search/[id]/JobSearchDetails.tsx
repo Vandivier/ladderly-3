@@ -112,7 +112,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
   // Log the fetched data for debugging
   console.log('JobSearchDetails - jobSearchData:', jobSearchData)
 
-  const { mutate: deleteJobPost } = api.jobSearch.deleteJobPost.useMutation({
+  const { mutate: deleteJobPost } = api.jobSearch.jobPost.delete.useMutation({
     onSuccess: async () => {
       await refetch()
       setDeletingJobPostId(null)
