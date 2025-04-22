@@ -5,7 +5,7 @@ import { api } from '~/trpc/react'
 import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
-import { TRPCClientError } from '@trpc/client'
+import { TRPCClientError, TRPCClientErrorLike } from '@trpc/client'
 
 // Define schema for job application form
 const JobApplicationSchema = z.object({
@@ -35,12 +35,12 @@ export const AddJobApplicationModal = ({
 }: AddJobApplicationModalProps) => {
   // Create job application mutation
   const { mutate: createJobApplication } =
-    api.jobSearch.createJobPostForCandidate.useMutation({
+    api.jobSearch.jobPost.create.useMutation({
       onSuccess: () => {
         onSuccess()
         onClose()
       },
-      onError: (error) => {
+      onError: (error: TRPCClientErrorLike<any>) => {
         console.error('Failed to create job application:', error)
       },
     })
