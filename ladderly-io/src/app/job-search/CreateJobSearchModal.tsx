@@ -60,7 +60,7 @@ export const CreateJobSearchModal = () => {
     })
 
   const { mutate: createJobSearchCsv } =
-    api.jobSearch.createJobSearchFromCsv.useMutation({
+    api.jobSearch.csv.createFromCsv.useMutation({
       onSuccess: async (data) => {
         router.refresh()
         await utils.jobSearch.getUserJobSearches.invalidate()
