@@ -5,7 +5,7 @@ import { api } from '~/trpc/react'
 import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
-import { TRPCClientError, TRPCClientErrorLike } from '@trpc/client'
+import { TRPCClientError, type TRPCClientErrorLike } from '@trpc/client'
 
 // Define schema for job application form
 const JobApplicationSchema = z.object({
