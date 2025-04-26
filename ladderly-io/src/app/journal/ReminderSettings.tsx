@@ -57,19 +57,23 @@ export const ReminderSettings = () => {
 
   if (isLoading) {
     return (
-      <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-        <p className="text-gray-500">Loading reminder settings...</p>
+      <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <p className="text-gray-500 dark:text-gray-400">
+          Loading reminder settings...
+        </p>
       </div>
     )
   }
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Notification Settings</h3>
+        <h3 className="text-lg font-semibold dark:text-gray-100">
+          Notification Settings
+        </h3>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-blue-500 hover:text-blue-700"
+          className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
         >
           {isExpanded ? 'Hide' : 'Show'}
         </button>
@@ -78,7 +82,7 @@ export const ReminderSettings = () => {
       {isExpanded && (
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="mb-2 flex items-center text-sm font-medium">
+            <label className="mb-2 flex items-center text-sm font-medium dark:text-gray-300">
               <input
                 type="checkbox"
                 checked={isEnabled}
@@ -87,7 +91,7 @@ export const ReminderSettings = () => {
               />
               Enable journal entry reminders
             </label>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Get notified when it's time to create a new journal entry
             </p>
           </div>
@@ -96,7 +100,7 @@ export const ReminderSettings = () => {
             <div className="mb-4">
               <label
                 htmlFor="frequency"
-                className="mb-1 block text-sm font-medium"
+                className="mb-1 block text-sm font-medium dark:text-gray-300"
               >
                 Reminder Frequency
               </label>
@@ -106,7 +110,7 @@ export const ReminderSettings = () => {
                 onChange={(e) =>
                   setFrequency(e.target.value as 'DAILY' | 'WEEKLY' | 'MONTHLY')
                 }
-                className="w-full rounded border border-gray-300 p-2"
+                className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               >
                 <option value="DAILY">Daily</option>
                 <option value="WEEKLY">Weekly</option>
@@ -119,12 +123,12 @@ export const ReminderSettings = () => {
           <div className="mt-4 flex items-center justify-between">
             <div>
               {updateStatus === 'success' && (
-                <span className="text-sm text-green-600">
+                <span className="text-sm text-green-600 dark:text-green-400">
                   Settings updated successfully!
                 </span>
               )}
               {updateStatus === 'error' && (
-                <span className="text-sm text-red-600">
+                <span className="text-sm text-red-600 dark:text-red-400">
                   Failed to update settings. Please try again.
                 </span>
               )}
@@ -133,7 +137,7 @@ export const ReminderSettings = () => {
             <button
               type="submit"
               disabled={isUpdating}
-              className="rounded bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-600 disabled:bg-gray-300"
+              className="rounded bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-600 disabled:bg-gray-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:disabled:bg-gray-700"
             >
               {isUpdating ? 'Saving...' : 'Save Settings'}
             </button>

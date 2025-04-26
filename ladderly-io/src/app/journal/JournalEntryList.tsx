@@ -14,22 +14,24 @@ const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
   switch (type) {
     case 'WIN':
       iconClass = '🏆'
-      bgClass = 'bg-green-100 text-green-700'
+      bgClass =
+        'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
       label = 'Win'
       break
     case 'PAIN_POINT':
       iconClass = '😓'
-      bgClass = 'bg-red-100 text-red-700'
+      bgClass = 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
       label = 'Pain Point'
       break
     case 'LEARNING':
       iconClass = '📚'
-      bgClass = 'bg-purple-100 text-purple-700'
+      bgClass =
+        'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
       label = 'Learning'
       break
     default:
       iconClass = '📝'
-      bgClass = 'bg-gray-100 text-gray-700'
+      bgClass = 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-400'
       label = 'Other'
   }
 
@@ -55,7 +57,7 @@ const formatContentWithHashtags = (content: string) => {
       return (
         <span
           key={index}
-          className="rounded-full bg-yellow-100 px-1.5 py-0.5 text-yellow-700"
+          className="rounded-full bg-yellow-100 px-1.5 py-0.5 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
         >
           {part}
         </span>
@@ -134,7 +136,9 @@ export const JournalEntryList = () => {
 
   if (isLoading) {
     return (
-      <p className="text-center text-gray-500">Loading journal entries...</p>
+      <p className="text-center text-gray-500 dark:text-gray-400">
+        Loading journal entries...
+      </p>
     )
   }
 
@@ -144,9 +148,11 @@ export const JournalEntryList = () => {
 
   if (entries.length === 0) {
     return (
-      <div className="rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
-        <p className="mb-4 text-gray-500">No journal entries found.</p>
-        <p className="text-sm text-gray-500">
+      <div className="rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <p className="mb-4 text-gray-500 dark:text-gray-400">
+          No journal entries found.
+        </p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           {Object.values({
             entryType,
             isCareerRelated,
@@ -160,7 +166,7 @@ export const JournalEntryList = () => {
         }).some((v) => v !== undefined) && (
           <button
             onClick={resetFilters}
-            className="mt-3 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            className="mt-3 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
           >
             Reset Filters
           </button>
@@ -172,10 +178,13 @@ export const JournalEntryList = () => {
   return (
     <div>
       {/* Filter controls */}
-      <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+      <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-wrap items-center gap-2">
           <div>
-            <label htmlFor="entryType" className="mr-2 text-sm font-medium">
+            <label
+              htmlFor="entryType"
+              className="mr-2 text-sm font-medium dark:text-gray-300"
+            >
               Type:
             </label>
             <select
@@ -184,7 +193,7 @@ export const JournalEntryList = () => {
               onChange={(e) =>
                 setEntryType((e.target.value as JournalEntryType) || undefined)
               }
-              className="rounded border border-gray-300 px-2 py-1 text-sm"
+              className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             >
               <option value="">All</option>
               <option value="WIN">Win</option>
@@ -195,7 +204,7 @@ export const JournalEntryList = () => {
           </div>
 
           <div>
-            <label className="text-sm font-medium">
+            <label className="text-sm font-medium dark:text-gray-300">
               <input
                 type="checkbox"
                 checked={isCareerRelated === true}
@@ -212,7 +221,7 @@ export const JournalEntryList = () => {
 
           <button
             onClick={resetFilters}
-            className="ml-auto rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300"
+            className="ml-auto rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
           >
             Reset
           </button>
@@ -220,7 +229,7 @@ export const JournalEntryList = () => {
       </div>
 
       {/* Entry count */}
-      <div className="mb-4 text-sm text-gray-500">
+      <div className="mb-4 text-sm text-gray-500 dark:text-gray-400">
         Showing {entries.length} of {totalCount} entries
       </div>
 
@@ -229,7 +238,7 @@ export const JournalEntryList = () => {
         {entries.map((entry) => (
           <div
             key={entry.id}
-            className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:border-gray-300"
+            className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1">
@@ -237,22 +246,22 @@ export const JournalEntryList = () => {
                   <EntryTypeIcon type={entry.entryType} />
 
                   {entry.isCareerRelated ? (
-                    <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
+                    <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
                       💼 Career
                     </span>
                   ) : (
-                    <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs text-indigo-700">
+                    <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400">
                       🏡 Personal
                     </span>
                   )}
 
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
                     {formatDate(entry.createdAt)}
                   </span>
                 </div>
 
                 {/* Entry content with highlighted hashtags */}
-                <p className="mt-2 whitespace-pre-wrap text-gray-800">
+                <p className="mt-2 whitespace-pre-wrap text-gray-800 dark:text-gray-200">
                   {formatContentWithHashtags(entry.content)}
                 </p>
               </div>
@@ -260,7 +269,7 @@ export const JournalEntryList = () => {
               {/* Delete button */}
               <button
                 onClick={() => handleDelete(entry.id)}
-                className="ml-4 text-red-500 hover:text-red-700"
+                className="ml-4 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                 aria-label="Delete entry"
               >
                 <svg
@@ -289,7 +298,7 @@ export const JournalEntryList = () => {
         <div className="mt-4 text-center">
           <button
             onClick={() => setCursor(nextCursor)}
-            className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
           >
             Load More
           </button>

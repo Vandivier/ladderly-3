@@ -99,12 +99,14 @@ export const CreateJournalEntryForm = () => {
   const isWeeklyLoadingData = weeklyEntriesQuery.isLoading
 
   return (
-    <div className="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-      <h2 className="mb-4 text-xl font-semibold">Create Journal Entry</h2>
+    <div className="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <h2 className="mb-4 text-xl font-semibold dark:text-gray-100">
+        Create Journal Entry
+      </h2>
 
       {/* Weekly entry count indicator */}
       <div className="mb-4 flex items-center justify-between">
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-gray-500 dark:text-gray-400">
           Weekly entries:{' '}
           {isWeeklyLoadingData
             ? 'Loading...'
@@ -112,11 +114,11 @@ export const CreateJournalEntryForm = () => {
         </div>
 
         {weeklyEntryCount >= weeklyLimit ? (
-          <div className="rounded-md bg-red-100 px-3 py-1 text-sm text-red-600">
+          <div className="rounded-md bg-red-100 px-3 py-1 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
             Weekly limit reached
           </div>
         ) : weeklyEntryCount >= weeklyLimit - 3 ? (
-          <div className="rounded-md bg-yellow-100 px-3 py-1 text-sm text-yellow-600">
+          <div className="rounded-md bg-yellow-100 px-3 py-1 text-sm text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400">
             Approaching weekly limit
           </div>
         ) : null}
@@ -140,14 +142,17 @@ export const CreateJournalEntryForm = () => {
       >
         {/* Text area for entry content */}
         <div className="mb-4">
-          <label htmlFor="content" className="mb-1 block text-sm font-medium">
-            Content <span className="text-red-500">*</span>
+          <label
+            htmlFor="content"
+            className="mb-1 block text-sm font-medium dark:text-gray-300"
+          >
+            Content <span className="text-red-500 dark:text-red-400">*</span>
           </label>
           <textarea
             id="content"
             name="content"
             value={contentValue}
-            className="w-full rounded-md border border-gray-300 p-2"
+            className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             placeholder="What happened today? Use #hashtags for special items or categories."
             rows={4}
             maxLength={500}
@@ -159,20 +164,23 @@ export const CreateJournalEntryForm = () => {
               weeklyEntryCount >= weeklyLimit
             }
           />
-          <div className="mt-1 text-right text-sm text-gray-500">
+          <div className="mt-1 text-right text-sm text-gray-500 dark:text-gray-400">
             {characterCount}/500 characters
           </div>
         </div>
 
         {/* Entry type dropdown */}
         <div className="mb-4">
-          <label htmlFor="entryType" className="mb-1 block text-sm font-medium">
-            Entry Type <span className="text-red-500">*</span>
+          <label
+            htmlFor="entryType"
+            className="mb-1 block text-sm font-medium dark:text-gray-300"
+          >
+            Entry Type <span className="text-red-500 dark:text-red-400">*</span>
           </label>
           <select
             id="entryType"
             name="entryType"
-            className="w-full rounded-md border border-gray-300 p-2"
+            className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             disabled={
               isLoading ||
               isWeeklyLoadingData ||
@@ -191,7 +199,7 @@ export const CreateJournalEntryForm = () => {
           <LabeledCheckboxField
             name="isCareerRelated"
             label="Career-related entry"
-            labelProps={{ className: 'text-sm font-medium' }}
+            labelProps={{ className: 'text-sm font-medium dark:text-gray-300' }}
             disabled={
               isLoading ||
               isWeeklyLoadingData ||
@@ -201,7 +209,7 @@ export const CreateJournalEntryForm = () => {
         </div>
 
         {/* Hashtag suggestion */}
-        <div className="mb-4 rounded-md bg-blue-50 p-3 text-sm text-blue-700">
+        <div className="mb-4 rounded-md bg-blue-50 p-3 text-sm text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
           <p>
             <strong>Tip:</strong> Use hashtags like #newjob, #promotion, or
             #graduation in your content to mark special achievements.
@@ -209,7 +217,7 @@ export const CreateJournalEntryForm = () => {
         </div>
 
         {error && (
-          <div className="mb-4 rounded bg-red-100 p-2 text-sm text-red-600">
+          <div className="mb-4 rounded bg-red-100 p-2 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
             {error}
           </div>
         )}

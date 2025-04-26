@@ -146,15 +146,15 @@ export const StoryGenerator = () => {
   }
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-lg font-semibold">
+        <h3 className="text-lg font-semibold dark:text-gray-100">
           <span className="mr-2">✨</span>
           Content Generator
         </h3>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-blue-500 hover:text-blue-700"
+          className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
         >
           {isExpanded ? 'Hide' : 'Show'}
         </button>
@@ -162,7 +162,7 @@ export const StoryGenerator = () => {
 
       {isExpanded && (
         <div>
-          <p className="mb-4 text-sm text-gray-700">
+          <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">
             Generate AI-powered content from your hashtagged journal entries.
             Great for preparing for interviews or sharing your professional
             journey!
@@ -170,7 +170,10 @@ export const StoryGenerator = () => {
 
           {/* Hashtag search input */}
           <div className="mb-4">
-            <label htmlFor="hashtag" className="mb-1 block text-sm font-medium">
+            <label
+              htmlFor="hashtag"
+              className="mb-1 block text-sm font-medium dark:text-gray-300"
+            >
               Enter a Hashtag (without #)
             </label>
             <div className="flex">
@@ -182,13 +185,13 @@ export const StoryGenerator = () => {
                   setHashtag(e.target.value.replace(/[^a-zA-Z0-9_]/g, ''))
                 }
                 placeholder="promotion"
-                className="flex-1 rounded-l-md border border-gray-300 p-2"
+                className="flex-1 rounded-l-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
                 disabled={isSearching || isGenerating}
               />
               <button
                 onClick={searchByHashtag}
                 disabled={!hashtag || isSearching || isGenerating}
-                className="rounded-r-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-300"
+                className="rounded-r-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:disabled:bg-gray-700"
               >
                 {isSearching ? 'Searching...' : 'Search'}
               </button>
@@ -200,7 +203,7 @@ export const StoryGenerator = () => {
             <div className="mb-4">
               <label
                 htmlFor="contentType"
-                className="mb-1 block text-sm font-medium"
+                className="mb-1 block text-sm font-medium dark:text-gray-300"
               >
                 Content Type
               </label>
@@ -208,7 +211,7 @@ export const StoryGenerator = () => {
                 id="contentType"
                 value={contentType}
                 onChange={(e) => setContentType(e.target.value)}
-                className="w-full rounded border border-gray-300 p-2"
+                className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
                 disabled={isGenerating}
               >
                 <option value="STAR">STAR Method Anecdote</option>
@@ -221,10 +224,10 @@ export const StoryGenerator = () => {
           {/* Found entries with checkboxes */}
           {foundEntries.length > 0 && (
             <div className="mb-4">
-              <h4 className="mb-2 text-sm font-medium">
+              <h4 className="mb-2 text-sm font-medium dark:text-gray-300">
                 Found Entries ({foundEntries.length})
               </h4>
-              <div className="max-h-64 overflow-y-auto rounded border border-gray-200 p-2">
+              <div className="max-h-64 overflow-y-auto rounded border border-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800/50">
                 {foundEntries.map((entry) => (
                   <div key={entry.id} className="mb-2 flex items-start">
                     <input
@@ -235,8 +238,11 @@ export const StoryGenerator = () => {
                       className="mr-2 mt-1"
                       disabled={isGenerating}
                     />
-                    <label htmlFor={`entry-${entry.id}`} className="text-sm">
-                      <div className="mb-1 text-xs text-gray-500">
+                    <label
+                      htmlFor={`entry-${entry.id}`}
+                      className="text-sm dark:text-gray-300"
+                    >
+                      <div className="mb-1 text-xs text-gray-500 dark:text-gray-400">
                         {formatDate(entry.createdAt)}
                       </div>
                       <div className="line-clamp-2">{entry.content}</div>
@@ -244,7 +250,7 @@ export const StoryGenerator = () => {
                   </div>
                 ))}
                 {foundEntries.length === 0 && (
-                  <p className="p-2 text-sm text-gray-500">
+                  <p className="p-2 text-sm text-gray-500 dark:text-gray-400">
                     No entries found with hashtag #{hashtag}
                   </p>
                 )}
@@ -257,7 +263,7 @@ export const StoryGenerator = () => {
             searchQuery.isFetched &&
             foundEntries.length === 0 &&
             !isSearching && (
-              <div className="mb-4 rounded-md bg-yellow-50 p-3 text-sm text-yellow-800">
+              <div className="mb-4 rounded-md bg-yellow-50 p-3 text-sm text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
                 No entries found with hashtag #{hashtag}. Try a different
                 hashtag or add entries with this tag first.
               </div>
@@ -268,7 +274,7 @@ export const StoryGenerator = () => {
             <button
               onClick={generateContent}
               disabled={selectedEntries.size === 0 || isGenerating}
-              className="mb-4 w-full rounded bg-purple-600 px-4 py-2 text-white hover:bg-purple-700 disabled:bg-gray-300"
+              className="mb-4 w-full rounded bg-purple-600 px-4 py-2 text-white hover:bg-purple-700 disabled:bg-gray-300 dark:bg-purple-700 dark:hover:bg-purple-800 dark:disabled:bg-gray-700"
             >
               {isGenerating ? (
                 <span className="flex items-center justify-center">
@@ -283,8 +289,8 @@ export const StoryGenerator = () => {
 
           {/* Generated content display */}
           {generatedContent && (
-            <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
-              <h4 className="mb-2 flex items-center text-base font-medium text-purple-800">
+            <div className="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-900/30 dark:bg-purple-900/20">
+              <h4 className="mb-2 flex items-center text-base font-medium text-purple-800 dark:text-purple-300">
                 <Bot className="mr-2 h-4 w-4" />
                 Generated{' '}
                 {contentType === 'STAR'
@@ -293,7 +299,7 @@ export const StoryGenerator = () => {
                     ? 'Social Post'
                     : 'Poem'}
               </h4>
-              <div className="prose prose-sm max-w-none whitespace-pre-wrap text-gray-800">
+              <div className="prose prose-sm max-w-none whitespace-pre-wrap text-gray-800 dark:text-gray-200">
                 {generatedContent}
               </div>
 
@@ -305,7 +311,7 @@ export const StoryGenerator = () => {
                       .then(() => alert('Content copied to clipboard!'))
                       .catch(() => alert('Failed to copy text'))
                   }}
-                  className="rounded bg-purple-600 px-3 py-1 text-sm text-white hover:bg-purple-700"
+                  className="rounded bg-purple-600 px-3 py-1 text-sm text-white hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-800"
                 >
                   Copy to Clipboard
                 </button>
@@ -315,10 +321,10 @@ export const StoryGenerator = () => {
 
           {/* Tips section */}
           <div className="mt-4">
-            <h4 className="mb-2 text-base font-medium">
+            <h4 className="mb-2 text-base font-medium dark:text-gray-200">
               Tips for Using Generated Content
             </h4>
-            <ul className="list-inside list-disc space-y-1 text-sm text-gray-700">
+            <ul className="list-inside list-disc space-y-1 text-sm text-gray-700 dark:text-gray-300">
               <li>Review and edit the generated content to match your voice</li>
               <li>Use STAR method anecdotes for interview preparation</li>
               <li>

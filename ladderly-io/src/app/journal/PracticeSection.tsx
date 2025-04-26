@@ -99,19 +99,23 @@ export const PracticeSection = () => {
 
   if (isLoading) {
     return (
-      <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-        <p className="text-gray-500">Loading practice items...</p>
+      <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <p className="text-gray-500 dark:text-gray-400">
+          Loading practice items...
+        </p>
       </div>
     )
   }
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Daily Practice</h3>
+        <h3 className="text-lg font-semibold dark:text-gray-100">
+          Daily Practice
+        </h3>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-blue-500 hover:text-blue-700"
+          className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
         >
           {isExpanded ? 'Hide' : 'Show'}
         </button>
@@ -121,9 +125,9 @@ export const PracticeSection = () => {
         <div>
           {/* Today's completion count */}
           <div className="mb-4">
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-gray-700 dark:text-gray-300">
               You've completed{' '}
-              <span className="font-medium text-blue-600">
+              <span className="font-medium text-blue-600 dark:text-blue-400">
                 {todayCompletions.length}
               </span>{' '}
               practices today!
@@ -131,8 +135,10 @@ export const PracticeSection = () => {
           </div>
 
           {/* Random practice suggestion */}
-          <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
-            <h4 className="mb-2 text-base font-medium">Suggested Practice</h4>
+          <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-900/30 dark:bg-blue-900/20">
+            <h4 className="mb-2 text-base font-medium dark:text-gray-100">
+              Suggested Practice
+            </h4>
 
             {randomPractice ? (
               <div>
@@ -140,21 +146,23 @@ export const PracticeSection = () => {
                   <span className="mr-2 text-xl">
                     {getCategoryIcon(randomPractice.category)}
                   </span>
-                  <span className="font-medium">{randomPractice.name}</span>
+                  <span className="font-medium dark:text-gray-200">
+                    {randomPractice.name}
+                  </span>
                 </div>
-                <p className="mb-3 text-sm text-gray-700">
+                <p className="mb-3 text-sm text-gray-700 dark:text-gray-300">
                   {randomPractice.description}
                 </p>
                 <button
                   onClick={() => handleComplete(randomPractice.id)}
                   disabled={isLogging}
-                  className="rounded bg-blue-500 px-3 py-1 text-sm font-medium text-white hover:bg-blue-600 disabled:bg-gray-300"
+                  className="rounded bg-blue-500 px-3 py-1 text-sm font-medium text-white hover:bg-blue-600 disabled:bg-gray-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:disabled:bg-gray-700"
                 >
                   {isLogging ? 'Marking...' : 'Mark as Done'}
                 </button>
               </div>
             ) : (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 Great job! You've completed all available practices for today.
               </p>
             )}
@@ -164,7 +172,7 @@ export const PracticeSection = () => {
           <div className="mb-4">
             <label
               htmlFor="category"
-              className="mb-1 block text-sm font-medium"
+              className="mb-1 block text-sm font-medium dark:text-gray-300"
             >
               Filter by Category
             </label>
@@ -172,7 +180,7 @@ export const PracticeSection = () => {
               id="category"
               value={selectedCategory || ''}
               onChange={(e) => setSelectedCategory(e.target.value || undefined)}
-              className="w-full rounded border border-gray-300 p-2 text-sm"
+              className="w-full rounded border border-gray-300 p-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             >
               <option value="">All Categories</option>
               <option value="COMMUNICATION">Communication</option>
@@ -187,7 +195,7 @@ export const PracticeSection = () => {
           {/* List of practice items */}
           <div className="space-y-3">
             {practices.length === 0 ? (
-              <p className="text-center text-sm text-gray-500">
+              <p className="text-center text-sm text-gray-500 dark:text-gray-400">
                 No practice items found for this category.
               </p>
             ) : (
@@ -199,8 +207,8 @@ export const PracticeSection = () => {
                     key={practice.id}
                     className={`rounded-lg border p-3 ${
                       isCompleted
-                        ? 'border-green-200 bg-green-50'
-                        : 'border-gray-200 bg-white'
+                        ? 'border-green-200 bg-green-50 dark:border-green-900/30 dark:bg-green-900/20'
+                        : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800'
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -209,8 +217,10 @@ export const PracticeSection = () => {
                           {getCategoryIcon(practice.category)}
                         </span>
                         <div>
-                          <h5 className="font-medium">{practice.name}</h5>
-                          <p className="text-xs text-gray-500">
+                          <h5 className="font-medium dark:text-gray-200">
+                            {practice.name}
+                          </h5>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
                             {practice.category}
                           </p>
                         </div>
@@ -221,15 +231,15 @@ export const PracticeSection = () => {
                         disabled={isLogging || isCompleted}
                         className={`rounded px-3 py-1 text-xs font-medium ${
                           isCompleted
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-blue-500 text-white hover:bg-blue-600'
+                            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                            : 'bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700'
                         }`}
                       >
                         {isCompleted ? 'Completed' : 'Complete'}
                       </button>
                     </div>
 
-                    <p className="mt-1 text-sm text-gray-700">
+                    <p className="mt-1 text-sm text-gray-700 dark:text-gray-300">
                       {practice.description}
                     </p>
                   </div>
