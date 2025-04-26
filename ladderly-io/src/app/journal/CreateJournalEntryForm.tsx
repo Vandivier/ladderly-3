@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Form } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
@@ -16,9 +16,6 @@ const journalEntrySchema = z.object({
     .max(500, { message: 'Content must be 500 characters or less' }),
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']),
   isCareerRelated: z.boolean().default(true),
-  workstreams: z
-    .array(z.string())
-    .min(1, { message: 'At least one workstream is required' }),
 })
 
 type JournalEntryFormValues = z.infer<typeof journalEntrySchema>
@@ -27,21 +24,31 @@ export const CreateJournalEntryForm = () => {
   const router = useRouter()
   const utils = api.useUtils()
   const [error, setError] = useState<string | null>(null)
-  const [newWorkstream, setNewWorkstream] = useState('')
-  const [selectedWorkstreams, setSelectedWorkstreams] = useState<string[]>([])
   const [characterCount, setCharacterCount] = useState(0)
   const [weeklyLimit] = useState(21)
 
-  // Get the date from a week ago
-  const oneWeekAgo = new Date()
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
+  // Get the date from a week ago - memoize to prevent recreating on every render
+  const oneWeekAgo = useMemo(() => {
+    const date = new Date()
+    date.setDate(date.getDate() - 7)
+    // Set hours, minutes, seconds to 0 to ensure consistent caching
+    date.setHours(0, 0, 0, 0)
+    return date
+  }, [])
 
-  // Fetch user's existing workstreams
-  const { data: workstreams = [] } = api.journal.getUserWorkstreams.useQuery()
+  // Create a stable query key
+  const queryParams = useMemo(
+    () => ({
+      fromDate: oneWeekAgo,
+    }),
+    [oneWeekAgo],
+  )
 
   // Get weekly entry count for user
-  const weeklyEntriesQuery = api.journal.getUserEntries.useQuery({
-    fromDate: oneWeekAgo,
+  const weeklyEntriesQuery = api.journal.getUserEntries.useQuery(queryParams, {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    staleTime: Infinity,
   })
 
   const weeklyEntryCount = weeklyEntriesQuery.data?.totalCount || 0
@@ -50,10 +57,8 @@ export const CreateJournalEntryForm = () => {
   const createEntryMutation = api.journal.createEntry.useMutation({
     onSuccess: () => {
       utils.journal.getUserEntries.invalidate()
-      utils.journal.getUserWorkstreams.invalidate()
       router.refresh()
       // Reset form after successful submission
-      setSelectedWorkstreams([])
       setCharacterCount(0)
       setError(null)
     },
@@ -65,9 +70,6 @@ export const CreateJournalEntryForm = () => {
   // Handle form submission
   const handleSubmit = async (values: JournalEntryFormValues) => {
     try {
-      // Add selected workstreams to form values
-      values.workstreams = selectedWorkstreams
-
       // Validate form with schema
       const valid = journalEntrySchema.safeParse(values)
       if (!valid.success) {
@@ -79,36 +81,6 @@ export const CreateJournalEntryForm = () => {
       createEntryMutation.mutate(values)
     } catch (error) {
       setError('An unexpected error occurred')
-    }
-  }
-
-  // Handle workstream chip selection
-  const handleWorkstreamToggle = (workstream: string) => {
-    if (selectedWorkstreams.includes(workstream)) {
-      setSelectedWorkstreams(
-        selectedWorkstreams.filter((w) => w !== workstream),
-      )
-    } else {
-      setSelectedWorkstreams([...selectedWorkstreams, workstream])
-    }
-  }
-
-  // Handle adding new workstream
-  const handleAddWorkstream = () => {
-    if (
-      newWorkstream.trim() &&
-      !selectedWorkstreams.includes(newWorkstream.trim())
-    ) {
-      setSelectedWorkstreams([...selectedWorkstreams, newWorkstream.trim()])
-      setNewWorkstream('')
-    }
-  }
-
-  // Handle pressing Enter to add a workstream
-  const handleWorkstreamKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      handleAddWorkstream()
     }
   }
 
@@ -152,7 +124,6 @@ export const CreateJournalEntryForm = () => {
           content: '',
           entryType: 'WIN',
           isCareerRelated: true,
-          workstreams: [],
         }}
       >
         {/* Text area for entry content */}
@@ -202,101 +173,6 @@ export const CreateJournalEntryForm = () => {
           </select>
         </div>
 
-        {/* Workstreams section */}
-        <div className="mb-4">
-          <label className="mb-1 block text-sm font-medium">
-            Workstreams <span className="text-red-500">*</span>
-          </label>
-
-          {/* Workstream chips */}
-          <div className="mb-2 flex flex-wrap gap-2">
-            {workstreams.map((workstream) => (
-              <button
-                key={workstream}
-                type="button"
-                onClick={() => handleWorkstreamToggle(workstream)}
-                className={`rounded-full px-3 py-1 text-sm ${
-                  selectedWorkstreams.includes(workstream)
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-                disabled={
-                  isLoading ||
-                  isWeeklyLoadingData ||
-                  weeklyEntryCount >= weeklyLimit
-                }
-              >
-                {workstream}
-              </button>
-            ))}
-          </div>
-
-          {/* Add new workstream */}
-          <div className="flex">
-            <input
-              type="text"
-              value={newWorkstream}
-              onChange={(e) => setNewWorkstream(e.target.value)}
-              onKeyDown={handleWorkstreamKeyDown}
-              placeholder="Add new workstream"
-              className="flex-1 rounded-l-md border border-gray-300 p-2"
-              disabled={
-                isLoading ||
-                isWeeklyLoadingData ||
-                weeklyEntryCount >= weeklyLimit
-              }
-            />
-            <button
-              type="button"
-              onClick={handleAddWorkstream}
-              className="rounded-r-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              disabled={
-                !newWorkstream.trim() ||
-                isLoading ||
-                isWeeklyLoadingData ||
-                weeklyEntryCount >= weeklyLimit
-              }
-            >
-              Add
-            </button>
-          </div>
-
-          {/* Selected workstreams */}
-          {selectedWorkstreams.length > 0 && (
-            <div className="mt-2">
-              <p className="text-sm font-medium">Selected:</p>
-              <div className="flex flex-wrap gap-1">
-                {selectedWorkstreams.map((workstream) => (
-                  <div
-                    key={workstream}
-                    className="mt-1 flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700"
-                  >
-                    {workstream}
-                    <button
-                      type="button"
-                      onClick={() => handleWorkstreamToggle(workstream)}
-                      className="ml-2 text-blue-500 hover:text-blue-700"
-                      disabled={
-                        isLoading ||
-                        isWeeklyLoadingData ||
-                        weeklyEntryCount >= weeklyLimit
-                      }
-                    >
-                      &times;
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {selectedWorkstreams.length === 0 && (
-            <p className="mt-1 text-sm text-red-500">
-              Please select at least one workstream
-            </p>
-          )}
-        </div>
-
         {/* Toggle switches */}
         <div className="mb-4 space-y-2">
           <LabeledCheckboxField
@@ -333,8 +209,7 @@ export const CreateJournalEntryForm = () => {
             disabled={
               isLoading ||
               isWeeklyLoadingData ||
-              weeklyEntryCount >= weeklyLimit ||
-              selectedWorkstreams.length === 0
+              weeklyEntryCount >= weeklyLimit
             }
           >
             {isLoading ? 'Saving...' : 'Save Entry'}

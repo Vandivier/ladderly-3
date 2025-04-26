@@ -1,36 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { api } from '~/trpc/react'
 import { useRouter } from 'next/navigation'
 import type { JournalEntryType } from '@prisma/client'
 
-interface WorkstreamChipsProps {
-  workstreams: { name: string }[]
-}
-
-// Small component to display workstream chips
-const WorkstreamChips: React.FC<WorkstreamChipsProps> = ({ workstreams }) => {
-  return (
-    <div className="mt-1 flex flex-wrap gap-1">
-      {workstreams.map((workstream) => (
-        <span
-          key={workstream.name}
-          className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700"
-        >
-          {workstream.name}
-        </span>
-      ))}
-    </div>
-  )
-}
-
-interface EntryTypeIconProps {
-  type: JournalEntryType
-}
-
 // Component to display entry type icon
-const EntryTypeIcon: React.FC<EntryTypeIconProps> = ({ type }) => {
+const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
   let iconClass = ''
   let bgClass = ''
   let label = ''
@@ -95,25 +71,32 @@ export const JournalEntryList = () => {
   const [entryType, setEntryType] = useState<JournalEntryType | undefined>(
     undefined,
   )
-  const [selectedWorkstream, setSelectedWorkstream] = useState<
-    string | undefined
-  >(undefined)
   const [isCareerRelated, setIsCareerRelated] = useState<boolean | undefined>(
     undefined,
   )
   const [cursor, setCursor] = useState<number | undefined>(undefined)
 
-  // Get user workstreams for filter dropdown
-  const { data: workstreams = [] } = api.journal.getUserWorkstreams.useQuery()
+  // Memoize query parameters to prevent unnecessary re-renders and API calls
+  const queryParams = useMemo(
+    () => ({
+      limit: 10,
+      cursor,
+      entryType,
+      isCareerRelated,
+    }),
+    [cursor, entryType, isCareerRelated],
+  )
 
   // Get journal entries with filters
-  const { data, isLoading, refetch } = api.journal.getUserEntries.useQuery({
-    limit: 10,
-    cursor,
-    entryType,
-    isCareerRelated,
-    workstream: selectedWorkstream,
-  })
+  const { data, isLoading, refetch } = api.journal.getUserEntries.useQuery(
+    queryParams,
+    {
+      // This prevents multiple unnecessary requests
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: Infinity,
+    },
+  )
 
   // Delete journal entry mutation
   const { mutate: deleteEntry } = api.journal.deleteEntry.useMutation({
@@ -122,30 +105,32 @@ export const JournalEntryList = () => {
     },
   })
 
-  // Handle delete entry
-  const handleDelete = (id: number) => {
-    if (confirm('Are you sure you want to delete this journal entry?')) {
-      deleteEntry({ id })
-    }
-  }
+  // Handle delete entry - memoize the function to prevent re-creation
+  const handleDelete = useCallback(
+    (id: number) => {
+      if (confirm('Are you sure you want to delete this journal entry?')) {
+        deleteEntry({ id })
+      }
+    },
+    [deleteEntry],
+  )
 
-  // Reset all filters
-  const resetFilters = () => {
+  // Reset all filters - memoize the function
+  const resetFilters = useCallback(() => {
     setEntryType(undefined)
-    setSelectedWorkstream(undefined)
     setIsCareerRelated(undefined)
     setCursor(undefined)
-  }
+  }, [])
 
-  // Format date to readable string
-  const formatDate = (date: Date) => {
+  // Format date to readable string - memoize the function
+  const formatDate = useCallback((date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {
       weekday: 'short',
       year: 'numeric',
       month: 'short',
       day: 'numeric',
     })
-  }
+  }, [])
 
   if (isLoading) {
     return (
@@ -164,7 +149,6 @@ export const JournalEntryList = () => {
         <p className="text-sm text-gray-500">
           {Object.values({
             entryType,
-            selectedWorkstream,
             isCareerRelated,
           }).some((v) => v !== undefined)
             ? 'Try adjusting your filters or create your first entry.'
@@ -172,7 +156,6 @@ export const JournalEntryList = () => {
         </p>
         {Object.values({
           entryType,
-          selectedWorkstream,
           isCareerRelated,
         }).some((v) => v !== undefined) && (
           <button
@@ -208,27 +191,6 @@ export const JournalEntryList = () => {
               <option value="PAIN_POINT">Pain Point</option>
               <option value="LEARNING">Learning</option>
               <option value="OTHER">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="workstream" className="mr-2 text-sm font-medium">
-              Workstream:
-            </label>
-            <select
-              id="workstream"
-              value={selectedWorkstream || ''}
-              onChange={(e) =>
-                setSelectedWorkstream(e.target.value || undefined)
-              }
-              className="rounded border border-gray-300 px-2 py-1 text-sm"
-            >
-              <option value="">All</option>
-              {workstreams.map((workstream) => (
-                <option key={workstream} value={workstream}>
-                  {workstream}
-                </option>
-              ))}
             </select>
           </div>
 
@@ -293,9 +255,6 @@ export const JournalEntryList = () => {
                 <p className="mt-2 whitespace-pre-wrap text-gray-800">
                   {formatContentWithHashtags(entry.content)}
                 </p>
-
-                {/* Workstream chips */}
-                <WorkstreamChips workstreams={entry.workstreams} />
               </div>
 
               {/* Delete button */}

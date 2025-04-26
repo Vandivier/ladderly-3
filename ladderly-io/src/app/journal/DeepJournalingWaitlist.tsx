@@ -9,7 +9,11 @@ export function DeepJournalingWaitlist() {
   const [hasJoined, setHasJoined] = useState(false)
 
   // Get current user profile to check if already interested
-  const userProfileQuery = api.user.getUserProfile.useQuery()
+  const userProfileQuery = api.user.getUserProfile.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    staleTime: Infinity,
+  })
   const isAlreadyInterested = userProfileQuery.data?.hasDeepJournalingInterest
 
   // Mutation to update user profile

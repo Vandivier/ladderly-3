@@ -3,12 +3,19 @@
 import React, { useState, useCallback } from 'react'
 import { api } from '~/trpc/react'
 import { Bot } from 'lucide-react'
+import type { JournalEntryType } from '@prisma/client'
 
 interface JournalEntry {
   id: number
   content: string
   createdAt: Date
-  workstreams: any[] // Using any for simplicity
+  entryType: JournalEntryType
+  isCareerRelated: boolean
+  isMarkdown: boolean
+  mintedFromDateRange: Date[]
+  mintedFromHashtag: string | null
+  updatedAt: Date
+  userId: number
 }
 
 export const StoryGenerator = () => {
@@ -29,6 +36,9 @@ export const StoryGenerator = () => {
     },
     {
       enabled: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: Infinity,
     },
   )
 

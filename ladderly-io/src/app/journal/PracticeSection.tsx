@@ -31,17 +31,31 @@ export const PracticeSection = () => {
 
   // Get practice items based on selected category
   const { data: practices = [], isLoading } =
-    api.journal.getPracticeItems.useQuery({
-      category: selectedCategory as any,
-    })
+    api.journal.getPracticeItems.useQuery(
+      {
+        category: selectedCategory as any,
+      },
+      {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        staleTime: Infinity,
+      },
+    )
 
   // Get recent completions for the current day
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   const { data: todayCompletions = [], refetch: refetchCompletions } =
-    api.journal.getUserPracticeCompletions.useQuery({
-      fromDate: today,
-    })
+    api.journal.getUserPracticeCompletions.useQuery(
+      {
+        fromDate: today,
+      },
+      {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        staleTime: Infinity,
+      },
+    )
 
   // Log practice completion mutation
   const { mutate: logCompletion, isLoading: isLogging } =

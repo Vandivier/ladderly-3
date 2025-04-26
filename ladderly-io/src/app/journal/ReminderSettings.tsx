@@ -8,7 +8,11 @@ export const ReminderSettings = () => {
 
   // Get current reminder settings
   const { data: settings, isLoading } =
-    api.journal.getUserReminderSettings.useQuery()
+    api.journal.getUserReminderSettings.useQuery(undefined, {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: Infinity,
+    })
 
   // Update reminder settings mutation
   const { mutate: updateSettings, isLoading: isUpdating } =
