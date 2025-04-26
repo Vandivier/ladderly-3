@@ -25,14 +25,20 @@ model User {
   nameFirst      String    @default("")
   nameLast       String    @default("")
 
-  hasInPersonEventInterest Boolean @default(false)
-  hasLiveStreamInterest    Boolean @default(false)
-  hasOnlineEventInterest   Boolean @default(false)
-  hasOpenToWork            Boolean @default(false)
-  hasOpenToRelocation      Boolean @default(false)
-  hasPublicProfileEnabled  Boolean @default(false)
-  hasShoutOutsEnabled      Boolean @default(false)
-  hasSmallGroupInterest    Boolean @default(false)
+  hasInPersonEventInterest  Boolean @default(false)
+  hasLiveStreamInterest     Boolean @default(false)
+  hasOnlineEventInterest    Boolean @default(false)
+  hasOpenToWork             Boolean @default(false)
+  hasOpenToRelocation       Boolean @default(false)
+  hasPublicProfileEnabled   Boolean @default(false)
+  hasShoutOutsEnabled       Boolean @default(false)
+  hasSmallGroupInterest     Boolean @default(false)
+  hasDeepJournalingInterest Boolean @default(false)
+
+  // Journal reminder fields
+  journalReminderEnabled      Boolean           @default(false)
+  journalReminderFrequency    ReminderFrequency @default(WEEKLY)
+  journalReminderLastReminded DateTime?
 
   profileBlurb                String?
   profileContactEmail         String?
@@ -51,20 +57,22 @@ model User {
   residenceCountry            String   @default("")
   residenceUSState            String   @default("")
 
-  accounts           Account[]
-  authoredVotables   Votable[]           @relation("AuthoredVotables")
-  jobSearches        JobSearch[]
-  quizResults        QuizResult[]
-  role               RoleEnum            @default(USER)
-  sessions           Session[]
-  subscriptions      Subscription[]
-  tokens             Token[]
-  transactions       Transaction[]
-  userChecklists     UserChecklist[]
-  uuid               String              @default(uuid())
-  userChecklistItems UserChecklistItem[]
-  votes              Vote[]
-  Lead               Lead[]
+  accounts            Account[]
+  authoredVotables    Votable[]                       @relation("AuthoredVotables")
+  jobSearches         JobSearch[]
+  quizResults         QuizResult[]
+  role                RoleEnum                        @default(USER)
+  sessions            Session[]
+  subscriptions       Subscription[]
+  tokens              Token[]
+  transactions        Transaction[]
+  userChecklists      UserChecklist[]
+  uuid                String                          @default(uuid())
+  userChecklistItems  UserChecklistItem[]
+  votes               Vote[]
+  Lead                Lead[]
+  journalEntries      JournalEntry[]
+  practiceCompletions UserJournalPracticeCompletion[]
 }
 
 enum RoleEnum {
@@ -250,7 +258,7 @@ model FlashCard {
 model Quiz {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now())
 
   name        String  @unique
   description String?
@@ -530,4 +538,72 @@ model JobSearchStep {
   // Relations
   jobPost   JobPostForCandidate @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
   jobPostId Int
+}
+
+model JournalEntry {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  content         String           @db.VarChar(500)
+  entryType       JournalEntryType
+  isCareerRelated Boolean          @default(true)
+  isMarkdown      Boolean          @default(false)
+
+  // Fields for minted entries
+  mintedFromDateRange DateTime[] @default([])
+  mintedFromHashtag   String?
+
+  // Relations
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
+
+enum JournalEntryType {
+  LEARNING
+  MINTED
+  OTHER
+  PAIN_POINT
+  WIN
+}
+
+enum ReminderFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+model JournalPractice {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  description String
+  category    PracticeCategory
+
+  // Relations
+  completions UserJournalPracticeCompletion[]
+}
+
+enum PracticeCategory {
+  COMMUNICATION
+  LEADERSHIP
+  OWNERSHIP
+  TECHNICAL
+  PERSUASION
+  PERSONAL
+}
+
+model UserJournalPracticeCompletion {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  // Relations
+  practice   JournalPractice @relation(fields: [practiceId], references: [id], onDelete: Cascade)
+  practiceId Int
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+
+  @@unique([practiceId, userId, createdAt])
 }

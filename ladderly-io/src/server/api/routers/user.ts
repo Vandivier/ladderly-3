@@ -513,4 +513,53 @@ export const userRouter = createTRPCRouter({
 
       return lead
     }),
+
+  // Get user profile - includes the deep journaling interest flag
+  getUserProfile: protectedProcedure.query(async ({ ctx }) => {
+    const userId = parseInt(ctx.session.user.id)
+
+    const user = await ctx.db.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        hasDeepJournalingInterest: true,
+        // Add any other profile fields needed
+      },
+    })
+
+    if (!user) {
+      throw new TRPCError({
+        code: 'NOT_FOUND',
+        message: 'User not found',
+      })
+    }
+
+    return user
+  }),
+
+  // Update user profile with minimal fields
+  updateUserProfile: protectedProcedure
+    .input(
+      z.object({
+        hasDeepJournalingInterest: z.boolean().optional(),
+        // Add any other fields that can be updated
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id)
+
+      const user = await ctx.db.user.update({
+        where: { id: userId },
+        data: {
+          hasDeepJournalingInterest: input.hasDeepJournalingInterest,
+          // Update other fields as needed
+        },
+        select: {
+          id: true,
+          hasDeepJournalingInterest: true,
+        },
+      })
+
+      return user
+    }),
 })
