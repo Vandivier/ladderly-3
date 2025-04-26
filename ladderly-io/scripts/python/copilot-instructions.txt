@@ -128,110 +128,35 @@ Full package.json content:
 
 
 Here is the folder structure of the project:
-./
-    prettier.config.ts
-    next.config.js
-    postcss.config.cjs
-    .eslintrc.cjs
-    start-database.sh
-    README.md
-    tailwind.config.ts
-    .env.template
-    .gitignore
-    package-lock.json
-    package.json
-    tsconfig.json
-    .env.example
-    vitest.config.ts
+prettier.config.ts
+next.config.js
+postcss.config.cjs
+.eslintrc.cjs
+start-database.sh
+README.md
+tailwind.config.ts
+.env.template
+.gitignore
+package-lock.json
+package.json
+tsconfig.json
+.env.example
+vitest.config.ts
 prisma/
     seeds.ts
     schema.prisma
     seedCoursesAndFlashcards.ts
     prisma/migrations/
         migration_lock.toml
-        prisma/migrations/20240814042534_guest_votes/
-            migration.sql
-        prisma/migrations/20230719052022_versioned_checklist_items/
-            migration.sql
-        prisma/migrations/20240815011358_content_votable_type/
-            migration.sql
-        prisma/migrations/20230717225747_non_nullable_checklist_item_display_index/
-            migration.sql
-        prisma/migrations/20230719034635_checklist_item_detail_text/
-            migration.sql
-        prisma/migrations/20230721205221_no_generic_checklist_item_completestate/
-            migration.sql
-        prisma/migrations/20230621005853_/
-            migration.sql
-        prisma/migrations/20230721210438_formalize_role_enum_w_admin/
-            migration.sql
-        prisma/migrations/20240814033017_nullable_miscinfo/
-            migration.sql
-        prisma/migrations/20230717002647_nullable_versioned_checklists/
-            migration.sql
-        prisma/migrations/20240816201444_user_pfps/
-            migration.sql
-        prisma/migrations/20240128051442_small_group_interest/
-            migration.sql
-        prisma/migrations/20230719035112_links_for_checklist_items/
-            migration.sql
-        prisma/migrations/20230622041136_default_subscription_free/
-            migration.sql
-        prisma/migrations/20240111030957_rm_unique_contrib_per_subs/
-            migration.sql
-        prisma/migrations/20230619184405_/
-            migration.sql
-        prisma/migrations/20240814175726_constraint_name_and_type_jointly_on_votable/
-            migration.sql
-        prisma/migrations/20230622023703_init_payment_tiers/
-            migration.sql
-        prisma/migrations/20230619223016_optional_user_uuid/
-            migration.sql
-        prisma/migrations/20240817173146_/
-            migration.sql
-        prisma/migrations/20230621003315_checklist_items/
-            migration.sql
-        prisma/migrations/20230619223254_required_uuid_user/
-            migration.sql
-        prisma/migrations/20230802011425_public_profile_opt_in/
-            migration.sql
-        prisma/migrations/20230802012631_open_to_work_bool/
-            migration.sql
-        prisma/migrations/20230621003453_init_checklist/
-            migration.sql
-        prisma/migrations/20240814022244_votables/
-            migration.sql
-        prisma/migrations/20230806184729_init_contributions/
-            migration.sql
-        prisma/migrations/20240111015249_init_total_contributions/
-            migration.sql
-        prisma/migrations/20230717010104_temp_optional_display_idx/
-            migration.sql
-        prisma/migrations/20230719190420_more_email_fields_and_subscription_type/
-            migration.sql
-        prisma/migrations/20240817173340_optional_sessiontoken/
-            migration.sql
-        prisma/migrations/20230621004105_fix_checklistitem_relation/
-            migration.sql
-        prisma/migrations/20240817173916_cascade_delete_sessions_on_user_delete/
-            migration.sql
-        prisma/migrations/20230721204837_init_user_checklist_item/
-            migration.sql
-        prisma/migrations/20240111022632_unique_subscription_by_type/
-            migration.sql
-        prisma/migrations/20230717003130_required_version_checklist/
-            migration.sql
-        prisma/migrations/20240217162209_user_residence_location/
-            migration.sql
-        prisma/migrations/20230802013857_profile_data/
-            migration.sql
     prisma/seeds/
         votables.json
         checklists.json
+        practices.json
         courses.json
     prisma/seed-utils/
         updateChecklists.ts
         seedLeetcodeChecklist.ts
+        seedPractices.ts
         seedCourses.ts
         seedVotables.ts
         seedFlashcards.ts
@@ -341,6 +266,14 @@ src/
     src/app/
         layout.tsx
         page.tsx
+        src/app/journal/
+            PracticeSection.tsx
+            DeepJournalingWaitlist.tsx
+            CreateJournalEntryForm.tsx
+            JournalEntryList.tsx
+            ReminderSettings.tsx
+            page.tsx
+            StoryGenerator.tsx
         src/app/settings/
             schemas.ts
             page.tsx
@@ -436,7 +369,6 @@ src/
             blog-utils.ts
             2024-06-12-selecting-your-next-skill.md
             2025-04-05-benefits-of-mentorship.md
-            temp-3.csv
             2024-01-23-leetcode-solutions.md
             2025-02-24-behavioral-interviews.md
             2025-01-22-endorsed-communities.md
@@ -447,6 +379,7 @@ src/
             2025-02-07-ladderly-chat-ai.md
             2025-04-12-offer-negotiation.md
             2024-05-31-networking-tips.md
+            temp-3.ignoreme.csv
             2024-04-20-hook-fundamentals.md
             2025-03-16-benefits-of-premium.md
             2023-12-01-top-job-boards.md
@@ -546,6 +479,7 @@ src/
                 chat.ts
                 certificate.ts
                 course.ts
+                journal.ts
                 quiz.ts
                 user.ts
                 checklist.ts

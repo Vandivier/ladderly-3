@@ -3,9 +3,12 @@ import os
 
 import pathspec
 
+
 def read_package_json(script_path):
     """Reads and returns the full content of package.json located three levels up from the script's directory."""
-    package_json_path = script_path.parents[2] / "package.json"  # Navigate three levels up
+    package_json_path = (
+        script_path.parents[2] / "package.json"
+    )  # Navigate three levels up
 
     if not package_json_path.exists():
         return "No package.json file found three levels up from the script directory."
@@ -22,6 +25,7 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
     """Generates a folder structure representation, respecting .gitignore with glob syntax."""
     project_root = script_path.parents[2]
     gitignore_path = project_root / ignore_file
+    migrations_dir_parts = ("prisma", "migrations")
 
     ignored_paths = None
     if gitignore_path.exists():
@@ -31,26 +35,61 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
     folder_structure = []
     for dirpath, dirnames, filenames in os.walk(project_root):
         relative_path = Path(dirpath).relative_to(project_root)
-        
-        # Skip prisma\migrations subdirectories
-        if str(relative_path).startswith("prisma\\migrations\\") and str(relative_path) != "prisma\\migrations":
-            continue
-            
-        # Ignore directories if they match .gitignore patterns
-        if ignored_paths and ignored_paths.match_file(str(relative_path)):
+        relative_path_parts = relative_path.parts
+
+        # Check if the current directory is a subdirectory of prisma/migrations
+        is_migrations_subdir = (
+            len(relative_path_parts) > len(migrations_dir_parts)
+            and relative_path_parts[: len(migrations_dir_parts)] == migrations_dir_parts
+        )
+
+        if is_migrations_subdir:
+            # Skip all subdirectories within prisma/migrations
+            dirnames[:] = []  # Clear dirnames to prevent further traversal
             continue
 
-        indent = "    " * str(relative_path).count("/")
-        folder_structure.append(f"{indent}{relative_path}/")
+        # Ignore directories if they match .gitignore patterns
+        # Use str(relative_path) for matching as pathspec expects strings
+        if ignored_paths and ignored_paths.match_file(str(relative_path)):
+            dirnames[:] = []  # Prevent traversal if the directory is ignored
+            continue
+
+        # Calculate indentation based on the depth
+        indent = "    " * (len(relative_path_parts) - 1) if relative_path_parts else ""
+        # Use '/' for consistent path separator display
+        folder_structure.append(f"{indent}{relative_path.as_posix()}/")
 
         for filename in filenames:
             file_path = relative_path / filename
-            # Skip files in prisma\migrations subdirectories
-            if str(file_path).startswith("prisma\\migrations\\") and not str(file_path).startswith("prisma\\migrations\\migration_lock.toml"):
-                continue
-                
+            file_path_parts = file_path.parts
+
+            # Check if the file is within a subdirectory of prisma/migrations
+            is_migrations_subdir_file = (
+                len(file_path_parts)
+                > (
+                    len(migrations_dir_parts) + 1
+                )  # Ensure it's in a sub-folder, not directly in migrations
+                and file_path_parts[: len(migrations_dir_parts)] == migrations_dir_parts
+            )
+
+            # Special case: allow migration_lock.toml directly under prisma/migrations
+            is_migration_lock_toml = (
+                len(file_path_parts) == (len(migrations_dir_parts) + 1)
+                and file_path_parts[: len(migrations_dir_parts)] == migrations_dir_parts
+                and filename == "migration_lock.toml"
+            )
+
+            if is_migrations_subdir_file and not is_migration_lock_toml:
+                continue  # Skip files deep within migrations subdirectories
+
             if not ignored_paths or not ignored_paths.match_file(str(file_path)):
-                folder_structure.append(f"{indent}    {filename}")
+                # Adjust indent for files
+                file_indent = "    " * len(relative_path_parts)
+                folder_structure.append(f"{file_indent}{filename}")
+
+    # Remove the first element which is "./"
+    if folder_structure and folder_structure[0] == "./":
+        folder_structure.pop(0)
 
     return "\n".join(folder_structure)
 
@@ -82,6 +121,7 @@ def create_copilot_instructions():
         file.write(instructions)
 
     print(f"copilot-instructions.txt has been created at {output_path}.")
+
 
 if __name__ == "__main__":
     create_copilot_instructions()
