@@ -25,6 +25,7 @@ export const CreateJournalEntryForm = () => {
   const [error, setError] = useState<string | null>(null)
   const [characterCount, setCharacterCount] = useState(0)
   const [weeklyLimit] = useState(21)
+  const [contentValue, setContentValue] = useState('')
 
   // Get the date from a week ago - memoize to prevent recreating on every render
   const oneWeekAgo = useMemo(() => {
@@ -59,6 +60,7 @@ export const CreateJournalEntryForm = () => {
       router.refresh()
       // Reset form after successful submission
       setCharacterCount(0)
+      setContentValue('')
       setError(null)
     },
     onError: (error) => {
@@ -69,6 +71,9 @@ export const CreateJournalEntryForm = () => {
   // Handle form submission
   const handleSubmit = async (values: JournalEntryFormValues) => {
     try {
+      // Ensure content is included from our tracked state
+      values.content = contentValue || values.content
+
       // Validate form with schema
       const valid = journalEntrySchema.safeParse(values)
       if (!valid.success) {
@@ -85,7 +90,9 @@ export const CreateJournalEntryForm = () => {
 
   // Update character count as user types
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCharacterCount(e.target.value.length)
+    const value = e.target.value
+    setContentValue(value)
+    setCharacterCount(value.length)
   }
 
   const isLoading = createEntryMutation.isPending
@@ -126,7 +133,7 @@ export const CreateJournalEntryForm = () => {
               : 'Save Entry'
         }
         initialValues={{
-          content: '',
+          content: contentValue,
           entryType: 'WIN',
           isCareerRelated: true,
         }}
@@ -139,6 +146,7 @@ export const CreateJournalEntryForm = () => {
           <textarea
             id="content"
             name="content"
+            value={contentValue}
             className="w-full rounded-md border border-gray-300 p-2"
             placeholder="What happened today? Use #hashtags for special items or categories."
             rows={4}
