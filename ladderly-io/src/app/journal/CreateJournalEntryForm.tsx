@@ -1,12 +1,11 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
-import { Form } from '~/app/core/components/Form'
-import LabeledTextField from '~/app/core/components/LabeledTextField'
-import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
-import { z } from 'zod'
-import { api } from '~/trpc/react'
 import { useRouter } from 'next/navigation'
+import React, { useMemo, useState } from 'react'
+import { z } from 'zod'
+import { Form } from '~/app/core/components/Form'
+import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
+import { api } from '~/trpc/react'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -118,8 +117,14 @@ export const CreateJournalEntryForm = () => {
 
       {/* @ts-ignore - Work around typing issues with Form component */}
       <Form
-        onSubmit={handleSubmit}
-        submitText={isLoading ? 'Saving...' : 'Save Entry'}
+        onSubmit={weeklyEntryCount >= weeklyLimit ? () => {} : handleSubmit}
+        submitText={
+          isLoading
+            ? 'Saving...'
+            : weeklyEntryCount >= weeklyLimit
+              ? 'Weekly Limit Reached'
+              : 'Save Entry'
+        }
         initialValues={{
           content: '',
           entryType: 'WIN',
@@ -200,21 +205,6 @@ export const CreateJournalEntryForm = () => {
             {error}
           </div>
         )}
-
-        {/* Form controls */}
-        <div className="mt-6 flex justify-end">
-          <button
-            type="submit"
-            className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-300"
-            disabled={
-              isLoading ||
-              isWeeklyLoadingData ||
-              weeklyEntryCount >= weeklyLimit
-            }
-          >
-            {isLoading ? 'Saving...' : 'Save Entry'}
-          </button>
-        </div>
       </Form>
     </div>
   )
