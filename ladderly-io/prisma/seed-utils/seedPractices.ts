@@ -2,11 +2,14 @@ import { PrismaClient } from '@prisma/client'
 import fs from 'fs'
 import path from 'path'
 
+// Define __dirname since this is an ES module
+const __dirname = process.cwd() + '/prisma'
+
 export async function seedPractices(prisma: PrismaClient) {
   console.log('Seeding journal practice items...')
 
   // Read practice items from JSON file
-  const practicesPath = path.join(__dirname, '../seeds/practices.json')
+  const practicesPath = path.join(__dirname, 'seeds/practices.json')
   const practicesData = JSON.parse(fs.readFileSync(practicesPath, 'utf8'))
 
   // Count existing practice items to avoid duplicates
