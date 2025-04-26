@@ -124,9 +124,15 @@ export const CreateJournalEntryForm = () => {
         ) : null}
       </div>
 
-      {/* @ts-ignore - Work around typing issues with Form component */}
       <Form
-        onSubmit={weeklyEntryCount >= weeklyLimit ? () => {} : handleSubmit}
+        onSubmit={
+          weeklyEntryCount >= weeklyLimit
+            ? () => {
+                // Do nothing when weekly limit is reached
+                console.log('Weekly limit reached, form submission disabled')
+              }
+            : handleSubmit
+        }
         submitText={
           isLoading
             ? 'Saving...'

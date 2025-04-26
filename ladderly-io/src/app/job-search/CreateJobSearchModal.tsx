@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { api } from '~/trpc/react'
 import Papa from 'papaparse'
 import { useRouter } from 'next/navigation'
+import { z } from 'zod'
 
 interface ParsedJobPostRow {
   Company?: string
@@ -11,13 +12,37 @@ interface ParsedJobPostRow {
   'Job Post URL'?: string | null
   'Resume Version'?: string | null
   Referral?: string | null
+  'Contact Name'?: string | null
+  ContactUrl?: string | null
   'Initial Outreach Date'?: string | null
   'Initial App Date'?: string | null
   'Last Action Date'?: string | null
   'Inbound Opportunity'?: string | null
+  Status?: string | null
+  Salary?: string | null
+  TC?: string | null
   Notes?: string | null
-  [key: string]: any
+  [key: string]: string | null | undefined
 }
+
+// Define a Zod schema for job post data that matches API expectations
+const JobPostCsvRowSchema = z.object({
+  Company: z.string().min(1, 'Company name is required'),
+  'Job Post Title': z.string().min(1, 'Job title is required'),
+  'Job Post URL': z.string().nullable().optional(),
+  'Resume Version': z.string().nullable().optional(),
+  'Contact Name': z.string().nullable().optional(),
+  ContactUrl: z.string().nullable().optional(),
+  Referral: z.string().nullable().optional(),
+  'Initial Outreach Date': z.string().nullable().optional(),
+  'Initial App Date': z.string().nullable().optional(),
+  'Last Action Date': z.string().nullable().optional(),
+  'Inbound Opportunity': z.string().nullable().optional(),
+  Status: z.string().nullable().optional(),
+  Salary: z.string().nullable().optional(),
+  TC: z.string().nullable().optional(),
+  Notes: z.string().nullable().optional(),
+})
 
 export const CreateJobSearchModal = () => {
   const router = useRouter()
@@ -139,13 +164,35 @@ export const CreateJobSearchModal = () => {
           return
         }
 
-        console.log('Parsed Valid CSV Rows:', validRows)
-        createJobSearchCsv({
-          name: name.trim(),
-          startDate: new Date(startDate),
-          isActive: true,
-          jobPosts: validRows as any,
-        })
+        try {
+          // Validate each row with the schema to ensure data quality and structure
+          // This gives us early validation feedback before sending to the API
+          validRows.forEach((row) => {
+            const result = JobPostCsvRowSchema.safeParse(row)
+            if (!result.success) {
+              throw new Error(`Invalid row data: ${result.error.message}`)
+            }
+          })
+
+          console.log('Parsed Valid CSV Rows:', validRows)
+
+          // Type assertion needed here because the server and client schemas don't exactly match
+          // The server's JobPostCsvRowSchema has transformers that convert string values to proper types
+          // E.g., "TRUE" string to boolean, date strings to Date objects, etc.
+          createJobSearchCsv({
+            name: name.trim(),
+            startDate: new Date(startDate),
+            isActive: true,
+            jobPosts: validRows as any,
+          })
+        } catch (validationError) {
+          console.error('CSV Validation Error:', validationError)
+          setError(
+            (validationError as Error).message || 'Invalid data format in CSV',
+          )
+          setIsSubmitting(false)
+          setSubmitStatus('error')
+        }
       },
       error: (error) => {
         console.error('CSV Parsing Failed:', error)

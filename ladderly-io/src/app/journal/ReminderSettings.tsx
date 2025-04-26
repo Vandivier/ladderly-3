@@ -15,16 +15,20 @@ export const ReminderSettings = () => {
     })
 
   // Update reminder settings mutation
-  const { mutate: updateSettings, isLoading: isUpdating } =
+  const { mutate: updateSettings, isPending: isUpdating } =
     api.journal.updateReminderSettings.useMutation({
       onSuccess: () => {
         // Show success feedback
         setUpdateStatus('success')
         setTimeout(() => setUpdateStatus('idle'), 3000)
       },
-      onError: () => {
+      onError: (error) => {
         // Show error feedback
         setUpdateStatus('error')
+        console.error(
+          'Failed to update reminder settings:',
+          error.message || 'Unknown error',
+        )
         setTimeout(() => setUpdateStatus('idle'), 3000)
       },
     })
