@@ -17,9 +17,9 @@ export function DeepJournalingWaitlist() {
 
   // Mutation to update user profile
   const updateUserMutation = api.user.updateUserProfile.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       setHasJoined(true)
-      userProfileQuery.refetch()
+      await userProfileQuery.refetch()
       setIsJoining(false)
     },
     onError: (error) => {

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { api } from '~/trpc/react'
-import { PracticeCategory } from '@prisma/client'
+import type { PracticeCategory } from '@prisma/client'
 
 // Helper to get appropriate icon for practice category
 const getCategoryIcon = (category: string) => {
@@ -61,8 +61,8 @@ export const PracticeSection = () => {
   // Log practice completion mutation
   const { mutate: logCompletion, isPending: isLogging } =
     api.journal.logPracticeCompletion.useMutation({
-      onSuccess: () => {
-        refetchCompletions()
+      onSuccess: async () => {
+        await refetchCompletions()
       },
     })
 
@@ -127,7 +127,7 @@ export const PracticeSection = () => {
           {/* Today's completion count */}
           <div className="mb-4">
             <p className="text-sm text-gray-700 dark:text-gray-300">
-              You've completed{' '}
+              You{"'"}ve completed{' '}
               <span className="font-medium text-blue-600 dark:text-blue-400">
                 {todayCompletions.length}
               </span>{' '}
@@ -164,7 +164,8 @@ export const PracticeSection = () => {
               </div>
             ) : (
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Great job! You've completed all available practices for today.
+                Great job! You{"'"}ve completed all available practices for
+                today.
               </p>
             )}
           </div>

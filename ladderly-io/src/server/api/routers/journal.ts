@@ -1,11 +1,11 @@
-import { z } from 'zod'
-import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
 import {
   JournalEntryType,
   PracticeCategory,
   ReminderFrequency,
-  Prisma,
+  type Prisma,
 } from '@prisma/client'
+import { z } from 'zod'
+import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
 
 // Zod schema for creating a journal entry
 const createJournalEntrySchema = z.object({
@@ -56,7 +56,7 @@ export const journalRouter = createTRPCRouter({
       if (isCareerRelated !== undefined)
         filter.isCareerRelated = isCareerRelated
 
-      if (fromDate || toDate) {
+      if (fromDate ?? toDate) {
         filter.createdAt = {}
         if (fromDate) filter.createdAt.gte = fromDate
         if (toDate) filter.createdAt.lte = toDate
@@ -351,7 +351,7 @@ export const journalRouter = createTRPCRouter({
         userId: Number(ctx.session.user.id),
       }
 
-      if (fromDate || toDate) {
+      if (fromDate ?? toDate) {
         filter.createdAt = {}
         if (fromDate) filter.createdAt.gte = fromDate
         if (toDate) filter.createdAt.lte = toDate

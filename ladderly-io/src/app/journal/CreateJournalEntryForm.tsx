@@ -55,8 +55,8 @@ export const CreateJournalEntryForm = () => {
 
   // Create journal entry mutation
   const createEntryMutation = api.journal.createEntry.useMutation({
-    onSuccess: () => {
-      utils.journal.getUserEntries.invalidate()
+    onSuccess: async () => {
+      await utils.journal.getUserEntries.invalidate()
       router.refresh()
       // Reset form after successful submission
       setCharacterCount(0)

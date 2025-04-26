@@ -140,9 +140,9 @@ export const JournalEntryList = () => {
     )
   }
 
-  const entries = data?.entries || []
+  const entries = data?.entries ?? []
   const nextCursor = data?.nextCursor
-  const totalCount = data?.totalCount || 0
+  const totalCount = data?.totalCount ?? 0
 
   if (entries.length === 0) {
     return (
@@ -187,7 +187,7 @@ export const JournalEntryList = () => {
             </label>
             <select
               id="entryType"
-              value={entryType || ''}
+              value={entryType ?? ''}
               onChange={(e) =>
                 setEntryType((e.target.value as JournalEntryType) || undefined)
               }
