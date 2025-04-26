@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { api } from '~/trpc/react'
+import { PracticeCategory } from '@prisma/client'
 
 // Helper to get appropriate icon for practice category
 const getCategoryIcon = (category: string) => {
@@ -24,16 +25,16 @@ const getCategoryIcon = (category: string) => {
 }
 
 export const PracticeSection = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-    undefined,
-  )
+  const [selectedCategory, setSelectedCategory] = useState<
+    PracticeCategory | undefined
+  >(undefined)
   const [isExpanded, setIsExpanded] = useState(false)
 
   // Get practice items based on selected category
   const { data: practices = [], isLoading } =
     api.journal.getPracticeItems.useQuery(
       {
-        category: selectedCategory as any,
+        category: selectedCategory,
       },
       {
         refetchOnWindowFocus: false,
@@ -58,7 +59,7 @@ export const PracticeSection = () => {
     )
 
   // Log practice completion mutation
-  const { mutate: logCompletion, isLoading: isLogging } =
+  const { mutate: logCompletion, isPending: isLogging } =
     api.journal.logPracticeCompletion.useMutation({
       onSuccess: () => {
         refetchCompletions()
@@ -178,8 +179,12 @@ export const PracticeSection = () => {
             </label>
             <select
               id="category"
-              value={selectedCategory || ''}
-              onChange={(e) => setSelectedCategory(e.target.value || undefined)}
+              value={selectedCategory ?? ''}
+              onChange={(e) =>
+                setSelectedCategory(
+                  (e.target.value as PracticeCategory) || undefined,
+                )
+              }
               className="w-full rounded border border-gray-300 p-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             >
               <option value="">All Categories</option>

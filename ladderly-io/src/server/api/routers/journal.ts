@@ -4,6 +4,7 @@ import {
   JournalEntryType,
   PracticeCategory,
   ReminderFrequency,
+  Prisma,
 } from '@prisma/client'
 
 // Zod schema for creating a journal entry
@@ -47,7 +48,7 @@ export const journalRouter = createTRPCRouter({
         hashtag,
       } = input
 
-      const filter: any = {
+      const filter: Prisma.JournalEntryWhereInput = {
         userId: Number(ctx.session.user.id),
       }
 
@@ -174,9 +175,9 @@ export const journalRouter = createTRPCRouter({
           content: input.content,
           entryType: input.entryType,
           isCareerRelated: input.isCareerRelated,
-          isMarkdown: input.isMarkdown || false,
+          isMarkdown: input.isMarkdown ?? false,
           mintedFromHashtag: input.mintedFromHashtag,
-          mintedFromDateRange: input.mintedFromDateRange || [],
+          mintedFromDateRange: input.mintedFromDateRange ?? [],
           userId,
         },
       })
@@ -301,7 +302,7 @@ export const journalRouter = createTRPCRouter({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const filter: any = {}
+      const filter: Prisma.JournalPracticeWhereInput = {}
       if (input.category) {
         filter.category = input.category
       }
@@ -346,7 +347,7 @@ export const journalRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const { fromDate, toDate } = input
-      const filter: any = {
+      const filter: Prisma.UserJournalPracticeCompletionWhereInput = {
         userId: Number(ctx.session.user.id),
       }
 

@@ -51,7 +51,7 @@ export const CreateJournalEntryForm = () => {
     staleTime: Infinity,
   })
 
-  const weeklyEntryCount = weeklyEntriesQuery.data?.totalCount || 0
+  const weeklyEntryCount = weeklyEntriesQuery.data?.totalCount ?? 0
 
   // Create journal entry mutation
   const createEntryMutation = api.journal.createEntry.useMutation({
@@ -72,12 +72,12 @@ export const CreateJournalEntryForm = () => {
   const handleSubmit = async (values: JournalEntryFormValues) => {
     try {
       // Ensure content is included from our tracked state
-      values.content = contentValue || values.content
+      values.content = contentValue ?? values.content
 
       // Validate form with schema
       const valid = journalEntrySchema.safeParse(values)
       if (!valid.success) {
-        const firstError = valid.error.errors[0]?.message || 'Invalid form data'
+        const firstError = valid.error.errors[0]?.message ?? 'Invalid form data'
         setError(firstError)
         return
       }

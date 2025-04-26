@@ -27,11 +27,11 @@ const Flashcard = ({
 }: FlashcardProps) => {
   return (
     <div
-      className="relative h-64 w-full cursor-pointer"
+      className="relative size-full cursor-pointer"
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <div
-        className={`relative h-full w-full ${animateFlip ? 'transition-transform duration-500' : ''}`}
+        className={`relative size-full ${animateFlip ? 'transition-transform duration-500' : ''}`}
         style={{
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',

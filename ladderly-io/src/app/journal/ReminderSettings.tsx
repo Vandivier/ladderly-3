@@ -92,7 +92,7 @@ export const ReminderSettings = () => {
               Enable journal entry reminders
             </label>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Get notified when it's time to create a new journal entry
+              Get notified when it{"'"}s time to create a new journal entry
             </p>
           </div>
 

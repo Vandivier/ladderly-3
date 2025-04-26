@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import { api } from '~/trpc/react'
-import { TRPCClientError } from '@trpc/client'
 
 export function DeepJournalingWaitlist() {
   const [isJoining, setIsJoining] = useState(false)

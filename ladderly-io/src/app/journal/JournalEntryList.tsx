@@ -1,9 +1,8 @@
 'use client'
 
-import React, { useState, useCallback, useMemo } from 'react'
-import { api } from '~/trpc/react'
-import { useRouter } from 'next/navigation'
 import type { JournalEntryType } from '@prisma/client'
+import React, { useCallback, useMemo, useState } from 'react'
+import { api } from '~/trpc/react'
 
 // Component to display entry type icon
 const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
@@ -69,7 +68,6 @@ const formatContentWithHashtags = (content: string) => {
 }
 
 export const JournalEntryList = () => {
-  const router = useRouter()
   const [entryType, setEntryType] = useState<JournalEntryType | undefined>(
     undefined,
   )

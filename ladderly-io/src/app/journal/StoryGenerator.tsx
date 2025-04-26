@@ -185,7 +185,7 @@ export const StoryGenerator = () => {
                   setHashtag(e.target.value.replace(/[^a-zA-Z0-9_]/g, ''))
                 }
                 placeholder="promotion"
-                className="flex-1 rounded-l-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+                className="flex-1 rounded-l-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder:text-gray-400"
                 disabled={isSearching || isGenerating}
               />
               <button
@@ -291,7 +291,7 @@ export const StoryGenerator = () => {
           {generatedContent && (
             <div className="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-900/30 dark:bg-purple-900/20">
               <h4 className="mb-2 flex items-center text-base font-medium text-purple-800 dark:text-purple-300">
-                <Bot className="mr-2 h-4 w-4" />
+                <Bot className="mr-2 size-4" />
                 Generated{' '}
                 {contentType === 'STAR'
                   ? 'STAR Anecdote'

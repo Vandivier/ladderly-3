@@ -267,7 +267,7 @@ export const CreateJobSearchModal = () => {
                       setError('')
                       setSubmitStatus('idle')
                     }}
-                    className="absolute h-0 w-0 opacity-0"
+                    className="absolute size-0 opacity-0"
                     disabled={isSubmitting}
                   />
                   {selectedFile && !isSubmitting && (
@@ -298,7 +298,7 @@ export const CreateJobSearchModal = () => {
                     type="file"
                     accept=".csv"
                     disabled
-                    className="absolute h-0 w-0 opacity-0"
+                    className="absolute size-0 opacity-0"
                   />
                 </div>
 
