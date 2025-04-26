@@ -18,7 +18,7 @@ export const metadata = {
 
 export default function JournalPage() {
   return (
-    <LadderlyPageWrapper authenticate>
+    <LadderlyPageWrapper authenticate requirePremium>
       <div className="container mx-auto max-w-6xl px-4 py-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold">Career Journal</h1>
