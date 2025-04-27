@@ -59,16 +59,23 @@ interface JobSearchDetailsProps {
 // Status Badge component
 const StatusBadge = ({ status }: { status: JobApplicationStatus }) => {
   const statusStyles: Record<JobApplicationStatus, string> = {
-    APPLIED: 'bg-blue-100 text-blue-800',
-    IN_OUTREACH: 'bg-cyan-100 text-cyan-800',
-    IN_INTERVIEW: 'bg-indigo-100 text-indigo-800',
-    OFFER_RECEIVED: 'bg-yellow-100 text-yellow-800',
-    REJECTED: 'bg-red-100 text-red-800',
-    WITHDRAWN: 'bg-gray-100 text-gray-800',
-    TIMED_OUT: 'bg-gray-100 text-gray-500',
+    APPLIED: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+    IN_OUTREACH:
+      'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300',
+    IN_INTERVIEW:
+      'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
+    OFFER_RECEIVED:
+      'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
+    REJECTED: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
+    WITHDRAWN:
+      'bg-gray-100 text-gray-800 dark:bg-gray-700/50 dark:text-gray-300',
+    TIMED_OUT:
+      'bg-gray-100 text-gray-500 dark:bg-gray-700/50 dark:text-gray-400',
     // Add other valid statuses from the enum if needed
   }
-  const style = statusStyles[status] ?? 'bg-gray-100 text-gray-800'
+  const style =
+    statusStyles[status] ??
+    'bg-gray-100 text-gray-800 dark:bg-gray-700/50 dark:text-gray-300'
   return (
     <span
       className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${style}`}
@@ -99,19 +106,11 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
   } = api.jobSearch.getJobSearch.useQuery(
     { id: initialJobSearch?.id, page: currentPage, pageSize },
     {
-      // Keep fetched data fresh but don't refetch on window focus if not needed
-      // staleTime: 5 * 60 * 1000, // 5 minutes
-      // refetchOnWindowFocus: false,
-      // Only run the query if the initial ID is available
       enabled: !!initialJobSearch?.id,
     },
   )
   const jobSearch = jobSearchData
   const pagination = jobSearchData?.pagination
-
-  // Log the fetched data for debugging
-  console.log('JobSearchDetails - jobSearchData:', jobSearchData)
-
   const { mutate: deleteJobPost } = api.jobSearch.jobPost.delete.useMutation({
     onSuccess: async () => {
       await refetch()
@@ -182,20 +181,19 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     }
   }
 
-  // Refined Loading / Error / Not Found checks
   if (isLoading) {
-    // Check loading state first
-    return <div>Loading job search details...</div>
+    return (
+      <div className="dark:text-gray-300">Loading job search details...</div>
+    )
   }
 
   if (error) {
-    // Then check for query errors
     return (
       <div className="text-center">
-        <p className="text-red-500">{error.message}</p>
+        <p className="text-red-500 dark:text-red-400">{error.message}</p>
         <button
           onClick={() => router.push('/job-search')}
-          className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white"
+          className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           Back to Job Searches
         </button>
@@ -203,9 +201,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     )
   }
 
-  // AFTER loading and error checks, if jobSearchData is still falsy, then it's not found
   if (!jobSearch) {
-    // Note: using jobSearch which is assigned from jobSearchData
     console.error(
       'JobSearchDetails: Query finished but no jobSearch data found for ID:',
       initialJobSearch?.id,
@@ -234,7 +230,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     <div>
       <button
         onClick={() => router.push('/job-search')}
-        className="mb-4 inline-block text-blue-600 hover:text-blue-800 hover:underline"
+        className="mb-4 inline-block text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
       >
         ← Back to Job Search Archive
       </button>
@@ -242,7 +238,9 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
       <div className="mb-6 flex items-start justify-between">
         {!isEditing ? (
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold">{jobSearch.name}</h1>
+            <h1 className="text-2xl font-bold dark:text-white">
+              {jobSearch.name}
+            </h1>
             <button
               onClick={handleEditClick}
               className="rounded-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
@@ -254,7 +252,9 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold">Editing Job Search</h1>
+            <h1 className="text-2xl font-bold dark:text-white">
+              Editing Job Search
+            </h1>
           </div>
         )}
       </div>
@@ -313,15 +313,17 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
           </div>
         </Form>
       ) : (
-        <div className="mb-6">
+        <div className="mb-6 rounded-md border border-gray-200 p-4 shadow-sm dark:border-gray-700">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-500">Status</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Status</p>
               <JobSearchActiveSpan isActive={jobSearch.isActive} />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Started</p>
-              <p className="font-medium">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Started
+              </p>
+              <p className="font-medium dark:text-gray-300">
                 {formatDateForInput(jobSearch.startDate)
                   ? new Date(jobSearch.startDate).toLocaleDateString()
                   : 'N/A'}
@@ -329,8 +331,10 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
             </div>
             {jobSearch.endDate && (
               <div>
-                <p className="text-sm text-gray-500">Ended</p>
-                <p className="font-medium">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Ended
+                </p>
+                <p className="font-medium dark:text-gray-300">
                   {new Date(jobSearch.endDate).toLocaleDateString()}
                 </p>
               </div>
@@ -340,27 +344,29 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
       )}
 
       {!isEditing && jobSearch.notes && (
-        <div className="mb-6">
-          <h3 className="mb-2 text-lg font-medium">Notes</h3>
-          <p className="whitespace-pre-wrap text-gray-700">{jobSearch.notes}</p>
+        <div className="mb-6 rounded-md border border-gray-200 p-4 shadow-sm dark:border-gray-700">
+          <h3 className="mb-2 text-lg font-medium dark:text-white">Notes</h3>
+          <p className="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
+            {jobSearch.notes}
+          </p>
         </div>
       )}
 
       <div className="mb-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">
+          <h2 className="text-xl font-semibold dark:text-white">
             Applications ({pagination?.totalItems ?? 0})
           </h2>
           <button
             onClick={() => setShowAddApplicationModal(true)}
-            className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
           >
             Add Application
           </button>
         </div>
 
         {jobSearch.jobPosts.length === 0 && pagination?.totalItems === 0 ? (
-          <p className="mt-4 text-gray-500 dark:text-gray-400">
+          <p className="mt-4 rounded-md border border-gray-200 bg-white p-4 text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
             No applications yet. Add your first job application to get started!
           </p>
         ) : (
@@ -369,7 +375,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
               {jobSearch?.jobPosts?.map((jobPost: JobPostWithSteps) => (
                 <div
                   key={jobPost.id}
-                  className="relative rounded-md border border-gray-200 p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800/50"
+                  className="relative rounded-md border border-gray-200 bg-white p-4 shadow-sm transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
                 >
                   <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex-1">
@@ -380,11 +386,11 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
                         <h3 className="font-medium text-gray-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
                           {jobPost.jobTitle}
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
                           {jobPost.company}
                         </p>
                       </Link>
-                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                         Last updated: {formatLocaleDate(jobPost.updatedAt)}
                       </p>
                     </div>
@@ -392,7 +398,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
                       <StatusBadge status={jobPost.status} />
                       <Link
                         href={`/job-search/job-post/${jobPost.id}`}
-                        className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700"
+                        className="rounded-md bg-gray-100 p-2 text-gray-500 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-gray-200"
                         aria-label="View details"
                       >
                         <Eye className="size-4" />
@@ -400,11 +406,11 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
                       <button
                         onClick={(e) => handleDeleteJobPost(jobPost.id, e)}
                         disabled={deletingJobPostId === jobPost.id}
-                        className="rounded-md p-2 text-red-500 hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-red-900/20"
+                        className="rounded-md bg-gray-100 p-2 text-red-500 hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-red-400 dark:hover:bg-red-900/40 dark:hover:text-red-300"
                         aria-label="Delete job post"
                       >
                         {deletingJobPostId === jobPost.id ? (
-                          <div className="size-4 animate-spin rounded-full border-2 border-red-200 border-t-red-500"></div>
+                          <div className="size-4 animate-spin rounded-full border-2 border-red-200 border-t-red-500 dark:border-red-900 dark:border-t-red-500"></div>
                         ) : (
                           <Trash2 className="size-4" />
                         )}
@@ -416,22 +422,22 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
             </div>
 
             {pagination && pagination.totalPages > 1 && (
-              <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4">
+              <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4 dark:border-gray-700">
                 <button
                   onClick={handlePrevPage}
                   disabled={currentPage === 1 || isLoading}
-                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                 >
                   <ChevronLeft className="-ml-1 mr-1 size-5" />
                   Previous
                 </button>
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   Page {pagination.currentPage} of {pagination.totalPages}
                 </span>
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === pagination.totalPages || isLoading}
-                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                 >
                   Next
                   <ChevronRight className="-mr-1 ml-1 size-5" />

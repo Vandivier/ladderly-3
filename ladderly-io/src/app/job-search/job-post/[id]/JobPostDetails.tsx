@@ -37,15 +37,22 @@ const formatLocaleDate = (date: Date | string | undefined | null): string => {
 // Status badge component
 const StatusBadge = ({ status }: { status: JobApplicationStatus }) => {
   const statusStyles: Record<JobApplicationStatus, string> = {
-    APPLIED: 'bg-blue-100 text-blue-800',
-    IN_OUTREACH: 'bg-cyan-100 text-cyan-800',
-    IN_INTERVIEW: 'bg-indigo-100 text-indigo-800',
-    OFFER_RECEIVED: 'bg-yellow-100 text-yellow-800',
-    REJECTED: 'bg-red-100 text-red-800',
-    WITHDRAWN: 'bg-gray-100 text-gray-800',
-    TIMED_OUT: 'bg-gray-100 text-gray-500',
+    APPLIED: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+    IN_OUTREACH:
+      'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300',
+    IN_INTERVIEW:
+      'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
+    OFFER_RECEIVED:
+      'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
+    REJECTED: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
+    WITHDRAWN:
+      'bg-gray-100 text-gray-800 dark:bg-gray-700/50 dark:text-gray-300',
+    TIMED_OUT:
+      'bg-gray-100 text-gray-500 dark:bg-gray-700/50 dark:text-gray-400',
   }
-  const style = statusStyles[status] ?? 'bg-gray-100 text-gray-800'
+  const style =
+    statusStyles[status] ??
+    'bg-gray-100 text-gray-800 dark:bg-gray-700/50 dark:text-gray-300'
   return (
     <span
       className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${style}`}
@@ -177,16 +184,20 @@ export const JobPostDetails = ({ id }: { id: number }) => {
 
   // --- Loading / Error / Not Found ---
   if (isLoading) {
-    return <div>Loading job application details...</div>
+    return (
+      <div className="dark:text-gray-300">
+        Loading job application details...
+      </div>
+    )
   }
 
   if (error) {
     return (
       <div className="text-center">
-        <p className="text-red-500">{error.message}</p>
+        <p className="text-red-500 dark:text-red-400">{error.message}</p>
         <button
           onClick={() => router.back()}
-          className="mt-4 inline-block text-blue-600 hover:text-blue-800 hover:underline"
+          className="mt-4 inline-block text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
         >
           ← Go Back
         </button>
@@ -197,10 +208,10 @@ export const JobPostDetails = ({ id }: { id: number }) => {
   if (!jobPost) {
     return (
       <div className="text-center">
-        <p>Job application not found.</p>
+        <p className="dark:text-gray-300">Job application not found.</p>
         <button
           onClick={() => router.push(`/job-search`)}
-          className="mt-4 inline-block text-blue-600 hover:text-blue-800 hover:underline"
+          className="mt-4 inline-block text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
         >
           ← Back to Job Search Archive
         </button>
@@ -234,7 +245,7 @@ export const JobPostDetails = ({ id }: { id: number }) => {
       {/* Back Button */}
       <button
         onClick={() => router.push(`/job-search/${jobPost.jobSearchId}`)}
-        className="inline-block text-blue-600 hover:text-blue-800 hover:underline"
+        className="inline-block text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
       >
         <ArrowLeft className="mr-1 inline size-4" /> Back to Job Search:{' '}
         {jobPost.jobSearch.name}
@@ -244,9 +255,7 @@ export const JobPostDetails = ({ id }: { id: number }) => {
       <div className="flex items-start justify-between">
         <div className="flex-1 pr-4">
           <h1 className="text-2xl font-bold">{jobPost.jobTitle}</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            at {jobPost.company}
-          </p>
+          <p className="text-lg text-gray-600">at {jobPost.company}</p>
         </div>
         <button
           onClick={handleEditClick}
@@ -273,80 +282,86 @@ export const JobPostDetails = ({ id }: { id: number }) => {
         >
           <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
             <div>
-              <p className="label-text">Status</p>
+              <p className="label-text dark:text-gray-300">Status</p>
               <StatusBadge status={jobPost.status} />
             </div>
             <div>
-              <p className="label-text">Job Post Link</p>
+              <p className="label-text dark:text-gray-300">Job Post Link</p>
               {jobPost.jobPostUrl ? (
                 <a
                   href={jobPost.jobPostUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link"
+                  className="link dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   View Post
                 </a>
               ) : (
-                <span className="value-na">N/A</span>
+                <span className="value-na dark:text-gray-400">N/A</span>
               )}
             </div>
             <div>
-              <p className="label-text">Applied</p>
-              <p className="value">
+              <p className="label-text dark:text-gray-300">Applied</p>
+              <p className="value dark:text-gray-200">
                 {formatLocaleDate(jobPost.initialApplicationDate)}
               </p>
             </div>
             <div>
-              <p className="label-text">Last Action</p>
-              <p className="value">
+              <p className="label-text dark:text-gray-300">Last Action</p>
+              <p className="value dark:text-gray-200">
                 {formatLocaleDate(jobPost.lastActionDate)}
               </p>
             </div>
             <div>
-              <p className="label-text">Resume</p>
-              <p className="value">{jobPost.resumeVersion ?? 'N/A'}</p>
+              <p className="label-text dark:text-gray-300">Resume</p>
+              <p className="value dark:text-gray-200">
+                {jobPost.resumeVersion ?? 'N/A'}
+              </p>
             </div>
             <div>
-              <p className="label-text">Initial Outreach</p>
-              <p className="value">
+              <p className="label-text dark:text-gray-300">Initial Outreach</p>
+              <p className="value dark:text-gray-200">
                 {formatLocaleDate(jobPost.initialOutreachDate)}
               </p>
             </div>
             <div>
-              <p className="label-text">Contact Name</p>
-              <p className="value">{jobPost.contactName ?? 'N/A'}</p>
+              <p className="label-text dark:text-gray-300">Contact Name</p>
+              <p className="value dark:text-gray-200">
+                {jobPost.contactName ?? 'N/A'}
+              </p>
             </div>
             <div>
-              <p className="label-text">Contact URL</p>
+              <p className="label-text dark:text-gray-300">Contact URL</p>
               {jobPost.contactUrl ? (
                 <a
                   href={jobPost.contactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link"
+                  className="link dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   View Profile
                 </a>
               ) : (
-                <span className="value-na">N/A</span>
+                <span className="value-na dark:text-gray-400">N/A</span>
               )}
             </div>
             <div>
-              <p className="label-text">Referral?</p>
-              <p className="value">{jobPost.hasReferral ? 'Yes' : 'No'}</p>
+              <p className="label-text dark:text-gray-300">Referral?</p>
+              <p className="value dark:text-gray-200">
+                {jobPost.hasReferral ? 'Yes' : 'No'}
+              </p>
             </div>
             <div>
-              <p className="label-text">Inbound?</p>
-              <p className="value">
+              <p className="label-text dark:text-gray-300">Inbound?</p>
+              <p className="value dark:text-gray-200">
                 {jobPost.isInboundOpportunity ? 'Yes' : 'No'}
               </p>
             </div>
           </div>
           {jobPost.notes && (
             <div className="border-t border-gray-100 pt-4 dark:border-gray-700">
-              <p className="label-text">Notes</p>
-              <p className="value whitespace-pre-wrap rounded bg-gray-50 p-2 dark:bg-gray-700/50">
+              <p className="label-text dark:text-gray-300">Notes</p>
+              <p className="value whitespace-pre-wrap rounded bg-gray-50 p-2 dark:bg-gray-700/50 dark:text-gray-200">
                 {jobPost.notes}
               </p>
             </div>
