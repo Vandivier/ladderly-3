@@ -19,14 +19,8 @@ export const metadata = {
 export default function JournalPage() {
   return (
     <LadderlyPageWrapper authenticate requirePremium>
-      <div className="container mx-auto max-w-6xl px-4 py-6">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold">Career Journal</h1>
-          <p className="text-gray-600">
-            Track your career journey, document wins, and build your
-            professional narrative
-          </p>
-        </div>
+      <div className="container mx-auto max-w-6xl px-4 py-2">
+        <h1 className="mb-2 text-3xl font-bold">Career Journal</h1>
 
         <div className="flex flex-col gap-6 lg:flex-row">
           {/* Main content - journal form and entries */}

@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { Form } from '~/app/core/components/Form'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
 import { api } from '~/trpc/react'
+import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -100,30 +101,6 @@ export const CreateJournalEntryForm = () => {
 
   return (
     <div className="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-      <h2 className="mb-4 text-xl font-semibold dark:text-gray-100">
-        Create Journal Entry
-      </h2>
-
-      {/* Weekly entry count indicator */}
-      <div className="mb-4 flex items-center justify-between">
-        <div className="text-sm text-gray-500 dark:text-gray-400">
-          Weekly entries:{' '}
-          {isWeeklyLoadingData
-            ? 'Loading...'
-            : `${weeklyEntryCount} / ${weeklyLimit}`}
-        </div>
-
-        {weeklyEntryCount >= weeklyLimit ? (
-          <div className="rounded-md bg-red-100 px-3 py-1 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
-            Weekly limit reached
-          </div>
-        ) : weeklyEntryCount >= weeklyLimit - 3 ? (
-          <div className="rounded-md bg-yellow-100 px-3 py-1 text-sm text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400">
-            Approaching weekly limit
-          </div>
-        ) : null}
-      </div>
-
       <Form
         onSubmit={
           weeklyEntryCount >= weeklyLimit
@@ -148,19 +125,16 @@ export const CreateJournalEntryForm = () => {
       >
         {/* Text area for entry content */}
         <div className="mb-4">
-          <label
-            htmlFor="content"
-            className="mb-1 block text-sm font-medium dark:text-gray-300"
-          >
-            Content <span className="text-red-500 dark:text-red-400">*</span>
+          <label htmlFor="content" className="sr-only">
+            Journal entry content
           </label>
           <textarea
             id="content"
             name="content"
             value={contentValue}
             className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-            placeholder="What happened today? Use #hashtags for special items or categories."
-            rows={4}
+            placeholder="What happened recently? Use hashtags like #newjob to mark special achievements."
+            rows={3}
             maxLength={500}
             required
             onChange={handleContentChange}
@@ -170,56 +144,67 @@ export const CreateJournalEntryForm = () => {
               weeklyEntryCount >= weeklyLimit
             }
           />
-          <div className="mt-1 text-right text-sm text-gray-500 dark:text-gray-400">
-            {characterCount}/500 characters
+
+          <div className="mb-4 flex items-center justify-between">
+            <div className="mt-1 text-right text-sm text-gray-500 dark:text-gray-400">
+              {characterCount}/500 characters
+            </div>
+            <WeeklyEntryCountIndicator
+              isWeeklyLoadingData={isWeeklyLoadingData}
+              weeklyEntryCount={weeklyEntryCount}
+              weeklyLimit={weeklyLimit}
+            />
           </div>
         </div>
 
-        {/* Entry type dropdown */}
-        <div className="mb-4">
-          <label
-            htmlFor="entryType"
-            className="mb-1 block text-sm font-medium dark:text-gray-300"
-          >
-            Entry Type <span className="text-red-500 dark:text-red-400">*</span>
-          </label>
-          <select
-            id="entryType"
-            name="entryType"
-            className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-            disabled={
-              isLoading ||
-              isWeeklyLoadingData ||
-              weeklyEntryCount >= weeklyLimit
-            }
-          >
-            <option value="WIN">Win</option>
-            <option value="PAIN_POINT">Pain Point</option>
-            <option value="LEARNING">Learning</option>
-            <option value="OTHER">Other</option>
-          </select>
-        </div>
+        {/* Form controls in a row */}
+        <div className="mb-2 flex flex-row items-center gap-6">
+          {/* Entry type dropdown */}
+          <div className="w-1/2">
+            <label
+              htmlFor="entryType"
+              className="mb-1 block text-sm font-medium dark:text-gray-300"
+            >
+              Entry Type
+            </label>
+            <select
+              id="entryType"
+              name="entryType"
+              className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              disabled={
+                isLoading ||
+                isWeeklyLoadingData ||
+                weeklyEntryCount >= weeklyLimit
+              }
+            >
+              <option value="WIN">Win</option>
+              <option value="PAIN_POINT">Pain Point</option>
+              <option value="LEARNING">Learning</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
 
-        {/* Toggle switches */}
-        <div className="mb-4 space-y-2">
-          <LabeledCheckboxField
-            name="isCareerRelated"
-            label="Career-related entry"
-            labelProps={{ className: 'text-sm font-medium dark:text-gray-300' }}
-            disabled={
-              isLoading ||
-              isWeeklyLoadingData ||
-              weeklyEntryCount >= weeklyLimit
-            }
-          />
-        </div>
-
-        {/* Hashtag suggestion */}
-        <div className="mb-4 rounded-md bg-blue-50 p-3 text-sm text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
-          <p>
-            <strong>Tip:</strong> Use hashtags like #newjob, #promotion, or
-            #graduation in your content to mark special achievements.
-          </p>
+          {/* Checkbox directly in flex container */}
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="isCareerRelated"
+              name="isCareerRelated"
+              defaultChecked={true}
+              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+              disabled={
+                isLoading ||
+                isWeeklyLoadingData ||
+                weeklyEntryCount >= weeklyLimit
+              }
+            />
+            <label
+              htmlFor="isCareerRelated"
+              className="ml-2 text-sm font-medium dark:text-gray-300"
+            >
+              Career-Related
+            </label>
+          </div>
         </div>
 
         {error && (
