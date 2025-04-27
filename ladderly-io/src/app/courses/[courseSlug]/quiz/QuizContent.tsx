@@ -91,7 +91,9 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   const [quizId, setQuizId] = useState<number | null>(null)
   const [quizStarted, setQuizStarted] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [selectedAnswer, setSelectedAnswer] = useState<Record<number, string>>(
+    {},
+  )
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [score, setScore] = useState(0)
@@ -142,6 +144,24 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     },
   })
 
+  // End the quiz and calculate score
+  const endQuiz = (_earlyExit: boolean) => {
+    setQuizCompleted(true)
+
+    // Always calculate score based on total questions (50)
+    const totalQuestions = 50
+    const calculatedScore = Math.round((correctAnswers / totalQuestions) * 100)
+    setScore(calculatedScore)
+
+    // Submit quiz result
+    if (quizId) {
+      submitQuizMutation.mutate({
+        quizId,
+        score: calculatedScore,
+      })
+    }
+  }
+
   // Quiz history
   const { data: quizHistory } = api.quiz.getUserQuizHistory.useQuery<
     QuizResult[]
@@ -171,7 +191,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     return () => {
       if (timer) clearInterval(timer)
     }
-  }, [quizStarted, quizData, quizCompleted])
+  }, [quizStarted, quizData, quizCompleted, endQuiz])
 
   useEffect(() => {
     if (!isQuizInfoLoading && !isQuizDataLoading && !courseError) {
@@ -244,7 +264,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   const startQuiz = () => {
     setQuizStarted(true)
     setCurrentQuestion(0)
-    setAnswers({})
+    setSelectedAnswer({})
     setCorrectAnswers(0)
     setQuizCompleted(false)
     setScore(0)
@@ -278,7 +298,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
     const currentQuestionIndex = currentQuestion
 
     // Update answers and score
-    setAnswers((prev) => ({ ...prev, [currentQuestionIndex]: answer }))
+    setSelectedAnswer((prev) => ({ ...prev, [currentQuestionIndex]: answer }))
     if (isCorrect) {
       setCorrectAnswers((prev) => prev + 1)
     }
@@ -294,25 +314,6 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
       setCurrentQuestion((prev) => prev + 1)
     } else {
       endQuiz(false)
-    }
-  }
-
-  // End the quiz and calculate score
-  const endQuiz = (earlyExit: boolean) => {
-    setQuizCompleted(true)
-    setEndTime(new Date())
-
-    // Always calculate score based on total questions (50)
-    const totalQuestions = 50
-    const calculatedScore = Math.round((correctAnswers / totalQuestions) * 100)
-    setScore(calculatedScore)
-
-    // Submit quiz result
-    if (quizId) {
-      submitQuizMutation.mutate({
-        quizId,
-        score: calculatedScore,
-      })
     }
   }
 

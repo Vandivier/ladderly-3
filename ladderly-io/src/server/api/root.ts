@@ -7,6 +7,7 @@ import { jobSearchRouter } from './routers/jobSearch/router'
 import { courseRouter } from './routers/course'
 import { quizRouter } from './routers/quiz'
 import { certificateRouter } from './routers/certificate'
+import { journalRouter } from './routers/journal'
 
 /**
  * This is the primary router for your server.
@@ -22,6 +23,7 @@ export const appRouter = createTRPCRouter({
   course: courseRouter,
   quiz: quizRouter,
   certificate: certificateRouter,
+  journal: journalRouter,
 })
 
 // export type definition of API

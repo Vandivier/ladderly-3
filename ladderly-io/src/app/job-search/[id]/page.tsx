@@ -33,7 +33,10 @@ export default async function JobSearchDetailsPage({
 
   return (
     <LadderlyPageWrapper authenticate requirePremium>
-      <SmallCard className="mx-4 mt-4">
+      <SmallCard
+        className="mx-4 mt-4"
+        innerClassName="bg-gradient-to-b from-white to-gray-100 pt-4 dark:from-gray-900 dark:to-gray-950 dark:text-gray-100"
+      >
         <JobSearchDetails initialJobSearch={initialJobSearchData} />
       </SmallCard>
     </LadderlyPageWrapper>

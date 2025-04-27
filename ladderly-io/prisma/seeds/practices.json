@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Compliment a team member",
+    "description": "Reach out to a colleague and give them a genuine compliment on their recent work or contribution.",
+    "category": "COMMUNICATION"
+  },
+  {
+    "name": "Connect on social media",
+    "description": "Reach out to a professional contact on LinkedIn or another platform to strengthen your network.",
+    "category": "COMMUNICATION"
+  },
+  {
+    "name": "Intermittent fasting",
+    "description": "Skip a meal or practice intermittent fasting to improve mental clarity and focus.",
+    "category": "PERSONAL"
+  },
+  {
+    "name": "Exercise",
+    "description": "Complete at least 20 minutes of physical exercise to boost your energy and mood.",
+    "category": "PERSONAL"
+  },
+  {
+    "name": "Ask for feedback",
+    "description": "Request specific feedback from a peer or manager on a recent project or presentation.",
+    "category": "LEADERSHIP"
+  },
+  {
+    "name": "Technical practice",
+    "description": "Solve a coding challenge or practice a technical skill to keep your abilities sharp.",
+    "category": "TECHNICAL"
+  },
+  {
+    "name": "Career social media post",
+    "description": "Create a thoughtful post about your industry, technical insights, or career development.",
+    "category": "PERSUASION"
+  },
+  {
+    "name": "Read career content",
+    "description": "Read a chapter from a career development book or an industry article.",
+    "category": "OWNERSHIP"
+  },
+  {
+    "name": "Healthy sleep habits",
+    "description": "Go to bed early and ensure proper hydration for optimal performance tomorrow.",
+    "category": "PERSONAL"
+  },
+  {
+    "name": "Code review",
+    "description": "Provide a thorough and helpful code review for a teammate's pull request.",
+    "category": "TECHNICAL"
+  },
+  {
+    "name": "Document a process",
+    "description": "Document a process or create a guide that will help your team or future team members.",
+    "category": "OWNERSHIP"
+  },
+  {
+    "name": "Meeting facilitation",
+    "description": "Volunteer to lead or facilitate a meeting to practice your leadership skills.",
+    "category": "LEADERSHIP"
+  },
+  {
+    "name": "Presentation prep",
+    "description": "Spend time preparing for an upcoming presentation or create a short demo to share with your team.",
+    "category": "PERSUASION"
+  },
+  {
+    "name": "Mentor someone",
+    "description": "Offer guidance or mentorship to a junior colleague or someone looking to enter your field.",
+    "category": "LEADERSHIP"
+  }
+]

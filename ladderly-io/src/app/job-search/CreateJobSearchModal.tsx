@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { api } from '~/trpc/react'
 import Papa from 'papaparse'
 import { useRouter } from 'next/navigation'
+import { z } from 'zod'
 
 interface ParsedJobPostRow {
   Company?: string
@@ -11,13 +12,37 @@ interface ParsedJobPostRow {
   'Job Post URL'?: string | null
   'Resume Version'?: string | null
   Referral?: string | null
+  'Contact Name'?: string | null
+  ContactUrl?: string | null
   'Initial Outreach Date'?: string | null
   'Initial App Date'?: string | null
   'Last Action Date'?: string | null
   'Inbound Opportunity'?: string | null
+  Status?: string | null
+  Salary?: string | null
+  TC?: string | null
   Notes?: string | null
-  [key: string]: any
+  [key: string]: string | null | undefined
 }
+
+// Define a Zod schema for job post data that matches API expectations
+const JobPostCsvRowSchema = z.object({
+  Company: z.string().min(1, 'Company name is required'),
+  'Job Post Title': z.string().min(1, 'Job title is required'),
+  'Job Post URL': z.string().nullable().optional(),
+  'Resume Version': z.string().nullable().optional(),
+  'Contact Name': z.string().nullable().optional(),
+  ContactUrl: z.string().nullable().optional(),
+  Referral: z.string().nullable().optional(),
+  'Initial Outreach Date': z.string().nullable().optional(),
+  'Initial App Date': z.string().nullable().optional(),
+  'Last Action Date': z.string().nullable().optional(),
+  'Inbound Opportunity': z.string().nullable().optional(),
+  Status: z.string().nullable().optional(),
+  Salary: z.string().nullable().optional(),
+  TC: z.string().nullable().optional(),
+  Notes: z.string().nullable().optional(),
+})
 
 export const CreateJobSearchModal = () => {
   const router = useRouter()
@@ -139,13 +164,35 @@ export const CreateJobSearchModal = () => {
           return
         }
 
-        console.log('Parsed Valid CSV Rows:', validRows)
-        createJobSearchCsv({
-          name: name.trim(),
-          startDate: new Date(startDate),
-          isActive: true,
-          jobPosts: validRows as any,
-        })
+        try {
+          // Validate each row with the schema to ensure data quality and structure
+          // This gives us early validation feedback before sending to the API
+          validRows.forEach((row) => {
+            const result = JobPostCsvRowSchema.safeParse(row)
+            if (!result.success) {
+              throw new Error(`Invalid row data: ${result.error.message}`)
+            }
+          })
+
+          console.log('Parsed Valid CSV Rows:', validRows)
+
+          // Type assertion needed here because the server and client schemas don't exactly match
+          // The server's JobPostCsvRowSchema has transformers that convert string values to proper types
+          // E.g., "TRUE" string to boolean, date strings to Date objects, etc.
+          createJobSearchCsv({
+            name: name.trim(),
+            startDate: new Date(startDate),
+            isActive: true,
+            jobPosts: validRows as any,
+          })
+        } catch (validationError) {
+          console.error('CSV Validation Error:', validationError)
+          setError(
+            (validationError as Error).message || 'Invalid data format in CSV',
+          )
+          setIsSubmitting(false)
+          setSubmitStatus('error')
+        }
       },
       error: (error) => {
         console.error('CSV Parsing Failed:', error)
@@ -200,14 +247,16 @@ export const CreateJobSearchModal = () => {
 
       {isOpen && (
         <div className="bg-opacity/50 fixed inset-0 z-50 flex items-center justify-center bg-black">
-          <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-            <h2 className="mb-4 text-xl font-bold">Create New Job Search</h2>
+          <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+            <h2 className="mb-4 text-xl font-bold dark:text-white">
+              Create New Job Search
+            </h2>
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="name"
-                  className="mb-2 block text-sm font-medium"
+                  className="mb-2 block text-sm font-medium dark:text-gray-200"
                 >
                   Job Search Name*
                 </label>
@@ -217,7 +266,7 @@ export const CreateJobSearchModal = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g., Summer 2024 Job Search"
-                  className="w-full rounded-md border border-gray-300 p-2"
+                  className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   required
                   disabled={isSubmitting}
                 />
@@ -225,7 +274,7 @@ export const CreateJobSearchModal = () => {
               <div className="mb-4">
                 <label
                   htmlFor="startDate"
-                  className="mb-2 block text-sm font-medium"
+                  className="mb-2 block text-sm font-medium dark:text-gray-200"
                 >
                   Start Date*
                 </label>
@@ -234,20 +283,20 @@ export const CreateJobSearchModal = () => {
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 p-2"
+                  className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   required
                   disabled={isSubmitting}
                 />
               </div>
 
-              <div className="my-4 border-t border-gray-200 pt-4">
-                <p className="mb-2 text-sm text-gray-600">
+              <div className="my-4 border-t border-gray-200 pt-4 dark:border-gray-700">
+                <p className="mb-2 text-sm text-gray-600 dark:text-gray-300">
                   Or populate applications from a Post-Level CSV file:
                 </p>
                 <div className="flex items-center gap-2">
                   <label
                     htmlFor="csvFilePostLevel"
-                    className={`inline-block rounded-md border px-4 py-2 text-sm font-medium shadow-sm ${isSubmitting ? 'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400' : 'cursor-pointer border-gray-300 bg-white text-gray-700 hover:bg-gray-50'}`}
+                    className={`inline-block rounded-md border px-4 py-2 text-sm font-medium shadow-sm ${isSubmitting ? 'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500' : 'cursor-pointer border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'}`}
                   >
                     {selectedFile ? 'Change File' : 'Choose Post-Level CSV'}
                   </label>
@@ -267,19 +316,19 @@ export const CreateJobSearchModal = () => {
                       setError('')
                       setSubmitStatus('idle')
                     }}
-                    className="absolute h-0 w-0 opacity-0"
+                    className="absolute size-0 opacity-0"
                     disabled={isSubmitting}
                   />
                   {selectedFile && !isSubmitting && (
                     <span
-                      className="ml-3 truncate text-sm text-gray-600"
+                      className="ml-3 truncate text-sm text-gray-600 dark:text-gray-300"
                       title={selectedFile.name}
                     >
                       {selectedFile.name}
                     </span>
                   )}
                   {isSubmitting && selectedFile && (
-                    <span className="ml-3 text-sm text-blue-600">
+                    <span className="ml-3 text-sm text-blue-600 dark:text-blue-400">
                       {submitStatus === 'parsing' && 'Parsing...'}
                       {submitStatus === 'submitting' && 'Uploading...'}
                     </span>
@@ -289,7 +338,7 @@ export const CreateJobSearchModal = () => {
                 <div className="mt-2 flex items-center gap-2">
                   <label
                     htmlFor="csvFileRoundLevel"
-                    className="inline-block cursor-not-allowed rounded-md border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 shadow-sm"
+                    className="inline-block cursor-not-allowed rounded-md border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500"
                   >
                     Choose Round-Level CSV (Soon)
                   </label>
@@ -298,17 +347,17 @@ export const CreateJobSearchModal = () => {
                     type="file"
                     accept=".csv"
                     disabled
-                    className="absolute h-0 w-0 opacity-0"
+                    className="absolute size-0 opacity-0"
                   />
                 </div>
 
-                <p className="mt-2 text-xs text-gray-500">
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                   Find a sample CSV and format guide at{' '}
                   <a
                     href="/blog/2024-02-12-resume-optimization#job-search-spreadsheet-tools"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+                    className="text-blue-600 hover:underline dark:text-blue-400"
                   >
                     this blog post
                   </a>
@@ -316,25 +365,29 @@ export const CreateJobSearchModal = () => {
                 </p>
               </div>
 
-              {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
+              {error && (
+                <p className="mb-4 text-sm text-red-500 dark:text-red-400">
+                  {error}
+                </p>
+              )}
               {submitStatus === 'success' && (
-                <p className="mb-4 text-sm text-green-600">
+                <p className="mb-4 text-sm text-green-600 dark:text-green-400">
                   Job search created successfully!
                 </p>
               )}
 
-              <div className="flex justify-end space-x-2 border-t border-gray-200 pt-4">
+              <div className="flex justify-end space-x-2 border-t border-gray-200 pt-4 dark:border-gray-700">
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="rounded-md border border-gray-300 px-4 py-2 hover:bg-gray-50"
+                  className="rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
                   disabled={isSubmitting}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-blue-600 dark:hover:bg-blue-700"
                   disabled={isSubmitting}
                 >
                   {isSubmitting

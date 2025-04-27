@@ -5,6 +5,7 @@ import { db } from '../src/server/db'
 
 import { seedLeetcodeChecklist } from './seed-utils/seedLeetcodeChecklist'
 import { seedVotables } from './seed-utils/seedVotables'
+import { seedPractices } from './seed-utils/seedPractices'
 import {
   ChecklistSeedDataType,
   ChecklistsSchema,
@@ -68,6 +69,9 @@ const seed = async () => {
 
   console.log('Starting seedLeetcodeChecklist...')
   await seedLeetcodeChecklist()
+
+  console.log('Starting seedPractices...')
+  await seedPractices(db)
 
   const checklistNameToUpdate =
     process.argv.find((arg) => arg.startsWith('--name='))?.split('=')[1] || ''
