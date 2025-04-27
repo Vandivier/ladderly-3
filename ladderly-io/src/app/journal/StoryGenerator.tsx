@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { api } from '~/trpc/react'
 import { Bot } from 'lucide-react'
 import type { JournalEntryType } from '@prisma/client'
@@ -216,7 +216,7 @@ export const StoryGenerator = () => {
             </div>
           </div>
 
-          {/* Content type selection */}
+          {/* Content type selection - only visible after entries are found */}
           {foundEntries.length > 0 && (
             <div className="mb-4">
               <label
@@ -232,10 +232,21 @@ export const StoryGenerator = () => {
                 className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
                 disabled={isGenerating}
               >
-                <option value="STAR">STAR Method Anecdote</option>
-                <option value="POST">Social Media Post</option>
-                <option value="POEM">Inspirational Poem</option>
+                <option value="STAR">
+                  STAR Method Anecdote (for interviews)
+                </option>
+                <option value="POST">Social Media Post (for LinkedIn)</option>
+                <option value="POEM">
+                  Inspirational Poem (for reflection)
+                </option>
               </select>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                {contentType === 'STAR'
+                  ? 'Creates a structured story using the Situation, Task, Action, Result format perfect for job interviews.'
+                  : contentType === 'POST'
+                    ? 'Crafts a professional social media post to showcase your accomplishments or learnings.'
+                    : 'Composes a creative poem to express your professional journey and growth.'}
+              </p>
             </div>
           )}
 
