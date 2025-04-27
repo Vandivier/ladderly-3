@@ -32,7 +32,7 @@ export const StoryGenerator = () => {
   const searchQuery = api.journal.getUserEntries.useQuery(
     {
       limit: 100,
-      textFilter: searchTerm || undefined,
+      textFilter: searchTerm ?? undefined,
     },
     {
       enabled: false,
@@ -126,7 +126,7 @@ export const StoryGenerator = () => {
     const entryTexts = entriesToUse.map((entry) => entry.content).join('\n\n')
 
     // Determine if search term is a hashtag
-    const isHashtag = searchTerm.startsWith('#') || !searchTerm.includes(' ')
+    const isHashtag = searchTerm.startsWith('#') ?? !searchTerm.includes(' ')
     const displayTerm = isHashtag
       ? searchTerm.startsWith('#')
         ? searchTerm
@@ -203,7 +203,7 @@ export const StoryGenerator = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="promotion or #promotion"
                 className="flex-1 rounded-l-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder:text-gray-400"
-                disabled={isSearching || isGenerating}
+                disabled={isSearching ?? isGenerating}
               />
               <button
                 id="content-generator-search-button"
@@ -293,7 +293,7 @@ export const StoryGenerator = () => {
             foundEntries.length === 0 &&
             !isSearching && (
               <div className="mb-4 rounded-md bg-yellow-50 p-3 text-sm text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
-                No entries found containing "{searchTerm}". Try a different
+                No entries found containing the search term. Try a different
                 search term or add entries with this content first.
               </div>
             )}

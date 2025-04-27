@@ -199,7 +199,7 @@ export const CreateJournalEntryForm = () => {
               name="isCareerRelated"
               checked={isCareerRelated}
               onChange={handleCareerRelatedChange}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+              className="size-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
               disabled={
                 isLoading ||
                 isWeeklyLoadingData ||
