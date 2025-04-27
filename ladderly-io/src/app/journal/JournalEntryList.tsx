@@ -457,7 +457,7 @@ export const JournalEntryList = () => {
                           onChange={(e) =>
                             setEditIsCareerRelated(e.target.checked)
                           }
-                          className="mr-1 h-4 w-4"
+                          className="mr-1 size-4"
                           disabled={isUpdating}
                         />
                         <label

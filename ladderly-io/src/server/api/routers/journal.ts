@@ -221,11 +221,8 @@ export const journalRouter = createTRPCRouter({
         where: { id: input.id },
         data: {
           content: input.content,
-          entryType: input.entryType || entry.entryType,
-          isCareerRelated:
-            input.isCareerRelated !== undefined
-              ? input.isCareerRelated
-              : entry.isCareerRelated,
+          entryType: input.entryType ?? entry.entryType,
+          isCareerRelated: input.isCareerRelated ?? entry.isCareerRelated,
         },
       })
     }),
