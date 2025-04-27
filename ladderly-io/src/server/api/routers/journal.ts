@@ -125,27 +125,6 @@ export const journalRouter = createTRPCRouter({
       }
     }),
 
-  // Search for journal entries by hashtag
-  searchEntriesByHashtag: protectedProcedure
-    .input(
-      z.object({
-        hashtag: z.string().min(1),
-      }),
-    )
-    .query(async ({ ctx, input }) => {
-      const entries = await ctx.db.journalEntry.findMany({
-        where: {
-          userId: Number(ctx.session.user.id),
-          content: {
-            contains: `#${input.hashtag}`,
-          },
-        },
-        orderBy: { createdAt: 'desc' },
-      })
-
-      return entries
-    }),
-
   // Create a new journal entry
   createEntry: protectedProcedure
     .input(createJournalEntrySchema)
@@ -264,37 +243,6 @@ export const journalRouter = createTRPCRouter({
         where: { id: input.id },
       })
     }),
-
-  // Get unique hashtags from user's entries
-  getUserHashtags: protectedProcedure.query(async ({ ctx }) => {
-    const userId = Number(ctx.session.user.id)
-
-    // Get all entries for this user
-    const entries = await ctx.db.journalEntry.findMany({
-      where: {
-        userId,
-      },
-      select: {
-        content: true,
-      },
-    })
-
-    // Extract hashtags from entry content
-    const hashtagRegex = /#([a-zA-Z0-9_]+)/g
-    const hashtagSet = new Set<string>()
-
-    for (const entry of entries) {
-      const matches = entry.content.match(hashtagRegex)
-      if (matches) {
-        matches.forEach((match) => {
-          // Remove the # symbol and add to set
-          hashtagSet.add(match.substring(1))
-        })
-      }
-    }
-
-    return Array.from(hashtagSet)
-  }),
 
   // Get user's reminder settings
   getUserReminderSettings: protectedProcedure.query(async ({ ctx }) => {

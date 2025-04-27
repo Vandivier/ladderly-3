@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { api } from '~/trpc/react'
 import { Bot } from 'lucide-react'
 import type { JournalEntryType } from '@prisma/client'
@@ -20,7 +20,7 @@ interface JournalEntry {
 
 export const StoryGenerator = () => {
   const [isExpanded, setIsExpanded] = useState(false)
-  const [hashtag, setHashtag] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
   const [contentType, setContentType] = useState('STAR')
   const [isSearching, setIsSearching] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
@@ -32,7 +32,7 @@ export const StoryGenerator = () => {
   const searchQuery = api.journal.getUserEntries.useQuery(
     {
       limit: 100,
-      hashtag: hashtag || undefined,
+      textFilter: searchTerm || undefined,
     },
     {
       enabled: false,
@@ -42,20 +42,49 @@ export const StoryGenerator = () => {
     },
   )
 
-  // Handle successful search results
-  const handleSearchSuccess = useCallback(() => {
-    if (searchQuery.data) {
+  // Search for journal entries by keyword or hashtag
+  const searchEntries = async () => {
+    if (!searchTerm) return
+
+    setIsSearching(true)
+    setFoundEntries([])
+    setSelectedEntries(new Set())
+
+    // Trigger the query manually
+    try {
+      const result = await searchQuery.refetch()
+      // Only process results if we have data
+      if (result.data) {
+        setFoundEntries(result.data.entries)
+
+        // Auto-select all entries
+        const newSelectedEntries = new Set<number>()
+        result.data.entries.forEach((entry) => newSelectedEntries.add(entry.id))
+        setSelectedEntries(newSelectedEntries)
+      }
+      setIsSearching(false)
+    } catch (error) {
+      console.error('Error searching for entries:', error)
+      setIsSearching(false)
+    }
+  }
+
+  // Add this useEffect to update entries when searchQuery.data changes
+  // This handles both the initial load and subsequent refetches
+  useEffect(() => {
+    if (searchQuery.data && !isSearching) {
       setFoundEntries(searchQuery.data.entries)
 
-      // Auto-select all entries
-      const newSelectedEntries = new Set<number>()
-      searchQuery.data.entries.forEach((entry) =>
-        newSelectedEntries.add(entry.id),
-      )
-      setSelectedEntries(newSelectedEntries)
+      // Auto-select all entries if we don't have any selected yet
+      if (selectedEntries.size === 0 && searchQuery.data.entries.length > 0) {
+        const newSelectedEntries = new Set<number>()
+        searchQuery.data.entries.forEach((entry) =>
+          newSelectedEntries.add(entry.id),
+        )
+        setSelectedEntries(newSelectedEntries)
+      }
     }
-    setIsSearching(false)
-  }, [searchQuery.data])
+  }, [searchQuery.data, isSearching, selectedEntries.size])
 
   // Set up the chat mutation for content generation
   const chatMutation = api.chat.chat.useMutation({
@@ -69,24 +98,6 @@ export const StoryGenerator = () => {
       setIsGenerating(false)
     },
   })
-
-  // Get user journal entries by hashtag
-  const searchByHashtag = async () => {
-    if (!hashtag) return
-
-    setIsSearching(true)
-    setFoundEntries([])
-    setSelectedEntries(new Set())
-
-    // Trigger the query manually
-    try {
-      await searchQuery.refetch()
-      handleSearchSuccess()
-    } catch (error) {
-      console.error('Error searching for hashtags:', error)
-      setIsSearching(false)
-    }
-  }
 
   // Handle checkbox change for entry selection
   const toggleEntrySelection = (entryId: number) => {
@@ -114,20 +125,28 @@ export const StoryGenerator = () => {
     // Format entries for the prompt
     const entryTexts = entriesToUse.map((entry) => entry.content).join('\n\n')
 
+    // Determine if search term is a hashtag
+    const isHashtag = searchTerm.startsWith('#') || !searchTerm.includes(' ')
+    const displayTerm = isHashtag
+      ? searchTerm.startsWith('#')
+        ? searchTerm
+        : `#${searchTerm}`
+      : `"${searchTerm}"`
+
     // Create a prompt based on content type
     let prompt = ''
     switch (contentType) {
       case 'STAR':
-        prompt = `Based on these journal entries about #${hashtag}, generate a professional STAR (Situation, Task, Action, Result) format anecdote I can use in interviews:\n\n${entryTexts}`
+        prompt = `Based on these journal entries about ${displayTerm}, generate a professional STAR (Situation, Task, Action, Result) format anecdote I can use in interviews:\n\n${entryTexts}`
         break
       case 'POST':
-        prompt = `Based on these journal entries about #${hashtag}, write a concise, engaging social media post that highlights my professional achievements or learnings:\n\n${entryTexts}`
+        prompt = `Based on these journal entries about ${displayTerm}, write a concise, engaging social media post that highlights my professional achievements or learnings:\n\n${entryTexts}`
         break
       case 'POEM':
-        prompt = `Based on these journal entries about #${hashtag}, compose a short inspirational poem that captures the essence of my professional journey:\n\n${entryTexts}`
+        prompt = `Based on these journal entries about ${displayTerm}, compose a short inspirational poem that captures the essence of my professional journey:\n\n${entryTexts}`
         break
       default:
-        prompt = `Based on these journal entries about #${hashtag}, create a concise summary:\n\n${entryTexts}`
+        prompt = `Based on these journal entries about ${displayTerm}, create a concise summary:\n\n${entryTexts}`
     }
 
     // Call Gemini API
@@ -163,34 +182,33 @@ export const StoryGenerator = () => {
       {isExpanded && (
         <div>
           <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">
-            Generate AI-powered content from your hashtagged journal entries.
-            Great for preparing for interviews or sharing your professional
-            journey!
+            Generate AI-powered content from your journal entries. Search for
+            hashtags (like #promotion) or any keywords in your entries to get
+            started.
           </p>
 
-          {/* Hashtag search input */}
+          {/* Search input */}
           <div className="mb-4">
             <label
-              htmlFor="hashtag"
+              htmlFor="searchTerm"
               className="mb-1 block text-sm font-medium dark:text-gray-300"
             >
-              Enter a Hashtag (without #)
+              Search Term (hashtag or keyword)
             </label>
             <div className="flex">
               <input
-                id="hashtag"
+                id="searchTerm"
                 type="text"
-                value={hashtag}
-                onChange={(e) =>
-                  setHashtag(e.target.value.replace(/[^a-zA-Z0-9_]/g, ''))
-                }
-                placeholder="promotion"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="promotion or #promotion"
                 className="flex-1 rounded-l-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder:text-gray-400"
                 disabled={isSearching || isGenerating}
               />
               <button
-                onClick={searchByHashtag}
-                disabled={!hashtag || isSearching || isGenerating}
+                id="content-generator-search-button"
+                onClick={searchEntries}
+                disabled={!searchTerm || isSearching || isGenerating}
                 className="rounded-r-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:disabled:bg-gray-700"
               >
                 {isSearching ? 'Searching...' : 'Search'}
@@ -251,7 +269,7 @@ export const StoryGenerator = () => {
                 ))}
                 {foundEntries.length === 0 && (
                   <p className="p-2 text-sm text-gray-500 dark:text-gray-400">
-                    No entries found with hashtag #{hashtag}
+                    No entries found with your search term
                   </p>
                 )}
               </div>
@@ -259,13 +277,13 @@ export const StoryGenerator = () => {
           )}
 
           {/* No entries found message */}
-          {hashtag &&
+          {searchTerm &&
             searchQuery.isFetched &&
             foundEntries.length === 0 &&
             !isSearching && (
               <div className="mb-4 rounded-md bg-yellow-50 p-3 text-sm text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
-                No entries found with hashtag #{hashtag}. Try a different
-                hashtag or add entries with this tag first.
+                No entries found containing "{searchTerm}". Try a different
+                search term or add entries with this content first.
               </div>
             )}
 
@@ -330,7 +348,10 @@ export const StoryGenerator = () => {
               <li>
                 Add specific metrics and outcomes to strengthen narratives
               </li>
-              <li>Try different hashtags to generate diverse content</li>
+              <li>Try different search terms to generate diverse content</li>
+              <li>
+                Use hashtags in your journal for easier content organization
+              </li>
             </ul>
           </div>
         </div>
