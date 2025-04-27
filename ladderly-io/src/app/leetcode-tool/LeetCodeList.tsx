@@ -1,6 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 import { api } from '~/trpc/react'
 
 interface LeetCodeProblemProps {
@@ -57,7 +58,12 @@ function LeetCodeProblem({
 export function LeetCodeList() {
   const searchParams = useSearchParams()
   const sourceFilter = searchParams.get('source') ?? 'all'
+  const statusFilter = searchParams.get('status') ?? 'all'
   const utils = api.useUtils()
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 50
 
   const { data: checklistData, isLoading } =
     api.checklist.getLatestByName.useQuery({
@@ -90,24 +96,47 @@ export function LeetCodeList() {
   const { userChecklistItems } =
     checklistData.userChecklistCascade.userChecklist
 
-  // Filter items by source if needed
-  const filteredItems =
-    sourceFilter === 'all'
-      ? userChecklistItems
-      : userChecklistItems.filter((item) => {
-          const sourceTags = item.checklistItem.tags.filter((tag) =>
-            tag.startsWith('source:'),
-          )
-          return (
-            sourceTags.includes(`source:${sourceFilter}`) ||
-            sourceTags.includes('source:multiple')
-          )
-        })
+  // Apply source and completion status filters
+  let filteredItems = userChecklistItems
+
+  // First filter by source if needed
+  if (sourceFilter !== 'all') {
+    filteredItems = filteredItems.filter((item) => {
+      const sourceTags = item.checklistItem.tags.filter((tag) =>
+        tag.startsWith('source:'),
+      )
+      return (
+        sourceTags.includes(`source:${sourceFilter}`) ||
+        sourceTags.includes('source:multiple')
+      )
+    })
+  }
+
+  // Then filter by completion status
+  if (statusFilter === 'solved') {
+    filteredItems = filteredItems.filter((item) => item.isComplete)
+  } else if (statusFilter === 'unsolved') {
+    filteredItems = filteredItems.filter((item) => !item.isComplete)
+  }
+
+  // Calculate pagination values
+  const totalItems = filteredItems.length
+  const totalPages = Math.ceil(totalItems / itemsPerPage)
+
+  // Adjust current page if needed
+  if (currentPage > totalPages && totalPages > 0) {
+    setCurrentPage(totalPages)
+  }
+
+  // Get current page items
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = Math.min(startIndex + itemsPerPage, totalItems)
+  const currentItems = filteredItems.slice(startIndex, endIndex)
 
   if (filteredItems.length === 0) {
     return (
       <div className="py-4 text-center">
-        No problems found with the selected filter. Try adjusting your filters.
+        No problems found with the selected filters. Try adjusting your filters.
       </div>
     )
   }
@@ -115,8 +144,13 @@ export function LeetCodeList() {
   return (
     <div className="space-y-4">
       <p className="text-sm text-gray-500">
-        Showing {filteredItems.length} problems{' '}
-        {sourceFilter !== 'all' ? `from ${sourceFilter}` : ''}
+        Showing {startIndex + 1}-{endIndex} of {totalItems} problems
+        {sourceFilter !== 'all' ? ` from ${sourceFilter}` : ''}
+        {statusFilter === 'solved'
+          ? ', solved only'
+          : statusFilter === 'unsolved'
+            ? ', unsolved only'
+            : ''}
       </p>
 
       <div className="overflow-x-auto">
@@ -144,7 +178,7 @@ export function LeetCodeList() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {filteredItems.map((item) => (
+            {currentItems.map((item) => (
               <LeetCodeProblem
                 key={item.id}
                 id={item.id}
@@ -158,6 +192,82 @@ export function LeetCodeList() {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination controls */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between border-t border-gray-200 px-4 py-3 sm:px-6">
+          <div className="flex flex-1 justify-between sm:hidden">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Next
+            </button>
+          </div>
+          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm text-gray-700">
+                Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
+                <span className="font-medium">{endIndex}</span> of{' '}
+                <span className="font-medium">{totalItems}</span> results
+              </p>
+            </div>
+            <div>
+              <nav
+                className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+                aria-label="Pagination"
+              >
+                <button
+                  onClick={() => setCurrentPage(1)}
+                  disabled={currentPage === 1}
+                  className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
+                >
+                  <span className="sr-only">First</span>⟪
+                </button>
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className="relative inline-flex items-center border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
+                >
+                  <span className="sr-only">Previous</span>← Prev
+                </button>
+                <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className="relative inline-flex items-center border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
+                >
+                  <span className="sr-only">Next</span>
+                  Next →
+                </button>
+                <button
+                  onClick={() => setCurrentPage(totalPages)}
+                  disabled={currentPage === totalPages}
+                  className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
+                >
+                  <span className="sr-only">Last</span>⟫
+                </button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
