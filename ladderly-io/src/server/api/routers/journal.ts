@@ -32,6 +32,8 @@ const updateReminderSchema = z.object({
 const updateJournalEntrySchema = z.object({
   id: z.number(),
   content: z.string().max(500),
+  entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']).optional(),
+  isCareerRelated: z.boolean().optional(),
 })
 
 export const journalRouter = createTRPCRouter({
@@ -219,6 +221,11 @@ export const journalRouter = createTRPCRouter({
         where: { id: input.id },
         data: {
           content: input.content,
+          entryType: input.entryType || entry.entryType,
+          isCareerRelated:
+            input.isCareerRelated !== undefined
+              ? input.isCareerRelated
+              : entry.isCareerRelated,
         },
       })
     }),

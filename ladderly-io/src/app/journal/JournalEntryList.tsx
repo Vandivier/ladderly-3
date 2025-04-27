@@ -84,9 +84,11 @@ export const JournalEntryList = () => {
   })
   const [cursor, setCursor] = useState<number | undefined>(undefined)
   const [showFilters, setShowFilters] = useState<boolean>(false)
-  // Track which entry is being edited
+  // Track which entry is being edited and its properties
   const [editingEntryId, setEditingEntryId] = useState<number | null>(null)
   const [editContent, setEditContent] = useState<string>('')
+  const [editEntryType, setEditEntryType] = useState<AllowedEntryType>('WIN')
+  const [editIsCareerRelated, setEditIsCareerRelated] = useState<boolean>(true)
 
   // Memoize query parameters to prevent unnecessary re-renders and API calls
   const queryParams = useMemo(
@@ -125,6 +127,8 @@ export const JournalEntryList = () => {
         await refetch()
         setEditingEntryId(null)
         setEditContent('')
+        setEditEntryType('WIN')
+        setEditIsCareerRelated(true)
       },
     })
 
@@ -139,23 +143,40 @@ export const JournalEntryList = () => {
   )
 
   // Handle edit entry
-  const handleEdit = useCallback((id: number, content: string) => {
-    setEditingEntryId(id)
-    setEditContent(content)
-  }, [])
+  const handleEdit = useCallback(
+    (entry: {
+      id: number
+      content: string
+      entryType: JournalEntryType
+      isCareerRelated: boolean
+    }) => {
+      setEditingEntryId(entry.id)
+      setEditContent(entry.content)
+      setEditEntryType(entry.entryType as AllowedEntryType)
+      setEditIsCareerRelated(entry.isCareerRelated)
+    },
+    [],
+  )
 
   // Handle save edited entry
   const handleSaveEdit = useCallback(
     (id: number) => {
-      updateEntry({ id, content: editContent })
+      updateEntry({
+        id,
+        content: editContent,
+        entryType: editEntryType,
+        isCareerRelated: editIsCareerRelated,
+      })
     },
-    [updateEntry, editContent],
+    [updateEntry, editContent, editEntryType, editIsCareerRelated],
   )
 
   // Handle cancel edit
   const handleCancelEdit = useCallback(() => {
     setEditingEntryId(null)
     setEditContent('')
+    setEditEntryType('WIN')
+    setEditIsCareerRelated(true)
   }, [])
 
   // Apply filters when the submit button is clicked
@@ -394,7 +415,7 @@ export const JournalEntryList = () => {
 
                 {/* Entry content with edit functionality */}
                 {editingEntryId === entry.id ? (
-                  <div className="mt-2">
+                  <div className="mt-2 space-y-3">
                     <textarea
                       value={editContent}
                       onChange={(e) => setEditContent(e.target.value)}
@@ -403,7 +424,52 @@ export const JournalEntryList = () => {
                       maxLength={500}
                       disabled={isUpdating}
                     />
-                    <div className="mt-2 flex justify-end space-x-2">
+
+                    <div className="flex flex-wrap items-center gap-4">
+                      <div>
+                        <label
+                          htmlFor={`edit-type-${entry.id}`}
+                          className="mb-1 block text-sm font-medium dark:text-gray-300"
+                        >
+                          Entry Type
+                        </label>
+                        <select
+                          id={`edit-type-${entry.id}`}
+                          value={editEntryType}
+                          onChange={(e) =>
+                            setEditEntryType(e.target.value as AllowedEntryType)
+                          }
+                          className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                          disabled={isUpdating}
+                        >
+                          <option value="WIN">Win</option>
+                          <option value="PAIN_POINT">Pain Point</option>
+                          <option value="LEARNING">Learning</option>
+                          <option value="OTHER">Other</option>
+                        </select>
+                      </div>
+
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          id={`edit-career-${entry.id}`}
+                          checked={editIsCareerRelated}
+                          onChange={(e) =>
+                            setEditIsCareerRelated(e.target.checked)
+                          }
+                          className="mr-1 h-4 w-4"
+                          disabled={isUpdating}
+                        />
+                        <label
+                          htmlFor={`edit-career-${entry.id}`}
+                          className="text-sm font-medium dark:text-gray-300"
+                        >
+                          Career-Related
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end space-x-2">
                       <button
                         onClick={handleCancelEdit}
                         className="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
@@ -431,7 +497,7 @@ export const JournalEntryList = () => {
               <div className="ml-4 flex space-x-2">
                 {/* Edit button */}
                 <button
-                  onClick={() => handleEdit(entry.id, entry.content)}
+                  onClick={() => handleEdit(entry)}
                   className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                   aria-label="Edit entry"
                   disabled={editingEntryId !== null}
