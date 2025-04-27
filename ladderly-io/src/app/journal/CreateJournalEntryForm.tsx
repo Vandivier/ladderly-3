@@ -27,6 +27,9 @@ export const CreateJournalEntryForm = () => {
   const [weeklyLimit] = useState(21)
   const [contentValue, setContentValue] = useState('')
   const [isCareerRelated, setIsCareerRelated] = useState(true)
+  const [entryType, setEntryType] = useState<
+    'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
+  >('WIN')
 
   // Get the date from a week ago - memoize to prevent recreating on every render
   const oneWeekAgo = useMemo(() => {
@@ -103,6 +106,11 @@ export const CreateJournalEntryForm = () => {
     setIsCareerRelated(e.target.checked)
   }
 
+  // Handle entry type change
+  const handleEntryTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setEntryType(e.target.value as 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER')
+  }
+
   const isLoading = createEntryMutation.isPending
   const isWeeklyLoadingData = weeklyEntriesQuery.isLoading
 
@@ -126,7 +134,7 @@ export const CreateJournalEntryForm = () => {
         }
         initialValues={{
           content: contentValue,
-          entryType: 'WIN',
+          entryType: entryType,
           isCareerRelated: isCareerRelated,
         }}
       >
@@ -177,6 +185,8 @@ export const CreateJournalEntryForm = () => {
             <select
               id="entryType"
               name="entryType"
+              value={entryType}
+              onChange={handleEntryTypeChange}
               className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               disabled={
                 isLoading ||
