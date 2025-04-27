@@ -84,6 +84,9 @@ export const JournalEntryList = () => {
   })
   const [cursor, setCursor] = useState<number | undefined>(undefined)
   const [showFilters, setShowFilters] = useState<boolean>(false)
+  // Track which entry is being edited
+  const [editingEntryId, setEditingEntryId] = useState<number | null>(null)
+  const [editContent, setEditContent] = useState<string>('')
 
   // Memoize query parameters to prevent unnecessary re-renders and API calls
   const queryParams = useMemo(
@@ -115,6 +118,16 @@ export const JournalEntryList = () => {
     },
   })
 
+  // Update journal entry mutation
+  const { mutate: updateEntry, isPending: isUpdating } =
+    api.journal.updateEntry.useMutation({
+      onSuccess: async () => {
+        await refetch()
+        setEditingEntryId(null)
+        setEditContent('')
+      },
+    })
+
   // Handle delete entry - memoize the function to prevent re-creation
   const handleDelete = useCallback(
     (id: number) => {
@@ -124,6 +137,26 @@ export const JournalEntryList = () => {
     },
     [deleteEntry],
   )
+
+  // Handle edit entry
+  const handleEdit = useCallback((id: number, content: string) => {
+    setEditingEntryId(id)
+    setEditContent(content)
+  }, [])
+
+  // Handle save edited entry
+  const handleSaveEdit = useCallback(
+    (id: number) => {
+      updateEntry({ id, content: editContent })
+    },
+    [updateEntry, editContent],
+  )
+
+  // Handle cancel edit
+  const handleCancelEdit = useCallback(() => {
+    setEditingEntryId(null)
+    setEditContent('')
+  }, [])
 
   // Apply filters when the submit button is clicked
   const applyFilters = useCallback(() => {
@@ -359,34 +392,90 @@ export const JournalEntryList = () => {
                   </span>
                 </div>
 
-                {/* Entry content with highlighted hashtags */}
-                <p className="mt-2 whitespace-pre-wrap text-gray-800 dark:text-gray-200">
-                  {formatContentWithHashtags(entry.content)}
-                </p>
+                {/* Entry content with edit functionality */}
+                {editingEntryId === entry.id ? (
+                  <div className="mt-2">
+                    <textarea
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                      className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                      rows={3}
+                      maxLength={500}
+                      disabled={isUpdating}
+                    />
+                    <div className="mt-2 flex justify-end space-x-2">
+                      <button
+                        onClick={handleCancelEdit}
+                        className="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                        disabled={isUpdating}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => handleSaveEdit(entry.id)}
+                        className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+                        disabled={isUpdating}
+                      >
+                        {isUpdating ? 'Saving...' : 'Save'}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="mt-2 whitespace-pre-wrap text-gray-800 dark:text-gray-200">
+                    {formatContentWithHashtags(entry.content)}
+                  </p>
+                )}
               </div>
 
-              {/* Delete button */}
-              <button
-                onClick={() => handleDelete(entry.id)}
-                className="ml-4 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                aria-label="Delete entry"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+              {/* Action Buttons */}
+              <div className="ml-4 flex space-x-2">
+                {/* Edit button */}
+                <button
+                  onClick={() => handleEdit(entry.id, entry.content)}
+                  className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                  aria-label="Edit entry"
+                  disabled={editingEntryId !== null}
                 >
-                  <path d="M3 6h18"></path>
-                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </button>
+
+                {/* Delete button */}
+                <button
+                  onClick={() => handleDelete(entry.id)}
+                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                  aria-label="Delete entry"
+                  disabled={editingEntryId !== null}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         ))}

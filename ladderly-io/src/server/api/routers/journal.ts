@@ -28,6 +28,12 @@ const updateReminderSchema = z.object({
   frequency: z.nativeEnum(ReminderFrequency),
 })
 
+// Zod schema for updating a journal entry
+const updateJournalEntrySchema = z.object({
+  id: z.number(),
+  content: z.string().max(500),
+})
+
 export const journalRouter = createTRPCRouter({
   // Get user's journal entries with optional filtering
   getUserEntries: publicProcedure
@@ -206,6 +212,36 @@ export const journalRouter = createTRPCRouter({
       })
 
       return entry
+    }),
+
+  // Update a journal entry
+  updateEntry: protectedProcedure
+    .input(updateJournalEntrySchema)
+    .mutation(async ({ ctx, input }) => {
+      const entry = await ctx.db.journalEntry.findUnique({
+        where: { id: input.id },
+      })
+
+      if (!entry) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Journal entry not found',
+        })
+      }
+
+      if (entry.userId !== Number(ctx.session.user.id)) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Not authorized to update this entry',
+        })
+      }
+
+      return ctx.db.journalEntry.update({
+        where: { id: input.id },
+        data: {
+          content: input.content,
+        },
+      })
     }),
 
   // Delete a journal entry
