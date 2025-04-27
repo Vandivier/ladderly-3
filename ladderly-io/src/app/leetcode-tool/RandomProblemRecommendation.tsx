@@ -19,8 +19,8 @@ interface LeetCodeProblem {
 
 export const RandomProblemRecommendation = () => {
   const searchParams = useSearchParams()
-  const statusFilter = (searchParams.get('status') as CompletionStatus) || 'all'
-  const sourceFilter = searchParams.get('source') || 'all'
+  const statusFilter = (searchParams.get('status') as CompletionStatus) ?? 'all'
+  const sourceFilter = searchParams.get('source') ?? 'all'
   const [refreshKey, setRefreshKey] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -132,17 +132,6 @@ export const RandomProblemRecommendation = () => {
 
   const handleRefresh = () => {
     setRefreshKey((prev) => prev + 1)
-  }
-
-  const getStatusText = () => {
-    switch (statusFilter) {
-      case 'solved':
-        return 'from your solved problems'
-      case 'unsolved':
-        return 'from your unsolved problems'
-      default:
-        return 'for you to work on'
-    }
   }
 
   if (isLoading || isLoadingData) {
