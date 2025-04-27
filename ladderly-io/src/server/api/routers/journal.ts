@@ -5,7 +5,12 @@ import {
   type Prisma,
 } from '@prisma/client'
 import { z } from 'zod'
-import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from '~/server/api/trpc'
+import { TRPCError } from '@trpc/server'
 
 // Zod schema for creating a journal entry
 const createJournalEntrySchema = z.object({
@@ -25,51 +30,68 @@ const updateReminderSchema = z.object({
 
 export const journalRouter = createTRPCRouter({
   // Get user's journal entries with optional filtering
-  getUserEntries: protectedProcedure
+  getUserEntries: publicProcedure
     .input(
       z.object({
-        limit: z.number().min(1).max(100).default(20),
+        limit: z.number().min(1).max(100).default(10),
         cursor: z.number().optional(),
-        entryType: z.nativeEnum(JournalEntryType).optional(),
-        isCareerRelated: z.boolean().optional(),
         fromDate: z.date().optional(),
-        toDate: z.date().optional(),
-        hashtag: z.string().optional(),
+        entryType: z
+          .enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER'])
+          .optional(),
+        isCareerRelated: z.boolean().optional(),
+        textFilter: z.string().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
       const {
         limit,
         cursor,
+        fromDate,
         entryType,
         isCareerRelated,
-        fromDate,
-        toDate,
-        hashtag,
+        textFilter,
       } = input
+      const userId = ctx.session?.user?.id
 
+      if (!userId) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'You must be logged in to view journal entries',
+        })
+      }
+
+      // Build filter based on inputs
       const filter: Prisma.JournalEntryWhereInput = {
-        userId: Number(ctx.session.user.id),
+        userId: Number(userId),
       }
 
-      if (entryType) filter.entryType = entryType
-      if (isCareerRelated !== undefined)
-        filter.isCareerRelated = isCareerRelated
-
-      if (fromDate ?? toDate) {
-        filter.createdAt = {}
-        if (fromDate) filter.createdAt.gte = fromDate
-        if (toDate) filter.createdAt.lte = toDate
-      }
-
-      // Add hashtag search if provided
-      if (hashtag) {
-        filter.content = {
-          contains: `#${hashtag}`,
+      // Apply fromDate filter if provided
+      if (fromDate) {
+        filter.createdAt = {
+          gte: fromDate,
         }
       }
 
-      // Get total count for pagination
+      // Apply entryType filter if provided
+      if (entryType) {
+        filter.entryType = entryType
+      }
+
+      // Apply isCareerRelated filter if provided (undefined means show all)
+      if (isCareerRelated !== undefined) {
+        filter.isCareerRelated = isCareerRelated
+      }
+
+      // Apply text filter if provided
+      if (textFilter) {
+        filter.content = {
+          contains: textFilter,
+          mode: 'insensitive',
+        }
+      }
+
+      // Get total count of all entries matching the filter
       const totalCount = await ctx.db.journalEntry.count({
         where: filter,
       })
@@ -77,10 +99,11 @@ export const journalRouter = createTRPCRouter({
       // Get entries with pagination
       const entries = await ctx.db.journalEntry.findMany({
         where: filter,
-        orderBy: { createdAt: 'desc' },
         take: limit + 1,
-        skip: cursor ? 1 : 0,
         cursor: cursor ? { id: cursor } : undefined,
+        orderBy: {
+          createdAt: 'desc',
+        },
       })
 
       let nextCursor: number | undefined = undefined

@@ -4,6 +4,9 @@ import type { JournalEntryType } from '@prisma/client'
 import React, { useCallback, useMemo, useState } from 'react'
 import { api } from '~/trpc/react'
 
+// Use a type that matches the API's expected values
+type AllowedEntryType = 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
+
 // Component to display entry type icon
 const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
   let iconClass = ''
@@ -68,23 +71,30 @@ const formatContentWithHashtags = (content: string) => {
 }
 
 export const JournalEntryList = () => {
-  const [entryType, setEntryType] = useState<JournalEntryType | undefined>(
+  const [entryType, setEntryType] = useState<AllowedEntryType | undefined>(
     undefined,
   )
-  const [isCareerRelated, setIsCareerRelated] = useState<boolean | undefined>(
-    undefined,
-  )
+  const [includeCareer, setIncludeCareer] = useState<boolean>(true)
+  const [includePersonal, setIncludePersonal] = useState<boolean>(true)
+  const [textFilter, setTextFilter] = useState<string>('')
+  const [appliedFilters, setAppliedFilters] = useState({
+    entryType: undefined as AllowedEntryType | undefined,
+    isCareerRelated: undefined as boolean | undefined,
+    textFilter: '',
+  })
   const [cursor, setCursor] = useState<number | undefined>(undefined)
+  const [showFilters, setShowFilters] = useState<boolean>(false)
 
   // Memoize query parameters to prevent unnecessary re-renders and API calls
   const queryParams = useMemo(
     () => ({
       limit: 10,
       cursor,
-      entryType,
-      isCareerRelated,
+      entryType: appliedFilters.entryType,
+      isCareerRelated: appliedFilters.isCareerRelated,
+      textFilter: appliedFilters.textFilter || undefined,
     }),
-    [cursor, entryType, isCareerRelated],
+    [cursor, appliedFilters],
   )
 
   // Get journal entries with filters
@@ -115,10 +125,43 @@ export const JournalEntryList = () => {
     [deleteEntry],
   )
 
+  // Apply filters when the submit button is clicked
+  const applyFilters = useCallback(() => {
+    // Determine isCareerRelated based on checkbox states
+    let careerRelatedValue: boolean | undefined = undefined
+
+    // Both checkboxes enabled = show all (undefined)
+    // Only career enabled = true
+    // Only personal enabled = false
+    // Neither enabled = undefined (show all, same as both)
+
+    if (includeCareer && !includePersonal) {
+      careerRelatedValue = true
+    } else if (!includeCareer && includePersonal) {
+      careerRelatedValue = false
+    }
+
+    setAppliedFilters({
+      entryType,
+      isCareerRelated: careerRelatedValue,
+      textFilter: textFilter.trim(),
+    })
+
+    // Reset cursor when applying new filters
+    setCursor(undefined)
+  }, [entryType, includeCareer, includePersonal, textFilter])
+
   // Reset all filters - memoize the function
   const resetFilters = useCallback(() => {
     setEntryType(undefined)
-    setIsCareerRelated(undefined)
+    setIncludeCareer(true)
+    setIncludePersonal(true)
+    setTextFilter('')
+    setAppliedFilters({
+      entryType: undefined,
+      isCareerRelated: undefined,
+      textFilter: '',
+    })
     setCursor(undefined)
   }, [])
 
@@ -152,18 +195,21 @@ export const JournalEntryList = () => {
         </p>
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {Object.values({
-            entryType,
-            isCareerRelated,
-          }).some((v) => v !== undefined)
+            entryType: appliedFilters.entryType,
+            isCareerRelated: appliedFilters.isCareerRelated,
+            textFilter: appliedFilters.textFilter,
+          }).some((v) => v !== undefined && v !== '')
             ? 'Try adjusting your filters or create your first entry.'
             : 'Create your first entry to get started!'}
         </p>
         {Object.values({
-          entryType,
-          isCareerRelated,
-        }).some((v) => v !== undefined) && (
+          entryType: appliedFilters.entryType,
+          isCareerRelated: appliedFilters.isCareerRelated,
+          textFilter: appliedFilters.textFilter,
+        }).some((v) => v !== undefined && v !== '') && (
           <button
             onClick={resetFilters}
+            onSubmit={resetFilters}
             className="mt-3 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
           >
             Reset Filters
@@ -175,13 +221,18 @@ export const JournalEntryList = () => {
 
   return (
     <div>
-      {/* Filter controls */}
-      <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-        <div className="flex flex-wrap items-center gap-2">
+      <div
+        id="post-filter-controls"
+        className={`mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 ${
+          showFilters ? '' : 'hidden'
+        }`}
+      >
+        <div className="flex flex-col space-y-4">
+          {/* Entry Type Selector */}
           <div>
             <label
               htmlFor="entryType"
-              className="mr-2 text-sm font-medium dark:text-gray-300"
+              className="mb-1 block text-sm font-medium dark:text-gray-300"
             >
               Type:
             </label>
@@ -189,7 +240,7 @@ export const JournalEntryList = () => {
               id="entryType"
               value={entryType ?? ''}
               onChange={(e) =>
-                setEntryType((e.target.value as JournalEntryType) || undefined)
+                setEntryType((e.target.value as AllowedEntryType) || undefined)
               }
               className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             >
@@ -201,34 +252,84 @@ export const JournalEntryList = () => {
             </select>
           </div>
 
+          {/* Category Checkboxes */}
           <div>
-            <label className="text-sm font-medium dark:text-gray-300">
-              <input
-                type="checkbox"
-                checked={isCareerRelated === true}
-                onChange={() =>
-                  setIsCareerRelated(
-                    isCareerRelated === true ? undefined : true,
-                  )
-                }
-                className="mr-1"
-              />
-              Career Only
-            </label>
+            <p className="mb-1 block text-sm font-medium dark:text-gray-300">
+              Category:
+            </p>
+            <div className="flex space-x-4">
+              <label className="flex items-center text-sm font-medium dark:text-gray-300">
+                <input
+                  type="checkbox"
+                  checked={includeCareer}
+                  onChange={(e) => setIncludeCareer(e.target.checked)}
+                  className="mr-1"
+                />
+                Career-Related
+              </label>
+
+              <label className="flex items-center text-sm font-medium dark:text-gray-300">
+                <input
+                  type="checkbox"
+                  checked={includePersonal}
+                  onChange={(e) => setIncludePersonal(e.target.checked)}
+                  className="mr-1"
+                />
+                Personal
+              </label>
+            </div>
           </div>
 
-          <button
-            onClick={resetFilters}
-            className="ml-auto rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-          >
-            Reset
-          </button>
+          {/* Text Filter */}
+          <div>
+            <label
+              htmlFor="textFilter"
+              className="mb-1 block text-sm font-medium dark:text-gray-300"
+            >
+              Search Text:
+            </label>
+            <input
+              type="text"
+              id="textFilter"
+              value={textFilter}
+              onChange={(e) => setTextFilter(e.target.value)}
+              placeholder="Search by keyword or #hashtag"
+              className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+            />
+          </div>
+
+          {/* Filter Action Buttons */}
+          <div className="flex justify-end space-x-2">
+            <button
+              onClick={resetFilters}
+              onSubmit={resetFilters}
+              className="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            >
+              Reset
+            </button>
+            <button
+              onClick={applyFilters}
+              onSubmit={applyFilters}
+              className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+            >
+              Apply Filters
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Entry count */}
-      <div className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-        Showing {entries.length} of {totalCount} entries
+      {/* Entry count with filter toggle */}
+      <div className="mb-4 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+        <div>
+          Showing {entries.length} of {totalCount} entries
+        </div>
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+        >
+          <span className="mr-1">🔍</span>
+          <span>Filter Posts</span>
+        </button>
       </div>
 
       {/* Entries list */}

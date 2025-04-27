@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 import React, { useMemo, useState } from 'react'
 import { z } from 'zod'
 import { Form } from '~/app/core/components/Form'
-import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
 import { api } from '~/trpc/react'
 import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 
@@ -27,6 +26,7 @@ export const CreateJournalEntryForm = () => {
   const [characterCount, setCharacterCount] = useState(0)
   const [weeklyLimit] = useState(21)
   const [contentValue, setContentValue] = useState('')
+  const [isCareerRelated, setIsCareerRelated] = useState(true)
 
   // Get the date from a week ago - memoize to prevent recreating on every render
   const oneWeekAgo = useMemo(() => {
@@ -96,6 +96,13 @@ export const CreateJournalEntryForm = () => {
     setCharacterCount(value.length)
   }
 
+  // Handle career-related checkbox change
+  const handleCareerRelatedChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setIsCareerRelated(e.target.checked)
+  }
+
   const isLoading = createEntryMutation.isPending
   const isWeeklyLoadingData = weeklyEntriesQuery.isLoading
 
@@ -120,7 +127,7 @@ export const CreateJournalEntryForm = () => {
         initialValues={{
           content: contentValue,
           entryType: 'WIN',
-          isCareerRelated: true,
+          isCareerRelated: isCareerRelated,
         }}
       >
         {/* Text area for entry content */}
@@ -190,7 +197,8 @@ export const CreateJournalEntryForm = () => {
               type="checkbox"
               id="isCareerRelated"
               name="isCareerRelated"
-              defaultChecked={true}
+              checked={isCareerRelated}
+              onChange={handleCareerRelatedChange}
               className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
               disabled={
                 isLoading ||
