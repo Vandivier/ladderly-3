@@ -5,7 +5,45 @@ author: John Vandivier
 
 Ladderly Small Group (LSG) Cohort 2 provided valuable insights into the effectiveness of our small group coaching program and highlighted areas for improvement in expectation setting and program design. This article shares key learnings from the cohort's experience and outcomes.
 
-## Cohort Overview
+## Background Context
+
+LSG2 was led by John Vandivier, a Staff Software Engineer in Applied AI at Guideline, where he serves as Tech Lead for the Gen AI team. With a Ph.D. in Economics and experience as a self-taught programmer and former political consultant, John brings a unique perspective to career development, particularly in supporting career switchers and senior ICs.
+
+The program built upon several established Ladderly.io practices and John's recent experiences:
+
+1. **Data-Driven Job Search Approach**
+
+   - Weekly reflection and adaptation based on metrics
+   - Focus on statistically significant signals through high-volume application (50-100/week for non-seniors, half that for seniors)
+   - Emphasis on tracking and measuring outcomes
+
+2. **Social Media and Networking Strategy**
+
+   - Daily social media posting with positive content focus
+   - Strategic LinkedIn optimization and networking
+   - Point-of-contact outreach for every application
+   - Professional headshot and keyword-rich profiles
+
+3. **Technical Preparation Framework**
+
+   - Advanced behavioral interview preparation
+   - System design practice through recommended resources
+   - Portfolio development with modern tech stack integration
+
+4. **Time Management and Hustle**
+
+   - Structured weekly planning
+   - Focus on consistent, deliberate effort
+   - Balance between application volume and interview preparation
+
+5. **Professional Development Tools**
+   - Resume optimization for ATS parsing
+   - Quantified impact statements
+   - Strategic use of career coaching and interview preparation services
+
+These established practices formed the foundation for LSG2, with the cohort providing valuable feedback and insights for further refinement.
+
+## LSG2 Cohort Overview
 
 LSG2 was a senior-leaning small group focused on job search optimization. The cohort attracted significant interest with 60 initial expressions of interest, 18 completed applications, and 14 admitted students. Admission criteria included factors like sponsorship status, ensuring participants could fully engage with the program's opportunities.
 
@@ -58,6 +96,48 @@ The experience highlighted several program design considerations:
 - The importance of managing burnout and job search fatigue
 - The value of early wins and quick feedback loops
 - The need for clear communication about typical job search timelines
+
+### 5. Most Impactful Practices
+
+Participants reported several key practices that significantly improved their job search outcomes:
+
+1. **Enhanced Profile Review Tools**
+
+   - Leveraging new validation tools from Enhancv and Resume Worded
+   - Comprehensive LinkedIn and resume optimization
+   - Professional headshot and keyword-rich profiles
+
+2. **LinkedIn Premium Features**
+
+   - Initial skepticism about Premium's value was overcome
+   - Strategic use of "Add Note" feature for new connections
+   - Effective InMail outreach to hiring managers and team members
+
+3. **Strategic Application Timing**
+
+   - Focus on the "Golden Window" of job postings
+   - Avoiding the "Black Hole" of stale or overly competitive postings
+   - Prioritizing recently posted positions
+
+4. **Job Family Focus**
+
+   - Narrowing focus to specific job families
+   - Avoiding scattered applications across multiple roles
+   - Building targeted expertise and messaging
+
+5. **Group Accountability**
+
+   - Regular meetings with peers in job search
+   - Shared progress tracking and motivation
+   - Cross-role learning and support
+   - Particularly impactful for specialized roles like Data Engineering
+
+6. **Novel Messaging Strategy**
+   - Celebrating new hires at target companies
+   - Building rapport through congratulatory messages
+   - Following up with specific questions about hiring
+   - Developed by Adam Cragg ([LinkedIn](https://www.linkedin.com/in/acragg/))
+   - Detailed approach to be shared in upcoming Ladderly blog post
 
 ## Future Improvements
 
