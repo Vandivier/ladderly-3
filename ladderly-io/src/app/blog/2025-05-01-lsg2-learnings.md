@@ -99,7 +99,7 @@ The experience highlighted several program design considerations:
 
 ### 5. Most Impactful Practices
 
-Participants reported several key practices that significantly improved their job search outcomes:
+Participants reported several key practices that significantly improved their job search outcomes, including a mix of established and novel practices:
 
 1. **Enhanced Profile Review Tools**
 
