@@ -133,11 +133,33 @@ Participants reported several key practices that significantly improved their jo
    - Particularly impactful for specialized roles like Data Engineering
 
 6. **Novel Messaging Strategy**
+
    - Celebrating new hires at target companies
    - Building rapport through congratulatory messages
    - Following up with specific questions about hiring
    - Developed by Adam Cragg ([LinkedIn](https://www.linkedin.com/in/acragg/))
    - Detailed approach to be shared in upcoming Ladderly blog post
+
+7. **Ladderly Leetcode Kata**
+
+   - Expanded problem set of 500 curated problems
+   - Integrated tracking tool for progress monitoring
+   - Structured approach to technical interview preparation
+   - Focus on pattern recognition and problem-solving strategies
+
+8. **Pirate Store Method for Behavioral Interviews**
+
+   - Advanced preparation framework for behavioral interviews
+   - Systematic approach to crafting and delivering stories
+   - Focus on impact and leadership demonstration
+   - Detailed methodology available in [Ladderly's behavioral interview guide](https://www.ladderly.io/blog/2025-02-24-behavioral-interviews)
+
+9. **Stakeholder Access and Job Awareness**
+   - Instructor-facilitated introductions to key stakeholders
+   - Early awareness of exclusive job postings
+   - Direct access to hiring managers and team leads
+   - Particularly valuable for top performers
+   - Note: While not guaranteed, this element significantly contributed to interview success rates
 
 ## Future Improvements
 
