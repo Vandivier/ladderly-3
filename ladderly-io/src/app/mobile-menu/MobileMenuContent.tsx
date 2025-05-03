@@ -111,6 +111,11 @@ export function MobileMenuContent({
                 Perks
               </Link>
             </li>
+            <li>
+              <Link href="/blog/2025-05-03-faq" className={MOBILE_LINK_CLASSES}>
+                FAQ
+              </Link>
+            </li>
             <MobileGrowDropdown
               toggleGrowSubmenu={toggleGrowSubmenu}
               isGrowSubmenuOpen={isGrowSubmenuOpen}
