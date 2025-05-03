@@ -1,20 +1,9 @@
 ---
-title: '20. Ladderly AI Tools'
+title: '20. The Ladderly Copilot'
 author: John Vandivier
 ---
 
-Ladderly.io is pleased to announce two different AI tools for you to use!
-
-This article describes each tool with its area of focus. Both tools are available as part of Ladderly Premium:
-
-1. [Ladderly Chat](/chat)
-2. [Ladderly Copilot](/copilot)
-
-## Ladderly Chat
-
-Ladderly.io Chat is a chat app similar to [ChatGPT](https://chat.openai.com/) or [T3 Chat](https://t3.chat/chat).
-
-Ladderly Chat is a blank or untrained mode of chat which directly sends your messages to the underlying foundation model. We do not use any of this data for training at Ladderly.io.
+Ladderly.io is pleased to announce the Ladderly Copilot, a powerful AI assistant trained on best practices from Ladderly.io!
 
 ## Ladderly Copilot
 
