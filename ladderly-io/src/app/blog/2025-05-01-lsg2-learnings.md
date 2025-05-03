@@ -182,3 +182,9 @@ Based on these learnings, Ladderly.io is implementing several improvements:
 LSG2 provided valuable insights into the effectiveness of our small group coaching model while highlighting areas for improvement. The cohort demonstrated that even with significant attrition, the program can deliver meaningful improvements in job search outcomes. Future cohorts will benefit from these learnings through improved expectation setting and program design.
 
 Stay tuned for 3-6 month updates as we continue tracking outcomes and refining our approach based on this valuable experience.
+
+## How to Join a Cohort
+
+Ladderly.io currently creates cohorts on an as-demanded basis. To indicate your interest, visit the "Features and Interests" section of your [Ladderly.io User Settings](/settings), check "Interested in an Expert-Led Small Group", fill out any other interesting fields, and submit the form.
+
+You can also chat about your interest in a new cohort on [the Ladderly.io Community Discord](https://discord.com/invite/fAg6Xa4uxc). This could potentially generate additional interest and expedite the process.
