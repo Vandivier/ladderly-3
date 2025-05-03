@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function LeetCodeToolPage() {
   return (
-    <LadderlyPageWrapper authenticate requirePremium>
+    <LadderlyPageWrapper authenticate>
       <SmallCard className="mx-4 mt-4">
         <h1 className="mb-4 text-2xl font-bold">LeetCode Problem Tracker</h1>
 
