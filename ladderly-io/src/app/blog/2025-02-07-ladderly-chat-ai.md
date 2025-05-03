@@ -3,7 +3,7 @@ title: '20. The Ladderly Copilot'
 author: John Vandivier
 ---
 
-Ladderly.io is pleased to announce the Ladderly Copilot, a powerful AI assistant trained on best practices from Ladderly.io!
+Ladderly.io is pleased to announce [Ladderly Copilot](/copilot), a powerful AI assistant trained on best practices from Ladderly.io!
 
 ## Ladderly Copilot
 

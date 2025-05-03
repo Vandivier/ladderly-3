@@ -70,8 +70,8 @@ export const TopNavRight = () => {
       <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
         Perks
       </Link>
-      <Link href="/chat" className={TOP_NAV_STANDARD_CLASSES}>
-        Chat
+      <Link href="/blog/2025-05-03-faq" className={TOP_NAV_STANDARD_CLASSES}>
+        FAQ
       </Link>
       <button onClick={handleGrowClick} className={TOP_NAV_STANDARD_CLASSES}>
         Grow
