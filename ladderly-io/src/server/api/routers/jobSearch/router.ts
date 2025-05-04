@@ -26,8 +26,8 @@ export const jobSearchRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
-      const page = input?.page || 1
-      const pageSize = input?.pageSize || 10
+      const page = input?.page ?? 1
+      const pageSize = input?.pageSize ?? 10
       const skip = (page - 1) * pageSize
 
       const where = {
@@ -256,7 +256,7 @@ export const jobSearchRouter = createTRPCRouter({
       // Process each job post to gather weekly data
       jobSearch.jobPosts.forEach((post) => {
         // Use the application date or fallback to created date
-        const dateValue = post.initialApplicationDate || post.createdAt
+        const dateValue = post.initialApplicationDate ?? post.createdAt
 
         // Get the start of the week (Sunday)
         const weekDate = new Date(dateValue)
@@ -273,7 +273,7 @@ export const jobSearchRouter = createTRPCRouter({
 
         applicationsByWeek.set(
           weekKey,
-          (applicationsByWeek.get(weekKey) || 0) + 1,
+          (applicationsByWeek.get(weekKey) ?? 0) + 1,
         )
       })
 

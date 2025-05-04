@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { TIME_PERIODS, TimePeriod } from './graphUtils'
+import { TIME_PERIODS, type TimePeriod } from './graphUtils'
 
 interface TimePeriodSelectorProps {
   selectedPeriod: TimePeriod

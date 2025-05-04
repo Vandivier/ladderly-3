@@ -36,7 +36,7 @@ export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
   }
 
   // Safety check for job posts data
-  const jobPosts = jobSearch?.jobPosts || []
+  const jobPosts = jobSearch?.jobPosts ?? []
 
   // If no application data, show a message
   if (!jobPosts.length) {

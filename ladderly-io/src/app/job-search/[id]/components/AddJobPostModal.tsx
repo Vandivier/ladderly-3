@@ -68,14 +68,14 @@ export const AddJobPostModal: React.FC<AddJobPostModalProps> = ({
         jobSearchId,
         company: values.company,
         jobTitle: values.jobTitle,
-        jobPostUrl: values.jobPostUrl || undefined,
-        resumeVersion: values.resumeVersion || undefined,
+        jobPostUrl: values.jobPostUrl ?? undefined,
+        resumeVersion: values.resumeVersion ?? undefined,
         initialApplicationDate: applicationDate,
-        contactName: values.contactName || undefined,
-        contactUrl: values.contactUrl || undefined,
+        contactName: values.contactName ?? undefined,
+        contactUrl: values.contactUrl ?? undefined,
         hasReferral: values.hasReferral,
         isInboundOpportunity: values.isInboundOpportunity,
-        notes: values.notes || undefined,
+        notes: values.notes ?? undefined,
       })
       return {}
     } catch (error) {
@@ -83,7 +83,7 @@ export const AddJobPostModal: React.FC<AddJobPostModalProps> = ({
       setIsSubmitting(false)
       return {
         [FORM_ERROR]:
-          (error as TRPCClientErrorLike<any>).message ||
+          (error as TRPCClientErrorLike<any>).message ??
           'Failed to create job post',
       }
     }

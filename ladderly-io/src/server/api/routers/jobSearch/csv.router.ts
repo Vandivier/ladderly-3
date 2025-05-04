@@ -213,7 +213,7 @@ export const csvRouter = createTRPCRouter({
           data: {
             date: stepDate,
             kind: stepKind,
-            notes: row.Notes || null,
+            notes: row.Notes ?? null,
             isPassed,
             isInPerson,
             jobPostId,
@@ -270,26 +270,26 @@ export const csvRouter = createTRPCRouter({
           roundLevelData.push({
             JobPostId: jobPost.id,
             Company: jobPost.company,
-            'Job Post Title': jobPost.jobTitle || '',
-            'Step Date': jobPost.initialApplicationDate || jobPost.createdAt,
+            'Job Post Title': jobPost.jobTitle ?? '',
+            'Step Date': jobPost.initialApplicationDate ?? jobPost.createdAt,
             'Step Kind': 'INITIAL_APPLICATION',
             'Is Passed': null,
             'Is In Person': false,
-            Notes: jobPost.notes || '',
+            Notes: jobPost.notes ?? '',
             Status: jobPost.status,
-            'Job Post URL': jobPost.jobPostUrl || '',
-            'Resume Version': jobPost.resumeVersion || '',
-            'Contact Name': jobPost.contactName || '',
-            ContactUrl: jobPost.contactUrl || '',
-            'Initial Outreach Date': jobPost.initialOutreachDate || '',
-            'Initial App Date': jobPost.initialApplicationDate || '',
-            'Last Action Date': jobPost.lastActionDate || '',
+            'Job Post URL': jobPost.jobPostUrl ?? '',
+            'Resume Version': jobPost.resumeVersion ?? '',
+            'Contact Name': jobPost.contactName ?? '',
+            ContactUrl: jobPost.contactUrl ?? '',
+            'Initial Outreach Date': jobPost.initialOutreachDate ?? '',
+            'Initial App Date': jobPost.initialApplicationDate ?? '',
+            'Last Action Date': jobPost.lastActionDate ?? '',
             Referral: jobPost.hasReferral ? 'TRUE' : 'FALSE',
             'Inbound Opportunity': jobPost.isInboundOpportunity
               ? 'TRUE'
               : 'FALSE',
-            Salary: jobPost.baseSalary || '',
-            TC: jobPost.totalCompensation || '',
+            Salary: jobPost.baseSalary ?? '',
+            TC: jobPost.totalCompensation ?? '',
           })
         } else {
           // Add a row for each step
@@ -297,27 +297,27 @@ export const csvRouter = createTRPCRouter({
             roundLevelData.push({
               JobPostId: jobPost.id,
               Company: jobPost.company,
-              'Job Post Title': jobPost.jobTitle || '',
+              'Job Post Title': jobPost.jobTitle ?? '',
               'Step Date': step.date,
               'Step Kind': step.kind,
               'Is Passed':
                 step.isPassed === null ? '' : step.isPassed ? 'TRUE' : 'FALSE',
               'Is In Person': step.isInPerson ? 'TRUE' : 'FALSE',
-              Notes: step.notes || '',
+              Notes: step.notes ?? '',
               Status: jobPost.status,
-              'Job Post URL': jobPost.jobPostUrl || '',
-              'Resume Version': jobPost.resumeVersion || '',
-              'Contact Name': jobPost.contactName || '',
-              ContactUrl: jobPost.contactUrl || '',
-              'Initial Outreach Date': jobPost.initialOutreachDate || '',
-              'Initial App Date': jobPost.initialApplicationDate || '',
-              'Last Action Date': jobPost.lastActionDate || '',
+              'Job Post URL': jobPost.jobPostUrl ?? '',
+              'Resume Version': jobPost.resumeVersion ?? '',
+              'Contact Name': jobPost.contactName ?? '',
+              ContactUrl: jobPost.contactUrl ?? '',
+              'Initial Outreach Date': jobPost.initialOutreachDate ?? '',
+              'Initial App Date': jobPost.initialApplicationDate ?? '',
+              'Last Action Date': jobPost.lastActionDate ?? '',
               Referral: jobPost.hasReferral ? 'TRUE' : 'FALSE',
               'Inbound Opportunity': jobPost.isInboundOpportunity
                 ? 'TRUE'
                 : 'FALSE',
-              Salary: jobPost.baseSalary || '',
-              TC: jobPost.totalCompensation || '',
+              Salary: jobPost.baseSalary ?? '',
+              TC: jobPost.totalCompensation ?? '',
             })
           }
         }

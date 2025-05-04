@@ -8,7 +8,7 @@ import type { TRPCClientErrorLike } from '@trpc/client'
 import { JobSearchHeader } from './components/JobSearchHeader'
 import {
   JobSearchEditForm,
-  JobSearchEditSchema,
+  type JobSearchEditSchema,
 } from './components/JobSearchEditForm'
 import { JobPostList } from './components/JobPostList'
 import { AddJobPostModal } from './components/AddJobPostModal'
@@ -16,7 +16,7 @@ import { EditJobPostModal } from './components/EditJobPostModal'
 import { UploadCsvModal } from './components/UploadCsvModal'
 
 interface JobSearchDetailsProps {
-  initialJobSearch: any // Replace with proper type
+  initialJobSearch: any // Replace with proper type later
 }
 
 export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
@@ -26,7 +26,7 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
   const [currentPage, setCurrentPage] = useState(
-    initialJobSearch.pagination?.currentPage || 1,
+    initialJobSearch.pagination?.currentPage ?? 1,
   )
   const [showAddJobPostModal, setShowAddJobPostModal] = useState(false)
   const [showUploadCsvModal, setShowUploadCsvModal] = useState(false)
@@ -41,7 +41,7 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
     {
       id: initialJobSearch.id,
       page: currentPage,
-      pageSize: initialJobSearch.pagination?.pageSize || 10,
+      pageSize: initialJobSearch.pagination?.pageSize ?? 10,
     },
     {
       initialData: initialJobSearch,
@@ -55,15 +55,15 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
       onSuccess: () => {
         setIsEditing(false)
         setIsUpdating(false)
-        refetch()
+        void refetch()
       },
     },
   )
 
   // Job search data
   const jobSearch = jobSearchData
-  const jobPosts = jobSearchData?.jobPosts || []
-  const pagination = jobSearchData?.pagination || initialJobSearch.pagination
+  const jobPosts = jobSearchData?.jobPosts ?? []
+  const pagination = jobSearchData?.pagination ?? initialJobSearch.pagination
 
   // Handle updating job search
   const handleUpdateJobSearch: FormProps<
@@ -73,14 +73,17 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
     try {
       updateJobSearch({
         id: jobSearch.id,
-        ...values,
+        name: values.name,
+        startDate: values.startDate ? new Date(values.startDate) : undefined,
+        isActive: values.isActive,
       })
+      return {}
     } catch (error) {
       console.error('Failed to update job search', error)
       setIsUpdating(false)
       return {
         [FORM_ERROR]:
-          (error as TRPCClientErrorLike<any>).message ||
+          (error as TRPCClientErrorLike<any>).message ??
           'Failed to update job search',
       }
     }
@@ -121,7 +124,7 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
       )}
 
       {/* Action buttons */}
-      <div className="mb-6 mt-6 flex flex-wrap gap-2">
+      <div className="my-6 flex flex-wrap gap-2">
         <button
           onClick={() => setShowAddJobPostModal(true)}
           className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
@@ -155,7 +158,7 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
           onClose={() => setShowAddJobPostModal(false)}
           onSuccess={() => {
             setShowAddJobPostModal(false)
-            refetch()
+            void refetch()
           }}
         />
       )}
@@ -166,7 +169,7 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
           onClose={() => setEditingJobPost(null)}
           onSuccess={() => {
             setEditingJobPost(null)
-            refetch()
+            void refetch()
           }}
         />
       )}
@@ -177,7 +180,7 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
           onClose={() => setShowUploadCsvModal(false)}
           onSuccess={() => {
             setShowUploadCsvModal(false)
-            refetch()
+            void refetch()
           }}
         />
       )}

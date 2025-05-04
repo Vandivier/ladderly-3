@@ -48,7 +48,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
     },
     onError: (error) => {
       console.error('CSV upload error:', error)
-      setError(error.message || 'Failed to upload CSV data')
+      setError(error.message ?? 'Failed to upload CSV data')
       setStatus('error')
       setIsSubmitting(false)
     },
@@ -57,7 +57,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files.length > 0) {
-      setSelectedFile(files[0] || null)
+      setSelectedFile(files[0] ?? null)
       setError('')
       setStatus('idle')
     }
@@ -82,7 +82,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
         if (results.errors.length > 0) {
           console.error('CSV parsing errors:', results.errors)
           setError(
-            `Error parsing CSV: ${results.errors[0]?.message || 'Unknown error'}`,
+            `Error parsing CSV: ${results.errors[0]?.message ?? 'Unknown error'}`,
           )
           setStatus('error')
           setIsSubmitting(false)

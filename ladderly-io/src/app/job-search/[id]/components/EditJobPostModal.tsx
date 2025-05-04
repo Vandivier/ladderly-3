@@ -92,7 +92,7 @@ export const EditJobPostModal: React.FC<EditJobPostModalProps> = ({
       setIsSubmitting(false)
       return {
         [FORM_ERROR]:
-          (error as TRPCClientErrorLike<any>).message ||
+          (error as TRPCClientErrorLike<any>).message ??
           'Failed to update job post',
       }
     }
@@ -101,15 +101,15 @@ export const EditJobPostModal: React.FC<EditJobPostModalProps> = ({
   // Initial values for the form
   const initialValues: EditJobPostValues = {
     company: jobPost.company,
-    jobTitle: jobPost.jobTitle || '',
-    jobPostUrl: jobPost.jobPostUrl || '',
-    resumeVersion: jobPost.resumeVersion || '',
+    jobTitle: jobPost.jobTitle ?? '',
+    jobPostUrl: jobPost.jobPostUrl ?? '',
+    resumeVersion: jobPost.resumeVersion ?? '',
     initialApplicationDate: formatDateForInput(jobPost.initialApplicationDate),
-    contactName: jobPost.contactName || '',
-    contactUrl: jobPost.contactUrl || '',
+    contactName: jobPost.contactName ?? '',
+    contactUrl: jobPost.contactUrl ?? '',
     hasReferral: jobPost.hasReferral,
     isInboundOpportunity: jobPost.isInboundOpportunity,
-    notes: jobPost.notes || '',
+    notes: jobPost.notes ?? '',
     status: jobPost.status,
   }
 

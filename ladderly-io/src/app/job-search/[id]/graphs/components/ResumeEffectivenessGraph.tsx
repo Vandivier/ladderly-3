@@ -99,7 +99,7 @@ export function ResumeEffectivenessGraph({
   // Process the data
   const processData = (): ResumeVersionData[] => {
     try {
-      if (!jobPosts ?? !jobPosts.length) {
+      if (!jobPosts || !jobPosts.length) {
         console.log('No job posts found for resume analysis')
         return []
       }

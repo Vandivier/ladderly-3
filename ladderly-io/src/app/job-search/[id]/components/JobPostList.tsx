@@ -62,14 +62,21 @@ export const JobPostList: React.FC<JobPostListProps> = ({
   const router = useRouter()
   const [deleting, setDeleting] = useState<Record<number, boolean>>({})
 
+  // Get the delete mutation from tRPC
+  const { mutate: deleteJobPost } = api.jobSearch.jobPost.delete.useMutation({
+    onSuccess: () => {
+      router.refresh()
+    },
+  })
+
   // Handle deleting a job post
   const handleDeleteJobPost = async (jobPostId: number) => {
     if (confirm('Are you sure you want to delete this job post?')) {
       setDeleting((prev) => ({ ...prev, [jobPostId]: true }))
       try {
-        await api.jobSearch.jobPost.delete.mutate({ id: jobPostId })
+        // Use the mutation function directly
+        deleteJobPost({ id: jobPostId })
         setDeleting((prev) => ({ ...prev, [jobPostId]: false }))
-        router.refresh()
       } catch (error) {
         console.error('Failed to delete job post', error)
         setDeleting((prev) => ({ ...prev, [jobPostId]: false }))
