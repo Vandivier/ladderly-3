@@ -202,6 +202,64 @@ export const jobSearchRouter = createTRPCRouter({
       return { success: true }
     }),
 
+  getJobSearchAnalytics: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const jobSearch = await ctx.db.jobSearch.findUnique({
+        where: {
+          id: input.id,
+          userId: ctx.session.user.id,
+        },
+        include: {
+          jobPosts: true,
+        },
+      })
+
+      if (!jobSearch) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Job search not found',
+        })
+      }
+
+      // Process data for weekly applications
+      const applicationsByWeek = new Map<string, number>()
+
+      // Process each job post to gather weekly data
+      jobSearch.jobPosts.forEach((post) => {
+        // Use the application date or fallback to created date
+        const dateValue = post.initialApplicationDate || post.createdAt
+
+        // Get the start of the week (Sunday)
+        const weekDate = new Date(dateValue)
+        const day = weekDate.getDay()
+        weekDate.setDate(weekDate.getDate() - day)
+        weekDate.setHours(0, 0, 0, 0)
+
+        const weekKey = weekDate.toISOString().split('T')[0]
+        applicationsByWeek.set(
+          weekKey,
+          (applicationsByWeek.get(weekKey) || 0) + 1,
+        )
+      })
+
+      // Convert to array and sort by week
+      const weeklyData = Array.from(applicationsByWeek.entries())
+        .map(([weekStart, count]) => ({ weekStart, count }))
+        .sort((a, b) => a.weekStart.localeCompare(b.weekStart))
+
+      return {
+        id: jobSearch.id,
+        name: jobSearch.name,
+        totalApplications: jobSearch.jobPosts.length,
+        weeklyData,
+      }
+    }),
+
   // --- Merge Sub-Routers ---
   csv: csvRouter, // Namespace: jobSearch.csv.*
   jobPost: jobPostRouter, // Namespace: jobSearch.jobPost.*

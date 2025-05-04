@@ -235,28 +235,41 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
         ← Back to Job Search Archive
       </button>
 
-      <div className="mb-6 flex items-start justify-between">
-        {!isEditing ? (
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold dark:text-white">
-              {jobSearch.name}
-            </h1>
-            <button
-              onClick={handleEditClick}
-              className="rounded-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-              disabled={!jobSearch}
-              aria-label="Edit job search details"
-            >
-              <Pencil className="size-5" />
-            </button>
+      <div className="mb-6 flex flex-wrap items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold">{jobSearch.name}</h2>
+          <div className="mt-1 text-sm text-gray-500">
+            {jobSearch.isActive ? (
+              <span className="inline-flex items-center">
+                <span className="mr-1 h-2 w-2 rounded-full bg-green-500"></span>
+                Active
+              </span>
+            ) : (
+              <span className="inline-flex items-center">
+                <span className="mr-1 h-2 w-2 rounded-full bg-gray-500"></span>
+                Inactive
+              </span>
+            )}
+            <span className="mx-2">·</span>
+            <span>
+              Created {new Date(jobSearch.createdAt).toLocaleDateString()}
+            </span>
           </div>
-        ) : (
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold dark:text-white">
-              Editing Job Search
-            </h1>
-          </div>
-        )}
+        </div>
+        <div className="flex space-x-2">
+          <Link
+            href={`/job-search/${jobSearch.id}/graphs`}
+            className="rounded bg-blue-50 px-3 py-1 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-800/30"
+          >
+            View Analytics
+          </Link>
+          <button
+            onClick={handleEditClick}
+            className="rounded px-3 py-1 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          >
+            Edit
+          </button>
+        </div>
       </div>
 
       {isEditing ? (
