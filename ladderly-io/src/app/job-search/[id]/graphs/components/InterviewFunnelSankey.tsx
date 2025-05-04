@@ -22,7 +22,7 @@ const STAGES = {
 }
 
 // Mapping job search step kinds to our simplified stages
-const STEP_KIND_TO_STAGE = {
+const STEP_KIND_TO_STAGE: Record<JobSearchStepKind, string> = {
   [JobSearchStepKind.INITIAL_APPLICATION]: STAGES.APPLIED,
   [JobSearchStepKind.PHONE_SCREEN]: STAGES.SCREEN,
   [JobSearchStepKind.TECHNICAL_CODE_SCREEN_AUTOMATED]: STAGES.SCREEN,
@@ -179,11 +179,12 @@ export function InterviewFunnelSankey({
         let previousStage = STAGES.APPLIED
 
         for (let i = 0; i < sortedSteps.length; i++) {
-          const step = sortedSteps[i]
+          const step = sortedSteps[i] as JobSearchStep
 
           // Map the step kind to a stage
           const currentStage =
-            STEP_KIND_TO_STAGE[step.kind] || STAGES.FIRST_ROUND
+            STEP_KIND_TO_STAGE[step.kind as JobSearchStepKind] ||
+            STAGES.FIRST_ROUND
 
           // If the stage changed, record the flow
           if (previousStage !== currentStage) {

@@ -209,10 +209,13 @@ export const jobSearchRouter = createTRPCRouter({
       }),
     )
     .query(async ({ ctx, input }) => {
+      // Ensure we have a valid user ID
+      const userId = ctx.session?.user?.id ? parseInt(ctx.session.user.id) : 0
+
       const jobSearch = await ctx.db.jobSearch.findUnique({
         where: {
           id: input.id,
-          userId: ctx.session.user.id,
+          userId,
         },
         include: {
           jobPosts: true,
@@ -240,7 +243,13 @@ export const jobSearchRouter = createTRPCRouter({
         weekDate.setDate(weekDate.getDate() - day)
         weekDate.setHours(0, 0, 0, 0)
 
-        const weekKey = weekDate.toISOString().split('T')[0]
+        const isoString = weekDate.toISOString()
+        const parts = isoString.split('T')
+        if (parts.length === 0 || typeof parts[0] !== 'string') {
+          throw new Error(`Failed to parse date: ${isoString}`)
+        }
+        const weekKey = parts[0]
+
         applicationsByWeek.set(
           weekKey,
           (applicationsByWeek.get(weekKey) || 0) + 1,
