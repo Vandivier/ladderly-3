@@ -48,7 +48,7 @@ export const JobSearchList = () => {
       {jobSearches.map((jobSearch) => (
         <div
           key={jobSearch.id}
-          className="rounded-md border border-gray-200 hover:bg-gray-50"
+          className="rounded-md border border-gray-200 dark:from-gray-900 dark:to-gray-950"
         >
           <Link
             href={`/job-search/${jobSearch.id}`}
