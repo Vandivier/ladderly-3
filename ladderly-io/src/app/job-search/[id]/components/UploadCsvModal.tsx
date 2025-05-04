@@ -21,13 +21,11 @@ interface CsvRow {
 }
 
 interface UploadCsvModalProps {
-  jobSearchId: number
   onClose: () => void
   onSuccess: () => void
 }
 
 export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
-  jobSearchId,
   onClose,
   onSuccess,
 }) => {

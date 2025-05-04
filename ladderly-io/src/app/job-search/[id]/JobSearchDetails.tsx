@@ -190,7 +190,6 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
 
       {showUploadCsvModal && (
         <UploadCsvModal
-          jobSearchId={jobSearch.id}
           onClose={() => setShowUploadCsvModal(false)}
           onSuccess={() => {
             setShowUploadCsvModal(false)
