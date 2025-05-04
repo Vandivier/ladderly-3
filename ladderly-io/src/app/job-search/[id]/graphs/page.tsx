@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { WeeklyApplicationsGraph } from './components/WeeklyApplicationsGraph'
 import { ResumeEffectivenessGraph } from './components/ResumeEffectivenessGraph'
 import { RoundPerformanceGraph } from './components/RoundPerformanceGraph'
+import { InterviewFunnelSankey } from './components/InterviewFunnelSankey'
 
 export const metadata = {
   title: 'Job Search Analytics',
@@ -46,6 +47,11 @@ export default async function JobSearchGraphsPage({
             Analytics for {jobSearch.name}
           </h1>
 
+          <p className="mb-6 text-sm text-gray-600 dark:text-gray-400">
+            Understand your job search performance at a glance with four
+            powerful premade charts, downsampled to 100 samples by default.
+          </p>
+
           <div className="space-y-8">
             <div className="mb-4">
               <Link
@@ -76,6 +82,9 @@ export default async function JobSearchGraphsPage({
 
                 {/* Resume Effectiveness Graph */}
                 <ResumeEffectivenessGraph jobPosts={jobPosts} />
+
+                {/* Interview Funnel Sankey Diagram */}
+                <InterviewFunnelSankey jobPosts={jobPosts} />
 
                 {/* Interview Round Performance Graph */}
                 <RoundPerformanceGraph jobPosts={jobPosts} />
