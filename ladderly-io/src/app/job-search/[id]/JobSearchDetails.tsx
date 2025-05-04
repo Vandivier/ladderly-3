@@ -739,24 +739,24 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
       )}
 
       <div className="mb-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold dark:text-white">
-            Applications ({pagination?.totalItems ?? 0})
-          </h2>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setShowUploadCsvModal(true)}
-              className="flex items-center gap-1 rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700"
-            >
-              <Upload className="h-4 w-4" /> Upload Rounds
-            </button>
-            <button
-              onClick={() => setShowAddApplicationModal(true)}
-              className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
-            >
-              Add Application
-            </button>
-          </div>
+        <h2 className="text-xl font-semibold dark:text-white">
+          Applications ({pagination?.totalItems ?? 0})
+        </h2>
+
+        <div className="mt-2 flex flex-wrap gap-2">
+          <button
+            onClick={() => setShowAddApplicationModal(true)}
+            className="flex items-center gap-1 rounded bg-blue-50 px-3 py-1 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-800/30"
+          >
+            <span className="flex size-4 items-center justify-center">+</span>{' '}
+            Add Application
+          </button>
+          <button
+            onClick={() => setShowUploadCsvModal(true)}
+            className="flex items-center gap-1 rounded bg-green-50 px-3 py-1 text-green-600 hover:bg-green-100 dark:bg-green-900/20 dark:text-green-400 dark:hover:bg-green-800/30"
+          >
+            <Upload className="size-4" /> Upload Rounds
+          </button>
         </div>
 
         {jobSearch.jobPosts.length === 0 && pagination?.totalItems === 0 ? (
