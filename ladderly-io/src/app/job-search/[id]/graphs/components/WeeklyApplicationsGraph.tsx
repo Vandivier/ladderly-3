@@ -138,11 +138,33 @@ export function WeeklyApplicationsGraph({
     }
   }
 
+  // Time period selector component - extracted to always show regardless of data state
+  const TimePeriodSelector = () => (
+    <div className="flex space-x-1 rounded-md bg-gray-100 p-1 dark:bg-gray-800">
+      {Object.keys(TIME_PERIODS).map((period) => (
+        <button
+          key={period}
+          className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
+            timePeriod === period
+              ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-400'
+              : 'text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700'
+          }`}
+          onClick={() => setTimePeriod(period as TimePeriod)}
+        >
+          {period}
+        </button>
+      ))}
+    </div>
+  )
+
   // If no data to display
   if (!chartData || chartData.length === 0) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-        <h2 className="mb-4 text-xl font-semibold">Weekly Applications</h2>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Weekly Applications</h2>
+          <TimePeriodSelector />
+        </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
             {dataError ||
@@ -150,7 +172,7 @@ export function WeeklyApplicationsGraph({
           </p>
           <p className="mt-2 text-sm text-gray-400">
             {jobPosts?.length
-              ? `Found ${jobPosts.length} job posts, but none have valid dates.`
+              ? `Try selecting a different time period such as 'ALL'.`
               : 'No job posts found.'}
           </p>
         </div>
@@ -178,23 +200,7 @@ export function WeeklyApplicationsGraph({
     <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-xl font-semibold">Weekly Applications</h2>
-
-        {/* Time period selector */}
-        <div className="flex space-x-1 rounded-md bg-gray-100 p-1 dark:bg-gray-800">
-          {Object.keys(TIME_PERIODS).map((period) => (
-            <button
-              key={period}
-              className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
-                timePeriod === period
-                  ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-400'
-                  : 'text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
-              onClick={() => setTimePeriod(period as TimePeriod)}
-            >
-              {period}
-            </button>
-          ))}
-        </div>
+        <TimePeriodSelector />
       </div>
 
       {/* Recharts Bar Chart */}

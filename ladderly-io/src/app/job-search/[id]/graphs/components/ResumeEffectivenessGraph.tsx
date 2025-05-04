@@ -2,7 +2,11 @@
 
 import React, { useState, useEffect } from 'react'
 import { JobApplicationStatus, JobPostForCandidate } from '@prisma/client'
-import { formatPercent, type ResumeVersionData } from './graphUtils'
+import {
+  formatPercent,
+  type ResumeVersionData,
+  getApplicationDate,
+} from './graphUtils'
 import {
   BarChart,
   Bar,
@@ -14,6 +18,16 @@ import {
   Cell,
   LabelList,
 } from 'recharts'
+
+// Time period options for the graph
+const TIME_PERIODS = {
+  '1M': 30,
+  '3M': 90,
+  '6M': 180,
+  ALL: 0,
+}
+
+type TimePeriod = keyof typeof TIME_PERIODS
 
 type ChartDataPoint = {
   name: string
@@ -27,6 +41,7 @@ export function ResumeEffectivenessGraph({
 }: {
   jobPosts: JobPostForCandidate[]
 }) {
+  const [timePeriod, setTimePeriod] = useState<TimePeriod>('ALL')
   const [chartData, setChartData] = useState<ChartDataPoint[]>([])
   const [versionData, setVersionData] = useState<ResumeVersionData[]>([])
   const [dataError, setDataError] = useState<string | null>(null)
@@ -55,11 +70,13 @@ export function ResumeEffectivenessGraph({
     return () => observer.disconnect()
   }, [])
 
-  // Process data when job posts change
+  // Process data when job posts or time period change
   useEffect(() => {
     console.log(
       'Processing resume effectiveness data. Posts:',
       jobPosts?.length,
+      'Time Period:',
+      timePeriod,
     )
     try {
       const processedData = processData()
@@ -84,7 +101,7 @@ export function ResumeEffectivenessGraph({
       setChartData([])
       setVersionData([])
     }
-  }, [jobPosts])
+  }, [jobPosts, timePeriod])
 
   // Process the data
   const processData = (): ResumeVersionData[] => {
@@ -95,6 +112,29 @@ export function ResumeEffectivenessGraph({
       }
 
       console.log(`Processing ${jobPosts.length} job posts for resume versions`)
+
+      // Filter job posts based on time period if needed
+      let filteredPosts = jobPosts
+      if (TIME_PERIODS[timePeriod] > 0) {
+        const cutoffDate = new Date()
+        cutoffDate.setDate(cutoffDate.getDate() - TIME_PERIODS[timePeriod])
+
+        const originalLength = filteredPosts.length
+        filteredPosts = filteredPosts.filter((post) => {
+          const appDate = getApplicationDate(post)
+          return appDate && appDate >= cutoffDate
+        })
+
+        console.log(
+          `Filtered from ${originalLength} to ${filteredPosts.length} posts based on period ${timePeriod}`,
+        )
+      }
+
+      // If no posts after filtering, return empty array
+      if (filteredPosts.length === 0) {
+        console.log('No posts remaining after time period filtering')
+        return []
+      }
 
       // Create a map to store data for each resume version
       const versionMap = new Map<
@@ -108,7 +148,7 @@ export function ResumeEffectivenessGraph({
       >()
 
       // Process each job post
-      jobPosts.forEach((post) => {
+      filteredPosts.forEach((post) => {
         // Handle resume version (use "Unknown" as fallback)
         const version = post.resumeVersion || 'Unknown'
 
@@ -169,19 +209,40 @@ export function ResumeEffectivenessGraph({
     }
   }
 
+  // Time period selector component - extracted to always show regardless of data state
+  const TimePeriodSelector = () => (
+    <div className="flex space-x-1 rounded-md bg-gray-100 p-1 dark:bg-gray-800">
+      {Object.keys(TIME_PERIODS).map((period) => (
+        <button
+          key={period}
+          className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
+            timePeriod === period
+              ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-400'
+              : 'text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700'
+          }`}
+          onClick={() => setTimePeriod(period as TimePeriod)}
+        >
+          {period}
+        </button>
+      ))}
+    </div>
+  )
+
   // If no data to display
   if (!chartData || chartData.length === 0) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-        <h2 className="mb-4 text-xl font-semibold">Resume Effectiveness</h2>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Resume Effectiveness</h2>
+          <TimePeriodSelector />
+        </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
             {dataError || 'No resume version data available.'}
           </p>
           {jobPosts?.length > 0 && (
             <p className="mt-2 text-sm text-gray-400">
-              Found {jobPosts.length} job posts, but no resume version data to
-              analyze.
+              Try selecting a different time period such as 'ALL'.
             </p>
           )}
         </div>
@@ -216,7 +277,10 @@ export function ResumeEffectivenessGraph({
 
   return (
     <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-      <h2 className="mb-4 text-xl font-semibold">Resume Effectiveness</h2>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-xl font-semibold">Resume Effectiveness</h2>
+        <TimePeriodSelector />
+      </div>
 
       <div>
         <p className="mb-4 text-sm text-gray-500">

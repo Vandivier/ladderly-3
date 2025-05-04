@@ -1,5 +1,5 @@
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
-import { SmallCard } from '~/app/core/components/SmallCard'
+import { VeryLargeCard } from '~/app/core/components/VeryLargeCard'
 import { api } from '~/trpc/server'
 import { notFound } from 'next/navigation'
 import { JobSearchGraphs } from './JobSearchGraphs'
@@ -31,7 +31,7 @@ export default async function JobSearchGraphsPage({
 
   return (
     <LadderlyPageWrapper authenticate requirePremium>
-      <SmallCard
+      <VeryLargeCard
         className="mx-4 mt-4"
         innerClassName="bg-gradient-to-b from-white to-gray-100 pt-4 dark:from-gray-900 dark:to-gray-950 dark:text-gray-100"
       >
@@ -41,7 +41,7 @@ export default async function JobSearchGraphsPage({
           </h1>
           <JobSearchGraphs jobSearchId={jobId} />
         </div>
-      </SmallCard>
+      </VeryLargeCard>
     </LadderlyPageWrapper>
   )
 }
