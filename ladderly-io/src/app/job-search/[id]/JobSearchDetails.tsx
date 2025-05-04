@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { api } from '~/trpc/react'
 import { FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import type { TRPCClientErrorLike } from '@trpc/client'
@@ -33,16 +34,31 @@ interface JobSearchDetailsProps {
 }
 
 export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
+  const searchParams = useSearchParams()
+
+  // Get page from URL or default to the initial job search page
+  const pageFromUrl = searchParams.get('page')
+    ? parseInt(searchParams.get('page') as string, 10)
+    : (initialJobSearch.pagination?.currentPage ?? 1)
+
   // State variables
   const [isEditing, setIsEditing] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
-  const [currentPage, setCurrentPage] = useState(
-    initialJobSearch.pagination?.currentPage ?? 1,
-  )
+  const [currentPage, setCurrentPage] = useState(pageFromUrl)
   const [showAddJobPostModal, setShowAddJobPostModal] = useState(false)
   const [showUploadCsvModal, setShowUploadCsvModal] = useState(false)
   const [editingJobPost, setEditingJobPost] =
     useState<JobPostForCandidate | null>(null)
+
+  // Listen for changes in the URL search params
+  useEffect(() => {
+    if (searchParams.has('page')) {
+      const newPage = parseInt(searchParams.get('page') as string, 10)
+      if (newPage !== currentPage && !isNaN(newPage) && newPage > 0) {
+        setCurrentPage(newPage)
+      }
+    }
+  }, [searchParams, currentPage])
 
   // Fetch job search data with pagination
   const {

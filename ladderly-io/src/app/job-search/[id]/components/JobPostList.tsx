@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import type { JobPostForCandidate, JobSearch } from '@prisma/client'
 import { Edit, Trash2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { api } from '~/trpc/react'
 
 // Component for displaying job post status
@@ -60,7 +60,24 @@ export const JobPostList: React.FC<JobPostListProps> = ({
   onEditJobPost,
 }) => {
   const router = useRouter()
+  const pathname = usePathname()
   const [deleting, setDeleting] = useState<Record<number, boolean>>({})
+
+  // Handle page change and update URL
+  const handlePageChange = useCallback(
+    (page: number) => {
+      // Update the URL with the page parameter
+      const params = new URLSearchParams()
+      params.set('page', page.toString())
+
+      // Use Next.js router to update the URL
+      window.history.pushState({}, '', `${pathname}?${params.toString()}`)
+
+      // Update the component state
+      onPageChange(page)
+    },
+    [pathname, onPageChange],
+  )
 
   // Get the delete mutation from tRPC
   const { mutate: deleteJobPost } = api.jobSearch.jobPost.delete.useMutation({
@@ -188,14 +205,14 @@ export const JobPostList: React.FC<JobPostListProps> = ({
               </div>
               <div className="flex space-x-2">
                 <button
-                  onClick={() => onPageChange(currentPage - 1)}
+                  onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage <= 1 || isLoading}
                   className="rounded-md border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-gray-600 dark:disabled:text-gray-500"
                 >
                   Previous
                 </button>
                 <button
-                  onClick={() => onPageChange(currentPage + 1)}
+                  onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage >= totalPages || isLoading}
                   className="rounded-md border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-gray-600 dark:disabled:text-gray-500"
                 >
