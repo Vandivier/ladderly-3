@@ -2,7 +2,10 @@ import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/Ladderly
 import { VeryLargeCard } from '~/app/core/components/VeryLargeCard'
 import { api } from '~/trpc/server'
 import { notFound } from 'next/navigation'
-import { JobSearchGraphs } from './JobSearchGraphs'
+import Link from 'next/link'
+import { WeeklyApplicationsGraph } from './components/WeeklyApplicationsGraph'
+import { ResumeEffectivenessGraph } from './components/ResumeEffectivenessGraph'
+import { RoundPerformanceGraph } from './components/RoundPerformanceGraph'
 
 export const metadata = {
   title: 'Job Search Analytics',
@@ -22,12 +25,15 @@ export default async function JobSearchGraphsPage({
   const jobSearch = await api.jobSearch.getJobSearch({
     id: jobId,
     page: 1,
-    pageSize: 10,
+    pageSize: 100,
   })
 
   if (!jobSearch) {
     notFound()
   }
+
+  // Safety check for job posts data
+  const jobPosts = jobSearch?.jobPosts || []
 
   return (
     <LadderlyPageWrapper authenticate requirePremium>
@@ -39,7 +45,47 @@ export default async function JobSearchGraphsPage({
           <h1 className="mb-6 text-2xl font-bold">
             Analytics for {jobSearch.name}
           </h1>
-          <JobSearchGraphs jobSearchId={jobId} />
+
+          <div className="space-y-8">
+            <div className="mb-4">
+              <Link
+                href={`/job-search/${jobId}`}
+                className="text-blue-600 hover:underline dark:text-blue-400"
+              >
+                ← Back to Job Search Details
+              </Link>
+            </div>
+
+            {jobPosts.length === 0 ? (
+              <div className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20">
+                <p className="text-center text-yellow-700 dark:text-yellow-200">
+                  No application data available to visualize.
+                  <Link
+                    href={`/job-search/${jobId}`}
+                    className="ml-2 underline"
+                  >
+                    Add some job applications
+                  </Link>
+                  to see analytics.
+                </p>
+              </div>
+            ) : (
+              <>
+                {/* Weekly Applications Graph */}
+                <WeeklyApplicationsGraph jobPosts={jobPosts} />
+
+                {/* Resume Effectiveness Graph */}
+                <ResumeEffectivenessGraph jobPosts={jobPosts} />
+
+                {/* Interview Round Performance Graph */}
+                <RoundPerformanceGraph jobPosts={jobPosts} />
+
+                <div className="mt-4 text-center text-sm text-gray-500">
+                  Total applications: {jobPosts.length}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </VeryLargeCard>
     </LadderlyPageWrapper>

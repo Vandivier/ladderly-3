@@ -3,8 +3,9 @@
 import React from 'react'
 import { api } from '~/trpc/react'
 import Link from 'next/link'
-import { WeeklyApplicationsGraph } from './components/WeeklyApplicationsGraph'
-import { ResumeEffectivenessGraph } from './components/ResumeEffectivenessGraph'
+import { WeeklyApplicationsGraph } from '~/app/job-search/[id]/graphs/components/WeeklyApplicationsGraph'
+import { ResumeEffectivenessGraph } from '~/app/job-search/[id]/graphs/components/ResumeEffectivenessGraph'
+import { RoundPerformanceGraph } from '~/app/job-search/[id]/graphs/components/RoundPerformanceGraph'
 
 // Main container component that shows all the job search analytics graphs
 export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
@@ -82,6 +83,9 @@ export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
 
       {/* Resume Effectiveness Graph */}
       <ResumeEffectivenessGraph jobPosts={jobPosts} />
+
+      {/* Interview Round Performance Graph */}
+      <RoundPerformanceGraph jobPosts={jobPosts} />
 
       <div className="mt-4 text-center text-sm text-gray-500">
         Total applications: {jobPosts.length}
