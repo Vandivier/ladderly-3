@@ -6,7 +6,10 @@ import {
   formatPercent,
   type ResumeVersionData,
   getApplicationDate,
+  TIME_PERIODS,
+  type TimePeriod,
 } from './graphUtils'
+import { TimePeriodSelector } from './TimePeriodSelector'
 import {
   BarChart,
   Bar,
@@ -18,16 +21,6 @@ import {
   Cell,
   LabelList,
 } from 'recharts'
-
-// Time period options for the graph
-const TIME_PERIODS = {
-  '1M': 30,
-  '3M': 90,
-  '6M': 180,
-  ALL: 0,
-}
-
-type TimePeriod = keyof typeof TIME_PERIODS
 
 type ChartDataPoint = {
   name: string
@@ -209,32 +202,16 @@ export function ResumeEffectivenessGraph({
     }
   }
 
-  // Time period selector component - extracted to always show regardless of data state
-  const TimePeriodSelector = () => (
-    <div className="flex space-x-1 rounded-md bg-gray-100 p-1 dark:bg-gray-800">
-      {Object.keys(TIME_PERIODS).map((period) => (
-        <button
-          key={period}
-          className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
-            timePeriod === period
-              ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-400'
-              : 'text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700'
-          }`}
-          onClick={() => setTimePeriod(period as TimePeriod)}
-        >
-          {period}
-        </button>
-      ))}
-    </div>
-  )
-
   // If no data to display
   if (!chartData || chartData.length === 0) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-2 flex flex-col space-y-2 sm:mb-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
           <h2 className="text-xl font-semibold">Resume Effectiveness</h2>
-          <TimePeriodSelector />
+          <TimePeriodSelector
+            selectedPeriod={timePeriod}
+            onChange={setTimePeriod}
+          />
         </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
@@ -277,9 +254,12 @@ export function ResumeEffectivenessGraph({
 
   return (
     <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-2 flex flex-col space-y-2 sm:mb-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <h2 className="text-xl font-semibold">Resume Effectiveness</h2>
-        <TimePeriodSelector />
+        <TimePeriodSelector
+          selectedPeriod={timePeriod}
+          onChange={setTimePeriod}
+        />
       </div>
 
       <div>

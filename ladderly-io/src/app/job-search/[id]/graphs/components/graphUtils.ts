@@ -5,6 +5,18 @@
 import type { JobPostForCandidate } from '@prisma/client'
 
 /**
+ * Time period options for filtering graph data
+ */
+export const TIME_PERIODS = {
+  '1M': 30,
+  '3M': 90,
+  '6M': 180,
+  ALL: 0,
+}
+
+export type TimePeriod = keyof typeof TIME_PERIODS
+
+/**
  * Gets a valid application date from a job post, handling possible undefined values
  */
 export function getApplicationDate(post: JobPostForCandidate): Date | null {
