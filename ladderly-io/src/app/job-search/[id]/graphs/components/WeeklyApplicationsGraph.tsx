@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { JobPostForCandidate } from '@prisma/client'
+import React, { useState, useEffect, useCallback } from 'react'
+import type { JobPostForCandidate } from '@prisma/client'
 import {
   getApplicationDate,
   getWeekStart,
@@ -23,31 +23,26 @@ import {
   Legend,
 } from 'recharts'
 
+type ChartDataPoint = {
+  date: string
+  count: number
+  formattedDate: string
+}
+
 export function WeeklyApplicationsGraph({
   jobPosts,
 }: {
   jobPosts: JobPostForCandidate[]
 }) {
   const [timePeriod, setTimePeriod] = useState<TimePeriod>('ALL')
-  const [chartData, setChartData] = useState<
-    Array<{ date: string; count: number; formattedDate: string }>
-  >([])
+  const [chartData, setChartData] = useState<ChartDataPoint[]>([])
   const [dataError, setDataError] = useState<string | null>(null)
 
-  // Process data whenever jobPosts or timePeriod changes
-  useEffect(() => {
-    console.log('Processing weekly application data. Posts:', jobPosts?.length)
-    const newData = processData()
-
-    setChartData(newData)
-    setDataError(newData.length === 0 ? 'No application data to display' : null)
-  }, [jobPosts, timePeriod])
-
-  // Process data
-  const processData = () => {
+  // Process data - memoized to prevent unnecessary re-creation
+  const processData = useCallback(() => {
     try {
       // Safety check - early return an empty array if no posts
-      if (!jobPosts || jobPosts.length === 0) {
+      if (!jobPosts?.length) {
         console.log('No job posts found to process')
         return []
       }
@@ -129,10 +124,19 @@ export function WeeklyApplicationsGraph({
       setDataError('Error processing data')
       return []
     }
-  }
+  }, [jobPosts, timePeriod])
+
+  // Process data whenever jobPosts or timePeriod changes
+  useEffect(() => {
+    console.log('Processing weekly application data. Posts:', jobPosts?.length)
+    const newData = processData()
+
+    setChartData(newData)
+    setDataError(newData.length === 0 ? 'No application data to display' : null)
+  }, [jobPosts, timePeriod, processData])
 
   // If no data to display
-  if (!chartData || chartData.length === 0) {
+  if (!chartData?.length) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
         <div className="mb-2 flex flex-col space-y-2 sm:mb-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
@@ -157,15 +161,21 @@ export function WeeklyApplicationsGraph({
     )
   }
 
-  // Custom tooltip component
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload
+  // Custom tooltip component with better type safety
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: {
+    active?: boolean
+    payload?: Array<{ payload: ChartDataPoint }>
+  }) => {
+    if (active && payload?.length) {
+      const data = payload[0]?.payload
       return (
         <div className="rounded-md bg-gray-900 p-2 text-sm text-white shadow-lg">
-          <p className="font-medium">{data.formattedDate}</p>
+          <p className="font-medium">{data?.formattedDate}</p>
           <p>
-            {data.count} application{data.count !== 1 ? 's' : ''}
+            {data?.count} application{data?.count !== 1 ? 's' : ''}
           </p>
         </div>
       )
@@ -201,7 +211,7 @@ export function WeeklyApplicationsGraph({
               tick={{ fontSize: 12 }}
               allowDecimals={false}
               // Only show integer ticks
-              tickFormatter={(value) => String(Math.floor(value))}
+              tickFormatter={(value) => String(Math.floor(Number(value)))}
             />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ paddingTop: 10 }} />

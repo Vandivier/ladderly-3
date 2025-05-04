@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   type JobPostForCandidate,
   type JobSearchStep,
@@ -40,18 +40,24 @@ const STEP_KIND_TO_STAGE: Record<JobSearchStepKind, string> = {
   [JobSearchStepKind.OTHER]: STAGES.FIRST_ROUND,
 }
 
+// Define the type for job post with search steps
+type JobPostWithSteps = JobPostForCandidate & {
+  jobSearchSteps?: JobSearchStep[]
+}
+
 // Props type for the component
 type InterviewFunnelSankeyProps = {
-  jobPosts: JobPostForCandidate[] & {
-    jobSearchSteps?: JobSearchStep[]
-  }
+  jobPosts: JobPostWithSteps[]
 }
+
+type ChartDataRow = [string, string, number]
+type SankeyData = Array<[string, string, string] | ChartDataRow>
 
 export function InterviewFunnelSankey({
   jobPosts,
 }: InterviewFunnelSankeyProps) {
   const [timePeriod, setTimePeriod] = useState<TimePeriod>('ALL')
-  const [chartData, setChartData] = useState<any[]>([])
+  const [chartData, setChartData] = useState<SankeyData>([])
   const [dataError, setDataError] = useState<string | null>(null)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -73,37 +79,12 @@ export function InterviewFunnelSankey({
     return () => observer.disconnect()
   }, [])
 
-  // Process data when posts or time period changes
-  useEffect(() => {
-    console.log(
-      'Processing interview funnel data. Posts:',
-      jobPosts?.length,
-      'Time Period:',
-      timePeriod,
-    )
-    setIsLoading(true)
-
-    try {
-      const processedData = processData()
-      setChartData(processedData)
-      setDataError(
-        processedData.length <= 1 ? 'No interview funnel data found' : null,
-      )
-    } catch (error) {
-      console.error('Error processing interview funnel data:', error)
-      setDataError('Error processing data')
-      setChartData([])
-    } finally {
-      setIsLoading(false)
-    }
-  }, [jobPosts, timePeriod])
-
   // Process the data to generate Sankey diagram data
-  const processData = (): any[] => {
+  const processData = useCallback((): SankeyData => {
     try {
-      if (!jobPosts || !jobPosts.length) {
+      if (!jobPosts?.length) {
         console.log('No job posts found for funnel analysis')
-        return []
+        return [['From', 'To', 'Weight']]
       }
 
       // Filter job posts based on time period if needed
@@ -126,7 +107,7 @@ export function InterviewFunnelSankey({
       // If no posts after filtering, return empty array
       if (filteredPosts.length === 0) {
         console.log('No posts remaining after time period filtering')
-        return []
+        return [['From', 'To', 'Weight']]
       }
 
       // Track the flow between stages
@@ -140,7 +121,7 @@ export function InterviewFunnelSankey({
 
       // Go through each job post and construct the journey
       filteredPosts.forEach((post) => {
-        const steps = (post as any).jobSearchSteps || []
+        const steps = post.jobSearchSteps ?? []
 
         // Sort steps by date to get the correct sequence
         const sortedSteps = [...steps].sort(
@@ -166,8 +147,9 @@ export function InterviewFunnelSankey({
 
           // Update the flow
           if (fromStage !== toStage) {
-            const fromMap = stageFlow.get(fromStage) || new Map()
-            const currentCount = fromMap.get(toStage) || 0
+            const fromMap =
+              stageFlow.get(fromStage) ?? new Map<string, number>()
+            const currentCount = fromMap.get(toStage) ?? 0
             fromMap.set(toStage, currentCount + 1)
             stageFlow.set(fromStage, fromMap)
           }
@@ -178,18 +160,16 @@ export function InterviewFunnelSankey({
         // Track the journey through each step
         let previousStage = STAGES.APPLIED
 
-        for (let i = 0; i < sortedSteps.length; i++) {
-          const step = sortedSteps[i] as JobSearchStep
-
+        for (const step of sortedSteps) {
           // Map the step kind to a stage
           const currentStage =
-            STEP_KIND_TO_STAGE[step.kind as JobSearchStepKind] ||
-            STAGES.FIRST_ROUND
+            STEP_KIND_TO_STAGE[step.kind] ?? STAGES.FIRST_ROUND
 
           // If the stage changed, record the flow
           if (previousStage !== currentStage) {
-            const fromMap = stageFlow.get(previousStage) || new Map()
-            const currentCount = fromMap.get(currentStage) || 0
+            const fromMap =
+              stageFlow.get(previousStage) ?? new Map<string, number>()
+            const currentCount = fromMap.get(currentStage) ?? 0
             fromMap.set(currentStage, currentCount + 1)
             stageFlow.set(previousStage, fromMap)
 
@@ -212,15 +192,15 @@ export function InterviewFunnelSankey({
 
         // Only record if the outcome is different from the final step
         if (finalStage !== outcomeStage) {
-          const fromMap = stageFlow.get(finalStage) || new Map()
-          const currentCount = fromMap.get(outcomeStage) || 0
+          const fromMap = stageFlow.get(finalStage) ?? new Map<string, number>()
+          const currentCount = fromMap.get(outcomeStage) ?? 0
           fromMap.set(outcomeStage, currentCount + 1)
           stageFlow.set(finalStage, fromMap)
         }
       })
 
       // Convert the stage flow map to Sankey data format
-      const sankeyData: any[] = [['From', 'To', 'Weight']]
+      const sankeyData: SankeyData = [['From', 'To', 'Weight']]
 
       stageFlow.forEach((toMap, fromStage) => {
         toMap.forEach((count, toStage) => {
@@ -234,9 +214,34 @@ export function InterviewFunnelSankey({
       return sankeyData
     } catch (error) {
       console.error('Error processing interview funnel data:', error)
-      return []
+      return [['From', 'To', 'Weight']]
     }
-  }
+  }, [jobPosts, timePeriod])
+
+  // Process data when posts or time period changes
+  useEffect(() => {
+    console.log(
+      'Processing interview funnel data. Posts:',
+      jobPosts?.length,
+      'Time Period:',
+      timePeriod,
+    )
+    setIsLoading(true)
+
+    try {
+      const processedData = processData()
+      setChartData(processedData)
+      setDataError(
+        processedData.length <= 1 ? 'No interview funnel data found' : null,
+      )
+    } catch (error) {
+      console.error('Error processing interview funnel data:', error)
+      setDataError('Error processing data')
+      setChartData([])
+    } finally {
+      setIsLoading(false)
+    }
+  }, [jobPosts, timePeriod, processData])
 
   // If no data to display
   if ((!chartData || chartData.length <= 1) && !isLoading) {
@@ -251,7 +256,7 @@ export function InterviewFunnelSankey({
         </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
-            {dataError || 'No interview journey data available.'}
+            {dataError ?? 'No interview journey data available.'}
           </p>
           {jobPosts?.length > 0 && (
             <p className="mt-2 text-sm text-gray-400">

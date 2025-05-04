@@ -1,11 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import {
-  JobPostForCandidate,
-  JobSearchStep,
-  JobSearchStepKind,
-} from '@prisma/client'
+import React, { useState, useEffect, useCallback } from 'react'
+import type { JobPostForCandidate, JobSearchStep } from '@prisma/client'
+import { JobSearchStepKind } from '@prisma/client'
 import {
   formatPercent,
   TIME_PERIODS,
@@ -100,10 +97,13 @@ type ChartDataPoint = {
   category: string
 }
 
+// Define the type for job posts with their job search steps
+type JobPostWithSteps = JobPostForCandidate & {
+  jobSearchSteps?: JobSearchStep[]
+}
+
 type RoundPerformanceGraphProps = {
-  jobPosts: JobPostForCandidate[] & {
-    jobSearchSteps?: JobSearchStep[]
-  }
+  jobPosts: JobPostWithSteps[]
 }
 
 export function RoundPerformanceGraph({
@@ -132,53 +132,10 @@ export function RoundPerformanceGraph({
     return () => observer.disconnect()
   }, [])
 
-  // Process data when posts or time period changes
-  useEffect(() => {
-    console.log(
-      'Processing round performance data. Posts:',
-      jobPosts?.length,
-      'Time Period:',
-      timePeriod,
-    )
+  // Process the data with useCallback to avoid recreation on every render
+  const processData = useCallback((): RoundType[] => {
     try {
-      const processedData = processData()
-
-      // Format data for the chart
-      const formattedData = processedData
-        .filter((round) => round.total > 0) // Only include rounds that have data
-        .map((round) => ({
-          name: ROUND_TYPE_DISPLAY_NAMES[round.kind],
-          kind: round.kind,
-          successRate: round.successRate,
-          total: round.total,
-          passed: round.passed,
-          failed: round.failed,
-          pending: round.pending,
-          formattedRate: formatPercent(round.successRate),
-          // Determine which category this round type belongs to
-          category:
-            Object.entries(ROUND_CATEGORIES).find(([_, types]) =>
-              types.includes(round.kind),
-            )?.[0] || 'Other',
-        }))
-        // Sort by success rate (higher first)
-        .sort((a, b) => b.successRate - a.successRate)
-
-      setChartData(formattedData)
-      setDataError(
-        formattedData.length === 0 ? 'No interview round data found' : null,
-      )
-    } catch (error) {
-      console.error('Error processing round performance data:', error)
-      setDataError('Error processing round data')
-      setChartData([])
-    }
-  }, [jobPosts, timePeriod])
-
-  // Process the data
-  const processData = (): RoundType[] => {
-    try {
-      if (!jobPosts || !jobPosts.length) {
+      if (!jobPosts?.length) {
         console.log('No job posts found for round analysis')
         return []
       }
@@ -225,8 +182,8 @@ export function RoundPerformanceGraph({
       // Process all job search steps
       let processedSteps = 0
       filteredPosts.forEach((post) => {
-        const steps = (post as any).jobSearchSteps
-        if (!steps || steps.length === 0) {
+        const steps = post.jobSearchSteps
+        if (!steps?.length) {
           return
         }
 
@@ -234,7 +191,7 @@ export function RoundPerformanceGraph({
           processedSteps++
 
           // Get current data for this step kind
-          const statsForKind = roundTypeMap.get(step.kind) || {
+          const statsForKind = roundTypeMap.get(step.kind) ?? {
             total: 0,
             passed: 0,
             failed: 0,
@@ -292,10 +249,53 @@ export function RoundPerformanceGraph({
       console.error('Error processing round performance data:', error)
       return []
     }
-  }
+  }, [jobPosts, timePeriod])
+
+  // Process data when posts or time period changes
+  useEffect(() => {
+    console.log(
+      'Processing round performance data. Posts:',
+      jobPosts?.length,
+      'Time Period:',
+      timePeriod,
+    )
+    try {
+      const processedData = processData()
+
+      // Format data for the chart
+      const formattedData = processedData
+        .filter((round) => round.total > 0) // Only include rounds that have data
+        .map((round) => ({
+          name: ROUND_TYPE_DISPLAY_NAMES[round.kind],
+          kind: round.kind,
+          successRate: round.successRate,
+          total: round.total,
+          passed: round.passed,
+          failed: round.failed,
+          pending: round.pending,
+          formattedRate: formatPercent(round.successRate),
+          // Determine which category this round type belongs to
+          category:
+            Object.entries(ROUND_CATEGORIES).find(([_, types]) =>
+              types.includes(round.kind),
+            )?.[0] ?? 'Other',
+        }))
+        // Sort by success rate (higher first)
+        .sort((a, b) => b.successRate - a.successRate)
+
+      setChartData(formattedData)
+      setDataError(
+        formattedData.length === 0 ? 'No interview round data found' : null,
+      )
+    } catch (error) {
+      console.error('Error processing round performance data:', error)
+      setDataError('Error processing round data')
+      setChartData([])
+    }
+  }, [jobPosts, timePeriod, processData])
 
   // If no data to display
-  if (!chartData || chartData.length === 0) {
+  if (!chartData?.length) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
         <div className="mb-2 flex flex-col space-y-2 sm:mb-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
@@ -307,7 +307,7 @@ export function RoundPerformanceGraph({
         </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
-            {dataError || 'No interview round data available.'}
+            {dataError ?? 'No interview round data available.'}
           </p>
           {jobPosts?.length > 0 && (
             <p className="mt-2 text-sm text-gray-400">
@@ -329,11 +329,16 @@ export function RoundPerformanceGraph({
   const categories = Array.from(new Set(chartData.map((d) => d.category)))
 
   // Custom tooltip to show more detailed information
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload
-      const successPercent = formatPercent(data.passed / (data.total || 1))
-      const pendingCount = data.pending
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: {
+    active?: boolean
+    payload?: Array<{ payload: ChartDataPoint }>
+  }) => {
+    if (active && payload?.length) {
+      const data = payload[0]?.payload
+      if (!data) return null
 
       return (
         <div className="rounded-md bg-gray-900 p-3 text-sm text-white shadow-lg">
@@ -352,11 +357,11 @@ export function RoundPerformanceGraph({
                 {data.failed}
               </span>
             </p>
-            {pendingCount > 0 && (
+            {data.pending > 0 && (
               <p className="flex justify-between">
                 <span>Pending:</span>
                 <span className="ml-4 font-medium text-blue-400">
-                  {pendingCount}
+                  {data.pending}
                 </span>
               </p>
             )}
@@ -437,7 +442,7 @@ export function RoundPerformanceGraph({
                 tickLine={{ stroke: axisColor }}
               />
               <YAxis
-                tickFormatter={(value) => formatPercent(value)}
+                tickFormatter={(value) => formatPercent(Number(value))}
                 domain={[0, 1]}
                 tick={{ fill: textColor, fontSize: 12 }}
                 axisLine={{ stroke: axisColor }}
@@ -477,8 +482,8 @@ export function RoundPerformanceGraph({
         <div className="mt-4 text-sm text-gray-600 dark:text-gray-300">
           <p>
             <span className="font-medium">Highest success:</span>{' '}
-            {displayData[0]?.name || 'None'} -{' '}
-            {displayData[0]?.formattedRate || '0%'} success rate
+            {displayData[0]?.name ?? 'None'} -{' '}
+            {displayData[0]?.formattedRate ?? '0%'} success rate
           </p>
         </div>
       </div>

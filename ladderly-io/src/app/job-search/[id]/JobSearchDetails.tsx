@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
 import { FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import type { TRPCClientErrorLike } from '@trpc/client'
+import type { JobSearch, JobPostForCandidate } from '@prisma/client'
 import { JobSearchHeader } from './components/JobSearchHeader'
 import {
   JobSearchEditForm,
@@ -15,13 +15,24 @@ import { AddJobPostModal } from './components/AddJobPostModal'
 import { EditJobPostModal } from './components/EditJobPostModal'
 import { UploadCsvModal } from './components/UploadCsvModal'
 
+// Define a proper type for job search data with pagination
+interface JobSearchPagination {
+  currentPage: number
+  pageSize: number
+  totalItems: number
+  totalPages: number
+}
+
+interface JobSearchWithPosts extends JobSearch {
+  jobPosts: JobPostForCandidate[]
+  pagination: JobSearchPagination
+}
+
 interface JobSearchDetailsProps {
-  initialJobSearch: any // Replace with proper type later
+  initialJobSearch: JobSearchWithPosts
 }
 
 export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
-  const router = useRouter()
-
   // State variables
   const [isEditing, setIsEditing] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
@@ -30,7 +41,8 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
   )
   const [showAddJobPostModal, setShowAddJobPostModal] = useState(false)
   const [showUploadCsvModal, setShowUploadCsvModal] = useState(false)
-  const [editingJobPost, setEditingJobPost] = useState<any>(null)
+  const [editingJobPost, setEditingJobPost] =
+    useState<JobPostForCandidate | null>(null)
 
   // Fetch job search data with pagination
   const {
@@ -44,7 +56,8 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
       pageSize: initialJobSearch.pagination?.pageSize ?? 10,
     },
     {
-      initialData: initialJobSearch,
+      // Use type assertion for initialData to satisfy TypeScript
+      initialData: initialJobSearch as any,
       refetchOnWindowFocus: false,
     },
   )
@@ -60,10 +73,11 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
     },
   )
 
-  // Job search data
-  const jobSearch = jobSearchData
-  const jobPosts = jobSearchData?.jobPosts ?? []
-  const pagination = jobSearchData?.pagination ?? initialJobSearch.pagination
+  // Job search data with type safety
+  const jobSearch = jobSearchData as JobSearchWithPosts
+  const jobPosts = (jobSearchData?.jobPosts ?? []) as JobPostForCandidate[]
+  const pagination = (jobSearchData?.pagination ??
+    initialJobSearch.pagination) as JobSearchPagination
 
   // Handle updating job search
   const handleUpdateJobSearch: FormProps<

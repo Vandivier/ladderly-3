@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { JobApplicationStatus, type JobPostForCandidate } from '@prisma/client'
 import {
   formatPercent,
@@ -20,11 +20,18 @@ import {
   ResponsiveContainer,
   Cell,
   LabelList,
+  type TooltipProps,
 } from 'recharts'
 
 type ChartDataPoint = {
   name: string
   ratio: number
+  formattedRatio: string
+  countDisplay: string
+}
+
+type TooltipData = {
+  name: string
   formattedRatio: string
   countDisplay: string
 }
@@ -63,43 +70,10 @@ export function ResumeEffectivenessGraph({
     return () => observer.disconnect()
   }, [])
 
-  // Process data when job posts or time period change
-  useEffect(() => {
-    console.log(
-      'Processing resume effectiveness data. Posts:',
-      jobPosts?.length,
-      'Time Period:',
-      timePeriod,
-    )
+  // Memoize processData function to avoid infinite loops in useEffect
+  const processData = useCallback((): ResumeVersionData[] => {
     try {
-      const processedData = processData()
-      setVersionData(processedData)
-
-      // Format data for Recharts
-      const formattedData = processedData.map((data) => ({
-        name: data.version,
-        ratio: data.ratio,
-        formattedRatio: data.formattedRatio ?? formatPercent(data.ratio),
-        countDisplay:
-          data.countDisplay ?? `(${data.interviews} of ${data.applications})`,
-      }))
-
-      setChartData(formattedData)
-      setDataError(
-        formattedData.length === 0 ? 'No resume version data found' : null,
-      )
-    } catch (error) {
-      console.error('Error processing resume data:', error)
-      setDataError('Error processing resume data')
-      setChartData([])
-      setVersionData([])
-    }
-  }, [jobPosts, timePeriod])
-
-  // Process the data
-  const processData = (): ResumeVersionData[] => {
-    try {
-      if (!jobPosts || !jobPosts.length) {
+      if (!jobPosts?.length) {
         console.log('No job posts found for resume analysis')
         return []
       }
@@ -200,7 +174,40 @@ export function ResumeEffectivenessGraph({
       console.error('Error processing resume effectiveness data:', error)
       return []
     }
-  }
+  }, [jobPosts, timePeriod])
+
+  // Process data when job posts or time period change
+  useEffect(() => {
+    console.log(
+      'Processing resume effectiveness data. Posts:',
+      jobPosts?.length,
+      'Time Period:',
+      timePeriod,
+    )
+    try {
+      const processedData = processData()
+      setVersionData(processedData)
+
+      // Format data for Recharts
+      const formattedData = processedData.map((data) => ({
+        name: data.version,
+        ratio: data.ratio,
+        formattedRatio: data.formattedRatio ?? formatPercent(data.ratio),
+        countDisplay:
+          data.countDisplay ?? `(${data.interviews} of ${data.applications})`,
+      }))
+
+      setChartData(formattedData)
+      setDataError(
+        formattedData.length === 0 ? 'No resume version data found' : null,
+      )
+    } catch (error) {
+      console.error('Error processing resume data:', error)
+      setDataError('Error processing resume data')
+      setChartData([])
+      setVersionData([])
+    }
+  }, [jobPosts, timePeriod, processData])
 
   // If no data to display
   if (!chartData || chartData.length === 0) {
@@ -238,14 +245,14 @@ export function ResumeEffectivenessGraph({
   const sublabelTextColor = isDarkMode ? '#cbd5e1' : '#6b7280'
 
   // Custom tooltip to show more information
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload
+  const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
+    if (active && payload?.length) {
+      const data = payload[0]?.payload as TooltipData
       return (
         <div className="rounded-md bg-gray-900 p-2 text-sm text-white shadow-lg">
-          <p className="font-medium">{data.name}</p>
-          <p>Success rate: {data.formattedRatio}</p>
-          <p>Applications: {data.countDisplay}</p>
+          <p className="font-medium">{data?.name}</p>
+          <p>Success rate: {data?.formattedRatio}</p>
+          <p>Applications: {data?.countDisplay}</p>
         </div>
       )
     }
@@ -287,11 +294,12 @@ export function ResumeEffectivenessGraph({
                   0,
                   Math.max(
                     0.05,
-                    Math.ceil(Math.max(...chartData.map((d) => d.ratio)) * 10) /
-                      10,
+                    Math.ceil(
+                      Math.max(...chartData.map((d) => Number(d.ratio))) * 10,
+                    ) / 10,
                   ),
                 ]}
-                tickFormatter={(value) => formatPercent(value)}
+                tickFormatter={(value: number) => formatPercent(value)}
                 tick={{ fill: xAxisTextColor, fontSize: 12 }}
                 axisLine={{ stroke: axisColor }}
                 tickLine={{ stroke: axisColor }}
@@ -332,8 +340,8 @@ export function ResumeEffectivenessGraph({
         <div className="mt-4 text-sm text-gray-600 dark:text-gray-300">
           <p>
             <span className="font-medium">Most effective:</span>{' '}
-            {versionData[0]?.version ?? 'None'} -{' '}
-            {versionData[0]?.formattedRatio ?? '0%'} interview rate
+            {versionData?.[0]?.version ?? 'None'} -{' '}
+            {versionData?.[0]?.formattedRatio ?? '0%'} interview rate
           </p>
         </div>
       </div>

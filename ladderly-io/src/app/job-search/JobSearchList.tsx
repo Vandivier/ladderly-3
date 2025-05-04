@@ -3,7 +3,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import { api } from '~/trpc/react'
 import { JobSearchActiveSpan } from './JobSearchActiveSpan'
@@ -17,19 +17,7 @@ interface JobSearchWithCount extends JobSearch {
   }
 }
 
-// Type for paginated response
-interface PaginatedJobSearchResponse {
-  jobSearches: JobSearchWithCount[]
-  pagination: {
-    totalItems: number
-    currentPage: number
-    pageSize: number
-    totalPages: number
-  }
-}
-
 export const JobSearchList = () => {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
@@ -37,7 +25,7 @@ export const JobSearchList = () => {
   const isJobSearchListPage = pathname === '/job-search'
 
   // Parse page from URL query params, default to 1
-  const initialPage = parseInt(searchParams.get('page') || '1', 10)
+  const initialPage = parseInt(searchParams.get('page') ?? '1', 10)
   const [currentPage, setCurrentPage] = useState(initialPage)
   const pageSize = 10
 
@@ -59,7 +47,7 @@ export const JobSearchList = () => {
 
   // Also update currentPage if searchParams change externally
   useEffect(() => {
-    const pageFromUrl = parseInt(searchParams.get('page') || '1', 10)
+    const pageFromUrl = parseInt(searchParams.get('page') ?? '1', 10)
     if (pageFromUrl !== currentPage) {
       setCurrentPage(pageFromUrl)
     }
@@ -72,9 +60,9 @@ export const JobSearchList = () => {
       pageSize,
     })
 
-  const jobSearches = data?.jobSearches || []
-  const totalPages = data?.pagination?.totalPages || 1
-  const totalItems = data?.pagination?.totalItems || 0
+  const jobSearches = data?.jobSearches ?? []
+  const totalPages = data?.pagination?.totalPages ?? 1
+  const totalItems = data?.pagination?.totalItems ?? 0
 
   const { mutate: deleteJobSearch } = api.jobSearch.deleteJobSearch.useMutation(
     {
@@ -138,7 +126,7 @@ export const JobSearchList = () => {
 
                   <div className="mt-1 flex flex-wrap text-sm text-gray-500 dark:text-gray-400">
                     <span className="mr-4">
-                      {jobSearch._count?.jobPosts || 0} applications
+                      {jobSearch._count?.jobPosts ?? 0} applications
                     </span>
                     <span className="mr-4">
                       Created{' '}
