@@ -61,8 +61,10 @@ Full package.json content:
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-final-form": "^6.5.9",
+    "react-google-charts": "^5.2.1",
     "react-markdown": "^9.0.1",
     "react-select": "^5.8.3",
+    "recharts": "^2.15.3",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-external-links": "^3.0.0",
     "rehype-highlight": "^7.0.1",
@@ -341,6 +343,7 @@ src/
                 LargeCard.tsx
                 ProviderProvider.tsx
                 SmallCard.tsx
+                VeryLargeCard.tsx
                 src/app/core/components/icons/
                     Home.tsx
                     VerticalChevron.tsx
@@ -392,6 +395,23 @@ src/
                 AddJobApplicationModal.tsx
                 JobSearchDetails.tsx
                 page.tsx
+                src/app/job-search/[id]/components/
+                    AddJobPostModal.tsx
+                    EditJobPostModal.tsx
+                    JobPostList.tsx
+                    JobSearchEditForm.tsx
+                    JobSearchHeader.tsx
+                    UploadCsvModal.tsx
+                src/app/job-search/[id]/graphs/
+                    JobSearchGraphs.tsx
+                    page.tsx
+                    src/app/job-search/[id]/graphs/components/
+                        graphUtils.ts
+                        InterviewFunnelSankey.tsx
+                        ResumeEffectivenessGraph.tsx
+                        RoundPerformanceGraph.tsx
+                        TimePeriodSelector.tsx
+                        WeeklyApplicationsGraph.tsx
         src/app/journal/
             CreateJournalEntryForm.tsx
             DeepJournalingWaitlist.tsx

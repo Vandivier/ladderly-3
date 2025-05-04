@@ -19,32 +19,53 @@ export const jobSearchRouter = createTRPCRouter({
       z
         .object({
           includeInactive: z.boolean().optional().default(false),
+          page: z.number().optional().default(1),
+          pageSize: z.number().optional().default(10),
         })
         .optional(),
     )
     .query(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
+      const page = input?.page || 1
+      const pageSize = input?.pageSize || 10
+      const skip = (page - 1) * pageSize
 
       const where = {
         userId,
         ...(input?.includeInactive ? {} : { isActive: true }),
       }
 
-      const jobSearches = await ctx.db.jobSearch.findMany({
-        where,
-        orderBy: {
-          updatedAt: 'desc',
-        },
-        include: {
-          _count: {
-            select: {
-              jobPosts: true,
+      // Get total count and paginated results in parallel for efficiency
+      const [totalItems, jobSearches] = await Promise.all([
+        ctx.db.jobSearch.count({ where }),
+        ctx.db.jobSearch.findMany({
+          where,
+          orderBy: {
+            updatedAt: 'desc',
+          },
+          include: {
+            _count: {
+              select: {
+                jobPosts: true,
+              },
             },
           },
-        },
-      })
+          skip,
+          take: pageSize,
+        }),
+      ])
 
-      return jobSearches
+      const totalPages = Math.ceil(totalItems / pageSize)
+
+      return {
+        jobSearches,
+        pagination: {
+          totalItems,
+          currentPage: page,
+          pageSize,
+          totalPages,
+        },
+      }
     }),
 
   // Get a single job search by ID (including paginated job posts)
