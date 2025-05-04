@@ -7,7 +7,7 @@ author: John Vandivier
 
 Note: You must already be logged in to purchase premium. If you are not logged in, you will be redirected to sign up for a free account before purchasing premium.
 
-Ladderly.io premium membership provides access to a dozen valuable features, including [the seven free-tier features](/blog/2025-05-03-benefits-of-free) and five more powerful resources:
+Ladderly.io premium membership provides access to a dozen valuable features, including [the seven free-tier features](/blog/2025-05-02-benefits-of-free) and five more powerful resources:
 
 1. The Ladderly Copilot. [Click here to use it now](/copilot) or learn more about this powerful AI resource [here](/blog/2025-02-07-ladderly-chat-ai)!
 2. [The Job Search Tool](/job-search)
