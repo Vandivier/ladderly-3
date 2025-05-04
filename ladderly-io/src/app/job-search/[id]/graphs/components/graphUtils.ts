@@ -7,14 +7,31 @@ import type { JobPostForCandidate } from '@prisma/client'
 /**
  * Gets a valid application date from a job post, handling possible undefined values
  */
-export function getApplicationDate(post: JobPostForCandidate): Date {
-  if (post.initialApplicationDate) {
-    return new Date(post.initialApplicationDate)
-  } else if (post.createdAt) {
-    return new Date(post.createdAt)
+export function getApplicationDate(post: JobPostForCandidate): Date | null {
+  try {
+    // First try initialApplicationDate
+    if (post.initialApplicationDate) {
+      return new Date(post.initialApplicationDate)
+    }
+    // Then try lastActionDate
+    else if (post.lastActionDate) {
+      return new Date(post.lastActionDate)
+    }
+    // Then fallback to createdAt which should always exist
+    else if (post.createdAt) {
+      return new Date(post.createdAt)
+    }
+
+    console.log(
+      'Warning: No valid date found for job post:',
+      post.id,
+      post.company,
+    )
+    return null
+  } catch (error) {
+    console.error('Error parsing date:', error, 'for post:', post.id)
+    return null
   }
-  // Fallback to current date if no date is available
-  return new Date()
 }
 
 /**
@@ -32,8 +49,16 @@ export function getWeekStart(date: Date): Date {
  * Formats a date string or Date object for display in graphs
  */
 export function formatDateLabel(dateInput: string | Date): string {
-  const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput
-  return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+  try {
+    const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput
+    return date.toLocaleDateString(undefined, {
+      month: 'short',
+      day: 'numeric',
+    })
+  } catch (error) {
+    console.error('Error formatting date:', error)
+    return 'Invalid date'
+  }
 }
 
 /**
@@ -86,4 +111,6 @@ export type ResumeVersionData = {
   offers: number
   rejections: number
   ratio: number
+  formattedRatio?: string
+  countDisplay?: string
 }

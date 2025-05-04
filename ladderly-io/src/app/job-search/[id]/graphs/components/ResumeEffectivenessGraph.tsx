@@ -1,22 +1,76 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { JobApplicationStatus, JobPostForCandidate } from '@prisma/client'
 import { formatPercent, type ResumeVersionData } from './graphUtils'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  LabelList,
+} from 'recharts'
+
+type ChartDataPoint = {
+  name: string
+  ratio: number
+  formattedRatio: string
+  countDisplay: string
+}
 
 export function ResumeEffectivenessGraph({
   jobPosts,
 }: {
   jobPosts: JobPostForCandidate[]
 }) {
-  const [selectedVersion, setSelectedVersion] = useState<string | null>(null)
+  const [chartData, setChartData] = useState<ChartDataPoint[]>([])
+  const [versionData, setVersionData] = useState<ResumeVersionData[]>([])
+  const [dataError, setDataError] = useState<string | null>(null)
+
+  // Process data when job posts change
+  useEffect(() => {
+    console.log(
+      'Processing resume effectiveness data. Posts:',
+      jobPosts?.length,
+    )
+    try {
+      const processedData = processData()
+      setVersionData(processedData)
+
+      // Format data for Recharts
+      const formattedData = processedData.map((data) => ({
+        name: data.version,
+        ratio: data.ratio,
+        formattedRatio: data.formattedRatio || formatPercent(data.ratio),
+        countDisplay:
+          data.countDisplay || `(${data.interviews} of ${data.applications})`,
+      }))
+
+      setChartData(formattedData)
+      setDataError(
+        formattedData.length === 0 ? 'No resume version data found' : null,
+      )
+    } catch (error) {
+      console.error('Error processing resume data:', error)
+      setDataError('Error processing resume data')
+      setChartData([])
+      setVersionData([])
+    }
+  }, [jobPosts])
 
   // Process the data
   const processData = (): ResumeVersionData[] => {
     try {
-      if (!jobPosts.length) {
+      if (!jobPosts || !jobPosts.length) {
+        console.log('No job posts found for resume analysis')
         return []
       }
+
+      console.log(`Processing ${jobPosts.length} job posts for resume versions`)
 
       // Create a map to store data for each resume version
       const versionMap = new Map<
@@ -31,7 +85,7 @@ export function ResumeEffectivenessGraph({
 
       // Process each job post
       jobPosts.forEach((post) => {
-        // Skip posts without a resume version
+        // Handle resume version (use "Unknown" as fallback)
         const version = post.resumeVersion || 'Unknown'
 
         // Get current data for this version or initialize
@@ -59,8 +113,10 @@ export function ResumeEffectivenessGraph({
         versionMap.set(version, versionData)
       })
 
+      console.log(`Found ${versionMap.size} different resume versions`)
+
       // Convert map to array and calculate success ratios
-      const resumeVersions: ResumeVersionData[] = Array.from(
+      const processedVersions: ResumeVersionData[] = Array.from(
         versionMap.entries(),
       )
         .map(([version, data]) => {
@@ -74,46 +130,58 @@ export function ResumeEffectivenessGraph({
             offers: data.offers,
             rejections: data.rejections,
             ratio: interviewRatio,
+            // Add formatted values for display
+            formattedRatio: formatPercent(interviewRatio),
+            countDisplay: `(${data.interviews} of ${data.applications})`,
           }
         })
         // Sort by effectiveness (higher ratios first)
         .sort((a, b) => b.ratio - a.ratio)
 
-      return resumeVersions
+      return processedVersions
     } catch (error) {
       console.error('Error processing resume effectiveness data:', error)
       return []
     }
   }
 
-  const resumeVersions = processData()
-
   // If no data to display
-  if (!resumeVersions.length) {
+  if (!chartData || chartData.length === 0) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
         <h2 className="mb-4 text-xl font-semibold">Resume Effectiveness</h2>
-        <div className="flex h-64 items-center justify-center">
-          <p className="text-gray-500">No resume version data available.</p>
+        <div className="flex h-64 flex-col items-center justify-center">
+          <p className="text-gray-500">
+            {dataError || 'No resume version data available.'}
+          </p>
+          {jobPosts?.length > 0 && (
+            <p className="mt-2 text-sm text-gray-400">
+              Found {jobPosts.length} job posts, but no resume version data to
+              analyze.
+            </p>
+          )}
         </div>
       </div>
     )
   }
 
-  // SVG chart dimensions
-  const padding = { top: 20, right: 30, bottom: 30, left: 40 }
-  const width = 600
-  const height = 300
-  const chartWidth = width - padding.left - padding.right
-  const chartHeight = height - padding.top - padding.bottom
+  // Select colors for bars
+  const barColors = ['#60a5fa', '#3b82f6', '#2563eb', '#1d4ed8']
 
-  // Chart settings
-  const barHeight = 40
-  const barGap = 20
-  const totalBarHeight = resumeVersions.length * (barHeight + barGap) - barGap
-
-  // Calculate the maximum ratio for scaling
-  const maxRatio = Math.max(...resumeVersions.map((v) => v.ratio), 0.1)
+  // Custom tooltip to show more information
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload
+      return (
+        <div className="rounded-md bg-gray-900 p-2 text-sm text-white shadow-lg">
+          <p className="font-medium">{data.name}</p>
+          <p>Success rate: {data.formattedRatio}</p>
+          <p>Applications: {data.countDisplay}</p>
+        </div>
+      )
+    }
+    return null
+  }
 
   return (
     <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
@@ -125,127 +193,61 @@ export function ResumeEffectivenessGraph({
           interviews.
         </p>
 
-        <svg
-          width={width}
-          height={Math.max(
-            height,
-            totalBarHeight + padding.top + padding.bottom,
-          )}
-          className="overflow-visible"
-        >
-          {/* X-axis */}
-          <line
-            x1={padding.left}
-            y1={padding.top + totalBarHeight}
-            x2={width - padding.right}
-            y2={padding.top + totalBarHeight}
-            stroke="#cbd5e1"
-            strokeWidth="1"
-          />
-
-          {/* X-axis ticks */}
-          {[0, 0.25, 0.5, 0.75, 1].map((tick) => {
-            const x = padding.left + (tick / maxRatio) * chartWidth
-            return (
-              <g key={`tick-${tick}`}>
-                <line
-                  x1={x}
-                  y1={padding.top + totalBarHeight}
-                  x2={x}
-                  y2={padding.top + totalBarHeight + 5}
-                  stroke="#cbd5e1"
+        <div className="h-[300px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              layout="vertical"
+              data={chartData}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid
+                strokeDasharray="3 3"
+                horizontal={true}
+                vertical={false}
+              />
+              <XAxis
+                type="number"
+                domain={[
+                  0,
+                  Math.max(
+                    0.05,
+                    Math.ceil(Math.max(...chartData.map((d) => d.ratio)) * 10) /
+                      10,
+                  ),
+                ]}
+                tickFormatter={(value) => formatPercent(value)}
+              />
+              <YAxis type="category" dataKey="name" width={100} />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="ratio" minPointSize={3}>
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={barColors[index % barColors.length]}
+                  />
+                ))}
+                <LabelList
+                  dataKey="formattedRatio"
+                  position="right"
+                  style={{ fill: '#374151', fontWeight: 'bold' }}
                 />
-                <text
-                  x={x}
-                  y={padding.top + totalBarHeight + 20}
-                  fontSize="12"
-                  textAnchor="middle"
-                  fill="#64748b"
-                >
-                  {formatPercent(tick)}
-                </text>
-              </g>
-            )
-          })}
-
-          {/* Bars */}
-          {resumeVersions.map((versionData, index) => {
-            const y = padding.top + index * (barHeight + barGap)
-            const barWidth = (versionData.ratio / maxRatio) * chartWidth
-            const isSelected = selectedVersion === versionData.version
-
-            return (
-              <g
-                key={versionData.version}
-                onMouseEnter={() => setSelectedVersion(versionData.version)}
-                onMouseLeave={() => setSelectedVersion(null)}
-              >
-                {/* Version label */}
-                <text
-                  x={padding.left - 10}
-                  y={y + barHeight / 2}
-                  textAnchor="end"
-                  dominantBaseline="middle"
-                  fontSize="14"
-                  fontWeight={isSelected ? 'bold' : 'normal'}
-                  fill="#64748b"
-                >
-                  {versionData.version}
-                </text>
-
-                {/* Bar background */}
-                <rect
-                  x={padding.left}
-                  y={y}
-                  width={chartWidth}
-                  height={barHeight}
-                  fill="#e2e8f0"
-                  rx="4"
+                <LabelList
+                  dataKey="countDisplay"
+                  position="right"
+                  style={{ fill: '#6b7280', fontSize: 12 }}
+                  offset={45}
                 />
-
-                {/* Bar value */}
-                <rect
-                  x={padding.left}
-                  y={y}
-                  width={barWidth || 2} // Minimum 2px width for visibility
-                  height={barHeight}
-                  fill={isSelected ? '#3b82f6' : '#60a5fa'}
-                  rx="4"
-                />
-
-                {/* Percentage text */}
-                <text
-                  x={padding.left + barWidth + 10}
-                  y={y + barHeight / 2}
-                  dominantBaseline="middle"
-                  fontSize="14"
-                  fontWeight="bold"
-                  fill={isSelected ? '#3b82f6' : '#64748b'}
-                >
-                  {formatPercent(versionData.ratio)}
-                </text>
-
-                {/* Count text */}
-                <text
-                  x={padding.left + barWidth + 70}
-                  y={y + barHeight / 2}
-                  dominantBaseline="middle"
-                  fontSize="12"
-                  fill="#94a3b8"
-                >
-                  ({versionData.interviews} of {versionData.applications})
-                </text>
-              </g>
-            )
-          })}
-        </svg>
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
 
         {/* Legend */}
         <div className="mt-4 text-sm text-gray-600 dark:text-gray-300">
           <p>
             <span className="font-medium">Most effective:</span>{' '}
-            {resumeVersions[0]?.version || 'None'} -
-            {formatPercent(resumeVersions[0]?.ratio || 0)} interview rate
+            {versionData[0]?.version || 'None'} -{' '}
+            {versionData[0]?.formattedRatio || '0%'} interview rate
           </p>
         </div>
       </div>
