@@ -5,6 +5,7 @@ import type { JobPostForCandidate, JobSearch } from '@prisma/client'
 import { Edit, Trash2 } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 import { api } from '~/trpc/react'
+import Link from 'next/link'
 
 // Component for displaying job post status
 export const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
@@ -46,7 +47,6 @@ interface JobPostListProps {
   totalPages: number
   isLoading: boolean
   onPageChange: (page: number) => void
-  onEditJobPost: (jobPost: JobPostForCandidate) => void
 }
 
 export const JobPostList: React.FC<JobPostListProps> = ({
@@ -57,7 +57,6 @@ export const JobPostList: React.FC<JobPostListProps> = ({
   totalPages,
   isLoading,
   onPageChange,
-  onEditJobPost,
 }) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -141,10 +140,14 @@ export const JobPostList: React.FC<JobPostListProps> = ({
             {jobPosts.map((post) => (
               <div
                 key={post.id}
-                className="dark:hover:bg-gray-750 rounded-md border border-gray-200 bg-white p-4 shadow-sm hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800"
+                className="dark:hover:bg-gray-750 relative rounded-md border border-gray-200 bg-white p-4 shadow-sm hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800"
               >
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
-                  <div>
+                <div className="relative z-0 flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                  <Link
+                    href={`/job-search/job-post/${post.id}`}
+                    className="relative z-0 flex-1 cursor-pointer"
+                    aria-label={`View details for ${post.company} - ${post.jobTitle}`}
+                  >
                     <div className="flex items-center">
                       <h4 className="text-lg font-medium text-gray-900 dark:text-white">
                         {post.company}
@@ -166,22 +169,26 @@ export const JobPostList: React.FC<JobPostListProps> = ({
                         href={post.jobPostUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-block text-sm text-blue-600 hover:underline dark:text-blue-400"
+                        className="relative z-10 mt-2 inline-block text-sm text-blue-600 hover:underline dark:text-blue-400"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         View Job Posting
                       </a>
                     )}
-                  </div>
-                  <div className="mt-4 flex space-x-2 sm:mt-0">
-                    <button
-                      onClick={() => onEditJobPost(post)}
+                  </Link>
+                  <div className="relative z-10 mt-4 flex space-x-2 sm:mt-0">
+                    <Link
+                      href={`/job-search/job-post/${post.id}`}
                       className="rounded bg-blue-50 px-3 py-1 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-800/30"
                       aria-label="Edit job post"
                     >
                       <Edit className="h-4 w-4" />
-                    </button>
+                    </Link>
                     <button
-                      onClick={() => handleDeleteJobPost(post.id)}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleDeleteJobPost(post.id)
+                      }}
                       disabled={deleting[post.id]}
                       className={`rounded bg-red-50 px-3 py-1 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-800/30 ${
                         deleting[post.id] ? 'opacity-50' : ''

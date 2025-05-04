@@ -13,7 +13,6 @@ import {
 } from './components/JobSearchEditForm'
 import { JobPostList } from './components/JobPostList'
 import { AddJobPostModal } from './components/AddJobPostModal'
-import { EditJobPostModal } from './components/EditJobPostModal'
 import { UploadCsvModal } from './components/UploadCsvModal'
 
 // Define a proper type for job search data with pagination
@@ -47,8 +46,6 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
   const [currentPage, setCurrentPage] = useState(pageFromUrl)
   const [showAddJobPostModal, setShowAddJobPostModal] = useState(false)
   const [showUploadCsvModal, setShowUploadCsvModal] = useState(false)
-  const [editingJobPost, setEditingJobPost] =
-    useState<JobPostForCandidate | null>(null)
 
   // Listen for changes in the URL search params
   useEffect(() => {
@@ -178,7 +175,6 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
         totalPages={pagination.totalPages}
         isLoading={isLoading}
         onPageChange={handlePageChange}
-        onEditJobPost={setEditingJobPost}
       />
 
       {/* Modals */}
@@ -188,17 +184,6 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
           onClose={() => setShowAddJobPostModal(false)}
           onSuccess={() => {
             setShowAddJobPostModal(false)
-            void refetch()
-          }}
-        />
-      )}
-
-      {editingJobPost && (
-        <EditJobPostModal
-          jobPost={editingJobPost}
-          onClose={() => setEditingJobPost(null)}
-          onSuccess={() => {
-            setEditingJobPost(null)
             void refetch()
           }}
         />

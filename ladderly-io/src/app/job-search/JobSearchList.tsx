@@ -111,12 +111,13 @@ export const JobSearchList = () => {
             key={jobSearch.id}
             className="rounded-md border border-gray-200 dark:border-gray-700 dark:from-gray-900 dark:to-gray-950"
           >
-            <Link
-              href={`/job-search/${jobSearch.id}`}
-              className="block p-4 no-underline"
-            >
+            <div className="relative p-4">
               <div className="flex items-center justify-between">
-                <div className="max-w-[80%] flex-1">
+                <Link
+                  href={`/job-search/${jobSearch.id}`}
+                  className="relative z-0 max-w-[80%] flex-1"
+                  aria-label={`View details for ${jobSearch.name}`}
+                >
                   <div>
                     <JobSearchActiveSpan isActive={jobSearch.isActive} />
                     <h3 className="font-semibold dark:text-white">
@@ -133,13 +134,12 @@ export const JobSearchList = () => {
                       {new Date(jobSearch.createdAt).toLocaleDateString()}
                     </span>
                   </div>
-                </div>
-                <div className="flex items-center space-x-2">
+                </Link>
+                <div className="relative z-10 flex items-center space-x-2">
                   <Link
                     href={`/job-search/${jobSearch.id}/graphs`}
                     className="rounded-full p-2 text-blue-500 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30"
                     aria-label="View analytics"
-                    onClick={(e) => e.stopPropagation()}
                   >
                     <BarChart3 size={16} />
                   </Link>
@@ -152,7 +152,7 @@ export const JobSearchList = () => {
                   </button>
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
         ))}
       </div>
