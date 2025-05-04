@@ -79,9 +79,9 @@ export function ResumeEffectivenessGraph({
       const formattedData = processedData.map((data) => ({
         name: data.version,
         ratio: data.ratio,
-        formattedRatio: data.formattedRatio || formatPercent(data.ratio),
+        formattedRatio: data.formattedRatio ?? formatPercent(data.ratio),
         countDisplay:
-          data.countDisplay || `(${data.interviews} of ${data.applications})`,
+          data.countDisplay ?? `(${data.interviews} of ${data.applications})`,
       }))
 
       setChartData(formattedData)
@@ -99,7 +99,7 @@ export function ResumeEffectivenessGraph({
   // Process the data
   const processData = (): ResumeVersionData[] => {
     try {
-      if (!jobPosts || !jobPosts.length) {
+      if (!jobPosts ?? !jobPosts.length) {
         console.log('No job posts found for resume analysis')
         return []
       }
@@ -143,10 +143,10 @@ export function ResumeEffectivenessGraph({
       // Process each job post
       filteredPosts.forEach((post) => {
         // Handle resume version (use "Unknown" as fallback)
-        const version = post.resumeVersion || 'Unknown'
+        const version = post.resumeVersion ?? 'Unknown'
 
         // Get current data for this version or initialize
-        const versionData = versionMap.get(version) || {
+        const versionData = versionMap.get(version) ?? {
           applications: 0,
           interviews: 0,
           offers: 0,
@@ -215,11 +215,11 @@ export function ResumeEffectivenessGraph({
         </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
-            {dataError || 'No resume version data available.'}
+            {dataError ?? 'No resume version data available.'}
           </p>
           {jobPosts?.length > 0 && (
             <p className="mt-2 text-sm text-gray-400">
-              Try selecting a different time period such as 'ALL'.
+              Try selecting a different time period such as {'"'}ALL{'"'}.
             </p>
           )}
         </div>
@@ -332,8 +332,8 @@ export function ResumeEffectivenessGraph({
         <div className="mt-4 text-sm text-gray-600 dark:text-gray-300">
           <p>
             <span className="font-medium">Most effective:</span>{' '}
-            {versionData[0]?.version || 'None'} -{' '}
-            {versionData[0]?.formattedRatio || '0%'} interview rate
+            {versionData[0]?.version ?? 'None'} -{' '}
+            {versionData[0]?.formattedRatio ?? '0%'} interview rate
           </p>
         </div>
       </div>

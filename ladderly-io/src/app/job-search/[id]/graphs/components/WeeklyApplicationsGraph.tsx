@@ -76,7 +76,7 @@ export function WeeklyApplicationsGraph({
         const weekKey = weekStart.toISOString().split('T')[0]
 
         // Increment the count for this week
-        const currentCount = safeMapGet(weeklyAppCounts, weekKey, 0) || 0
+        const currentCount = safeMapGet(weeklyAppCounts, weekKey, 0) ?? 0
         safeMapSet(weeklyAppCounts, weekKey, currentCount + 1)
       })
 
@@ -144,12 +144,12 @@ export function WeeklyApplicationsGraph({
         </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
-            {dataError ||
+            {dataError ??
               'No application data available for the selected period.'}
           </p>
           <p className="mt-2 text-sm text-gray-400">
             {jobPosts?.length
-              ? `Try selecting a different time period such as 'ALL'.`
+              ? `Try selecting a different time period such as "ALL".`
               : 'No job posts found.'}
           </p>
         </div>
