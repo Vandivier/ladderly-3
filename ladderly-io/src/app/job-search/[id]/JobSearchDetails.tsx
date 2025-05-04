@@ -5,19 +5,29 @@ import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
 import { JobSearchActiveSpan } from '../JobSearchActiveSpan'
 import { AddJobApplicationModal } from './AddJobApplicationModal'
-import { Pencil, ChevronLeft, ChevronRight, Trash2, Eye } from 'lucide-react'
+import {
+  Pencil,
+  ChevronLeft,
+  ChevronRight,
+  Trash2,
+  Eye,
+  Download,
+  Upload,
+} from 'lucide-react'
 import { z } from 'zod'
 import type {
   JobSearch,
   JobApplicationStatus,
   JobPostForCandidate,
   JobSearchStep,
+  JobSearchStepKind,
 } from '@prisma/client'
 import Link from 'next/link'
 import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import LabeledTextField from '~/app/core/components/LabeledTextField'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
 import LabeledDateField from '~/app/core/components/LabeledDateField'
+import Papa from 'papaparse'
 
 // Helper to format date to YYYY-MM-DD
 const formatDateForInput = (date: Date | string | undefined | null): string => {
@@ -85,11 +95,333 @@ const StatusBadge = ({ status }: { status: JobApplicationStatus }) => {
   )
 }
 
+// Interface for the round-level CSV data
+interface RoundLevelCsvRow {
+  Company: string
+  'Job Post Title': string
+  'Step Date': string
+  'Step Kind': string
+  JobPostId?: string
+  'Is Passed'?: string
+  'Is In Person'?: string
+  Notes?: string
+  [key: string]: string | undefined
+}
+
+// CSV Upload modal component for round-level data
+interface UploadRoundLevelCsvModalProps {
+  jobSearchId: number
+  onClose: () => void
+  onSuccess: () => Promise<void>
+}
+
+const UploadRoundLevelCsvModal: React.FC<UploadRoundLevelCsvModalProps> = ({
+  jobSearchId,
+  onClose,
+  onSuccess,
+}) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
+  const [status, setStatus] = useState<
+    'idle' | 'parsing' | 'uploading' | 'success' | 'error'
+  >('idle')
+
+  const { mutate: uploadRoundLevelCsv } =
+    api.jobSearch.csv.createRoundLevelFromCsv.useMutation({
+      onSuccess: async (data) => {
+        await onSuccess()
+        setStatus('success')
+        setTimeout(() => {
+          onClose()
+        }, 2000)
+      },
+      onError: (error: any) => {
+        console.error('Upload error:', error)
+        setError(error.message || 'Failed to upload CSV data')
+        setStatus('error')
+        setIsSubmitting(false)
+      },
+    })
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files.length > 0) {
+      setSelectedFile(files[0] || null)
+      setError('')
+      setStatus('idle')
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!selectedFile) {
+      setError('Please select a CSV file to upload')
+      return
+    }
+
+    setIsSubmitting(true)
+    setStatus('parsing')
+    setError('')
+
+    Papa.parse<RoundLevelCsvRow>(selectedFile, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        if (results.errors.length > 0) {
+          console.error('CSV parsing errors:', results.errors)
+          setError(
+            `Error parsing CSV: ${results.errors[0]?.message || 'Unknown error'}`,
+          )
+          setStatus('error')
+          setIsSubmitting(false)
+          return
+        }
+
+        // Validate required fields
+        const requiredFields = [
+          'Company',
+          'Job Post Title',
+          'Step Date',
+          'Step Kind',
+        ]
+        const missingFields = requiredFields.filter(
+          (field) => !results.meta.fields?.includes(field),
+        )
+
+        if (missingFields.length > 0) {
+          setError(
+            `Missing required fields in CSV: ${missingFields.join(', ')}`,
+          )
+          setStatus('error')
+          setIsSubmitting(false)
+          return
+        }
+
+        // Process the data
+        const roundLevelData = results.data.filter(
+          (row) =>
+            row.Company &&
+            row['Job Post Title'] &&
+            row['Step Date'] &&
+            row['Step Kind'],
+        )
+
+        if (roundLevelData.length === 0) {
+          setError('No valid data rows found in the CSV file')
+          setStatus('error')
+          setIsSubmitting(false)
+          return
+        }
+
+        setStatus('uploading')
+
+        // Process the data for upload
+        const processedData = roundLevelData.map((row) => {
+          const result = { ...row }
+
+          // Convert JobPostId to number if present
+          if (row.JobPostId) {
+            // We need to handle the type within the upload function, so keep it as a string here
+            result.JobPostId = row.JobPostId
+          }
+
+          return result
+        })
+
+        uploadRoundLevelCsv({
+          jobSearchId,
+          roundLevelData: processedData as any, // Type assertion needed due to complex CSV structure
+        })
+      },
+      error: (error) => {
+        console.error('CSV parsing failed:', error)
+        setError(`Failed to read CSV file: ${error.message}`)
+        setStatus('error')
+        setIsSubmitting(false)
+      },
+    })
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+        <h2 className="mb-4 text-xl font-bold dark:text-white">
+          Upload Round-Level CSV
+        </h2>
+
+        <p className="mb-4 text-sm text-gray-600 dark:text-gray-300">
+          Upload a CSV file containing round-level interview data. The file
+          should have the following columns:
+        </p>
+
+        <div className="mb-4 overflow-x-auto">
+          <table className="min-w-full text-xs">
+            <thead>
+              <tr className="bg-gray-100 dark:bg-gray-700">
+                <th className="px-2 py-1 text-left font-medium text-gray-600 dark:text-gray-300">
+                  Column
+                </th>
+                <th className="px-2 py-1 text-left font-medium text-gray-600 dark:text-gray-300">
+                  Required
+                </th>
+                <th className="px-2 py-1 text-left font-medium text-gray-600 dark:text-gray-300">
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  JobPostId
+                </td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">No</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  ID of an existing job post (leave empty to create new)
+                </td>
+              </tr>
+              <tr>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Company
+                </td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">Yes</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Company name
+                </td>
+              </tr>
+              <tr>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Job Post Title
+                </td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">Yes</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Job title
+                </td>
+              </tr>
+              <tr>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Step Date
+                </td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">Yes</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Date of the interview step (YYYY-MM-DD)
+                </td>
+              </tr>
+              <tr>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Step Kind
+                </td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">Yes</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Type of step (e.g., TECHNICAL_CONVERSATION)
+                </td>
+              </tr>
+              <tr>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Is Passed
+                </td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">No</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  TRUE/FALSE if passed or failed
+                </td>
+              </tr>
+              <tr>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Is In Person
+                </td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">No</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  TRUE/FALSE if in-person
+                </td>
+              </tr>
+              <tr>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Notes
+                </td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">No</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">
+                  Any notes about the step
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <div className="flex items-center gap-2">
+              <label
+                htmlFor="csvFile"
+                className={`inline-block rounded-md border px-4 py-2 text-sm font-medium shadow-sm ${
+                  isSubmitting
+                    ? 'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500'
+                    : 'cursor-pointer border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                {selectedFile ? 'Change CSV File' : 'Select CSV File'}
+              </label>
+              <input
+                id="csvFile"
+                type="file"
+                accept=".csv"
+                onChange={handleFileChange}
+                className="hidden"
+                disabled={isSubmitting}
+              />
+              {selectedFile && (
+                <span className="text-sm text-gray-600 dark:text-gray-300">
+                  {selectedFile.name}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {error && (
+            <p className="mb-4 text-sm text-red-500 dark:text-red-400">
+              {error}
+            </p>
+          )}
+
+          {status === 'success' && (
+            <p className="mb-4 text-sm text-green-500 dark:text-green-400">
+              CSV data uploaded successfully!
+            </p>
+          )}
+
+          <div className="flex justify-end space-x-2 border-t border-gray-200 pt-4 dark:border-gray-700">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
+              disabled={isSubmitting}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-blue-600 dark:hover:bg-blue-700"
+              disabled={isSubmitting || !selectedFile}
+            >
+              {isSubmitting
+                ? status === 'parsing'
+                  ? 'Parsing...'
+                  : 'Uploading...'
+                : 'Upload'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
 export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
   initialJobSearch,
-}) => {
+}): React.ReactNode => {
   const router = useRouter()
   const [showAddApplicationModal, setShowAddApplicationModal] = useState(false)
+  const [showUploadCsvModal, setShowUploadCsvModal] = useState(false)
   const [deletingJobPostId, setDeletingJobPostId] = useState<number | null>(
     null,
   )
@@ -181,6 +513,41 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
     }
   }
 
+  const handleDownloadRoundLevelCsv = async () => {
+    try {
+      const data = await utils.jobSearch.csv.downloadRoundLevelCsv.fetch({
+        jobSearchId: initialJobSearch.id,
+      })
+
+      if (!data || !data.roundLevelData || data.roundLevelData.length === 0) {
+        alert('No data available to download')
+        return
+      }
+
+      // Convert data to CSV format using PapaParse
+      const csv = Papa.unparse(data.roundLevelData)
+
+      // Create a blob from the CSV
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+
+      // Create a download link and trigger it
+      const link = document.createElement('a')
+      const url = URL.createObjectURL(blob)
+      link.setAttribute('href', url)
+      link.setAttribute(
+        'download',
+        `${data.jobSearchName || 'job-search'}-rounds.csv`,
+      )
+      link.style.visibility = 'hidden'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } catch (error) {
+      console.error('Failed to download CSV:', error)
+      alert('Failed to download CSV. Please try again.')
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="dark:text-gray-300">Loading job search details...</div>
@@ -263,6 +630,12 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
           >
             View Analytics
           </Link>
+          <button
+            onClick={handleDownloadRoundLevelCsv}
+            className="flex items-center gap-1 rounded bg-green-50 px-3 py-1 text-green-600 hover:bg-green-100 dark:bg-green-900/20 dark:text-green-400 dark:hover:bg-green-800/30"
+          >
+            <Download className="h-4 w-4" /> CSV
+          </button>
           <button
             onClick={handleEditClick}
             className="rounded px-3 py-1 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
@@ -370,12 +743,20 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
           <h2 className="text-xl font-semibold dark:text-white">
             Applications ({pagination?.totalItems ?? 0})
           </h2>
-          <button
-            onClick={() => setShowAddApplicationModal(true)}
-            className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
-          >
-            Add Application
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setShowUploadCsvModal(true)}
+              className="flex items-center gap-1 rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700"
+            >
+              <Upload className="h-4 w-4" /> Upload Rounds
+            </button>
+            <button
+              onClick={() => setShowAddApplicationModal(true)}
+              className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+            >
+              Add Application
+            </button>
+          </div>
         </div>
 
         {jobSearch.jobPosts.length === 0 && pagination?.totalItems === 0 ? (
@@ -468,6 +849,17 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
           onSuccess={async () => {
             await refetch()
             setShowAddApplicationModal(false)
+          }}
+        />
+      )}
+
+      {showUploadCsvModal && (
+        <UploadRoundLevelCsvModal
+          jobSearchId={initialJobSearch.id}
+          onClose={() => setShowUploadCsvModal(false)}
+          onSuccess={async () => {
+            await refetch()
+            setShowUploadCsvModal(false)
           }}
         />
       )}

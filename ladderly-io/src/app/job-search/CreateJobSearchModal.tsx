@@ -335,22 +335,6 @@ export const CreateJobSearchModal = () => {
                   )}
                 </div>
 
-                <div className="mt-2 flex items-center gap-2">
-                  <label
-                    htmlFor="csvFileRoundLevel"
-                    className="inline-block cursor-not-allowed rounded-md border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500"
-                  >
-                    Choose Round-Level CSV (Soon)
-                  </label>
-                  <input
-                    id="csvFileRoundLevel"
-                    type="file"
-                    accept=".csv"
-                    disabled
-                    className="absolute size-0 opacity-0"
-                  />
-                </div>
-
                 <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                   Find a sample CSV and format guide at{' '}
                   <a
