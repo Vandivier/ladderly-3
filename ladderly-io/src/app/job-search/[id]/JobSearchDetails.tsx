@@ -235,7 +235,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
         ← Back to Job Search Archive
       </button>
 
-      <div className="mb-6 flex flex-wrap items-center justify-between">
+      <div className="mb-4 flex flex-wrap items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">{jobSearch.name}</h2>
           <div className="mt-1 text-sm text-gray-500">
@@ -256,7 +256,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
             </span>
           </div>
         </div>
-        <div className="flex space-x-2">
+        <div className="mt-4 flex space-x-2">
           <Link
             href={`/job-search/${jobSearch.id}/graphs`}
             className="rounded bg-blue-50 px-3 py-1 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-800/30"
@@ -277,7 +277,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
           schema={JobSearchEditSchema}
           initialValues={initialFormValues}
           onSubmit={handleSaveSubmit}
-          className="mb-6 space-y-4 rounded-md border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800"
+          className="mb-4 space-y-4 rounded-md border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800"
         >
           <LabeledTextField
             name="name"
@@ -326,7 +326,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
           </div>
         </Form>
       ) : (
-        <div className="mb-6 rounded-md border border-gray-200 p-4 shadow-sm dark:border-gray-700">
+        <div className="mb-4 rounded-md border border-gray-200 p-4 shadow-sm dark:border-gray-700">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Status</p>
@@ -357,7 +357,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
       )}
 
       {!isEditing && jobSearch.notes && (
-        <div className="mb-6 rounded-md border border-gray-200 p-4 shadow-sm dark:border-gray-700">
+        <div className="mb-4 rounded-md border border-gray-200 p-4 shadow-sm dark:border-gray-700">
           <h3 className="mb-2 text-lg font-medium dark:text-white">Notes</h3>
           <p className="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
             {jobSearch.notes}
@@ -365,7 +365,7 @@ export const JobSearchDetails: React.FC<JobSearchDetailsProps> = ({
         </div>
       )}
 
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold dark:text-white">
             Applications ({pagination?.totalItems ?? 0})
