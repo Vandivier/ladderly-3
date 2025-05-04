@@ -120,91 +120,67 @@ export const JobPostList: React.FC<JobPostListProps> = ({
         </div>
       ) : (
         <>
-          <div className="mb-4 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
-                  >
-                    Company
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
-                  >
-                    Position
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
-                  >
-                    Status
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
-                  >
-                    Date Applied
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
-                  >
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
-                {jobPosts.map((post) => (
-                  <tr
-                    key={post.id}
-                    className="hover:bg-gray-50 dark:hover:bg-gray-800"
-                  >
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                      {post.company}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                      {post.jobTitle}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm">
-                      <StatusBadge status={post.status} />
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                      {post.initialApplicationDate
-                        ? formatRelative(post.initialApplicationDate)
-                        : 'Not specified'}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm">
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => onEditJobPost(post)}
-                          className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-                          aria-label="Edit job post"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteJobPost(post.id)}
-                          disabled={deleting[post.id]}
-                          className={`text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ${
-                            deleting[post.id] ? 'opacity-50' : ''
-                          }`}
-                          aria-label="Delete job post"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
+          <div className="space-y-3">
+            {jobPosts.map((post) => (
+              <div
+                key={post.id}
+                className="dark:hover:bg-gray-750 rounded-md border border-gray-200 bg-white p-4 shadow-sm hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <div className="flex items-center">
+                      <h4 className="text-lg font-medium text-gray-900 dark:text-white">
+                        {post.company}
+                      </h4>
+                      <div className="ml-3">
+                        <StatusBadge status={post.status} />
                       </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                    <p className="mt-1 text-gray-600 dark:text-gray-300">
+                      {post.jobTitle}
+                    </p>
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                      {post.initialApplicationDate
+                        ? `Applied ${formatRelative(post.initialApplicationDate)}`
+                        : 'Application date not specified'}
+                    </p>
+                    {post.jobPostUrl && (
+                      <a
+                        href={post.jobPostUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block text-sm text-blue-600 hover:underline dark:text-blue-400"
+                      >
+                        View Job Posting
+                      </a>
+                    )}
+                  </div>
+                  <div className="mt-4 flex space-x-2 sm:mt-0">
+                    <button
+                      onClick={() => onEditJobPost(post)}
+                      className="rounded bg-blue-50 px-3 py-1 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-800/30"
+                      aria-label="Edit job post"
+                    >
+                      <Edit className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteJobPost(post.id)}
+                      disabled={deleting[post.id]}
+                      className={`rounded bg-red-50 px-3 py-1 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-800/30 ${
+                        deleting[post.id] ? 'opacity-50' : ''
+                      }`}
+                      aria-label="Delete job post"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
           {totalPages > 1 && (
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mt-6 flex items-center justify-between">
               <div className="text-sm text-gray-600 dark:text-gray-400">
                 Applications {(currentPage - 1) * pageSize + 1}-
                 {Math.min(currentPage * pageSize, totalPages * pageSize)} of{' '}
@@ -214,14 +190,14 @@ export const JobPostList: React.FC<JobPostListProps> = ({
                 <button
                   onClick={() => onPageChange(currentPage - 1)}
                   disabled={currentPage <= 1 || isLoading}
-                  className="rounded-md border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-gray-600"
+                  className="rounded-md border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-gray-600 dark:disabled:text-gray-500"
                 >
                   Previous
                 </button>
                 <button
                   onClick={() => onPageChange(currentPage + 1)}
                   disabled={currentPage >= totalPages || isLoading}
-                  className="rounded-md border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-gray-600"
+                  className="rounded-md border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 dark:border-gray-600 dark:disabled:text-gray-500"
                 >
                   Next
                 </button>
