@@ -19,32 +19,53 @@ export const jobSearchRouter = createTRPCRouter({
       z
         .object({
           includeInactive: z.boolean().optional().default(false),
+          page: z.number().optional().default(1),
+          pageSize: z.number().optional().default(10),
         })
         .optional(),
     )
     .query(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
+      const page = input?.page ?? 1
+      const pageSize = input?.pageSize ?? 10
+      const skip = (page - 1) * pageSize
 
       const where = {
         userId,
         ...(input?.includeInactive ? {} : { isActive: true }),
       }
 
-      const jobSearches = await ctx.db.jobSearch.findMany({
-        where,
-        orderBy: {
-          updatedAt: 'desc',
-        },
-        include: {
-          _count: {
-            select: {
-              jobPosts: true,
+      // Get total count and paginated results in parallel for efficiency
+      const [totalItems, jobSearches] = await Promise.all([
+        ctx.db.jobSearch.count({ where }),
+        ctx.db.jobSearch.findMany({
+          where,
+          orderBy: {
+            updatedAt: 'desc',
+          },
+          include: {
+            _count: {
+              select: {
+                jobPosts: true,
+              },
             },
           },
-        },
-      })
+          skip,
+          take: pageSize,
+        }),
+      ])
 
-      return jobSearches
+      const totalPages = Math.ceil(totalItems / pageSize)
+
+      return {
+        jobSearches,
+        pagination: {
+          totalItems,
+          currentPage: page,
+          pageSize,
+          totalPages,
+        },
+      }
     }),
 
   // Get a single job search by ID (including paginated job posts)
@@ -200,6 +221,73 @@ export const jobSearchRouter = createTRPCRouter({
       ])
 
       return { success: true }
+    }),
+
+  getJobSearchAnalytics: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      // Ensure we have a valid user ID
+      const userId = ctx.session?.user?.id ? parseInt(ctx.session.user.id) : 0
+
+      const jobSearch = await ctx.db.jobSearch.findUnique({
+        where: {
+          id: input.id,
+          userId,
+        },
+        include: {
+          jobPosts: true,
+        },
+      })
+
+      if (!jobSearch) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Job search not found',
+        })
+      }
+
+      // Process data for weekly applications
+      const applicationsByWeek = new Map<string, number>()
+
+      // Process each job post to gather weekly data
+      jobSearch.jobPosts.forEach((post) => {
+        // Use the application date or fallback to created date
+        const dateValue = post.initialApplicationDate ?? post.createdAt
+
+        // Get the start of the week (Sunday)
+        const weekDate = new Date(dateValue)
+        const day = weekDate.getDay()
+        weekDate.setDate(weekDate.getDate() - day)
+        weekDate.setHours(0, 0, 0, 0)
+
+        const isoString = weekDate.toISOString()
+        const parts = isoString.split('T')
+        if (parts.length === 0 || typeof parts[0] !== 'string') {
+          throw new Error(`Failed to parse date: ${isoString}`)
+        }
+        const weekKey = parts[0]
+
+        applicationsByWeek.set(
+          weekKey,
+          (applicationsByWeek.get(weekKey) ?? 0) + 1,
+        )
+      })
+
+      // Convert to array and sort by week
+      const weeklyData = Array.from(applicationsByWeek.entries())
+        .map(([weekStart, count]) => ({ weekStart, count }))
+        .sort((a, b) => a.weekStart.localeCompare(b.weekStart))
+
+      return {
+        id: jobSearch.id,
+        name: jobSearch.name,
+        totalApplications: jobSearch.jobPosts.length,
+        weeklyData,
+      }
     }),
 
   // --- Merge Sub-Routers ---

@@ -3,16 +3,66 @@
 'use client'
 
 import Link from 'next/link'
-import React from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import React, { useState, useEffect } from 'react'
 import { api } from '~/trpc/react'
 import { JobSearchActiveSpan } from './JobSearchActiveSpan'
+import { BarChart3, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react'
+import type { JobSearch } from '@prisma/client'
+
+// Type for job search with count
+interface JobSearchWithCount extends JobSearch {
+  _count: {
+    jobPosts: number
+  }
+}
 
 export const JobSearchList = () => {
-  const {
-    data: jobSearches,
-    isLoading,
-    refetch,
-  } = api.jobSearch.getUserJobSearches.useQuery({ includeInactive: true })
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  // Check if we're on the job search list page, not a detail page
+  const isJobSearchListPage = pathname === '/job-search'
+
+  // Parse page from URL query params, default to 1
+  const initialPage = parseInt(searchParams.get('page') ?? '1', 10)
+  const [currentPage, setCurrentPage] = useState(initialPage)
+  const pageSize = 10
+
+  // Listen for popstate events (back/forward browser navigation)
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search)
+      const pageParam = params.get('page')
+      const newPage = pageParam ? parseInt(pageParam, 10) : 1
+
+      if (newPage !== currentPage) {
+        setCurrentPage(newPage)
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [currentPage])
+
+  // Also update currentPage if searchParams change externally
+  useEffect(() => {
+    const pageFromUrl = parseInt(searchParams.get('page') ?? '1', 10)
+    if (pageFromUrl !== currentPage) {
+      setCurrentPage(pageFromUrl)
+    }
+  }, [searchParams, currentPage])
+
+  const { data, isLoading, refetch } =
+    api.jobSearch.getUserJobSearches.useQuery({
+      includeInactive: true,
+      page: currentPage,
+      pageSize,
+    })
+
+  const jobSearches = data?.jobSearches ?? []
+  const totalPages = data?.pagination?.totalPages ?? 1
+  const totalItems = data?.pagination?.totalItems ?? 0
 
   const { mutate: deleteJobSearch } = api.jobSearch.deleteJobSearch.useMutation(
     {
@@ -32,69 +82,126 @@ export const JobSearchList = () => {
   }
 
   if (isLoading) {
-    return <p>Loading job searches...</p>
+    return (
+      <p className="text-gray-500 dark:text-gray-400">
+        Loading job searches...
+      </p>
+    )
   }
 
   if (!jobSearches?.length) {
     return (
-      <p className="text-gray-500">
+      <p className="text-gray-500 dark:text-gray-400">
         No job searches found. Create one to get started!
       </p>
     )
   }
 
   return (
-    <div className="space-y-4">
-      {jobSearches.map((jobSearch) => (
-        <div
-          key={jobSearch.id}
-          className="rounded-md border border-gray-200 hover:bg-gray-50"
-        >
-          <Link
-            href={`/job-search/${jobSearch.id}`}
-            className="block p-4 no-underline"
-          >
-            <div className="flex items-center justify-between">
-              <div className="max-w-[80%] flex-1">
-                <div>
-                  <JobSearchActiveSpan isActive={jobSearch.isActive} />
-                  <h3 className="font-semibold">{jobSearch.name}</h3>
-                </div>
+    <div>
+      <div className="mb-2 flex items-center justify-between">
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          {totalItems} total job search{totalItems !== 1 ? 'es' : ''}
+        </p>
+      </div>
 
-                <div className="mt-1 flex flex-wrap text-sm text-gray-500">
-                  <span className="mr-4">
-                    {jobSearch._count?.jobPosts || 0} applications
-                  </span>
-                  <span className="mr-4">
-                    Created {new Date(jobSearch.createdAt).toLocaleDateString()}
-                  </span>
+      <div className="space-y-4">
+        {jobSearches.map((jobSearch: JobSearchWithCount) => (
+          <div
+            key={jobSearch.id}
+            className="rounded-md border border-gray-200 dark:border-gray-700 dark:from-gray-900 dark:to-gray-950"
+          >
+            <div className="relative p-4">
+              <div className="flex items-center justify-between">
+                <Link
+                  href={`/job-search/${jobSearch.id}`}
+                  className="relative z-0 max-w-[80%] flex-1"
+                  aria-label={`View details for ${jobSearch.name}`}
+                >
+                  <div>
+                    <JobSearchActiveSpan isActive={jobSearch.isActive} />
+                    <h3 className="font-semibold dark:text-white">
+                      {jobSearch.name}
+                    </h3>
+                  </div>
+
+                  <div className="mt-1 flex flex-wrap text-sm text-gray-500 dark:text-gray-400">
+                    <span className="mr-4">
+                      {jobSearch._count?.jobPosts ?? 0} applications
+                    </span>
+                    <span className="mr-4">
+                      Created{' '}
+                      {new Date(jobSearch.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                </Link>
+                <div className="relative z-10 flex items-center space-x-2">
+                  <Link
+                    href={`/job-search/${jobSearch.id}/graphs`}
+                    className="rounded-full p-2 text-blue-500 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30"
+                    aria-label="View analytics"
+                  >
+                    <BarChart3 size={16} />
+                  </Link>
+                  <button
+                    onClick={(e) => handleDelete(jobSearch.id, e)}
+                    className="rounded-full p-2 text-red-500 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/30"
+                    aria-label="Delete job search"
+                  >
+                    <Trash2 size={16} />
+                  </button>
                 </div>
               </div>
-              <button
-                onClick={(e) => handleDelete(jobSearch.id, e)}
-                className="ml-2 rounded-full p-2 text-red-500 hover:bg-red-50"
-                aria-label="Delete job search"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M3 6h18"></path>
-                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                </svg>
-              </button>
             </div>
-          </Link>
+          </div>
+        ))}
+      </div>
+
+      {totalPages > 1 && isJobSearchListPage && (
+        <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4 dark:border-gray-700">
+          {currentPage > 1 ? (
+            <Link
+              href={`?page=${currentPage - 1}`}
+              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              <ChevronLeft className="-ml-1 mr-1 size-5" />
+              Previous
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="inline-flex cursor-not-allowed items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
+            >
+              <ChevronLeft className="-ml-1 mr-1 size-5" />
+              Previous
+            </button>
+          )}
+
+          <span className="text-sm text-gray-700 dark:text-gray-300">
+            Page {currentPage} of {totalPages}
+          </span>
+
+          {currentPage < totalPages ? (
+            <Link
+              href={`?page=${currentPage + 1}`}
+              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              Next
+              <ChevronRight className="-mr-1 ml-1 size-5" />
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="inline-flex cursor-not-allowed items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-500 opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
+            >
+              Next
+              <ChevronRight className="-mr-1 ml-1 size-5" />
+            </button>
+          )}
         </div>
-      ))}
+      )}
     </div>
   )
 }

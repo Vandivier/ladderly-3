@@ -10,21 +10,24 @@ export const metadata = {
 
 export default async function JobSearchDetailsPage({
   params,
+  searchParams,
 }: {
   params: { id: string }
+  searchParams: { page?: string }
 }) {
   const jobId = parseInt(params.id)
   if (isNaN(jobId)) {
     notFound()
   }
 
-  // Fetch data server-side
-  // Note: The getJobSearch query also expects pagination args, provide defaults
-  // Call procedure directly on server
+  // Parse page from URL query params, default to 1
+  const page = searchParams.page ? parseInt(searchParams.page, 10) : 1
+
+  // Fetch data server-side with the correct page
   const initialJobSearchData = await api.jobSearch.getJobSearch({
     id: jobId,
-    page: 1, // Default page
-    pageSize: 10, // Default page size (or match client default)
+    page: page,
+    pageSize: 10, // Default page size
   })
 
   if (!initialJobSearchData) {
