@@ -37,7 +37,7 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
 
   // Get page from URL or default to the initial job search page
   const pageFromUrl = searchParams.get('page')
-    ? parseInt(searchParams.get('page') as string, 10)
+    ? parseInt(searchParams.get('page')!, 10)
     : (initialJobSearch.pagination?.currentPage ?? 1)
 
   // State variables
@@ -50,7 +50,7 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
   // Listen for changes in the URL search params
   useEffect(() => {
     if (searchParams.has('page')) {
-      const newPage = parseInt(searchParams.get('page') as string, 10)
+      const newPage = parseInt(searchParams.get('page')!, 10)
       if (newPage !== currentPage && !isNaN(newPage) && newPage > 0) {
         setCurrentPage(newPage)
       }

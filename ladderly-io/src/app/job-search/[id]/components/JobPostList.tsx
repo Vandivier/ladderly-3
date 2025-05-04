@@ -185,9 +185,9 @@ export const JobPostList: React.FC<JobPostListProps> = ({
                       <Edit className="h-4 w-4" />
                     </Link>
                     <button
-                      onClick={(e) => {
+                      onClick={async (e) => {
                         e.stopPropagation()
-                        handleDeleteJobPost(post.id)
+                        await handleDeleteJobPost(post.id)
                       }}
                       disabled={deleting[post.id]}
                       className={`rounded bg-red-50 px-3 py-1 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-800/30 ${
