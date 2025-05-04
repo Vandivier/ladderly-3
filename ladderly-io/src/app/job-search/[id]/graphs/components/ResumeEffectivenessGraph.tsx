@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { JobApplicationStatus, JobPostForCandidate } from '@prisma/client'
+import { JobApplicationStatus, type JobPostForCandidate } from '@prisma/client'
 import {
   formatPercent,
   type ResumeVersionData,

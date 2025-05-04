@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import {
-  JobPostForCandidate,
-  JobSearchStep,
+  type JobPostForCandidate,
+  type JobSearchStep,
   JobSearchStepKind,
   JobApplicationStatus,
 } from '@prisma/client'
