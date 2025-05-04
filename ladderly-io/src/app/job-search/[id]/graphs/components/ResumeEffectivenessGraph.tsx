@@ -30,6 +30,30 @@ export function ResumeEffectivenessGraph({
   const [chartData, setChartData] = useState<ChartDataPoint[]>([])
   const [versionData, setVersionData] = useState<ResumeVersionData[]>([])
   const [dataError, setDataError] = useState<string | null>(null)
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  // Check for dark mode
+  useEffect(() => {
+    // Check if dark mode is enabled in the document
+    const isDark = document.documentElement.classList.contains('dark')
+    setIsDarkMode(isDark)
+
+    // Create an observer to watch for class changes on document.documentElement
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          const isDark = document.documentElement.classList.contains('dark')
+          setIsDarkMode(isDark)
+        }
+      })
+    })
+
+    // Start observing
+    observer.observe(document.documentElement, { attributes: true })
+
+    // Cleanup
+    return () => observer.disconnect()
+  }, [])
 
   // Process data when job posts change
   useEffect(() => {
@@ -168,6 +192,13 @@ export function ResumeEffectivenessGraph({
   // Select colors for bars
   const barColors = ['#60a5fa', '#3b82f6', '#2563eb', '#1d4ed8']
 
+  // Colors based on theme
+  const axisColor = isDarkMode ? '#94a3b8' : '#cbd5e1'
+  const yAxisTextColor = isDarkMode ? '#f8fafc' : '#334155'
+  const xAxisTextColor = isDarkMode ? '#cbd5e1' : '#64748b'
+  const labelTextColor = isDarkMode ? '#e2e8f0' : '#374151'
+  const sublabelTextColor = isDarkMode ? '#cbd5e1' : '#6b7280'
+
   // Custom tooltip to show more information
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
@@ -204,6 +235,7 @@ export function ResumeEffectivenessGraph({
                 strokeDasharray="3 3"
                 horizontal={true}
                 vertical={false}
+                stroke={axisColor}
               />
               <XAxis
                 type="number"
@@ -216,8 +248,18 @@ export function ResumeEffectivenessGraph({
                   ),
                 ]}
                 tickFormatter={(value) => formatPercent(value)}
+                tick={{ fill: xAxisTextColor, fontSize: 12 }}
+                axisLine={{ stroke: axisColor }}
+                tickLine={{ stroke: axisColor }}
               />
-              <YAxis type="category" dataKey="name" width={100} />
+              <YAxis
+                type="category"
+                dataKey="name"
+                width={100}
+                tick={{ fill: yAxisTextColor, fontSize: 13, fontWeight: 500 }}
+                tickLine={{ stroke: axisColor }}
+                axisLine={{ stroke: axisColor }}
+              />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="ratio" minPointSize={3}>
                 {chartData.map((entry, index) => (
@@ -229,12 +271,12 @@ export function ResumeEffectivenessGraph({
                 <LabelList
                   dataKey="formattedRatio"
                   position="right"
-                  style={{ fill: '#374151', fontWeight: 'bold' }}
+                  style={{ fill: labelTextColor, fontWeight: 'bold' }}
                 />
                 <LabelList
                   dataKey="countDisplay"
                   position="right"
-                  style={{ fill: '#6b7280', fontSize: 12 }}
+                  style={{ fill: sublabelTextColor, fontSize: 12 }}
                   offset={45}
                 />
               </Bar>
