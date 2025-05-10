@@ -8,6 +8,7 @@ import ReminderSettings from './ReminderSettings'
 import PracticeSection from './PracticeSection'
 import StoryGenerator from './StoryGenerator'
 import { DeepJournalingWaitlist } from './DeepJournalingWaitlist'
+import { getServerAuthSession } from '~/server/auth'
 
 export const metadata = {
   title: 'Journal',
@@ -16,17 +17,29 @@ export const metadata = {
   },
 }
 
-export default function JournalPage() {
+export default async function JournalPage() {
+  const session = await getServerAuthSession()
+  const userTier = session?.user?.subscription?.tier
+
+  if (!userTier) {
+    return (
+      <LadderlyPageWrapper authenticate>
+        <div className="container mx-auto max-w-6xl px-4 py-2">
+          <h1 className="mb-2 text-3xl font-bold">Career Journal</h1>
+        </div>
+      </LadderlyPageWrapper>
+    )
+  }
+
   return (
-    <LadderlyPageWrapper authenticate requirePremium>
+    <LadderlyPageWrapper authenticate>
       <div className="container mx-auto max-w-6xl px-4 py-2">
         <h1 className="mb-2 text-3xl font-bold">Career Journal</h1>
 
         <div className="flex flex-col gap-6 lg:flex-row">
-          {/* Main content - journal form and entries */}
           <div className="flex-1">
             <Suspense fallback={<div>Loading form...</div>}>
-              <CreateJournalEntryForm />
+              <CreateJournalEntryForm userTier={userTier} />
             </Suspense>
 
             <Suspense fallback={<div>Loading journal entries...</div>}>

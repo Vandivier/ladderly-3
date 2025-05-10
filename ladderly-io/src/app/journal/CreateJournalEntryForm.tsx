@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { Form } from '~/app/core/components/Form'
 import { api } from '~/trpc/react'
 import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
+import type { PaymentTierEnum } from '@prisma/client'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -19,7 +20,13 @@ const journalEntrySchema = z.object({
 
 type JournalEntryFormValues = z.infer<typeof journalEntrySchema>
 
-export const CreateJournalEntryForm = () => {
+interface CreateJournalEntryFormProps {
+  userTier: PaymentTierEnum
+}
+
+export const CreateJournalEntryForm = ({
+  userTier,
+}: CreateJournalEntryFormProps) => {
   const router = useRouter()
   const utils = api.useUtils()
   const [error, setError] = useState<string | null>(null)
@@ -168,6 +175,7 @@ export const CreateJournalEntryForm = () => {
               isWeeklyLoadingData={isWeeklyLoadingData}
               weeklyEntryCount={weeklyEntryCount}
               weeklyLimit={weeklyLimit}
+              userTier={userTier}
             />
           </div>
         </div>
