@@ -22,12 +22,11 @@ export const SignupPageWrapper = async ({
   heroHeadline,
 }: SignupPageWrapperProps) => {
   const session: LadderlySession | null = await getServerAuthSession()
-  const dashboardHref = '/' as const
+  const dashboardHref = '/'
 
   return (
     <div className="flex min-h-screen flex-col bg-ladderly-off-white">
       <LadderlyAnalytics />
-      {/* Nav is intentionally omitted to focus user on signup/login */}
 
       <main className="flex flex-grow items-center justify-center p-2">
         <div className="w-full max-w-4xl rounded-xl bg-white p-4 shadow-xl md:grid md:grid-cols-2 md:gap-8 md:p-8">
