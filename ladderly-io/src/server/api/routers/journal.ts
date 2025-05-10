@@ -132,9 +132,36 @@ export const journalRouter = createTRPCRouter({
     .input(createJournalEntrySchema)
     .mutation(async ({ ctx, input }) => {
       const userId = Number(ctx.session.user.id)
+      const userTier = ctx.session.user.subscription.tier
 
       // Check if this is a minted entry
       const isMintedEntry = input.entryType === 'MINTED'
+
+      // Daily limit for free tier users (only for non-minted entries)
+      if (userTier === 'FREE' && !isMintedEntry) {
+        const today = new Date()
+        today.setHours(0, 0, 0, 0) // Start of today
+
+        const dailyCount = await ctx.db.journalEntry.count({
+          where: {
+            userId,
+            createdAt: {
+              gte: today,
+            },
+            entryType: {
+              not: 'MINTED',
+            },
+          },
+        })
+
+        if (dailyCount >= 1) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message:
+              'Free tier users can create one journal entry per day. Upgrade for unlimited entries!',
+          })
+        }
+      }
 
       // Check entry count for the current week (last 7 days)
       const oneWeekAgo = new Date()
