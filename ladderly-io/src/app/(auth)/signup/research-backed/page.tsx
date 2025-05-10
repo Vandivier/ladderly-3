@@ -1,24 +1,44 @@
 import { SignupPageWrapper } from '~/app/core/components/page-wrapper/SignupPageWrapper'
 
 export const metadata = {
-  title: 'Signup | Research-Backed Learning | Ladderly',
+  title: 'Signup | Journaling with The Progress Principle | Ladderly',
+  description:
+    'Sign up for Ladderly and leverage our journaling tool, inspired by Harvard\'s "The Progress Principle", to enhance motivation and track small wins for career growth.',
+  keywords: [
+    'Ladderly',
+    'signup',
+    'career',
+    'journaling',
+    'motivation',
+    'The Progress Principle',
+    'Harvard',
+    'goal setting',
+    'productivity',
+  ],
+  openGraph: {
+    title: 'Signup | Journaling with The Progress Principle | Ladderly',
+    description:
+      "Boost your career progress with Ladderly's journaling tool, backed by Harvard Business School research. Sign up to get started!",
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Signup | Journaling with The Progress Principle | Ladderly',
+    description:
+      'Track your wins and stay motivated with Ladderly\'s journaling tool, inspired by Harvard\'s "The Progress Principle". Sign up now!',
+  },
 }
 
 const ResearchBackedSignupPage = async () => {
-  const pageTitle = 'Signup | Research-Backed Learning | Ladderly'
   const heroHeadline = 'Unlock Your Potential with Research-Backed Learning'
   const valueProps = [
-    'Access curated learning paths grounded in research from leading institutions like Harvard.',
-    'Benefit from evidence-based strategies to accelerate your career growth.',
-    'Join a community committed to high-quality, effective learning methodologies.',
+    'Build daily momentum with a journaling method grounded in Harvard research on motivation and performance',
+    'Track your "small wins" to boost motivation, engagement, and performance consistently.',
+    'Foster a positive inner work life and make tangible progress towards your career goals.',
   ]
 
   return (
-    <SignupPageWrapper
-      pageTitle={pageTitle}
-      heroHeadline={heroHeadline}
-      valueProps={valueProps}
-    />
+    <SignupPageWrapper heroHeadline={heroHeadline} valueProps={valueProps} />
   )
 }
 
