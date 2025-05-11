@@ -16,6 +16,7 @@ const journalEntrySchema = z.object({
     .max(500, { message: 'Content must be 500 characters or less' }),
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']),
   isCareerRelated: z.boolean().default(true),
+  happiness: z.number().min(1).max(10).optional(),
 })
 
 type JournalEntryFormValues = z.infer<typeof journalEntrySchema>
@@ -37,6 +38,7 @@ export const CreateJournalEntryForm = ({
   const [entryType, setEntryType] = useState<
     'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
   >('WIN')
+  const [happiness, setHappiness] = useState<number | undefined>(undefined)
 
   // Get the date from a week ago - memoize to prevent recreating on every render
   const oneWeekAgo = useMemo(() => {
@@ -143,6 +145,7 @@ export const CreateJournalEntryForm = ({
           content: contentValue,
           entryType: entryType,
           isCareerRelated: isCareerRelated,
+          happiness: happiness,
         }}
       >
         {/* Text area for entry content */}
@@ -207,6 +210,45 @@ export const CreateJournalEntryForm = ({
               <option value="LEARNING">Learning</option>
               <option value="OTHER">Other</option>
             </select>
+          </div>
+
+          {/* Happiness slider */}
+          <div className="w-1/2">
+            <label
+              htmlFor="happiness"
+              className="mb-1 block text-sm font-medium dark:text-gray-300"
+            >
+              Happiness Level: {happiness ? `${happiness}/10` : 'Not set'}
+            </label>
+            <div className="flex items-center gap-2">
+              <input
+                type="range"
+                id="happiness"
+                name="happiness"
+                min="1"
+                max="10"
+                value={happiness ?? ''}
+                onChange={(e) => setHappiness(Number(e.target.value))}
+                className="flex-1"
+                disabled={
+                  isLoading ||
+                  isWeeklyLoadingData ||
+                  weeklyEntryCount >= weeklyLimit
+                }
+              />
+              <button
+                type="button"
+                onClick={() => setHappiness(undefined)}
+                className="rounded bg-gray-200 px-2 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+                disabled={
+                  isLoading ||
+                  isWeeklyLoadingData ||
+                  weeklyEntryCount >= weeklyLimit
+                }
+              >
+                Clear
+              </button>
+            </div>
           </div>
 
           {/* Checkbox directly in flex container */}

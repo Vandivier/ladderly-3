@@ -20,6 +20,7 @@ const createJournalEntrySchema = z.object({
   isMarkdown: z.boolean().default(false),
   mintedFromHashtag: z.string().optional(),
   mintedFromDateRange: z.array(z.date()).optional(),
+  happiness: z.number().min(1).max(10).optional(),
 })
 
 // Zod schema for updating journal reminder settings
@@ -34,6 +35,7 @@ const updateJournalEntrySchema = z.object({
   content: z.string().max(500),
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']).optional(),
   isCareerRelated: z.boolean().optional(),
+  happiness: z.number().min(1).max(10).optional(),
 })
 
 export const journalRouter = createTRPCRouter({
@@ -215,6 +217,7 @@ export const journalRouter = createTRPCRouter({
           isMarkdown: input.isMarkdown ?? false,
           mintedFromHashtag: input.mintedFromHashtag,
           mintedFromDateRange: input.mintedFromDateRange ?? [],
+          happiness: input.happiness,
           userId,
         },
       })
@@ -250,6 +253,7 @@ export const journalRouter = createTRPCRouter({
           content: input.content,
           entryType: input.entryType ?? entry.entryType,
           isCareerRelated: input.isCareerRelated ?? entry.isCareerRelated,
+          happiness: input.happiness ?? entry.happiness,
         },
       })
     }),
