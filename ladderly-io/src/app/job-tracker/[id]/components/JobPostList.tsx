@@ -144,7 +144,7 @@ export const JobPostList: React.FC<JobPostListProps> = ({
               >
                 <div className="relative z-0 flex flex-col sm:flex-row sm:items-start sm:justify-between">
                   <Link
-                    href={`/job-search/job-post/${post.id}`}
+                    href={`/job-tracker/job-post/${post.id}`}
                     className="relative z-0 flex-1 cursor-pointer"
                     aria-label={`View details for ${post.company} - ${post.jobTitle}`}
                   >
@@ -178,7 +178,7 @@ export const JobPostList: React.FC<JobPostListProps> = ({
                   </Link>
                   <div className="relative z-10 mt-4 flex space-x-2 sm:mt-0">
                     <Link
-                      href={`/job-search/job-post/${post.id}`}
+                      href={`/job-tracker/job-post/${post.id}`}
                       className="rounded bg-blue-50 px-3 py-1 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-800/30"
                       aria-label="Edit job post"
                     >

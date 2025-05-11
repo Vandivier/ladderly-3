@@ -64,8 +64,8 @@ export const GrowMenuItems = ({
     <Link href="/courses" className={linkClassName}>
       Courses
     </Link>
-    <Link href="/job-search" className={linkClassName}>
-      Job Search
+    <Link href="/job-tracker" className={linkClassName}>
+      Job Tracker
     </Link>
     <Link href="/journal" className={linkClassName}>
       Journal

@@ -6,11 +6,11 @@ import { api } from '~/trpc/react'
 import { FORM_ERROR, type FormProps } from '~/app/core/components/Form'
 import type { TRPCClientErrorLike } from '@trpc/client'
 import type { JobSearch, JobPostForCandidate } from '@prisma/client'
-import { JobSearchHeader } from './components/JobSearchHeader'
+import { JobSearchTrackerHeader } from './components/JobSearchTrackerHeader'
 import {
-  JobSearchEditForm,
-  type JobSearchEditSchema,
-} from './components/JobSearchEditForm'
+  JobSearchTrackerEditForm,
+  type JobTrackerEditSchema,
+} from './components/JobSearchTrackerEditForm'
 import { JobPostList } from './components/JobPostList'
 import { AddJobPostModal } from './components/AddJobPostModal'
 import { UploadCsvModal } from './components/UploadCsvModal'
@@ -23,16 +23,18 @@ interface JobSearchPagination {
   totalPages: number
 }
 
-interface JobSearchWithPosts extends JobSearch {
+interface JobSearchTrackerWithPosts extends JobSearch {
   jobPosts: JobPostForCandidate[]
   pagination: JobSearchPagination
 }
 
-interface JobSearchDetailsProps {
-  initialJobSearch: JobSearchWithPosts
+interface JobSearchTrackerDetailsProps {
+  initialJobSearch: JobSearchTrackerWithPosts
 }
 
-export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
+export function JobTrackerDetails({
+  initialJobSearch,
+}: JobSearchTrackerDetailsProps) {
   const searchParams = useSearchParams()
 
   // Get page from URL or default to the initial job search page
@@ -87,14 +89,14 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
   )
 
   // Job search data with type safety
-  const jobSearch = jobSearchData as JobSearchWithPosts
+  const jobSearch = jobSearchData as JobSearchTrackerWithPosts
   const jobPosts = (jobSearchData?.jobPosts ?? []) as JobPostForCandidate[]
   const pagination = (jobSearchData?.pagination ??
     initialJobSearch.pagination) as JobSearchPagination
 
   // Handle updating job search
   const handleUpdateJobSearch: FormProps<
-    typeof JobSearchEditSchema
+    typeof JobTrackerEditSchema
   >['onSubmit'] = async (values) => {
     setIsUpdating(true)
     try {
@@ -134,15 +136,15 @@ export function JobSearchDetails({ initialJobSearch }: JobSearchDetailsProps) {
 
   return (
     <div className="p-2 sm:px-4 sm:py-6">
-      {/* Job Search Header */}
+      {/* Job Search Tracker Header */}
       {!isEditing ? (
-        <JobSearchHeader
+        <JobSearchTrackerHeader
           jobSearch={jobSearch}
           onEditClick={() => setIsEditing(true)}
           handleDownloadRoundLevelCsv={handleDownloadRoundLevelCsv}
         />
       ) : (
-        <JobSearchEditForm
+        <JobSearchTrackerEditForm
           jobSearch={jobSearch}
           isUpdating={isUpdating}
           onSubmit={handleUpdateJobSearch}

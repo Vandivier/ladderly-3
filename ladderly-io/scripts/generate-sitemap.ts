@@ -129,7 +129,24 @@ const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${urls.map((url) => `<url><loc>${url}</loc></url>`).join('\n  ')}
 </urlset>`
 
+// Generate HTML sitemap
+const htmlSitemap = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ladderly Sitemap</title>
+</head>
+<body>
+    <h1>Ladderly Sitemap</h1>
+    <ul>
+        ${urls.map((url) => `<li><a href="${url}">${url}</a></li>`).join('\n        ')}
+    </ul>
+</body>
+</html>`
+
 // Beautify and Write sitemap to public directory
 writeFileSync(join(publicDirectory, 'sitemap.xml'), beautify(sitemap))
+writeFileSync(join(publicDirectory, 'sitemap.html'), htmlSitemap)
 
 console.log(`Sitemap generated with ${urls.length} URLs`)

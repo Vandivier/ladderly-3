@@ -1,6 +1,6 @@
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { SmallCard } from '~/app/core/components/SmallCard'
-import { JobSearchDetails } from './JobSearchDetails'
+import { JobTrackerDetails } from './JobTrackerDetails'
 import { api } from '~/trpc/server'
 import { notFound } from 'next/navigation'
 
@@ -8,7 +8,7 @@ export const metadata = {
   title: 'Job Search Details',
 }
 
-export default async function JobSearchDetailsPage({
+export default async function JobSearchTrackerDetailsPage({
   params,
   searchParams,
 }: {
@@ -40,7 +40,7 @@ export default async function JobSearchDetailsPage({
         className="mx-4 mt-4"
         innerClassName="bg-gradient-to-b from-white to-gray-100 pt-4 dark:from-gray-900 dark:to-gray-950 dark:text-gray-100"
       >
-        <JobSearchDetails initialJobSearch={initialJobSearchData} />
+        <JobTrackerDetails initialJobSearch={initialJobSearchData} />
       </SmallCard>
     </LadderlyPageWrapper>
   )
