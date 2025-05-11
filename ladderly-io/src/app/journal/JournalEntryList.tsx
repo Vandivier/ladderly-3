@@ -3,6 +3,9 @@
 import type { JournalEntryType } from '@prisma/client'
 import React, { useCallback, useMemo, useState } from 'react'
 import { api } from '~/trpc/react'
+import { HappinessSlider } from './HappinessSlider'
+import { BarChart3, Heart } from 'lucide-react'
+import Link from 'next/link'
 
 // Use a type that matches the API's expected values
 type AllowedEntryType = 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
@@ -70,6 +73,119 @@ const formatContentWithHashtags = (content: string) => {
   })
 }
 
+// Edit form for a journal entry
+interface JournalEntryEditFormProps {
+  id: number
+  content: string
+  entryType: AllowedEntryType
+  isCareerRelated: boolean
+  happiness?: number
+  isUpdating: boolean
+  onChangeContent: (v: string) => void
+  onChangeEntryType: (v: AllowedEntryType) => void
+  onChangeIsCareerRelated: (v: boolean) => void
+  onChangeHappiness: (v: number | undefined) => void
+  onCancel: () => void
+  onSave: () => void
+}
+
+const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
+  id,
+  content,
+  entryType,
+  isCareerRelated,
+  happiness,
+  isUpdating,
+  onChangeContent,
+  onChangeEntryType,
+  onChangeIsCareerRelated,
+  onChangeHappiness,
+  onCancel,
+  onSave,
+}) => {
+  return (
+    <div className="mt-2 space-y-3">
+      <textarea
+        value={content}
+        onChange={(e) => onChangeContent(e.target.value)}
+        className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+        rows={3}
+        maxLength={500}
+        disabled={isUpdating}
+      />
+
+      <div className="flex flex-wrap items-center gap-4">
+        <div>
+          <label
+            htmlFor={`edit-type-${id}`}
+            className="mb-1 block text-sm font-medium dark:text-gray-300"
+          >
+            Entry Type
+          </label>
+          <select
+            id={`edit-type-${id}`}
+            value={entryType}
+            onChange={(e) =>
+              onChangeEntryType(e.target.value as AllowedEntryType)
+            }
+            className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+            disabled={isUpdating}
+          >
+            <option value="WIN">Win</option>
+            <option value="PAIN_POINT">Pain Point</option>
+            <option value="LEARNING">Learning</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+
+        {/* Happiness slider */}
+        <div>
+          <HappinessSlider
+            value={happiness}
+            onChange={onChangeHappiness}
+            disabled={isUpdating}
+            id={`edit-happiness-${id}`}
+          />
+        </div>
+
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            id={`edit-career-${id}`}
+            checked={isCareerRelated}
+            onChange={(e) => onChangeIsCareerRelated(e.target.checked)}
+            className="mr-1 size-4"
+            disabled={isUpdating}
+          />
+          <label
+            htmlFor={`edit-career-${id}`}
+            className="text-sm font-medium dark:text-gray-300"
+          >
+            Career-Related
+          </label>
+        </div>
+      </div>
+
+      <div className="flex justify-end space-x-2">
+        <button
+          onClick={onCancel}
+          className="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+          disabled={isUpdating}
+        >
+          Cancel
+        </button>
+        <button
+          onClick={onSave}
+          className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          disabled={isUpdating}
+        >
+          {isUpdating ? 'Saving...' : 'Save'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export const JournalEntryList = () => {
   const [entryType, setEntryType] = useState<AllowedEntryType | undefined>(
     undefined,
@@ -89,6 +205,9 @@ export const JournalEntryList = () => {
   const [editContent, setEditContent] = useState<string>('')
   const [editEntryType, setEditEntryType] = useState<AllowedEntryType>('WIN')
   const [editIsCareerRelated, setEditIsCareerRelated] = useState<boolean>(true)
+  const [editHappiness, setEditHappiness] = useState<number | undefined>(
+    undefined,
+  )
 
   // Memoize query parameters to prevent unnecessary re-renders and API calls
   const queryParams = useMemo(
@@ -129,6 +248,7 @@ export const JournalEntryList = () => {
         setEditContent('')
         setEditEntryType('WIN')
         setEditIsCareerRelated(true)
+        setEditHappiness(undefined)
       },
     })
 
@@ -149,11 +269,13 @@ export const JournalEntryList = () => {
       content: string
       entryType: JournalEntryType
       isCareerRelated: boolean
+      happiness?: number | null
     }) => {
       setEditingEntryId(entry.id)
       setEditContent(entry.content)
       setEditEntryType(entry.entryType as AllowedEntryType)
       setEditIsCareerRelated(entry.isCareerRelated)
+      setEditHappiness(entry.happiness === null ? undefined : entry.happiness)
     },
     [],
   )
@@ -166,9 +288,16 @@ export const JournalEntryList = () => {
         content: editContent,
         entryType: editEntryType,
         isCareerRelated: editIsCareerRelated,
+        happiness: editHappiness,
       })
     },
-    [updateEntry, editContent, editEntryType, editIsCareerRelated],
+    [
+      updateEntry,
+      editContent,
+      editEntryType,
+      editIsCareerRelated,
+      editHappiness,
+    ],
   )
 
   // Handle cancel edit
@@ -177,6 +306,7 @@ export const JournalEntryList = () => {
     setEditContent('')
     setEditEntryType('WIN')
     setEditIsCareerRelated(true)
+    setEditHappiness(undefined)
   }, [])
 
   // Apply filters when the submit button is clicked
@@ -377,13 +507,23 @@ export const JournalEntryList = () => {
         <div>
           Showing {entries.length} of {totalCount} entries
         </div>
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
-        >
-          <span className="mr-1">🔍</span>
-          <span>Filter Posts</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <Link
+            href={'/journal/happiness-graph' as const}
+            className="flex items-center rounded bg-gray-100 px-2 py-1 text-purple-600 hover:bg-purple-200 dark:bg-gray-700 dark:text-purple-300 dark:hover:bg-gray-600"
+            title="View Happiness Graph"
+          >
+            <Heart className="mr-1 size-4 text-pink-500" />
+            <BarChart3 className="size-4" />
+          </Link>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+          >
+            <span className="mr-1">🔍</span>
+            <span>Filter Posts</span>
+          </button>
+        </div>
       </div>
 
       {/* Entries list */}
@@ -415,77 +555,20 @@ export const JournalEntryList = () => {
 
                 {/* Entry content with edit functionality */}
                 {editingEntryId === entry.id ? (
-                  <div className="mt-2 space-y-3">
-                    <textarea
-                      value={editContent}
-                      onChange={(e) => setEditContent(e.target.value)}
-                      className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                      rows={3}
-                      maxLength={500}
-                      disabled={isUpdating}
-                    />
-
-                    <div className="flex flex-wrap items-center gap-4">
-                      <div>
-                        <label
-                          htmlFor={`edit-type-${entry.id}`}
-                          className="mb-1 block text-sm font-medium dark:text-gray-300"
-                        >
-                          Entry Type
-                        </label>
-                        <select
-                          id={`edit-type-${entry.id}`}
-                          value={editEntryType}
-                          onChange={(e) =>
-                            setEditEntryType(e.target.value as AllowedEntryType)
-                          }
-                          className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                          disabled={isUpdating}
-                        >
-                          <option value="WIN">Win</option>
-                          <option value="PAIN_POINT">Pain Point</option>
-                          <option value="LEARNING">Learning</option>
-                          <option value="OTHER">Other</option>
-                        </select>
-                      </div>
-
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id={`edit-career-${entry.id}`}
-                          checked={editIsCareerRelated}
-                          onChange={(e) =>
-                            setEditIsCareerRelated(e.target.checked)
-                          }
-                          className="mr-1 size-4"
-                          disabled={isUpdating}
-                        />
-                        <label
-                          htmlFor={`edit-career-${entry.id}`}
-                          className="text-sm font-medium dark:text-gray-300"
-                        >
-                          Career-Related
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end space-x-2">
-                      <button
-                        onClick={handleCancelEdit}
-                        className="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-                        disabled={isUpdating}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        onClick={() => handleSaveEdit(entry.id)}
-                        className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
-                        disabled={isUpdating}
-                      >
-                        {isUpdating ? 'Saving...' : 'Save'}
-                      </button>
-                    </div>
-                  </div>
+                  <JournalEntryEditForm
+                    id={entry.id}
+                    content={editContent}
+                    entryType={editEntryType}
+                    isCareerRelated={editIsCareerRelated}
+                    happiness={editHappiness ?? undefined}
+                    isUpdating={isUpdating}
+                    onChangeContent={setEditContent}
+                    onChangeEntryType={setEditEntryType}
+                    onChangeIsCareerRelated={setEditIsCareerRelated}
+                    onChangeHappiness={setEditHappiness}
+                    onCancel={handleCancelEdit}
+                    onSave={() => handleSaveEdit(entry.id)}
+                  />
                 ) : (
                   <p className="mt-2 whitespace-pre-wrap text-gray-800 dark:text-gray-200">
                     {formatContentWithHashtags(entry.content)}

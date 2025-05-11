@@ -40,7 +40,7 @@ export const journalRouter = createTRPCRouter({
   getUserEntries: publicProcedure
     .input(
       z.object({
-        limit: z.number().min(1).max(100).default(10),
+        limit: z.number().min(1).max(365).default(10),
         cursor: z.number().optional(),
         fromDate: z.date().optional(),
         entryType: z

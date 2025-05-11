@@ -7,6 +7,7 @@ import { Form } from '~/app/core/components/Form'
 import { api } from '~/trpc/react'
 import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 import type { PaymentTierEnum } from '@prisma/client'
+import { HappinessSlider } from './HappinessSlider'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -214,41 +215,16 @@ export const CreateJournalEntryForm = ({
 
           {/* Happiness slider */}
           <div className="w-full sm:w-1/2">
-            <label
-              htmlFor="happiness"
-              className="mb-1 block text-sm font-medium dark:text-gray-300"
-            >
-              Happiness Level: {happiness ? `${happiness}/10` : 'Not set'}
-            </label>
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <input
-                type="range"
-                id="happiness"
-                name="happiness"
-                min="1"
-                max="10"
-                value={happiness ?? ''}
-                onChange={(e) => setHappiness(Number(e.target.value))}
-                className="w-full accent-blue-600 sm:flex-1"
-                disabled={
-                  isLoading ||
-                  isWeeklyLoadingData ||
-                  weeklyEntryCount >= weeklyLimit
-                }
-              />
-              <button
-                type="button"
-                onClick={() => setHappiness(undefined)}
-                className="mt-1 w-fit rounded bg-gray-200 px-2 py-1 text-xs font-medium hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 sm:mt-0"
-                disabled={
-                  isLoading ||
-                  isWeeklyLoadingData ||
-                  weeklyEntryCount >= weeklyLimit
-                }
-              >
-                Clear
-              </button>
-            </div>
+            <HappinessSlider
+              value={happiness}
+              onChange={setHappiness}
+              disabled={
+                isLoading ||
+                isWeeklyLoadingData ||
+                weeklyEntryCount >= weeklyLimit
+              }
+              id="happiness"
+            />
           </div>
 
           {/* Checkbox below others on mobile */}
