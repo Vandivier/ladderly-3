@@ -12,7 +12,6 @@ import {
 } from '~/server/api/trpc'
 import { TRPCError } from '@trpc/server'
 
-// Zod schema for creating a journal entry
 const createJournalEntrySchema = z.object({
   content: z.string().max(500),
   entryType: z.nativeEnum(JournalEntryType),
@@ -23,13 +22,11 @@ const createJournalEntrySchema = z.object({
   happiness: z.number().min(1).max(10).optional(),
 })
 
-// Zod schema for updating journal reminder settings
 const updateReminderSchema = z.object({
   isEnabled: z.boolean(),
   frequency: z.nativeEnum(ReminderFrequency),
 })
 
-// Zod schema for updating a journal entry
 const updateJournalEntrySchema = z.object({
   id: z.number(),
   content: z.string().max(500),

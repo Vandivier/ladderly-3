@@ -183,10 +183,10 @@ export const CreateJournalEntryForm = ({
           </div>
         </div>
 
-        {/* Form controls in a row */}
-        <div className="mb-2 flex flex-row items-center gap-6">
+        {/* Form controls stacked for mobile */}
+        <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
           {/* Entry type dropdown */}
-          <div className="w-1/2">
+          <div className="w-full sm:w-1/2">
             <label
               htmlFor="entryType"
               className="mb-1 block text-sm font-medium dark:text-gray-300"
@@ -198,7 +198,7 @@ export const CreateJournalEntryForm = ({
               name="entryType"
               value={entryType}
               onChange={handleEntryTypeChange}
-              className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              className="w-full rounded-md border border-gray-300 p-2 text-base dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               disabled={
                 isLoading ||
                 isWeeklyLoadingData ||
@@ -213,14 +213,14 @@ export const CreateJournalEntryForm = ({
           </div>
 
           {/* Happiness slider */}
-          <div className="w-1/2">
+          <div className="w-full sm:w-1/2">
             <label
               htmlFor="happiness"
               className="mb-1 block text-sm font-medium dark:text-gray-300"
             >
               Happiness Level: {happiness ? `${happiness}/10` : 'Not set'}
             </label>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <input
                 type="range"
                 id="happiness"
@@ -229,7 +229,7 @@ export const CreateJournalEntryForm = ({
                 max="10"
                 value={happiness ?? ''}
                 onChange={(e) => setHappiness(Number(e.target.value))}
-                className="flex-1"
+                className="w-full accent-blue-600 sm:flex-1"
                 disabled={
                   isLoading ||
                   isWeeklyLoadingData ||
@@ -239,7 +239,7 @@ export const CreateJournalEntryForm = ({
               <button
                 type="button"
                 onClick={() => setHappiness(undefined)}
-                className="rounded bg-gray-200 px-2 py-1 text-sm hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+                className="mt-1 w-fit rounded bg-gray-200 px-2 py-1 text-xs font-medium hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 sm:mt-0"
                 disabled={
                   isLoading ||
                   isWeeklyLoadingData ||
@@ -251,8 +251,8 @@ export const CreateJournalEntryForm = ({
             </div>
           </div>
 
-          {/* Checkbox directly in flex container */}
-          <div className="flex items-center">
+          {/* Checkbox below others on mobile */}
+          <div className="flex w-full items-center sm:w-auto">
             <input
               type="checkbox"
               id="isCareerRelated"
@@ -280,6 +280,24 @@ export const CreateJournalEntryForm = ({
             {error}
           </div>
         )}
+        {/* Responsive Save Entry button: full width on mobile, auto on desktop */}
+        <div className="mt-2 flex">
+          <button
+            type="submit"
+            className="w-full rounded bg-purple-600 px-4 py-2 text-lg font-semibold text-white shadow-sm transition-colors hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:bg-purple-500 dark:hover:bg-purple-600 sm:w-auto"
+            disabled={
+              isLoading ||
+              isWeeklyLoadingData ||
+              weeklyEntryCount >= weeklyLimit
+            }
+          >
+            {isLoading
+              ? 'Saving...'
+              : weeklyEntryCount >= weeklyLimit
+                ? 'Weekly Limit Reached'
+                : 'Save Entry'}
+          </button>
+        </div>
       </Form>
     </div>
   )
