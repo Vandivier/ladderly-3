@@ -549,6 +549,7 @@ model JournalEntry {
   entryType       JournalEntryType
   isCareerRelated Boolean          @default(true)
   isMarkdown      Boolean          @default(false)
+  happiness       Int?
 
   // Fields for minted entries
   mintedFromDateRange DateTime[] @default([])

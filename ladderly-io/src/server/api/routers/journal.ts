@@ -12,7 +12,6 @@ import {
 } from '~/server/api/trpc'
 import { TRPCError } from '@trpc/server'
 
-// Zod schema for creating a journal entry
 const createJournalEntrySchema = z.object({
   content: z.string().max(500),
   entryType: z.nativeEnum(JournalEntryType),
@@ -20,20 +19,20 @@ const createJournalEntrySchema = z.object({
   isMarkdown: z.boolean().default(false),
   mintedFromHashtag: z.string().optional(),
   mintedFromDateRange: z.array(z.date()).optional(),
+  happiness: z.number().min(1).max(10).optional(),
 })
 
-// Zod schema for updating journal reminder settings
 const updateReminderSchema = z.object({
   isEnabled: z.boolean(),
   frequency: z.nativeEnum(ReminderFrequency),
 })
 
-// Zod schema for updating a journal entry
 const updateJournalEntrySchema = z.object({
   id: z.number(),
   content: z.string().max(500),
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']).optional(),
   isCareerRelated: z.boolean().optional(),
+  happiness: z.number().min(1).max(10).optional(),
 })
 
 export const journalRouter = createTRPCRouter({
@@ -41,7 +40,7 @@ export const journalRouter = createTRPCRouter({
   getUserEntries: publicProcedure
     .input(
       z.object({
-        limit: z.number().min(1).max(100).default(10),
+        limit: z.number().min(1).max(365).default(10),
         cursor: z.number().optional(),
         fromDate: z.date().optional(),
         entryType: z
@@ -215,6 +214,7 @@ export const journalRouter = createTRPCRouter({
           isMarkdown: input.isMarkdown ?? false,
           mintedFromHashtag: input.mintedFromHashtag,
           mintedFromDateRange: input.mintedFromDateRange ?? [],
+          happiness: input.happiness,
           userId,
         },
       })
@@ -250,6 +250,7 @@ export const journalRouter = createTRPCRouter({
           content: input.content,
           entryType: input.entryType ?? entry.entryType,
           isCareerRelated: input.isCareerRelated ?? entry.isCareerRelated,
+          happiness: input.happiness ?? entry.happiness,
         },
       })
     }),

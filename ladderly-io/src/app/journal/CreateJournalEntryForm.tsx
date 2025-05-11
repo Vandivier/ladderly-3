@@ -7,6 +7,7 @@ import { Form } from '~/app/core/components/Form'
 import { api } from '~/trpc/react'
 import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 import type { PaymentTierEnum } from '@prisma/client'
+import { HappinessSlider } from './HappinessSlider'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -16,6 +17,7 @@ const journalEntrySchema = z.object({
     .max(500, { message: 'Content must be 500 characters or less' }),
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']),
   isCareerRelated: z.boolean().default(true),
+  happiness: z.number().min(1).max(10).optional(),
 })
 
 type JournalEntryFormValues = z.infer<typeof journalEntrySchema>
@@ -37,6 +39,7 @@ export const CreateJournalEntryForm = ({
   const [entryType, setEntryType] = useState<
     'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
   >('WIN')
+  const [happiness, setHappiness] = useState<number | undefined>(undefined)
 
   // Get the date from a week ago - memoize to prevent recreating on every render
   const oneWeekAgo = useMemo(() => {
@@ -143,6 +146,7 @@ export const CreateJournalEntryForm = ({
           content: contentValue,
           entryType: entryType,
           isCareerRelated: isCareerRelated,
+          happiness: happiness,
         }}
       >
         {/* Text area for entry content */}
@@ -180,10 +184,10 @@ export const CreateJournalEntryForm = ({
           </div>
         </div>
 
-        {/* Form controls in a row */}
-        <div className="mb-2 flex flex-row items-center gap-6">
+        {/* Form controls stacked for mobile */}
+        <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
           {/* Entry type dropdown */}
-          <div className="w-1/2">
+          <div className="w-full sm:w-1/2">
             <label
               htmlFor="entryType"
               className="mb-1 block text-sm font-medium dark:text-gray-300"
@@ -195,7 +199,7 @@ export const CreateJournalEntryForm = ({
               name="entryType"
               value={entryType}
               onChange={handleEntryTypeChange}
-              className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              className="w-full rounded-md border border-gray-300 p-2 text-base dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               disabled={
                 isLoading ||
                 isWeeklyLoadingData ||
@@ -209,8 +213,22 @@ export const CreateJournalEntryForm = ({
             </select>
           </div>
 
-          {/* Checkbox directly in flex container */}
-          <div className="flex items-center">
+          {/* Happiness slider */}
+          <div className="w-full sm:w-1/2">
+            <HappinessSlider
+              value={happiness}
+              onChange={setHappiness}
+              disabled={
+                isLoading ||
+                isWeeklyLoadingData ||
+                weeklyEntryCount >= weeklyLimit
+              }
+              id="happiness"
+            />
+          </div>
+
+          {/* Checkbox below others on mobile */}
+          <div className="flex w-full items-center sm:w-auto">
             <input
               type="checkbox"
               id="isCareerRelated"
