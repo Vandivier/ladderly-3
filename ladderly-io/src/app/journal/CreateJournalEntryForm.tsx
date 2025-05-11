@@ -280,24 +280,6 @@ export const CreateJournalEntryForm = ({
             {error}
           </div>
         )}
-        {/* Responsive Save Entry button: full width on mobile, auto on desktop */}
-        <div className="mt-2 flex">
-          <button
-            type="submit"
-            className="w-full rounded bg-purple-600 px-4 py-2 text-lg font-semibold text-white shadow-sm transition-colors hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:bg-purple-500 dark:hover:bg-purple-600 sm:w-auto"
-            disabled={
-              isLoading ||
-              isWeeklyLoadingData ||
-              weeklyEntryCount >= weeklyLimit
-            }
-          >
-            {isLoading
-              ? 'Saving...'
-              : weeklyEntryCount >= weeklyLimit
-                ? 'Weekly Limit Reached'
-                : 'Save Entry'}
-          </button>
-        </div>
       </Form>
     </div>
   )
