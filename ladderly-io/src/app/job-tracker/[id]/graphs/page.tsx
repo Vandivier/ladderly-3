@@ -55,7 +55,7 @@ export default async function JobSearchGraphsPage({
           <div className="space-y-8">
             <div className="mb-4">
               <Link
-                href={`/job-search/${jobId}`}
+                href={`/job-tracker/${jobId}`}
                 className="text-blue-600 hover:underline dark:text-blue-400"
               >
                 ← Back to Job Search Details
@@ -67,7 +67,7 @@ export default async function JobSearchGraphsPage({
                 <p className="text-center text-yellow-700 dark:text-yellow-200">
                   No application data available to visualize.
                   <Link
-                    href={`/job-search/${jobId}`}
+                    href={`/job-tracker/${jobId}`}
                     className="ml-2 underline"
                   >
                     Add some job applications

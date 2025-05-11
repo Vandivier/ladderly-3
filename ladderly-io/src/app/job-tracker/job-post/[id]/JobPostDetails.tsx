@@ -210,7 +210,7 @@ export const JobPostDetails = ({ id }: { id: number }) => {
       <div className="text-center">
         <p className="dark:text-gray-300">Job application not found.</p>
         <button
-          onClick={() => router.push(`/job-search`)}
+          onClick={() => router.push(`/job-tracker`)}
           className="mt-4 inline-block text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
         >
           ← Back to Job Search Archive
@@ -244,7 +244,7 @@ export const JobPostDetails = ({ id }: { id: number }) => {
     <div className="space-y-6">
       {/* Back Button */}
       <button
-        onClick={() => router.push(`/job-search/${jobPost.jobSearchId}`)}
+        onClick={() => router.push(`/job-tracker/${jobPost.jobSearchId}`)}
         className="inline-block text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
       >
         <ArrowLeft className="mr-1 inline size-4" /> Back to Job Search:{' '}

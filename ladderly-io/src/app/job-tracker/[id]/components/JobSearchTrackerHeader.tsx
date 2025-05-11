@@ -5,13 +5,13 @@ import Link from 'next/link'
 import { ArrowLeft, Download } from 'lucide-react'
 import type { JobSearch } from '@prisma/client'
 
-interface JobSearchHeaderProps {
+interface JobSearchTrackerHeaderProps {
   jobSearch: JobSearch
   onEditClick: () => void
   handleDownloadRoundLevelCsv: () => Promise<void>
 }
 
-export const JobSearchHeader: React.FC<JobSearchHeaderProps> = ({
+export const JobSearchTrackerHeader: React.FC<JobSearchTrackerHeaderProps> = ({
   jobSearch,
   onEditClick,
   handleDownloadRoundLevelCsv,
@@ -20,7 +20,7 @@ export const JobSearchHeader: React.FC<JobSearchHeaderProps> = ({
     <div>
       <div className="mb-2">
         <Link
-          href="/job-search"
+          href="/job-tracker"
           className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
         >
           <ArrowLeft className="mr-1 h-4 w-4" /> Back to Archive
@@ -49,7 +49,7 @@ export const JobSearchHeader: React.FC<JobSearchHeaderProps> = ({
         </div>
         <div className="mt-4 flex space-x-2">
           <Link
-            href={`/job-search/${jobSearch.id}/graphs`}
+            href={`/job-tracker/${jobSearch.id}/graphs`}
             className="rounded bg-blue-50 px-3 py-1 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-800/30"
           >
             View Analytics

@@ -44,7 +44,7 @@ const JobPostCsvRowSchema = z.object({
   Notes: z.string().nullable().optional(),
 })
 
-export const CreateJobSearchModal = () => {
+export const CreateJobTrackerModal = () => {
   const router = useRouter()
   const utils = api.useUtils()
   const [isOpen, setIsOpen] = useState(false)
@@ -73,7 +73,7 @@ export const CreateJobSearchModal = () => {
         setTimeout(() => setSubmitStatus('idle'), 3000)
       },
       onError: (error) => {
-        setError(error.message ?? 'Failed to create job search')
+        setError(error.message ?? 'Failed to create job search tracker')
         setSubmitStatus('error')
         setIsSubmitting(false)
       },
@@ -102,7 +102,7 @@ export const CreateJobSearchModal = () => {
       },
       onError: (error) => {
         let detailedError =
-          error.message ?? 'Failed to create job search from CSV'
+          error.message ?? 'Failed to create job search tracker from CSV'
         try {
           const dataError = error.data?.zodError
           if (dataError?.fieldErrors) {
@@ -131,7 +131,7 @@ export const CreateJobSearchModal = () => {
     setError('')
 
     if (!name.trim()) {
-      setError('Job search name is required when uploading CSV')
+      setError('Job search tracker name is required when uploading CSV')
       setIsSubmitting(false)
       setSubmitStatus('idle')
       return
@@ -174,11 +174,6 @@ export const CreateJobSearchModal = () => {
             }
           })
 
-          console.log('Parsed Valid CSV Rows:', validRows)
-
-          // Type assertion needed here because the server and client schemas don't exactly match
-          // The server's JobPostCsvRowSchema has transformers that convert string values to proper types
-          // E.g., "TRUE" string to boolean, date strings to Date objects, etc.
           createJobSearchCsv({
             name: name.trim(),
             startDate: new Date(startDate),
@@ -214,7 +209,7 @@ export const CreateJobSearchModal = () => {
       handleFileParseAndSubmit(selectedFile)
     } else {
       if (!name.trim()) {
-        setError('Job search name is required')
+        setError('Job search tracker name is required')
         setIsSubmitting(false)
         return
       }
@@ -242,14 +237,14 @@ export const CreateJobSearchModal = () => {
         onClick={() => setIsOpen(true)}
         className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
       >
-        Create New Job Search
+        Create New Job Search Tracker
       </button>
 
       {isOpen && (
         <div className="bg-opacity/50 fixed inset-0 z-50 flex items-center justify-center bg-black">
           <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
             <h2 className="mb-4 text-xl font-bold dark:text-white">
-              Create New Job Search
+              Create New Job Search Tracker
             </h2>
 
             <form onSubmit={handleSubmit}>
@@ -258,14 +253,14 @@ export const CreateJobSearchModal = () => {
                   htmlFor="name"
                   className="mb-2 block text-sm font-medium dark:text-gray-200"
                 >
-                  Job Search Name*
+                  Job Search Tracker Name*
                 </label>
                 <input
                   id="name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g., Summer 2024 Job Search"
+                  placeholder="e.g., Summer 2024 Job Search Tracker"
                   className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   required
                   disabled={isSubmitting}

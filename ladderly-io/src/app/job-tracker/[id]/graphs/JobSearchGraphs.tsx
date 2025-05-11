@@ -1,11 +1,11 @@
 'use client'
 
-import React from 'react'
-import { api } from '~/trpc/react'
 import Link from 'next/link'
-import { WeeklyApplicationsGraph } from '~/app/job-search/[id]/graphs/components/WeeklyApplicationsGraph'
-import { ResumeEffectivenessGraph } from '~/app/job-search/[id]/graphs/components/ResumeEffectivenessGraph'
-import { RoundPerformanceGraph } from '~/app/job-search/[id]/graphs/components/RoundPerformanceGraph'
+import React from 'react'
+import { ResumeEffectivenessGraph } from '~/app/job-tracker/[id]/graphs/components/ResumeEffectivenessGraph'
+import { RoundPerformanceGraph } from '~/app/job-tracker/[id]/graphs/components/RoundPerformanceGraph'
+import { WeeklyApplicationsGraph } from '~/app/job-tracker/[id]/graphs/components/WeeklyApplicationsGraph'
+import { api } from '~/trpc/react'
 
 // Main container component that shows all the job search analytics graphs
 export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
@@ -44,7 +44,7 @@ export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
       <div className="space-y-8">
         <div className="mb-4">
           <Link
-            href={`/job-search/${jobSearchId}`}
+            href={`/job-tracker/${jobSearchId}`}
             className="text-blue-600 hover:underline dark:text-blue-400"
           >
             ← Back to Job Search Details
@@ -55,7 +55,7 @@ export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
           <p className="text-center text-yellow-700 dark:text-yellow-200">
             No application data available to visualize.
             <Link
-              href={`/job-search/${jobSearchId}`}
+              href={`/job-tracker/${jobSearchId}`}
               className="ml-2 underline"
             >
               Add some job applications
@@ -71,7 +71,7 @@ export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
     <div className="space-y-8">
       <div className="mb-4">
         <Link
-          href={`/job-search/${jobSearchId}`}
+          href={`/job-tracker/${jobSearchId}`}
           className="text-blue-600 hover:underline dark:text-blue-400"
         >
           ← Back to Job Search Details

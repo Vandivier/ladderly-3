@@ -27,11 +27,11 @@ If you decide to engage in an A/B test, Ladderly.io suggests applying to a minim
 
 ## Job Search Spreadsheet Tools
 
-1. Here's [Ladderly.io's Premium Job Search Tool](/job-search)
-2. Here's a free [post-level job search spreadsheet template](https://docs.google.com/spreadsheets/d/1gRL8zSSgDAQ_Rs5kHglUEZnH4-kQwLnXZ0e9oh0YvK0)
+1. Here's [Ladderly.io's Premium Job Tracker Tool](/job-tracker)
+2. Here's a free [post-level job tracker spreadsheet template](https://docs.google.com/spreadsheets/d/1gRL8zSSgDAQ_Rs5kHglUEZnH4-kQwLnXZ0e9oh0YvK0)
 3. Stay tuned for a round-level spreadsheet!
 
-You can optionally fill out one of these spreadsheets then click File -> Download -> Comma Seperated Values (.csv) and import that file into the [Job Search Tool](/job-search).
+You can optionally fill out one of these spreadsheets then click File -> Download -> Comma Seperated Values (.csv) and import that file into the [Job Tracker Tool](/job-tracker).
 
 The round-level spreadsheet allows richer data analysis but requires more data entry, because you will need to create a new row for each interview round. The post-level spreadsheet just has one row for each job post. This is easier to utilize but there are some limitations on the analysis you can do with it.
 

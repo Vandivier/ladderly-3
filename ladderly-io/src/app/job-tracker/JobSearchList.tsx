@@ -1,4 +1,4 @@
-// src/app/job-search/JobSearchList.tsx
+// src/app/job-tracker/JobSearchList.tsx
 
 'use client'
 
@@ -22,7 +22,7 @@ export const JobSearchList = () => {
   const pathname = usePathname()
 
   // Check if we're on the job search list page, not a detail page
-  const isJobSearchListPage = pathname === '/job-search'
+  const isJobSearchListPage = pathname === '/job-tracker'
 
   // Parse page from URL query params, default to 1
   const initialPage = parseInt(searchParams.get('page') ?? '1', 10)
@@ -114,7 +114,7 @@ export const JobSearchList = () => {
             <div className="relative p-4">
               <div className="flex items-center justify-between">
                 <Link
-                  href={`/job-search/${jobSearch.id}`}
+                  href={`/job-tracker/${jobSearch.id}`}
                   className="relative z-0 max-w-[80%] flex-1"
                   aria-label={`View details for ${jobSearch.name}`}
                 >
@@ -137,7 +137,7 @@ export const JobSearchList = () => {
                 </Link>
                 <div className="relative z-10 flex items-center space-x-2">
                   <Link
-                    href={`/job-search/${jobSearch.id}/graphs`}
+                    href={`/job-tracker/${jobSearch.id}/graphs`}
                     className="rounded-full p-2 text-blue-500 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30"
                     aria-label="View analytics"
                   >

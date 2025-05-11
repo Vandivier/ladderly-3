@@ -1,21 +1,21 @@
 'use client'
 
+import type { JobSearch } from '@prisma/client'
 import React from 'react'
 import { z } from 'zod'
-import type { JobSearch } from '@prisma/client'
-import { Form, FORM_ERROR, type FormProps } from '~/app/core/components/Form'
-import LabeledTextField from '~/app/core/components/LabeledTextField'
+import { Form, type FormProps } from '~/app/core/components/Form'
 import LabeledCheckboxField from '~/app/core/components/LabeledCheckboxField'
 import LabeledDateField from '~/app/core/components/LabeledDateField'
+import LabeledTextField from '~/app/core/components/LabeledTextField'
 
 // Schema for editing the Job Search name
-const JobSearchEditSchema = z.object({
+const JobTrackerEditSchema = z.object({
   name: z.string().min(1, 'Name cannot be empty'),
   startDate: z.string().min(1, 'Start date cannot be empty'),
   isActive: z.boolean(),
 })
 
-type JobSearchEditValues = z.infer<typeof JobSearchEditSchema>
+type JobSearchEditValues = z.infer<typeof JobTrackerEditSchema>
 
 // Helper to format date to YYYY-MM-DD
 const formatDateForInput = (date: Date | string | undefined | null): string => {
@@ -30,11 +30,11 @@ const formatDateForInput = (date: Date | string | undefined | null): string => {
 interface JobSearchEditFormProps {
   jobSearch: JobSearch
   isUpdating: boolean
-  onSubmit: FormProps<typeof JobSearchEditSchema>['onSubmit']
+  onSubmit: FormProps<typeof JobTrackerEditSchema>['onSubmit']
   onCancel: () => void
 }
 
-export const JobSearchEditForm: React.FC<JobSearchEditFormProps> = ({
+export const JobSearchTrackerEditForm: React.FC<JobSearchEditFormProps> = ({
   jobSearch,
   isUpdating,
   onSubmit,
@@ -48,8 +48,8 @@ export const JobSearchEditForm: React.FC<JobSearchEditFormProps> = ({
   }
 
   return (
-    <Form<typeof JobSearchEditSchema>
-      schema={JobSearchEditSchema}
+    <Form<typeof JobTrackerEditSchema>
+      schema={JobTrackerEditSchema}
       initialValues={initialFormValues}
       onSubmit={onSubmit}
       className="mb-4 space-y-4 rounded-md border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800"
@@ -103,4 +103,4 @@ export const JobSearchEditForm: React.FC<JobSearchEditFormProps> = ({
   )
 }
 
-export { JobSearchEditSchema, type JobSearchEditValues }
+export { JobTrackerEditSchema, type JobSearchEditValues }

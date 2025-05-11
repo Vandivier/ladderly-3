@@ -10,12 +10,12 @@ Note: You must already be logged in to purchase premium. If you are not logged i
 Ladderly.io premium membership provides access to a dozen valuable features, including [the seven free-tier features](/blog/2025-05-02-benefits-of-free) and five more powerful resources:
 
 1. The Ladderly Copilot. [Click here to use it now](/copilot) or learn more about this powerful AI resource [here](/blog/2025-02-07-ladderly-chat-ai)!
-2. [The Job Search Tool](/job-search)
+2. [The Job Search Tracker Tool](/job-tracker)
 3. [Career Journaling](/journal)
 4. Premium Article Access
 5. Premium Checklist Access
 
-## The Job Search Tool
+## The Job Search Tracker Tool
 
 Measurement on the job search is crucial to ensure continued performance improvements. Did you know that [measurement alone can cause improvement in outcomes](https://pmc.ncbi.nlm.nih.gov/articles/PMC7607506)? This effect is known as the observer effect, [reflexive measurement](https://philarchive.org/archive/MICRM-4), or measurement as intervention. In addition, a measurement tool allows you to A/B test changes in your job search strategy and see whether those changes are causing improved performance.
 
