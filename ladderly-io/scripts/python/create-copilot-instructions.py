@@ -54,6 +54,10 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
             dirnames[:] = []  # Prevent traversal if the directory is ignored
             continue
 
+        # Sort dirnames and filenames alphabetically
+        dirnames.sort()
+        filenames.sort()
+
         # Calculate indentation based on the depth
         indent = "    " * (len(relative_path_parts) - 1) if relative_path_parts else ""
         # Use '/' for consistent path separator display

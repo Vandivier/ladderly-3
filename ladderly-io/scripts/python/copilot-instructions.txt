@@ -133,12 +133,12 @@ Here is the folder structure of the project:
 .env.template
 .eslintrc.cjs
 .gitignore
+README.md
 next.config.js
 package-lock.json
 package.json
 postcss.config.cjs
 prettier.config.ts
-README.md
 start-database.sh
 tailwind.config.ts
 tsconfig.json
@@ -174,6 +174,7 @@ public/
     logo.webp
     robots.txt
     site.webmanifest
+    sitemap.html
     sitemap.xml
     public/blog/
         public/blog/images/
@@ -190,6 +191,7 @@ scripts/
     ensureSubscriptions.js
     generate-sitemap.ts
     restoreUsers.js
+    scripts/backup-data/
     scripts/ci/
         custom-blog-lint.js
     scripts/data/
@@ -198,17 +200,17 @@ scripts/
         2023-07-22-nuke-user-checklists.js
     scripts/python/
         .python-version
+        README.md
         copilot-instructions.txt
         create-copilot-instructions.py
         create-unified-leecode-list.py
         pyproject.toml
-        README.md
         uv.lock
         scripts/python/analytical/
+            README.md
             blog-15-job-search-regression.csv
             blog-15-job-search-regression.py
             blog-16-game-based-evaluation-ai-risk-analysis.csv
-            README.md
             requirements.txt
         scripts/python/leetcode-problems/
             leetcode-grind-75.json
@@ -218,11 +220,11 @@ scripts/
             unified-leetcode-problems.json
         scripts/python/youtube-transcriber/
             .env.template
+            README.md
             consolidate.py
             consolidated_transcript.txt
             main.py
             manage_playlist.py
-            README.md
             report.py
             requirements.txt
             tasks.py
@@ -246,10 +248,18 @@ src/
             src/app/(auth)/login/
                 page.tsx
             src/app/(auth)/reset-password/
-                page.tsx
                 ResetPasswordClientPageClient.tsx
+                page.tsx
             src/app/(auth)/signup/
                 page.tsx
+                src/app/(auth)/signup/interview-prep/
+                    page.tsx
+                src/app/(auth)/signup/research-backed/
+                    page.tsx
+                src/app/(auth)/signup/technical-prep/
+                    page.tsx
+                src/app/(auth)/signup/wellness/
+                    page.tsx
         src/app/about/
             page.tsx
         src/app/api/
@@ -257,7 +267,7 @@ src/
                 src/app/api/auth/[...nextauth]/
                     route.ts
             src/app/api/chat/
-            src/app/api/leetcode-problems/
+            src/app/api/create-checkout-session/
             src/app/api/trpc/
                 src/app/api/trpc/[trpc]/
                     route.ts
@@ -313,12 +323,13 @@ src/
             src/app/checklists/my-premium-checklist/
                 ClientPremiumChecklist.tsx
                 page.tsx
+                src/app/checklists/my-premium-checklist/components/
         src/app/community/
             ClientCommunityPage.tsx
             CommunityMemberListItem.tsx
-            page.tsx
             SearchProfiles.tsx
             SearchUserInformation.tsx
+            page.tsx
             src/app/community/[userId]/
                 page.tsx
                 src/app/community/[userId]/certificates/
@@ -350,6 +361,7 @@ src/
                 src/app/core/components/page-wrapper/
                     LadderlyPageWrapper.tsx
                     MenuProvider.tsx
+                    SignupPageWrapper.tsx
                     TopNav.tsx
                     TopNavLeft.tsx
                     TopNavRight.tsx
@@ -372,61 +384,60 @@ src/
                     FlashcardsContent.tsx
                     page.tsx
                 src/app/courses/[courseSlug]/quiz/
-                    page.tsx
                     QuizContent.tsx
+                    page.tsx
         src/app/home/
             HomePageContent.tsx
             HomePageSkeleton.tsx
             LadderlyHelpsBlock.tsx
             TestimonialBlock.tsx
-        src/app/job-search/
-            CreateJobSearchModal.tsx
+        src/app/job-tracker/
+            CreateJobTrackerModal.tsx
             JobSearchActiveSpan.tsx
             JobSearchList.tsx
             page.tsx
-            src/app/job-search/job-post/
-                src/app/job-search/job-post/[id]/
-                    AddJobSearchStepForm.tsx
-                    EditJobPostForm.tsx
-                    JobPostDetails.tsx
-                    JobStepsSection.tsx
-                    page.tsx
-            src/app/job-search/[id]/
+            src/app/job-tracker/[id]/
                 AddJobApplicationModal.tsx
-                JobSearchDetails.tsx
+                JobTrackerDetails.tsx
                 page.tsx
-                src/app/job-search/[id]/components/
+                src/app/job-tracker/[id]/components/
                     AddJobPostModal.tsx
-                    EditJobPostModal.tsx
                     JobPostList.tsx
-                    JobSearchEditForm.tsx
-                    JobSearchHeader.tsx
+                    JobSearchTrackerEditForm.tsx
+                    JobSearchTrackerHeader.tsx
                     UploadCsvModal.tsx
-                src/app/job-search/[id]/graphs/
+                src/app/job-tracker/[id]/graphs/
                     JobSearchGraphs.tsx
                     page.tsx
-                    src/app/job-search/[id]/graphs/components/
-                        graphUtils.ts
+                    src/app/job-tracker/[id]/graphs/components/
                         InterviewFunnelSankey.tsx
                         ResumeEffectivenessGraph.tsx
                         RoundPerformanceGraph.tsx
                         TimePeriodSelector.tsx
                         WeeklyApplicationsGraph.tsx
+                        graphUtils.ts
+            src/app/job-tracker/job-post/
+                src/app/job-tracker/job-post/[id]/
+                    AddJobSearchStepForm.tsx
+                    EditJobPostForm.tsx
+                    JobPostDetails.tsx
+                    JobStepsSection.tsx
+                    page.tsx
         src/app/journal/
             CreateJournalEntryForm.tsx
             DeepJournalingWaitlist.tsx
             JournalEntryList.tsx
-            page.tsx
             PracticeSection.tsx
             ReminderSettings.tsx
             StoryGenerator.tsx
             WeeklyEntryCountIndicator.tsx
+            page.tsx
         src/app/leetcode-tool/
             CompletionStatusFilter.tsx
             LeetCodeFilterControl.tsx
             LeetCodeList.tsx
-            page.tsx
             RandomProblemRecommendation.tsx
+            page.tsx
         src/app/mobile-menu/
             MobileMenuContent.tsx
             MobileMenuDropdowns.tsx
@@ -448,11 +459,12 @@ src/
                 src/app/settings/email-preferences/components/
                     EmailPreferencesFormWrapper.tsx
     src/server/
+        LadderlyMigrationAdapter.ts
         auth.ts
         constants.ts
         db.ts
-        LadderlyMigrationAdapter.ts
         schemas.ts
+        src/server/actions/
         src/server/api/
             root.ts
             trpc.ts
@@ -475,14 +487,13 @@ src/
         src/server/mailers/
             forgotPasswordMailer.ts
     src/styles/
-        globals.css
         Home.module.css
+        globals.css
     src/trpc/
         query-client.ts
         react.tsx
         server.ts
     src/types/
-temp/
 tests/
     setup.tsx
     tests/app/

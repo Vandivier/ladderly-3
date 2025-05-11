@@ -56,5 +56,7 @@ yarn-error.log*
 temp.*
 *-temp.*
 temp/
+**.ignoreme.**
 
 scripts/data/
+scripts/backup-data/
