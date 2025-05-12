@@ -24,6 +24,8 @@ password:   [PASSWORD_WITHOUT_SQUARE_BRACKETS]
 DATABASE_URL=postgres://postgres.zrpwqlogwfcxwcuyfnmd:[PASSWORD_WITHOUT_SQUARE_BRACKETS]@aws-0-us-west-1.pooler.supabase.com:5432/postgres
 ```
 
+`NOTE` You just have to fill only the `DATABASE_URL` and `DATABASE_PASSWORD` keys in the .env file. Rest of the keys are optional. You also have to generate the `NEXTAUTH_SECRET` following the steps given in the `.env` file
+
 4. Generate tables and columns in your Supabase Postgres database.
 
 ```bash
