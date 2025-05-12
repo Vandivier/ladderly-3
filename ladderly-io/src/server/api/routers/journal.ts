@@ -211,9 +211,7 @@ export const journalRouter = createTRPCRouter({
       // Check if this is a minted entry
       const isMintedEntry = input.entryType === 'MINTED'
 
-      // TEMPORARILY DISABLED FOR TESTING
       // Daily limit for free tier users (only for non-minted entries)
-      /*
       if (userTier === 'FREE' && !isMintedEntry) {
         const today = new Date()
         today.setHours(0, 0, 0, 0) // Start of today
@@ -238,7 +236,6 @@ export const journalRouter = createTRPCRouter({
           })
         }
       }
-      */
 
       // Check entry count for the current week (last 7 days)
       const oneWeekAgo = new Date()
