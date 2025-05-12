@@ -51,6 +51,12 @@ During work intake, you don't need to evaluate the work if you can [simply defle
 
 The design doc should list possible designs and go one step further to propose a particular design. The design doc contributors should identify selection criteria they used for which the preferred design becomes the best choice. This proposal can then be discussed with stakeholders and revised as needed until a final version has general approval. Once there is a design with general approval, the engineering team can proceed to enter tasks as designed into project management software.
 
+The design doc is not merely a technical specification to enable estimation. It is ideally treated as an active tool which the engineering team is using to win approval. By taking this active stance to propose work, socialize, and achieve approval, your team will be able to move more quickly and deliver more impact compared to a passive role where you wait for other stakeholders to select a preferred option. Ultimately, you're building this piece of software, so it's optimal for you to begin acting like the owner of the component, even if it hasn't been built yet, since you will need to maintain it.
+
+This is related to the discussion on "how to socialize your technical ideas to get buy-in" which Alex covers in his course "System Design Masterclass: Shipping Real Features To Production" on [Taro](https://www.jointaro.com/r/johnv099/).
+
+Check out "" by Alex Chiou, which emphasizes
+
 ## Essential Sections a Quality Design Doc
 
 A design doc should include:
