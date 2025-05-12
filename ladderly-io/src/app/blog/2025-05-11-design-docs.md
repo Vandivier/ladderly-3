@@ -55,8 +55,6 @@ The design doc is not merely a technical specification to enable estimation. It 
 
 This is related to the discussion on "how to socialize your technical ideas to get buy-in" which Alex covers in his course "System Design Masterclass: Shipping Real Features To Production" on [Taro](https://www.jointaro.com/r/johnv099/).
 
-Check out "" by Alex Chiou, which emphasizes
-
 ## Essential Sections a Quality Design Doc
 
 A design doc should include:
