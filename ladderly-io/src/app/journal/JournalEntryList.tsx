@@ -4,52 +4,15 @@ import type { JournalEntryType } from '@prisma/client'
 import React, { useCallback, useMemo, useState } from 'react'
 import { api } from '~/trpc/react'
 import { HappinessSlider } from './HappinessSlider'
-import { BarChart3, Heart } from 'lucide-react'
+import { BarChart3, Heart, Share2 } from 'lucide-react'
 import Link from 'next/link'
+import { JournalEntryCard, EntryTypeIcon } from './JournalEntryCard'
 
 // Use a type that matches the API's expected values
 type AllowedEntryType = 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
 
-// Component to display entry type icon
-const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
-  let iconClass = ''
-  let bgClass = ''
-  let label = ''
-
-  switch (type) {
-    case 'WIN':
-      iconClass = '🏆'
-      bgClass =
-        'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-      label = 'Win'
-      break
-    case 'PAIN_POINT':
-      iconClass = '😓'
-      bgClass = 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-      label = 'Pain Point'
-      break
-    case 'LEARNING':
-      iconClass = '📚'
-      bgClass =
-        'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
-      label = 'Learning'
-      break
-    default:
-      iconClass = '📝'
-      bgClass = 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-400'
-      label = 'Other'
-  }
-
-  return (
-    <span className={`rounded-full ${bgClass} px-2 py-0.5 text-xs`}>
-      <span className="mr-1">{iconClass}</span>
-      {label}
-    </span>
-  )
-}
-
 // Helper function to format content with highlighted hashtags
-const formatContentWithHashtags = (content: string) => {
+export const formatContentWithHashtags = (content: string) => {
   // Regular expression to find hashtags
   const hashtagRegex = /(#[a-zA-Z0-9_]+)/g
 
@@ -80,11 +43,13 @@ interface JournalEntryEditFormProps {
   entryType: AllowedEntryType
   isCareerRelated: boolean
   happiness?: number
+  isPublic: boolean
   isUpdating: boolean
-  onChangeContent: (v: string) => void
-  onChangeEntryType: (v: AllowedEntryType) => void
-  onChangeIsCareerRelated: (v: boolean) => void
-  onChangeHappiness: (v: number | undefined) => void
+  onChangeContent: (content: string) => void
+  onChangeEntryType: (type: AllowedEntryType) => void
+  onChangeIsCareerRelated: (isCareerRelated: boolean) => void
+  onChangeHappiness: (happiness?: number) => void
+  onChangeIsPublic: (isPublic: boolean) => void
   onCancel: () => void
   onSave: () => void
 }
@@ -95,11 +60,13 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
   entryType,
   isCareerRelated,
   happiness,
+  isPublic,
   isUpdating,
   onChangeContent,
   onChangeEntryType,
   onChangeIsCareerRelated,
   onChangeHappiness,
+  onChangeIsPublic,
   onCancel,
   onSave,
 }) => {
@@ -166,6 +133,23 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
         </div>
       </div>
 
+      <div className="mb-2 flex items-center">
+        <input
+          type="checkbox"
+          id={`edit-public-${id}`}
+          checked={isPublic}
+          onChange={(e) => onChangeIsPublic(e.target.checked)}
+          className="mr-2 h-4 w-4 rounded border-gray-300 text-ladderly-violet-600 focus:ring-ladderly-violet-500 dark:border-gray-600 dark:bg-gray-700"
+          disabled={isUpdating}
+        />
+        <label
+          htmlFor={`edit-public-${id}`}
+          className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          Share publicly in community feed
+        </label>
+      </div>
+
       <div className="flex justify-end space-x-2">
         <button
           onClick={onCancel}
@@ -208,6 +192,7 @@ export const JournalEntryList = () => {
   const [editHappiness, setEditHappiness] = useState<number | undefined>(
     undefined,
   )
+  const [isPublic, setIsPublic] = useState<boolean>(false)
 
   // Memoize query parameters to prevent unnecessary re-renders and API calls
   const queryParams = useMemo(
@@ -249,6 +234,7 @@ export const JournalEntryList = () => {
         setEditEntryType('WIN')
         setEditIsCareerRelated(true)
         setEditHappiness(undefined)
+        setIsPublic(false)
       },
     })
 
@@ -270,12 +256,14 @@ export const JournalEntryList = () => {
       entryType: JournalEntryType
       isCareerRelated: boolean
       happiness?: number | null
+      isPublic: boolean
     }) => {
       setEditingEntryId(entry.id)
       setEditContent(entry.content)
       setEditEntryType(entry.entryType as AllowedEntryType)
       setEditIsCareerRelated(entry.isCareerRelated)
       setEditHappiness(entry.happiness === null ? undefined : entry.happiness)
+      setIsPublic(entry.isPublic)
     },
     [],
   )
@@ -289,6 +277,7 @@ export const JournalEntryList = () => {
         entryType: editEntryType,
         isCareerRelated: editIsCareerRelated,
         happiness: editHappiness,
+        isPublic,
       })
     },
     [
@@ -297,6 +286,7 @@ export const JournalEntryList = () => {
       editEntryType,
       editIsCareerRelated,
       editHappiness,
+      isPublic,
     ],
   )
 
@@ -307,6 +297,7 @@ export const JournalEntryList = () => {
     setEditEntryType('WIN')
     setEditIsCareerRelated(true)
     setEditHappiness(undefined)
+    setIsPublic(false)
   }, [])
 
   // Apply filters when the submit button is clicked
@@ -529,103 +520,78 @@ export const JournalEntryList = () => {
       {/* Entries list */}
       <div className="space-y-4">
         {entries.map((entry) => (
-          <div
-            key={entry.id}
-            className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
-          >
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <EntryTypeIcon type={entry.entryType} />
+          <div key={entry.id}>
+            {editingEntryId === entry.id ? (
+              <JournalEntryEditForm
+                id={entry.id}
+                content={editContent}
+                entryType={editEntryType}
+                isCareerRelated={editIsCareerRelated}
+                happiness={editHappiness}
+                isPublic={isPublic}
+                isUpdating={isUpdating}
+                onChangeContent={setEditContent}
+                onChangeEntryType={setEditEntryType}
+                onChangeIsCareerRelated={setEditIsCareerRelated}
+                onChangeHappiness={setEditHappiness}
+                onChangeIsPublic={setIsPublic}
+                onCancel={handleCancelEdit}
+                onSave={() => handleSaveEdit(entry.id)}
+              />
+            ) : (
+              <div className="relative">
+                <JournalEntryCard entry={entry} formatDate={formatDate} />
+                {/* Action Buttons - positioned absolutely on top of the card */}
+                <div className="absolute right-4 top-4 flex space-x-2">
+                  {/* Edit button */}
+                  <button
+                    onClick={() => handleEdit(entry)}
+                    className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                    aria-label="Edit entry"
+                    disabled={editingEntryId !== null}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
 
-                  {entry.isCareerRelated ? (
-                    <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                      💼 Career
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400">
-                      🏡 Personal
-                    </span>
-                  )}
-
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {formatDate(entry.createdAt)}
-                  </span>
+                  {/* Delete button */}
+                  <button
+                    onClick={() => handleDelete(entry.id)}
+                    className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                    aria-label="Delete entry"
+                    disabled={editingEntryId !== null}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M3 6h18"></path>
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                    </svg>
+                  </button>
                 </div>
-
-                {/* Entry content with edit functionality */}
-                {editingEntryId === entry.id ? (
-                  <JournalEntryEditForm
-                    id={entry.id}
-                    content={editContent}
-                    entryType={editEntryType}
-                    isCareerRelated={editIsCareerRelated}
-                    happiness={editHappiness ?? undefined}
-                    isUpdating={isUpdating}
-                    onChangeContent={setEditContent}
-                    onChangeEntryType={setEditEntryType}
-                    onChangeIsCareerRelated={setEditIsCareerRelated}
-                    onChangeHappiness={setEditHappiness}
-                    onCancel={handleCancelEdit}
-                    onSave={() => handleSaveEdit(entry.id)}
-                  />
-                ) : (
-                  <p className="mt-2 whitespace-pre-wrap text-gray-800 dark:text-gray-200">
-                    {formatContentWithHashtags(entry.content)}
-                  </p>
-                )}
               </div>
-
-              {/* Action Buttons */}
-              <div className="ml-4 flex space-x-2">
-                {/* Edit button */}
-                <button
-                  onClick={() => handleEdit(entry)}
-                  className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-                  aria-label="Edit entry"
-                  disabled={editingEntryId !== null}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                  </svg>
-                </button>
-
-                {/* Delete button */}
-                <button
-                  onClick={() => handleDelete(entry.id)}
-                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                  aria-label="Delete entry"
-                  disabled={editingEntryId !== null}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M3 6h18"></path>
-                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
+            )}
           </div>
         ))}
       </div>

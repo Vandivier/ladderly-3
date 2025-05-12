@@ -20,6 +20,7 @@ const createJournalEntrySchema = z.object({
   mintedFromHashtag: z.string().optional(),
   mintedFromDateRange: z.array(z.date()).optional(),
   happiness: z.number().min(1).max(10).optional(),
+  isPublic: z.boolean().default(false),
 })
 
 const updateReminderSchema = z.object({
@@ -33,6 +34,7 @@ const updateJournalEntrySchema = z.object({
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']).optional(),
   isCareerRelated: z.boolean().optional(),
   happiness: z.number().min(1).max(10).optional(),
+  isPublic: z.boolean().optional(),
 })
 
 export const journalRouter = createTRPCRouter({
@@ -126,6 +128,79 @@ export const journalRouter = createTRPCRouter({
       }
     }),
 
+  getPublicEntries: publicProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(50).default(10),
+        cursor: z.number().optional(),
+        entryType: z
+          .enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER'])
+          .optional(),
+        isCareerRelated: z.boolean().optional(),
+        textFilter: z.string().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { limit, cursor, entryType, isCareerRelated, textFilter } = input
+
+      // Build filter based on inputs
+      const filter: Prisma.JournalEntryWhereInput = {
+        isPublic: true,
+      }
+
+      // Apply entryType filter if provided
+      if (entryType) {
+        filter.entryType = entryType
+      }
+
+      // Apply isCareerRelated filter if provided (undefined means show all)
+      if (isCareerRelated !== undefined) {
+        filter.isCareerRelated = isCareerRelated
+      }
+
+      // Apply text filter if provided
+      if (textFilter) {
+        filter.content = {
+          contains: textFilter,
+          mode: 'insensitive',
+        }
+      }
+
+      // Get total count for pagination info
+      const totalCount = await ctx.db.journalEntry.count({
+        where: filter,
+      })
+
+      const entries = await ctx.db.journalEntry.findMany({
+        where: filter,
+        take: limit + 1,
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          user: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
+        },
+      })
+
+      let nextCursor: number | undefined = undefined
+      if (entries.length > limit) {
+        const nextItem = entries.pop()
+        nextCursor = nextItem?.id
+      }
+
+      return {
+        entries,
+        nextCursor,
+        totalCount,
+      }
+    }),
+
   // Create a new journal entry
   createEntry: protectedProcedure
     .input(createJournalEntrySchema)
@@ -136,7 +211,9 @@ export const journalRouter = createTRPCRouter({
       // Check if this is a minted entry
       const isMintedEntry = input.entryType === 'MINTED'
 
+      // TEMPORARILY DISABLED FOR TESTING
       // Daily limit for free tier users (only for non-minted entries)
+      /*
       if (userTier === 'FREE' && !isMintedEntry) {
         const today = new Date()
         today.setHours(0, 0, 0, 0) // Start of today
@@ -161,6 +238,7 @@ export const journalRouter = createTRPCRouter({
           })
         }
       }
+      */
 
       // Check entry count for the current week (last 7 days)
       const oneWeekAgo = new Date()
@@ -215,6 +293,7 @@ export const journalRouter = createTRPCRouter({
           mintedFromHashtag: input.mintedFromHashtag,
           mintedFromDateRange: input.mintedFromDateRange ?? [],
           happiness: input.happiness,
+          isPublic: input.isPublic ?? false,
           userId,
         },
       })
