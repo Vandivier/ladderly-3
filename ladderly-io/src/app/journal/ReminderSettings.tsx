@@ -73,7 +73,7 @@ export const ReminderSettings = () => {
     <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-2 flex items-center justify-between">
         <h3 className="text-lg font-semibold dark:text-gray-100">
-          Notification Settings
+          Journal Reminder Settings
         </h3>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
@@ -120,6 +120,14 @@ export const ReminderSettings = () => {
                 <option value="WEEKLY">Weekly</option>
                 <option value="MONTHLY">Monthly</option>
               </select>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                {frequency === 'DAILY' &&
+                  'You will receive a reminder every day.'}
+                {frequency === 'WEEKLY' &&
+                  'You will receive a reminder once a week.'}
+                {frequency === 'MONTHLY' &&
+                  'You will receive a reminder once a month.'}
+              </p>
             </div>
           )}
 
