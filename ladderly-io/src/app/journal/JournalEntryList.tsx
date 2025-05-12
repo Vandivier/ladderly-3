@@ -541,7 +541,7 @@ export const JournalEntryList = () => {
             ) : (
               <div className="relative">
                 <JournalEntryCard entry={entry} formatDate={formatDate} />
-                {/* Action Buttons}
+                {/* Action Buttons*/}
                 <div className="absolute right-4 top-4 flex space-x-2">
                   {/* Edit button */}
                   <button
