@@ -18,7 +18,7 @@ export const TopNavFlexContainer = ({
   children: React.ReactNode;
 }) => (
   <div
-    className={`column flex w-full items-center border-b border-ladderly-light-purple-5 bg-ladderly-light-purple-2 px-4 py-1 text-ladderly-violet-700 ${DARK_MODE_STANDARD_CLASSES}`}
+    className={`column flex w-full items-center border-b border-ladderly-light-purple-5 bg-ladderly-light-purple-2 px-4 py-1 text-ladderly-violet-700 ${DARK_MODE_STANDARD_CLASSES} fixed top-0`}
   >
     {children}
   </div>
