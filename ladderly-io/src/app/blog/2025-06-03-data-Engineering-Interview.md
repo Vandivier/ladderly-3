@@ -5,8 +5,7 @@ author: Brijesh Thummar
 
 Preparing for a Data Engineering interview requires a multifaceted approach, encompassing SQL proficiency, Python scripting, data modeling, and system design. This guide synthesizes insights from reputable resources to provide a structured preparation pathway.
 
-Background
-----------
+## Background
 
 Data Engineering roles are pivotal in managing and optimizing data pipelines, ensuring data quality, and facilitating data-driven decision-making. Interview processes for these roles assess a candidate's technical skills, problem-solving abilities, and understanding of system design principles.
 
@@ -26,8 +25,7 @@ Key resources informing this guide include:
 
 - [Python for DE Interviews](https://github.com/user-attachments/files/19789320/Python_for_DE_Interviews.pdf): Patterns, libraries, and best practices.
 
-SMART Metrics
--------------
+## SMART Metrics
 
 To evaluate your readiness, consider the following Specific, Measurable, Achievable, Relevant, and Time-bound (SMART) metrics:
 
@@ -41,8 +39,7 @@ To evaluate your readiness, consider the following Specific, Measurable, Achieva
 
 - **Case Study Analysis**: Complete 3 walkthroughs of real DE system designs and assess their tradeoffs and improvements.
 
-Design Options
---------------
+## Design Options
 
 Various study plans can be adopted based on time availability and current proficiency:
 
@@ -54,8 +51,7 @@ Various study plans can be adopted based on time availability and current profic
 
 4. **Mock Interviews & Code Review**: Engage with peers or platforms like Interviewing.io for simulated interviews.
 
-Preferred Option
-----------------
+## Preferred Option
 
 The **Structured Study Plan** is recommended for its balanced approach:
 
@@ -69,8 +65,7 @@ The **Structured Study Plan** is recommended for its balanced approach:
 
 This plan ensures comprehensive coverage of essential topics within a month.
 
-Risks and Mitigations
----------------------
+## Risks and Mitigations
 
 - **Risk**: Overemphasis on one area leading to neglect of others.
 
@@ -83,7 +78,3 @@ Risks and Mitigations
 - **Risk**: Lack of practical application hindering concept retention.
 
   - **Mitigation**: Engage in hands-on projects and real-world problem-solving exercises.
-
-- **Risk**: Inadequate system design preparation for DE-specific cases.
-
-  - **Mitigation**: Use the Dago Prep Doc and mock interview feedback to strengthen architecture skills.
