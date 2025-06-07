@@ -3,7 +3,7 @@
 import { Suspense } from 'react'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import CreateJournalEntryForm from './CreateJournalEntryForm'
-import JournalEntryList from './JournalEntryList'
+import JournalTabs from './JournalTabs'
 import ReminderSettings from './ReminderSettings'
 import PracticeSection from './PracticeSection'
 import StoryGenerator from './StoryGenerator'
@@ -21,16 +21,6 @@ export default async function JournalPage() {
   const session = await getServerAuthSession()
   const userTier = session?.user?.subscription?.tier
 
-  if (!userTier) {
-    return (
-      <LadderlyPageWrapper authenticate>
-        <div className="container mx-auto max-w-6xl px-4 py-2">
-          <h1 className="mb-2 text-3xl font-bold">Career Journal</h1>
-        </div>
-      </LadderlyPageWrapper>
-    )
-  }
-
   return (
     <LadderlyPageWrapper authenticate>
       <div className="container mx-auto max-w-6xl px-4 py-2">
@@ -43,7 +33,7 @@ export default async function JournalPage() {
             </Suspense>
 
             <Suspense fallback={<div>Loading journal entries...</div>}>
-              <JournalEntryList />
+              <JournalTabs />
             </Suspense>
           </div>
 
