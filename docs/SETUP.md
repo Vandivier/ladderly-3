@@ -2,9 +2,10 @@
 
 This document will guide you through the process of setting up your local development environment for ladderly.io.
 
-First, install packages and dependencies.
+First, install packages and dependencies. We recommend using Node.js version 22.x+.
 
 ```bash
+cd ladderly-io
 npm i
 ```
 
@@ -24,7 +25,7 @@ Thirdly, copy .env to .env.local and provide the connection-string value to the 
 DATABASE_URL=postgres://postgres.zrpwqlogwfcxwcuyfnmd:[PASSWORD_WITHOUT_SQUARE_BRACKETS]@aws-0-us-west-1.pooler.supabase.com:5432/postgres
 ```
 
-Note: Only the `DATABASE_URL` and `DATABASE_PASSWORD` keys in the .env file are required. Other keys are optional. You also have to generate the `NEXTAUTH_SECRET` following the steps given in the `.env` file
+Only the `DATABASE_URL`, `NEXTAUTH_SECRET`, and `NEXTAUTH_URL` keys in the .env file are required. Other keys are optional.
 
 Fourth, generate tables and columns in your Supabase Postgres database.
 
