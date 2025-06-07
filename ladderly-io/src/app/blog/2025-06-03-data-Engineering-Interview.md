@@ -1,5 +1,5 @@
 ---
-title: '37. Comprehensive Data Engineering Interview Preparation Guide'\
+title: '37. Comprehensive Data Engineering Interview Preparation Guide'
 author: Brijesh Thummar
 ---
 
