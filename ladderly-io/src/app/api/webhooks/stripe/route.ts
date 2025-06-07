@@ -5,24 +5,20 @@ import { db } from '~/server/db'
 import { PaymentTierEnum } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 
-// Initialize Stripe only if credentials are available
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
-
-// Only create stripe instance if the secret key is available
-const stripe = stripeSecretKey
-  ? new Stripe(stripeSecretKey, { apiVersion: '2023-10-16' })
-  : null
-
 export async function POST(req: Request) {
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+
   // Check if Stripe is configured and if not return an error
-  if (!stripe || !webhookSecret) {
+  if (!stripeSecretKey || !webhookSecret) {
     console.warn('Stripe webhook endpoint called but Stripe is not configured')
     return NextResponse.json(
       { error: 'Stripe integration is not configured' },
       { status: 501 }, // 501 Not Implemented
     )
   }
+
+  const stripe = new Stripe(stripeSecretKey, { apiVersion: '2023-10-16' })
 
   const body = await req.text()
   const signature = String(headers().get('stripe-signature')!)
