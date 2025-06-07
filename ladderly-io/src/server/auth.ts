@@ -199,17 +199,7 @@ export const authOptions: NextAuthOptions = {
           clientSecret: env.GOOGLE_CLIENT_SECRET,
         })
       : null,
-    env.LINKEDIN_CLIENT_ID && env.LINKEDIN_CLIENT_SECRET
-      ? LinkedInProvider({
-          authorization: {
-            params: {
-              scope: 'openid profile email',
-            },
-          },
-          clientId: env.LINKEDIN_CLIENT_ID,
-          clientSecret: env.LINKEDIN_CLIENT_SECRET,
-        })
-      : null,
+
     CredentialsProvider({
       name: 'Credentials',
       credentials: {

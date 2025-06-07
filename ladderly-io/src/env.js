@@ -18,13 +18,19 @@ export const env = createEnv({
     GITHUB_CLIENT_SECRET: z.string().optional(),
     GOOGLE_CLIENT_ID: z.string().optional(),
     GOOGLE_CLIENT_SECRET: z.string().optional(),
-    LINKEDIN_CLIENT_ID: z.string().optional(),
-    LINKEDIN_CLIENT_SECRET: z.string().optional(),
-    GOOGLE_AI_API_KEY: z.string(),
+    GOOGLE_AI_API_KEY: z.string().optional(),
+    POSTMARK_API_KEY: z.string().optional(),
+    SECRET_SESSION_KEY: z.string().optional(),
+    STRIPE_SECRET_KEY: z.string().optional(),
+    STRIPE_WEBHOOK_SECRET: z.string().optional(),
   },
 
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
+    NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID: z.string().optional(),
+    NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID: z.string().optional(),
+    NEXT_PUBLIC_STRIPE_PAYMENT_LINK: z.string().optional(),
   },
 
   runtimeEnv: {
@@ -38,9 +44,20 @@ export const env = createEnv({
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    LINKEDIN_CLIENT_ID: process.env.LINKEDIN_CLIENT_ID,
-    LINKEDIN_CLIENT_SECRET: process.env.LINKEDIN_CLIENT_SECRET,
     GOOGLE_AI_API_KEY: process.env.GOOGLE_AI_API_KEY,
+    POSTMARK_API_KEY: process.env.POSTMARK_API_KEY,
+    SECRET_SESSION_KEY: process.env.SECRET_SESSION_KEY,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID:
+      process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRODUCT_ID,
+    NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID:
+      process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
+    NEXT_PUBLIC_STRIPE_PAYMENT_LINK:
+      process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK,
   },
 
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
