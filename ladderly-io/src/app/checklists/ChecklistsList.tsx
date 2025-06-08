@@ -25,10 +25,12 @@ export function ChecklistsList() {
     <div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {checklists.map((checklist) => {
+          const checklistSubRoute = checklist.prettyRoute ?? checklist.id
+
           return (
             <Link
               key={checklist.id}
-              href={`/checklists/${checklist.id}`}
+              href={`/checklists/${checklistSubRoute}`}
               className="group flex flex-col justify-between rounded-lg bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
             >
               <div>
