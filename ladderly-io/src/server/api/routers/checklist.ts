@@ -16,6 +16,22 @@ export const checklistRouter = createTRPCRouter({
       })
     }),
 
+  getByPrettyRoute: publicProcedure
+    .input(z.object({ prettyRoute: z.string() }))
+    .query(async ({ input }) => {
+      return db.checklist.findFirst({
+        where: {
+          prettyRoute: input.prettyRoute,
+          publishedAt: {
+            not: null,
+          },
+        },
+        orderBy: {
+          publishedAt: 'desc',
+        },
+      })
+    }),
+
   getChecklistForUser: protectedProcedure
     .input(z.object({ checklistId: z.number() }))
     .query(async ({ input, ctx }) => {

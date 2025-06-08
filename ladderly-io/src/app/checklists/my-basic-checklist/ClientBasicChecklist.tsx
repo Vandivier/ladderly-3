@@ -6,32 +6,42 @@ import { api } from '~/trpc/react'
 import { InfoIcon, X } from 'lucide-react'
 
 const CURRENT_CHECKLIST_NAME = 'Programming Job Checklist'
+const CURRENT_CHECKLIST_ROUTE = 'my-basic-checklist'
 
 const NewestChecklistQueryHandler: React.FC = () => {
   const utils = api.useUtils()
-  const { data: userChecklistData } = api.checklist.getLatestByName.useQuery({
-    name: CURRENT_CHECKLIST_NAME,
+  const { data: checklist } = api.checklist.getByPrettyRoute.useQuery({
+    prettyRoute: CURRENT_CHECKLIST_ROUTE,
   })
+
+  const { data: userChecklistData } =
+    api.checklist.getChecklistForUser.useQuery(
+      {
+        checklistId: checklist?.id ?? 0,
+      },
+      {
+        enabled: !!checklist,
+      },
+    )
 
   const { mutateAsync: createUserChecklistAsClone } =
     api.checklist.createAsClone.useMutation({
       onSuccess: () => {
-        void utils.checklist.getLatestByName.invalidate({
-          name: CURRENT_CHECKLIST_NAME,
+        void utils.checklist.getChecklistForUser.invalidate({
+          checklistId: checklist?.id ?? 0,
         })
       },
     })
 
   const [showToast, setShowToast] = React.useState(
-    userChecklistData?.userChecklistCascade.userChecklist?.checklistId !==
-      userChecklistData?.latestChecklistId,
+    userChecklistData?.checklistId !== checklist?.id,
   )
   const [toastMessage, setToastMessage] = React.useState(
     'A New Checklist Version is Available.',
   )
 
   const handleToastConfirmClick = async () => {
-    const checklistId = userChecklistData?.latestChecklistId
+    const checklistId = checklist?.id
     if (!checklistId) return
     setToastMessage('Update in progress...')
 
@@ -58,25 +68,35 @@ const NewestChecklistQueryHandler: React.FC = () => {
 
 const UserChecklistItems: React.FC = () => {
   const utils = api.useUtils()
-  const { data: userChecklistData } = api.checklist.getLatestByName.useQuery({
-    name: CURRENT_CHECKLIST_NAME,
+  const { data: checklist } = api.checklist.getByPrettyRoute.useQuery({
+    prettyRoute: CURRENT_CHECKLIST_ROUTE,
   })
+
+  const { data: userChecklistData } =
+    api.checklist.getChecklistForUser.useQuery(
+      {
+        checklistId: checklist?.id ?? 0,
+      },
+      {
+        enabled: !!checklist,
+      },
+    )
+
   const [activeTooltip, setActiveTooltip] = React.useState<number | null>(null)
 
   const { mutate: toggleItem } = api.checklist.toggleItem.useMutation({
     onSuccess: () => {
-      void utils.checklist.getLatestByName.invalidate({
-        name: CURRENT_CHECKLIST_NAME,
+      void utils.checklist.getChecklistForUser.invalidate({
+        checklistId: checklist?.id ?? 0,
       })
     },
   })
 
-  if (!userChecklistData?.userChecklistCascade.userChecklist) {
+  if (!userChecklistData) {
     return <div>No checklist found.</div>
   }
 
-  const { userChecklistItems } =
-    userChecklistData.userChecklistCascade.userChecklist
+  const { userChecklistItems } = userChecklistData
 
   const renderText = (text: string, linkUri?: string, linkText?: string) => {
     if (!linkUri) return text
