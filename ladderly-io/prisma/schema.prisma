@@ -202,6 +202,7 @@ model Checklist {
   id             Int             @id @default(autoincrement())
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
+  publishedAt    DateTime?
   name           String
   version        String
   checklistItems ChecklistItem[]
