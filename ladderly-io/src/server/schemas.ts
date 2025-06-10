@@ -12,6 +12,13 @@ const lowercaseStringList = z
   .array(z.string())
   .transform((val) => val?.map((reason) => reason.toLowerCase()))
 
+export const JournalNotificationFrequencyEnum = z.enum([
+  'NONE',
+  'DAILY',
+  'WEEKLY',
+  'MONTHLY',
+])
+
 // Define the settings input type
 export const UpdateUserSettingsSchema = z.object({
   email: z.string(),
@@ -42,6 +49,7 @@ export const UpdateUserSettingsSchema = z.object({
   profileYearsOfExperience: z.number().nullable(),
   residenceCountry: z.string(),
   residenceUSState: z.string(),
+  journalNotificationFrequency: JournalNotificationFrequencyEnum.optional(), // <-- added
 })
 
 // Define the settings output type
@@ -64,6 +72,7 @@ export const GetUserSettingsSchema = UpdateUserSettingsSchema.extend({
   profileTopServices: z.array(z.string()).nullable(),
   profileTopSkills: z.array(z.string()).nullable(),
   profileYearsOfExperience: z.number().nullable(),
+  journalNotificationFrequency: JournalNotificationFrequencyEnum.optional(), // <-- added
   subscription: z.object({
     tier: z.nativeEnum(PaymentTierEnum),
     type: z.string(),

@@ -1,5 +1,3 @@
-// app/settings/components/SettingsFormWrapper.tsx
-
 'use client'
 
 import { useRouter } from 'next/navigation'
@@ -13,17 +11,18 @@ import {
 import { api } from '~/trpc/react'
 import { SettingsForm } from './SettingsForm'
 
-type FormValues = z.infer<typeof UpdateSettingsFormSchema>
-interface SettingsFormWrapperProps {
-  initialSettings: UserSettingsFormValuesType
-}
+// Add types for journal notification enum
+const JournalNotificationOptions = ['NONE', 'DAILY', 'WEEKLY', 'MONTHLY'] as const
 
 export function SettingsFormWrapper({
   initialSettings,
-}: SettingsFormWrapperProps) {
+}: {
+  initialSettings: UserSettingsFormValuesType
+}) {
   const [settings, setSettings] =
     useState<UserSettingsFormValuesType>(initialSettings)
   const router = useRouter()
+
   const { mutate: updateSettings } = api.user.updateSettings.useMutation({
     onSuccess: (updatedSettings) => {
       setSettings(
@@ -39,7 +38,18 @@ export function SettingsFormWrapper({
     },
   })
 
-  const handleSubmit = async (values: FormValues) => {
+  const { mutate: updateFrequency } =
+    api.user.updateJournalNotificationFrequency.useMutation({
+      onSuccess: () => {
+        alert('Notification preference updated.')
+      },
+      onError: (error) => {
+        console.error('Failed to update notification frequency:', error)
+        alert('Failed to update notification frequency: ' + error.message)
+      },
+    })
+
+  const handleSubmit = async (values: z.infer<typeof UpdateSettingsFormSchema>) => {
     const maybeYearsOfExperience = parseInt(
       values.profileYearsOfExperience ?? '',
     )
@@ -73,9 +83,34 @@ export function SettingsFormWrapper({
   }
 
   return (
-    <SettingsForm
-      initialValues={settings as unknown as FormValues}
-      onSubmit={handleSubmit}
-    />
+    <div>
+      <SettingsForm
+        initialValues={settings as unknown as z.infer<typeof UpdateSettingsFormSchema>}
+        onSubmit={handleSubmit}
+      />
+
+      {/* Journal Notification Preference Section */}
+      <div className="mt-6">
+        <label htmlFor="notification-frequency" className="font-semibold">
+          Journal Email Notifications:
+        </label>
+        <select
+          id="notification-frequency"
+          value={settings.journalNotificationFrequency}
+          onChange={(e) => {
+            const selected = e.target.value as (typeof JournalNotificationOptions)[number]
+            setSettings((prev) => ({ ...prev, journalNotificationFrequency: selected }))
+            updateFrequency({ frequency: selected })
+          }}
+          className="ml-2 border rounded p-1"
+        >
+          {JournalNotificationOptions.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt.charAt(0) + opt.slice(1).toLowerCase()}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
   )
 }

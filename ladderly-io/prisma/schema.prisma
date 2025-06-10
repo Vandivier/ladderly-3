@@ -35,10 +35,11 @@ model User {
   hasSmallGroupInterest     Boolean @default(false)
   hasDeepJournalingInterest Boolean @default(false)
 
-  // Journal reminder fields
+  // Enhanced journal reminder fields
   journalReminderEnabled      Boolean           @default(false)
   journalReminderFrequency    ReminderFrequency @default(WEEKLY)
   journalReminderLastReminded DateTime?
+  journalNotificationPreference Json? // Stores notification preferences
 
   profileBlurb                String?
   profileContactEmail         String?
@@ -73,6 +74,7 @@ model User {
   Lead                Lead[]
   journalEntries      JournalEntry[]
   practiceCompletions UserJournalPracticeCompletion[]
+  notificationLogs    JournalNotificationLog[]
 }
 
 enum RoleEnum {
@@ -187,8 +189,6 @@ model ChecklistItem {
   linkUri      String   @default("")
   tags         String[]
 
-  // currently, versions are ISO
-  // so we can sort lexicographically
   version String @default("2023-07-18T00:00:00.517Z")
 
   checklist          Checklist           @relation(fields: [checklistId], references: [id])
@@ -246,11 +246,8 @@ model FlashCard {
   question      String
   correctAnswer String
   distractors   String[]
+  explanation   String?
 
-  // Optional explanation for the answer
-  explanation String?
-
-  // The deck this card belongs to
   flashCardDeck   FlashCardDeck? @relation(fields: [flashCardDeckId], references: [id])
   flashCardDeckId Int?
 }
@@ -262,17 +259,14 @@ model Quiz {
 
   name        String  @unique
   description String?
-  timeLimit   Int? // Time limit in seconds (optional)
+  timeLimit   Int?
 
-  // Link to the course
   course   Course? @relation(fields: [courseId], references: [id])
   courseId Int?
 
-  // Link to the flashcard deck this quiz pulls from
   flashCardDeck   FlashCardDeck @relation(fields: [flashCardDeckId], references: [id])
   flashCardDeckId Int
 
-  // Quiz results
   quizResults QuizResult[]
 }
 
@@ -285,11 +279,8 @@ model FlashCardDeck {
   description String?
 
   flashCards FlashCard[]
+  quizzes    Quiz[]
 
-  // Quizzes that use this deck
-  quizzes Quiz[]
-
-  // Link to the course
   course   Course? @relation(fields: [courseId], references: [id])
   courseId Int?
 }
@@ -303,14 +294,9 @@ model Course {
   title       String
   description String
 
-  // Course content
-  contentItems CourseContent[]
-
-  // Related flashcard decks
+  contentItems    CourseContent[]
   flashCardDecks FlashCardDeck[]
-
-  // Related quizzes
-  quizzes Quiz[]
+  quizzes        Quiz[]
 }
 
 model CourseContent {
@@ -324,7 +310,6 @@ model CourseContent {
   contentType ContentType @default(TEXT)
   order       Int         @default(0)
 
-  // Link to the course
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId Int
 }
@@ -350,7 +335,6 @@ model QuizResult {
   user   User @relation(fields: [userId], references: [id])
   userId Int
 
-  // Ensure a cooldown between quiz attempts
   @@index([userId, quizId, createdAt])
 }
 
@@ -374,7 +358,7 @@ model Votable {
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
   type                VotableType
-  name                String // also, the title for questions and blog posts
+  name                String
   body                String?
   tags                String[]
   prestigeScore       Float       @default(0)
@@ -392,7 +376,7 @@ model Votable {
 
   votes      Vote[]
   snapshots  VotableSnapshot[]
-  isAccepted Boolean           @default(false) // For answers
+  isAccepted Boolean           @default(false)
 
   @@unique([type, name])
 }
@@ -440,7 +424,6 @@ model Lead {
   @@index([userId])
 }
 
-// Job Search Models
 enum JobApplicationStatus {
   IN_OUTREACH
   APPLIED
@@ -461,7 +444,6 @@ model JobSearch {
   isActive  Boolean   @default(true)
   notes     String?
 
-  // Relations
   user     User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   Int
   jobPosts JobPostForCandidate[]
@@ -472,35 +454,28 @@ model JobPostForCandidate {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Company info
   company               String
   jobTitle              String?
   jobPostUrl            String?
   jobBoardOrChannelName String?
 
-  // Application info
   resumeVersion          String?
   initialOutreachDate    DateTime?
   initialApplicationDate DateTime?
   lastActionDate         DateTime?
   status                 JobApplicationStatus
 
-  // Contact info
   contactName String?
   contactUrl  String?
   hasReferral Boolean
 
-  // Outreach tracking
   isInboundOpportunity Boolean
 
-  // Compensation
   baseSalary        Int?
   totalCompensation Int?
 
-  // Misc
   notes String?
 
-  // Relations
   jobSearch      JobSearch       @relation(fields: [jobSearchId], references: [id], onDelete: Cascade)
   jobSearchId    Int
   jobSearchSteps JobSearchStep[]
@@ -511,7 +486,7 @@ enum JobSearchStepKind {
   BEHAVIORAL_INTERVIEW
   HIRING_MANAGER_CALL
   INITIAL_APPLICATION
-  MULTI_ROUND_MULTI_KIND // eg a final loop
+  MULTI_ROUND_MULTI_KIND
   NONTECHNICAL_CONVERSATION
   OTHER
   OUTBOUND_MESSAGE
@@ -535,7 +510,6 @@ model JobSearchStep {
   isPassed   Boolean?
   isInPerson Boolean
 
-  // Relations
   jobPost   JobPostForCandidate @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
   jobPostId Int
 }
@@ -549,15 +523,17 @@ model JournalEntry {
   entryType       JournalEntryType
   isCareerRelated Boolean          @default(true)
   isMarkdown      Boolean          @default(false)
+  isHighlighted   Boolean          @default(false)
   happiness       Int?
+  tags            String[]         @default([])
 
-  // Fields for minted entries
   mintedFromDateRange DateTime[] @default([])
   mintedFromHashtag   String?
 
-  // Relations
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
+
+  @@index([userId, createdAt])
 }
 
 enum JournalEntryType {
@@ -583,7 +559,6 @@ model JournalPractice {
   description String
   category    PracticeCategory
 
-  // Relations
   completions UserJournalPracticeCompletion[]
 }
 
@@ -600,11 +575,25 @@ model UserJournalPracticeCompletion {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
 
-  // Relations
   practice   JournalPractice @relation(fields: [practiceId], references: [id], onDelete: Cascade)
   practiceId Int
   user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     Int
 
   @@unique([practiceId, userId, createdAt])
+}
+
+model JournalNotificationLog {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  
+  frequency ReminderFrequency
+  entries   Json     // Stores IDs of entries included in this notification
+  sentAt    DateTime @default(now())
+  status    String   @default("SENT") // "SENT", "FAILED", "OPENED"
+  
+  @@index([userId, sentAt])
 }
