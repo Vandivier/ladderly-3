@@ -1,37 +1,12 @@
 import { Suspense } from 'react'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
-import ClientChecklist from './ClientChecklist'
-import { api } from '~/trpc/server'
 import Link from 'next/link'
+import ClientChecklist from './ClientChecklist'
 import { notFound } from 'next/navigation'
+import { api } from '~/trpc/server'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { idOrPrettyRoute: string }
-}) {
-  // Try to parse as number first
-  const checklistId = parseInt(params.idOrPrettyRoute, 10)
-  let checklist
-
-  if (!isNaN(checklistId)) {
-    checklist = await api.checklist.getById({ id: checklistId })
-  } else {
-    // If not a number, try to find by pretty route
-    checklist = await api.checklist.getByPrettyRoute({
-      prettyRoute: params.idOrPrettyRoute,
-    })
-  }
-
-  if (!checklist) {
-    return {
-      title: 'Checklist not found',
-    }
-  }
-
-  return {
-    title: `${checklist.name} | Ladderly`,
-  }
+export const metadata = {
+  title: 'Checklist',
 }
 
 export default async function ChecklistPage({
@@ -41,19 +16,11 @@ export default async function ChecklistPage({
 }) {
   // Try to parse as number first
   const checklistId = parseInt(params.idOrPrettyRoute, 10)
-  // Server-side logging
-  console.error(
-    '[Server] Parsed checklistId:',
-    checklistId,
-    'from route:',
-    params.idOrPrettyRoute,
-  )
   let checklist
 
   if (!isNaN(checklistId)) {
     checklist = await api.checklist.getById({ id: checklistId })
   } else {
-    // If not a number, try to find by pretty route
     checklist = await api.checklist.getByPrettyRoute({
       prettyRoute: params.idOrPrettyRoute,
     })
@@ -91,7 +58,10 @@ export default async function ChecklistPage({
             </p>
 
             <Suspense fallback="Loading...">
-              <ClientChecklist initialUserChecklist={userChecklist} />
+              <ClientChecklist
+                initialUserChecklist={userChecklist}
+                latestChecklist={checklist}
+              />
             </Suspense>
           </div>
         </div>
