@@ -8,6 +8,7 @@ import { courseRouter } from './routers/course'
 import { quizRouter } from './routers/quiz'
 import { certificateRouter } from './routers/certificate'
 import { journalRouter } from './routers/journal'
+import { journalNotificationRouter } from './routers/journalNotification'
 
 /**
  * This is the primary router for your server.
@@ -24,6 +25,7 @@ export const appRouter = createTRPCRouter({
   quiz: quizRouter,
   certificate: certificateRouter,
   journal: journalRouter,
+  journalNotifications: journalNotificationRouter,
 })
 
 // export type definition of API
