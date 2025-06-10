@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function ChecklistsPage() {
   return (
-    <LadderlyPageWrapper>
+    <LadderlyPageWrapper authenticate>
       <div className="bg-gray-50">
         <div className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="text-center">
