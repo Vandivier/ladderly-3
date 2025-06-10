@@ -206,6 +206,7 @@ model Checklist {
   publishedAt    DateTime?
   name           String
   version        String
+  isPremium      Boolean         @default(false)
   checklistItems ChecklistItem[]
   userChecklists UserChecklist[]
 }
