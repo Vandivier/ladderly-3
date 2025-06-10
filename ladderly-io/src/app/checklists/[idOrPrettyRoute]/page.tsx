@@ -39,7 +39,7 @@ export default async function ChecklistPage({
   }
 
   return (
-    <LadderlyPageWrapper authenticate>
+    <LadderlyPageWrapper authenticate requirePremium={checklist.isPremium}>
       <div className="relative min-h-screen">
         <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
           <div className="m-4 w-full max-w-md rounded-lg border border-gray-200 bg-white p-4 shadow-xl">

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { api } from '~/trpc/react'
-import Link from 'next/link'
+import { ChecklistCard } from './ChecklistCard'
 
 const ITEMS_PER_PAGE = 100
 
@@ -24,28 +24,9 @@ export function ChecklistsList() {
   return (
     <div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {checklists.map((checklist) => {
-          const checklistSubRoute = checklist.prettyRoute ?? checklist.id
-
-          return (
-            <Link
-              key={checklist.id}
-              href={`/checklists/${checklistSubRoute}`}
-              className="group flex flex-col justify-between rounded-lg bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-            >
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-ladderly-violet-600">
-                  {checklist.name}
-                </h3>
-              </div>
-              <div className="mt-4">
-                <span className="text-sm font-medium text-ladderly-violet-600 group-hover:underline">
-                  View Checklist →
-                </span>
-              </div>
-            </Link>
-          )
-        })}
+        {checklists.map((checklist) => (
+          <ChecklistCard key={checklist.id} checklist={checklist} />
+        ))}
       </div>
 
       {hasMore && (
