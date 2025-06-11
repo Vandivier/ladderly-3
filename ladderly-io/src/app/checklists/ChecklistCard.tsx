@@ -8,7 +8,8 @@ import { PremiumLockIcon } from './PremiumLockIcon'
 export const ChecklistCard: React.FC<{
   checklist: Checklist
   session: LadderlySession | null
-}> = ({ checklist, session }) => {
+  onLockClick: () => void
+}> = ({ checklist, session, onLockClick }) => {
   const checklistSubRoute = checklist.prettyRoute ?? checklist.id
 
   const userIsFreeTier =
@@ -16,26 +17,33 @@ export const ChecklistCard: React.FC<{
   const isGuest = !session
   const requiresUpgrade = checklist.isPremium && (userIsFreeTier || isGuest)
 
+  const CardContent = (
+    <div className="inline-flex flex-1 flex-col">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-ladderly-violet-600">
+          {checklist.name}
+        </h3>
+      </div>
+      <div className="mt-4">
+        <span className="text-sm font-medium text-ladderly-violet-600 group-hover:underline">
+          View Checklist →
+        </span>
+      </div>
+    </div>
+  )
+
   return (
-    <div className="group flex flex-row items-center justify-between gap-x-4 rounded-lg bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
-      {requiresUpgrade && <PremiumLockIcon session={session} />}
-      <Link
-        href={`/checklists/${checklistSubRoute}`}
-        className={`inline-flex flex-1 flex-col ${
-          requiresUpgrade ? 'pointer-events-none' : ''
-        }`}
-      >
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 group-hover:text-ladderly-violet-600">
-            {checklist.name}
-          </h3>
+    <div className="transition-transform-shadow group flex flex-row items-center justify-between gap-x-4 rounded-lg bg-white p-6 shadow-lg duration-300 hover:scale-105 hover:shadow-xl">
+      {checklist.isPremium && <PremiumLockIcon onClick={onLockClick} />}
+      {requiresUpgrade ? (
+        <div className="flex-1 cursor-not-allowed opacity-50">
+          {CardContent}
         </div>
-        <div className="mt-4">
-          <span className="text-sm font-medium text-ladderly-violet-600 group-hover:underline">
-            View Checklist →
-          </span>
-        </div>
-      </Link>
+      ) : (
+        <Link href={`/checklists/${checklistSubRoute}`} className="flex-1">
+          {CardContent}
+        </Link>
+      )}
     </div>
   )
 }
