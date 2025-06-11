@@ -1,52 +1,27 @@
-'use client'
-
-import React from 'react'
-import { api } from '~/trpc/react'
 import { ChecklistCard } from './ChecklistCard'
+import type { RouterOutputs } from '~/trpc/react'
 
-const ITEMS_PER_PAGE = 100
+type Checklist = RouterOutputs['checklist']['list']['checklists'][number]
 
-export function ChecklistsList() {
-  const [page, setPage] = React.useState(0)
-  const { data, isLoading } = api.checklist.list.useQuery({
-    skip: ITEMS_PER_PAGE * page,
-    take: ITEMS_PER_PAGE,
-  })
-
-  if (isLoading) return null // The skeleton is handled by the parent
-  if (!data) return <div>No checklists found</div>
-
-  const { checklists, hasMore } = data
-
-  const goToPreviousPage = () => setPage((p) => Math.max(0, p - 1))
-  const goToNextPage = () => setPage((p) => (hasMore ? p + 1 : p))
+export function ChecklistsList({ checklists }: { checklists: Checklist[] }) {
+  if (checklists.length === 0) {
+    return (
+      <div className="text-center">
+        <h3 className="text-lg font-medium text-gray-900">
+          No Checklists Found
+        </h3>
+        <p className="mt-1 text-sm text-gray-500">
+          We couldn't find any checklists. Please check back later.
+        </p>
+      </div>
+    )
+  }
 
   return (
-    <div>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {checklists.map((checklist) => (
-          <ChecklistCard key={checklist.id} checklist={checklist} />
-        ))}
-      </div>
-
-      {hasMore && (
-        <div className="mt-12 flex justify-center gap-4">
-          <button
-            disabled={page === 0}
-            onClick={goToPreviousPage}
-            className="rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <button
-            disabled={!hasMore}
-            onClick={goToNextPage}
-            className="rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      )}
+    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {checklists.map((checklist) => (
+        <ChecklistCard key={checklist.id} checklist={checklist} />
+      ))}
     </div>
   )
 }

@@ -3,6 +3,7 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
+  isAuthedOrInternalMiddleware,
 } from '~/server/api/trpc'
 import { db } from '~/server/db'
 import { TRPCError } from '@trpc/server'
@@ -325,35 +326,25 @@ export const checklistRouter = createTRPCRouter({
       })
     }),
 
-  list: protectedProcedure
+  list: publicProcedure
     .input(
       z.object({
-        skip: z.number().default(0),
-        take: z.number().default(100),
+        internalSecret: z.string().optional(),
       }),
     )
-    .query(async ({ input }) => {
-      const [checklists, count] = await Promise.all([
-        db.checklist.findMany({
-          orderBy: { name: 'asc' },
-          where: {
-            publishedAt: {
-              not: null,
-            },
+    .use(isAuthedOrInternalMiddleware)
+    .query(async () => {
+      const checklists = await db.checklist.findMany({
+        orderBy: { name: 'asc' },
+        where: {
+          publishedAt: {
+            not: null,
           },
-          skip: input.skip,
-          take: input.take + 1,
-        }),
-        db.checklist.count(),
-      ])
-
-      const hasMore = checklists.length > input.take
-      if (hasMore) checklists.pop()
+        },
+      })
 
       return {
         checklists,
-        hasMore,
-        count,
       }
     }),
 })

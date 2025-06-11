@@ -1,13 +1,19 @@
-import { Suspense } from 'react'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { ChecklistsList } from './ChecklistsList'
+import { api } from '~/trpc/server'
 
 export const metadata = {
   title: 'Checklists',
   description: 'View and manage checklists for your programming career.',
 }
 
-export default function ChecklistsPage() {
+export default async function ChecklistsPage() {
+  // note: we statically render all checklists,
+  // so if we have a bunch of checklists in the future, maybe 30+, we will want to paginate
+  const { checklists } = await api.checklist.list({
+    internalSecret: process.env.NEXTAUTH_SECRET,
+  })
+
   return (
     <LadderlyPageWrapper>
       <div className="bg-gray-50">
@@ -23,27 +29,10 @@ export default function ChecklistsPage() {
           </div>
 
           <div className="mt-12">
-            <Suspense fallback={<ChecklistSkeleton />}>
-              <ChecklistsList />
-            </Suspense>
+            <ChecklistsList checklists={checklists} />
           </div>
         </div>
       </div>
     </LadderlyPageWrapper>
-  )
-}
-
-function ChecklistSkeleton() {
-  return (
-    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="animate-pulse rounded-lg bg-white shadow-lg">
-          <div className="p-6">
-            <div className="h-6 w-3/4 rounded bg-gray-200"></div>
-            <div className="mt-4 h-4 w-1/2 rounded bg-gray-200"></div>
-          </div>
-        </div>
-      ))}
-    </div>
   )
 }
