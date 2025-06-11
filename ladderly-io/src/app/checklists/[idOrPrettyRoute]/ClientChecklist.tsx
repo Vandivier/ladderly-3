@@ -4,9 +4,10 @@ import React, { useState } from 'react'
 import { api } from '~/trpc/react'
 import type { RouterOutputs } from '~/trpc/react'
 import { TRPCClientError } from '@trpc/client'
-import type { Checklist } from '@prisma/client'
+import type { Checklist, ChecklistItem } from '@prisma/client'
 import { InfoIcon, X } from 'lucide-react'
 import { LadderlyToast } from '~/app/core/components/LadderlyToast'
+import { type LadderlySession } from '~/server/auth'
 
 type UserChecklist = Exclude<
   RouterOutputs['checklist']['getChecklistForUser'],
@@ -57,11 +58,12 @@ const NewestChecklistQueryHandler: React.FC<{
 }
 
 const UserChecklistItems: React.FC<{
-  userChecklist: UserChecklist
-  onToggle: (item: UserChecklistItem) => void
-  isMutating: boolean
-  mutatingItemId: number | undefined
-}> = ({ userChecklist, onToggle, isMutating, mutatingItemId }) => {
+  items: (UserChecklistItem | ChecklistItem)[]
+  session: LadderlySession | null
+  onToggle?: (item: UserChecklistItem) => void
+  isMutating?: boolean
+  mutatingItemId?: number
+}> = ({ items, onToggle, isMutating, mutatingItemId, session }) => {
   const [activeTooltip, setActiveTooltip] = React.useState<number | null>(null)
 
   const renderText = (text: string, linkUri?: string, linkText?: string) => {
@@ -85,60 +87,69 @@ const UserChecklistItems: React.FC<{
       </>
     )
   }
+
   return (
     <ul className="space-y-4">
-      {userChecklist.userChecklistItems.map((item) => (
-        <li key={item.id} className="flex items-start space-x-2">
-          <input
-            type="checkbox"
-            checked={item.isComplete}
-            onChange={() => onToggle(item)}
-            className="mt-1 size-4 rounded border-gray-300"
-            disabled={isMutating && mutatingItemId === item.id}
-          />
-          <div className="relative flex-1">
-            <div className="flex items-start gap-1">
-              <span className="text-gray-800">
-                {renderText(
-                  item.checklistItem.displayText,
-                  item.checklistItem.linkUri,
-                  item.checklistItem.linkText,
+      {items.map((item) => {
+        const isUserChecklistItem = 'checklistItem' in item
+        const checklistItem = isUserChecklistItem ? item.checklistItem : item
+        const isComplete = isUserChecklistItem ? item.isComplete : false
+
+        return (
+          <li key={item.id} className="flex items-start space-x-2">
+            <input
+              type="checkbox"
+              checked={isComplete}
+              onChange={() => onToggle?.(item as UserChecklistItem)}
+              className="mt-1 size-4 rounded border-gray-300"
+              disabled={!session || (isMutating && mutatingItemId === item.id)}
+            />
+            <div className="relative flex-1">
+              <div className="flex items-start gap-1">
+                <span className="text-gray-800">
+                  {renderText(
+                    checklistItem.displayText,
+                    checklistItem.linkUri,
+                    checklistItem.linkText,
+                  )}
+                  {checklistItem.isRequired && '*'}
+                </span>
+                {checklistItem.detailText && (
+                  <button
+                    onClick={() =>
+                      setActiveTooltip(
+                        activeTooltip === item.id ? null : item.id,
+                      )
+                    }
+                    className="mt-1 text-gray-500 hover:text-gray-700"
+                  >
+                    <InfoIcon className="size-4" />
+                  </button>
                 )}
-                {item.checklistItem.isRequired && '*'}
-              </span>
-              {item.checklistItem.detailText && (
-                <button
-                  onClick={() =>
-                    setActiveTooltip(activeTooltip === item.id ? null : item.id)
-                  }
-                  className="mt-1 text-gray-500 hover:text-gray-700"
-                >
-                  <InfoIcon className="size-4" />
-                </button>
+              </div>
+              {activeTooltip === item.id && checklistItem.detailText && (
+                <div className="absolute left-0 top-6 z-10 w-full max-w-sm rounded-lg border-4 border-ladderly-violet-700/50 bg-white p-3 shadow-lg">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1">
+                      {renderText(
+                        checklistItem.detailText,
+                        checklistItem.linkUri,
+                        checklistItem.linkText,
+                      )}
+                    </div>
+                    <button
+                      onClick={() => setActiveTooltip(null)}
+                      className="-mr-1 -mt-1 text-gray-500 hover:text-gray-700"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
-            {activeTooltip === item.id && item.checklistItem.detailText && (
-              <div className="absolute left-0 top-6 z-10 w-full max-w-sm rounded-lg border-4 border-ladderly-violet-700/50 bg-white p-3 shadow-lg">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex-1">
-                    {renderText(
-                      item.checklistItem.detailText,
-                      item.checklistItem.linkUri,
-                      item.checklistItem.linkText,
-                    )}
-                  </div>
-                  <button
-                    onClick={() => setActiveTooltip(null)}
-                    className="-mr-1 -mt-1 text-gray-500 hover:text-gray-700"
-                  >
-                    <X className="size-4" />
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </li>
-      ))}
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -146,9 +157,11 @@ const UserChecklistItems: React.FC<{
 export default function ClientChecklist({
   initialUserChecklist,
   latestChecklist,
+  session,
 }: {
-  initialUserChecklist: UserChecklist
-  latestChecklist: Checklist
+  initialUserChecklist: UserChecklist | null
+  latestChecklist: Checklist & { checklistItems: ChecklistItem[] }
+  session: LadderlySession | null
 }) {
   const [userChecklist, setUserChecklist] = useState(initialUserChecklist)
   const [error, setError] = useState<string | null>(null)
@@ -190,26 +203,29 @@ export default function ClientChecklist({
   }
 
   const handleUpdate = () => {
-    void utils.checklist.getChecklistForUser.invalidate({
-      checklistId: latestChecklist.id,
-    })
-    // NOTE: This is a bit of a hack to force a refresh
+    // NOTE: This is a bit of a hack to force a refresh, but it's simple and effective.
     window.location.reload()
   }
 
+  const itemsToRender =
+    userChecklist?.userChecklistItems ?? latestChecklist.checklistItems
+
   return (
     <div>
-      <NewestChecklistQueryHandler
-        userChecklist={userChecklist}
-        latestChecklist={latestChecklist}
-        onUpdate={handleUpdate}
-      />
+      {userChecklist && (
+        <NewestChecklistQueryHandler
+          userChecklist={userChecklist}
+          latestChecklist={latestChecklist}
+          onUpdate={handleUpdate}
+        />
+      )}
       {error && <p className="text-red-500">{error}</p>}
       <UserChecklistItems
-        userChecklist={userChecklist}
-        onToggle={handleToggle}
+        items={itemsToRender}
+        onToggle={userChecklist ? handleToggle : undefined}
         isMutating={isPending}
         mutatingItemId={variables?.userChecklistItemId}
+        session={session}
       />
     </div>
   )

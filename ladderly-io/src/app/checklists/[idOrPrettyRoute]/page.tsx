@@ -4,6 +4,9 @@ import Link from 'next/link'
 import ClientChecklist from './ClientChecklist'
 import { notFound } from 'next/navigation'
 import { api } from '~/trpc/server'
+import { TRPCError } from '@trpc/server'
+import { db } from '~/server/db'
+import { getServerAuthSession } from '~/server/auth'
 
 export const metadata = {
   title: 'Checklist',
@@ -14,6 +17,7 @@ export default async function ChecklistPage({
 }: {
   params: { idOrPrettyRoute: string }
 }) {
+  const session = await getServerAuthSession()
   // Try to parse as number first
   const checklistId = parseInt(params.idOrPrettyRoute, 10)
   let checklist
@@ -30,12 +34,34 @@ export default async function ChecklistPage({
     notFound()
   }
 
-  const userChecklist = await api.checklist.getChecklistForUser({
-    checklistId: checklist.id,
+  // We need to fetch the items separately for guests
+  const { checklistItems } = await db.checklist.findUniqueOrThrow({
+    where: { id: checklist.id },
+    include: {
+      checklistItems: {
+        orderBy: {
+          displayIndex: 'asc',
+        },
+      },
+    },
   })
+  const fullChecklist = { ...checklist, checklistItems }
 
-  if (!userChecklist) {
-    notFound()
+  let userChecklist = null
+  try {
+    // This is a protected procedure and will fail for guests.
+    userChecklist = await api.checklist.getChecklistForUser({
+      checklistId: checklist.id,
+    })
+  } catch (error) {
+    if (error instanceof TRPCError && error.code === 'UNAUTHORIZED') {
+      // This is the expected state for a guest user. We will proceed
+      // without user-specific data, and the LadderlyPageWrapper will
+      // handle prompting the user to sign in.
+    } else {
+      // For any other unexpected errors, we should fail the request.
+      throw error
+    }
   }
 
   return (
@@ -50,7 +76,7 @@ export default async function ChecklistPage({
               ← Back to Checklists
             </Link>
             <h1 className="mb-4 text-2xl font-bold text-gray-800">
-              {userChecklist.checklist.name}
+              {checklist.name}
             </h1>
 
             <p className="mb-4 mt-2">
@@ -60,7 +86,8 @@ export default async function ChecklistPage({
             <Suspense fallback="Loading...">
               <ClientChecklist
                 initialUserChecklist={userChecklist}
-                latestChecklist={checklist}
+                latestChecklist={fullChecklist}
+                session={session}
               />
             </Suspense>
           </div>
