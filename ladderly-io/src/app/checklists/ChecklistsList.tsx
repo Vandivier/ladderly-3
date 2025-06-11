@@ -1,9 +1,16 @@
 import { ChecklistCard } from './ChecklistCard'
 import type { RouterOutputs } from '~/trpc/react'
+import { type LadderlySession } from '~/server/auth'
 
 type Checklist = RouterOutputs['checklist']['list']['checklists'][number]
 
-export function ChecklistsList({ checklists }: { checklists: Checklist[] }) {
+export function ChecklistsList({
+  checklists,
+  session,
+}: {
+  checklists: Checklist[]
+  session: LadderlySession | null
+}) {
   if (checklists.length === 0) {
     return (
       <div className="text-center">
@@ -20,7 +27,11 @@ export function ChecklistsList({ checklists }: { checklists: Checklist[] }) {
   return (
     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {checklists.map((checklist) => (
-        <ChecklistCard key={checklist.id} checklist={checklist} />
+        <ChecklistCard
+          key={checklist.id}
+          checklist={checklist}
+          session={session}
+        />
       ))}
     </div>
   )

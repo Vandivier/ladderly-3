@@ -1,6 +1,7 @@
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { ChecklistsList } from './ChecklistsList'
 import { api } from '~/trpc/server'
+import { getServerAuthSession } from '~/server/auth'
 
 export const metadata = {
   title: 'Checklists',
@@ -13,6 +14,7 @@ export default async function ChecklistsPage() {
   const { checklists } = await api.checklist.list({
     internalSecret: process.env.NEXTAUTH_SECRET,
   })
+  const session = await getServerAuthSession()
 
   return (
     <LadderlyPageWrapper>
@@ -29,7 +31,7 @@ export default async function ChecklistsPage() {
           </div>
 
           <div className="mt-12">
-            <ChecklistsList checklists={checklists} />
+            <ChecklistsList checklists={checklists} session={session} />
           </div>
         </div>
       </div>

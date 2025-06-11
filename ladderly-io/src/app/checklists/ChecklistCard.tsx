@@ -1,24 +1,30 @@
-import { Checklist } from '@prisma/client'
-import Link from 'next/link'
-import { LockIcon } from 'lucide-react'
+'use client'
 
-export const ChecklistCard: React.FC<{ checklist: Checklist }> = ({
-  checklist,
-}) => {
+import { type Checklist, PaymentTierEnum } from '@prisma/client'
+import Link from 'next/link'
+import { type LadderlySession } from '~/server/auth'
+import { PremiumLockIcon } from './PremiumLockIcon'
+
+export const ChecklistCard: React.FC<{
+  checklist: Checklist
+  session: LadderlySession | null
+}> = ({ checklist, session }) => {
   const checklistSubRoute = checklist.prettyRoute ?? checklist.id
+
+  const userIsFreeTier =
+    session?.user?.subscription?.tier === PaymentTierEnum.FREE
+  const isGuest = !session
+  const requiresUpgrade = checklist.isPremium && (userIsFreeTier || isGuest)
+
   return (
-    <Link
-      href={`/checklists/${checklistSubRoute}`}
-      className="group flex flex-row justify-between gap-x-4 rounded-lg bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-    >
-      {checklist.isPremium && (
-        <div className="flex items-center justify-between">
-          <span className="inline-flex items-center justify-center rounded bg-ladderly-violet-100 p-1.5 text-ladderly-violet-500 transition-all hover:bg-ladderly-violet-500 hover:text-white">
-            <LockIcon className="size-4" />
-          </span>
-        </div>
-      )}
-      <div className="inline-flex flex-col">
+    <div className="group flex flex-row items-center justify-between gap-x-4 rounded-lg bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      {requiresUpgrade && <PremiumLockIcon session={session} />}
+      <Link
+        href={`/checklists/${checklistSubRoute}`}
+        className={`inline-flex flex-1 flex-col ${
+          requiresUpgrade ? 'pointer-events-none' : ''
+        }`}
+      >
         <div>
           <h3 className="text-lg font-semibold text-gray-900 group-hover:text-ladderly-violet-600">
             {checklist.name}
@@ -29,7 +35,7 @@ export const ChecklistCard: React.FC<{ checklist: Checklist }> = ({
             View Checklist →
           </span>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 }
