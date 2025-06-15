@@ -17,7 +17,6 @@ export default async function handler(
     journalReminderEnabled: true,
     email: { not: undefined, notIn: [''] },
     journalReminderFrequency: { not: ReminderFrequency.NONE },
-    // deletedAt: null, // Remove this line if not in your schema/client yet
   },
   })
 
@@ -37,7 +36,7 @@ export default async function handler(
           frequency: user.journalReminderFrequency as 'DAILY' | 'WEEKLY' | 'MONTHLY',
           username: user.name || 'there',
         })
-        // Update last reminded timestamp
+        
         await db.user.update({
           where: { id: user.id },
           data: { journalReminderLastReminded: new Date() },

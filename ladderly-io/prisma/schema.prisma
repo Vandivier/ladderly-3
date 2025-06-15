@@ -39,8 +39,8 @@ model User {
   journalReminderEnabled      Boolean           @default(false)
   journalReminderFrequency    ReminderFrequency @default(WEEKLY)
   journalReminderLastReminded DateTime?
-  journalReminderHour         Int? // 0-23, optional: user can pick reminder hour
-  journalReminderType         ReminderType      @default(JOURNAL) // for future extensibility
+  journalReminderHour         Int?
+  journalReminderType         ReminderType      @default(JOURNAL)
 
   profileBlurb                String?
   profileContactEmail         String?
