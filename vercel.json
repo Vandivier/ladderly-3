@@ -1,0 +1,8 @@
+{
+  "cron": [
+    {
+      "path": "/api/send-journal-reminders",
+      "schedule": "0 8 * * *"
+    }
+  ]
+}
