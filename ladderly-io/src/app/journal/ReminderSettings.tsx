@@ -35,7 +35,7 @@ export const ReminderSettings = () => {
 
   // Local state for form
   const [isEnabled, setIsEnabled] = useState(false)
-  const [frequency, setFrequency] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>(
+  const [frequency, setFrequency] = useState<'NONE' | 'DAILY' | 'WEEKLY' | 'MONTHLY'>(
     'WEEKLY',
   )
   const [updateStatus, setUpdateStatus] = useState<
@@ -46,16 +46,33 @@ export const ReminderSettings = () => {
   React.useEffect(() => {
     if (settings) {
       setIsEnabled(settings.isEnabled)
-      setFrequency(settings.frequency)
+      if (!settings.isEnabled) {
+        setFrequency('NONE')
+      } else {
+        setFrequency(settings.frequency)
+      }
     }
   }, [settings])
+
+  // When toggling reminders, set frequency to NONE if disabling, or restore to WEEKLY if enabling and NONE
+  const handleToggleEnabled = (checked: boolean) => {
+    setIsEnabled(checked)
+    if (!checked) {
+      setFrequency('NONE')
+    } else if (frequency === 'NONE') {
+      setFrequency('WEEKLY')
+    }
+  }
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     updateSettings({
       isEnabled,
-      frequency,
+      // Only send a valid frequency to the API
+      frequency: isEnabled
+        ? (frequency === 'NONE' ? 'WEEKLY' : frequency)
+        : 'WEEKLY', // fallback to WEEKLY if reminders are disabled
     })
   }
 
@@ -90,7 +107,7 @@ export const ReminderSettings = () => {
               <input
                 type="checkbox"
                 checked={isEnabled}
-                onChange={(e) => setIsEnabled(e.target.checked)}
+                onChange={(e) => handleToggleEnabled(e.target.checked)}
                 className="mr-2"
               />
               Enable journal entry reminders
@@ -106,20 +123,33 @@ export const ReminderSettings = () => {
                 htmlFor="frequency"
                 className="mb-1 block text-sm font-medium dark:text-gray-300"
               >
-                Reminder Frequency
+                Email Notification Frequency
               </label>
               <select
                 id="frequency"
                 value={frequency}
                 onChange={(e) =>
-                  setFrequency(e.target.value as 'DAILY' | 'WEEKLY' | 'MONTHLY')
+                  setFrequency(
+                    e.target.value as 'NONE' | 'DAILY' | 'WEEKLY' | 'MONTHLY',
+                  )
                 }
                 className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               >
+                <option value="NONE">None (Disabled)</option>
                 <option value="DAILY">Daily</option>
                 <option value="WEEKLY">Weekly</option>
                 <option value="MONTHLY">Monthly</option>
               </select>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                {frequency === 'NONE' &&
+                  'You will not receive any journal reminders.'}
+                {frequency === 'DAILY' &&
+                  'You will receive a reminder every day.'}
+                {frequency === 'WEEKLY' &&
+                  'You will receive a reminder once a week.'}
+                {frequency === 'MONTHLY' &&
+                  'You will receive a reminder once a month.'}
+              </p>
             </div>
           )}
 

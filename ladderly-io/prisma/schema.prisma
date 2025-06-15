@@ -39,6 +39,8 @@ model User {
   journalReminderEnabled      Boolean           @default(false)
   journalReminderFrequency    ReminderFrequency @default(WEEKLY)
   journalReminderLastReminded DateTime?
+  journalReminderHour         Int? // 0-23, optional: user can pick reminder hour
+  journalReminderType         ReminderType      @default(JOURNAL) // for future extensibility
 
   profileBlurb                String?
   profileContactEmail         String?
@@ -52,27 +54,36 @@ model User {
   profileTopServices          String[]
   profileTopSkills            String[]
   profileYearsOfExperience    Int?
-  profileHighestDegree        String?
-  profilePicture              String   @default("")
-  residenceCountry            String   @default("")
-  residenceUSState            String   @default("")
 
-  accounts            Account[]
-  authoredVotables    Votable[]                       @relation("AuthoredVotables")
-  jobSearches         JobSearch[]
-  quizResults         QuizResult[]
-  role                RoleEnum                        @default(USER)
-  sessions            Session[]
-  subscriptions       Subscription[]
-  tokens              Token[]
-  transactions        Transaction[]
-  userChecklists      UserChecklist[]
-  uuid                String                          @default(uuid())
-  userChecklistItems  UserChecklistItem[]
-  votes               Vote[]
-  Lead                Lead[]
-  journalEntries      JournalEntry[]
-  practiceCompletions UserJournalPracticeCompletion[]
+  deletedAt DateTime? // for soft-delete support
+
+  // Add these relation fields:
+  accounts                       Account[]
+  sessions                       Session[]
+  tokens                         Token[]
+  userChecklists                 UserChecklist[]
+  userChecklistItems             UserChecklistItem[]
+  subscriptions                  Subscription[]
+  transactions                   Transaction[]
+  quizResults                    QuizResult[]
+  authoredVotables               Votable[]                       @relation("AuthoredVotables")
+  votes                          Vote[]
+  leads                          Lead[]
+  jobSearches                    JobSearch[]
+  journalEntries                 JournalEntry[]
+  userJournalPracticeCompletions UserJournalPracticeCompletion[]
+}
+
+enum ReminderFrequency {
+  NONE
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+enum ReminderType {
+  JOURNAL
+  CAREER
 }
 
 enum RoleEnum {
@@ -568,11 +579,12 @@ enum JournalEntryType {
   WIN
 }
 
-enum ReminderFrequency {
-  DAILY
-  WEEKLY
-  MONTHLY
-}
+// enum ReminderFrequency {
+//   NONE
+//   DAILY
+//   WEEKLY
+//   MONTHLY
+// }
 
 model JournalPractice {
   id        Int      @id @default(autoincrement())
