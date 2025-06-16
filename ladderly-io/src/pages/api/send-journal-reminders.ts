@@ -7,17 +7,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  if (req.method !== 'POST') {
+  if (req.method !== 'POST' && req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
   const today = new Date()
   const users = await db.user.findMany({
-  where: {
-    journalReminderEnabled: true,
-    email: { not: undefined, notIn: [''] },
-    journalReminderFrequency: { not: ReminderFrequency.NONE },
-  },
+    where: {
+      journalReminderEnabled: true,
+      email: { not: undefined, notIn: [''] },
+      journalReminderFrequency: { not: ReminderFrequency.NONE },
+    },
   })
 
   let sent = 0
@@ -35,8 +35,8 @@ export default async function handler(
           to: user.email,
           frequency: user.journalReminderFrequency as 'DAILY' | 'WEEKLY' | 'MONTHLY',
           username: user.name || 'there',
+          type: 'journal',
         })
-        
         await db.user.update({
           where: { id: user.id },
           data: { journalReminderLastReminded: new Date() },
@@ -48,5 +48,5 @@ export default async function handler(
     }
   }
 
-  res.status(200).json({ sent })
+  res.status(200).json({ sent, checked: users.length, date: today.toISOString() })
 }
