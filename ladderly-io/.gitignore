@@ -60,3 +60,5 @@ temp/
 
 scripts/data/
 scripts/backup-data/
+
+.vercel

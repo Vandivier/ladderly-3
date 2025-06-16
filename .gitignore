@@ -100,3 +100,5 @@ __pycache__/
 *.ignoreme.*
 
 
+
+.vercel

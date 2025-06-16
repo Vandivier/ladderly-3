@@ -55,7 +55,7 @@ model User {
   profileTopSkills            String[]
   profileYearsOfExperience    Int?
 
-  deletedAt DateTime? // for soft-delete support
+  deletedAt DateTime?
 
   // Add these relation fields:
   accounts                       Account[]
