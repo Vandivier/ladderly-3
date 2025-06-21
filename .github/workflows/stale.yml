@@ -1,0 +1,48 @@
+name: 'Close stale PRs'
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          
+          days-before-pr-stale: 30
+          days-before-pr-close: 7
+          
+          days-before-issue-stale: -1
+          days-before-issue-close: -1
+          
+          stale-pr-message: |
+            This pull request has been automatically marked as stale because it has not had any activity for 30 days.
+            
+            If this PR is still relevant and you're actively working on it, please add a comment or push new commits to keep it open.
+            
+            This PR will be automatically closed in 7 days if no further activity occurs.
+            
+            Thank you for your contribution! 🙏
+            
+          close-pr-message: |
+            This pull request has been automatically closed due to inactivity.
+            
+            If you believe this PR should remain open or if you plan to continue working on it, please feel free to reopen it or create a new PR.
+            
+            Thank you for your contribution! 🙏
+            
+          stale-pr-label: 'stale'
+          
+          exempt-pr-labels: 'keep-open,work-in-progress,wip,do-not-close'
+          exempt-draft-pr: true
+          
+          remove-stale-when-updated: true
+          operations-per-run: 50
