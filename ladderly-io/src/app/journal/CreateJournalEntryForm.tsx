@@ -1,13 +1,14 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useCallback } from 'react'
 import { z } from 'zod'
 import { Form } from '~/app/core/components/Form'
 import { api } from '~/trpc/react'
 import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 import type { PaymentTierEnum } from '@prisma/client'
 import { HappinessSlider } from './HappinessSlider'
+import { Share2 } from 'lucide-react'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -18,6 +19,7 @@ const journalEntrySchema = z.object({
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']),
   isCareerRelated: z.boolean().default(true),
   happiness: z.number().min(1).max(10).optional(),
+  isPublic: z.boolean().default(false),
 })
 
 type JournalEntryFormValues = z.infer<typeof journalEntrySchema>
@@ -40,6 +42,7 @@ export const CreateJournalEntryForm = ({
     'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
   >('WIN')
   const [happiness, setHappiness] = useState<number | undefined>(undefined)
+  const [isPublic, setIsPublic] = useState(false)
 
   // Get the date from a week ago - memoize to prevent recreating on every render
   const oneWeekAgo = useMemo(() => {
@@ -121,6 +124,10 @@ export const CreateJournalEntryForm = ({
     setEntryType(e.target.value as 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER')
   }
 
+  const handleIsPublicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsPublic(e.target.checked)
+  }
+
   const isLoading = createEntryMutation.isPending
   const isWeeklyLoadingData = weeklyEntriesQuery.isLoading
 
@@ -147,6 +154,7 @@ export const CreateJournalEntryForm = ({
           entryType: entryType,
           isCareerRelated: isCareerRelated,
           happiness: happiness,
+          isPublic: isPublic,
         }}
       >
         {/* Text area for entry content */}
@@ -247,6 +255,29 @@ export const CreateJournalEntryForm = ({
               className="ml-2 text-sm font-medium dark:text-gray-300"
             >
               Career-Related
+            </label>
+          </div>
+
+          <div className="mb-4 flex items-center">
+            <input
+              type="checkbox"
+              id="isPublic"
+              name="isPublic"
+              checked={isPublic}
+              onChange={handleIsPublicChange}
+              className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+              disabled={
+                isLoading ||
+                isWeeklyLoadingData ||
+                weeklyEntryCount >= weeklyLimit
+              }
+            />
+            <label
+              htmlFor="isPublic"
+              className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
+              <Share2 className="mr-1 h-4 w-4" />
+              Share publicly in community feed
             </label>
           </div>
         </div>
