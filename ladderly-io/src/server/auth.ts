@@ -15,7 +15,6 @@ import {
 import DiscordProvider from 'next-auth/providers/discord'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import LinkedInProvider from 'next-auth/providers/linkedin'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { PaymentTierEnum } from '@prisma/client'
 import * as argon2 from 'argon2'
