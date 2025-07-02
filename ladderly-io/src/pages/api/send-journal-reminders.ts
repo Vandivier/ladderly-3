@@ -7,6 +7,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  const auth = req.headers.authorization
+  if (
+    process.env.NEXTAUTH_SECRET &&
+    auth !== `Bearer ${process.env.NEXTAUTH_SECRET}`
+  ) {
+    return res.status(401).json({ error: 'Unauthorized' })
+  }
+
   if (req.method !== 'POST' && req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
