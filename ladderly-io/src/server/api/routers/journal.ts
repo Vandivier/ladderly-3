@@ -286,7 +286,6 @@ export const journalRouter = createTRPCRouter({
       select: {
         journalReminderFrequency: true,
         journalReminderLastReminded: true,
-        journalReminderHour: true,
       },
     })
 
@@ -303,7 +302,6 @@ export const journalRouter = createTRPCRouter({
     return {
       frequency: user.journalReminderFrequency,
       lastReminded: user.journalReminderLastReminded,
-      reminderHour: user.journalReminderHour,
     }
   }),
 
@@ -317,11 +315,9 @@ export const journalRouter = createTRPCRouter({
         },
         data: {
           journalReminderFrequency: input.frequency,
-          journalReminderHour: input.reminderHour,
         },
         select: {
           journalReminderFrequency: true,
-          journalReminderHour: true,
           journalReminderLastReminded: true,
         },
       })
@@ -330,7 +326,6 @@ export const journalRouter = createTRPCRouter({
       return {
         frequency: user.journalReminderFrequency,
         lastReminded: user.journalReminderLastReminded,
-        reminderHour: user.journalReminderHour,
       }
     }),
 

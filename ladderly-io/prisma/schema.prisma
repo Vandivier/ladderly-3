@@ -38,9 +38,6 @@ model User {
   // Journal reminder fields
   journalReminderFrequency    ReminderFrequency @default(NONE)
   journalReminderLastReminded DateTime?
-  // which hour of the day to remind the user to journal,
-  // 0-23, from server POV
-  journalReminderHour         Int?
 
   profileBlurb                String?
   profileContactEmail         String?
