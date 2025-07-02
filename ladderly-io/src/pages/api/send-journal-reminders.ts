@@ -36,8 +36,7 @@ export default async function handler(
         await sendJournalReminderEmail({
           to: user.email,
           frequency: user.journalReminderFrequency,
-          username: user.name || 'there',
-          type: 'journal',
+          username: user.nameFirst,
         })
         await db.user.update({
           where: { id: user.id },

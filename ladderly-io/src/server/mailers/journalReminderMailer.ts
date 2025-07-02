@@ -6,30 +6,30 @@ const client = new ServerClient(process.env.POSTMARK_API_KEY!)
 export async function sendJournalReminderEmail({
   to,
   frequency,
-  username,
-  type = 'journal',
+  username = 'there',
 }: {
   to: string
   frequency: ReminderFrequency
-  username: string
-  type?: 'journal' | 'career'
+  username?: string
 }) {
-  const subject = `Your ${frequency.toLowerCase()} ${type} reminder`
+  const subject = `Ladderly.io Journal Reminder!`
   const textBody = `
-Hi ${username},
+Hi ${username}!
 
-This is your ${frequency.toLowerCase()} reminder to write in your ${type}!
+This is your ${frequency.toLowerCase()} reminder to write in your career journal!
 
 Stay consistent and keep growing.
 
-– The Ladderly Team
+- The Ladderly Team
+https://www.ladderly.io/
 `
   const htmlBody = `
     <div style="font-family: Arial, sans-serif; color: #222;">
-      <h2>Hi ${username},</h2>
-      <p>This is your <strong>${frequency.toLowerCase()}</strong> reminder to write in your <strong>${type}</strong>!</p>
+      <h2>Hi ${username}!</h2>
+      <p>This is your <strong>${frequency.toLowerCase()}</strong> reminder to write in your career journal!</p>
       <p>Stay consistent and keep growing.</p>
       <p style="margin-top:2em;">– The Ladderly Team</p>
+      <p><a href="https://www.ladderly.io/">https://www.ladderly.io/</a></p>
     </div>
   `
   try {
