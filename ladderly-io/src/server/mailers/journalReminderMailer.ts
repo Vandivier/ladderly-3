@@ -1,3 +1,4 @@
+import { ReminderFrequency } from '@prisma/client'
 import { ServerClient } from 'postmark'
 
 const client = new ServerClient(process.env.POSTMARK_API_KEY!)
@@ -9,7 +10,7 @@ export async function sendJournalReminderEmail({
   type = 'journal',
 }: {
   to: string
-  frequency: 'DAILY' | 'WEEKLY' | 'MONTHLY'
+  frequency: ReminderFrequency
   username: string
   type?: 'journal' | 'career'
 }) {
