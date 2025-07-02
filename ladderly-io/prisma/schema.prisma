@@ -201,8 +201,11 @@ model Checklist {
   id             Int             @id @default(autoincrement())
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
+  prettyRoute    String?
+  publishedAt    DateTime?
   name           String
   version        String
+  isPremium      Boolean         @default(false)
   checklistItems ChecklistItem[]
   userChecklists UserChecklist[]
 }
