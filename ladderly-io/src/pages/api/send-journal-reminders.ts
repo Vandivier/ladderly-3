@@ -16,7 +16,6 @@ export default async function handler(
   const today = new Date()
   const users = await db.user.findMany({
     where: {
-      email: { not: undefined, notIn: [''] },
       journalReminderFrequency: { not: ReminderFrequency.NONE },
     },
   })
