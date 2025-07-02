@@ -23,21 +23,18 @@ export default async function handler(
   for (const user of users) {
     if (!user.email) continue
 
-    let shouldSend = false
-    if (user.journalReminderFrequency === 'DAILY') shouldSend = true
-    if (user.journalReminderFrequency === 'WEEKLY' && today.getDay() === 1)
-      shouldSend = true // Monday
-    if (user.journalReminderFrequency === 'MONTHLY' && today.getDate() === 1)
-      shouldSend = true // 1st
+    const shouldSend =
+      user.journalReminderFrequency === ReminderFrequency.DAILY ||
+      (user.journalReminderFrequency === ReminderFrequency.WEEKLY &&
+        today.getDay() === 1) ||
+      (user.journalReminderFrequency === ReminderFrequency.MONTHLY &&
+        today.getDate() === 1)
 
     if (shouldSend) {
       try {
         await sendJournalReminderEmail({
           to: user.email,
-          frequency: user.journalReminderFrequency as
-            | 'DAILY'
-            | 'WEEKLY'
-            | 'MONTHLY',
+          frequency: user.journalReminderFrequency,
           username: user.name || 'there',
           type: 'journal',
         })
