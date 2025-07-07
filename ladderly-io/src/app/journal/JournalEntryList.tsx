@@ -79,11 +79,13 @@ interface JournalEntryEditFormProps {
   content: string
   entryType: AllowedEntryType
   isCareerRelated: boolean
+  isPublic: boolean
   happiness?: number
   isUpdating: boolean
   onChangeContent: (v: string) => void
   onChangeEntryType: (v: AllowedEntryType) => void
   onChangeIsCareerRelated: (v: boolean) => void
+  onChangeIsPublic: (v: boolean) => void
   onChangeHappiness: (v: number | undefined) => void
   onCancel: () => void
   onSave: () => void
@@ -94,11 +96,13 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
   content,
   entryType,
   isCareerRelated,
+  isPublic,
   happiness,
   isUpdating,
   onChangeContent,
   onChangeEntryType,
   onChangeIsCareerRelated,
+  onChangeIsPublic,
   onChangeHappiness,
   onCancel,
   onSave,
@@ -164,6 +168,32 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
             Career-Related
           </label>
         </div>
+
+        {/* Public checkbox - only show if career related is checked */}
+        {isCareerRelated && (
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id={`edit-public-${id}`}
+              checked={isPublic}
+              onChange={(e) => onChangeIsPublic(e.target.checked)}
+              className="mr-1 size-4"
+              disabled={isUpdating}
+            />
+            <label
+              htmlFor={`edit-public-${id}`}
+              className="text-sm font-medium dark:text-gray-300"
+            >
+              Share Publicly
+            </label>
+            <span
+              className="ml-1 cursor-help text-xs text-blue-500"
+              title="Public entries will appear in the community journal feed"
+            >
+              (?)
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="flex justify-end space-x-2">
@@ -205,6 +235,7 @@ export const JournalEntryList = () => {
   const [editContent, setEditContent] = useState<string>('')
   const [editEntryType, setEditEntryType] = useState<AllowedEntryType>('WIN')
   const [editIsCareerRelated, setEditIsCareerRelated] = useState<boolean>(true)
+  const [editIsPublic, setEditIsPublic] = useState<boolean>(false)
   const [editHappiness, setEditHappiness] = useState<number | undefined>(
     undefined,
   )
@@ -248,6 +279,7 @@ export const JournalEntryList = () => {
         setEditContent('')
         setEditEntryType('WIN')
         setEditIsCareerRelated(true)
+        setEditIsPublic(false)
         setEditHappiness(undefined)
       },
     })
@@ -269,12 +301,14 @@ export const JournalEntryList = () => {
       content: string
       entryType: JournalEntryType
       isCareerRelated: boolean
+      isPublic: boolean
       happiness?: number | null
     }) => {
       setEditingEntryId(entry.id)
       setEditContent(entry.content)
       setEditEntryType(entry.entryType as AllowedEntryType)
       setEditIsCareerRelated(entry.isCareerRelated)
+      setEditIsPublic(entry.isPublic)
       setEditHappiness(entry.happiness === null ? undefined : entry.happiness)
     },
     [],
@@ -288,6 +322,7 @@ export const JournalEntryList = () => {
         content: editContent,
         entryType: editEntryType,
         isCareerRelated: editIsCareerRelated,
+        isPublic: editIsPublic,
         happiness: editHappiness,
       })
     },
@@ -296,6 +331,7 @@ export const JournalEntryList = () => {
       editContent,
       editEntryType,
       editIsCareerRelated,
+      editIsPublic,
       editHappiness,
     ],
   )
@@ -306,6 +342,7 @@ export const JournalEntryList = () => {
     setEditContent('')
     setEditEntryType('WIN')
     setEditIsCareerRelated(true)
+    setEditIsPublic(false)
     setEditHappiness(undefined)
   }, [])
 
@@ -560,11 +597,13 @@ export const JournalEntryList = () => {
                     content={editContent}
                     entryType={editEntryType}
                     isCareerRelated={editIsCareerRelated}
+                    isPublic={editIsPublic}
                     happiness={editHappiness ?? undefined}
                     isUpdating={isUpdating}
                     onChangeContent={setEditContent}
                     onChangeEntryType={setEditEntryType}
                     onChangeIsCareerRelated={setEditIsCareerRelated}
+                    onChangeIsPublic={setEditIsPublic}
                     onChangeHappiness={setEditHappiness}
                     onCancel={handleCancelEdit}
                     onSave={() => handleSaveEdit(entry.id)}

@@ -70,6 +70,9 @@ export const GrowMenuItems = ({
     <Link href="/journal" className={linkClassName}>
       Journal
     </Link>
+    <Link href="/journal/feed" className={linkClassName}>
+      Journal Feed
+    </Link>
     <Link href="/leetcode-tool" className={linkClassName}>
       Leetcode Tool
     </Link>

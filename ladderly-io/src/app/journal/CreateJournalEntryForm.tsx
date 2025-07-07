@@ -8,6 +8,7 @@ import { api } from '~/trpc/react'
 import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 import type { PaymentTierEnum } from '@prisma/client'
 import { HappinessSlider } from './HappinessSlider'
+import Link from 'next/link'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -17,6 +18,7 @@ const journalEntrySchema = z.object({
     .max(500, { message: 'Content must be 500 characters or less' }),
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']),
   isCareerRelated: z.boolean().default(true),
+  isPublic: z.boolean().default(false),
   happiness: z.number().min(1).max(10).optional(),
 })
 
@@ -36,6 +38,7 @@ export const CreateJournalEntryForm = ({
   const [weeklyLimit] = useState(21)
   const [contentValue, setContentValue] = useState('')
   const [isCareerRelated, setIsCareerRelated] = useState(true)
+  const [isPublic, setIsPublic] = useState(false)
   const [entryType, setEntryType] = useState<
     'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
   >('WIN')
@@ -87,6 +90,8 @@ export const CreateJournalEntryForm = ({
     try {
       // Ensure content is included from our tracked state
       values.content = contentValue ?? values.content
+      values.isCareerRelated = isCareerRelated
+      values.isPublic = isPublic
 
       // Validate form with schema
       const valid = journalEntrySchema.safeParse(values)
@@ -114,6 +119,12 @@ export const CreateJournalEntryForm = ({
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setIsCareerRelated(e.target.checked)
+  }
+
+  const handlePublicChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setIsPublic(e.target.checked)
   }
 
   // Handle entry type change
@@ -146,6 +157,7 @@ export const CreateJournalEntryForm = ({
           content: contentValue,
           entryType: entryType,
           isCareerRelated: isCareerRelated,
+          isPublic: isPublic,
           happiness: happiness,
         }}
       >
@@ -244,11 +256,39 @@ export const CreateJournalEntryForm = ({
             />
             <label
               htmlFor="isCareerRelated"
-              className="ml-2 text-sm font-medium dark:text-gray-300"
+              className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
             >
               Career-Related
             </label>
           </div>
+
+          {/* Public checkbox - only show if career related is checked */}
+          {isCareerRelated && (
+            <div className="flex w-full items-center sm:w-auto">
+              <input
+                type="checkbox"
+                id="isPublic"
+                name="isPublic"
+                checked={isPublic}
+                onChange={handlePublicChange}
+                className="size-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+                disabled={
+                  isLoading ||
+                  isWeeklyLoadingData ||
+                  weeklyEntryCount >= weeklyLimit
+                }
+              />
+              <label
+                htmlFor="isPublic"
+                className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
+              >
+                Share Publicly
+              </label>
+              <span className="ml-1 cursor-help text-xs text-blue-500 hover:underline" title="Public entries will appear in the community journal feed">
+                (?)
+              </span>
+            </div>
+          )}
         </div>
 
         {error && (

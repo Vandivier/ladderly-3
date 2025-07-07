@@ -16,6 +16,7 @@ const createJournalEntrySchema = z.object({
   content: z.string().max(500),
   entryType: z.nativeEnum(JournalEntryType),
   isCareerRelated: z.boolean().default(true),
+  isPublic: z.boolean().default(false),
   isMarkdown: z.boolean().default(false),
   mintedFromHashtag: z.string().optional(),
   mintedFromDateRange: z.array(z.date()).optional(),
@@ -32,6 +33,7 @@ const updateJournalEntrySchema = z.object({
   content: z.string().max(500),
   entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']).optional(),
   isCareerRelated: z.boolean().optional(),
+  isPublic: z.boolean().optional(),
   happiness: z.number().min(1).max(10).optional(),
 })
 
@@ -211,6 +213,7 @@ export const journalRouter = createTRPCRouter({
           content: input.content,
           entryType: input.entryType,
           isCareerRelated: input.isCareerRelated,
+          isPublic: input.isPublic ?? false,
           isMarkdown: input.isMarkdown ?? false,
           mintedFromHashtag: input.mintedFromHashtag,
           mintedFromDateRange: input.mintedFromDateRange ?? [],
@@ -250,6 +253,7 @@ export const journalRouter = createTRPCRouter({
           content: input.content,
           entryType: input.entryType ?? entry.entryType,
           isCareerRelated: input.isCareerRelated ?? entry.isCareerRelated,
+          isPublic: input.isPublic ?? entry.isPublic,
           happiness: input.happiness ?? entry.happiness,
         },
       })
@@ -403,5 +407,60 @@ export const journalRouter = createTRPCRouter({
           practice: true,
         },
       })
+    }),
+
+  // Get public journal entries
+  getPublicEntries: publicProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(50).default(10),
+        cursor: z.number().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { limit, cursor } = input
+
+      // Build filter for public entries (only career-related entries that are marked as public)
+      const filter: Prisma.JournalEntryWhereInput = {
+        isCareerRelated: true,
+        isPublic: true,
+      }
+
+      // Get entries with pagination
+      const entries = await ctx.db.journalEntry.findMany({
+        where: filter,
+        take: limit + 1,
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          entryType: true,
+          isCareerRelated: true,
+          happiness: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              profilePicture: true,
+              uuid: true,
+            },
+          },
+        },
+      })
+
+      let nextCursor: number | undefined = undefined
+      if (entries.length > limit) {
+        const nextItem = entries.pop()
+        nextCursor = nextItem?.id
+      }
+
+      return {
+        entries,
+        nextCursor,
+      }
     }),
 })
