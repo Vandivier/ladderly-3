@@ -75,6 +75,9 @@ const formatContentWithHashtags = (content: string) => {
 
 // Format date helper
 function formatDate(date: Date) {
+  if (!(date instanceof Date) && typeof date !== 'string' && typeof date !== 'number') {
+    return 'Invalid date';
+  }
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -122,7 +125,9 @@ const PublicJournalEntry: React.FC<PublicJournalEntryProps> = ({ entry }) => {
           </div>
           <div>
             <Link
-              href={`/community/profile/${entry.user.uuid}`}
+              href={{
+                pathname: `/community/profile/${entry.user.uuid}`
+              }}
               className="font-medium text-gray-900 hover:underline dark:text-white"
             >
               {entry.user.name}
@@ -153,7 +158,20 @@ const PublicJournalEntry: React.FC<PublicJournalEntryProps> = ({ entry }) => {
 
 export default function PublicJournalFeed() {
   const [cursor, setCursor] = useState<number | undefined>(undefined)
-  const [allEntries, setAllEntries] = useState<PublicJournalEntryProps['entry'][]>([])
+  const [allEntries, setAllEntries] = useState<Array<{
+    id: number
+    content: string
+    entryType: JournalEntryType
+    isCareerRelated: boolean
+    createdAt: Date
+    user: {
+      id: number
+      name: string
+      profilePicture: string
+      uuid: string
+    }
+    happiness?: number | null
+  }>>([])
   const [hasMore, setHasMore] = useState(true)
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
@@ -187,7 +205,7 @@ export default function PublicJournalFeed() {
         }
       }
     } catch (error) {
-      console.error('Error loading more entries:', error)
+      console.error('Error loading more entries:', error instanceof Error ? error.message : String(error))
     } finally {
       setIsLoadingMore(false)
     }
@@ -196,10 +214,20 @@ export default function PublicJournalFeed() {
   // Update the allEntries state when data changes
   useEffect(() => {
     if (data?.entries) {
+      const typedEntries = data.entries.map(entry => ({
+        ...entry,
+        user: {
+          id: entry.user.id,
+          name: entry.user.name || "",
+          profilePicture: entry.user.profilePicture || "",
+          uuid: entry.user.uuid || "",
+        }
+      }));
+      
       if (cursor) {
-        setAllEntries((prev) => [...prev, ...data.entries])
+        setAllEntries((prev) => [...prev, ...typedEntries])
       } else {
-        setAllEntries(data.entries)
+        setAllEntries(typedEntries)
       }
       
       // Check if there are more entries to load
