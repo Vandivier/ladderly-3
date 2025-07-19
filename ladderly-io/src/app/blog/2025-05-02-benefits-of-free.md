@@ -25,7 +25,7 @@ The third benefit is the community Discord server, which can be joined from the 
 
 Free-Tier Membership enables:
 
-1. Access to our Standard Checklist, which gives step-by-step and evidence-based instructions for breaking into tech and landing your first or next programming role.
+1. Access to our [Standard Checklist](/checklists/my-basic-checklist), which gives step-by-step and evidence-based instructions for breaking into tech and landing your first or next programming role.
 2. The ability to create a [public community profile](https://www.ladderly.io/community), offer services, provide networking reasons, and indicate that you are open to work. Recruiters often browse our [directory of profiles](https://www.ladderly.io/community).
 3. Access to our evidence-based and industry-leading [leetcode tool](/leetcode-tool)! Learn more about our unique approach to coding round interview preperation [here](/blog/2023-11-25-leetcode-kata)!
 4. The ability to register for early feature access and exclusive events, under the Features and Interests section of your [User Settings page](/settings).
