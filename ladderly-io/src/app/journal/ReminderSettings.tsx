@@ -35,22 +35,12 @@ export const ReminderSettings = () => {
     })
 
   // Local state for form
-  const [frequency, setFrequency] = useState<
-    'NONE' | 'DAILY' | 'WEEKLY' | 'MONTHLY'
-  >('WEEKLY')
+  const [frequency, setFrequency] = useState<ReminderFrequency>(
+    ReminderFrequency.NONE,
+  )
   const [updateStatus, setUpdateStatus] = useState<
     'idle' | 'success' | 'error'
   >('idle')
-
-  // When toggling reminders, set frequency to NONE if disabling,
-  // or restore to WEEKLY if enabling and NONE
-  const handleToggleEnabled = (checked: boolean) => {
-    if (!checked) {
-      setFrequency('NONE')
-    } else if (frequency === 'NONE') {
-      setFrequency('WEEKLY')
-    }
-  }
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
@@ -115,10 +105,10 @@ export const ReminderSettings = () => {
                 }
                 className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               >
-                <option value="NONE">None (Disabled)</option>
-                <option value="DAILY">Daily</option>
-                <option value="WEEKLY">Weekly</option>
-                <option value="MONTHLY">Monthly</option>
+                <option value={ReminderFrequency.NONE}>None (Disabled)</option>
+                <option value={ReminderFrequency.DAILY}>Daily</option>
+                <option value={ReminderFrequency.WEEKLY}>Weekly</option>
+                <option value={ReminderFrequency.MONTHLY}>Monthly</option>
               </select>
               <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                 {frequency === 'NONE' &&
