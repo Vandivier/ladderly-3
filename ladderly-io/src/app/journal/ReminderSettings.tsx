@@ -1,7 +1,7 @@
 'use client'
 
 import { ReminderFrequency } from '@prisma/client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { api } from '~/trpc/react'
 
 export const ReminderSettings = () => {
@@ -41,6 +41,13 @@ export const ReminderSettings = () => {
   const [updateStatus, setUpdateStatus] = useState<
     'idle' | 'success' | 'error'
   >('idle')
+
+  // Update local state when settings are loaded
+  useEffect(() => {
+    if (settings?.frequency) {
+      setFrequency(settings.frequency)
+    }
+  }, [settings])
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
