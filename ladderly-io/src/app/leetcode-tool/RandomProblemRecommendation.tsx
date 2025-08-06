@@ -18,7 +18,7 @@ interface LeetCodeProblem {
 }
 
 export const RandomProblemRecommendation = () => {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() ?? new URLSearchParams()
   const statusFilter = (searchParams.get('status') as CompletionStatus) ?? 'all'
   const sourceFilter = searchParams.get('source') ?? 'all'
   const [refreshKey, setRefreshKey] = useState(0)

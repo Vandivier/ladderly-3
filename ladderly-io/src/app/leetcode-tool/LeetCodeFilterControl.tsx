@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 export function LeetCodeFilterControl() {
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() ?? new URLSearchParams()
   const [sourceFilter, setSourceFilter] = useState(
     searchParams.get('source') ?? 'all',
   )
