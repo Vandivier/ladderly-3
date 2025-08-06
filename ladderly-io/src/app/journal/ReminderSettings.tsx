@@ -1,5 +1,6 @@
 'use client'
 
+import { ReminderFrequency } from '@prisma/client'
 import React, { useState } from 'react'
 import { api } from '~/trpc/react'
 
@@ -34,36 +35,16 @@ export const ReminderSettings = () => {
     })
 
   // Local state for form
-  const [isEnabled, setIsEnabled] = useState(false)
   const [frequency, setFrequency] = useState<
     'NONE' | 'DAILY' | 'WEEKLY' | 'MONTHLY'
   >('WEEKLY')
-  const [reminderHour, setReminderHour] = useState<number>(8)
   const [updateStatus, setUpdateStatus] = useState<
     'idle' | 'success' | 'error'
   >('idle')
 
-  // Update local state when settings are loaded
-  React.useEffect(() => {
-    if (settings) {
-      setIsEnabled(settings.isEnabled)
-      if (!settings.isEnabled) {
-        setFrequency('NONE')
-      } else {
-        setFrequency(settings.frequency)
-      }
-      if (
-        settings.reminderHour !== undefined &&
-        settings.reminderHour !== null
-      ) {
-        setReminderHour(settings.reminderHour)
-      }
-    }
-  }, [settings])
-
-  // When toggling reminders, set frequency to NONE if disabling, or restore to WEEKLY if enabling and NONE
+  // When toggling reminders, set frequency to NONE if disabling,
+  // or restore to WEEKLY if enabling and NONE
   const handleToggleEnabled = (checked: boolean) => {
-    setIsEnabled(checked)
     if (!checked) {
       setFrequency('NONE')
     } else if (frequency === 'NONE') {
@@ -75,13 +56,7 @@ export const ReminderSettings = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     updateSettings({
-      isEnabled,
-      frequency: isEnabled
-        ? frequency === 'NONE'
-          ? 'WEEKLY'
-          : frequency
-        : 'WEEKLY',
-      reminderHour: isEnabled ? reminderHour : 8,
+      frequency,
     })
   }
 
@@ -119,82 +94,44 @@ export const ReminderSettings = () => {
       {isExpanded && (
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="mb-2 flex items-center text-sm font-medium dark:text-gray-300">
-              <input
-                type="checkbox"
-                checked={isEnabled}
-                onChange={(e) => handleToggleEnabled(e.target.checked)}
-                className="mr-2"
-              />
-              Enable journal entry reminders
-            </label>
             <p className="text-xs text-gray-500 dark:text-gray-400">
               Get notified when it{"'"}s time to create a new journal entry
             </p>
           </div>
 
-          {isEnabled && (
-            <>
-              <div className="mb-4">
-                <label
-                  htmlFor="frequency"
-                  className="mb-1 block text-sm font-medium dark:text-gray-300"
-                >
-                  Email Notification Frequency
-                </label>
-                <select
-                  id="frequency"
-                  value={frequency}
-                  onChange={(e) =>
-                    setFrequency(
-                      e.target.value as 'NONE' | 'DAILY' | 'WEEKLY' | 'MONTHLY',
-                    )
-                  }
-                  className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                >
-                  <option value="NONE">None (Disabled)</option>
-                  <option value="DAILY">Daily</option>
-                  <option value="WEEKLY">Weekly</option>
-                  <option value="MONTHLY">Monthly</option>
-                </select>
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  {frequency === 'NONE' &&
-                    'You will not receive any journal reminders.'}
-                  {frequency === 'DAILY' &&
-                    'You will receive a reminder every day.'}
-                  {frequency === 'WEEKLY' &&
-                    'You will receive a reminder once a week.'}
-                  {frequency === 'MONTHLY' &&
-                    'You will receive a reminder once a month.'}
-                </p>
-              </div>
-
-              {/* Reminder hour selection */}
-              <div className="mb-4">
-                <label
-                  htmlFor="reminderHour"
-                  className="mb-1 block text-sm font-medium dark:text-gray-300"
-                >
-                  Reminder Hour (24h)
-                </label>
-                <select
-                  id="reminderHour"
-                  value={reminderHour}
-                  onChange={(e) => setReminderHour(Number(e.target.value))}
-                  className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                >
-                  {Array.from({ length: 24 }, (_, i) => (
-                    <option key={i} value={i}>
-                      {i}:00
-                    </option>
-                  ))}
-                </select>
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  You will receive reminders at this hour (UTC).
-                </p>
-              </div>
-            </>
-          )}
+          <>
+            <div className="mb-4">
+              <label
+                htmlFor="frequency"
+                className="mb-1 block text-sm font-medium dark:text-gray-300"
+              >
+                Email Notification Frequency
+              </label>
+              <select
+                id="frequency"
+                value={frequency}
+                onChange={(e) =>
+                  setFrequency(e.target.value as ReminderFrequency)
+                }
+                className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              >
+                <option value="NONE">None (Disabled)</option>
+                <option value="DAILY">Daily</option>
+                <option value="WEEKLY">Weekly</option>
+                <option value="MONTHLY">Monthly</option>
+              </select>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                {frequency === 'NONE' &&
+                  'You will not receive any journal reminders.'}
+                {frequency === 'DAILY' &&
+                  'You will receive a reminder every day.'}
+                {frequency === 'WEEKLY' &&
+                  'You will receive a reminder once a week.'}
+                {frequency === 'MONTHLY' &&
+                  'You will receive a reminder once a month.'}
+              </p>
+            </div>
+          </>
 
           {/* Form actions */}
           <div className="mt-4 flex items-center justify-between">

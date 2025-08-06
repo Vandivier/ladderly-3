@@ -23,7 +23,6 @@ const createJournalEntrySchema = z.object({
 })
 
 const updateReminderSchema = z.object({
-  isEnabled: z.boolean(),
   frequency: z.nativeEnum(ReminderFrequency),
   reminderHour: z.number().min(0).max(23).optional(),
 })
@@ -292,8 +291,7 @@ export const journalRouter = createTRPCRouter({
     // Return default settings if somehow user not found (shouldn't happen)
     if (!user) {
       return {
-        isEnabled: false,
-        frequency: ReminderFrequency.WEEKLY,
+        frequency: ReminderFrequency.NONE,
         lastReminded: null,
       }
     }
