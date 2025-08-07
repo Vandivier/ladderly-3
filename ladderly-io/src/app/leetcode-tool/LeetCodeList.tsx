@@ -56,7 +56,7 @@ function LeetCodeProblem({
 }
 
 export function LeetCodeList() {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() ?? new URLSearchParams()
   const sourceFilter = searchParams.get('source') ?? 'all'
   const statusFilter = searchParams.get('status') ?? 'all'
   const utils = api.useUtils()

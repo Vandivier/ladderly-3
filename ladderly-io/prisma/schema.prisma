@@ -36,8 +36,7 @@ model User {
   hasDeepJournalingInterest Boolean @default(false)
 
   // Journal reminder fields
-  journalReminderEnabled      Boolean           @default(false)
-  journalReminderFrequency    ReminderFrequency @default(WEEKLY)
+  journalReminderFrequency    ReminderFrequency @default(NONE)
   journalReminderLastReminded DateTime?
 
   profileBlurb                String?
@@ -202,8 +201,11 @@ model Checklist {
   id             Int             @id @default(autoincrement())
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
+  prettyRoute    String?
+  publishedAt    DateTime?
   name           String
   version        String
+  isPremium      Boolean         @default(false)
   checklistItems ChecklistItem[]
   userChecklists UserChecklist[]
 }
@@ -569,6 +571,7 @@ enum JournalEntryType {
 }
 
 enum ReminderFrequency {
+  NONE
   DAILY
   WEEKLY
   MONTHLY

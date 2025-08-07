@@ -18,7 +18,7 @@ interface JobSearchWithCount extends JobSearch {
 }
 
 export const JobSearchList = () => {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() ?? new URLSearchParams()
   const pathname = usePathname()
 
   // Check if we're on the job search list page, not a detail page
