@@ -84,14 +84,14 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 1. [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 
    1. Patterns: Array, Two Pointers, Monotonic Stack
-   2. Acknowledgement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
+   2. Key Notes:
+      1. It is important to check whether an input array is sorted.
+      2. There is an important difference between weakly and strictly changing values in an array.
    3. Related Resources: [Monotonic Functions](https://en.wikipedia.org/w/index.php?title=Monotonic_function&oldid=1178555210)
 
 2. [15. 3Sum](https://leetcode.com/problems/3sum/)
 
    1. Patterns: Array, Two Pointers
-   2. Acknowledgement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
-   3. Note: Write out each of the three solutions: Two Pointers, Hashset, and No-Sort.
 
 3. [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
@@ -105,7 +105,8 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
    1. Patterns: Linked List, Two Pointers, Fast and Slow Pointers, Recursion
 
-   2. Acknowledgement: I realize that the only way to avoid O(n) space complexity is to modify the input in place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
+   2. Key Notes:
+      1. The only way to avoid O(n) space complexity is to modify the input in place. For that reason, the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
 
 6. [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 
@@ -160,17 +161,9 @@ Here is the list of code challenges in The Ladderly Expanded Kata:
 
    1. Patterns: Array, Two Pointers, Monotonic Stack
 
-   2. Acknowledgement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
-
-   3. Related Resources: [Monotonic Functions](https://en.wikipedia.org/w/index.php?title=Monotonic_function&oldid=1178555210)
-
 2. [15. 3Sum](https://leetcode.com/problems/3sum/)
 
    1. Patterns: Array, Two Pointers
-
-   2. Acknowledgement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
-
-   3. Note: Write out each of the three solutions: Two Pointers, Hashset, and No-Sort.
 
 3. [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/description/)
 
@@ -218,10 +211,9 @@ Here is the list of code challenges in The Ladderly Expanded Kata:
 
     1. Patterns: Linked List, Fast and Slow Pointers, Recursion
 
-    2. Acknowledgement: I realize that the only way to avoid O(n) space complexity is to modify the input in-place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
-
 15. [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
-    Patterns: Linked List
+
+    1. Patterns: Linked List
 
 16. [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 
