@@ -16,6 +16,7 @@ interface LeetcodeProblem {
   href: string
   name: string
   source: string | string[]
+  patterns?: string[]
 }
 
 export const seedLeetcodeChecklist = async () => {
@@ -56,7 +57,7 @@ export const seedLeetcodeChecklist = async () => {
   ]
 
   // Find the first path that exists
-  let filePath = null
+  let filePath = null as string | null
   for (const potentialPath of possiblePaths) {
     console.log(
       `Checking if LeetCode problems file exists at: ${potentialPath}`,
@@ -94,7 +95,27 @@ export const seedLeetcodeChecklist = async () => {
   // Create a new checklist with updated version if it already exists
   const version = new Date().toISOString()
 
-  // Only create a new checklist if one doesn't exist
+  // Helper to build tags from a problem
+  const buildTags = (problem: LeetcodeProblem): string[] => {
+    const tags: string[] = []
+
+    // Sources as tags
+    const source = problem?.source ?? 'unknown'
+    if (Array.isArray(source)) {
+      tags.push(...source.map((s) => `source:${s}`))
+    } else if (source) {
+      tags.push(`source:${source}`)
+    }
+
+    // Patterns as tags
+    const patterns = problem?.patterns ?? []
+    if (Array.isArray(patterns) && patterns.length > 0) {
+      tags.push(...patterns.map((p) => `pattern:${p}`))
+    }
+
+    return Array.from(new Set(tags))
+  }
+
   if (!existingChecklist) {
     console.log(
       'No existing LeetCode Problems checklist found. Creating new one...',
@@ -116,16 +137,9 @@ export const seedLeetcodeChecklist = async () => {
     let createdCount = 0
 
     for (let i = 0; i < problems.length; i++) {
-      const problem = problems[i]
+      const problem = problems[i]!
       try {
-        // Extract the source from the problem and format as a tag
-        const source = problem?.source ?? 'unknown'
-        const sourceTags = []
-        if (Array.isArray(source)) {
-          sourceTags.push(...source.map((s) => `source:${s}`))
-        } else if (source) {
-          sourceTags.push(`source:${source}`)
-        }
+        const tags = buildTags(problem)
 
         await db.checklistItem.create({
           data: {
@@ -133,7 +147,7 @@ export const seedLeetcodeChecklist = async () => {
             displayText: problem?.name ?? 'Unknown Problem Name',
             linkUri: problem?.href,
             linkText: 'Solve on LeetCode',
-            tags: sourceTags,
+            tags,
             isRequired: false,
             checklistId: checklist.id,
           },
@@ -161,7 +175,47 @@ export const seedLeetcodeChecklist = async () => {
       `Existing LeetCode Problems checklist found with ID ${existingChecklist.id} and version ${existingChecklist.version}`,
     )
     console.log(
-      'Skipping creation of new checklist. To update, manually delete the existing checklist first.',
+      'Updating existing items with pattern/source tags (idempotent)...',
+    )
+
+    // Fetch items for this checklist once to avoid repeated queries
+    const items = await db.checklistItem.findMany({
+      where: { checklistId: existingChecklist.id },
+      select: { id: true, displayText: true, tags: true },
+    })
+
+    const nameToItem = new Map(items.map((it) => [it.displayText, it]))
+
+    let updated = 0
+    let skipped = 0
+    for (const problem of problems) {
+      const match = nameToItem.get(problem.name)
+      if (!match) {
+        skipped++
+        continue
+      }
+
+      const newTags = buildTags(problem)
+      const merged = Array.from(new Set([...(match.tags ?? []), ...newTags]))
+
+      // Only update if there's a difference
+      const isSame =
+        merged.length === (match.tags ?? []).length &&
+        merged.every((t) => (match.tags ?? []).includes(t))
+      if (isSame) {
+        skipped++
+        continue
+      }
+
+      await db.checklistItem.update({
+        where: { id: match.id },
+        data: { tags: merged },
+      })
+      updated++
+    }
+
+    console.log(
+      `Updated ${updated} items; skipped ${skipped} items (no change).`,
     )
   }
 
