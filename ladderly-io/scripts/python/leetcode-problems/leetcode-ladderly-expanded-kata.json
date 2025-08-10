@@ -1,147 +1,168 @@
 [
   {
     "order_id": 1,
-    "href": "https://leetcode.com/problems/find-peak-element/",
-    "name": "162. Find Peak Element"
-  },
-  {
-    "order_id": 2,
     "href": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
     "name": "167. Two Sum II - Input Array Is Sorted",
     "patterns": ["Array", "Two Pointers", "Monotonic Stack"]
   },
   {
-    "order_id": 3,
+    "order_id": 2,
     "href": "https://leetcode.com/problems/3sum/",
-    "name": "15. 3Sum"
+    "name": "15. 3Sum",
+    "patterns": ["Array", "Two Pointers"]
+  },
+  {
+    "order_id": 3,
+    "href": "https://leetcode.com/problems/find-peak-element",
+    "name": "162. Find Peak Element",
+    "patterns": ["Array", "Binary Search"]
   },
   {
     "order_id": 4,
-    "href": "https://leetcode.com/problems/3sum-closest/description/",
-    "name": "16. 3Sum Closest"
+    "href": "https://leetcode.com/problems/word-search/",
+    "name": "79. Word Search",
+    "patterns": ["Array", "Backtracking", "Matrix", "String"]
   },
   {
     "order_id": 5,
-    "href": "https://leetcode.com/problems/max-consecutive-ones-iii/",
-    "name": "1004. Max Consecutive Ones III"
+    "href": "https://leetcode.com/problems/word-search-ii/",
+    "name": "212. Word Search II",
+    "patterns": ["Array", "DFS", "Matrix", "String", "Trie"]
   },
   {
     "order_id": 6,
-    "href": "https://leetcode.com/problems/word-search/",
-    "name": "79. Word Search"
+    "href": "https://leetcode.com/problems/climbing-stairs/",
+    "name": "70. Climbing Stairs",
+    "patterns": ["Math", "Dynamic Programming"]
   },
   {
     "order_id": 7,
-    "href": "https://leetcode.com/problems/word-search-ii/",
-    "name": "212. Word Search II"
+    "href": "https://leetcode.com/problems/powx-n/",
+    "name": "50. Pow(x, n)",
+    "patterns": ["Math"]
   },
   {
     "order_id": 8,
-    "href": "https://leetcode.com/problems/climbing-stairs/",
-    "name": "70. Climbing Stairs"
+    "href": "https://leetcode.com/problems/roman-to-integer/",
+    "name": "13. Roman to Integer",
+    "patterns": ["Math", "String", "Hash Table"]
   },
   {
     "order_id": 9,
-    "href": "https://leetcode.com/problems/powx-n/",
-    "name": "50. Pow(x, n)"
+    "href": "https://leetcode.com/problems/integer-to-english-words",
+    "name": "273. Integer to English Words",
+    "patterns": ["Math", "String", "Recursion"]
   },
   {
     "order_id": 10,
-    "href": "https://leetcode.com/problems/roman-to-integer/",
-    "name": "13. Roman to Integer"
+    "href": "https://leetcode.com/problems/max-consecutive-ones-iii/",
+    "name": "1004. Max Consecutive Ones III",
+    "patterns": ["Array", "Sliding Window"]
   },
   {
     "order_id": 11,
-    "href": "https://leetcode.com/problems/integer-to-english-words",
-    "name": "273. Integer to English Words"
+    "href": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+    "name": "3. Longest Substring Without Repeating Characters",
+    "patterns": ["String", "Sliding Window"]
   },
   {
     "order_id": 12,
-    "href": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
-    "name": "3. Longest Substring Without Repeating Characters"
+    "href": "https://leetcode.com/problems/spiral-matrix",
+    "name": "54. Spiral Matrix",
+    "patterns": ["Array", "Matrix"]
   },
   {
     "order_id": 13,
-    "href": "https://leetcode.com/problems/spiral-matrix",
-    "name": "54. Spiral Matrix"
+    "href": "https://leetcode.com/problems/linked-list-cycle/",
+    "name": "141. Linked List Cycle",
+    "patterns": ["Linked List"]
   },
   {
     "order_id": 14,
-    "href": "https://leetcode.com/problems/linked-list-cycle/",
-    "name": "141. Linked List Cycle"
+    "href": "https://leetcode.com/problems/palindrome-linked-list/description/",
+    "name": "234. Palindrome Linked List",
+    "patterns": ["Linked List", "Fast and Slow Pointers", "Recursion"]
   },
   {
     "order_id": 15,
-    "href": "https://leetcode.com/problems/palindrome-linked-list/description/",
-    "name": "234. Palindrome Linked List"
+    "href": "https://leetcode.com/problems/lru-cache/",
+    "name": "146. LRU Cache",
+    "patterns": ["Linked List"]
   },
   {
     "order_id": 16,
-    "href": "https://leetcode.com/problems/lru-cache/",
-    "name": "146. LRU Cache"
+    "href": "https://leetcode.com/problems/clone-graph/",
+    "name": "133. Clone Graph",
+    "patterns": ["BFS", "DFS", "Graphs"]
   },
   {
     "order_id": 17,
-    "href": "https://leetcode.com/problems/clone-graph/",
-    "name": "133. Clone Graph"
+    "href": "https://leetcode.com/problems/course-schedule/",
+    "name": "207. Course Schedule",
+    "patterns": ["BFS", "DFS", "Graphs", "Topological Sort"]
   },
   {
     "order_id": 18,
-    "href": "https://leetcode.com/problems/course-schedule/",
-    "name": "207. Course Schedule"
-  },
-  {
-    "order_id": 19,
     "href": "https://leetcode.com/problems/course-schedule-ii/",
     "name": "210. Course Schedule II"
   },
   {
-    "order_id": 20,
+    "order_id": 19,
     "href": "https://leetcode.com/problems/course-schedule-iii/editorial/",
-    "name": "630. Course Schedule III"
+    "name": "630. Course Schedule III",
+    "patterns": [
+      "Array",
+      "Greedy",
+      "Heap / Priority Queue",
+      "Memoization",
+      "Recursion"
+    ]
+  },
+  {
+    "order_id": 20,
+    "href": "https://leetcode.com/problems/path-sum/",
+    "name": "112. Path Sum",
+    "patterns": ["Tree Algorithms", "DFS", "BFS"]
   },
   {
     "order_id": 21,
-    "href": "https://leetcode.com/problems/path-sum/",
-    "name": "112. Path Sum"
+    "href": "https://leetcode.com/problems/path-sum-ii/",
+    "name": "113. Path Sum II",
+    "patterns": ["Tree Algorithms", "DFS", "Recursion"]
   },
   {
     "order_id": 22,
-    "href": "https://leetcode.com/problems/path-sum-ii/",
-    "name": "113. Path Sum II"
+    "href": "https://leetcode.com/problems/path-sum-iii/",
+    "name": "437. Path Sum III",
+    "patterns": ["Tree Algorithms", "DFS", "Prefix Sum"]
   },
   {
     "order_id": 23,
-    "href": "https://leetcode.com/problems/path-sum-iii/",
-    "name": "437. Path Sum III"
-  },
-  {
-    "order_id": 24,
     "href": "https://leetcode.com/problems/balanced-binary-tree/",
     "name": "110. Balanced Binary Tree"
   },
   {
-    "order_id": 25,
+    "order_id": 24,
     "href": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
     "name": "102. Binary Tree Level Order Traversal"
   },
   {
-    "order_id": 26,
+    "order_id": 25,
     "href": "https://leetcode.com/problems/combination-sum/",
     "name": "39. Combination Sum"
   },
   {
-    "order_id": 27,
+    "order_id": 26,
     "href": "https://leetcode.com/problems/n-queens/",
     "name": "51. N-Queens"
   },
   {
-    "order_id": 28,
+    "order_id": 27,
     "href": "https://leetcode.com/problems/sudoku-solver/",
     "name": "37. Sudoku Solver"
   },
   {
-    "order_id": 29,
+    "order_id": 28,
     "href": "https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/",
     "name": "340. Longest Substring with At Most K Distinct Characters"
   }
