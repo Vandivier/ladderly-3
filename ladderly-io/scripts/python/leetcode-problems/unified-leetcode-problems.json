@@ -11,7 +11,7 @@
   },
   {
     "href": "https://leetcode.com/problems/3sum-closest",
-    "name": "3Sum Closest",
+    "name": "16. 3Sum Closest",
     "source": "grind-75"
   },
   {
@@ -20,7 +20,7 @@
     "source": "sean-prashad-patterns"
   },
   {
-    "href": "https://leetcode.com/problems/3sum-closest/description/",
+    "href": "https://leetcode.com/problems/3sum-closest",
     "name": "16. 3Sum Closest",
     "source": "ladderly-expanded-kata"
   },
@@ -1636,11 +1636,11 @@
   },
   {
     "href": "https://leetcode.com/problems/palindrome-linked-list/",
-    "name": "Palindrome Linked List",
+    "name": "234. Palindrome Linked List",
     "source": "sean-prashad-patterns"
   },
   {
-    "href": "https://leetcode.com/problems/palindrome-linked-list/description/",
+    "href": "https://leetcode.com/problems/palindrome-linked-list",
     "name": "234. Palindrome Linked List",
     "source": "ladderly-expanded-kata"
   },

@@ -79,7 +79,7 @@
   },
   {
     "order_id": 14,
-    "href": "https://leetcode.com/problems/palindrome-linked-list/description/",
+    "href": "https://leetcode.com/problems/palindrome-linked-list",
     "name": "234. Palindrome Linked List",
     "patterns": ["Linked List", "Fast and Slow Pointers", "Recursion"]
   },
