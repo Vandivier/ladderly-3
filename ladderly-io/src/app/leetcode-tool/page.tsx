@@ -30,7 +30,9 @@ export default function LeetCodeToolPage() {
         </p>
 
         <div className="mb-6">
-          <h2 className="mb-2 text-lg font-semibold">Filter Problems</h2>
+          <h2 className="mb-2 text-lg font-semibold">
+            Search and Filter Problems
+          </h2>
           <div className="flex flex-col space-y-4 md:flex-row md:flex-wrap md:items-center md:gap-4 md:space-y-0">
             <SearchControl />
             <PatternNameFilter />

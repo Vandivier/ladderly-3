@@ -48,17 +48,26 @@ export function PatternNameFilter() {
   )
 
   return (
-    <select
-      value={current}
-      onChange={onChange}
-      className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 md:w-64"
-      aria-label="Filter by pattern"
-    >
-      {patterns.map((p) => (
-        <option key={p} value={p}>
-          {p}
-        </option>
-      ))}
-    </select>
+    <div className="flex w-full flex-col space-y-2 md:w-64">
+      <label
+        htmlFor="pattern-filter"
+        className="text-sm font-medium text-gray-700"
+      >
+        Filter by Pattern
+      </label>
+      <select
+        id="pattern-filter"
+        value={current}
+        onChange={onChange}
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+        aria-label="Filter by pattern"
+      >
+        {patterns.map((p) => (
+          <option key={p} value={p}>
+            {p}
+          </option>
+        ))}
+      </select>
+    </div>
   )
 }

@@ -58,20 +58,6 @@ export function LeetCodeFilterControl() {
           ))}
         </select>
       </div>
-
-      {sourceFilter !== 'all' && (
-        <button
-          className="rounded-md border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50"
-          onClick={() => {
-            setSourceFilter('all')
-            const params = new URLSearchParams(searchParams.toString())
-            params.delete('source')
-            router.push(`/leetcode-tool?${params.toString()}`)
-          }}
-        >
-          Clear Filter
-        </button>
-      )}
     </div>
   )
 }
