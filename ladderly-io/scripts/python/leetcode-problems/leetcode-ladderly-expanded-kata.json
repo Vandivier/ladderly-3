@@ -1,104 +1,147 @@
 [
   {
-    "href": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
-    "name": "167. Two Sum II - Input Array Is Sorted"
+    "order_id": 1,
+    "href": "https://leetcode.com/problems/find-peak-element/",
+    "name": "162. Find Peak Element"
   },
-  { "href": "https://leetcode.com/problems/3sum/", "name": "15. 3Sum" },
   {
+    "order_id": 2,
+    "href": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+    "name": "167. Two Sum II - Input Array Is Sorted",
+    "patterns": ["Array", "Two Pointers", "Monotonic Stack"]
+  },
+  {
+    "order_id": 3,
+    "href": "https://leetcode.com/problems/3sum/",
+    "name": "15. 3Sum"
+  },
+  {
+    "order_id": 4,
     "href": "https://leetcode.com/problems/3sum-closest/description/",
     "name": "16. 3Sum Closest"
   },
   {
+    "order_id": 5,
     "href": "https://leetcode.com/problems/max-consecutive-ones-iii/",
     "name": "1004. Max Consecutive Ones III"
   },
   {
+    "order_id": 6,
     "href": "https://leetcode.com/problems/word-search/",
     "name": "79. Word Search"
   },
   {
+    "order_id": 7,
     "href": "https://leetcode.com/problems/word-search-ii/",
     "name": "212. Word Search II"
   },
   {
+    "order_id": 8,
     "href": "https://leetcode.com/problems/climbing-stairs/",
     "name": "70. Climbing Stairs"
   },
-  { "href": "https://leetcode.com/problems/powx-n/", "name": "50. Pow(x, n)" },
   {
+    "order_id": 9,
+    "href": "https://leetcode.com/problems/powx-n/",
+    "name": "50. Pow(x, n)"
+  },
+  {
+    "order_id": 10,
     "href": "https://leetcode.com/problems/roman-to-integer/",
     "name": "13. Roman to Integer"
   },
   {
+    "order_id": 11,
     "href": "https://leetcode.com/problems/integer-to-english-words",
     "name": "273. Integer to English Words"
   },
   {
+    "order_id": 12,
     "href": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
     "name": "3. Longest Substring Without Repeating Characters"
   },
   {
+    "order_id": 13,
     "href": "https://leetcode.com/problems/spiral-matrix",
     "name": "54. Spiral Matrix"
   },
   {
+    "order_id": 14,
     "href": "https://leetcode.com/problems/linked-list-cycle/",
     "name": "141. Linked List Cycle"
   },
   {
+    "order_id": 15,
     "href": "https://leetcode.com/problems/palindrome-linked-list/description/",
     "name": "234. Palindrome Linked List"
   },
   {
+    "order_id": 16,
     "href": "https://leetcode.com/problems/lru-cache/",
     "name": "146. LRU Cache"
   },
   {
+    "order_id": 17,
     "href": "https://leetcode.com/problems/clone-graph/",
     "name": "133. Clone Graph"
   },
   {
+    "order_id": 18,
     "href": "https://leetcode.com/problems/course-schedule/",
     "name": "207. Course Schedule"
   },
   {
+    "order_id": 19,
     "href": "https://leetcode.com/problems/course-schedule-ii/",
     "name": "210. Course Schedule II"
   },
   {
+    "order_id": 20,
     "href": "https://leetcode.com/problems/course-schedule-iii/editorial/",
     "name": "630. Course Schedule III"
   },
   {
+    "order_id": 21,
     "href": "https://leetcode.com/problems/path-sum/",
     "name": "112. Path Sum"
   },
   {
+    "order_id": 22,
     "href": "https://leetcode.com/problems/path-sum-ii/",
     "name": "113. Path Sum II"
   },
   {
+    "order_id": 23,
     "href": "https://leetcode.com/problems/path-sum-iii/",
     "name": "437. Path Sum III"
   },
   {
+    "order_id": 24,
     "href": "https://leetcode.com/problems/balanced-binary-tree/",
     "name": "110. Balanced Binary Tree"
   },
   {
+    "order_id": 25,
     "href": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
     "name": "102. Binary Tree Level Order Traversal"
   },
   {
+    "order_id": 26,
     "href": "https://leetcode.com/problems/combination-sum/",
     "name": "39. Combination Sum"
   },
-  { "href": "https://leetcode.com/problems/n-queens/", "name": "51. N-Queens" },
   {
+    "order_id": 27,
+    "href": "https://leetcode.com/problems/n-queens/",
+    "name": "51. N-Queens"
+  },
+  {
+    "order_id": 28,
     "href": "https://leetcode.com/problems/sudoku-solver/",
     "name": "37. Sudoku Solver"
   },
   {
+    "order_id": 29,
     "href": "https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/",
     "name": "340. Longest Substring with At Most K Distinct Characters"
   }
