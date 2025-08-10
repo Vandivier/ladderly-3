@@ -67,6 +67,7 @@ export function LeetCodeList() {
   const sourceFilter = searchParams.get('source') ?? 'all'
   const statusFilter = searchParams.get('status') ?? 'all'
   const searchQuery = searchParams.get('search') ?? ''
+  const patternFilter = searchParams.get('pattern') ?? 'All Patterns'
   const utils = api.useUtils()
 
   // Pagination state
@@ -113,6 +114,14 @@ export function LeetCodeList() {
       item.checklistItem.displayText
         .toLowerCase()
         .includes(searchQuery.toLowerCase()),
+    )
+  }
+
+  // Filter by pattern tag if selected
+  if (patternFilter && patternFilter !== 'All Patterns') {
+    const requiredTag = `pattern:${patternFilter}`
+    filteredItems = filteredItems.filter((item) =>
+      item.checklistItem.tags.includes(requiredTag),
     )
   }
 
