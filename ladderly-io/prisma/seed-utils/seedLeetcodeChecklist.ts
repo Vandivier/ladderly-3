@@ -82,17 +82,48 @@ export const seedLeetcodeChecklist = async () => {
   const problems: LeetcodeProblem[] = JSON.parse(fileContents)
   console.log(`Found ${problems.length} LeetCode problems in the JSON file`)
 
-  // Check if a LeetCode Problems checklist already exists
-  const existingChecklist = await db.checklist.findFirst({
-    where: {
-      name: 'LeetCode Problems',
-    },
-    orderBy: {
-      version: 'desc',
-    },
+  // Ensure idempotency: remove ALL existing checklists named "LeetCode Problems"
+  const existing = await db.checklist.findMany({
+    where: { name: 'LeetCode Problems' },
+    select: { id: true },
   })
 
-  // Create a new checklist with updated version if it already exists
+  if (existing.length > 0) {
+    const checklistIds = existing.map((c) => c.id)
+    console.log(
+      `Found ${existing.length} existing 'LeetCode Problems' checklist(s). Deleting related data...`,
+    )
+
+    // Gather userChecklist ids for these checklists
+    const userChecklists = await db.userChecklist.findMany({
+      where: { checklistId: { in: checklistIds } },
+      select: { id: true },
+    })
+    const userChecklistIds = userChecklists.map((uc) => uc.id)
+
+    await db.$transaction([
+      // Delete user checklist items for those user checklists
+      db.userChecklistItem.deleteMany({
+        where: userChecklistIds.length
+          ? { userChecklistId: { in: userChecklistIds } }
+          : { id: { in: [] } },
+      }),
+      // Delete user checklists referencing these checklists
+      db.userChecklist.deleteMany({
+        where: { checklistId: { in: checklistIds } },
+      }),
+      // Delete checklist items for these checklists
+      db.checklistItem.deleteMany({
+        where: { checklistId: { in: checklistIds } },
+      }),
+      // Finally delete the checklists themselves
+      db.checklist.deleteMany({ where: { id: { in: checklistIds } } }),
+    ])
+
+    console.log('Deleted existing LeetCode checklists and related records.')
+  }
+
+  // Create a new checklist with current content
   const version = new Date().toISOString()
 
   // Helper to build tags from a problem
@@ -116,108 +147,51 @@ export const seedLeetcodeChecklist = async () => {
     return Array.from(new Set(tags))
   }
 
-  if (!existingChecklist) {
-    console.log(
-      'No existing LeetCode Problems checklist found. Creating new one...',
-    )
+  console.log('Creating fresh LeetCode Problems checklist...')
+  const checklist = await db.checklist.create({
+    data: {
+      name: 'LeetCode Problems',
+      version,
+    },
+  })
 
-    // Create a new checklist for LeetCode Problems
-    const checklist = await db.checklist.create({
-      data: {
-        name: 'LeetCode Problems',
-        version,
-      },
-    })
+  // Create checklist items for each problem
+  let createdCount = 0
 
-    console.log(
-      `Created Checklist with ID ${checklist.id} and version ${version}`,
-    )
+  for (let i = 0; i < problems.length; i++) {
+    const problem = problems[i]!
+    try {
+      const tags = buildTags(problem)
 
-    // Create checklist items for each problem
-    let createdCount = 0
+      await db.checklistItem.create({
+        data: {
+          displayIndex: i + 1,
+          displayText: problem?.name ?? 'Unknown Problem Name',
+          linkUri: problem?.href,
+          linkText: 'Solve on LeetCode',
+          tags,
+          isRequired: false,
+          checklistId: checklist.id,
+        },
+      })
 
-    for (let i = 0; i < problems.length; i++) {
-      const problem = problems[i]!
-      try {
-        const tags = buildTags(problem)
-
-        await db.checklistItem.create({
-          data: {
-            displayIndex: i + 1,
-            displayText: problem?.name ?? 'Unknown Problem Name',
-            linkUri: problem?.href,
-            linkText: 'Solve on LeetCode',
-            tags,
-            isRequired: false,
-            checklistId: checklist.id,
-          },
-        })
-
-        createdCount++
-        if (createdCount % 100 === 0 || i === problems.length - 1) {
-          console.log(
-            `Created ${createdCount} of ${problems.length} checklist items...`,
-          )
-        }
-      } catch (itemError) {
-        console.error(
-          `Error creating checklist item for ${problem?.name}:`,
-          itemError,
+      createdCount++
+      if (createdCount % 100 === 0 || i === problems.length - 1) {
+        console.log(
+          `Created ${createdCount} of ${problems.length} checklist items...`,
         )
       }
+    } catch (itemError) {
+      console.error(
+        `Error creating checklist item for ${problem?.name}:`,
+        itemError,
+      )
     }
-
-    console.log(
-      `Migrated ${createdCount} of ${problems.length} LeetCode problems to ChecklistItems`,
-    )
-  } else {
-    console.log(
-      `Existing LeetCode Problems checklist found with ID ${existingChecklist.id} and version ${existingChecklist.version}`,
-    )
-    console.log(
-      'Updating existing items with pattern/source tags (idempotent)...',
-    )
-
-    // Fetch items for this checklist once to avoid repeated queries
-    const items = await db.checklistItem.findMany({
-      where: { checklistId: existingChecklist.id },
-      select: { id: true, displayText: true, tags: true },
-    })
-
-    const nameToItem = new Map(items.map((it) => [it.displayText, it]))
-
-    let updated = 0
-    let skipped = 0
-    for (const problem of problems) {
-      const match = nameToItem.get(problem.name)
-      if (!match) {
-        skipped++
-        continue
-      }
-
-      const newTags = buildTags(problem)
-      const merged = Array.from(new Set([...(match.tags ?? []), ...newTags]))
-
-      // Only update if there's a difference
-      const isSame =
-        merged.length === (match.tags ?? []).length &&
-        merged.every((t) => (match.tags ?? []).includes(t))
-      if (isSame) {
-        skipped++
-        continue
-      }
-
-      await db.checklistItem.update({
-        where: { id: match.id },
-        data: { tags: merged },
-      })
-      updated++
-    }
-
-    console.log(
-      `Updated ${updated} items; skipped ${skipped} items (no change).`,
-    )
   }
+
+  console.log(
+    `Migrated ${createdCount} of ${problems.length} LeetCode problems to ChecklistItems`,
+  )
 
   console.log('LeetCode checklist seeding completed successfully')
 }
