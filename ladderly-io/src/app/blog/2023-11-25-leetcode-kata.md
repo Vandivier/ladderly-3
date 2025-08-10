@@ -165,35 +165,37 @@ Here is the list of code challenges in The Ladderly Expanded Kata:
 
    1. Patterns: Array, Two Pointers
 
-3. [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/description/)
+3. [162. Find Peak Element](https://leetcode.com/problems/find-peak-element)
 
-   1. Patterns: Array, Two Pointers, Binary Search
+   1. Patterns: Array, Binary Search
 
-4. [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
-
-5. [79. Word Search](https://leetcode.com/problems/word-search/)
+4. [79. Word Search](https://leetcode.com/problems/word-search/)
 
    1. Patterns: Array, Backtracking, Matrix, String
 
-6. [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
+5. [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
 
    1. Patterns: Array, DFS, Matrix, String, Trie
 
-7. [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+6. [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
 
    1. Patterns: Math, Dynamic Programming
 
-8. [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
+7. [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
 
    1. Patterns: Math
 
-9. [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
+8. [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
 
    1. Patterns: Math, String, Hash Table
 
-10. [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words)
+9. [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words)
 
-    1. Patterns: Math, String, Recursion
+   1. Patterns: Math, String, Recursion
+
+10. [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
+
+    1. Patterns: Array, Sliding Window
 
 11. [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
