@@ -17,6 +17,7 @@ interface LeetcodeProblem {
   name: string
   source: string | string[]
   patterns?: string[]
+  difficulty?: string
 }
 
 export const seedLeetcodeChecklist = async () => {
@@ -145,6 +146,12 @@ export const seedLeetcodeChecklist = async () => {
     const patterns = problem?.patterns ?? []
     if (Array.isArray(patterns) && patterns.length > 0) {
       tags.push(...patterns.map((p) => `pattern:${p}`))
+    }
+
+    // Difficulty as a tag (e.g., difficulty:Easy|Medium|Hard)
+    const difficulty = problem?.difficulty
+    if (typeof difficulty === 'string' && difficulty.trim().length > 0) {
+      tags.push(`difficulty:${difficulty.trim()}`)
     }
 
     return Array.from(new Set(tags))

@@ -68,6 +68,7 @@ export function LeetCodeList() {
   const statusFilter = searchParams.get('status') ?? 'all'
   const searchQuery = searchParams.get('search') ?? ''
   const patternFilter = searchParams.get('pattern') ?? 'All Patterns'
+  const difficultyFilter = searchParams.get('difficulty') ?? 'All Difficulties'
   const utils = api.useUtils()
 
   // Pagination state
@@ -122,6 +123,14 @@ export function LeetCodeList() {
     const requiredTag = `pattern:${patternFilter}`
     filteredItems = filteredItems.filter((item) =>
       item.checklistItem.tags.includes(requiredTag),
+    )
+  }
+
+  // Filter by difficulty tag if selected
+  if (difficultyFilter && difficultyFilter !== 'All Difficulties') {
+    const requiredDifficultyTag = `difficulty:${difficultyFilter}`
+    filteredItems = filteredItems.filter((item) =>
+      item.checklistItem.tags.includes(requiredDifficultyTag),
     )
   }
 
