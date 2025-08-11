@@ -35,7 +35,14 @@ function LeetCodeProblem({
             onChange={() => onToggle(id, !isComplete)}
             className="mr-3 size-4 rounded border-gray-300"
           />
-          {displayText}
+          <a
+            href={linkUri}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
+          >
+            {displayText}
+          </a>
         </div>
       </td>
       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
@@ -59,6 +66,8 @@ export function LeetCodeList() {
   const searchParams = useSearchParams() ?? new URLSearchParams()
   const sourceFilter = searchParams.get('source') ?? 'all'
   const statusFilter = searchParams.get('status') ?? 'all'
+  const searchQuery = searchParams.get('search') ?? ''
+  const patternFilter = searchParams.get('pattern') ?? 'All Patterns'
   const utils = api.useUtils()
 
   // Pagination state
@@ -99,16 +108,30 @@ export function LeetCodeList() {
   // Apply source and completion status filters
   let filteredItems = userChecklistItems
 
+  // Filter by search query
+  if (searchQuery) {
+    filteredItems = filteredItems.filter((item) =>
+      item.checklistItem.displayText
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()),
+    )
+  }
+
+  // Filter by pattern tag if selected
+  if (patternFilter && patternFilter !== 'All Patterns') {
+    const requiredTag = `pattern:${patternFilter}`
+    filteredItems = filteredItems.filter((item) =>
+      item.checklistItem.tags.includes(requiredTag),
+    )
+  }
+
   // First filter by source if needed
   if (sourceFilter !== 'all') {
     filteredItems = filteredItems.filter((item) => {
       const sourceTags = item.checklistItem.tags.filter((tag) =>
         tag.startsWith('source:'),
       )
-      return (
-        sourceTags.includes(`source:${sourceFilter}`) ||
-        sourceTags.includes('source:multiple')
-      )
+      return sourceTags.includes(`source:${sourceFilter}`)
     })
   }
 

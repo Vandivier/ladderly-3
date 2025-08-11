@@ -5,6 +5,8 @@ import { LeetCodeList } from './LeetCodeList'
 import { LeetCodeFilterControl } from './LeetCodeFilterControl'
 import { CompletionStatusFilter } from './CompletionStatusFilter'
 import { RandomProblemRecommendation } from './RandomProblemRecommendation'
+import { SearchControl } from './SearchControl'
+import { PatternNameFilter } from './PatternNameFilter'
 
 export const metadata = {
   title: 'LeetCode Tool',
@@ -28,8 +30,12 @@ export default function LeetCodeToolPage() {
         </p>
 
         <div className="mb-6">
-          <h2 className="mb-2 text-lg font-semibold">Filter Problems</h2>
-          <div className="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
+          <h2 className="mb-2 text-lg font-semibold">
+            Search and Filter Problems
+          </h2>
+          <div className="flex flex-col space-y-4 md:flex-row md:flex-wrap md:items-center md:gap-4 md:space-y-0">
+            <SearchControl />
+            <PatternNameFilter />
             <LeetCodeFilterControl />
             <CompletionStatusFilter />
           </div>

@@ -144,16 +144,10 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
 ## The Ladderly Expanded Kata
 
-The Ladderly Expanded Kata is a list of 20 challenges that are a superset of the standard kata.
-The additional challenges cover a broader set of patterns and techniques, such as the prefix sum and priority queue, while also improving reinforcement for minimally covered patterns.
+The Ladderly Expanded Kata is a list of 28 problems and it is a superset of the standard kata.
+It is 28 problems in size, which is exactly twice as long as the standard kata, while still much smaller than other problem sets conventionally used for introductory leetcode study.
 
-This expanded kata will frequently take an hour for even experienced leetcoders. If you find the expanded kata to be exhausting, consider running this kata the day or weekend before interviews and only doing the standard kata on interview day.
-
-The 20 challenges are intentionally divided into three groups, so you have the option to tackle one group at a time:
-
-1. Group 1, 8 Problems, Covers String and Array Manipulation
-2. Group 2, 8 Problems, Covers Linked Lists and Graphs
-3. Group 3, 4 Problems, Covers Tree Algorithms and Topological Sort
+These additional challenges cover a broader set of patterns and techniques, such as the prefix sum and priority queue, while also improving reinforcement for minimally covered patterns.
 
 Here is the list of code challenges in The Ladderly Expanded Kata:
 

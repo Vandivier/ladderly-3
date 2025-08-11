@@ -1,19 +1,23 @@
-import { Checklist } from '@prisma/client'
+// This file, via t3-app expects you to have ladderly-io/.env, not .env.local or other names.
+
 import * as fs from 'fs'
 import * as path from 'path'
+import { fileURLToPath } from 'url'
+
+import { Checklist } from '@prisma/client'
 import { db } from '../src/server/db'
 
 import { seedLeetcodeChecklist } from './seed-utils/seedLeetcodeChecklist'
-import { seedVotables } from './seed-utils/seedVotables'
 import { seedPractices } from './seed-utils/seedPractices'
+import { seedVotables } from './seed-utils/seedVotables'
 import {
   ChecklistSeedDataType,
   ChecklistsSchema,
   updateChecklistsInPlace,
 } from './seed-utils/updateChecklists'
 
-// Use __dirname directly since this is CommonJS
-const __dirname = process.cwd() + '/prisma'
+const thisFile = fileURLToPath(import.meta.url)
+const PRISMA_DIR = path.dirname(thisFile)
 
 const createNewChecklist = async (
   checklistData: ChecklistSeedDataType,
@@ -81,11 +85,11 @@ const seed = async () => {
   )
 
   for (const file of files) {
-    const filePath = path.resolve(__dirname, './seeds', file)
+    const filePath = path.resolve(PRISMA_DIR, './seeds', file)
 
     if (!fs.existsSync(filePath)) {
       console.warn(
-        `File ${filePath} does not exist." + "\nContinuing to seed...`,
+        `File ${filePath} does not exist.` + '\nContinuing to seed...',
       )
       continue
     }
