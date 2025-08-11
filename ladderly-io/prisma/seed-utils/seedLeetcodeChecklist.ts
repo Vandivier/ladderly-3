@@ -225,5 +225,25 @@ export const seedLeetcodeChecklist = async () => {
     )
   }
 
+  // Additional validation: Grind 75 should have exactly 169 problems
+  const GRIND_TAG = 'source:grind-75'
+  const expectedGrindCount = 169
+  const actualGrindCount = await db.checklistItem.count({
+    where: {
+      checklistId: checklist.id,
+      tags: { has: GRIND_TAG },
+    },
+  })
+  if (actualGrindCount !== expectedGrindCount) {
+    console.error(
+      `Validation failed: expected ${expectedGrindCount} Grind 75 problems, found ${actualGrindCount}.`,
+    )
+    throw new Error('LeetCode seed validation failed: Grind 75 count mismatch')
+  } else {
+    console.log(
+      `Validation passed: found ${actualGrindCount} Grind 75 problems.`,
+    )
+  }
+
   console.log('LeetCode checklist seeding completed successfully')
 }
