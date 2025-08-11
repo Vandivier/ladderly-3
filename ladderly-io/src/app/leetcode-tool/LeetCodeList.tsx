@@ -131,10 +131,7 @@ export function LeetCodeList() {
       const sourceTags = item.checklistItem.tags.filter((tag) =>
         tag.startsWith('source:'),
       )
-      return (
-        sourceTags.includes(`source:${sourceFilter}`) ||
-        sourceTags.includes('source:multiple')
-      )
+      return sourceTags.includes(`source:${sourceFilter}`)
     })
   }
 

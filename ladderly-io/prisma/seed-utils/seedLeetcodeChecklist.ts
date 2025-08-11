@@ -134,6 +134,9 @@ export const seedLeetcodeChecklist = async () => {
     const source = problem?.source ?? 'unknown'
     if (Array.isArray(source)) {
       tags.push(...source.map((s) => `source:${s}`))
+      if (source.length > 1 && !source.includes('multiple')) {
+        tags.push('source:multiple')
+      }
     } else if (source) {
       tags.push(`source:${source}`)
     }
@@ -192,6 +195,28 @@ export const seedLeetcodeChecklist = async () => {
   console.log(
     `Migrated ${createdCount} of ${problems.length} LeetCode problems to ChecklistItems`,
   )
+
+  // Post-seed validation: Ladderly Expanded Kata should have exactly 28 problems
+  const KATA_TAG = 'source:ladderly-expanded-kata'
+  const expectedKataCount = 28
+  const actualKataCount = await db.checklistItem.count({
+    where: {
+      checklistId: checklist.id,
+      tags: { has: KATA_TAG },
+    },
+  })
+  if (actualKataCount !== expectedKataCount) {
+    console.error(
+      `Validation failed: expected ${expectedKataCount} Ladderly Expanded Kata problems, found ${actualKataCount}.`,
+    )
+    throw new Error(
+      'LeetCode seed validation failed: Ladderly Expanded Kata count mismatch',
+    )
+  } else {
+    console.log(
+      `Validation passed: found ${actualKataCount} Ladderly Expanded Kata problems.`,
+    )
+  }
 
   console.log('LeetCode checklist seeding completed successfully')
 }

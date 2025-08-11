@@ -68,9 +68,16 @@ def main():
             # If href already exists in merged_problems
             if href_key in merged_problems:
                 existing_problem = merged_problems[href_key]
-                # If source is not already "multiple", set it to "multiple"
-                if existing_problem["source"] != "multiple":
-                    existing_problem["source"] = "multiple"
+
+                # Merge sources — keep list of specific sources and add 'multiple' when applicable
+                existing_sources = existing_problem.get("source", [])
+                if isinstance(existing_sources, str):
+                    existing_sources = [existing_sources]
+                new_sources = set(existing_sources)
+                new_sources.add(source_name)
+                if len(new_sources) > 1:
+                    new_sources.add("multiple")
+                existing_problem["source"] = sorted(list(new_sources))
 
                 # Merge patterns
                 new_patterns = set(problem.get("patterns", []))
@@ -81,8 +88,8 @@ def main():
                     )
                     existing_problem["patterns"] = merged_patterns
             else:
-                # Add the problem with its source
-                problem["source"] = source_name
+                # Add the problem with its source (as a list)
+                problem["source"] = [source_name]
                 if "patterns" not in problem:
                     problem["patterns"] = []
                 merged_problems[href_key] = problem
@@ -102,7 +109,7 @@ def main():
         f"Merged {len(merged_list)} problems from {len(json_files)} files into {output_dir / output_file}"
     )
     print(
-        f"Problems from multiple sources: {sum(1 for p in merged_list if p['source'] == 'multiple')}"
+        f"Problems from multiple sources: {sum(1 for p in merged_list if (isinstance(p.get('source'), list) and 'multiple' in p['source']) or p.get('source') == 'multiple')}"
     )
 
 
