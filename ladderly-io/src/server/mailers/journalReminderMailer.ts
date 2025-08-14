@@ -1,7 +1,5 @@
 import type { ReminderFrequency } from '@prisma/client'
-import { ServerClient } from 'postmark'
-
-const client = new ServerClient(process.env.POSTMARK_API_KEY!)
+import { getPostmarkClient } from '~/server/mailers/utils'
 
 export async function sendJournalReminderEmail({
   to,
@@ -12,6 +10,7 @@ export async function sendJournalReminderEmail({
   frequency: ReminderFrequency
   username?: string
 }) {
+  const postmarkClient = getPostmarkClient()
   const subject = `Ladderly.io Journal Reminder!`
   const textBody = `
 Hi ${username}!
@@ -33,8 +32,8 @@ https://www.ladderly.io/
     </div>
   `
   try {
-    await client.sendEmail({
-      From: process.env.POSTMARK_FROM_EMAIL!,
+    await postmarkClient.sendEmail({
+      From: 'support@ladderly.io',
       To: to,
       Subject: subject,
       TextBody: textBody,

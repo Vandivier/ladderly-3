@@ -1,4 +1,4 @@
-import { ServerClient } from 'postmark'
+import { getPostmarkClient } from '~/server/mailers/utils'
 
 type ResetPasswordMailer = {
   to: string
@@ -9,14 +9,7 @@ export async function sendForgotPasswordEmail({
   to,
   token,
 }: ResetPasswordMailer) {
-  if (!process.env.POSTMARK_API_KEY) {
-    console.error(
-      'POSTMARK_API_KEY is not set. Unable to send forgot password email.',
-    )
-    throw new Error('Mail service is not configured on this server.')
-  }
-  const postmarkClient = new ServerClient(process.env.POSTMARK_API_KEY)
-
+  const postmarkClient = getPostmarkClient()
   const origin = process.env.APP_ORIGIN ?? 'http://localhost:3000' // Default to localhost if APP_ORIGIN is not set
   const resetUrl = `${origin}/reset-password?token=${token}`
 
