@@ -198,7 +198,6 @@ export const JournalEntryList = () => {
     isCareerRelated: undefined as boolean | undefined,
     textFilter: '',
   })
-  const [cursor, setCursor] = useState<number | undefined>(undefined)
   const [showFilters, setShowFilters] = useState<boolean>(false)
   // Track which entry is being edited and its properties
   const [editingEntryId, setEditingEntryId] = useState<number | null>(null)
@@ -208,34 +207,33 @@ export const JournalEntryList = () => {
   const [editHappiness, setEditHappiness] = useState<number | undefined>(
     undefined,
   )
+  const utils = api.useUtils()
 
   // Memoize query parameters to prevent unnecessary re-renders and API calls
   const queryParams = useMemo(
     () => ({
       limit: 10,
-      cursor,
       entryType: appliedFilters.entryType,
       isCareerRelated: appliedFilters.isCareerRelated,
       textFilter: appliedFilters.textFilter || undefined,
     }),
-    [cursor, appliedFilters],
+    [appliedFilters],
   )
 
   // Get journal entries with filters
-  const { data, isLoading, refetch } = api.journal.getUserEntries.useQuery(
-    queryParams,
-    {
+  const { data, isLoading, fetchNextPage, hasNextPage } =
+    api.journal.getUserEntries.useInfiniteQuery(queryParams, {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
       // This prevents multiple unnecessary requests
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       staleTime: Infinity,
-    },
-  )
+    })
 
   // Delete journal entry mutation
   const { mutate: deleteEntry } = api.journal.deleteEntry.useMutation({
     onSuccess: async () => {
-      await refetch()
+      await utils.journal.getUserEntries.invalidate()
     },
   })
 
@@ -243,7 +241,7 @@ export const JournalEntryList = () => {
   const { mutate: updateEntry, isPending: isUpdating } =
     api.journal.updateEntry.useMutation({
       onSuccess: async () => {
-        await refetch()
+        await utils.journal.getUserEntries.invalidate()
         setEditingEntryId(null)
         setEditContent('')
         setEditEntryType('WIN')
@@ -252,7 +250,7 @@ export const JournalEntryList = () => {
       },
     })
 
-  // Handle delete entry - memoize the function to prevent re-creation
+  // Handle delete entry - memoize the function
   const handleDelete = useCallback(
     (id: number) => {
       if (confirm('Are you sure you want to delete this journal entry?')) {
@@ -330,9 +328,6 @@ export const JournalEntryList = () => {
       isCareerRelated: careerRelatedValue,
       textFilter: textFilter.trim(),
     })
-
-    // Reset cursor when applying new filters
-    setCursor(undefined)
   }, [entryType, includeCareer, includePersonal, textFilter])
 
   // Reset all filters - memoize the function
@@ -346,7 +341,6 @@ export const JournalEntryList = () => {
       isCareerRelated: undefined,
       textFilter: '',
     })
-    setCursor(undefined)
   }, [])
 
   // Format date to readable string - memoize the function
@@ -367,9 +361,8 @@ export const JournalEntryList = () => {
     )
   }
 
-  const entries = data?.entries ?? []
-  const nextCursor = data?.nextCursor
-  const totalCount = data?.totalCount ?? 0
+  const entries = data?.pages.flatMap((page) => page.entries) ?? []
+  const totalCount = data?.pages[0]?.totalCount ?? 0
 
   if (entries.length === 0) {
     return (
@@ -631,10 +624,10 @@ export const JournalEntryList = () => {
       </div>
 
       {/* Pagination */}
-      {nextCursor && (
+      {hasNextPage && (
         <div className="mt-4 text-center">
           <button
-            onClick={() => setCursor(nextCursor)}
+            onClick={() => void fetchNextPage()}
             className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
           >
             Load More
