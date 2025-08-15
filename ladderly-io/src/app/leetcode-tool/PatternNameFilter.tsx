@@ -2,10 +2,11 @@
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useCallback } from 'react'
+import { type MultiValue } from 'react-select'
+import Select from 'react-select'
 
 // Common patterns seen across sources; UI-friendly labels
 const patterns = [
-  'All Patterns',
   'Array',
   'Two Pointers',
   'Monotonic Stack',
@@ -28,20 +29,22 @@ const patterns = [
   'Graphs',
 ]
 
+type OptionType = { value: string; label: string }
+const options: OptionType[] = patterns.map((p) => ({ value: p, label: p }))
+
 export function PatternNameFilter() {
   const router = useRouter()
   const params = useSearchParams() ?? new URLSearchParams()
-  const current = params.get('pattern') ?? 'All Patterns'
+  const currentPatterns = params.getAll('pattern')
+  const value = options.filter((o) => currentPatterns.includes(o.value))
 
   const onChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
+    (selectedOptions: MultiValue<OptionType>) => {
       const next = new URLSearchParams(params)
-      const value = e.target.value
-      if (value === 'All Patterns') {
-        next.delete('pattern')
-      } else {
-        next.set('pattern', value)
-      }
+      next.delete('pattern')
+      selectedOptions.forEach((option) => {
+        next.append('pattern', option.value)
+      })
       router.push(`?${next.toString()}`)
     },
     [params, router],
@@ -55,19 +58,15 @@ export function PatternNameFilter() {
       >
         Filter by Pattern
       </label>
-      <select
+      <Select
         id="pattern-filter"
-        value={current}
+        isMulti
+        options={options}
+        value={value}
         onChange={onChange}
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+        className="block w-full rounded-md shadow-sm sm:text-sm"
         aria-label="Filter by pattern"
-      >
-        {patterns.map((p) => (
-          <option key={p} value={p}>
-            {p}
-          </option>
-        ))}
-      </select>
+      />
     </div>
   )
 }
