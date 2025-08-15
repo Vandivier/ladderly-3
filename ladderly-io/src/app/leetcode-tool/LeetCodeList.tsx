@@ -67,7 +67,7 @@ export function LeetCodeList() {
   const sourceFilter = searchParams.get('source') ?? 'all'
   const statusFilter = searchParams.get('status') ?? 'all'
   const searchQuery = searchParams.get('search') ?? ''
-  const patternFilter = searchParams.get('pattern') ?? 'All Patterns'
+  const patternFilters = searchParams.getAll('pattern')
   const difficultyFilter = searchParams.get('difficulty') ?? 'All Difficulties'
   const utils = api.useUtils()
 
@@ -119,10 +119,10 @@ export function LeetCodeList() {
   }
 
   // Filter by pattern tag if selected
-  if (patternFilter && patternFilter !== 'All Patterns') {
-    const requiredTag = `pattern:${patternFilter}`
+  if (patternFilters.length > 0) {
+    const requiredTags = patternFilters.map((p) => `pattern:${p}`)
     filteredItems = filteredItems.filter((item) =>
-      item.checklistItem.tags.includes(requiredTag),
+      item.checklistItem.tags.some((tag) => requiredTags.includes(tag)),
     )
   }
 
