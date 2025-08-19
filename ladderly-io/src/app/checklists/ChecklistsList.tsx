@@ -23,9 +23,7 @@ export const ChecklistsList: React.FC<{
         <h3 className="text-lg font-medium text-gray-900">
           No Checklists Found
         </h3>
-        <p className="mt-1 text-sm text-gray-500">
-          We couldn't find any checklists. Please check back later.
-        </p>
+        <p className="mt-1 text-sm text-gray-500">Please check back later.</p>
       </div>
     )
   }
