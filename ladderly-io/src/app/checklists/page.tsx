@@ -1,32 +1,40 @@
-import { Suspense } from "react";
-import { LadderlyPageWrapper } from "~/app/core/components/page-wrapper/LadderlyPageWrapper";
-import { ChecklistsList } from "./ChecklistsList";
-
+import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
+import { ChecklistsList } from './ChecklistsList'
+import { api } from '~/trpc/server'
+import { getServerAuthSession } from '~/server/auth'
 
 export const metadata = {
-  title: "Checklists",
-  description: "View and manage checklists",
-};
+  title: 'Checklists',
+  description: 'View and manage checklists for your programming career.',
+}
 
-export default function ChecklistsPage() {
+export default async function ChecklistsPage() {
+  // note: we statically render all checklists,
+  // so if we have a bunch of checklists in the future, maybe 30+, we will want to paginate
+  const { checklists } = await api.checklist.list({
+    internalSecret: process.env.NEXTAUTH_SECRET,
+  })
+  const session = await getServerAuthSession()
+
   return (
     <LadderlyPageWrapper>
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="mb-8 text-3xl font-bold text-gray-800">Checklists</h1>
+      <div className="bg-gray-50">
+        <div className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <div className="text-center">
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              Career Growth Checklists
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-xl text-gray-500">
+              Your comprehensive guides to navigating the tech industry, one
+              step at a time.
+            </p>
+          </div>
 
-        {/* <div className="mb-8">
-          <Link
-            href="/checklists/new"
-            className="rounded bg-ladderly-pink px-4 py-2 text-white hover:bg-ladderly-pink/90"
-          >
-            Create Checklist
-          </Link>
-        </div> */}
-
-        <Suspense fallback={<div>Loading...</div>}>
-          <ChecklistsList />
-        </Suspense>
+          <div className="mt-12">
+            <ChecklistsList checklists={checklists} session={session} />
+          </div>
+        </div>
       </div>
     </LadderlyPageWrapper>
-  );
+  )
 }

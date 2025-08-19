@@ -1,52 +1,80 @@
-"use client";
+'use client'
 
-import React from "react";
-import { api } from "~/trpc/react";
+import { useState } from 'react'
+import { type LadderlySession } from '~/server/auth'
+import { type Checklist } from '@prisma/client'
+import { ChecklistCard } from '~/app/checklists/ChecklistCard'
 
-const ITEMS_PER_PAGE = 100;
+export const ChecklistsList: React.FC<{
+  checklists: Checklist[]
+  session: LadderlySession | null
+}> = ({ checklists, session }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-export function ChecklistsList() {
-  const [page, setPage] = React.useState(0);
-  const { data, isLoading } = api.checklist.list.useQuery({
-    skip: ITEMS_PER_PAGE * page,
-    take: ITEMS_PER_PAGE,
-  });
+  const isGuest = !session
+  const nextAction = isGuest ? 'Sign in' : 'Upgrade'
+  const nextActionHref = isGuest
+    ? '/login'
+    : (process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? '/#pricing-grid')
 
-  if (isLoading) return <div>Loading...</div>;
-  if (!data) return <div>No checklists found</div>;
-
-  const { checklists, hasMore } = data;
-
-  const goToPreviousPage = () => setPage((p) => Math.max(0, p - 1));
-  const goToNextPage = () => setPage((p) => (hasMore ? p + 1 : p));
+  if (checklists.length === 0) {
+    return (
+      <div className="text-center">
+        <h3 className="text-lg font-medium text-gray-900">
+          No Checklists Found
+        </h3>
+        <p className="mt-1 text-sm text-gray-500">Please check back later.</p>
+      </div>
+    )
+  }
 
   return (
-    <div>
-      <ul className="space-y-2">
+    <>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {checklists.map((checklist) => (
-          <li
+          <ChecklistCard
             key={checklist.id}
-            className="rounded-lg border border-gray-200 p-4 hover:bg-gray-50"
-          >{checklist.name}</li>
+            checklist={checklist}
+            session={session}
+            onLockClick={() => setIsModalOpen(true)}
+          />
         ))}
-      </ul>
-
-      <div className="mt-4 flex gap-2">
-        <button
-          disabled={page === 0}
-          onClick={goToPreviousPage}
-          className="rounded bg-ladderly-violet-600 px-4 py-2 text-white disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <button
-          disabled={!hasMore}
-          onClick={goToNextPage}
-          className="rounded bg-ladderly-violet-600 px-4 py-2 text-white disabled:opacity-50"
-        >
-          Next
-        </button>
       </div>
-    </div>
-  );
-} 
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            className="w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-semibold text-gray-900">
+              Premium Content
+            </h3>
+            <p className="mt-2 text-sm text-gray-600">
+              This checklist is available to premium subscribers.
+            </p>
+            <p className="mt-2 text-sm text-gray-600">
+              {nextAction} to access this and other exclusive content.
+            </p>
+            <div className="mt-4 flex justify-end gap-4">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+              >
+                Close
+              </button>
+              <a
+                href={nextActionHref}
+                className="rounded-md border border-transparent bg-ladderly-violet-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-ladderly-violet-700"
+              >
+                {nextAction}
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
