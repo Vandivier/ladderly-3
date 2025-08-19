@@ -181,17 +181,17 @@
     </url>
     <url>
         <loc>
+            https://www.ladderly.io/blog/2025-05-11-design-docs
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://www.ladderly.io/blog/2025-06-03-data-engineering-interview
+        </loc>
+    </url>
+    <url>
+        <loc>
             https://www.ladderly.io/checklists
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://www.ladderly.io/checklists/my-basic-checklist
-        </loc>
-    </url>
-    <url>
-        <loc>
-            https://www.ladderly.io/checklists/my-premium-checklist
         </loc>
     </url>
     <url>
@@ -222,6 +222,11 @@
     <url>
         <loc>
             https://www.ladderly.io/journal
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://www.ladderly.io/journal/feed
         </loc>
     </url>
     <url>

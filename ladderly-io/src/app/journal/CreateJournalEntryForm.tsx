@@ -1,13 +1,17 @@
 'use client'
 
+import type { PaymentTierEnum } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import React, { useMemo, useState } from 'react'
 import { z } from 'zod'
 import { Form } from '~/app/core/components/Form'
+import {
+  JournalEntryEnum,
+  type JournalEntryEnumType,
+} from '~/app/journal/schemas'
 import { api } from '~/trpc/react'
-import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
-import type { PaymentTierEnum } from '@prisma/client'
 import { HappinessSlider } from './HappinessSlider'
+import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -15,8 +19,9 @@ const journalEntrySchema = z.object({
     .string()
     .min(1, { message: 'Content is required' })
     .max(500, { message: 'Content must be 500 characters or less' }),
-  entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']),
+  entryType: JournalEntryEnum,
   isCareerRelated: z.boolean().default(true),
+  isPublic: z.boolean().default(false),
   happiness: z.number().min(1).max(10).optional(),
 })
 
@@ -36,9 +41,8 @@ export const CreateJournalEntryForm = ({
   const [weeklyLimit] = useState(21)
   const [contentValue, setContentValue] = useState('')
   const [isCareerRelated, setIsCareerRelated] = useState(true)
-  const [entryType, setEntryType] = useState<
-    'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
-  >('WIN')
+  const [isPublic, setIsPublic] = useState(false)
+  const [entryType, setEntryType] = useState<JournalEntryEnumType>('WIN')
   const [happiness, setHappiness] = useState<number | undefined>(undefined)
 
   // Get the date from a week ago - memoize to prevent recreating on every render
@@ -87,6 +91,8 @@ export const CreateJournalEntryForm = ({
     try {
       // Ensure content is included from our tracked state
       values.content = contentValue ?? values.content
+      values.isCareerRelated = isCareerRelated
+      values.isPublic = isPublic
 
       // Validate form with schema
       const valid = journalEntrySchema.safeParse(values)
@@ -116,9 +122,13 @@ export const CreateJournalEntryForm = ({
     setIsCareerRelated(e.target.checked)
   }
 
+  const handlePublicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsPublic(e.target.checked)
+  }
+
   // Handle entry type change
   const handleEntryTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setEntryType(e.target.value as 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER')
+    setEntryType(e.target.value as JournalEntryEnumType)
   }
 
   const isLoading = createEntryMutation.isPending
@@ -146,6 +156,7 @@ export const CreateJournalEntryForm = ({
           content: contentValue,
           entryType: entryType,
           isCareerRelated: isCareerRelated,
+          isPublic: isPublic,
           happiness: happiness,
         }}
       >
@@ -187,7 +198,7 @@ export const CreateJournalEntryForm = ({
         {/* Form controls stacked for mobile */}
         <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
           {/* Entry type dropdown */}
-          <div className="w-full sm:w-1/2">
+          <div className="w-full sm:w-1/4">
             <label
               htmlFor="entryType"
               className="mb-1 block text-sm font-medium dark:text-gray-300"
@@ -244,10 +255,38 @@ export const CreateJournalEntryForm = ({
             />
             <label
               htmlFor="isCareerRelated"
-              className="ml-2 text-sm font-medium dark:text-gray-300"
+              className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
             >
               Career-Related
             </label>
+          </div>
+
+          <div className="flex w-full items-center sm:w-auto">
+            <input
+              type="checkbox"
+              id="isPublic"
+              name="isPublic"
+              checked={isPublic}
+              onChange={handlePublicChange}
+              className="size-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+              disabled={
+                isLoading ||
+                isWeeklyLoadingData ||
+                weeklyEntryCount >= weeklyLimit
+              }
+            />
+            <label
+              htmlFor="isPublic"
+              className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
+            >
+              Share Publicly
+            </label>
+            <span
+              className="ml-1 cursor-help text-xs text-blue-500 hover:underline"
+              title="Public entries will appear in the community journal feed"
+            >
+              (?)
+            </span>
           </div>
         </div>
 

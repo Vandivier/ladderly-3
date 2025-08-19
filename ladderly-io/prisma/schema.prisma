@@ -552,6 +552,7 @@ model JournalEntry {
   isCareerRelated Boolean          @default(true)
   isMarkdown      Boolean          @default(false)
   happiness       Int?
+  isPublic        Boolean          @default(false)
 
   // Fields for minted entries
   mintedFromDateRange DateTime[] @default([])
@@ -564,6 +565,8 @@ model JournalEntry {
 
 enum JournalEntryType {
   LEARNING
+  // MINTED === whether it's ai generated
+  // we care about this for rate limiting and monetization
   MINTED
   OTHER
   PAIN_POINT
