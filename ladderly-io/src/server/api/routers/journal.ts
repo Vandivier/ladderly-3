@@ -415,7 +415,6 @@ export const journalRouter = createTRPCRouter({
 
       // Build filter for public entries (only career-related entries that are marked as public)
       const filter: Prisma.JournalEntryWhereInput = {
-        isCareerRelated: true,
         isPublic: true,
       }
 
@@ -437,7 +436,8 @@ export const journalRouter = createTRPCRouter({
           user: {
             select: {
               id: true,
-              name: true,
+              nameFirst: true,
+              nameLast: true,
               profilePicture: true,
               uuid: true,
             },

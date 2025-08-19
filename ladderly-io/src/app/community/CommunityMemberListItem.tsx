@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { getUserDisplayName, type UserLike } from '../core/utils'
 
 // Full public user type for detailed views
 export type PublicUser = {
@@ -58,11 +59,11 @@ export const CommunityMemberListItem = ({
   const topServices = user.profileTopServices?.slice(0, 3) || []
 
   // Construct the user's full name
-  const fullName = user.nameFirst
-    ? user.nameFirst + (user.nameLast ? ` ${user.nameLast}` : '')
-    : user.nameLast
-      ? user.nameLast
-      : 'User'
+  const fullName = getUserDisplayName({
+    nameFirst: user.nameFirst,
+    nameLast: user.nameLast,
+    id: user.id,
+  })
 
   return (
     <li className="rounded-lg border p-4 shadow-sm">
