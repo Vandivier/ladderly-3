@@ -1,20 +1,20 @@
 import {
-  JournalEntryType,
   PracticeCategory,
   ReminderFrequency,
   type Prisma,
 } from '@prisma/client'
+import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
+import { JournalEntryEnum } from '~/app/journal/schemas'
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from '~/server/api/trpc'
-import { TRPCError } from '@trpc/server'
 
 const createJournalEntrySchema = z.object({
   content: z.string().max(500),
-  entryType: z.nativeEnum(JournalEntryType),
+  entryType: JournalEntryEnum,
   isCareerRelated: z.boolean().default(true),
   isPublic: z.boolean().default(false),
   isMarkdown: z.boolean().default(false),
@@ -31,7 +31,7 @@ const updateReminderSchema = z.object({
 const updateJournalEntrySchema = z.object({
   id: z.number(),
   content: z.string().max(500),
-  entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']).optional(),
+  entryType: JournalEntryEnum.optional(),
   isCareerRelated: z.boolean().optional(),
   isPublic: z.boolean().optional(),
   happiness: z.number().min(1).max(10).optional(),
@@ -45,9 +45,7 @@ export const journalRouter = createTRPCRouter({
         limit: z.number().min(1).max(365).default(10),
         cursor: z.number().optional(),
         fromDate: z.date().optional(),
-        entryType: z
-          .enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER'])
-          .optional(),
+        entryType: JournalEntryEnum.optional(),
         isCareerRelated: z.boolean().optional(),
         textFilter: z.string().optional(),
       }),

@@ -7,9 +7,6 @@ import Link from 'next/link'
 import type { JournalEntryType } from '@prisma/client'
 import Image from 'next/image'
 
-// Use a type that matches the API's expected values
-type AllowedEntryType = 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
-
 // Component to display entry type icon
 const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
   let iconClass = ''
@@ -75,8 +72,12 @@ const formatContentWithHashtags = (content: string) => {
 
 // Format date helper
 function formatDate(date: Date) {
-  if (!(date instanceof Date) && typeof date !== 'string' && typeof date !== 'number') {
-    return 'Invalid date';
+  if (
+    !(date instanceof Date) &&
+    typeof date !== 'string' &&
+    typeof date !== 'number'
+  ) {
+    return 'Invalid date'
   }
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -126,7 +127,7 @@ const PublicJournalEntry: React.FC<PublicJournalEntryProps> = ({ entry }) => {
           <div>
             <Link
               href={{
-                pathname: `/community/profile/${entry.user.uuid}`
+                pathname: `/community/profile/${entry.user.uuid}`,
               }}
               className="font-medium text-gray-900 hover:underline dark:text-white"
             >
@@ -158,20 +159,22 @@ const PublicJournalEntry: React.FC<PublicJournalEntryProps> = ({ entry }) => {
 
 export default function PublicJournalFeed() {
   const [cursor, setCursor] = useState<number | undefined>(undefined)
-  const [allEntries, setAllEntries] = useState<Array<{
-    id: number
-    content: string
-    entryType: JournalEntryType
-    isCareerRelated: boolean
-    createdAt: Date
-    user: {
+  const [allEntries, setAllEntries] = useState<
+    Array<{
       id: number
-      name: string
-      profilePicture: string
-      uuid: string
-    }
-    happiness?: number | null
-  }>>([])
+      content: string
+      entryType: JournalEntryType
+      isCareerRelated: boolean
+      createdAt: Date
+      user: {
+        id: number
+        name: string
+        profilePicture: string
+        uuid: string
+      }
+      happiness?: number | null
+    }>
+  >([])
   const [hasMore, setHasMore] = useState(true)
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
@@ -192,20 +195,23 @@ export default function PublicJournalFeed() {
   // Load more entries when the user scrolls to the bottom
   const loadMore = async () => {
     if (!data?.nextCursor || isLoadingMore) return
-    
+
     setIsLoadingMore(true)
     setCursor(data.nextCursor)
-    
+
     try {
       const result = await refetch()
-      
+
       if (result.data) {
         if (result.data.entries.length === 0) {
           setHasMore(false)
         }
       }
     } catch (error) {
-      console.error('Error loading more entries:', error instanceof Error ? error.message : String(error))
+      console.error(
+        'Error loading more entries:',
+        error instanceof Error ? error.message : String(error),
+      )
     } finally {
       setIsLoadingMore(false)
     }
@@ -214,22 +220,22 @@ export default function PublicJournalFeed() {
   // Update the allEntries state when data changes
   useEffect(() => {
     if (data?.entries) {
-      const typedEntries = data.entries.map(entry => ({
+      const typedEntries = data.entries.map((entry) => ({
         ...entry,
         user: {
           id: entry.user.id,
-          name: entry.user.name || "",
-          profilePicture: entry.user.profilePicture || "",
-          uuid: entry.user.uuid || "",
-        }
-      }));
-      
+          name: entry.user.name || '',
+          profilePicture: entry.user.profilePicture || '',
+          uuid: entry.user.uuid || '',
+        },
+      }))
+
       if (cursor) {
         setAllEntries((prev) => [...prev, ...typedEntries])
       } else {
         setAllEntries(typedEntries)
       }
-      
+
       // Check if there are more entries to load
       setHasMore(!!data.nextCursor)
     }

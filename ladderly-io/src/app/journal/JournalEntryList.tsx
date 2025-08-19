@@ -1,14 +1,12 @@
 'use client'
 
 import type { JournalEntryType } from '@prisma/client'
-import React, { useCallback, useMemo, useState } from 'react'
-import { api } from '~/trpc/react'
-import { HappinessSlider } from './HappinessSlider'
 import { BarChart3, Heart } from 'lucide-react'
 import Link from 'next/link'
-
-// Use a type that matches the API's expected values
-type AllowedEntryType = 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
+import React, { useCallback, useMemo, useState } from 'react'
+import { JournalEntryEnumType } from '~/app/journal/schemas'
+import { api } from '~/trpc/react'
+import { HappinessSlider } from './HappinessSlider'
 
 // Component to display entry type icon
 const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
@@ -77,13 +75,13 @@ const formatContentWithHashtags = (content: string) => {
 interface JournalEntryEditFormProps {
   id: number
   content: string
-  entryType: AllowedEntryType
+  entryType: JournalEntryEnumType
   isCareerRelated: boolean
   isPublic: boolean
   happiness?: number
   isUpdating: boolean
   onChangeContent: (v: string) => void
-  onChangeEntryType: (v: AllowedEntryType) => void
+  onChangeEntryType: (v: JournalEntryEnumType) => void
   onChangeIsCareerRelated: (v: boolean) => void
   onChangeIsPublic: (v: boolean) => void
   onChangeHappiness: (v: number | undefined) => void
@@ -130,7 +128,7 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
             id={`edit-type-${id}`}
             value={entryType}
             onChange={(e) =>
-              onChangeEntryType(e.target.value as AllowedEntryType)
+              onChangeEntryType(e.target.value as JournalEntryEnumType)
             }
             className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             disabled={isUpdating}
@@ -217,14 +215,14 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
 }
 
 export const JournalEntryList = () => {
-  const [entryType, setEntryType] = useState<AllowedEntryType | undefined>(
+  const [entryType, setEntryType] = useState<JournalEntryEnumType | undefined>(
     undefined,
   )
   const [includeCareer, setIncludeCareer] = useState<boolean>(true)
   const [includePersonal, setIncludePersonal] = useState<boolean>(true)
   const [textFilter, setTextFilter] = useState<string>('')
   const [appliedFilters, setAppliedFilters] = useState({
-    entryType: undefined as AllowedEntryType | undefined,
+    entryType: undefined as JournalEntryEnumType | undefined,
     isCareerRelated: undefined as boolean | undefined,
     textFilter: '',
   })
@@ -232,7 +230,8 @@ export const JournalEntryList = () => {
   // Track which entry is being edited and its properties
   const [editingEntryId, setEditingEntryId] = useState<number | null>(null)
   const [editContent, setEditContent] = useState<string>('')
-  const [editEntryType, setEditEntryType] = useState<AllowedEntryType>('WIN')
+  const [editEntryType, setEditEntryType] =
+    useState<JournalEntryEnumType>('WIN')
   const [editIsCareerRelated, setEditIsCareerRelated] = useState<boolean>(true)
   const [editIsPublic, setEditIsPublic] = useState<boolean>(false)
   const [editHappiness, setEditHappiness] = useState<number | undefined>(
@@ -304,7 +303,7 @@ export const JournalEntryList = () => {
     }) => {
       setEditingEntryId(entry.id)
       setEditContent(entry.content)
-      setEditEntryType(entry.entryType as AllowedEntryType)
+      setEditEntryType(entry.entryType as JournalEntryEnumType)
       setEditIsCareerRelated(entry.isCareerRelated)
       setEditIsPublic(entry.isPublic)
       setEditHappiness(entry.happiness === null ? undefined : entry.happiness)
@@ -454,7 +453,9 @@ export const JournalEntryList = () => {
               id="entryType"
               value={entryType ?? ''}
               onChange={(e) =>
-                setEntryType((e.target.value as AllowedEntryType) || undefined)
+                setEntryType(
+                  (e.target.value as JournalEntryEnumType) || undefined,
+                )
               }
               className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             >

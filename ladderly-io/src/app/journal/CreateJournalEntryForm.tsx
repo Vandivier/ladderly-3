@@ -1,14 +1,17 @@
 'use client'
 
+import type { PaymentTierEnum } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import React, { useMemo, useState } from 'react'
 import { z } from 'zod'
 import { Form } from '~/app/core/components/Form'
+import {
+  JournalEntryEnum,
+  type JournalEntryEnumType,
+} from '~/app/journal/schemas'
 import { api } from '~/trpc/react'
-import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
-import type { PaymentTierEnum } from '@prisma/client'
 import { HappinessSlider } from './HappinessSlider'
-import Link from 'next/link'
+import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 
 // Zod schema for validating journal entry form
 const journalEntrySchema = z.object({
@@ -16,7 +19,7 @@ const journalEntrySchema = z.object({
     .string()
     .min(1, { message: 'Content is required' })
     .max(500, { message: 'Content must be 500 characters or less' }),
-  entryType: z.enum(['WIN', 'PAIN_POINT', 'LEARNING', 'OTHER']),
+  entryType: JournalEntryEnum,
   isCareerRelated: z.boolean().default(true),
   isPublic: z.boolean().default(false),
   happiness: z.number().min(1).max(10).optional(),
@@ -39,9 +42,7 @@ export const CreateJournalEntryForm = ({
   const [contentValue, setContentValue] = useState('')
   const [isCareerRelated, setIsCareerRelated] = useState(true)
   const [isPublic, setIsPublic] = useState(false)
-  const [entryType, setEntryType] = useState<
-    'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER'
-  >('WIN')
+  const [entryType, setEntryType] = useState<JournalEntryEnumType>('WIN')
   const [happiness, setHappiness] = useState<number | undefined>(undefined)
 
   // Get the date from a week ago - memoize to prevent recreating on every render
@@ -121,15 +122,13 @@ export const CreateJournalEntryForm = ({
     setIsCareerRelated(e.target.checked)
   }
 
-  const handlePublicChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handlePublicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsPublic(e.target.checked)
   }
 
   // Handle entry type change
   const handleEntryTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setEntryType(e.target.value as 'WIN' | 'PAIN_POINT' | 'LEARNING' | 'OTHER')
+    setEntryType(e.target.value as JournalEntryEnumType)
   }
 
   const isLoading = createEntryMutation.isPending
@@ -284,7 +283,10 @@ export const CreateJournalEntryForm = ({
               >
                 Share Publicly
               </label>
-              <span className="ml-1 cursor-help text-xs text-blue-500 hover:underline" title="Public entries will appear in the community journal feed">
+              <span
+                className="ml-1 cursor-help text-xs text-blue-500 hover:underline"
+                title="Public entries will appear in the community journal feed"
+              >
                 (?)
               </span>
             </div>
