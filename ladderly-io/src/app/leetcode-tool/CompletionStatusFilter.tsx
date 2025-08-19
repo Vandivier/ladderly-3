@@ -7,7 +7,7 @@ type CompletionStatus = 'all' | 'solved' | 'unsolved'
 
 export const CompletionStatusFilter = () => {
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() ?? new URLSearchParams()
 
   // Get current status from URL or default to 'all'
   const currentStatus =

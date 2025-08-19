@@ -60,14 +60,6 @@ const perks: Perk[] = [
     promoCode: 'VANDIBGAFF',
   },
   {
-    title: 'Robinhood',
-    description:
-      'What goes better with a high-paying tech job than a high-quality investment account? Robinhood provides access to stocks, crypto, options, and more!',
-    discount: 'Up to $200 in free stock',
-    link: 'https://join.robinhood.com/johnv-19a478e6',
-    linkText: 'Get $5-200 in free stock',
-  },
-  {
     title: 'Interviewing.io',
     description:
       'Anonymous mock interviews with Senior/Staff/Principal engineers from FAANG. Get feedback from the same people who make hiring decisions at top companies.',

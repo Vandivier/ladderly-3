@@ -2,23 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --ladderly-violet-700: rgb(102, 34, 170);
+  }
+}
+
 @layer components {
   .text-link-fancy {
-    @apply text-ladderly-violet-600 
-           relative
-           pb-0.5;
+    @apply relative pb-0.5 text-ladderly-violet-600;
   }
   .text-link-fancy::after {
-    @apply content-['']
-           absolute
-           left-0
-           bottom-0
-           w-full
-           h-[1px]
-           bg-purple-50
-           transition-all
-           duration-300
-           ease-in-out;
+    @apply absolute bottom-0 left-0 h-[1px] w-full bg-purple-50 transition-all duration-300 ease-in-out content-[''];
     background-image: linear-gradient(
       to right,
       rgb(99, 1, 235),

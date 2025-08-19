@@ -28,8 +28,11 @@ export const SignupPageWrapper = async ({
     <div className="flex min-h-screen flex-col bg-ladderly-off-white">
       <LadderlyAnalytics />
 
-      <main className="flex flex-grow items-center justify-center p-2">
-        <div className="w-full max-w-4xl rounded-xl bg-white p-4 shadow-xl md:grid md:grid-cols-2 md:gap-8 md:p-8">
+      <main className="flex flex-grow justify-center p-2 md:items-center">
+        <div
+          id="signup-page-card"
+          className="w-full max-w-4xl rounded-xl bg-white p-4 shadow-xl md:grid md:grid-cols-2 md:gap-8 md:p-8"
+        >
           {/* Left Column: Value Proposition & Testimonials */}
           <div className="flex flex-col justify-center space-y-4 text-sm">
             <div>

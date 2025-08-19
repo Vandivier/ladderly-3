@@ -84,14 +84,14 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 1. [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 
    1. Patterns: Array, Two Pointers, Monotonic Stack
-   2. Acknowledgement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
+   2. Key Notes:
+      1. It is important to check whether an input array is sorted.
+      2. There is an important difference between weakly and strictly changing values in an array.
    3. Related Resources: [Monotonic Functions](https://en.wikipedia.org/w/index.php?title=Monotonic_function&oldid=1178555210)
 
 2. [15. 3Sum](https://leetcode.com/problems/3sum/)
 
    1. Patterns: Array, Two Pointers
-   2. Acknowledgement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
-   3. Note: Write out each of the three solutions: Two Pointers, Hashset, and No-Sort.
 
 3. [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
@@ -105,7 +105,8 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
    1. Patterns: Linked List, Two Pointers, Fast and Slow Pointers, Recursion
 
-   2. Acknowledgement: I realize that the only way to avoid O(n) space complexity is to modify the input in place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
+   2. Key Notes:
+      1. The only way to avoid O(n) space complexity is to modify the input in place. For that reason, the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
 
 6. [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 
@@ -143,16 +144,10 @@ Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
 
 ## The Ladderly Expanded Kata
 
-The Ladderly Expanded Kata is a list of 20 challenges that are a superset of the standard kata.
-The additional challenges cover a broader set of patterns and techniques, such as the prefix sum and priority queue, while also improving reinforcement for minimally covered patterns.
+The Ladderly Expanded Kata is a list of 28 problems and it is a superset of the standard kata.
+It is 28 problems in size, which is exactly twice as long as the standard kata, while still much smaller than other problem sets conventionally used for introductory leetcode study.
 
-This expanded kata will frequently take an hour for even experienced leetcoders. If you find the expanded kata to be exhausting, consider running this kata the day or weekend before interviews and only doing the standard kata on interview day.
-
-The 20 challenges are intentionally divided into three groups, so you have the option to tackle one group at a time:
-
-1. Group 1, 8 Problems, Covers String and Array Manipulation
-2. Group 2, 8 Problems, Covers Linked Lists and Graphs
-3. Group 3, 4 Problems, Covers Tree Algorithms and Topological Sort
+These additional challenges cover a broader set of patterns and techniques, such as the prefix sum and priority queue, while also improving reinforcement for minimally covered patterns.
 
 Here is the list of code challenges in The Ladderly Expanded Kata:
 
@@ -160,47 +155,41 @@ Here is the list of code challenges in The Ladderly Expanded Kata:
 
    1. Patterns: Array, Two Pointers, Monotonic Stack
 
-   2. Acknowledgement: I recognize the importance of checking whether an input array is sorted. I recognize the importance of distinguishing between weakly and strictly changing values in an array.
-
-   3. Related Resources: [Monotonic Functions](https://en.wikipedia.org/w/index.php?title=Monotonic_function&oldid=1178555210)
-
 2. [15. 3Sum](https://leetcode.com/problems/3sum/)
 
    1. Patterns: Array, Two Pointers
 
-   2. Acknowledgement: I am comfortable with many variations of two and three sum. I recognize and anticipate the basic forms of these questions and their follow-up complications. For example, the optimal solution to two sum differs when the input is sorted ahead of time. Two Pointers sets me up well for variations like [3Sum Closest](https://leetcode.com/problems/3sum-closest/) and [4Sum](https://leetcode.com/problems/4sum). I recognize that I can sort three sum and higher without an asymptotic performance penalty because optimal sorting performance is O(nlogn).
+3. [162. Find Peak Element](https://leetcode.com/problems/find-peak-element)
 
-   3. Note: Write out each of the three solutions: Two Pointers, Hashset, and No-Sort.
+   1. Patterns: Array, Binary Search
 
-3. [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/description/)
-
-   1. Patterns: Array, Two Pointers, Binary Search
-
-4. [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
-
-5. [79. Word Search](https://leetcode.com/problems/word-search/)
+4. [79. Word Search](https://leetcode.com/problems/word-search/)
 
    1. Patterns: Array, Backtracking, Matrix, String
 
-6. [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
+5. [212. Word Search II](https://leetcode.com/problems/word-search-ii/)
 
    1. Patterns: Array, DFS, Matrix, String, Trie
 
-7. [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+6. [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
 
    1. Patterns: Math, Dynamic Programming
 
-8. [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
+7. [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
 
    1. Patterns: Math
 
-9. [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
+8. [13. Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
 
    1. Patterns: Math, String, Hash Table
 
-10. [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words)
+9. [273. Integer to English Words](https://leetcode.com/problems/integer-to-english-words)
 
-    1. Patterns: Math, String, Recursion
+   1. Patterns: Math, String, Recursion
+
+10. [1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
+
+    1. Patterns: Array, Sliding Window
 
 11. [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
@@ -218,10 +207,9 @@ Here is the list of code challenges in The Ladderly Expanded Kata:
 
     1. Patterns: Linked List, Fast and Slow Pointers, Recursion
 
-    2. Acknowledgement: I realize that the only way to avoid O(n) space complexity is to modify the input in-place. For that reason, I realize that the less obvious partial linked list reversal technique is more efficient compared to creating a copy of the input as an array.
-
 15. [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
-    Patterns: Linked List
+
+    1. Patterns: Linked List
 
 16. [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
 
