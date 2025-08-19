@@ -1,7 +1,7 @@
 'use client'
 
 import type { JournalEntryType } from '@prisma/client'
-import { BarChart3, Heart } from 'lucide-react'
+import { BarChart3, Heart, LockIcon, UnlockIcon } from 'lucide-react'
 import Link from 'next/link'
 import React, { useCallback, useMemo, useState } from 'react'
 import type { JournalEntryEnumType } from '~/app/journal/schemas'
@@ -564,6 +564,11 @@ export const JournalEntryList = () => {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-2">
+                  {entry.isPublic ? (
+                    <UnlockIcon className="size-4 text-green-500" />
+                  ) : (
+                    <LockIcon className="size-4" />
+                  )}
                   <EntryTypeIcon type={entry.entryType} />
 
                   {entry.isCareerRelated ? (
