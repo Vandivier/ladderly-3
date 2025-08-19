@@ -439,7 +439,6 @@ export const journalRouter = createTRPCRouter({
               nameFirst: true,
               nameLast: true,
               profilePicture: true,
-              uuid: true,
             },
           },
         },

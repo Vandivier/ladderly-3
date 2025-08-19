@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { api } from '~/trpc/react'
-import { Heart } from 'lucide-react'
-import Link from 'next/link'
 import type { JournalEntryType } from '@prisma/client'
+import { Heart } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { getUserDisplayName } from '~/app/core/utils'
+import { api } from '~/trpc/react'
 
 // Component to display entry type icon
 const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
@@ -95,15 +96,21 @@ interface PublicJournalEntryProps {
     createdAt: Date
     user: {
       id: number
-      name: string
+      nameFirst: string | null
+      nameLast: string | null
       profilePicture: string
-      uuid: string
     }
     happiness?: number | null
   }
 }
 
 const PublicJournalEntry: React.FC<PublicJournalEntryProps> = ({ entry }) => {
+  const fullName = getUserDisplayName({
+    nameFirst: entry.user.nameFirst,
+    nameLast: entry.user.nameLast,
+    id: entry.user.id,
+  })
+
   return (
     <div className="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       {/* User info and entry metadata */}
@@ -113,25 +120,25 @@ const PublicJournalEntry: React.FC<PublicJournalEntryProps> = ({ entry }) => {
             {entry.user.profilePicture ? (
               <Image
                 src={entry.user.profilePicture}
-                alt={entry.user.name}
+                alt={fullName}
                 width={40}
                 height={40}
                 className="h-full w-full object-cover"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-blue-100 text-blue-500 dark:bg-blue-900 dark:text-blue-300">
-                {entry.user.name.substring(0, 1).toUpperCase()}
+                {fullName.substring(0, 1).toUpperCase()}
               </div>
             )}
           </div>
           <div>
             <Link
               href={{
-                pathname: `/community/profile/${entry.user.uuid}`,
+                pathname: `/community/${entry.user.id}`,
               }}
               className="font-medium text-gray-900 hover:underline dark:text-white"
             >
-              {entry.user.name}
+              {fullName}
             </Link>
             <div className="flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
               <span>{formatDate(entry.createdAt)}</span>
@@ -168,9 +175,9 @@ export default function PublicJournalFeed() {
       createdAt: Date
       user: {
         id: number
-        name: string
+        nameFirst: string | null
+        nameLast: string | null
         profilePicture: string
-        uuid: string
       }
       happiness?: number | null
     }>
@@ -224,9 +231,9 @@ export default function PublicJournalFeed() {
         ...entry,
         user: {
           id: entry.user.id,
-          name: entry.user.name || '',
+          nameFirst: entry.user.nameFirst || '',
+          nameLast: entry.user.nameLast || '',
           profilePicture: entry.user.profilePicture || '',
-          uuid: entry.user.uuid || '',
         },
       }))
 
