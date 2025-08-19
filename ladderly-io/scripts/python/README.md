@@ -6,7 +6,7 @@ navigate to the directory containing this README in a terminal, install `uv`, th
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.local/bin/env
+source $HOME/.local/bin/env # on Windows: source .venv/Scripts/activate
 uv sync
 uv pip install -r pyproject.toml
 ```

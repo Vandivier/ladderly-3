@@ -32,6 +32,33 @@ model User {
   hasDeepJournalingInterest   Boolean                         @default(false)
   journalReminderEnabled      Boolean                         @default(false)
   journalReminderFrequency    ReminderFrequency               @default(WEEKLY)
+  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  updatedAt DateTime @updatedAt
+
+  adminNotes     String    @default("")
+  email          String    @unique
+  emailBackup    String    @default("")
+  emailStripe    String    @default("")
+  emailVerified  DateTime?
+  hashedPassword String?
+  image          String?
+  name           String    @default("")
+  nameFirst      String    @default("")
+  nameLast       String    @default("")
+
+  hasInPersonEventInterest  Boolean @default(false)
+  hasLiveStreamInterest     Boolean @default(false)
+  hasOnlineEventInterest    Boolean @default(false)
+  hasOpenToWork             Boolean @default(false)
+  hasOpenToRelocation       Boolean @default(false)
+  hasPublicProfileEnabled   Boolean @default(false)
+  hasShoutOutsEnabled       Boolean @default(false)
+  hasSmallGroupInterest     Boolean @default(false)
+  hasDeepJournalingInterest Boolean @default(false)
+
+  // Journal reminder fields
+  journalReminderFrequency    ReminderFrequency @default(NONE)
   journalReminderLastReminded DateTime?
   profileBlurb                String?
   profileContactEmail         String?
@@ -176,8 +203,11 @@ model Checklist {
   id             Int             @id @default(autoincrement())
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
+  prettyRoute    String?
+  publishedAt    DateTime?
   name           String
   version        String
+  isPremium      Boolean         @default(false)
   checklistItems ChecklistItem[]
   userChecklists UserChecklist[]
 }
@@ -516,6 +546,7 @@ enum JournalEntryType {
 }
 
 enum ReminderFrequency {
+  NONE
   DAILY
   WEEKLY
   MONTHLY

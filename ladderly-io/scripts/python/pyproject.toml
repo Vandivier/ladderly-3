@@ -6,4 +6,5 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pathspec>=0.12.1",
+    "requests>=2.32.4",
 ]

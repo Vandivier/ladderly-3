@@ -35,7 +35,7 @@ interface JobSearchTrackerDetailsProps {
 export function JobTrackerDetails({
   initialJobSearch,
 }: JobSearchTrackerDetailsProps) {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() ?? new URLSearchParams()
 
   // Get page from URL or default to the initial job search page
   const pageFromUrl = searchParams.get('page')

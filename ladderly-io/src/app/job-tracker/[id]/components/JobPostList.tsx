@@ -182,7 +182,7 @@ export const JobPostList: React.FC<JobPostListProps> = ({
                       className="rounded bg-blue-50 px-3 py-1 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-800/30"
                       aria-label="Edit job post"
                     >
-                      <Edit className="h-4 w-4" />
+                      <Edit className="size-4" />
                     </Link>
                     <button
                       onClick={async (e) => {
@@ -195,7 +195,7 @@ export const JobPostList: React.FC<JobPostListProps> = ({
                       }`}
                       aria-label="Delete job post"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="size-4" />
                     </button>
                   </div>
                 </div>

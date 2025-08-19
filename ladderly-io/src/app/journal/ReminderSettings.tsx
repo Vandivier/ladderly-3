@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import { ReminderFrequency } from '@prisma/client'
+import React, { useState, useEffect } from 'react'
 import { api } from '~/trpc/react'
 
 export const ReminderSettings = () => {
@@ -34,18 +35,16 @@ export const ReminderSettings = () => {
     })
 
   // Local state for form
-  const [isEnabled, setIsEnabled] = useState(false)
-  const [frequency, setFrequency] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>(
-    'WEEKLY',
+  const [frequency, setFrequency] = useState<ReminderFrequency>(
+    ReminderFrequency.NONE,
   )
   const [updateStatus, setUpdateStatus] = useState<
     'idle' | 'success' | 'error'
   >('idle')
 
   // Update local state when settings are loaded
-  React.useEffect(() => {
-    if (settings) {
-      setIsEnabled(settings.isEnabled)
+  useEffect(() => {
+    if (settings?.frequency) {
       setFrequency(settings.frequency)
     }
   }, [settings])
@@ -54,7 +53,6 @@ export const ReminderSettings = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     updateSettings({
-      isEnabled,
       frequency,
     })
   }
@@ -83,45 +81,54 @@ export const ReminderSettings = () => {
         </button>
       </div>
 
+      {/* Show last reminder sent */}
+      {settings?.lastReminded && (
+        <div className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+          Last reminder sent: {new Date(settings.lastReminded).toLocaleString()}
+        </div>
+      )}
+
       {isExpanded && (
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="mb-2 flex items-center text-sm font-medium dark:text-gray-300">
-              <input
-                type="checkbox"
-                checked={isEnabled}
-                onChange={(e) => setIsEnabled(e.target.checked)}
-                className="mr-2"
-              />
-              Enable journal entry reminders
-            </label>
             <p className="text-xs text-gray-500 dark:text-gray-400">
               Get notified when it{"'"}s time to create a new journal entry
             </p>
           </div>
 
-          {isEnabled && (
+          <>
             <div className="mb-4">
               <label
                 htmlFor="frequency"
                 className="mb-1 block text-sm font-medium dark:text-gray-300"
               >
-                Reminder Frequency
+                Email Notification Frequency
               </label>
               <select
                 id="frequency"
                 value={frequency}
                 onChange={(e) =>
-                  setFrequency(e.target.value as 'DAILY' | 'WEEKLY' | 'MONTHLY')
+                  setFrequency(e.target.value as ReminderFrequency)
                 }
                 className="w-full rounded border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               >
-                <option value="DAILY">Daily</option>
-                <option value="WEEKLY">Weekly</option>
-                <option value="MONTHLY">Monthly</option>
+                <option value={ReminderFrequency.NONE}>None (Disabled)</option>
+                <option value={ReminderFrequency.DAILY}>Daily</option>
+                <option value={ReminderFrequency.WEEKLY}>Weekly</option>
+                <option value={ReminderFrequency.MONTHLY}>Monthly</option>
               </select>
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                {frequency === 'NONE' &&
+                  'You will not receive any journal reminders.'}
+                {frequency === 'DAILY' &&
+                  'You will receive a reminder every day.'}
+                {frequency === 'WEEKLY' &&
+                  'You will receive a reminder once a week.'}
+                {frequency === 'MONTHLY' &&
+                  'You will receive a reminder once a month.'}
+              </p>
             </div>
-          )}
+          </>
 
           {/* Form actions */}
           <div className="mt-4 flex items-center justify-between">

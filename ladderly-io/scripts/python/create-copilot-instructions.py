@@ -117,7 +117,9 @@ def create_copilot_instructions():
         "Here is the project.json file for this project which describes the dependencies:\n"
         f"{read_package_json(script_path)}\n\n"
         "Here is the folder structure of the project:\n"
-        f"{get_folder_structure(script_path)}"
+        f"{get_folder_structure(script_path)}\n\n"
+        "Other Rules:\n"
+        "- Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible."
     )
 
     output_path = script_path.parent / "copilot-instructions.txt"
