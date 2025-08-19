@@ -1,5 +1,5 @@
 ---
-title: '2. Building a Quality Portfolio'
+title: '2. Intro to Code and Building a Quality Portfolio'
 author: John Vandivier
 ---
 

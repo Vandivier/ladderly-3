@@ -24,8 +24,8 @@ const createJournalEntrySchema = z.object({
 })
 
 const updateReminderSchema = z.object({
-  isEnabled: z.boolean(),
   frequency: z.nativeEnum(ReminderFrequency),
+  reminderHour: z.number().min(0).max(23).optional(),
 })
 
 const updateJournalEntrySchema = z.object({
@@ -287,7 +287,6 @@ export const journalRouter = createTRPCRouter({
         id: Number(ctx.session.user.id),
       },
       select: {
-        journalReminderEnabled: true,
         journalReminderFrequency: true,
         journalReminderLastReminded: true,
       },
@@ -296,15 +295,13 @@ export const journalRouter = createTRPCRouter({
     // Return default settings if somehow user not found (shouldn't happen)
     if (!user) {
       return {
-        isEnabled: false,
-        frequency: ReminderFrequency.WEEKLY,
+        frequency: ReminderFrequency.NONE,
         lastReminded: null,
       }
     }
 
     // Map to original format to maintain API compatibility
     return {
-      isEnabled: user.journalReminderEnabled,
       frequency: user.journalReminderFrequency,
       lastReminded: user.journalReminderLastReminded,
     }
@@ -319,11 +316,9 @@ export const journalRouter = createTRPCRouter({
           id: Number(ctx.session.user.id),
         },
         data: {
-          journalReminderEnabled: input.isEnabled,
           journalReminderFrequency: input.frequency,
         },
         select: {
-          journalReminderEnabled: true,
           journalReminderFrequency: true,
           journalReminderLastReminded: true,
         },
@@ -331,7 +326,6 @@ export const journalRouter = createTRPCRouter({
 
       // Map to original format to maintain API compatibility
       return {
-        isEnabled: user.journalReminderEnabled,
         frequency: user.journalReminderFrequency,
         lastReminded: user.journalReminderLastReminded,
       }

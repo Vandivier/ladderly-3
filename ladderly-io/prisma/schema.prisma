@@ -1,42 +1,48 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
+// --------------------------------------
+
 model User {
-  createdAt                   DateTime                        @default(now())
-  id                          Int                             @id @default(autoincrement())
-  updatedAt                   DateTime                        @updatedAt
-  adminNotes                  String                          @default("")
-  email                       String                          @unique
-  emailBackup                 String                          @default("")
-  emailStripe                 String                          @default("")
-  emailVerified               DateTime?
-  hashedPassword              String?
-  image                       String?
-  name                        String                          @default("")
-  nameFirst                   String                          @default("")
-  nameLast                    String                          @default("")
-  hasInPersonEventInterest    Boolean                         @default(false)
-  hasLiveStreamInterest       Boolean                         @default(false)
-  hasOnlineEventInterest      Boolean                         @default(false)
-  hasOpenToWork               Boolean                         @default(false)
-  hasOpenToRelocation         Boolean                         @default(false)
-  hasPublicProfileEnabled     Boolean                         @default(false)
-  hasShoutOutsEnabled         Boolean                         @default(false)
-  hasSmallGroupInterest       Boolean                         @default(false)
-  hasDeepJournalingInterest   Boolean                         @default(false)
-  journalReminderEnabled      Boolean                         @default(false)
-  journalReminderFrequency    ReminderFrequency               @default(WEEKLY)
+  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  updatedAt DateTime @updatedAt
+
+  adminNotes     String    @default("")
+  email          String    @unique
+  emailBackup    String    @default("")
+  emailStripe    String    @default("")
+  emailVerified  DateTime?
+  hashedPassword String?
+  image          String?
+  name           String    @default("")
+  nameFirst      String    @default("")
+  nameLast       String    @default("")
+
+  hasInPersonEventInterest  Boolean @default(false)
+  hasLiveStreamInterest     Boolean @default(false)
+  hasOnlineEventInterest    Boolean @default(false)
+  hasOpenToWork             Boolean @default(false)
+  hasOpenToRelocation       Boolean @default(false)
+  hasPublicProfileEnabled   Boolean @default(false)
+  hasShoutOutsEnabled       Boolean @default(false)
+  hasSmallGroupInterest     Boolean @default(false)
+  hasDeepJournalingInterest Boolean @default(false)
+
+  // Journal reminder fields
+  journalReminderFrequency    ReminderFrequency @default(NONE)
   journalReminderLastReminded DateTime?
+
   profileBlurb                String?
   profileContactEmail         String?
-  profileCurrentJobCompany    String                          @default("")
-  profileCurrentJobTitle      String                          @default("")
+  profileCurrentJobCompany    String   @default("")
+  profileCurrentJobTitle      String   @default("")
   profileDiscordHandle        String?
   profileGitHubUri            String?
   profileHomepageUri          String?
@@ -46,25 +52,31 @@ model User {
   profileTopSkills            String[]
   profileYearsOfExperience    Int?
   profileHighestDegree        String?
-  profilePicture              String                          @default("")
-  residenceCountry            String                          @default("")
-  residenceUSState            String                          @default("")
-  role                        RoleEnum                        @default(USER)
-  uuid                        String                          @default(uuid())
-  accounts                    Account[]
-  jobSearches                 JobSearch[]
-  journalEntries              JournalEntry[]
-  Lead                        Lead[]
-  quizResults                 QuizResult[]
-  sessions                    Session[]
-  subscriptions               Subscription[]
-  tokens                      Token[]
-  transactions                Transaction[]
-  userChecklists              UserChecklist[]
-  userChecklistItems          UserChecklistItem[]
-  practiceCompletions         UserJournalPracticeCompletion[]
-  authoredVotables            Votable[]                       @relation("AuthoredVotables")
-  votes                       Vote[]
+  profilePicture              String   @default("")
+  residenceCountry            String   @default("")
+  residenceUSState            String   @default("")
+
+  accounts            Account[]
+  authoredVotables    Votable[]                       @relation("AuthoredVotables")
+  jobSearches         JobSearch[]
+  quizResults         QuizResult[]
+  role                RoleEnum                        @default(USER)
+  sessions            Session[]
+  subscriptions       Subscription[]
+  tokens              Token[]
+  transactions        Transaction[]
+  userChecklists      UserChecklist[]
+  uuid                String                          @default(uuid())
+  userChecklistItems  UserChecklistItem[]
+  votes               Vote[]
+  Lead                Lead[]
+  journalEntries      JournalEntry[]
+  practiceCompletions UserJournalPracticeCompletion[]
+}
+
+enum RoleEnum {
+  ADMIN
+  USER
 }
 
 model Account {
@@ -80,8 +92,8 @@ model Account {
   scope                    String?
   id_token                 String?
   session_state            String?
-  refresh_token_expires_in Int?
   user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refresh_token_expires_in Int?
 
   @@unique([provider, providerAccountId])
 }
@@ -96,10 +108,12 @@ model Session {
   antiCSRFToken      String?
   publicData         String?
   privateData        String?
-  sessionToken       String?   @unique @default(uuid())
-  expires            DateTime  @default(now())
-  userId             Int?
-  user               User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sessionToken String?  @unique @default(uuid())
+  expires      DateTime @default(now())
+
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int?
 }
 
 model Token {
@@ -110,10 +124,15 @@ model Token {
   type        TokenType
   expiresAt   DateTime
   sentTo      String
-  userId      Int
-  user        User      @relation(fields: [userId], references: [id])
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
   @@unique([hashedToken, type])
+}
+
+enum TokenType {
+  RESET_PASSWORD
 }
 
 model VerificationToken {
@@ -131,42 +150,48 @@ model UserChecklist {
   userId             Int
   checklistId        Int
   isComplete         Boolean             @default(false)
-  checklist          Checklist           @relation(fields: [checklistId], references: [id])
   user               User                @relation(fields: [userId], references: [id])
+  checklist          Checklist           @relation(fields: [checklistId], references: [id])
   userChecklistItems UserChecklistItem[]
 
   @@unique([userId, checklistId])
 }
 
 model UserChecklistItem {
-  id              Int           @id @default(autoincrement())
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  isComplete      Boolean       @default(false)
-  checklistItemId Int
-  userChecklistId Int
-  userId          Int
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  isComplete Boolean @default(false)
+
   checklistItem   ChecklistItem @relation(fields: [checklistItemId], references: [id])
+  checklistItemId Int
   userChecklist   UserChecklist @relation(fields: [userChecklistId], references: [id])
+  userChecklistId Int
   user            User          @relation(fields: [userId], references: [id])
+  userId          Int
 
   @@unique([userChecklistId, checklistItemId])
 }
 
 model ChecklistItem {
-  id                 Int                 @id @default(autoincrement())
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  displayIndex       Int
-  displayText        String
-  detailText         String              @default("")
-  isRequired         Boolean             @default(true)
-  linkText           String              @default("")
-  linkUri            String              @default("")
-  tags               String[]
-  version            String              @default("2023-07-18T00:00:00.517Z")
-  checklistId        Int
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  displayIndex Int
+  displayText  String
+  detailText   String   @default("")
+  isRequired   Boolean  @default(true)
+  linkText     String   @default("")
+  linkUri      String   @default("")
+  tags         String[]
+
+  // currently, versions are ISO
+  // so we can sort lexicographically
+  version String @default("2023-07-18T00:00:00.517Z")
+
   checklist          Checklist           @relation(fields: [checklistId], references: [id])
+  checklistId        Int
   userChecklistItems UserChecklistItem[]
 
   @@unique([displayText, checklistId])
@@ -176,8 +201,11 @@ model Checklist {
   id             Int             @id @default(autoincrement())
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
+  prettyRoute    String?
+  publishedAt    DateTime?
   name           String
   version        String
+  isPremium      Boolean         @default(false)
   checklistItems ChecklistItem[]
   userChecklists UserChecklist[]
 }
@@ -185,13 +213,13 @@ model Checklist {
 model Subscription {
   id                   Int             @id @default(autoincrement())
   userId               Int
+  user                 User            @relation(fields: [userId], references: [id])
   tier                 PaymentTierEnum @default(FREE)
   type                 String          @default("ACCOUNT_PLAN")
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
   stripeCustomerId     String?
   stripeSubscriptionId String?
-  user                 User            @relation(fields: [userId], references: [id])
 
   @@unique([userId, type])
 }
@@ -199,111 +227,174 @@ model Subscription {
 model Transaction {
   id              Int      @id @default(autoincrement())
   userId          Int
+  user            User     @relation(fields: [userId], references: [id])
   stripePaymentId String
   description     String
   amount          Float
   createdAt       DateTime @default(now())
-  user            User     @relation(fields: [userId], references: [id])
+}
+
+enum PaymentTierEnum {
+  FREE
+  PAY_WHAT_YOU_CAN
+  PREMIUM
 }
 
 model FlashCard {
-  id              Int            @id @default(autoincrement())
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  question        String
-  correctAnswer   String
-  distractors     String[]
-  explanation     String?
-  flashCardDeckId Int?
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  question      String
+  correctAnswer String
+  distractors   String[]
+
+  // Optional explanation for the answer
+  explanation String?
+
+  // The deck this card belongs to
   flashCardDeck   FlashCardDeck? @relation(fields: [flashCardDeckId], references: [id])
+  flashCardDeckId Int?
 }
 
 model Quiz {
-  id              Int           @id @default(autoincrement())
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @default(now())
-  name            String        @unique
-  description     String?
-  timeLimit       Int?
-  courseId        Int?
-  flashCardDeckId Int
-  course          Course?       @relation(fields: [courseId], references: [id])
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  name        String  @unique
+  description String?
+  timeLimit   Int? // Time limit in seconds (optional)
+
+  // Link to the course
+  course   Course? @relation(fields: [courseId], references: [id])
+  courseId Int?
+
+  // Link to the flashcard deck this quiz pulls from
   flashCardDeck   FlashCardDeck @relation(fields: [flashCardDeckId], references: [id])
-  quizResults     QuizResult[]
+  flashCardDeckId Int
+
+  // Quiz results
+  quizResults QuizResult[]
 }
 
 model FlashCardDeck {
-  id          Int         @id @default(autoincrement())
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   name        String
   description String?
-  courseId    Int?
-  flashCards  FlashCard[]
-  course      Course?     @relation(fields: [courseId], references: [id])
-  quizzes     Quiz[]
+
+  flashCards FlashCard[]
+
+  // Quizzes that use this deck
+  quizzes Quiz[]
+
+  // Link to the course
+  course   Course? @relation(fields: [courseId], references: [id])
+  courseId Int?
 }
 
 model Course {
-  id             Int             @id @default(autoincrement())
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  slug           String          @unique
-  title          String
-  description    String
-  contentItems   CourseContent[]
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  slug        String @unique
+  title       String
+  description String
+
+  // Course content
+  contentItems CourseContent[]
+
+  // Related flashcard decks
   flashCardDecks FlashCardDeck[]
-  quizzes        Quiz[]
+
+  // Related quizzes
+  quizzes Quiz[]
 }
 
 model CourseContent {
-  id          Int         @id @default(autoincrement())
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   title       String
   description String?
   contentUrl  String?
   contentType ContentType @default(TEXT)
   order       Int         @default(0)
-  courseId    Int
-  course      Course      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  // Link to the course
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId Int
+}
+
+enum ContentType {
+  TEXT
+  VIDEO
+  AUDIO
+  DOCUMENT
+  LINK
+  EXERCISE
 }
 
 model QuizResult {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  passed    Boolean
-  score     Float
-  quizId    Int
-  userId    Int
-  quiz      Quiz     @relation(fields: [quizId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
 
+  passed Boolean
+  score  Float
+
+  quiz   Quiz @relation(fields: [quizId], references: [id])
+  quizId Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  // Ensure a cooldown between quiz attempts
   @@index([userId, quizId, createdAt])
 }
 
+enum VotableType {
+  ANSWER
+  CERTIFICATION
+  COMMENT
+  COMPANY
+  CONTENT
+  EDUCATOR
+  FOOD
+  JOB_TITLE
+  QUESTION
+  SKILL
+  SCHOOL
+  TECH_INFLUENCER
+}
+
 model Votable {
-  id                  Int               @id @default(autoincrement())
-  createdAt           DateTime          @default(now())
-  updatedAt           DateTime          @updatedAt
+  id                  Int         @id @default(autoincrement())
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
   type                VotableType
-  name                String
+  name                String // also, the title for questions and blog posts
   body                String?
   tags                String[]
-  prestigeScore       Float             @default(0)
-  voteCount           Int               @default(0)
-  registeredUserVotes Int               @default(0)
-  guestVotes          Int               @default(0)
+  prestigeScore       Float       @default(0)
+  voteCount           Int         @default(0)
+  registeredUserVotes Int         @default(0)
+  guestVotes          Int         @default(0)
   website             String?
   miscInfo            Json?
+  author              User?       @relation("AuthoredVotables", fields: [authorId], references: [id])
   authorId            Int?
-  parentVotableId     Int?
-  isAccepted          Boolean           @default(false)
-  author              User?             @relation("AuthoredVotables", fields: [authorId], references: [id])
-  parentVotable       Votable?          @relation("VotableHierarchy", fields: [parentVotableId], references: [id])
-  childVotables       Votable[]         @relation("VotableHierarchy")
-  snapshots           VotableSnapshot[]
-  votes               Vote[]
+
+  parentVotable   Votable?  @relation("VotableHierarchy", fields: [parentVotableId], references: [id])
+  parentVotableId Int?
+  childVotables   Votable[] @relation("VotableHierarchy")
+
+  votes      Vote[]
+  snapshots  VotableSnapshot[]
+  isAccepted Boolean           @default(false) // For answers
 
   @@unique([type, name])
 }
@@ -321,13 +412,18 @@ model Vote {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  votable   Votable  @relation(fields: [votableId], references: [id])
   votableId Int
+  voter     User     @relation(fields: [voterId], references: [id])
   voterId   Int
   voteType  VoteType
-  votable   Votable  @relation(fields: [votableId], references: [id])
-  voter     User     @relation(fields: [voterId], references: [id])
 
   @@unique([voterId, votableId])
+}
+
+enum VoteType {
+  UPVOTE
+  DOWNVOTE
 }
 
 model Lead {
@@ -346,139 +442,7 @@ model Lead {
   @@index([userId])
 }
 
-model JobSearch {
-  id        Int                   @id @default(autoincrement())
-  createdAt DateTime              @default(now())
-  updatedAt DateTime              @updatedAt
-  name      String
-  startDate DateTime              @default(now())
-  endDate   DateTime?
-  isActive  Boolean               @default(true)
-  notes     String?
-  userId    Int
-  jobPosts  JobPostForCandidate[]
-  user      User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model JobPostForCandidate {
-  id                     Int                  @id @default(autoincrement())
-  createdAt              DateTime             @default(now())
-  updatedAt              DateTime             @updatedAt
-  company                String
-  jobTitle               String?
-  jobPostUrl             String?
-  jobBoardOrChannelName  String?
-  resumeVersion          String?
-  initialOutreachDate    DateTime?
-  initialApplicationDate DateTime?
-  lastActionDate         DateTime?
-  status                 JobApplicationStatus
-  contactName            String?
-  contactUrl             String?
-  hasReferral            Boolean
-  isInboundOpportunity   Boolean
-  baseSalary             Int?
-  totalCompensation      Int?
-  notes                  String?
-  jobSearchId            Int
-  jobSearch              JobSearch            @relation(fields: [jobSearchId], references: [id], onDelete: Cascade)
-  jobSearchSteps         JobSearchStep[]
-}
-
-model JobSearchStep {
-  id         Int                 @id @default(autoincrement())
-  createdAt  DateTime            @default(now())
-  updatedAt  DateTime            @updatedAt
-  date       DateTime
-  kind       JobSearchStepKind
-  notes      String?
-  isPassed   Boolean?
-  isInPerson Boolean
-  jobPostId  Int
-  jobPost    JobPostForCandidate @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
-}
-
-model JournalEntry {
-  id                  Int              @id @default(autoincrement())
-  createdAt           DateTime         @default(now())
-  updatedAt           DateTime         @updatedAt
-  content             String           @db.VarChar(500)
-  entryType           JournalEntryType
-  isCareerRelated     Boolean          @default(true)
-  isMarkdown          Boolean          @default(false)
-  happiness           Int?
-  isPublic            Boolean          @default(false)
-  mintedFromDateRange DateTime[]       @default(dbgenerated("(ARRAY[]::timestamp without time zone[])::timestamp(3) without time zone[]"))
-  mintedFromHashtag   String?
-  userId              Int
-  user                User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model JournalPractice {
-  id          Int                             @id @default(autoincrement())
-  createdAt   DateTime                        @default(now())
-  updatedAt   DateTime                        @updatedAt
-  name        String
-  description String
-  category    PracticeCategory
-  completions UserJournalPracticeCompletion[]
-}
-
-model UserJournalPracticeCompletion {
-  id         Int             @id @default(autoincrement())
-  createdAt  DateTime        @default(now())
-  practiceId Int
-  userId     Int
-  practice   JournalPractice @relation(fields: [practiceId], references: [id], onDelete: Cascade)
-  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([practiceId, userId, createdAt])
-}
-
-enum RoleEnum {
-  ADMIN
-  USER
-}
-
-enum TokenType {
-  RESET_PASSWORD
-}
-
-enum PaymentTierEnum {
-  FREE
-  PAY_WHAT_YOU_CAN
-  PREMIUM
-}
-
-enum ContentType {
-  TEXT
-  VIDEO
-  AUDIO
-  DOCUMENT
-  LINK
-  EXERCISE
-}
-
-enum VotableType {
-  ANSWER
-  CERTIFICATION
-  COMMENT
-  COMPANY
-  CONTENT
-  EDUCATOR
-  FOOD
-  JOB_TITLE
-  QUESTION
-  SKILL
-  SCHOOL
-  TECH_INFLUENCER
-}
-
-enum VoteType {
-  UPVOTE
-  DOWNVOTE
-}
-
+// Job Search Models
 enum JobApplicationStatus {
   IN_OUTREACH
   APPLIED
@@ -489,12 +453,67 @@ enum JobApplicationStatus {
   WITHDRAWN
 }
 
+model JobSearch {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+  isActive  Boolean   @default(true)
+  notes     String?
+
+  // Relations
+  user     User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
+  jobPosts JobPostForCandidate[]
+}
+
+model JobPostForCandidate {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Company info
+  company               String
+  jobTitle              String?
+  jobPostUrl            String?
+  jobBoardOrChannelName String?
+
+  // Application info
+  resumeVersion          String?
+  initialOutreachDate    DateTime?
+  initialApplicationDate DateTime?
+  lastActionDate         DateTime?
+  status                 JobApplicationStatus
+
+  // Contact info
+  contactName String?
+  contactUrl  String?
+  hasReferral Boolean
+
+  // Outreach tracking
+  isInboundOpportunity Boolean
+
+  // Compensation
+  baseSalary        Int?
+  totalCompensation Int?
+
+  // Misc
+  notes String?
+
+  // Relations
+  jobSearch      JobSearch       @relation(fields: [jobSearchId], references: [id], onDelete: Cascade)
+  jobSearchId    Int
+  jobSearchSteps JobSearchStep[]
+}
+
 enum JobSearchStepKind {
   BACKGROUND_OR_REFERENCE_CHECK
   BEHAVIORAL_INTERVIEW
   HIRING_MANAGER_CALL
   INITIAL_APPLICATION
-  MULTI_ROUND_MULTI_KIND
+  MULTI_ROUND_MULTI_KIND // eg a final loop
   NONTECHNICAL_CONVERSATION
   OTHER
   OUTBOUND_MESSAGE
@@ -507,6 +526,42 @@ enum JobSearchStepKind {
   TECHNICAL_OTHER
 }
 
+model JobSearchStep {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  date       DateTime
+  kind       JobSearchStepKind
+  notes      String?
+  isPassed   Boolean?
+  isInPerson Boolean
+
+  // Relations
+  jobPost   JobPostForCandidate @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
+  jobPostId Int
+}
+
+model JournalEntry {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  content         String           @db.VarChar(500)
+  entryType       JournalEntryType
+  isCareerRelated Boolean          @default(true)
+  isMarkdown      Boolean          @default(false)
+  happiness       Int?
+
+  // Fields for minted entries
+  mintedFromDateRange DateTime[] @default([])
+  mintedFromHashtag   String?
+
+  // Relations
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
+
 enum JournalEntryType {
   LEARNING
   MINTED
@@ -516,9 +571,23 @@ enum JournalEntryType {
 }
 
 enum ReminderFrequency {
+  NONE
   DAILY
   WEEKLY
   MONTHLY
+}
+
+model JournalPractice {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  description String
+  category    PracticeCategory
+
+  // Relations
+  completions UserJournalPracticeCompletion[]
 }
 
 enum PracticeCategory {
@@ -528,4 +597,17 @@ enum PracticeCategory {
   TECHNICAL
   PERSUASION
   PERSONAL
+}
+
+model UserJournalPracticeCompletion {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  // Relations
+  practice   JournalPractice @relation(fields: [practiceId], references: [id], onDelete: Cascade)
+  practiceId Int
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+
+  @@unique([practiceId, userId, createdAt])
 }

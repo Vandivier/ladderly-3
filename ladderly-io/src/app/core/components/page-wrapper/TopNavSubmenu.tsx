@@ -58,6 +58,9 @@ export const GrowMenuItems = ({
     <Link href="/blog" className={linkClassName}>
       Blog
     </Link>
+    <Link href="/checklists" className={linkClassName}>
+      Checklists
+    </Link>
     <Link href="/copilot" className={linkClassName}>
       Copilot
     </Link>

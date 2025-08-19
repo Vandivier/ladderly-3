@@ -1,9 +1,131 @@
-import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { db } from "~/server/db";
-import { TRPCError } from "@trpc/server";
+import { z } from 'zod'
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+  isAuthedOrInternalMiddleware,
+} from '~/server/api/trpc'
+import { db } from '~/server/db'
+import { TRPCError } from '@trpc/server'
 
 export const checklistRouter = createTRPCRouter({
+  getById: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ input }) => {
+      return db.checklist.findUnique({
+        where: { id: input.id },
+      })
+    }),
+
+  getByPrettyRoute: publicProcedure
+    .input(z.object({ prettyRoute: z.string() }))
+    .query(async ({ input }) => {
+      return db.checklist.findFirst({
+        where: {
+          prettyRoute: input.prettyRoute,
+          publishedAt: {
+            not: null,
+          },
+        },
+        orderBy: {
+          publishedAt: 'desc',
+        },
+      })
+    }),
+
+  getChecklistForUser: protectedProcedure
+    .input(z.object({ checklistId: z.number() }))
+    .query(async ({ input, ctx }) => {
+      const checklist = await db.checklist.findUnique({
+        where: { id: input.checklistId },
+        include: { checklistItems: true },
+      })
+
+      if (!checklist) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Checklist not found',
+        })
+      }
+
+      let userChecklist = await db.userChecklist.findUnique({
+        where: {
+          userId_checklistId: {
+            userId: parseInt(ctx.session.user.id),
+            checklistId: input.checklistId,
+          },
+        },
+        include: {
+          checklist: true,
+          userChecklistItems: {
+            include: {
+              checklistItem: true,
+            },
+            orderBy: {
+              checklistItem: {
+                displayIndex: 'asc',
+              },
+            },
+          },
+        },
+      })
+
+      // If no user checklist exists or it has no items, create/recreate it
+      if (!userChecklist || userChecklist.userChecklistItems.length === 0) {
+        // If exists but has no items, delete it first to ensure clean state
+        if (userChecklist) {
+          await db.userChecklist.delete({
+            where: { id: userChecklist.id },
+          })
+        }
+
+        // Create new user checklist
+        const newUserChecklist = await db.userChecklist.create({
+          data: {
+            userId: parseInt(ctx.session.user.id),
+            checklistId: input.checklistId,
+          },
+        })
+
+        // Create user checklist items
+        await db.userChecklistItem.createMany({
+          data: checklist.checklistItems.map((item) => ({
+            isComplete: false,
+            checklistItemId: item.id,
+            userChecklistId: newUserChecklist.id,
+            userId: parseInt(ctx.session.user.id),
+          })),
+        })
+
+        // Fetch the complete user checklist with items
+        userChecklist = await db.userChecklist.findUnique({
+          where: { id: newUserChecklist.id },
+          include: {
+            checklist: true,
+            userChecklistItems: {
+              include: {
+                checklistItem: true,
+              },
+              orderBy: {
+                checklistItem: {
+                  displayIndex: 'asc',
+                },
+              },
+            },
+          },
+        })
+      }
+
+      if (!userChecklist) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Could not find or create user checklist',
+        })
+      }
+
+      return userChecklist
+    }),
+
   getLatestByName: protectedProcedure
     .input(z.object({ name: z.string() }))
     .query(async ({ input, ctx }) => {
@@ -12,22 +134,22 @@ export const checklistRouter = createTRPCRouter({
           name: input.name,
         },
         orderBy: {
-          version: "desc",
+          version: 'desc',
         },
         include: {
           checklistItems: {
             orderBy: {
-              displayIndex: "asc",
+              displayIndex: 'asc',
             },
           },
         },
-      });
+      })
 
       if (!latestChecklist) {
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Checklist not found",
-        });
+          code: 'NOT_FOUND',
+          message: 'Checklist not found',
+        })
       }
 
       let userChecklist = await db.userChecklist.findFirst({
@@ -45,15 +167,15 @@ export const checklistRouter = createTRPCRouter({
             },
             orderBy: {
               checklistItem: {
-                displayIndex: "asc",
+                displayIndex: 'asc',
               },
             },
           },
         },
         orderBy: {
-          createdAt: "desc",
+          createdAt: 'desc',
         },
-      });
+      })
 
       // If no user checklist exists or it has no items, create/recreate it
       if (!userChecklist || userChecklist.userChecklistItems.length === 0) {
@@ -61,7 +183,7 @@ export const checklistRouter = createTRPCRouter({
         if (userChecklist) {
           await db.userChecklist.delete({
             where: { id: userChecklist.id },
-          });
+          })
         }
 
         // Create new user checklist
@@ -74,21 +196,17 @@ export const checklistRouter = createTRPCRouter({
             checklist: true,
             userChecklistItems: true,
           },
-        });
+        })
 
         // Create user checklist items
-        await Promise.all(
-          latestChecklist.checklistItems.map((item) =>
-            db.userChecklistItem.create({
-              data: {
-                isComplete: false,
-                checklistItemId: item.id,
-                userChecklistId: newUserChecklist.id,
-                userId: parseInt(ctx.session.user.id),
-              },
-            })
-          )
-        );
+        await db.userChecklistItem.createMany({
+          data: latestChecklist.checklistItems.map((item) => ({
+            isComplete: false,
+            checklistItemId: item.id,
+            userChecklistId: newUserChecklist.id,
+            userId: parseInt(ctx.session.user.id),
+          })),
+        })
 
         // Fetch the complete user checklist with items
         userChecklist = await db.userChecklist.findUnique({
@@ -101,12 +219,12 @@ export const checklistRouter = createTRPCRouter({
               },
               orderBy: {
                 checklistItem: {
-                  displayIndex: "asc",
+                  displayIndex: 'asc',
                 },
               },
             },
           },
-        });
+        })
       }
 
       return {
@@ -114,7 +232,7 @@ export const checklistRouter = createTRPCRouter({
           userChecklist,
         },
         latestChecklistId: latestChecklist.id,
-      };
+      }
     }),
 
   createAsClone: protectedProcedure
@@ -123,13 +241,13 @@ export const checklistRouter = createTRPCRouter({
       const checklist = await db.checklist.findUnique({
         where: { id: input.checklistId },
         include: { checklistItems: true },
-      });
+      })
 
       if (!checklist) {
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Checklist not found",
-        });
+          code: 'NOT_FOUND',
+          message: 'Checklist not found',
+        })
       }
 
       // Create the user checklist
@@ -138,21 +256,17 @@ export const checklistRouter = createTRPCRouter({
           userId: parseInt(ctx.session.user.id),
           checklistId: checklist.id,
         },
-      });
+      })
 
       // Create user checklist items
-      await Promise.all(
-        checklist.checklistItems.map((item) =>
-          db.userChecklistItem.create({
-            data: {
-              isComplete: false,
-              checklistItemId: item.id,
-              userChecklistId: userChecklist.id,
-              userId: parseInt(ctx.session.user.id),
-            },
-          })
-        )
-      );
+      await db.userChecklistItem.createMany({
+        data: checklist.checklistItems.map((item) => ({
+          isComplete: false,
+          checklistItemId: item.id,
+          userChecklistId: userChecklist.id,
+          userId: parseInt(ctx.session.user.id),
+        })),
+      })
 
       // Fetch the complete user checklist with items
       const completeUserChecklist = await db.userChecklist.findUnique({
@@ -165,23 +279,23 @@ export const checklistRouter = createTRPCRouter({
             },
             orderBy: {
               checklistItem: {
-                displayIndex: "asc",
+                displayIndex: 'asc',
               },
             },
           },
         },
-      });
+      })
 
       if (!completeUserChecklist) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to create checklist",
-        });
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Failed to create checklist',
+        })
       }
 
       return {
         userChecklist: completeUserChecklist,
-      };
+      }
     }),
 
   toggleItem: protectedProcedure
@@ -189,18 +303,18 @@ export const checklistRouter = createTRPCRouter({
       z.object({
         userChecklistItemId: z.number(),
         isComplete: z.boolean(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const item = await db.userChecklistItem.findUnique({
         where: { id: input.userChecklistItemId },
-      });
+      })
 
       if (!item || item.userId !== parseInt(ctx.session.user.id)) {
         throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Checklist item not found",
-        });
+          code: 'NOT_FOUND',
+          message: 'Checklist item not found',
+        })
       }
 
       return db.userChecklistItem.update({
@@ -209,33 +323,28 @@ export const checklistRouter = createTRPCRouter({
         include: {
           checklistItem: true,
         },
-      });
+      })
     }),
 
-  list: protectedProcedure
+  list: publicProcedure
     .input(
       z.object({
-        skip: z.number().default(0),
-        take: z.number().default(100),
-      })
+        internalSecret: z.string().optional(),
+      }),
     )
-    .query(async ({ input }) => {
-      const [checklists, count] = await Promise.all([
-        db.checklist.findMany({
-          orderBy: { id: "asc" },
-          skip: input.skip,
-          take: input.take + 1,
-        }),
-        db.checklist.count(),
-      ]);
-
-      const hasMore = checklists.length > input.take;
-      if (hasMore) checklists.pop();
+    .use(isAuthedOrInternalMiddleware)
+    .query(async () => {
+      const checklists = await db.checklist.findMany({
+        orderBy: { name: 'asc' },
+        where: {
+          publishedAt: {
+            not: null,
+          },
+        },
+      })
 
       return {
         checklists,
-        hasMore,
-        count,
-      };
+      }
     }),
-}); 
+})

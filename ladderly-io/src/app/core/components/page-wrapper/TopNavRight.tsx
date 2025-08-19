@@ -16,7 +16,7 @@ const TOP_NAV_RIGHT_SECTION_CLASSES = 'ml-auto flex items-center space-x-6'
 
 export const TopNavRight = () => {
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() ?? new URLSearchParams()
   const currentUserQuery = api.user.getCurrentUser.useQuery()
   const currentUser = currentUserQuery.data
   const { setMenu, openMenuName } = React.useContext(MenuContext)

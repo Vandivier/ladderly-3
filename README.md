@@ -22,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Runs your tests using Jest.
 
 ```bash
-npm run dev
+npm run test
 ```
 
 ## Production

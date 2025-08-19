@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "installCommand": "npm install --build-from-source",
+  "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/send-journal-reminders",
+      "schedule": "0 12 * * *"
+    }
+  ]
+}

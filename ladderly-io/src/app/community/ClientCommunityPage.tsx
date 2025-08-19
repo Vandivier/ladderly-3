@@ -39,7 +39,7 @@ const FilterChip: React.FC<FilterChipProps> = ({
 
 export default function ClientCommunityPage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams() ?? new URLSearchParams()
   const page = isNaN(parseInt(searchParams.get('page') ?? '0'))
     ? 0
     : parseInt(searchParams.get('page') ?? '0')
