@@ -39,6 +39,9 @@ export const CommunityMenuItems = ({
     <Link href="/community" className={linkClassName}>
       Browse Profiles
     </Link>
+    <Link href="/journal/feed" className={linkClassName}>
+      Journal Feed
+    </Link>
     <Link
       href="https://discord.com/invite/fAg6Xa4uxc"
       className={linkClassName}
@@ -69,9 +72,6 @@ export const GrowMenuItems = ({
     </Link>
     <Link href="/journal" className={linkClassName}>
       Journal
-    </Link>
-    <Link href="/journal/feed" className={linkClassName}>
-      Journal Feed
     </Link>
     <Link href="/leetcode-tool" className={linkClassName}>
       Leetcode Tool
