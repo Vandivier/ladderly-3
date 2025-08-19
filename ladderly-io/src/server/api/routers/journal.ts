@@ -1,4 +1,5 @@
 import {
+  JournalEntryType,
   PracticeCategory,
   ReminderFrequency,
   type Prisma,
@@ -14,7 +15,7 @@ import {
 
 const createJournalEntrySchema = z.object({
   content: z.string().max(500),
-  entryType: JournalEntryEnum,
+  entryType: z.nativeEnum(JournalEntryType),
   isCareerRelated: z.boolean().default(true),
   isPublic: z.boolean().default(false),
   isMarkdown: z.boolean().default(false),
@@ -134,7 +135,7 @@ export const journalRouter = createTRPCRouter({
       const userTier = ctx.session.user.subscription.tier
 
       // Check if this is a minted entry
-      const isMintedEntry = input.entryType === 'MINTED'
+      const isMintedEntry = input.entryType === JournalEntryType.MINTED
 
       // Daily limit for free tier users (only for non-minted entries)
       if (userTier === 'FREE' && !isMintedEntry) {
