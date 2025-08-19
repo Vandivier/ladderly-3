@@ -4,7 +4,7 @@ import type { JournalEntryType } from '@prisma/client'
 import { BarChart3, Heart } from 'lucide-react'
 import Link from 'next/link'
 import React, { useCallback, useMemo, useState } from 'react'
-import { JournalEntryEnumType } from '~/app/journal/schemas'
+import type { JournalEntryEnumType } from '~/app/journal/schemas'
 import { api } from '~/trpc/react'
 import { HappinessSlider } from './HappinessSlider'
 
