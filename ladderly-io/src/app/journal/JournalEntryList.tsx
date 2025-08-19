@@ -167,31 +167,28 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
           </label>
         </div>
 
-        {/* Public checkbox - only show if career related is checked */}
-        {isCareerRelated && (
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id={`edit-public-${id}`}
-              checked={isPublic}
-              onChange={(e) => onChangeIsPublic(e.target.checked)}
-              className="mr-1 size-4"
-              disabled={isUpdating}
-            />
-            <label
-              htmlFor={`edit-public-${id}`}
-              className="text-sm font-medium dark:text-gray-300"
-            >
-              Share Publicly
-            </label>
-            <span
-              className="ml-1 cursor-help text-xs text-blue-500"
-              title="Public entries will appear in the community journal feed"
-            >
-              (?)
-            </span>
-          </div>
-        )}
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            id={`edit-public-${id}`}
+            checked={isPublic}
+            onChange={(e) => onChangeIsPublic(e.target.checked)}
+            className="mr-1 size-4"
+            disabled={isUpdating}
+          />
+          <label
+            htmlFor={`edit-public-${id}`}
+            className="text-sm font-medium dark:text-gray-300"
+          >
+            Share Publicly
+          </label>
+          <span
+            className="ml-1 cursor-help text-xs text-blue-500"
+            title="Public entries will appear in the community journal feed"
+          >
+            (?)
+          </span>
+        </div>
       </div>
 
       <div className="flex justify-end space-x-2">

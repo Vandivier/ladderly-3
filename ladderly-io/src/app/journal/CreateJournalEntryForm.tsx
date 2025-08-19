@@ -198,7 +198,7 @@ export const CreateJournalEntryForm = ({
         {/* Form controls stacked for mobile */}
         <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
           {/* Entry type dropdown */}
-          <div className="w-full sm:w-1/2">
+          <div className="w-full sm:w-1/4">
             <label
               htmlFor="entryType"
               className="mb-1 block text-sm font-medium dark:text-gray-300"
@@ -261,36 +261,33 @@ export const CreateJournalEntryForm = ({
             </label>
           </div>
 
-          {/* Public checkbox - only show if career related is checked */}
-          {isCareerRelated && (
-            <div className="flex w-full items-center sm:w-auto">
-              <input
-                type="checkbox"
-                id="isPublic"
-                name="isPublic"
-                checked={isPublic}
-                onChange={handlePublicChange}
-                className="size-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
-                disabled={
-                  isLoading ||
-                  isWeeklyLoadingData ||
-                  weeklyEntryCount >= weeklyLimit
-                }
-              />
-              <label
-                htmlFor="isPublic"
-                className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
-              >
-                Share Publicly
-              </label>
-              <span
-                className="ml-1 cursor-help text-xs text-blue-500 hover:underline"
-                title="Public entries will appear in the community journal feed"
-              >
-                (?)
-              </span>
-            </div>
-          )}
+          <div className="flex w-full items-center sm:w-auto">
+            <input
+              type="checkbox"
+              id="isPublic"
+              name="isPublic"
+              checked={isPublic}
+              onChange={handlePublicChange}
+              className="size-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+              disabled={
+                isLoading ||
+                isWeeklyLoadingData ||
+                weeklyEntryCount >= weeklyLimit
+              }
+            />
+            <label
+              htmlFor="isPublic"
+              className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
+            >
+              Share Publicly
+            </label>
+            <span
+              className="ml-1 cursor-help text-xs text-blue-500 hover:underline"
+              title="Public entries will appear in the community journal feed"
+            >
+              (?)
+            </span>
+          </div>
         </div>
 
         {error && (
