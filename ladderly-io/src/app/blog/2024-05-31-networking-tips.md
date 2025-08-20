@@ -55,7 +55,7 @@ Beyond the previously-mentioned networking scripts, here are several additional 
 3. Connect with Multiple People
 
    - Reach out to several individuals within the company to increase your chances of getting a response and diverse opinions.
-   - Reach out to a recruiter, the hiring manager, and a few contributors with relevant job titles. If you don't hear back after a few business days, follow up using [the Three Strikes Rules mentioned in the social networking scripts article](http://localhost:3000/blog/2025-01-20-social-networking-scripts#the-three-strikes-rules).
+   - Reach out to a recruiter, the hiring manager, and a few contributors with relevant job titles. If you don't hear back after a few business days, follow up using [the Three Strikes Rules mentioned in the social networking scripts article](/blog/2025-01-20-social-networking-scripts#the-three-strikes-rules).
 
 4. Say Thank You!
 
