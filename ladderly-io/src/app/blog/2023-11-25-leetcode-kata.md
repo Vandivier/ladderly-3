@@ -300,11 +300,15 @@ There are six main dangers to using code kata from Ladderly or elsewhere:
 
 6. Neglecting others is a danger of becoming an elite programmer. You may forget how hard it was in the beginning. You may think that since you went through this difficult process other people should also do the same in order to earn their place as a software engineer. At Ladderly, we hope that you adopt an attitude of empathy toward others instead, and we'd welcome your personal support and contributions of time, resources, and effort to ensure that it gets easier for people to break into tech over time.
 
-## Ladderly 300 to 690
+## Ladderly 360
 
-Links to problem lists on leetcode are forthcoming. For now, I'll just define the problem selection strategies:
+The union of the Grind 75, NeetCode 250, Sean Prashad's Patterns, and the Ladderly Expanded Kata is 349 problems, which can be explored using the [Leetcode Tool](https://www.ladderly.io/leetcode-tool).
 
-1. Ladderly 300: Neetcode 250, less bit manipulation and DP (43 problems), plus Ladderly Expanded Kata (28 problems), plus 65 hard problems
-2. Ladderly 420: Ladderly 300, plus frequent-pattern deltas from Grind 75, Leetcode 75, Prashad's 174, and some extra problems.
-3. Ladderly 500: Ladderly 420 plus dynamic programming and some extra problems.
-4. Ladderly 690: Total superset of all referenced problem lists inclusive of all patterns, including exotic patterns and pure trivia problems for ultimate overkill and bragging rights with zero respect for ROI on time spent.
+The Ladderly 360 is a work in progress, improving over those prior problems to incorporate the following evidence-based features backed by [coding round performance research](https://optimality.substack.com/p/contra-interview-when-you-feel-ready):
+
+1. A problem count in the optimal range of 300-500
+2. A higher proportion of hard problems
+
+Plus, the convenience of the number 360 which is adaptive to study plans in a wide variety of time ranges.
+
+Hard problem recommendations and other comments [are welcome here](https://github.com/Vandivier/ladderly-3/issues/561) as we collectively improve from the existing 349 problem set to the Ladderly 360!.
