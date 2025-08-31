@@ -111,3 +111,8 @@ In cases like these, you are able to select from a fixed set options for each it
   - For backtracking this is typically the recursion depth plus extra space for the path itself. This is the memory space used _other than the output variable_.
 - **Output space / Total space:** storing the return list itself costs $\Theta(\#\text{solutions})$ for backtracking algorithms.
   - While this is true, it's not the expected answer in a LeetCode-style interview.
+
+## Other Resources on Backtracking
+
+- [Recursive Backtracking in Python with Greg Hogg](https://www.youtube.com/watch?v=L0NxT2i-LOY)
+- [Ladderly.io Leetcode Tool](https://www.ladderly.io/leetcode-tool)
