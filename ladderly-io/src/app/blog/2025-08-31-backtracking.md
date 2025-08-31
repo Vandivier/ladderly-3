@@ -34,7 +34,7 @@ In the case of a coin toss, we can easily see that the sequence is 2^n, where n 
 
 More generally, any collection of letters, numbers, or other elements which may be included or excluded fall into this 2^n binary decision complexity.
 
-In other backtracking problems, there is no exlusivity between including or excluding a single element. Imagine these questions and their associated option count:
+In other backtracking problems, there is no exclusivity between including or excluding a single element. Imagine these questions and their associated option count:
 
 1. Would you like to append this particular integer to the path?
 2. Would you like to append this particular letter to the path?
@@ -54,7 +54,7 @@ Then the second outcome is always known immediately after the first outcome is r
 
 With a die, the possible outcomes at each iteration would be 6, 5, 4...1 and the number of sequences would be the product of this series, which is n!
 
-So, it is a valid and general bound to say that the time complexity is `n!` for permutations without replacement, but we also know it is valid and general to say that `m^n` is a boundry. Interestingly, for some values of m and n, `m^n` is actually a narrower boundary. So, the general constraint when we know that replacement is not allowed is `O(min{m^n, n!})`.
+So, it is a valid and general bound to say that the time complexity is `n!` for permutations without replacement, but we also know it is valid and general to say that `m^n` is a boundary. Interestingly, for some values of m and n, `m^n` is actually a narrower boundary. So, the general constraint when we know that replacement is not allowed is `O(min{m^n, n!})`.
 
 ## Few-Step Permutation without Replacement
 
