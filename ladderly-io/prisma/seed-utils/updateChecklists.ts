@@ -107,8 +107,18 @@ export const updateChecklistsInPlace = async (
   }
   console.log(`Done creating/updating items for: ${checklistData.name}`)
 
+  // Refresh checklist with updated items before checking for obsolete items
+  const refreshedChecklist = await db.checklist.findUnique({
+    where: { id: checklist.id },
+    include: { checklistItems: true },
+  })
+
+  if (!refreshedChecklist) {
+    throw new Error(`Checklist not found after update: ${checklistData.name}`)
+  }
+
   const checklistItems = await deleteObsoleteChecklistItems(
-    checklist,
+    refreshedChecklist,
     checklistItemCreateManyInput,
   )
   console.log(`deleteObsoleteChecklistItems done for: ${checklistData.name}`)
