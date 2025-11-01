@@ -104,7 +104,7 @@ Full package.json content:
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "prisma": "^6.2.1",
+    "prisma": "^6.13.0",
     "rehype-raw": "^7.0.0",
     "tailwindcss": "^3.4.3",
     "tsx": "^4.19.3",
@@ -203,7 +203,8 @@ scripts/
         README.md
         copilot-instructions.txt
         create-copilot-instructions.py
-        create-unified-leecode-list.py
+        create-unified-leetcode-list.py
+        enrich_leetcode_difficulty.py
         pyproject.toml
         uv.lock
         scripts/python/analytical/
@@ -307,6 +308,10 @@ src/
             2025-05-01-lsg2-learnings.md
             2025-05-02-benefits-of-free.md
             2025-05-03-faq.md
+            2025-05-10-vibe-coding-genius.md
+            2025-05-11-design-docs.md
+            2025-06-03-data-engineering-interview.md
+            2025-08-31-backtracking.md
             blog-utils.ts
             page.tsx
             src/app/blog/[slug]/
@@ -315,14 +320,14 @@ src/
                 page.tsx
                 types.ts
         src/app/checklists/
+            ChecklistCard.tsx
             ChecklistsList.tsx
+            PremiumLockIcon.tsx
             page.tsx
-            src/app/checklists/my-basic-checklist/
-                ClientBasicChecklist.tsx
+            src/app/checklists/[idOrPrettyRoute]/
+                ClientChecklist.tsx
                 page.tsx
             src/app/checklists/my-premium-checklist/
-                ClientPremiumChecklist.tsx
-                page.tsx
                 src/app/checklists/my-premium-checklist/components/
         src/app/community/
             ClientCommunityPage.tsx
@@ -340,6 +345,7 @@ src/
         src/app/copilot/
             page.tsx
         src/app/core/
+            utils.ts
             src/app/core/components/
                 Form.tsx
                 LabeledAutocompleteField.tsx
@@ -373,8 +379,6 @@ src/
             src/app/core/theme/
                 ThemeContext.tsx
                 ThemeToggle.tsx
-            src/app/core/utils/
-                parsing.ts
         src/app/courses/
             CourseListComponent.tsx
             page.tsx
@@ -426,17 +430,29 @@ src/
         src/app/journal/
             CreateJournalEntryForm.tsx
             DeepJournalingWaitlist.tsx
+            HappinessSlider.tsx
             JournalEntryList.tsx
             PracticeSection.tsx
             ReminderSettings.tsx
             StoryGenerator.tsx
             WeeklyEntryCountIndicator.tsx
             page.tsx
+            schemas.ts
+            src/app/journal/feed/
+                PublicJournalFeed.tsx
+                page.tsx
+            src/app/journal/happiness-graph/
+                HappinessChart.tsx
+                page.tsx
         src/app/leetcode-tool/
             CompletionStatusFilter.tsx
+            DifficultyFilter.tsx
             LeetCodeFilterControl.tsx
             LeetCodeList.tsx
+            PatternFilterControl.tsx
+            PatternNameFilter.tsx
             RandomProblemRecommendation.tsx
+            SearchControl.tsx
             page.tsx
         src/app/mobile-menu/
             MobileMenuContent.tsx
@@ -458,6 +474,9 @@ src/
                 page.tsx
                 src/app/settings/email-preferences/components/
                     EmailPreferencesFormWrapper.tsx
+    src/pages/
+        src/pages/api/
+            send-journal-reminders.ts
     src/server/
         LadderlyMigrationAdapter.ts
         auth.ts
@@ -486,6 +505,8 @@ src/
                     schemas.ts
         src/server/mailers/
             forgotPasswordMailer.ts
+            journalReminderMailer.ts
+            utils.ts
     src/styles/
         Home.module.css
         globals.css
@@ -519,3 +540,6 @@ tests/
         tests/server/api/
             tests/server/api/routers/
                 user.test.ts
+
+Other Rules:
+- Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible.
