@@ -41,7 +41,7 @@ Instead of starting with theory, you'll build a real project on your first day! 
 - Create your first portfolio piece
 - Establish your GitHub presence
 
-Follow along with the Trial by Fire project tutorial: <https://www.youtube.com/watch?v=InK2ciIKs_Q>
+Follow along with the Trial by Fire project tutorial: <https://www.youtube.com/watch?v=T5jILqmwcwY>
 
 Project Overview:
 
