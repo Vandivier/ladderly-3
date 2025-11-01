@@ -66,15 +66,59 @@ export const updateChecklistsInPlace = async (
     })
   }
 
-  console.log(`Done updating existing items for: ${checklistData.name}`)
-  await db.checklistItem.createMany({
-    data: checklistItemCreateManyInput,
-    skipDuplicates: true,
+  // Create or update items one by one to handle cases where displayText matches
+  // but other fields differ (the unique constraint is only on [displayText, checklistId])
+  console.log(`Creating/updating items for: ${checklistData.name}`)
+  for (const itemData of checklistItemCreateManyInput) {
+    const existingItem = await db.checklistItem.findFirst({
+      where: {
+        checklistId: checklist.id,
+        displayText: itemData.displayText,
+      },
+    })
+
+    if (existingItem) {
+      // Check if fields have changed - if so, update the item
+      const hasChanged =
+        existingItem.detailText !== itemData.detailText ||
+        existingItem.isRequired !== itemData.isRequired ||
+        existingItem.linkText !== itemData.linkText ||
+        existingItem.linkUri !== itemData.linkUri ||
+        existingItem.displayIndex !== itemData.displayIndex
+
+      if (hasChanged) {
+        await db.checklistItem.update({
+          where: { id: existingItem.id },
+          data: {
+            detailText: itemData.detailText,
+            isRequired: itemData.isRequired,
+            linkText: itemData.linkText,
+            linkUri: itemData.linkUri,
+            displayIndex: itemData.displayIndex,
+          },
+        })
+      }
+    } else {
+      // Create new item if it doesn't exist
+      await db.checklistItem.create({
+        data: itemData,
+      })
+    }
+  }
+  console.log(`Done creating/updating items for: ${checklistData.name}`)
+
+  // Refresh checklist with updated items before checking for obsolete items
+  const refreshedChecklist = await db.checklist.findUnique({
+    where: { id: checklist.id },
+    include: { checklistItems: true },
   })
-  console.log(`Done creating new items for: ${checklistData.name}`)
+
+  if (!refreshedChecklist) {
+    throw new Error(`Checklist not found after update: ${checklistData.name}`)
+  }
 
   const checklistItems = await deleteObsoleteChecklistItems(
-    checklist,
+    refreshedChecklist,
     checklistItemCreateManyInput,
   )
   console.log(`deleteObsoleteChecklistItems done for: ${checklistData.name}`)

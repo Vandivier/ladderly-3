@@ -14,6 +14,7 @@
     "db:seed:courses": "tsx prisma/seedCoursesAndFlashcards.ts",
     "db:seed:in-place": "prisma db seed -- --update-latest-checklists",
     "db:studio": "prisma studio",
+    "db:clean": "tsx scripts/cleanupUnusedChecklists.ts",
     "dev": "next dev",
     "install:vercel": "npm install && npm rebuild argon2 --build-from-source && npm run postinstall",
     "postinstall": "prisma generate",

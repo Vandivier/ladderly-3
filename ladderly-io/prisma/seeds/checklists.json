@@ -1,6 +1,6 @@
 [
   {
-    "name": "Programming Job Checklist",
+    "name": "Standard Checklist",
     "version": "ignoreme_version_field_deprecation_in_progress",
     "items": [
       {
@@ -22,7 +22,7 @@
         "displayText": "Watched ###LINK### and reproduced it; I have a GitHub portfolio with a Vanilla JS + HTML blog hosted on GitHub pages",
         "isRequired": true,
         "linkText": "the Trial by Fire",
-        "linkUri": "https://www.youtube.com/watch?v=InK2ciIKs_Q"
+        "linkUri": "https://www.youtube.com/watch?v=T5jILqmwcwY"
       },
       {
         "detailText": "",
@@ -159,6 +159,2455 @@
       "Learn Pandas",
       "Build a Data Viz project with Seaborn",
       "Compare and contrast `pip install` with `poetry install`"
+    ]
+  },
+  {
+    "name": "LeetCode Problems",
+    "version": "2025-11-01T04:50:36.044Z",
+    "items": [
+      {
+        "detailText": "",
+        "displayText": "01 Matrix",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/01-matrix"
+      },
+      {
+        "detailText": "",
+        "displayText": "3Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/3sum"
+      },
+      {
+        "detailText": "",
+        "displayText": "3Sum Closest",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/3sum-closest"
+      },
+      {
+        "detailText": "",
+        "displayText": "4Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/4sum/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Accounts Merge",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/accounts-merge"
+      },
+      {
+        "detailText": "",
+        "displayText": "Add Binary",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/add-binary"
+      },
+      {
+        "detailText": "",
+        "displayText": "Add Two Numbers",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/add-two-numbers"
+      },
+      {
+        "detailText": "",
+        "displayText": "Alien Dictionary",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/alien-dictionary"
+      },
+      {
+        "detailText": "",
+        "displayText": "All Nodes Distance K in Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Asteroid Collision",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/asteroid-collision"
+      },
+      {
+        "detailText": "",
+        "displayText": "Average of Levels in Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/average-of-levels-in-binary-tree/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Backspace String Compare",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/backspace-string-compare"
+      },
+      {
+        "detailText": "",
+        "displayText": "Balanced Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/balanced-binary-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Baseball Game",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/baseball-game/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Basic Calculator",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/basic-calculator"
+      },
+      {
+        "detailText": "",
+        "displayText": "Basic Calculator II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/basic-calculator-ii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Best Time to Buy and Sell Stock",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock"
+      },
+      {
+        "detailText": "",
+        "displayText": "Best Time to Buy and Sell Stock II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Best Time to Buy and Sell Stock with Cooldown",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Search",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-search"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Inorder Traversal",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-inorder-traversal/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Level Order Traversal",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-level-order-traversal"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Level Order Traversal II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-level-order-traversal-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Maximum Path Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-maximum-path-sum"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Paths",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-paths/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Postorder Traversal",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-postorder-traversal/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Preorder Traversal",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-preorder-traversal/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Right Side View",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-right-side-view"
+      },
+      {
+        "detailText": "",
+        "displayText": "Binary Tree Zigzag Level Order Traversal",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal"
+      },
+      {
+        "detailText": "",
+        "displayText": "Bitwise AND of Numbers Range",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/bitwise-and-of-numbers-range"
+      },
+      {
+        "detailText": "",
+        "displayText": "Boats to Save People",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/boats-to-save-people/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Build a Matrix With Conditions",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/build-a-matrix-with-conditions"
+      },
+      {
+        "detailText": "",
+        "displayText": "Burst Balloons",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/burst-balloons/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Bus Routes",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/bus-routes"
+      },
+      {
+        "detailText": "",
+        "displayText": "Candy",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/candy/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Capacity To Ship Packages Within D Days",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Car Fleet",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/car-fleet/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Car Pooling",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/car-pooling/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Cheapest Flights Within K Stops",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/cheapest-flights-within-k-stops"
+      },
+      {
+        "detailText": "",
+        "displayText": "Climbing Stairs",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/climbing-stairs"
+      },
+      {
+        "detailText": "",
+        "displayText": "Clone Graph",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/clone-graph"
+      },
+      {
+        "detailText": "",
+        "displayText": "Coin Change",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/coin-change"
+      },
+      {
+        "detailText": "",
+        "displayText": "Coin Change II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/coin-change-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Combination Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/combination-sum"
+      },
+      {
+        "detailText": "",
+        "displayText": "Combination Sum II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/combination-sum-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Combination Sum III",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/combination-sum-iii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Combination Sum IV",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/combination-sum-iv"
+      },
+      {
+        "detailText": "",
+        "displayText": "Combinations",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/combinations/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Concatenated Words",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/concatenated-words/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Concatenation of Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/concatenation-of-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Construct Binary Tree from Preorder and Inorder Traversal",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal"
+      },
+      {
+        "detailText": "",
+        "displayText": "Construct Quad Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/construct-quad-tree/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Container With Most Water",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/container-with-most-water"
+      },
+      {
+        "detailText": "",
+        "displayText": "Contains Duplicate",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/contains-duplicate"
+      },
+      {
+        "detailText": "",
+        "displayText": "Contains Duplicate II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/contains-duplicate-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Contiguous Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/contiguous-array"
+      },
+      {
+        "detailText": "",
+        "displayText": "Convert 1D Array Into 2D Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/convert-1d-array-into-2d-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Convert Sorted Array to Binary Search Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Copy List with Random Pointer",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/copy-list-with-random-pointer/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Count Good Nodes in Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/count-good-nodes-in-binary-tree/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Count of Range Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/count-of-range-sum/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Count Unique Characters of All Substrings of a Given String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Counting Bits",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/counting-bits"
+      },
+      {
+        "detailText": "",
+        "displayText": "Course Schedule",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/course-schedule"
+      },
+      {
+        "detailText": "",
+        "displayText": "Course Schedule II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/course-schedule-ii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Course Schedule III",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/course-schedule-iii/editorial/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Course Schedule IV",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/course-schedule-iv/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Daily Temperatures",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/daily-temperatures"
+      },
+      {
+        "detailText": "",
+        "displayText": "Decode String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/decode-string"
+      },
+      {
+        "detailText": "",
+        "displayText": "Decode Ways",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/decode-ways"
+      },
+      {
+        "detailText": "",
+        "displayText": "Delete Leaves With a Given Value",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/delete-leaves-with-a-given-value"
+      },
+      {
+        "detailText": "",
+        "displayText": "Delete Node in a BST",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/delete-node-in-a-bst/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Design Add and Search Words Data Structure",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/design-add-and-search-words-data-structure"
+      },
+      {
+        "detailText": "",
+        "displayText": "Design Circular Queue",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/design-circular-queue/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Design HashMap",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/design-hashmap/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Design HashSet",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/design-hashset/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Design Hit Counter",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/design-hit-counter"
+      },
+      {
+        "detailText": "",
+        "displayText": "Design In-Memory File System",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/design-in-memory-file-system"
+      },
+      {
+        "detailText": "",
+        "displayText": "Design Search Autocomplete System",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/design-search-autocomplete-system/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Design Twitter",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/design-twitter/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Detect Squares",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/detect-squares/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Diameter of Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/diameter-of-binary-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Distinct Subsequences",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/distinct-subsequences/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Dota2 Senate",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/dota2-senate/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Edit Distance",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/edit-distance/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Employee Free Time",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/employee-free-time"
+      },
+      {
+        "detailText": "",
+        "displayText": "Encode and Decode Strings",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/encode-and-decode-strings"
+      },
+      {
+        "detailText": "",
+        "displayText": "Evaluate Division",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/evaluate-division/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Evaluate Reverse Polish Notation",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/evaluate-reverse-polish-notation"
+      },
+      {
+        "detailText": "",
+        "displayText": "Excel Sheet Column Title",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/excel-sheet-column-title/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Extra Characters in a String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/extra-characters-in-a-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Factor Combinations",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/factor-combinations/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find All Anagrams in a String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-all-anagrams-in-a-string"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find All Duplicates in an Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-all-duplicates-in-an-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find All Numbers Disappeared in an Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find in Mountain Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-in-mountain-array"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find K Closest Elements",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-k-closest-elements"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find K Pairs with Smallest Sums",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-k-pairs-with-smallest-sums/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find Median from Data Stream",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-median-from-data-stream"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find Minimum in Rotated Sorted Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find Peak Element",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-peak-element"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find Smallest Letter Greater Than Target",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-smallest-letter-greater-than-target/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find the Duplicate Number",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-the-duplicate-number"
+      },
+      {
+        "detailText": "",
+        "displayText": "Find the Town Judge",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/find-the-town-judge"
+      },
+      {
+        "detailText": "",
+        "displayText": "First Bad Version",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/first-bad-version"
+      },
+      {
+        "detailText": "",
+        "displayText": "First Missing Positive",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/first-missing-positive"
+      },
+      {
+        "detailText": "",
+        "displayText": "Flood Fill",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/flood-fill"
+      },
+      {
+        "detailText": "",
+        "displayText": "Fruit Into Baskets",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/fruit-into-baskets/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Gas Station",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/gas-station"
+      },
+      {
+        "detailText": "",
+        "displayText": "Generalized Abbreviation",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/generalized-abbreviation/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Generate Parentheses",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/generate-parentheses"
+      },
+      {
+        "detailText": "",
+        "displayText": "Graph Valid Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/graph-valid-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Greatest Common Divisor of Strings",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/greatest-common-divisor-of-strings/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Greatest Common Divisor Traversal",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/greatest-common-divisor-traversal"
+      },
+      {
+        "detailText": "",
+        "displayText": "Group Anagrams",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/group-anagrams"
+      },
+      {
+        "detailText": "",
+        "displayText": "Guess Number Higher or Lower",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/guess-number-higher-or-lower/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Hand of Straights",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/hand-of-straights/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Happy Number",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/happy-number/"
+      },
+      {
+        "detailText": "",
+        "displayText": "House Robber",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/house-robber"
+      },
+      {
+        "detailText": "",
+        "displayText": "House Robber II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/house-robber-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "House Robber III",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/house-robber-iii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Implement Queue using Stacks",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/implement-queue-using-stacks"
+      },
+      {
+        "detailText": "",
+        "displayText": "Implement Stack using Queues",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/implement-stack-using-queues/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Implement Trie (Prefix Tree)",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/implement-trie-prefix-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Index Pairs of a String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/index-pairs-of-a-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Inorder Successor in BST",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/inorder-successor-in-bst"
+      },
+      {
+        "detailText": "",
+        "displayText": "Insert Delete GetRandom O(1)",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/insert-delete-getrandom-o1"
+      },
+      {
+        "detailText": "",
+        "displayText": "Insert Greatest Common Divisors in Linked List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Insert Interval",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/insert-interval"
+      },
+      {
+        "detailText": "",
+        "displayText": "Insert into a Binary Search Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/insert-into-a-binary-search-tree/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Integer Break",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/integer-break/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Integer to English Words",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/integer-to-english-words"
+      },
+      {
+        "detailText": "",
+        "displayText": "Interleaving String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/interleaving-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Interval List Intersections",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/interval-list-intersections/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Invert Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/invert-binary-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "IPO",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/ipo/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Is Subsequence",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/is-subsequence/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Island Perimeter",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/island-perimeter/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Jump Game",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/jump-game"
+      },
+      {
+        "detailText": "",
+        "displayText": "Jump Game II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/jump-game-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Jump Game VII",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/jump-game-vii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "K Closest Points to Origin",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/k-closest-points-to-origin"
+      },
+      {
+        "detailText": "",
+        "displayText": "Koko Eating Bananas",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/koko-eating-bananas/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Kth Largest Element in a Stream",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/kth-largest-element-in-a-stream/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Kth Largest Element in an Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/kth-largest-element-in-an-array"
+      },
+      {
+        "detailText": "",
+        "displayText": "Kth Smallest Element in a BST",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/kth-smallest-element-in-a-bst"
+      },
+      {
+        "detailText": "",
+        "displayText": "Kth Smallest Element in a Sorted Matrix",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Largest Number",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/largest-number"
+      },
+      {
+        "detailText": "",
+        "displayText": "Largest Rectangle in Histogram",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/largest-rectangle-in-histogram"
+      },
+      {
+        "detailText": "",
+        "displayText": "Last Stone Weight II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/last-stone-weight-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Last Stone Weight",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/last-stone-weight/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Lemonade Change",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/lemonade-change/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Letter Case Permutation",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/letter-case-permutation/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Letter Combinations of a Phone Number",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/letter-combinations-of-a-phone-number"
+      },
+      {
+        "detailText": "",
+        "displayText": "LFU Cache",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/lfu-cache/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Linked List Cycle",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/linked-list-cycle"
+      },
+      {
+        "detailText": "",
+        "displayText": "Linked List Cycle II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/linked-list-cycle-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Common Prefix",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-common-prefix"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Common Subsequence",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-common-subsequence/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Consecutive Sequence",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-consecutive-sequence"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Happy String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-happy-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Increasing Path in a Matrix",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-increasing-path-in-a-matrix"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Increasing Subsequence",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-increasing-subsequence"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Palindrome",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-palindrome"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Palindromic Substring",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-palindromic-substring"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Repeating Character Replacement",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-repeating-character-replacement"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Substring with At Most K Distinct Characters",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Substring Without Repeating Characters",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-substring-without-repeating-characters"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Turbulent Subarray",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-turbulent-subarray/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Valid Parentheses",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-valid-parentheses"
+      },
+      {
+        "detailText": "",
+        "displayText": "Longest Word in Dictionary",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/longest-word-in-dictionary/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Lowest Common Ancestor of a Binary Search Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Lowest Common Ancestor of a Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "LRU Cache",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/lru-cache"
+      },
+      {
+        "detailText": "",
+        "displayText": "Majority Element",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/majority-element"
+      },
+      {
+        "detailText": "",
+        "displayText": "Majority Element II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/majority-element-ii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Matchsticks to Square",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/matchsticks-to-square/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Max Area of Island",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/max-area-of-island/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Max Consecutive Ones III",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/max-consecutive-ones-iii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximal Square",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximal-square"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Average Subarray I",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-average-subarray-i/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-binary-tree/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Depth of Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-depth-of-binary-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Frequency Stack",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-frequency-stack"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Product Subarray",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-product-subarray"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Profit in Job Scheduling",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-profit-in-job-scheduling"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Subarray",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-subarray"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Sum Circular Subarray",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-sum-circular-subarray/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum Width of Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-width-of-binary-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Maximum XOR of Two Numbers in an Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Median of Two Sorted Arrays",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/median-of-two-sorted-arrays"
+      },
+      {
+        "detailText": "",
+        "displayText": "Meeting Rooms",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/meeting-rooms"
+      },
+      {
+        "detailText": "",
+        "displayText": "Meeting Rooms II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/meeting-rooms-ii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Meeting Rooms III",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/meeting-rooms-iii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Merge Intervals",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/merge-intervals"
+      },
+      {
+        "detailText": "",
+        "displayText": "Merge k Sorted Lists",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/merge-k-sorted-lists"
+      },
+      {
+        "detailText": "",
+        "displayText": "Merge Sorted Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/merge-sorted-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Merge Strings Alternately",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/merge-strings-alternately/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Merge Triplets to Form Target Triplet",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/merge-triplets-to-form-target-triplet/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Merge Two Binary Trees",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/merge-two-binary-trees/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Merge Two Sorted Lists",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/merge-two-sorted-lists"
+      },
+      {
+        "detailText": "",
+        "displayText": "Middle of the Linked List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/middle-of-the-linked-list"
+      },
+      {
+        "detailText": "",
+        "displayText": "Min Cost Climbing Stairs",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/min-cost-climbing-stairs/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Min Cost to Connect All Points",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/min-cost-to-connect-all-points/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Min Stack",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/min-stack"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Array End",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-array-end/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Depth of Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-depth-of-binary-tree/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Height Trees",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-height-trees"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Interval to Include Each Query",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-interval-to-include-each-query/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Knight Moves",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-knight-moves"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Number of Arrows to Burst Balloons",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Number of K Consecutive Bit Flips",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Path Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-path-sum/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Size Subarray Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-size-subarray-sum/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Minimum Window Substring",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/minimum-window-substring"
+      },
+      {
+        "detailText": "",
+        "displayText": "Missing Number",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/missing-number"
+      },
+      {
+        "detailText": "",
+        "displayText": "Move Zeroes",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/move-zeroes"
+      },
+      {
+        "detailText": "",
+        "displayText": "Multiply Strings",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/multiply-strings/"
+      },
+      {
+        "detailText": "",
+        "displayText": "N-Queens",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/n-queens"
+      },
+      {
+        "detailText": "",
+        "displayText": "N-Queens II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/n-queens-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "N-th Tribonacci Number",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/n-th-tribonacci-number/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Network Delay Time",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/network-delay-time/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Next Permutation",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/next-permutation"
+      },
+      {
+        "detailText": "",
+        "displayText": "Non-overlapping Intervals",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/non-overlapping-intervals"
+      },
+      {
+        "detailText": "",
+        "displayText": "Number of 1 Bits",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/number-of-1-bits"
+      },
+      {
+        "detailText": "",
+        "displayText": "Number of Connected Components in an Undirected Graph",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph"
+      },
+      {
+        "detailText": "",
+        "displayText": "Number of Islands",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/number-of-islands"
+      },
+      {
+        "detailText": "",
+        "displayText": "Number of Longest Increasing Subsequence",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/number-of-longest-increasing-subsequence/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Odd Even Linked List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/odd-even-linked-list"
+      },
+      {
+        "detailText": "",
+        "displayText": "Online Stock Span",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/online-stock-span/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Open the Lock",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/open-the-lock/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Pacific Atlantic Water Flow",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/pacific-atlantic-water-flow"
+      },
+      {
+        "detailText": "",
+        "displayText": "Palindrome Linked List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/palindrome-linked-list"
+      },
+      {
+        "detailText": "",
+        "displayText": "Palindrome Number",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/palindrome-number"
+      },
+      {
+        "detailText": "",
+        "displayText": "Palindrome Pairs",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/palindrome-pairs"
+      },
+      {
+        "detailText": "",
+        "displayText": "Palindrome Partitioning",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/palindrome-partitioning/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Palindromic Substrings",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/palindromic-substrings/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Partition Equal Subset Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/partition-equal-subset-sum"
+      },
+      {
+        "detailText": "",
+        "displayText": "Partition Labels",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/partition-labels/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Partition to K Equal Sum Subsets",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Path Sum II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/path-sum-ii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Path Sum III",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/path-sum-iii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Path Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/path-sum/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Path With Minimum Effort",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/path-with-minimum-effort/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Peak Index in a Mountain Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/peak-index-in-a-mountain-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Perfect Squares",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/perfect-squares/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Permutation in String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/permutation-in-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Permutations",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/permutations"
+      },
+      {
+        "detailText": "",
+        "displayText": "Permutations II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/permutations-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Plus One",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/plus-one/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Pow(x, n)",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/powx-n"
+      },
+      {
+        "detailText": "",
+        "displayText": "Prefix and Suffix Search",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/prefix-and-suffix-search/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Product of Array Except Self",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/product-of-array-except-self"
+      },
+      {
+        "detailText": "",
+        "displayText": "Random Pick with Weight",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/random-pick-with-weight"
+      },
+      {
+        "detailText": "",
+        "displayText": "Range Sum Query 2D - Immutable",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/range-sum-query-2d-immutable/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Range Sum Query - Immutable",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/range-sum-query-immutable/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Ransom Note",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/ransom-note"
+      },
+      {
+        "detailText": "",
+        "displayText": "Rearrange String k Distance Apart",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/rearrange-string-k-distance-apart/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reconstruct Itinerary",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reconstruct-itinerary/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Redundant Connection",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/redundant-connection/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Regular Expression Matching",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/regular-expression-matching/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Remove Duplicates from Sorted Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Remove Duplicates from Sorted List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/remove-duplicates-from-sorted-list/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Remove Element",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/remove-element/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Remove Linked List Elements",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/remove-linked-list-elements/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Remove Nth Node From End of List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/remove-nth-node-from-end-of-list"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reorder List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reorder-list"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reorganize String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reorganize-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reverse Bits",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reverse-bits"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reverse Integer",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reverse-integer"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reverse Linked List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reverse-linked-list"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reverse Linked List II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reverse-linked-list-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reverse Nodes in k-Group",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reverse-nodes-in-k-group"
+      },
+      {
+        "detailText": "",
+        "displayText": "Reverse String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/reverse-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Roman to Integer",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/roman-to-integer"
+      },
+      {
+        "detailText": "",
+        "displayText": "Rotate Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/rotate-array"
+      },
+      {
+        "detailText": "",
+        "displayText": "Rotate Image",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/rotate-image"
+      },
+      {
+        "detailText": "",
+        "displayText": "Rotate List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/rotate-list"
+      },
+      {
+        "detailText": "",
+        "displayText": "Rotting Oranges",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/rotting-oranges"
+      },
+      {
+        "detailText": "",
+        "displayText": "Same Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/same-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Search a 2D Matrix",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/search-a-2d-matrix"
+      },
+      {
+        "detailText": "",
+        "displayText": "Search a 2D Matrix II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/search-a-2d-matrix-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Search in Rotated Sorted Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/search-in-rotated-sorted-array"
+      },
+      {
+        "detailText": "",
+        "displayText": "Search in Rotated Sorted Array II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Search Insert Position",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/search-insert-position/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sequence Reconstruction",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sequence-reconstruction/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Serialize and Deserialize Binary Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Set Matrix Zeroes",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/set-matrix-zeroes"
+      },
+      {
+        "detailText": "",
+        "displayText": "Shortest Path to Get Food",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/shortest-path-to-get-food"
+      },
+      {
+        "detailText": "",
+        "displayText": "Simplify Path",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/simplify-path/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Single Number",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/single-number"
+      },
+      {
+        "detailText": "",
+        "displayText": "Single-Threaded CPU",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/single-threaded-cpu/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sliding Window Maximum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sliding-window-maximum"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sliding Window Median",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sliding-window-median/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Smallest Range Covering Elements from K Lists",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sort an Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sort-an-array/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sort Characters By Frequency",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sort-characters-by-frequency/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sort Colors",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sort-colors"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sort Items by Groups Respecting Dependencies",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sort List",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sort-list"
+      },
+      {
+        "detailText": "",
+        "displayText": "Spiral Matrix",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/spiral-matrix"
+      },
+      {
+        "detailText": "",
+        "displayText": "Split a String Into the Max Number of Unique Substrings",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/split-a-string-into-the-max-number-of-unique-substrings/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Split Array Largest Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/split-array-largest-sum/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sqrt(x)",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sqrtx/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Squares of a Sorted Array",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/squares-of-a-sorted-array"
+      },
+      {
+        "detailText": "",
+        "displayText": "Stone Game II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/stone-game-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Stone Game III",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/stone-game-iii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Stone Game",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/stone-game/"
+      },
+      {
+        "detailText": "",
+        "displayText": "String to Integer (atoi)",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/string-to-integer-atoi"
+      },
+      {
+        "detailText": "",
+        "displayText": "Subarray Product Less Than K",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/subarray-product-less-than-k/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Subarray Sum Equals K",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/subarray-sum-equals-k"
+      },
+      {
+        "detailText": "",
+        "displayText": "Subsets",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/subsets"
+      },
+      {
+        "detailText": "",
+        "displayText": "Subsets II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/subsets-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Substring with Concatenation of All Words",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/substring-with-concatenation-of-all-words/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Subtree of Another Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/subtree-of-another-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sudoku Solver",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sudoku-solver"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sum of All Subset XOR Totals",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sum-of-all-subset-xor-totals"
+      },
+      {
+        "detailText": "",
+        "displayText": "Sum of Two Integers",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/sum-of-two-integers/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Surrounded Regions",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/surrounded-regions/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Swap Nodes in Pairs",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/swap-nodes-in-pairs"
+      },
+      {
+        "detailText": "",
+        "displayText": "Swim in Rising Water",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/swim-in-rising-water/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Symmetric Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/symmetric-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Target Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/target-sum/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Task Scheduler",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/task-scheduler"
+      },
+      {
+        "detailText": "",
+        "displayText": "Time Based Key-Value Store",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/time-based-key-value-store"
+      },
+      {
+        "detailText": "",
+        "displayText": "Top K Frequent Elements",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/top-k-frequent-elements/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Top K Frequent Words",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/top-k-frequent-words"
+      },
+      {
+        "detailText": "",
+        "displayText": "Transpose Matrix",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/transpose-matrix"
+      },
+      {
+        "detailText": "",
+        "displayText": "Trapping Rain Water",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/trapping-rain-water"
+      },
+      {
+        "detailText": "",
+        "displayText": "Two Sum",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/two-sum"
+      },
+      {
+        "detailText": "",
+        "displayText": "Two Sum II - Input Array Is Sorted",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Unique Paths",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/unique-paths"
+      },
+      {
+        "detailText": "",
+        "displayText": "Unique Paths II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/unique-paths-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Valid Anagram",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/valid-anagram"
+      },
+      {
+        "detailText": "",
+        "displayText": "Valid Palindrome",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/valid-palindrome"
+      },
+      {
+        "detailText": "",
+        "displayText": "Valid Palindrome II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/valid-palindrome-ii/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Valid Parentheses",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/valid-parentheses"
+      },
+      {
+        "detailText": "",
+        "displayText": "Valid Parenthesis String",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/valid-parenthesis-string/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Valid Sudoku",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/valid-sudoku"
+      },
+      {
+        "detailText": "",
+        "displayText": "Validate Binary Search Tree",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/validate-binary-search-tree"
+      },
+      {
+        "detailText": "",
+        "displayText": "Verifying an Alien Dictionary",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/verifying-an-alien-dictionary/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Walls and Gates",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/walls-and-gates/"
+      },
+      {
+        "detailText": "",
+        "displayText": "Word Break",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/word-break"
+      },
+      {
+        "detailText": "",
+        "displayText": "Word Break II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/word-break-ii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Word Ladder",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/word-ladder"
+      },
+      {
+        "detailText": "",
+        "displayText": "Word Search",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/word-search"
+      },
+      {
+        "detailText": "",
+        "displayText": "Word Search II",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/word-search-ii"
+      },
+      {
+        "detailText": "",
+        "displayText": "Word Squares",
+        "isRequired": false,
+        "linkText": "Solve on LeetCode",
+        "linkUri": "https://leetcode.com/problems/word-squares/"
+      }
     ]
   }
 ]
