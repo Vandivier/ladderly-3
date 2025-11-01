@@ -1,4 +1,6 @@
 // run like `node --experimental-strip-types scripts/backupChecklists.ts`
+// or `tsx scripts/backupChecklists.ts`
+// add `--overwrite` flag to overwrite files with fresh data from database only (default: append/merge mode)
 
 import fs from 'fs-extra'
 import path from 'path'
@@ -40,6 +42,14 @@ interface ChecklistData {
 
 async function backup(): Promise<void> {
   try {
+    const overwrite = process.argv.includes('--overwrite')
+
+    if (overwrite) {
+      console.log('Running in overwrite mode (fresh from database only)...\n')
+    } else {
+      console.log('Running in append/merge mode (default)...\n')
+    }
+
     const checklistNames = await prisma.checklist.groupBy({
       by: ['name'],
     })
@@ -63,29 +73,39 @@ async function backup(): Promise<void> {
       }
     }
 
-    const existingChecklistsRaw = await fs.readFile(
-      path.resolve(__dirname, '../prisma/seeds/checklists.json'),
-    )
-    let existingChecklists: ChecklistData[] = JSON.parse(
-      existingChecklistsRaw.toString(),
-    )
-    const existingChecklistNames = existingChecklists.map(
-      (checklist) => checklist.name,
-    )
-
     const premiumChecklistsPath = path.resolve(
       __dirname,
       '../prisma/seeds/premium-checklists.json',
     )
+
+    // Initialize arrays - either fresh or from existing files
+    let existingChecklists: ChecklistData[] = []
     let premiumChecklists: ChecklistData[] = []
 
-    if (fs.existsSync(premiumChecklistsPath)) {
-      const premiumChecklistsRaw = await fs.readFile(premiumChecklistsPath)
-      premiumChecklists = JSON.parse(premiumChecklistsRaw.toString())
+    if (!overwrite) {
+      // Read existing files for merge/append mode
+      try {
+        const existingChecklistsRaw = await fs.readFile(
+          path.resolve(__dirname, '../prisma/seeds/checklists.json'),
+        )
+        existingChecklists = JSON.parse(existingChecklistsRaw.toString())
+      } catch (error) {
+        console.log('No existing checklists.json found, starting fresh.')
+      }
+
+      if (fs.existsSync(premiumChecklistsPath)) {
+        try {
+          const premiumChecklistsRaw = await fs.readFile(premiumChecklistsPath)
+          premiumChecklists = JSON.parse(premiumChecklistsRaw.toString())
+        } catch (error) {
+          console.log('Could not read premium-checklists.json, starting fresh.')
+        }
+      }
     }
 
+    // Process checklists from database
     for (const checklist of checklists) {
-      const { name, version, checklistItems } = checklist
+      const { name, version, checklistItems, isPremium } = checklist
       const items = checklistItems.map((item) => {
         if (
           item.linkText === '' &&
@@ -107,12 +127,26 @@ async function backup(): Promise<void> {
 
       const checklistData: ChecklistData = { name, version, items }
 
-      if (existingChecklistNames.includes(name)) {
-        existingChecklists = existingChecklists.map((checklist) =>
-          checklist.name === name ? checklistData : checklist,
+      if (isPremium) {
+        // Update existing or add new premium checklist
+        const existingIndex = premiumChecklists.findIndex(
+          (c) => c.name === name,
         )
+        if (existingIndex >= 0) {
+          premiumChecklists[existingIndex] = checklistData
+        } else {
+          premiumChecklists.push(checklistData)
+        }
       } else {
-        premiumChecklists.push(checklistData)
+        // Update existing or add new non-premium checklist
+        const existingIndex = existingChecklists.findIndex(
+          (c) => c.name === name,
+        )
+        if (existingIndex >= 0) {
+          existingChecklists[existingIndex] = checklistData
+        } else {
+          existingChecklists.push(checklistData)
+        }
       }
     }
 
