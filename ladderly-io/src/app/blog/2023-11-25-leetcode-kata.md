@@ -339,7 +339,7 @@ The Ladderly 370 is a useful accident. It is not optimized for return on investm
 
 What happened was: The Ladderly 360 was constructed by taking the union of some well-known problem sets, then adding additional hard problems to get to a total of 360 with a higher hard difficulty density. The naive union had 352 problems, so 8 hard problems were added, yielding 65 hard problems.
 
-[75 Hard](https://andyfrisella.com/pages/75hard-info) is already a recognized brand, and many of the existing problem sets are size 75, so SEO, sales, and marketing purposes, Ladderly.io selected ten more hard problems to make the SWE 75 Hard. As a result, if you complete the Ladderly 360 and the full SWE 75 Hard, congrats, you're a real freak, and you have completed the Ladderly 370.
+[75 Hard](https://andyfrisella.com/pages/75hard-info) is already a recognized brand, and many of the existing problem sets are size 75. For SEO, sales, and marketing purposes, Ladderly.io selected ten more hard problems to make the SWE 75 Hard. As a result, if you complete the Ladderly 360 and the full SWE 75 Hard, congrats! You're a real freak and you have completed the Ladderly 370.
 
 ## Beyond LeetCode
 
