@@ -1,77 +1,77 @@
 [
-  "Collect Coins in a Tree",
-  "Total Characters in String After Transformations II",
-  "Special Binary String",
-  "Shortest Distance from All Buildings",
-  "Text Justification",
-  "Find the Minimum Area to Cover All Ones II",
-  "24 Game",
-  "Painting a Grid With Three Different Colors",
-  "Find the Original Typed String II",
-  "Making A Large Island",
-  "Kth Smallest Product of Two Sorted Arrays",
-  "Maximize Subarrays After Removing One Conflicting Pair",
-  "All O`one Data Structure",
-  "Max Stack",
-  "Rearranging Fruits",
-  "Count the Number of Infection Sequences",
-  "Trapping Rain Water II",
-  "Maximum Number of Events That Can Be Attended II",
-  "Minimum Difference in Sums After Removal of Elements",
-  "Reaching Points",
-  "Number of Visible People in a Queue",
-  "Number of Ways to Wear Different Hats to Each Other",
-  "Find the Maximum Number of Fruits Collected",
-  "Count Number of Balanced Permutations",
-  "Robot Room Cleaner",
-  "Optimal Account Balancing",
-  "Length of Longest V-Shaped Diagonal Segment",
-  "K-th Smallest in Lexicographical Order",
-  "Rectangle Area II",
-  "Remove Boxes",
-  "Vertical Order Traversal of a Binary Tree",
-  "Longest Subsequence Repeated k Times",
-  "Lexicographically Smallest Generated String",
-  "Count Palindromic Subsequences",
-  "Maximal Rectangle",
-  "Sum of k-Mirror Numbers",
-  "Binary Tree Cameras",
-  "The Earliest and Latest Rounds Where Players Compete",
-  "Find the K-th Character in String Game II",
-  "Valid Palindrome III",
-  "Longest Duplicate Substring",
-  "Consecutive Numbers Sum",
-  "Convert JSON String to Object",
-  "Maximum Difference Between Even and Odd Frequency II",
-  "Minimum Number of Taps to Open to Water a Garden",
-  "Find the Median of the Uniqueness Array",
-  "Russian Doll Envelopes",
-  "Read N Characters Given read4 II - Call Multiple Times",
-  "Maximize the Number of Target Nodes After Connecting Trees II",
-  "Maximum Fruits Harvested After at Most K Steps",
-  "Subarrays with K Different Integers",
-  "Minimum Score After Removals on a Tree",
-  "Number of Islands II",
-  "Largest Color Value in a Directed Graph",
-  "Count the Number of Arrays with K Matching Adjacent Elements",
-  "Cherry Pickup",
-  "Find the Closest Palindrome",
-  "Frog Jump",
-  "Minimum Edge Reversals So Every Node Is Reachable",
-  "Reverse Pairs",
-  "Strong Password Checker",
-  "Partition Array Into Two Arrays to Minimize Sum Difference",
-  "Expression Add Operators",
-  "Delete Duplicate Folders in System",
-  "Basic Calculator III",
-  "Time Taken to Cross the Door",
-  "Parsing A Boolean Expression",
-  "Count Subarrays With Median K",
-  "Block Placement Queries",
-  "Split Array With Same Average",
-  "Wildcard Matching",
-  "Find Array Given Subset Sums",
-  "The Number of Good Subsets",
-  "Remove Invalid Parentheses",
-  "Minimum Moves to Reach Target in Grid"
+  {
+    "href": "https://leetcode.com/problems/collect-coins-in-a-tree/",
+    "name": "2603. Collect Coins in a Tree",
+    "patterns": ["Array", "Tree", "Graph"]
+  },
+  {
+    "href": "https://leetcode.com/problems/total-characters-in-string-after-transformations-ii/",
+    "name": "3337. Total Characters in String After Transformations II",
+    "patterns": ["Hash Table", "Math", "String", "Dynamic Programming"]
+  },
+  {
+    "href": "https://leetcode.com/problems/special-binary-string/",
+    "name": "761. Special Binary String",
+    "patterns": ["String", "Recursion"]
+  },
+  {
+    "href": "https://leetcode.com/problems/shortest-distance-from-all-buildings/",
+    "name": "Shortest Distance from All Buildings"
+  },
+  {
+    "href": "https://leetcode.com/problems/text-justification/",
+    "name": "Text Justification"
+  },
+  {
+    "href": "https://leetcode.com/problems/find-the-minimum-area-to-cover-all-ones-ii/",
+    "name": "Find the Minimum Area to Cover All Ones II"
+  },
+  {
+    "href": "https://leetcode.com/problems/24-game/",
+    "name": "24 Game"
+  },
+  {
+    "href": "https://leetcode.com/problems/painting-a-grid-with-three-different-colors/",
+    "name": "Painting a Grid With Three Different Colors"
+  },
+  {
+    "href": "https://leetcode.com/problems/find-the-original-typed-string-ii/",
+    "name": "Find the Original Typed String II"
+  },
+  {
+    "href": "https://leetcode.com/problems/making-a-large-island/",
+    "name": "Making A Large Island"
+  },
+  {
+    "href": "https://leetcode.com/problems/kth-smallest-product-of-two-sorted-arrays/",
+    "name": "Kth Smallest Product of Two Sorted Arrays"
+  },
+  {
+    "href": "https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair/",
+    "name": "Maximize Subarrays After Removing One Conflicting Pair"
+  },
+  {
+    "href": "https://leetcode.com/problems/all-oone-data-structure/",
+    "name": "All O`one Data Structure"
+  },
+  {
+    "href": "https://leetcode.com/problems/max-stack/",
+    "name": "Max Stack"
+  },
+  {
+    "href": "https://leetcode.com/problems/rearranging-fruits/",
+    "name": "Rearranging Fruits"
+  },
+  {
+    "href": "https://leetcode.com/problems/count-the-number-of-infection-sequences/",
+    "name": "Count the Number of Infection Sequences"
+  },
+  {
+    "href": "https://leetcode.com/problems/trapping-rain-water-ii/",
+    "name": "Trapping Rain Water II"
+  },
+  {
+    "href": "https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/",
+    "name": "Maximum Number of Events That Can Be Attended II"
+  }
 ]

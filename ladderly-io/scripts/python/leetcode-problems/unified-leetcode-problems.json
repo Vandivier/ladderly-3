@@ -8,6 +8,14 @@
     "slug": "01-matrix"
   },
   {
+    "href": "https://leetcode.com/problems/24-game/",
+    "name": "24 Game",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "24-game"
+  },
+  {
     "href": "https://leetcode.com/problems/3sum-closest/",
     "name": "3Sum Closest",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
@@ -83,6 +91,14 @@
     "patterns": [],
     "difficulty": "Medium",
     "slug": "all-nodes-distance-k-in-binary-tree"
+  },
+  {
+    "href": "https://leetcode.com/problems/all-oone-data-structure/",
+    "name": "All O`one Data Structure",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "all-oone-data-structure"
   },
   {
     "href": "https://leetcode.com/problems/asteroid-collision/",
@@ -401,6 +417,14 @@
     "slug": "coin-change"
   },
   {
+    "href": "https://leetcode.com/problems/collect-coins-in-a-tree/",
+    "name": "Collect Coins in a Tree",
+    "patterns": ["Array", "Graph", "Tree"],
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "difficulty": "Hard",
+    "slug": "collect-coins-in-a-tree"
+  },
+  {
     "href": "https://leetcode.com/problems/combination-sum-ii/",
     "name": "Combination Sum II",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
@@ -562,6 +586,14 @@
     "patterns": [],
     "difficulty": "Hard",
     "slug": "count-of-range-sum"
+  },
+  {
+    "href": "https://leetcode.com/problems/count-the-number-of-infection-sequences/",
+    "name": "Count the Number of Infection Sequences",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "count-the-number-of-infection-sequences"
   },
   {
     "href": "https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/",
@@ -942,6 +974,22 @@
     "patterns": [],
     "difficulty": "Medium",
     "slug": "find-the-duplicate-number"
+  },
+  {
+    "href": "https://leetcode.com/problems/find-the-minimum-area-to-cover-all-ones-ii/",
+    "name": "Find the Minimum Area to Cover All Ones II",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "find-the-minimum-area-to-cover-all-ones-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/find-the-original-typed-string-ii/",
+    "name": "Find the Original Typed String II",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "find-the-original-typed-string-ii"
   },
   {
     "href": "https://leetcode.com/problems/find-the-town-judge",
@@ -1333,6 +1381,14 @@
     "slug": "kth-smallest-element-in-a-sorted-matrix"
   },
   {
+    "href": "https://leetcode.com/problems/kth-smallest-product-of-two-sorted-arrays/",
+    "name": "Kth Smallest Product of Two Sorted Arrays",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "kth-smallest-product-of-two-sorted-arrays"
+  },
+  {
     "href": "https://leetcode.com/problems/largest-number",
     "name": "Largest Number",
     "source": ["grind-75"],
@@ -1618,6 +1674,14 @@
     "slug": "majority-element"
   },
   {
+    "href": "https://leetcode.com/problems/making-a-large-island/",
+    "name": "Making A Large Island",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "making-a-large-island"
+  },
+  {
     "href": "https://leetcode.com/problems/matchsticks-to-square/",
     "name": "Matchsticks to Square",
     "source": ["neetcode-250"],
@@ -1643,12 +1707,28 @@
     "slug": "max-consecutive-ones-iii"
   },
   {
+    "href": "https://leetcode.com/problems/max-stack/",
+    "name": "Max Stack",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "max-stack"
+  },
+  {
     "href": "https://leetcode.com/problems/maximal-square",
     "name": "Maximal Square",
     "source": ["grind-75"],
     "patterns": [],
     "difficulty": "Medium",
     "slug": "maximal-square"
+  },
+  {
+    "href": "https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair/",
+    "name": "Maximize Subarrays After Removing One Conflicting Pair",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "maximize-subarrays-after-removing-one-conflicting-pair"
   },
   {
     "href": "https://leetcode.com/problems/maximum-average-subarray-i/",
@@ -1681,6 +1761,14 @@
     "patterns": [],
     "difficulty": "Hard",
     "slug": "maximum-frequency-stack"
+  },
+  {
+    "href": "https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/",
+    "name": "Maximum Number of Events That Can Be Attended II",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "maximum-number-of-events-that-can-be-attended-ii"
   },
   {
     "href": "https://leetcode.com/problems/maximum-product-subarray/",
@@ -2124,6 +2212,14 @@
     "slug": "pacific-atlantic-water-flow"
   },
   {
+    "href": "https://leetcode.com/problems/painting-a-grid-with-three-different-colors/",
+    "name": "Painting a Grid With Three Different Colors",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "painting-a-grid-with-three-different-colors"
+  },
+  {
     "href": "https://leetcode.com/problems/palindrome-linked-list/",
     "name": "Palindrome Linked List",
     "source": [
@@ -2359,6 +2455,14 @@
     "patterns": [],
     "difficulty": "Hard",
     "slug": "rearrange-string-k-distance-apart"
+  },
+  {
+    "href": "https://leetcode.com/problems/rearranging-fruits/",
+    "name": "Rearranging Fruits",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "rearranging-fruits"
   },
   {
     "href": "https://leetcode.com/problems/reconstruct-itinerary/",
@@ -2629,6 +2733,14 @@
     "slug": "set-matrix-zeroes"
   },
   {
+    "href": "https://leetcode.com/problems/shortest-distance-from-all-buildings/",
+    "name": "Shortest Distance from All Buildings",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "shortest-distance-from-all-buildings"
+  },
+  {
     "href": "https://leetcode.com/problems/shortest-path-to-get-food",
     "name": "Shortest Path to Get Food",
     "source": ["grind-75"],
@@ -2736,6 +2848,14 @@
     "patterns": [],
     "difficulty": "Medium",
     "slug": "sort-list"
+  },
+  {
+    "href": "https://leetcode.com/problems/special-binary-string/",
+    "name": "Special Binary String",
+    "patterns": ["Recursion", "String"],
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "difficulty": "Hard",
+    "slug": "special-binary-string"
   },
   {
     "href": "https://leetcode.com/problems/spiral-matrix/",
@@ -2958,6 +3078,14 @@
     "slug": "task-scheduler"
   },
   {
+    "href": "https://leetcode.com/problems/text-justification/",
+    "name": "Text Justification",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "text-justification"
+  },
+  {
     "href": "https://leetcode.com/problems/time-based-key-value-store/",
     "name": "Time Based Key-Value Store",
     "source": ["grind-75", "multiple", "neetcode-250"],
@@ -2982,12 +3110,28 @@
     "slug": "top-k-frequent-words"
   },
   {
+    "href": "https://leetcode.com/problems/total-characters-in-string-after-transformations-ii/",
+    "name": "Total Characters in String After Transformations II",
+    "patterns": ["Dynamic Programming", "Hash Table", "Math", "String"],
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "difficulty": "Hard",
+    "slug": "total-characters-in-string-after-transformations-ii"
+  },
+  {
     "href": "https://leetcode.com/problems/transpose-matrix",
     "name": "Transpose Matrix",
     "source": ["neetcode-250"],
     "patterns": [],
     "difficulty": "Easy",
     "slug": "transpose-matrix"
+  },
+  {
+    "href": "https://leetcode.com/problems/trapping-rain-water-ii/",
+    "name": "Trapping Rain Water II",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "trapping-rain-water-ii"
   },
   {
     "href": "https://leetcode.com/problems/trapping-rain-water/",
