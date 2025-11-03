@@ -24,7 +24,7 @@ export default function LeetCodeToolPage() {
         </Suspense>
 
         <p className="mb-6 text-xs text-gray-600 sm:text-sm">
-          Track your progress through the Ladderly Leetcode 500, an
+          Track your progress through the Ladderly LeetCode 370, an
           evidence-based and industry-leading list that supersets well-known
           lists like the Grind 75, Neetcode 250, and Sean Prashad{"'"}s
           Patterns.
