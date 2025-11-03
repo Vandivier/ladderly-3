@@ -1,0 +1,452 @@
+[
+  {
+    "order_id": 1,
+    "href": "https://leetcode.com/problems/two-sum/",
+    "name": "1. Two Sum",
+    "patterns": ["Array", "Hash Table"]
+  },
+  {
+    "order_id": 2,
+    "href": "https://leetcode.com/problems/lru-cache/",
+    "name": "2. LRU Cache",
+    "patterns": ["Design", "Hash Table", "Linked List"]
+  },
+  {
+    "order_id": 3,
+    "href": "https://leetcode.com/problems/merge-intervals/",
+    "name": "3. Merge Intervals",
+    "patterns": ["Array", "Sorting", "Intervals"]
+  },
+  {
+    "order_id": 4,
+    "href": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+    "name": "4. Best Time to Buy and Sell Stock",
+    "patterns": ["Array", "Dynamic Programming", "Greedy"]
+  },
+  {
+    "order_id": 5,
+    "href": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+    "name": "5. Longest Substring Without Repeating Characters",
+    "patterns": ["String", "Sliding Window", "Hash Table"]
+  },
+  {
+    "order_id": 6,
+    "href": "https://leetcode.com/problems/valid-parentheses/",
+    "name": "6. Valid Parentheses",
+    "patterns": ["Stack", "String"]
+  },
+  {
+    "order_id": 7,
+    "href": "https://leetcode.com/problems/number-of-islands/",
+    "name": "7. Number of Islands",
+    "patterns": ["DFS", "BFS", "Matrix"]
+  },
+  {
+    "order_id": 8,
+    "href": "https://leetcode.com/problems/group-anagrams/",
+    "name": "8. Group Anagrams",
+    "patterns": ["String", "Hash Table", "Sorting"]
+  },
+  {
+    "order_id": 9,
+    "href": "https://leetcode.com/problems/trapping-rain-water/",
+    "name": "9. Trapping Rain Water",
+    "patterns": ["Array", "Two Pointers", "Stack"]
+  },
+  {
+    "order_id": 10,
+    "href": "https://leetcode.com/problems/longest-palindromic-substring/",
+    "name": "10. Longest Palindromic Substring",
+    "patterns": ["String", "Dynamic Programming"]
+  },
+  {
+    "order_id": 11,
+    "href": "https://leetcode.com/problems/top-k-frequent-elements/",
+    "name": "11. Top K Frequent Elements",
+    "patterns": ["Heap", "Hash Table", "Bucket Sort"]
+  },
+  {
+    "order_id": 12,
+    "href": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+    "name": "12. Median of Two Sorted Arrays",
+    "patterns": ["Array", "Binary Search", "Divide and Conquer"]
+  },
+  {
+    "order_id": 13,
+    "href": "https://leetcode.com/problems/3sum/",
+    "name": "13. 3Sum",
+    "patterns": ["Array", "Two Pointers", "Sorting"]
+  },
+  {
+    "order_id": 14,
+    "href": "https://leetcode.com/problems/subarray-sum-equals-k/",
+    "name": "14. Subarray Sum Equals K",
+    "patterns": ["Array", "Prefix Sum", "Hash Table"]
+  },
+  {
+    "order_id": 15,
+    "href": "https://leetcode.com/problems/merge-k-sorted-lists/",
+    "name": "15. Merge k Sorted Lists",
+    "patterns": ["Linked List", "Divide and Conquer", "Heap"]
+  },
+  {
+    "order_id": 16,
+    "href": "https://leetcode.com/problems/longest-common-prefix/",
+    "name": "16. Longest Common Prefix",
+    "patterns": ["String", "Sorting", "Trie"]
+  },
+  {
+    "order_id": 17,
+    "href": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+    "name": "17. Search in Rotated Sorted Array",
+    "patterns": ["Array", "Binary Search"]
+  },
+  {
+    "order_id": 18,
+    "href": "https://leetcode.com/problems/maximum-subarray/",
+    "name": "18. Maximum Subarray",
+    "patterns": ["Array", "Dynamic Programming", "Kadane’s Algorithm"]
+  },
+  {
+    "order_id": 19,
+    "href": "https://leetcode.com/problems/rotate-image/",
+    "name": "19. Rotate Image",
+    "patterns": ["Matrix", "Simulation"]
+  },
+  {
+    "order_id": 20,
+    "href": "https://leetcode.com/problems/spiral-matrix/",
+    "name": "20. Spiral Matrix",
+    "patterns": ["Matrix", "Simulation"]
+  },
+  {
+    "order_id": 21,
+    "href": "https://leetcode.com/problems/add-two-numbers/",
+    "name": "21. Add Two Numbers",
+    "patterns": ["Linked List", "Math"]
+  },
+  {
+    "order_id": 22,
+    "href": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+    "name": "22. Kth Largest Element in an Array",
+    "patterns": ["Array", "Heap", "Quickselect"]
+  },
+  {
+    "order_id": 23,
+    "href": "https://leetcode.com/problems/generate-parentheses/",
+    "name": "23. Generate Parentheses",
+    "patterns": ["String", "Backtracking", "Stack"]
+  },
+  {
+    "order_id": 24,
+    "href": "https://leetcode.com/problems/rotting-oranges/",
+    "name": "24. Rotting Oranges",
+    "patterns": ["BFS", "Matrix", "Queue"]
+  },
+  {
+    "order_id": 25,
+    "href": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+    "name": "25. Find First and Last Position of Element in Sorted Array",
+    "patterns": ["Array", "Binary Search"]
+  },
+  {
+    "order_id": 26,
+    "href": "https://leetcode.com/problems/merge-sorted-array/",
+    "name": "26. Merge Sorted Array",
+    "patterns": ["Array", "Two Pointers", "Sorting"]
+  },
+  {
+    "order_id": 27,
+    "href": "https://leetcode.com/problems/roman-to-integer/",
+    "name": "27. Roman to Integer",
+    "patterns": ["String", "Hash Map"]
+  },
+  {
+    "order_id": 28,
+    "href": "https://leetcode.com/problems/house-robber/",
+    "name": "28. House Robber",
+    "patterns": ["Dynamic Programming", "Array"]
+  },
+  {
+    "order_id": 29,
+    "href": "https://leetcode.com/problems/palindrome-number/",
+    "name": "29. Palindrome Number",
+    "patterns": ["Math"]
+  },
+  {
+    "order_id": 30,
+    "href": "https://leetcode.com/problems/move-zeroes/",
+    "name": "30. Move Zeroes",
+    "patterns": ["Array", "Two Pointers"]
+  },
+  {
+    "order_id": 31,
+    "href": "https://leetcode.com/problems/container-with-most-water/",
+    "name": "31. Container With Most Water",
+    "patterns": ["Array", "Two Pointers"]
+  },
+  {
+    "order_id": 32,
+    "href": "https://leetcode.com/problems/meeting-rooms-ii/",
+    "name": "32. Meeting Rooms II",
+    "patterns": ["Heap", "Intervals", "Sorting"]
+  },
+  {
+    "order_id": 33,
+    "href": "https://leetcode.com/problems/coin-change/",
+    "name": "33. Coin Change",
+    "patterns": ["Dynamic Programming"]
+  },
+  {
+    "order_id": 34,
+    "href": "https://leetcode.com/problems/valid-anagram/",
+    "name": "34. Valid Anagram",
+    "patterns": ["String", "Hash Table", "Sorting"]
+  },
+  {
+    "order_id": 35,
+    "href": "https://leetcode.com/problems/product-of-array-except-self/",
+    "name": "35. Product of Array Except Self",
+    "patterns": ["Array", "Prefix Product"]
+  },
+  {
+    "order_id": 36,
+    "href": "https://leetcode.com/problems/longest-consecutive-sequence/",
+    "name": "36. Longest Consecutive Sequence",
+    "patterns": ["Array", "Hash Set"]
+  },
+  {
+    "order_id": 37,
+    "href": "https://leetcode.com/problems/koko-eating-bananas/",
+    "name": "37. Koko Eating Bananas",
+    "patterns": ["Binary Search", "Greedy"]
+  },
+  {
+    "order_id": 38,
+    "href": "https://leetcode.com/problems/jump-game/",
+    "name": "38. Jump Game",
+    "patterns": ["Greedy", "Array"]
+  },
+  {
+    "order_id": 39,
+    "href": "https://leetcode.com/problems/integer-to-roman/",
+    "name": "39. Integer to Roman",
+    "patterns": ["Math", "String", "Greedy"]
+  },
+  {
+    "order_id": 40,
+    "href": "https://leetcode.com/problems/course-schedule/",
+    "name": "40. Course Schedule",
+    "patterns": ["Graph", "Topological Sort", "BFS", "DFS"]
+  },
+  {
+    "order_id": 41,
+    "href": "https://leetcode.com/problems/minimum-window-substring/",
+    "name": "41. Minimum Window Substring",
+    "patterns": ["String", "Sliding Window", "Hash Map"]
+  },
+  {
+    "order_id": 42,
+    "href": "https://leetcode.com/problems/reverse-linked-list/",
+    "name": "42. Reverse Linked List",
+    "patterns": ["Linked List"]
+  },
+  {
+    "order_id": 43,
+    "href": "https://leetcode.com/problems/next-permutation/",
+    "name": "43. Next Permutation",
+    "patterns": ["Array"]
+  },
+  {
+    "order_id": 44,
+    "href": "https://leetcode.com/problems/sliding-window-maximum/",
+    "name": "44. Sliding Window Maximum",
+    "patterns": ["Deque", "Sliding Window"]
+  },
+  {
+    "order_id": 45,
+    "href": "https://leetcode.com/problems/course-schedule-ii/",
+    "name": "45. Course Schedule II",
+    "patterns": ["Graph", "Topological Sort", "BFS"]
+  },
+  {
+    "order_id": 46,
+    "href": "https://leetcode.com/problems/merge-two-sorted-lists/",
+    "name": "46. Merge Two Sorted Lists",
+    "patterns": ["Linked List"]
+  },
+  {
+    "order_id": 47,
+    "href": "https://leetcode.com/problems/valid-palindrome/",
+    "name": "47. Valid Palindrome",
+    "patterns": ["String", "Two Pointers"]
+  },
+  {
+    "order_id": 48,
+    "href": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+    "name": "48. Remove Duplicates from Sorted Array",
+    "patterns": ["Array", "Two Pointers"]
+  },
+  {
+    "order_id": 49,
+    "href": "https://leetcode.com/problems/find-peak-element/",
+    "name": "49. Find Peak Element",
+    "patterns": ["Array", "Binary Search"]
+  },
+  {
+    "order_id": 50,
+    "href": "https://leetcode.com/problems/word-ladder/",
+    "name": "50. Word Ladder",
+    "patterns": ["BFS", "Graph"]
+  },
+  {
+    "order_id": 51,
+    "href": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
+    "name": "51. Best Time to Buy and Sell Stock II",
+    "patterns": ["Array", "Greedy"]
+  },
+  {
+    "order_id": 52,
+    "href": "https://leetcode.com/problems/subsets/",
+    "name": "52. Subsets",
+    "patterns": ["Backtracking", "Bit Manipulation"]
+  },
+  {
+    "order_id": 53,
+    "href": "https://leetcode.com/problems/rotate-array/",
+    "name": "53. Rotate Array",
+    "patterns": ["Array"]
+  },
+  {
+    "order_id": 54,
+    "href": "https://leetcode.com/problems/min-stack/",
+    "name": "54. Min Stack",
+    "patterns": ["Stack", "Design"]
+  },
+  {
+    "order_id": 55,
+    "href": "https://leetcode.com/problems/word-break/",
+    "name": "55. Word Break",
+    "patterns": ["Dynamic Programming", "String", "Trie"]
+  },
+  {
+    "order_id": 56,
+    "href": "https://leetcode.com/problems/word-search/",
+    "name": "56. Word Search",
+    "patterns": ["Backtracking", "Matrix"]
+  },
+  {
+    "order_id": 57,
+    "href": "https://leetcode.com/problems/contains-duplicate/",
+    "name": "57. Contains Duplicate",
+    "patterns": ["Array", "Hash Set", "Sorting"]
+  },
+  {
+    "order_id": 58,
+    "href": "https://leetcode.com/problems/longest-increasing-subsequence/",
+    "name": "58. Longest Increasing Subsequence",
+    "patterns": ["Dynamic Programming", "Binary Search", "Patience Sorting"]
+  },
+  {
+    "order_id": 59,
+    "href": "https://leetcode.com/problems/reorganize-string/",
+    "name": "59. Reorganize String",
+    "patterns": ["Greedy", "Heap", "String"]
+  },
+  {
+    "order_id": 60,
+    "href": "https://leetcode.com/problems/climbing-stairs/",
+    "name": "60. Climbing Stairs",
+    "patterns": ["Dynamic Programming", "Math", "Fibonacci"]
+  },
+  {
+    "order_id": 61,
+    "href": "https://leetcode.com/problems/string-compression/",
+    "name": "61. String Compression",
+    "patterns": ["Two Pointers", "String"]
+  },
+  {
+    "order_id": 62,
+    "href": "https://leetcode.com/problems/sort-colors/",
+    "name": "62. Sort Colors",
+    "patterns": ["Array", "Two Pointers", "Dutch National Flag"]
+  },
+  {
+    "order_id": 63,
+    "href": "https://leetcode.com/problems/jump-game-ii/",
+    "name": "63. Jump Game II",
+    "patterns": ["Greedy", "Array"]
+  },
+  {
+    "order_id": 64,
+    "href": "https://leetcode.com/problems/decode-string/",
+    "name": "64. Decode String",
+    "patterns": ["Stack", "String"]
+  },
+  {
+    "order_id": 65,
+    "href": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+    "name": "65. Binary Tree Maximum Path Sum",
+    "patterns": ["Tree", "DFS", "Dynamic Programming"]
+  },
+  {
+    "order_id": 66,
+    "href": "https://leetcode.com/problems/copy-list-with-random-pointer/",
+    "name": "66. Copy List with Random Pointer",
+    "patterns": ["Linked List", "Hash Map"]
+  },
+  {
+    "order_id": 67,
+    "href": "https://leetcode.com/problems/valid-sudoku/",
+    "name": "67. Valid Sudoku",
+    "patterns": ["Hash Set", "Matrix"]
+  },
+  {
+    "order_id": 68,
+    "href": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/",
+    "name": "68. Letter Combinations of a Phone Number",
+    "patterns": ["Backtracking", "String"]
+  },
+  {
+    "order_id": 69,
+    "href": "https://leetcode.com/problems/daily-temperatures/",
+    "name": "69. Daily Temperatures",
+    "patterns": ["Monotonic Stack", "Array"]
+  },
+  {
+    "order_id": 70,
+    "href": "https://leetcode.com/problems/candy/",
+    "name": "70. Candy",
+    "patterns": ["Greedy", "Array", "Two Pass"]
+  },
+  {
+    "order_id": 71,
+    "href": "https://leetcode.com/problems/powx-n/",
+    "name": "71. Pow(x, n)",
+    "patterns": ["Math", "Divide and Conquer", "Binary Exponentiation"]
+  },
+  {
+    "order_id": 72,
+    "href": "https://leetcode.com/problems/lfu-cache/",
+    "name": "72. LFU Cache",
+    "patterns": ["Design", "Hash Table", "Linked List"]
+  },
+  {
+    "order_id": 73,
+    "href": "https://leetcode.com/problems/simplify-path/",
+    "name": "73. Simplify Path",
+    "patterns": ["Stack", "String"]
+  },
+  {
+    "order_id": 74,
+    "href": "https://leetcode.com/problems/basic-calculator/",
+    "name": "74. Basic Calculator",
+    "patterns": ["Stack", "Math", "Parsing"]
+  },
+  {
+    "order_id": 75,
+    "href": "https://leetcode.com/problems/majority-element/",
+    "name": "75. Majority Element",
+    "patterns": ["Array", "Divide and Conquer"]
+  }
+]

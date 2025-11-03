@@ -4,105 +4,128 @@
     "name": "01 Matrix",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "01-matrix",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "01-matrix"
   },
   {
-    "href": "https://leetcode.com/problems/3sum",
+    "href": "https://leetcode.com/problems/24-game/",
+    "name": "24 Game",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "24-game"
+  },
+  {
+    "href": "https://leetcode.com/problems/3sum-closest/",
+    "name": "3Sum Closest",
+    "source": ["grind-75", "multiple", "sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Medium",
+    "slug": "3sum-closest"
+  },
+  {
+    "href": "https://leetcode.com/problems/3sum/",
     "name": "3Sum",
     "source": [
       "grind-75",
       "ladderly-expanded-kata",
       "multiple",
       "neetcode-250",
-      "sean-prashad-patterns"
+      "sean-prashad-patterns",
+      "taro-75"
     ],
-    "patterns": ["Array", "Two Pointers"],
-    "slug": "3sum",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/3sum-closest",
-    "name": "3Sum Closest",
-    "source": ["grind-75", "multiple", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "3sum-closest",
-    "difficulty": "Medium"
+    "patterns": ["Array", "Sorting", "Two Pointers"],
+    "difficulty": "Medium",
+    "slug": "3sum"
   },
   {
     "href": "https://leetcode.com/problems/4sum/",
     "name": "4Sum",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "4sum",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "4sum"
   },
   {
-    "href": "https://leetcode.com/problems/accounts-merge",
+    "href": "https://leetcode.com/problems/accounts-merge/",
     "name": "Accounts Merge",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "accounts-merge",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "accounts-merge"
   },
   {
-    "href": "https://leetcode.com/problems/add-binary",
+    "href": "https://leetcode.com/problems/add-binary/",
     "name": "Add Binary",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "add-binary",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "add-binary"
   },
   {
-    "href": "https://leetcode.com/problems/add-two-numbers",
+    "href": "https://leetcode.com/problems/add-two-numbers/",
     "name": "Add Two Numbers",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "add-two-numbers",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Linked List", "Math"],
+    "difficulty": "Medium",
+    "slug": "add-two-numbers"
   },
   {
-    "href": "https://leetcode.com/problems/alien-dictionary",
+    "href": "https://leetcode.com/problems/alien-dictionary/",
     "name": "Alien Dictionary",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "alien-dictionary",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "alien-dictionary"
   },
   {
-    "href": "https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree",
+    "href": "https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/",
     "name": "All Nodes Distance K in Binary Tree",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "all-nodes-distance-k-in-binary-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "all-nodes-distance-k-in-binary-tree"
   },
   {
-    "href": "https://leetcode.com/problems/asteroid-collision",
+    "href": "https://leetcode.com/problems/all-oone-data-structure/",
+    "name": "All O`one Data Structure",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "all-oone-data-structure"
+  },
+  {
+    "href": "https://leetcode.com/problems/asteroid-collision/",
     "name": "Asteroid Collision",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "asteroid-collision",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "asteroid-collision"
   },
   {
     "href": "https://leetcode.com/problems/average-of-levels-in-binary-tree/",
     "name": "Average of Levels in Binary Tree",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "average-of-levels-in-binary-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "average-of-levels-in-binary-tree"
   },
   {
-    "href": "https://leetcode.com/problems/backspace-string-compare",
+    "href": "https://leetcode.com/problems/backspace-string-compare/",
     "name": "Backspace String Compare",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "backspace-string-compare",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "backspace-string-compare"
   },
   {
-    "href": "https://leetcode.com/problems/balanced-binary-tree",
+    "href": "https://leetcode.com/problems/balanced-binary-tree/",
     "name": "Balanced Binary Tree",
     "source": [
       "grind-75",
@@ -111,75 +134,91 @@
       "neetcode-250"
     ],
     "patterns": [],
-    "slug": "balanced-binary-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "balanced-binary-tree"
   },
   {
     "href": "https://leetcode.com/problems/baseball-game/",
     "name": "Baseball Game",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "baseball-game",
-    "difficulty": "Easy"
-  },
-  {
-    "href": "https://leetcode.com/problems/basic-calculator",
-    "name": "Basic Calculator",
-    "source": ["grind-75"],
-    "patterns": [],
-    "slug": "basic-calculator",
-    "difficulty": "Hard"
+    "difficulty": "Easy",
+    "slug": "baseball-game"
   },
   {
     "href": "https://leetcode.com/problems/basic-calculator-ii",
     "name": "Basic Calculator II",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "basic-calculator-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "basic-calculator-ii"
   },
   {
-    "href": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock",
-    "name": "Best Time to Buy and Sell Stock",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "best-time-to-buy-and-sell-stock",
-    "difficulty": "Easy"
+    "order_id": 74,
+    "href": "https://leetcode.com/problems/basic-calculator/",
+    "name": "Basic Calculator",
+    "patterns": ["Stack", "Math", "Parsing"],
+    "source": ["grind-75", "multiple", "taro-75"],
+    "difficulty": "Hard",
+    "slug": "basic-calculator"
   },
   {
+    "order_id": 51,
     "href": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
     "name": "Best Time to Buy and Sell Stock II",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "best-time-to-buy-and-sell-stock-ii",
-    "difficulty": "Medium"
+    "patterns": ["Array", "Greedy"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "best-time-to-buy-and-sell-stock-ii"
   },
   {
     "href": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/",
     "name": "Best Time to Buy and Sell Stock with Cooldown",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "best-time-to-buy-and-sell-stock-with-cooldown"
   },
   {
-    "href": "https://leetcode.com/problems/binary-search",
+    "href": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+    "name": "Best Time to Buy and Sell Stock",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Dynamic Programming", "Greedy"],
+    "difficulty": "Easy",
+    "slug": "best-time-to-buy-and-sell-stock"
+  },
+  {
+    "href": "https://leetcode.com/problems/binary-search/",
     "name": "Binary Search",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "binary-search",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "binary-search"
   },
   {
     "href": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
     "name": "Binary Tree Inorder Traversal",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "binary-tree-inorder-traversal",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "binary-tree-inorder-traversal"
   },
   {
-    "href": "https://leetcode.com/problems/binary-tree-level-order-traversal",
+    "href": "https://leetcode.com/problems/binary-tree-level-order-traversal-ii/",
+    "name": "Binary Tree Level Order Traversal II",
+    "source": ["sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Medium",
+    "slug": "binary-tree-level-order-traversal-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
     "name": "Binary Tree Level Order Traversal",
     "source": [
       "grind-75",
@@ -189,161 +228,161 @@
       "sean-prashad-patterns"
     ],
     "patterns": [],
-    "slug": "binary-tree-level-order-traversal",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "binary-tree-level-order-traversal"
   },
   {
-    "href": "https://leetcode.com/problems/binary-tree-level-order-traversal-ii/",
-    "name": "Binary Tree Level Order Traversal II",
-    "source": ["sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "binary-tree-level-order-traversal-ii",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/binary-tree-maximum-path-sum",
+    "href": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
     "name": "Binary Tree Maximum Path Sum",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "binary-tree-maximum-path-sum",
-    "difficulty": "Hard"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["DFS", "Dynamic Programming", "Tree"],
+    "difficulty": "Hard",
+    "slug": "binary-tree-maximum-path-sum"
   },
   {
     "href": "https://leetcode.com/problems/binary-tree-paths/",
     "name": "Binary Tree Paths",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "binary-tree-paths",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "binary-tree-paths"
   },
   {
     "href": "https://leetcode.com/problems/binary-tree-postorder-traversal/",
     "name": "Binary Tree Postorder Traversal",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "binary-tree-postorder-traversal",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "binary-tree-postorder-traversal"
   },
   {
     "href": "https://leetcode.com/problems/binary-tree-preorder-traversal/",
     "name": "Binary Tree Preorder Traversal",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "binary-tree-preorder-traversal",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "binary-tree-preorder-traversal"
   },
   {
-    "href": "https://leetcode.com/problems/binary-tree-right-side-view",
+    "href": "https://leetcode.com/problems/binary-tree-right-side-view/",
     "name": "Binary Tree Right Side View",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "binary-tree-right-side-view",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "binary-tree-right-side-view"
   },
   {
-    "href": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal",
+    "href": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/",
     "name": "Binary Tree Zigzag Level Order Traversal",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "binary-tree-zigzag-level-order-traversal",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "binary-tree-zigzag-level-order-traversal"
   },
   {
     "href": "https://leetcode.com/problems/bitwise-and-of-numbers-range",
     "name": "Bitwise AND of Numbers Range",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "bitwise-and-of-numbers-range",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "bitwise-and-of-numbers-range"
   },
   {
     "href": "https://leetcode.com/problems/boats-to-save-people/",
     "name": "Boats to Save People",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "boats-to-save-people",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "boats-to-save-people"
   },
   {
     "href": "https://leetcode.com/problems/build-a-matrix-with-conditions",
     "name": "Build a Matrix With Conditions",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "build-a-matrix-with-conditions",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "build-a-matrix-with-conditions"
   },
   {
     "href": "https://leetcode.com/problems/burst-balloons/",
     "name": "Burst Balloons",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "burst-balloons",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "burst-balloons"
   },
   {
     "href": "https://leetcode.com/problems/bus-routes",
     "name": "Bus Routes",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "bus-routes",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "bus-routes"
   },
   {
+    "order_id": 70,
     "href": "https://leetcode.com/problems/candy/",
     "name": "Candy",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "candy",
-    "difficulty": "Hard"
+    "patterns": ["Greedy", "Array", "Two Pass"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Hard",
+    "slug": "candy"
   },
   {
     "href": "https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/",
     "name": "Capacity To Ship Packages Within D Days",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "capacity-to-ship-packages-within-d-days",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "capacity-to-ship-packages-within-d-days"
   },
   {
     "href": "https://leetcode.com/problems/car-fleet/",
     "name": "Car Fleet",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "car-fleet",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "car-fleet"
   },
   {
     "href": "https://leetcode.com/problems/car-pooling/",
     "name": "Car Pooling",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "car-pooling",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "car-pooling"
   },
   {
-    "href": "https://leetcode.com/problems/cheapest-flights-within-k-stops",
+    "href": "https://leetcode.com/problems/cheapest-flights-within-k-stops/",
     "name": "Cheapest Flights Within K Stops",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "cheapest-flights-within-k-stops",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "cheapest-flights-within-k-stops"
   },
   {
-    "href": "https://leetcode.com/problems/climbing-stairs",
+    "href": "https://leetcode.com/problems/climbing-stairs/",
     "name": "Climbing Stairs",
     "source": [
       "grind-75",
       "ladderly-expanded-kata",
       "multiple",
       "neetcode-250",
-      "sean-prashad-patterns"
+      "sean-prashad-patterns",
+      "taro-75"
     ],
-    "patterns": ["Dynamic Programming", "Math"],
-    "slug": "climbing-stairs",
-    "difficulty": "Easy"
+    "patterns": ["Dynamic Programming", "Fibonacci", "Math"],
+    "difficulty": "Easy",
+    "slug": "climbing-stairs"
   },
   {
-    "href": "https://leetcode.com/problems/clone-graph",
+    "href": "https://leetcode.com/problems/clone-graph/",
     "name": "Clone Graph",
     "source": [
       "grind-75",
@@ -352,27 +391,65 @@
       "neetcode-250"
     ],
     "patterns": ["BFS", "DFS", "Graphs"],
-    "slug": "clone-graph",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/coin-change",
-    "name": "Coin Change",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "coin-change",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "clone-graph"
   },
   {
     "href": "https://leetcode.com/problems/coin-change-ii/",
     "name": "Coin Change II",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "coin-change-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "coin-change-ii"
   },
   {
-    "href": "https://leetcode.com/problems/combination-sum",
+    "href": "https://leetcode.com/problems/coin-change/",
+    "name": "Coin Change",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Dynamic Programming"],
+    "difficulty": "Medium",
+    "slug": "coin-change"
+  },
+  {
+    "href": "https://leetcode.com/problems/collect-coins-in-a-tree/",
+    "name": "Collect Coins in a Tree",
+    "patterns": ["Array", "Graph", "Tree"],
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "difficulty": "Hard",
+    "slug": "collect-coins-in-a-tree"
+  },
+  {
+    "href": "https://leetcode.com/problems/combination-sum-ii/",
+    "name": "Combination Sum II",
+    "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Medium",
+    "slug": "combination-sum-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/combination-sum-iii/",
+    "name": "Combination Sum III",
+    "source": ["sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Medium",
+    "slug": "combination-sum-iii"
+  },
+  {
+    "href": "https://leetcode.com/problems/combination-sum-iv/",
+    "name": "Combination Sum IV",
+    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Medium",
+    "slug": "combination-sum-iv"
+  },
+  {
+    "href": "https://leetcode.com/problems/combination-sum/",
     "name": "Combination Sum",
     "source": [
       "grind-75",
@@ -382,193 +459,177 @@
       "sean-prashad-patterns"
     ],
     "patterns": [],
-    "slug": "combination-sum",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/combination-sum-ii/",
-    "name": "Combination Sum II",
-    "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "combination-sum-ii",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/combination-sum-iii/",
-    "name": "Combination Sum III",
-    "source": ["sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "combination-sum-iii",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/combination-sum-iv",
-    "name": "Combination Sum IV",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "combination-sum-iv",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "combination-sum"
   },
   {
     "href": "https://leetcode.com/problems/combinations/",
     "name": "Combinations",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "combinations",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "combinations"
   },
   {
     "href": "https://leetcode.com/problems/concatenated-words/",
     "name": "Concatenated Words",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "concatenated-words",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "concatenated-words"
   },
   {
     "href": "https://leetcode.com/problems/concatenation-of-array/",
     "name": "Concatenation of Array",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "concatenation-of-array",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "concatenation-of-array"
   },
   {
-    "href": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal",
+    "href": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
     "name": "Construct Binary Tree from Preorder and Inorder Traversal",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "construct-binary-tree-from-preorder-and-inorder-traversal"
   },
   {
     "href": "https://leetcode.com/problems/construct-quad-tree/",
     "name": "Construct Quad Tree",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "construct-quad-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "construct-quad-tree"
   },
   {
-    "href": "https://leetcode.com/problems/container-with-most-water",
+    "href": "https://leetcode.com/problems/container-with-most-water/",
     "name": "Container With Most Water",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "container-with-most-water",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/contains-duplicate",
-    "name": "Contains Duplicate",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "contains-duplicate",
-    "difficulty": "Easy"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Two Pointers"],
+    "difficulty": "Medium",
+    "slug": "container-with-most-water"
   },
   {
     "href": "https://leetcode.com/problems/contains-duplicate-ii/",
     "name": "Contains Duplicate II",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "contains-duplicate-ii",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "contains-duplicate-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/contains-duplicate/",
+    "name": "Contains Duplicate",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Hash Set", "Sorting"],
+    "difficulty": "Easy",
+    "slug": "contains-duplicate"
   },
   {
     "href": "https://leetcode.com/problems/contiguous-array",
     "name": "Contiguous Array",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "contiguous-array",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "contiguous-array"
   },
   {
     "href": "https://leetcode.com/problems/convert-1d-array-into-2d-array/",
     "name": "Convert 1D Array Into 2D Array",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "convert-1d-array-into-2d-array",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "convert-1d-array-into-2d-array"
   },
   {
     "href": "https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree",
     "name": "Convert Sorted Array to Binary Search Tree",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "convert-sorted-array-to-binary-search-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "convert-sorted-array-to-binary-search-tree"
   },
   {
+    "order_id": 66,
     "href": "https://leetcode.com/problems/copy-list-with-random-pointer/",
     "name": "Copy List with Random Pointer",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "copy-list-with-random-pointer",
-    "difficulty": "Medium"
+    "patterns": ["Linked List", "Hash Map"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "copy-list-with-random-pointer"
   },
   {
     "href": "https://leetcode.com/problems/count-good-nodes-in-binary-tree/",
     "name": "Count Good Nodes in Binary Tree",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "count-good-nodes-in-binary-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "count-good-nodes-in-binary-tree"
   },
   {
     "href": "https://leetcode.com/problems/count-of-range-sum/",
     "name": "Count of Range Sum",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "count-of-range-sum",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "count-of-range-sum"
+  },
+  {
+    "href": "https://leetcode.com/problems/count-the-number-of-infection-sequences/",
+    "name": "Count the Number of Infection Sequences",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "count-the-number-of-infection-sequences"
   },
   {
     "href": "https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/",
     "name": "Count Unique Characters of All Substrings of a Given String",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "count-unique-characters-of-all-substrings-of-a-given-string",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "count-unique-characters-of-all-substrings-of-a-given-string"
   },
   {
-    "href": "https://leetcode.com/problems/counting-bits",
+    "href": "https://leetcode.com/problems/counting-bits/",
     "name": "Counting Bits",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "counting-bits",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "counting-bits"
   },
   {
-    "href": "https://leetcode.com/problems/course-schedule",
-    "name": "Course Schedule",
-    "source": [
-      "grind-75",
-      "ladderly-expanded-kata",
-      "multiple",
-      "neetcode-250",
-      "sean-prashad-patterns"
-    ],
-    "patterns": ["BFS", "DFS", "Graphs", "Topological Sort"],
-    "slug": "course-schedule",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/course-schedule-ii",
+    "href": "https://leetcode.com/problems/course-schedule-ii/",
     "name": "Course Schedule II",
     "source": [
       "grind-75",
       "ladderly-expanded-kata",
       "multiple",
       "neetcode-250",
-      "sean-prashad-patterns"
+      "sean-prashad-patterns",
+      "taro-75"
     ],
-    "patterns": [],
-    "slug": "course-schedule-ii",
-    "difficulty": "Medium"
+    "patterns": ["BFS", "Graph", "Topological Sort"],
+    "difficulty": "Medium",
+    "slug": "course-schedule-ii"
   },
   {
-    "order_id": 19,
-    "href": "https://leetcode.com/problems/course-schedule-iii/editorial/",
+    "href": "https://leetcode.com/problems/course-schedule-iii/",
     "name": "Course Schedule III",
+    "source": ["ladderly-expanded-kata", "multiple", "sean-prashad-patterns"],
     "patterns": [
       "Array",
       "Greedy",
@@ -576,538 +637,596 @@
       "Memoization",
       "Recursion"
     ],
-    "source": ["ladderly-expanded-kata", "multiple", "sean-prashad-patterns"],
-    "slug": "course-schedule-iii",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "course-schedule-iii"
   },
   {
     "href": "https://leetcode.com/problems/course-schedule-iv/",
     "name": "Course Schedule IV",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "course-schedule-iv",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "course-schedule-iv"
   },
   {
-    "href": "https://leetcode.com/problems/daily-temperatures",
+    "href": "https://leetcode.com/problems/course-schedule/",
+    "name": "Course Schedule",
+    "source": [
+      "grind-75",
+      "ladderly-expanded-kata",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["BFS", "DFS", "Graph", "Graphs", "Topological Sort"],
+    "difficulty": "Medium",
+    "slug": "course-schedule"
+  },
+  {
+    "order_id": 69,
+    "href": "https://leetcode.com/problems/daily-temperatures/",
     "name": "Daily Temperatures",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "daily-temperatures",
-    "difficulty": "Medium"
+    "patterns": ["Monotonic Stack", "Array"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "daily-temperatures"
   },
   {
-    "href": "https://leetcode.com/problems/decode-string",
+    "order_id": 64,
+    "href": "https://leetcode.com/problems/decode-string/",
     "name": "Decode String",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "decode-string",
-    "difficulty": "Medium"
+    "patterns": ["Stack", "String"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "decode-string"
   },
   {
-    "href": "https://leetcode.com/problems/decode-ways",
+    "href": "https://leetcode.com/problems/decode-ways/",
     "name": "Decode Ways",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "decode-ways",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "decode-ways"
   },
   {
     "href": "https://leetcode.com/problems/delete-leaves-with-a-given-value",
     "name": "Delete Leaves With a Given Value",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "delete-leaves-with-a-given-value",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "delete-leaves-with-a-given-value"
   },
   {
     "href": "https://leetcode.com/problems/delete-node-in-a-bst/",
     "name": "Delete Node in a BST",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "delete-node-in-a-bst",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "delete-node-in-a-bst"
   },
   {
-    "href": "https://leetcode.com/problems/design-add-and-search-words-data-structure",
+    "href": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
     "name": "Design Add and Search Words Data Structure",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "design-add-and-search-words-data-structure",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "design-add-and-search-words-data-structure"
   },
   {
     "href": "https://leetcode.com/problems/design-circular-queue/",
     "name": "Design Circular Queue",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "design-circular-queue",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "design-circular-queue"
   },
   {
     "href": "https://leetcode.com/problems/design-hashmap/",
     "name": "Design HashMap",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "design-hashmap",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "design-hashmap"
   },
   {
     "href": "https://leetcode.com/problems/design-hashset/",
     "name": "Design HashSet",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "design-hashset",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "design-hashset"
   },
   {
     "href": "https://leetcode.com/problems/design-hit-counter",
     "name": "Design Hit Counter",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "design-hit-counter",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "design-hit-counter"
   },
   {
     "href": "https://leetcode.com/problems/design-in-memory-file-system",
     "name": "Design In-Memory File System",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "design-in-memory-file-system",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "design-in-memory-file-system"
   },
   {
     "href": "https://leetcode.com/problems/design-search-autocomplete-system/",
     "name": "Design Search Autocomplete System",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "design-search-autocomplete-system",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "design-search-autocomplete-system"
   },
   {
     "href": "https://leetcode.com/problems/design-twitter/",
     "name": "Design Twitter",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "design-twitter",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "design-twitter"
   },
   {
     "href": "https://leetcode.com/problems/detect-squares/",
     "name": "Detect Squares",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "detect-squares",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "detect-squares"
   },
   {
-    "href": "https://leetcode.com/problems/diameter-of-binary-tree",
+    "href": "https://leetcode.com/problems/diameter-of-binary-tree/",
     "name": "Diameter of Binary Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "diameter-of-binary-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "diameter-of-binary-tree"
   },
   {
     "href": "https://leetcode.com/problems/distinct-subsequences/",
     "name": "Distinct Subsequences",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "distinct-subsequences",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "distinct-subsequences"
   },
   {
     "href": "https://leetcode.com/problems/dota2-senate/",
     "name": "Dota2 Senate",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "dota2-senate",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "dota2-senate"
   },
   {
     "href": "https://leetcode.com/problems/edit-distance/",
     "name": "Edit Distance",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "edit-distance",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "edit-distance"
   },
   {
-    "href": "https://leetcode.com/problems/employee-free-time",
+    "href": "https://leetcode.com/problems/employee-free-time/",
     "name": "Employee Free Time",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "employee-free-time",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "employee-free-time"
   },
   {
-    "href": "https://leetcode.com/problems/encode-and-decode-strings",
+    "href": "https://leetcode.com/problems/encode-and-decode-strings/",
     "name": "Encode and Decode Strings",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "encode-and-decode-strings",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "encode-and-decode-strings"
   },
   {
     "href": "https://leetcode.com/problems/evaluate-division/",
     "name": "Evaluate Division",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "evaluate-division",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "evaluate-division"
   },
   {
-    "href": "https://leetcode.com/problems/evaluate-reverse-polish-notation",
+    "href": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
     "name": "Evaluate Reverse Polish Notation",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "evaluate-reverse-polish-notation",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "evaluate-reverse-polish-notation"
   },
   {
     "href": "https://leetcode.com/problems/excel-sheet-column-title/",
     "name": "Excel Sheet Column Title",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "excel-sheet-column-title",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "excel-sheet-column-title"
   },
   {
     "href": "https://leetcode.com/problems/extra-characters-in-a-string/",
     "name": "Extra Characters in a String",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "extra-characters-in-a-string",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "extra-characters-in-a-string"
   },
   {
     "href": "https://leetcode.com/problems/factor-combinations/",
     "name": "Factor Combinations",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "factor-combinations",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "factor-combinations"
   },
   {
     "href": "https://leetcode.com/problems/find-all-anagrams-in-a-string",
     "name": "Find All Anagrams in a String",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "find-all-anagrams-in-a-string",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "find-all-anagrams-in-a-string"
   },
   {
     "href": "https://leetcode.com/problems/find-all-duplicates-in-an-array/",
     "name": "Find All Duplicates in an Array",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "find-all-duplicates-in-an-array",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "find-all-duplicates-in-an-array"
   },
   {
     "href": "https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/",
     "name": "Find All Numbers Disappeared in an Array",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "find-all-numbers-disappeared-in-an-array",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "find-all-numbers-disappeared-in-an-array"
   },
   {
     "href": "https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/",
     "name": "Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree"
+  },
+  {
+    "order_id": 25,
+    "href": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+    "name": "Find First and Last Position of Element in Sorted Array",
+    "patterns": ["Array", "Binary Search"],
+    "source": ["taro-75"],
+    "difficulty": "Medium",
+    "slug": "find-first-and-last-position-of-element-in-sorted-array"
   },
   {
     "href": "https://leetcode.com/problems/find-in-mountain-array",
     "name": "Find in Mountain Array",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "find-in-mountain-array",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "find-in-mountain-array"
   },
   {
-    "href": "https://leetcode.com/problems/find-k-closest-elements",
+    "href": "https://leetcode.com/problems/find-k-closest-elements/",
     "name": "Find K Closest Elements",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "find-k-closest-elements",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "find-k-closest-elements"
   },
   {
     "href": "https://leetcode.com/problems/find-k-pairs-with-smallest-sums/",
     "name": "Find K Pairs with Smallest Sums",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "find-k-pairs-with-smallest-sums",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "find-k-pairs-with-smallest-sums"
   },
   {
-    "href": "https://leetcode.com/problems/find-median-from-data-stream",
+    "href": "https://leetcode.com/problems/find-median-from-data-stream/",
     "name": "Find Median from Data Stream",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "find-median-from-data-stream",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "find-median-from-data-stream"
   },
   {
-    "href": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array",
+    "href": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
     "name": "Find Minimum in Rotated Sorted Array",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "find-minimum-in-rotated-sorted-array",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "find-minimum-in-rotated-sorted-array"
   },
   {
-    "order_id": 3,
-    "href": "https://leetcode.com/problems/find-peak-element",
+    "href": "https://leetcode.com/problems/find-peak-element/",
     "name": "Find Peak Element",
+    "source": [
+      "ladderly-expanded-kata",
+      "multiple",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
     "patterns": ["Array", "Binary Search"],
-    "source": ["ladderly-expanded-kata", "multiple", "sean-prashad-patterns"],
-    "slug": "find-peak-element",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "find-peak-element"
   },
   {
     "href": "https://leetcode.com/problems/find-smallest-letter-greater-than-target/",
     "name": "Find Smallest Letter Greater Than Target",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "find-smallest-letter-greater-than-target",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "find-smallest-letter-greater-than-target"
   },
   {
-    "href": "https://leetcode.com/problems/find-the-duplicate-number",
+    "href": "https://leetcode.com/problems/find-the-duplicate-number/",
     "name": "Find the Duplicate Number",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "find-the-duplicate-number",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "find-the-duplicate-number"
+  },
+  {
+    "href": "https://leetcode.com/problems/find-the-minimum-area-to-cover-all-ones-ii/",
+    "name": "Find the Minimum Area to Cover All Ones II",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "find-the-minimum-area-to-cover-all-ones-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/find-the-original-typed-string-ii/",
+    "name": "Find the Original Typed String II",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "find-the-original-typed-string-ii"
   },
   {
     "href": "https://leetcode.com/problems/find-the-town-judge",
     "name": "Find the Town Judge",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "find-the-town-judge",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "find-the-town-judge"
   },
   {
     "href": "https://leetcode.com/problems/first-bad-version",
     "name": "First Bad Version",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "first-bad-version",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "first-bad-version"
   },
   {
-    "href": "https://leetcode.com/problems/first-missing-positive",
+    "href": "https://leetcode.com/problems/first-missing-positive/",
     "name": "First Missing Positive",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "first-missing-positive",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "first-missing-positive"
   },
   {
     "href": "https://leetcode.com/problems/flood-fill",
     "name": "Flood Fill",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "flood-fill",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "flood-fill"
   },
   {
     "href": "https://leetcode.com/problems/fruit-into-baskets/",
     "name": "Fruit Into Baskets",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "fruit-into-baskets",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "fruit-into-baskets"
   },
   {
-    "href": "https://leetcode.com/problems/gas-station",
+    "href": "https://leetcode.com/problems/gas-station/",
     "name": "Gas Station",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "gas-station",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "gas-station"
   },
   {
     "href": "https://leetcode.com/problems/generalized-abbreviation/",
     "name": "Generalized Abbreviation",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "generalized-abbreviation",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "generalized-abbreviation"
   },
   {
-    "href": "https://leetcode.com/problems/generate-parentheses",
+    "href": "https://leetcode.com/problems/generate-parentheses/",
     "name": "Generate Parentheses",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "generate-parentheses",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Backtracking", "Stack", "String"],
+    "difficulty": "Medium",
+    "slug": "generate-parentheses"
   },
   {
-    "href": "https://leetcode.com/problems/graph-valid-tree",
+    "href": "https://leetcode.com/problems/graph-valid-tree/",
     "name": "Graph Valid Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "graph-valid-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "graph-valid-tree"
   },
   {
     "href": "https://leetcode.com/problems/greatest-common-divisor-of-strings/",
     "name": "Greatest Common Divisor of Strings",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "greatest-common-divisor-of-strings",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "greatest-common-divisor-of-strings"
   },
   {
     "href": "https://leetcode.com/problems/greatest-common-divisor-traversal",
     "name": "Greatest Common Divisor Traversal",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "greatest-common-divisor-traversal",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "greatest-common-divisor-traversal"
   },
   {
-    "href": "https://leetcode.com/problems/group-anagrams",
+    "order_id": 8,
+    "href": "https://leetcode.com/problems/group-anagrams/",
     "name": "Group Anagrams",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "group-anagrams",
-    "difficulty": "Medium"
+    "patterns": ["String", "Hash Table", "Sorting"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "group-anagrams"
   },
   {
     "href": "https://leetcode.com/problems/guess-number-higher-or-lower/",
     "name": "Guess Number Higher or Lower",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "guess-number-higher-or-lower",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "guess-number-higher-or-lower"
   },
   {
     "href": "https://leetcode.com/problems/hand-of-straights/",
     "name": "Hand of Straights",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "hand-of-straights",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "hand-of-straights"
   },
   {
     "href": "https://leetcode.com/problems/happy-number/",
     "name": "Happy Number",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "happy-number",
-    "difficulty": "Easy"
-  },
-  {
-    "href": "https://leetcode.com/problems/house-robber",
-    "name": "House Robber",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "house-robber",
-    "difficulty": "Medium"
+    "difficulty": "Easy",
+    "slug": "happy-number"
   },
   {
     "href": "https://leetcode.com/problems/house-robber-ii/",
     "name": "House Robber II",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "house-robber-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "house-robber-ii"
   },
   {
     "href": "https://leetcode.com/problems/house-robber-iii/",
     "name": "House Robber III",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "house-robber-iii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "house-robber-iii"
+  },
+  {
+    "href": "https://leetcode.com/problems/house-robber/",
+    "name": "House Robber",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Dynamic Programming"],
+    "difficulty": "Medium",
+    "slug": "house-robber"
   },
   {
     "href": "https://leetcode.com/problems/implement-queue-using-stacks",
     "name": "Implement Queue using Stacks",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "implement-queue-using-stacks",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "implement-queue-using-stacks"
   },
   {
     "href": "https://leetcode.com/problems/implement-stack-using-queues/",
     "name": "Implement Stack using Queues",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "implement-stack-using-queues",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "implement-stack-using-queues"
   },
   {
-    "href": "https://leetcode.com/problems/implement-trie-prefix-tree",
+    "href": "https://leetcode.com/problems/implement-trie-prefix-tree/",
     "name": "Implement Trie (Prefix Tree)",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "implement-trie-prefix-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "implement-trie-prefix-tree"
   },
   {
     "href": "https://leetcode.com/problems/index-pairs-of-a-string/",
     "name": "Index Pairs of a String",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "index-pairs-of-a-string",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "index-pairs-of-a-string"
   },
   {
     "href": "https://leetcode.com/problems/inorder-successor-in-bst",
     "name": "Inorder Successor in BST",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "inorder-successor-in-bst",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "inorder-successor-in-bst"
   },
   {
     "href": "https://leetcode.com/problems/insert-delete-getrandom-o1",
     "name": "Insert Delete GetRandom O(1)",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "insert-delete-getrandom-o1",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "insert-delete-getrandom-o1"
   },
   {
     "href": "https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list/",
     "name": "Insert Greatest Common Divisors in Linked List",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "insert-greatest-common-divisors-in-linked-list",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "insert-greatest-common-divisors-in-linked-list"
   },
   {
-    "href": "https://leetcode.com/problems/insert-interval",
+    "href": "https://leetcode.com/problems/insert-interval/",
     "name": "Insert Interval",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "insert-interval",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "insert-interval"
   },
   {
     "href": "https://leetcode.com/problems/insert-into-a-binary-search-tree/",
     "name": "Insert into a Binary Search Tree",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "insert-into-a-binary-search-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "insert-into-a-binary-search-tree"
   },
   {
     "href": "https://leetcode.com/problems/integer-break/",
     "name": "Integer Break",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "integer-break",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "integer-break"
   },
   {
     "order_id": 9,
@@ -1115,195 +1234,241 @@
     "name": "Integer to English Words",
     "patterns": ["Math", "String", "Recursion"],
     "source": ["ladderly-expanded-kata"],
-    "slug": "integer-to-english-words",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "integer-to-english-words"
+  },
+  {
+    "order_id": 39,
+    "href": "https://leetcode.com/problems/integer-to-roman/",
+    "name": "Integer to Roman",
+    "patterns": ["Math", "String", "Greedy"],
+    "source": ["taro-75"],
+    "difficulty": "Medium",
+    "slug": "integer-to-roman"
   },
   {
     "href": "https://leetcode.com/problems/interleaving-string/",
     "name": "Interleaving String",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "interleaving-string",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "interleaving-string"
   },
   {
     "href": "https://leetcode.com/problems/interval-list-intersections/",
     "name": "Interval List Intersections",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "interval-list-intersections",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "interval-list-intersections"
   },
   {
-    "href": "https://leetcode.com/problems/invert-binary-tree",
+    "href": "https://leetcode.com/problems/invert-binary-tree/",
     "name": "Invert Binary Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "invert-binary-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "invert-binary-tree"
   },
   {
     "href": "https://leetcode.com/problems/ipo/",
     "name": "IPO",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "ipo",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "ipo"
   },
   {
     "href": "https://leetcode.com/problems/is-subsequence/",
     "name": "Is Subsequence",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "is-subsequence",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "is-subsequence"
   },
   {
     "href": "https://leetcode.com/problems/island-perimeter/",
     "name": "Island Perimeter",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "island-perimeter",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "island-perimeter"
   },
   {
-    "href": "https://leetcode.com/problems/jump-game",
-    "name": "Jump Game",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "jump-game",
-    "difficulty": "Medium"
-  },
-  {
+    "order_id": 63,
     "href": "https://leetcode.com/problems/jump-game-ii/",
     "name": "Jump Game II",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "jump-game-ii",
-    "difficulty": "Medium"
+    "patterns": ["Greedy", "Array"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "jump-game-ii"
   },
   {
     "href": "https://leetcode.com/problems/jump-game-vii/",
     "name": "Jump Game VII",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "jump-game-vii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "jump-game-vii"
   },
   {
-    "href": "https://leetcode.com/problems/k-closest-points-to-origin",
+    "href": "https://leetcode.com/problems/jump-game/",
+    "name": "Jump Game",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Greedy"],
+    "difficulty": "Medium",
+    "slug": "jump-game"
+  },
+  {
+    "href": "https://leetcode.com/problems/k-closest-points-to-origin/",
     "name": "K Closest Points to Origin",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "k-closest-points-to-origin",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "k-closest-points-to-origin"
   },
   {
+    "order_id": 37,
     "href": "https://leetcode.com/problems/koko-eating-bananas/",
     "name": "Koko Eating Bananas",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "koko-eating-bananas",
-    "difficulty": "Medium"
+    "patterns": ["Binary Search", "Greedy"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "koko-eating-bananas"
   },
   {
     "href": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
     "name": "Kth Largest Element in a Stream",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "kth-largest-element-in-a-stream",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "kth-largest-element-in-a-stream"
   },
   {
-    "href": "https://leetcode.com/problems/kth-largest-element-in-an-array",
+    "href": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
     "name": "Kth Largest Element in an Array",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "kth-largest-element-in-an-array",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Heap", "Quickselect"],
+    "difficulty": "Medium",
+    "slug": "kth-largest-element-in-an-array"
   },
   {
-    "href": "https://leetcode.com/problems/kth-smallest-element-in-a-bst",
+    "href": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
     "name": "Kth Smallest Element in a BST",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "kth-smallest-element-in-a-bst",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "kth-smallest-element-in-a-bst"
   },
   {
     "href": "https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/",
     "name": "Kth Smallest Element in a Sorted Matrix",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "kth-smallest-element-in-a-sorted-matrix",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "kth-smallest-element-in-a-sorted-matrix"
+  },
+  {
+    "href": "https://leetcode.com/problems/kth-smallest-product-of-two-sorted-arrays/",
+    "name": "Kth Smallest Product of Two Sorted Arrays",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "kth-smallest-product-of-two-sorted-arrays"
   },
   {
     "href": "https://leetcode.com/problems/largest-number",
     "name": "Largest Number",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "largest-number",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "largest-number"
   },
   {
-    "href": "https://leetcode.com/problems/largest-rectangle-in-histogram",
+    "href": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
     "name": "Largest Rectangle in Histogram",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "largest-rectangle-in-histogram",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "largest-rectangle-in-histogram"
   },
   {
     "href": "https://leetcode.com/problems/last-stone-weight-ii/",
     "name": "Last Stone Weight II",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "last-stone-weight-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "last-stone-weight-ii"
   },
   {
     "href": "https://leetcode.com/problems/last-stone-weight/",
     "name": "Last Stone Weight",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "last-stone-weight",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "last-stone-weight"
   },
   {
     "href": "https://leetcode.com/problems/lemonade-change/",
     "name": "Lemonade Change",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "lemonade-change",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "lemonade-change"
   },
   {
     "href": "https://leetcode.com/problems/letter-case-permutation/",
     "name": "Letter Case Permutation",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "letter-case-permutation",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "letter-case-permutation"
   },
   {
-    "href": "https://leetcode.com/problems/letter-combinations-of-a-phone-number",
+    "href": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/",
     "name": "Letter Combinations of a Phone Number",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "letter-combinations-of-a-phone-number",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Backtracking", "String"],
+    "difficulty": "Medium",
+    "slug": "letter-combinations-of-a-phone-number"
   },
   {
+    "order_id": 72,
     "href": "https://leetcode.com/problems/lfu-cache/",
     "name": "LFU Cache",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "lfu-cache",
-    "difficulty": "Hard"
+    "patterns": ["Design", "Hash Table", "Linked List"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Hard",
+    "slug": "lfu-cache"
   },
   {
-    "href": "https://leetcode.com/problems/linked-list-cycle",
+    "href": "https://leetcode.com/problems/linked-list-cycle-ii/",
+    "name": "Linked List Cycle II",
+    "source": ["sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Medium",
+    "slug": "linked-list-cycle-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/linked-list-cycle/",
     "name": "Linked List Cycle",
     "source": [
       "grind-75",
@@ -1313,88 +1478,99 @@
       "sean-prashad-patterns"
     ],
     "patterns": ["Linked List"],
-    "slug": "linked-list-cycle",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "linked-list-cycle"
   },
   {
-    "href": "https://leetcode.com/problems/linked-list-cycle-ii/",
-    "name": "Linked List Cycle II",
-    "source": ["sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "linked-list-cycle-ii",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/longest-common-prefix",
+    "order_id": 16,
+    "href": "https://leetcode.com/problems/longest-common-prefix/",
     "name": "Longest Common Prefix",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "longest-common-prefix",
-    "difficulty": "Easy"
+    "patterns": ["String", "Sorting", "Trie"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Easy",
+    "slug": "longest-common-prefix"
   },
   {
     "href": "https://leetcode.com/problems/longest-common-subsequence/",
     "name": "Longest Common Subsequence",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "longest-common-subsequence",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "longest-common-subsequence"
   },
   {
-    "href": "https://leetcode.com/problems/longest-consecutive-sequence",
+    "href": "https://leetcode.com/problems/longest-consecutive-sequence/",
     "name": "Longest Consecutive Sequence",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "longest-consecutive-sequence",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Hash Set"],
+    "difficulty": "Medium",
+    "slug": "longest-consecutive-sequence"
   },
   {
     "href": "https://leetcode.com/problems/longest-happy-string/",
     "name": "Longest Happy String",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "longest-happy-string",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "longest-happy-string"
   },
   {
-    "href": "https://leetcode.com/problems/longest-increasing-path-in-a-matrix",
+    "href": "https://leetcode.com/problems/longest-increasing-path-in-a-matrix/",
     "name": "Longest Increasing Path in a Matrix",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "longest-increasing-path-in-a-matrix",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "longest-increasing-path-in-a-matrix"
   },
   {
-    "href": "https://leetcode.com/problems/longest-increasing-subsequence",
+    "href": "https://leetcode.com/problems/longest-increasing-subsequence/",
     "name": "Longest Increasing Subsequence",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "longest-increasing-subsequence",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Binary Search", "Dynamic Programming", "Patience Sorting"],
+    "difficulty": "Medium",
+    "slug": "longest-increasing-subsequence"
   },
   {
     "href": "https://leetcode.com/problems/longest-palindrome",
     "name": "Longest Palindrome",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "longest-palindrome",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "longest-palindrome"
   },
   {
-    "href": "https://leetcode.com/problems/longest-palindromic-substring",
+    "href": "https://leetcode.com/problems/longest-palindromic-substring/",
     "name": "Longest Palindromic Substring",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "longest-palindromic-substring",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Dynamic Programming", "String"],
+    "difficulty": "Medium",
+    "slug": "longest-palindromic-substring"
   },
   {
-    "href": "https://leetcode.com/problems/longest-repeating-character-replacement",
+    "href": "https://leetcode.com/problems/longest-repeating-character-replacement/",
     "name": "Longest Repeating Character Replacement",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "longest-repeating-character-replacement",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "longest-repeating-character-replacement"
   },
   {
     "order_id": 28,
@@ -1402,107 +1578,124 @@
     "name": "Longest Substring with At Most K Distinct Characters",
     "source": ["ladderly-expanded-kata"],
     "patterns": [],
-    "slug": "longest-substring-with-at-most-k-distinct-characters",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "longest-substring-with-at-most-k-distinct-characters"
   },
   {
-    "href": "https://leetcode.com/problems/longest-substring-without-repeating-characters",
+    "href": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
     "name": "Longest Substring Without Repeating Characters",
     "source": [
       "grind-75",
       "ladderly-expanded-kata",
       "multiple",
       "neetcode-250",
-      "sean-prashad-patterns"
+      "sean-prashad-patterns",
+      "taro-75"
     ],
-    "patterns": ["Sliding Window", "String"],
-    "slug": "longest-substring-without-repeating-characters",
-    "difficulty": "Medium"
+    "patterns": ["Hash Table", "Sliding Window", "String"],
+    "difficulty": "Medium",
+    "slug": "longest-substring-without-repeating-characters"
   },
   {
     "href": "https://leetcode.com/problems/longest-turbulent-subarray/",
     "name": "Longest Turbulent Subarray",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "longest-turbulent-subarray",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "longest-turbulent-subarray"
   },
   {
     "href": "https://leetcode.com/problems/longest-valid-parentheses",
     "name": "Longest Valid Parentheses",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "longest-valid-parentheses",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "longest-valid-parentheses"
   },
   {
     "href": "https://leetcode.com/problems/longest-word-in-dictionary/",
     "name": "Longest Word in Dictionary",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "longest-word-in-dictionary",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "longest-word-in-dictionary"
   },
   {
-    "href": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree",
+    "href": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
     "name": "Lowest Common Ancestor of a Binary Search Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "lowest-common-ancestor-of-a-binary-search-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "lowest-common-ancestor-of-a-binary-search-tree"
   },
   {
-    "href": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree",
+    "href": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/",
     "name": "Lowest Common Ancestor of a Binary Tree",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "lowest-common-ancestor-of-a-binary-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "lowest-common-ancestor-of-a-binary-tree"
   },
   {
-    "href": "https://leetcode.com/problems/lru-cache",
+    "order_id": 2,
+    "href": "https://leetcode.com/problems/lru-cache/",
     "name": "LRU Cache",
+    "patterns": ["Design", "Hash Table", "Linked List"],
     "source": [
       "grind-75",
       "ladderly-expanded-kata",
       "multiple",
-      "neetcode-250"
+      "neetcode-250",
+      "taro-75"
     ],
-    "patterns": ["Linked List"],
-    "slug": "lru-cache",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/majority-element",
-    "name": "Majority Element",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "majority-element",
-    "difficulty": "Easy"
+    "difficulty": "Medium",
+    "slug": "lru-cache"
   },
   {
     "href": "https://leetcode.com/problems/majority-element-ii",
     "name": "Majority Element II",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "majority-element-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "majority-element-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/majority-element/",
+    "name": "Majority Element",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Divide and Conquer"],
+    "difficulty": "Easy",
+    "slug": "majority-element"
+  },
+  {
+    "href": "https://leetcode.com/problems/making-a-large-island/",
+    "name": "Making A Large Island",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "making-a-large-island"
   },
   {
     "href": "https://leetcode.com/problems/matchsticks-to-square/",
     "name": "Matchsticks to Square",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "matchsticks-to-square",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "matchsticks-to-square"
   },
   {
     "href": "https://leetcode.com/problems/max-area-of-island/",
     "name": "Max Area of Island",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "max-area-of-island",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "max-area-of-island"
   },
   {
     "order_id": 10,
@@ -1510,323 +1703,399 @@
     "name": "Max Consecutive Ones III",
     "patterns": ["Array", "Sliding Window"],
     "source": ["ladderly-expanded-kata"],
-    "slug": "max-consecutive-ones-iii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "max-consecutive-ones-iii"
+  },
+  {
+    "href": "https://leetcode.com/problems/max-stack/",
+    "name": "Max Stack",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "max-stack"
   },
   {
     "href": "https://leetcode.com/problems/maximal-square",
     "name": "Maximal Square",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "maximal-square",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "maximal-square"
+  },
+  {
+    "href": "https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair/",
+    "name": "Maximize Subarrays After Removing One Conflicting Pair",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "maximize-subarrays-after-removing-one-conflicting-pair"
   },
   {
     "href": "https://leetcode.com/problems/maximum-average-subarray-i/",
     "name": "Maximum Average Subarray I",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "maximum-average-subarray-i",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "maximum-average-subarray-i"
   },
   {
     "href": "https://leetcode.com/problems/maximum-binary-tree/",
     "name": "Maximum Binary Tree",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "maximum-binary-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "maximum-binary-tree"
   },
   {
-    "href": "https://leetcode.com/problems/maximum-depth-of-binary-tree",
+    "href": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
     "name": "Maximum Depth of Binary Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "maximum-depth-of-binary-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "maximum-depth-of-binary-tree"
   },
   {
-    "href": "https://leetcode.com/problems/maximum-frequency-stack",
+    "href": "https://leetcode.com/problems/maximum-frequency-stack/",
     "name": "Maximum Frequency Stack",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "maximum-frequency-stack",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "maximum-frequency-stack"
   },
   {
-    "href": "https://leetcode.com/problems/maximum-product-subarray",
+    "href": "https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/",
+    "name": "Maximum Number of Events That Can Be Attended II",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "maximum-number-of-events-that-can-be-attended-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/maximum-product-subarray/",
     "name": "Maximum Product Subarray",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "maximum-product-subarray",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "maximum-product-subarray"
   },
   {
     "href": "https://leetcode.com/problems/maximum-profit-in-job-scheduling",
     "name": "Maximum Profit in Job Scheduling",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "maximum-profit-in-job-scheduling",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "maximum-profit-in-job-scheduling"
   },
   {
-    "href": "https://leetcode.com/problems/maximum-subarray",
+    "href": "https://leetcode.com/problems/maximum-subarray/",
     "name": "Maximum Subarray",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "maximum-subarray",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Dynamic Programming", "Kadane’s Algorithm"],
+    "difficulty": "Medium",
+    "slug": "maximum-subarray"
   },
   {
     "href": "https://leetcode.com/problems/maximum-sum-circular-subarray/",
     "name": "Maximum Sum Circular Subarray",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "maximum-sum-circular-subarray",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "maximum-sum-circular-subarray"
   },
   {
-    "href": "https://leetcode.com/problems/maximum-width-of-binary-tree",
+    "href": "https://leetcode.com/problems/maximum-width-of-binary-tree/",
     "name": "Maximum Width of Binary Tree",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "maximum-width-of-binary-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "maximum-width-of-binary-tree"
   },
   {
     "href": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
     "name": "Maximum XOR of Two Numbers in an Array",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "maximum-xor-of-two-numbers-in-an-array",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "maximum-xor-of-two-numbers-in-an-array"
   },
   {
-    "href": "https://leetcode.com/problems/median-of-two-sorted-arrays",
+    "href": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
     "name": "Median of Two Sorted Arrays",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "median-of-two-sorted-arrays",
-    "difficulty": "Hard"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Binary Search", "Divide and Conquer"],
+    "difficulty": "Hard",
+    "slug": "median-of-two-sorted-arrays"
   },
   {
-    "href": "https://leetcode.com/problems/meeting-rooms",
-    "name": "Meeting Rooms",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "meeting-rooms",
-    "difficulty": "Easy"
-  },
-  {
-    "href": "https://leetcode.com/problems/meeting-rooms-ii",
+    "href": "https://leetcode.com/problems/meeting-rooms-ii/",
     "name": "Meeting Rooms II",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "meeting-rooms-ii",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Heap", "Intervals", "Sorting"],
+    "difficulty": "Medium",
+    "slug": "meeting-rooms-ii"
   },
   {
     "href": "https://leetcode.com/problems/meeting-rooms-iii",
     "name": "Meeting Rooms III",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "meeting-rooms-iii",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "meeting-rooms-iii"
   },
   {
-    "href": "https://leetcode.com/problems/merge-intervals",
+    "href": "https://leetcode.com/problems/meeting-rooms/",
+    "name": "Meeting Rooms",
+    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Easy",
+    "slug": "meeting-rooms"
+  },
+  {
+    "href": "https://leetcode.com/problems/merge-intervals/",
     "name": "Merge Intervals",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "merge-intervals",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Intervals", "Sorting"],
+    "difficulty": "Medium",
+    "slug": "merge-intervals"
   },
   {
-    "href": "https://leetcode.com/problems/merge-k-sorted-lists",
+    "href": "https://leetcode.com/problems/merge-k-sorted-lists/",
     "name": "Merge k Sorted Lists",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "merge-k-sorted-lists",
-    "difficulty": "Hard"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Divide and Conquer", "Heap", "Linked List"],
+    "difficulty": "Hard",
+    "slug": "merge-k-sorted-lists"
   },
   {
+    "order_id": 26,
     "href": "https://leetcode.com/problems/merge-sorted-array/",
     "name": "Merge Sorted Array",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "merge-sorted-array",
-    "difficulty": "Easy"
+    "patterns": ["Array", "Two Pointers", "Sorting"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Easy",
+    "slug": "merge-sorted-array"
   },
   {
     "href": "https://leetcode.com/problems/merge-strings-alternately/",
     "name": "Merge Strings Alternately",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "merge-strings-alternately",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "merge-strings-alternately"
   },
   {
     "href": "https://leetcode.com/problems/merge-triplets-to-form-target-triplet/",
     "name": "Merge Triplets to Form Target Triplet",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "merge-triplets-to-form-target-triplet",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "merge-triplets-to-form-target-triplet"
   },
   {
     "href": "https://leetcode.com/problems/merge-two-binary-trees/",
     "name": "Merge Two Binary Trees",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "merge-two-binary-trees",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "merge-two-binary-trees"
   },
   {
-    "href": "https://leetcode.com/problems/merge-two-sorted-lists",
+    "href": "https://leetcode.com/problems/merge-two-sorted-lists/",
     "name": "Merge Two Sorted Lists",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "merge-two-sorted-lists",
-    "difficulty": "Easy"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Linked List"],
+    "difficulty": "Easy",
+    "slug": "merge-two-sorted-lists"
   },
   {
-    "href": "https://leetcode.com/problems/middle-of-the-linked-list",
+    "href": "https://leetcode.com/problems/middle-of-the-linked-list/",
     "name": "Middle of the Linked List",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "middle-of-the-linked-list",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "middle-of-the-linked-list"
   },
   {
     "href": "https://leetcode.com/problems/min-cost-climbing-stairs/",
     "name": "Min Cost Climbing Stairs",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "min-cost-climbing-stairs",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "min-cost-climbing-stairs"
   },
   {
     "href": "https://leetcode.com/problems/min-cost-to-connect-all-points/",
     "name": "Min Cost to Connect All Points",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "min-cost-to-connect-all-points",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "min-cost-to-connect-all-points"
   },
   {
-    "href": "https://leetcode.com/problems/min-stack",
+    "order_id": 54,
+    "href": "https://leetcode.com/problems/min-stack/",
     "name": "Min Stack",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "min-stack",
-    "difficulty": "Medium"
+    "patterns": ["Stack", "Design"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "min-stack"
   },
   {
     "href": "https://leetcode.com/problems/minimum-array-end/",
     "name": "Minimum Array End",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "minimum-array-end",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "minimum-array-end"
   },
   {
     "href": "https://leetcode.com/problems/minimum-depth-of-binary-tree/",
     "name": "Minimum Depth of Binary Tree",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "minimum-depth-of-binary-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "minimum-depth-of-binary-tree"
   },
   {
-    "href": "https://leetcode.com/problems/minimum-height-trees",
+    "href": "https://leetcode.com/problems/minimum-height-trees/",
     "name": "Minimum Height Trees",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "minimum-height-trees",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "minimum-height-trees"
   },
   {
     "href": "https://leetcode.com/problems/minimum-interval-to-include-each-query/",
     "name": "Minimum Interval to Include Each Query",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "minimum-interval-to-include-each-query",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "minimum-interval-to-include-each-query"
   },
   {
     "href": "https://leetcode.com/problems/minimum-knight-moves",
     "name": "Minimum Knight Moves",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "minimum-knight-moves",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "minimum-knight-moves"
   },
   {
     "href": "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/",
     "name": "Minimum Number of Arrows to Burst Balloons",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "minimum-number-of-arrows-to-burst-balloons",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "minimum-number-of-arrows-to-burst-balloons"
   },
   {
     "href": "https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/",
     "name": "Minimum Number of K Consecutive Bit Flips",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "minimum-number-of-k-consecutive-bit-flips",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "minimum-number-of-k-consecutive-bit-flips"
   },
   {
     "href": "https://leetcode.com/problems/minimum-path-sum/",
     "name": "Minimum Path Sum",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "minimum-path-sum",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "minimum-path-sum"
   },
   {
     "href": "https://leetcode.com/problems/minimum-size-subarray-sum/",
     "name": "Minimum Size Subarray Sum",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "minimum-size-subarray-sum",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "minimum-size-subarray-sum"
   },
   {
-    "href": "https://leetcode.com/problems/minimum-window-substring",
+    "href": "https://leetcode.com/problems/minimum-window-substring/",
     "name": "Minimum Window Substring",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "minimum-window-substring",
-    "difficulty": "Hard"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Hash Map", "Sliding Window", "String"],
+    "difficulty": "Hard",
+    "slug": "minimum-window-substring"
   },
   {
-    "href": "https://leetcode.com/problems/missing-number",
+    "href": "https://leetcode.com/problems/missing-number/",
     "name": "Missing Number",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "missing-number",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "missing-number"
   },
   {
-    "href": "https://leetcode.com/problems/move-zeroes",
+    "href": "https://leetcode.com/problems/move-zeroes/",
     "name": "Move Zeroes",
-    "source": ["grind-75", "multiple", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "move-zeroes",
-    "difficulty": "Easy"
+    "source": ["grind-75", "multiple", "sean-prashad-patterns", "taro-75"],
+    "patterns": ["Array", "Two Pointers"],
+    "difficulty": "Easy",
+    "slug": "move-zeroes"
   },
   {
     "href": "https://leetcode.com/problems/multiply-strings/",
     "name": "Multiply Strings",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "multiply-strings",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "multiply-strings"
   },
   {
-    "href": "https://leetcode.com/problems/n-queens",
+    "href": "https://leetcode.com/problems/n-queens-ii/",
+    "name": "N-Queens II",
+    "source": ["neetcode-250"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "n-queens-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/n-queens/",
     "name": "N-Queens",
     "source": [
       "grind-75",
@@ -1836,115 +2105,122 @@
       "sean-prashad-patterns"
     ],
     "patterns": [],
-    "slug": "n-queens",
-    "difficulty": "Hard"
-  },
-  {
-    "href": "https://leetcode.com/problems/n-queens-ii/",
-    "name": "N-Queens II",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "n-queens-ii",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "n-queens"
   },
   {
     "href": "https://leetcode.com/problems/n-th-tribonacci-number/",
     "name": "N-th Tribonacci Number",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "n-th-tribonacci-number",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "n-th-tribonacci-number"
   },
   {
     "href": "https://leetcode.com/problems/network-delay-time/",
     "name": "Network Delay Time",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "network-delay-time",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "network-delay-time"
   },
   {
-    "href": "https://leetcode.com/problems/next-permutation",
+    "order_id": 43,
+    "href": "https://leetcode.com/problems/next-permutation/",
     "name": "Next Permutation",
-    "source": ["grind-75"],
-    "patterns": [],
-    "slug": "next-permutation",
-    "difficulty": "Medium"
+    "patterns": ["Array"],
+    "source": ["grind-75", "multiple", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "next-permutation"
   },
   {
-    "href": "https://leetcode.com/problems/non-overlapping-intervals",
+    "href": "https://leetcode.com/problems/non-overlapping-intervals/",
     "name": "Non-overlapping Intervals",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "non-overlapping-intervals",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "non-overlapping-intervals"
   },
   {
-    "href": "https://leetcode.com/problems/number-of-1-bits",
+    "href": "https://leetcode.com/problems/number-of-1-bits/",
     "name": "Number of 1 Bits",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "number-of-1-bits",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "number-of-1-bits"
   },
   {
-    "href": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph",
+    "href": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/",
     "name": "Number of Connected Components in an Undirected Graph",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "number-of-connected-components-in-an-undirected-graph",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "number-of-connected-components-in-an-undirected-graph"
   },
   {
-    "href": "https://leetcode.com/problems/number-of-islands",
+    "href": "https://leetcode.com/problems/number-of-islands/",
     "name": "Number of Islands",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "number-of-islands",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["BFS", "DFS", "Matrix"],
+    "difficulty": "Medium",
+    "slug": "number-of-islands"
   },
   {
     "href": "https://leetcode.com/problems/number-of-longest-increasing-subsequence/",
     "name": "Number of Longest Increasing Subsequence",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "number-of-longest-increasing-subsequence",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "number-of-longest-increasing-subsequence"
   },
   {
-    "href": "https://leetcode.com/problems/odd-even-linked-list",
+    "href": "https://leetcode.com/problems/odd-even-linked-list/",
     "name": "Odd Even Linked List",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "odd-even-linked-list",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "odd-even-linked-list"
   },
   {
     "href": "https://leetcode.com/problems/online-stock-span/",
     "name": "Online Stock Span",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "online-stock-span",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "online-stock-span"
   },
   {
     "href": "https://leetcode.com/problems/open-the-lock/",
     "name": "Open the Lock",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "open-the-lock",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "open-the-lock"
   },
   {
-    "href": "https://leetcode.com/problems/pacific-atlantic-water-flow",
+    "href": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
     "name": "Pacific Atlantic Water Flow",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "pacific-atlantic-water-flow",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "pacific-atlantic-water-flow"
   },
   {
-    "href": "https://leetcode.com/problems/palindrome-linked-list",
+    "href": "https://leetcode.com/problems/painting-a-grid-with-three-different-colors/",
+    "name": "Painting a Grid With Three Different Colors",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "painting-a-grid-with-three-different-colors"
+  },
+  {
+    "href": "https://leetcode.com/problems/palindrome-linked-list/",
     "name": "Palindrome Linked List",
     "source": [
       "grind-75",
@@ -1953,67 +2229,68 @@
       "sean-prashad-patterns"
     ],
     "patterns": ["Fast and Slow Pointers", "Linked List", "Recursion"],
-    "slug": "palindrome-linked-list",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "palindrome-linked-list"
   },
   {
-    "href": "https://leetcode.com/problems/palindrome-number",
+    "order_id": 29,
+    "href": "https://leetcode.com/problems/palindrome-number/",
     "name": "Palindrome Number",
-    "source": ["grind-75"],
-    "patterns": [],
-    "slug": "palindrome-number",
-    "difficulty": "Easy"
+    "patterns": ["Math"],
+    "source": ["grind-75", "multiple", "taro-75"],
+    "difficulty": "Easy",
+    "slug": "palindrome-number"
   },
   {
-    "href": "https://leetcode.com/problems/palindrome-pairs",
+    "href": "https://leetcode.com/problems/palindrome-pairs/",
     "name": "Palindrome Pairs",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "palindrome-pairs",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "palindrome-pairs"
   },
   {
     "href": "https://leetcode.com/problems/palindrome-partitioning/",
     "name": "Palindrome Partitioning",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "palindrome-partitioning",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "palindrome-partitioning"
   },
   {
     "href": "https://leetcode.com/problems/palindromic-substrings/",
     "name": "Palindromic Substrings",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "palindromic-substrings",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "palindromic-substrings"
   },
   {
-    "href": "https://leetcode.com/problems/partition-equal-subset-sum",
+    "href": "https://leetcode.com/problems/partition-equal-subset-sum/",
     "name": "Partition Equal Subset Sum",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "partition-equal-subset-sum",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "partition-equal-subset-sum"
   },
   {
     "href": "https://leetcode.com/problems/partition-labels/",
     "name": "Partition Labels",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "partition-labels",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "partition-labels"
   },
   {
     "href": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/",
     "name": "Partition to K Equal Sum Subsets",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "partition-to-k-equal-sum-subsets",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "partition-to-k-equal-sum-subsets"
   },
   {
-    "href": "https://leetcode.com/problems/path-sum-ii",
+    "href": "https://leetcode.com/problems/path-sum-ii/",
     "name": "Path Sum II",
     "source": [
       "grind-75",
@@ -2022,11 +2299,11 @@
       "sean-prashad-patterns"
     ],
     "patterns": ["DFS", "Recursion", "Tree Algorithms"],
-    "slug": "path-sum-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "path-sum-ii"
   },
   {
-    "href": "https://leetcode.com/problems/path-sum-iii",
+    "href": "https://leetcode.com/problems/path-sum-iii/",
     "name": "Path Sum III",
     "source": [
       "grind-75",
@@ -2035,612 +2312,696 @@
       "sean-prashad-patterns"
     ],
     "patterns": ["DFS", "Prefix Sum", "Tree Algorithms"],
-    "slug": "path-sum-iii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "path-sum-iii"
   },
   {
-    "order_id": 20,
     "href": "https://leetcode.com/problems/path-sum/",
     "name": "Path Sum",
-    "patterns": ["Tree Algorithms", "DFS", "BFS"],
     "source": ["ladderly-expanded-kata", "multiple", "sean-prashad-patterns"],
-    "slug": "path-sum",
-    "difficulty": "Easy"
+    "patterns": ["BFS", "DFS", "Tree Algorithms"],
+    "difficulty": "Easy",
+    "slug": "path-sum"
   },
   {
     "href": "https://leetcode.com/problems/path-with-minimum-effort/",
     "name": "Path With Minimum Effort",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "path-with-minimum-effort",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "path-with-minimum-effort"
   },
   {
     "href": "https://leetcode.com/problems/peak-index-in-a-mountain-array/",
     "name": "Peak Index in a Mountain Array",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "peak-index-in-a-mountain-array",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "peak-index-in-a-mountain-array"
   },
   {
     "href": "https://leetcode.com/problems/perfect-squares/",
     "name": "Perfect Squares",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "perfect-squares",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "perfect-squares"
   },
   {
     "href": "https://leetcode.com/problems/permutation-in-string/",
     "name": "Permutation in String",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "permutation-in-string",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/permutations",
-    "name": "Permutations",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "permutations",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "permutation-in-string"
   },
   {
     "href": "https://leetcode.com/problems/permutations-ii/",
     "name": "Permutations II",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "permutations-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "permutations-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/permutations/",
+    "name": "Permutations",
+    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Medium",
+    "slug": "permutations"
   },
   {
     "href": "https://leetcode.com/problems/plus-one/",
     "name": "Plus One",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "plus-one",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "plus-one"
   },
   {
-    "href": "https://leetcode.com/problems/powx-n",
+    "order_id": 71,
+    "href": "https://leetcode.com/problems/powx-n/",
     "name": "Pow(x, n)",
+    "patterns": ["Binary Exponentiation", "Divide and Conquer", "Math"],
     "source": [
       "grind-75",
       "ladderly-expanded-kata",
       "multiple",
-      "neetcode-250"
+      "neetcode-250",
+      "taro-75"
     ],
-    "patterns": ["Math"],
-    "slug": "powx-n",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "powx-n"
   },
   {
     "href": "https://leetcode.com/problems/prefix-and-suffix-search/",
     "name": "Prefix and Suffix Search",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "prefix-and-suffix-search",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "prefix-and-suffix-search"
   },
   {
-    "href": "https://leetcode.com/problems/product-of-array-except-self",
+    "href": "https://leetcode.com/problems/product-of-array-except-self/",
     "name": "Product of Array Except Self",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "product-of-array-except-self",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Prefix Product"],
+    "difficulty": "Medium",
+    "slug": "product-of-array-except-self"
   },
   {
     "href": "https://leetcode.com/problems/random-pick-with-weight",
     "name": "Random Pick with Weight",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "random-pick-with-weight",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "random-pick-with-weight"
   },
   {
     "href": "https://leetcode.com/problems/range-sum-query-2d-immutable/",
     "name": "Range Sum Query 2D - Immutable",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "range-sum-query-2d-immutable",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "range-sum-query-2d-immutable"
   },
   {
     "href": "https://leetcode.com/problems/range-sum-query-immutable/",
     "name": "Range Sum Query - Immutable",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "range-sum-query-immutable",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "range-sum-query-immutable"
   },
   {
     "href": "https://leetcode.com/problems/ransom-note",
     "name": "Ransom Note",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "ransom-note",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "ransom-note"
   },
   {
     "href": "https://leetcode.com/problems/rearrange-string-k-distance-apart/",
     "name": "Rearrange String k Distance Apart",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "rearrange-string-k-distance-apart",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "rearrange-string-k-distance-apart"
+  },
+  {
+    "href": "https://leetcode.com/problems/rearranging-fruits/",
+    "name": "Rearranging Fruits",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "rearranging-fruits"
   },
   {
     "href": "https://leetcode.com/problems/reconstruct-itinerary/",
     "name": "Reconstruct Itinerary",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "reconstruct-itinerary",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "reconstruct-itinerary"
   },
   {
     "href": "https://leetcode.com/problems/redundant-connection/",
     "name": "Redundant Connection",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "redundant-connection",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "redundant-connection"
   },
   {
     "href": "https://leetcode.com/problems/regular-expression-matching/",
     "name": "Regular Expression Matching",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "regular-expression-matching",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "regular-expression-matching"
   },
   {
+    "order_id": 48,
     "href": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
     "name": "Remove Duplicates from Sorted Array",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "remove-duplicates-from-sorted-array",
-    "difficulty": "Easy"
+    "patterns": ["Array", "Two Pointers"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Easy",
+    "slug": "remove-duplicates-from-sorted-array"
   },
   {
     "href": "https://leetcode.com/problems/remove-duplicates-from-sorted-list/",
     "name": "Remove Duplicates from Sorted List",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "remove-duplicates-from-sorted-list",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "remove-duplicates-from-sorted-list"
   },
   {
     "href": "https://leetcode.com/problems/remove-element/",
     "name": "Remove Element",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "remove-element",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "remove-element"
   },
   {
     "href": "https://leetcode.com/problems/remove-linked-list-elements/",
     "name": "Remove Linked List Elements",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "remove-linked-list-elements",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "remove-linked-list-elements"
   },
   {
-    "href": "https://leetcode.com/problems/remove-nth-node-from-end-of-list",
+    "href": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
     "name": "Remove Nth Node From End of List",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "remove-nth-node-from-end-of-list",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "remove-nth-node-from-end-of-list"
   },
   {
-    "href": "https://leetcode.com/problems/reorder-list",
+    "href": "https://leetcode.com/problems/reorder-list/",
     "name": "Reorder List",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "reorder-list",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "reorder-list"
   },
   {
     "href": "https://leetcode.com/problems/reorganize-string/",
     "name": "Reorganize String",
-    "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "reorganize-string",
-    "difficulty": "Medium"
+    "source": ["multiple", "neetcode-250", "sean-prashad-patterns", "taro-75"],
+    "patterns": ["Greedy", "Heap", "String"],
+    "difficulty": "Medium",
+    "slug": "reorganize-string"
   },
   {
-    "href": "https://leetcode.com/problems/reverse-bits",
+    "href": "https://leetcode.com/problems/reverse-bits/",
     "name": "Reverse Bits",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "reverse-bits",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "reverse-bits"
   },
   {
-    "href": "https://leetcode.com/problems/reverse-integer",
+    "href": "https://leetcode.com/problems/reverse-integer/",
     "name": "Reverse Integer",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "reverse-integer",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/reverse-linked-list",
-    "name": "Reverse Linked List",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "reverse-linked-list",
-    "difficulty": "Easy"
+    "difficulty": "Medium",
+    "slug": "reverse-integer"
   },
   {
     "href": "https://leetcode.com/problems/reverse-linked-list-ii/",
     "name": "Reverse Linked List II",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "reverse-linked-list-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "reverse-linked-list-ii"
   },
   {
-    "href": "https://leetcode.com/problems/reverse-nodes-in-k-group",
+    "href": "https://leetcode.com/problems/reverse-linked-list/",
+    "name": "Reverse Linked List",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Linked List"],
+    "difficulty": "Easy",
+    "slug": "reverse-linked-list"
+  },
+  {
+    "href": "https://leetcode.com/problems/reverse-nodes-in-k-group/",
     "name": "Reverse Nodes in k-Group",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "reverse-nodes-in-k-group",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "reverse-nodes-in-k-group"
   },
   {
     "href": "https://leetcode.com/problems/reverse-string/",
     "name": "Reverse String",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "reverse-string",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "reverse-string"
   },
   {
-    "href": "https://leetcode.com/problems/roman-to-integer",
+    "order_id": 27,
+    "href": "https://leetcode.com/problems/roman-to-integer/",
     "name": "Roman to Integer",
+    "patterns": ["Hash Map", "Hash Table", "Math", "String"],
     "source": [
       "grind-75",
       "ladderly-expanded-kata",
       "multiple",
-      "neetcode-250"
+      "neetcode-250",
+      "taro-75"
     ],
-    "patterns": ["Hash Table", "Math", "String"],
-    "slug": "roman-to-integer",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "roman-to-integer"
   },
   {
-    "href": "https://leetcode.com/problems/rotate-array",
+    "order_id": 53,
+    "href": "https://leetcode.com/problems/rotate-array/",
     "name": "Rotate Array",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "rotate-array",
-    "difficulty": "Medium"
+    "patterns": ["Array"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "rotate-array"
   },
   {
-    "href": "https://leetcode.com/problems/rotate-image",
+    "href": "https://leetcode.com/problems/rotate-image/",
     "name": "Rotate Image",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "rotate-image",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Matrix", "Simulation"],
+    "difficulty": "Medium",
+    "slug": "rotate-image"
   },
   {
-    "href": "https://leetcode.com/problems/rotate-list",
+    "href": "https://leetcode.com/problems/rotate-list/",
     "name": "Rotate List",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "rotate-list",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "rotate-list"
   },
   {
-    "href": "https://leetcode.com/problems/rotting-oranges",
+    "order_id": 24,
+    "href": "https://leetcode.com/problems/rotting-oranges/",
     "name": "Rotting Oranges",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "rotting-oranges",
-    "difficulty": "Medium"
+    "patterns": ["BFS", "Matrix", "Queue"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "rotting-oranges"
   },
   {
-    "href": "https://leetcode.com/problems/same-tree",
+    "href": "https://leetcode.com/problems/same-tree/",
     "name": "Same Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "same-tree",
-    "difficulty": "Easy"
-  },
-  {
-    "href": "https://leetcode.com/problems/search-a-2d-matrix",
-    "name": "Search a 2D Matrix",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "search-a-2d-matrix",
-    "difficulty": "Medium"
+    "difficulty": "Easy",
+    "slug": "same-tree"
   },
   {
     "href": "https://leetcode.com/problems/search-a-2d-matrix-ii/",
     "name": "Search a 2D Matrix II",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "search-a-2d-matrix-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "search-a-2d-matrix-ii"
   },
   {
-    "href": "https://leetcode.com/problems/search-in-rotated-sorted-array",
-    "name": "Search in Rotated Sorted Array",
+    "href": "https://leetcode.com/problems/search-a-2d-matrix/",
+    "name": "Search a 2D Matrix",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "search-in-rotated-sorted-array",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "search-a-2d-matrix"
   },
   {
     "href": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/",
     "name": "Search in Rotated Sorted Array II",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "search-in-rotated-sorted-array-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "search-in-rotated-sorted-array-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+    "name": "Search in Rotated Sorted Array",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Binary Search"],
+    "difficulty": "Medium",
+    "slug": "search-in-rotated-sorted-array"
   },
   {
     "href": "https://leetcode.com/problems/search-insert-position/",
     "name": "Search Insert Position",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "search-insert-position",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "search-insert-position"
   },
   {
     "href": "https://leetcode.com/problems/sequence-reconstruction/",
     "name": "Sequence Reconstruction",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "sequence-reconstruction",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "sequence-reconstruction"
   },
   {
-    "href": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree",
+    "href": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
     "name": "Serialize and Deserialize Binary Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "serialize-and-deserialize-binary-tree",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "serialize-and-deserialize-binary-tree"
   },
   {
-    "href": "https://leetcode.com/problems/set-matrix-zeroes",
+    "href": "https://leetcode.com/problems/set-matrix-zeroes/",
     "name": "Set Matrix Zeroes",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "set-matrix-zeroes",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "set-matrix-zeroes"
+  },
+  {
+    "href": "https://leetcode.com/problems/shortest-distance-from-all-buildings/",
+    "name": "Shortest Distance from All Buildings",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "shortest-distance-from-all-buildings"
   },
   {
     "href": "https://leetcode.com/problems/shortest-path-to-get-food",
     "name": "Shortest Path to Get Food",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "shortest-path-to-get-food",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "shortest-path-to-get-food"
   },
   {
+    "order_id": 73,
     "href": "https://leetcode.com/problems/simplify-path/",
     "name": "Simplify Path",
-    "source": ["neetcode-250"],
-    "patterns": [],
-    "slug": "simplify-path",
-    "difficulty": "Medium"
+    "patterns": ["Stack", "String"],
+    "source": ["multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "simplify-path"
   },
   {
-    "href": "https://leetcode.com/problems/single-number",
+    "href": "https://leetcode.com/problems/single-number/",
     "name": "Single Number",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "single-number",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "single-number"
   },
   {
     "href": "https://leetcode.com/problems/single-threaded-cpu/",
     "name": "Single-Threaded CPU",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "single-threaded-cpu",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "single-threaded-cpu"
   },
   {
-    "href": "https://leetcode.com/problems/sliding-window-maximum",
+    "href": "https://leetcode.com/problems/sliding-window-maximum/",
     "name": "Sliding Window Maximum",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "sliding-window-maximum",
-    "difficulty": "Hard"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Deque", "Sliding Window"],
+    "difficulty": "Hard",
+    "slug": "sliding-window-maximum"
   },
   {
     "href": "https://leetcode.com/problems/sliding-window-median/",
     "name": "Sliding Window Median",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "sliding-window-median",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "sliding-window-median"
   },
   {
-    "href": "https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists",
+    "href": "https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/",
     "name": "Smallest Range Covering Elements from K Lists",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "smallest-range-covering-elements-from-k-lists",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "smallest-range-covering-elements-from-k-lists"
   },
   {
     "href": "https://leetcode.com/problems/sort-an-array/",
     "name": "Sort an Array",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "sort-an-array",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "sort-an-array"
   },
   {
     "href": "https://leetcode.com/problems/sort-characters-by-frequency/",
     "name": "Sort Characters By Frequency",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "sort-characters-by-frequency",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "sort-characters-by-frequency"
   },
   {
-    "href": "https://leetcode.com/problems/sort-colors",
+    "href": "https://leetcode.com/problems/sort-colors/",
     "name": "Sort Colors",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "sort-colors",
-    "difficulty": "Medium"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Dutch National Flag", "Two Pointers"],
+    "difficulty": "Medium",
+    "slug": "sort-colors"
   },
   {
     "href": "https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/",
     "name": "Sort Items by Groups Respecting Dependencies",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "sort-items-by-groups-respecting-dependencies",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "sort-items-by-groups-respecting-dependencies"
   },
   {
-    "href": "https://leetcode.com/problems/sort-list",
+    "href": "https://leetcode.com/problems/sort-list/",
     "name": "Sort List",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "sort-list",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "sort-list"
   },
   {
-    "href": "https://leetcode.com/problems/spiral-matrix",
+    "href": "https://leetcode.com/problems/special-binary-string/",
+    "name": "Special Binary String",
+    "patterns": ["Recursion", "String"],
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "difficulty": "Hard",
+    "slug": "special-binary-string"
+  },
+  {
+    "href": "https://leetcode.com/problems/spiral-matrix/",
     "name": "Spiral Matrix",
     "source": [
       "grind-75",
       "ladderly-expanded-kata",
       "multiple",
       "neetcode-250",
-      "sean-prashad-patterns"
+      "sean-prashad-patterns",
+      "taro-75"
     ],
-    "patterns": ["Array", "Matrix"],
-    "slug": "spiral-matrix",
-    "difficulty": "Medium"
+    "patterns": ["Array", "Matrix", "Simulation"],
+    "difficulty": "Medium",
+    "slug": "spiral-matrix"
   },
   {
     "href": "https://leetcode.com/problems/split-a-string-into-the-max-number-of-unique-substrings/",
     "name": "Split a String Into the Max Number of Unique Substrings",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "split-a-string-into-the-max-number-of-unique-substrings",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "split-a-string-into-the-max-number-of-unique-substrings"
   },
   {
     "href": "https://leetcode.com/problems/split-array-largest-sum/",
     "name": "Split Array Largest Sum",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "split-array-largest-sum",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "split-array-largest-sum"
   },
   {
     "href": "https://leetcode.com/problems/sqrtx/",
     "name": "Sqrt(x)",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "sqrtx",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "sqrtx"
   },
   {
-    "href": "https://leetcode.com/problems/squares-of-a-sorted-array",
+    "href": "https://leetcode.com/problems/squares-of-a-sorted-array/",
     "name": "Squares of a Sorted Array",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "squares-of-a-sorted-array",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "squares-of-a-sorted-array"
   },
   {
     "href": "https://leetcode.com/problems/stone-game-ii/",
     "name": "Stone Game II",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "stone-game-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "stone-game-ii"
   },
   {
     "href": "https://leetcode.com/problems/stone-game-iii/",
     "name": "Stone Game III",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "stone-game-iii",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "stone-game-iii"
   },
   {
     "href": "https://leetcode.com/problems/stone-game/",
     "name": "Stone Game",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "stone-game",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "stone-game"
+  },
+  {
+    "order_id": 61,
+    "href": "https://leetcode.com/problems/string-compression/",
+    "name": "String Compression",
+    "patterns": ["Two Pointers", "String"],
+    "source": ["taro-75"],
+    "difficulty": "Medium",
+    "slug": "string-compression"
   },
   {
     "href": "https://leetcode.com/problems/string-to-integer-atoi",
     "name": "String to Integer (atoi)",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "string-to-integer-atoi",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "string-to-integer-atoi"
   },
   {
     "href": "https://leetcode.com/problems/subarray-product-less-than-k/",
     "name": "Subarray Product Less Than K",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "subarray-product-less-than-k",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "subarray-product-less-than-k"
   },
   {
-    "href": "https://leetcode.com/problems/subarray-sum-equals-k",
+    "order_id": 14,
+    "href": "https://leetcode.com/problems/subarray-sum-equals-k/",
     "name": "Subarray Sum Equals K",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "subarray-sum-equals-k",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/subsets",
-    "name": "Subsets",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "subsets",
-    "difficulty": "Medium"
+    "patterns": ["Array", "Prefix Sum", "Hash Table"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "subarray-sum-equals-k"
   },
   {
     "href": "https://leetcode.com/problems/subsets-ii/",
     "name": "Subsets II",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "subsets-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "subsets-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/subsets/",
+    "name": "Subsets",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Backtracking", "Bit Manipulation"],
+    "difficulty": "Medium",
+    "slug": "subsets"
   },
   {
     "href": "https://leetcode.com/problems/substring-with-concatenation-of-all-words/",
     "name": "Substring with Concatenation of All Words",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "substring-with-concatenation-of-all-words",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "substring-with-concatenation-of-all-words"
   },
   {
-    "href": "https://leetcode.com/problems/subtree-of-another-tree",
+    "href": "https://leetcode.com/problems/subtree-of-another-tree/",
     "name": "Subtree of Another Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "subtree-of-another-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "subtree-of-another-tree"
   },
   {
-    "href": "https://leetcode.com/problems/sudoku-solver",
+    "href": "https://leetcode.com/problems/sudoku-solver/",
     "name": "Sudoku Solver",
     "source": [
       "grind-75",
@@ -2649,258 +3010,290 @@
       "sean-prashad-patterns"
     ],
     "patterns": [],
-    "slug": "sudoku-solver",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "sudoku-solver"
   },
   {
     "href": "https://leetcode.com/problems/sum-of-all-subset-xor-totals",
     "name": "Sum of All Subset XOR Totals",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "sum-of-all-subset-xor-totals",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "sum-of-all-subset-xor-totals"
   },
   {
     "href": "https://leetcode.com/problems/sum-of-two-integers/",
     "name": "Sum of Two Integers",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "sum-of-two-integers",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "sum-of-two-integers"
   },
   {
     "href": "https://leetcode.com/problems/surrounded-regions/",
     "name": "Surrounded Regions",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "surrounded-regions",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "surrounded-regions"
   },
   {
-    "href": "https://leetcode.com/problems/swap-nodes-in-pairs",
+    "href": "https://leetcode.com/problems/swap-nodes-in-pairs/",
     "name": "Swap Nodes in Pairs",
     "source": ["grind-75", "multiple", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "swap-nodes-in-pairs",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "swap-nodes-in-pairs"
   },
   {
     "href": "https://leetcode.com/problems/swim-in-rising-water/",
     "name": "Swim in Rising Water",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "swim-in-rising-water",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "swim-in-rising-water"
   },
   {
     "href": "https://leetcode.com/problems/symmetric-tree",
     "name": "Symmetric Tree",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "symmetric-tree",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "symmetric-tree"
   },
   {
     "href": "https://leetcode.com/problems/target-sum/",
     "name": "Target Sum",
     "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "target-sum",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "target-sum"
   },
   {
-    "href": "https://leetcode.com/problems/task-scheduler",
+    "href": "https://leetcode.com/problems/task-scheduler/",
     "name": "Task Scheduler",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "task-scheduler",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "task-scheduler"
   },
   {
-    "href": "https://leetcode.com/problems/time-based-key-value-store",
+    "href": "https://leetcode.com/problems/text-justification/",
+    "name": "Text Justification",
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "text-justification"
+  },
+  {
+    "href": "https://leetcode.com/problems/time-based-key-value-store/",
     "name": "Time Based Key-Value Store",
     "source": ["grind-75", "multiple", "neetcode-250"],
     "patterns": [],
-    "slug": "time-based-key-value-store",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "time-based-key-value-store"
   },
   {
     "href": "https://leetcode.com/problems/top-k-frequent-elements/",
     "name": "Top K Frequent Elements",
-    "source": ["multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "top-k-frequent-elements",
-    "difficulty": "Medium"
+    "source": ["multiple", "neetcode-250", "sean-prashad-patterns", "taro-75"],
+    "patterns": ["Bucket Sort", "Hash Table", "Heap"],
+    "difficulty": "Medium",
+    "slug": "top-k-frequent-elements"
   },
   {
     "href": "https://leetcode.com/problems/top-k-frequent-words",
     "name": "Top K Frequent Words",
     "source": ["grind-75"],
     "patterns": [],
-    "slug": "top-k-frequent-words",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "top-k-frequent-words"
+  },
+  {
+    "href": "https://leetcode.com/problems/total-characters-in-string-after-transformations-ii/",
+    "name": "Total Characters in String After Transformations II",
+    "patterns": ["Dynamic Programming", "Hash Table", "Math", "String"],
+    "source": ["multiple", "swe-65-hard", "swe-75-hard"],
+    "difficulty": "Hard",
+    "slug": "total-characters-in-string-after-transformations-ii"
   },
   {
     "href": "https://leetcode.com/problems/transpose-matrix",
     "name": "Transpose Matrix",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "transpose-matrix",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "transpose-matrix"
   },
   {
-    "href": "https://leetcode.com/problems/trapping-rain-water",
+    "href": "https://leetcode.com/problems/trapping-rain-water-ii/",
+    "name": "Trapping Rain Water II",
+    "source": ["swe-75-hard"],
+    "patterns": [],
+    "difficulty": "Hard",
+    "slug": "trapping-rain-water-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/trapping-rain-water/",
     "name": "Trapping Rain Water",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "trapping-rain-water",
-    "difficulty": "Hard"
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Stack", "Two Pointers"],
+    "difficulty": "Hard",
+    "slug": "trapping-rain-water"
   },
   {
-    "href": "https://leetcode.com/problems/two-sum",
-    "name": "Two Sum",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "two-sum",
-    "difficulty": "Easy"
-  },
-  {
-    "order_id": 1,
     "href": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
     "name": "Two Sum II - Input Array Is Sorted",
-    "patterns": ["Array", "Two Pointers", "Monotonic Stack"],
     "source": ["ladderly-expanded-kata", "multiple", "neetcode-250"],
-    "slug": "two-sum-ii-input-array-is-sorted",
-    "difficulty": "Medium"
+    "patterns": ["Array", "Monotonic Stack", "Two Pointers"],
+    "difficulty": "Medium",
+    "slug": "two-sum-ii-input-array-is-sorted"
   },
   {
-    "href": "https://leetcode.com/problems/unique-paths",
-    "name": "Unique Paths",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "unique-paths",
-    "difficulty": "Medium"
+    "href": "https://leetcode.com/problems/two-sum/",
+    "name": "Two Sum",
+    "source": [
+      "grind-75",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Hash Table"],
+    "difficulty": "Easy",
+    "slug": "two-sum"
   },
   {
     "href": "https://leetcode.com/problems/unique-paths-ii/",
     "name": "Unique Paths II",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "unique-paths-ii",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "unique-paths-ii"
   },
   {
-    "href": "https://leetcode.com/problems/valid-anagram",
+    "href": "https://leetcode.com/problems/unique-paths/",
+    "name": "Unique Paths",
+    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
+    "patterns": [],
+    "difficulty": "Medium",
+    "slug": "unique-paths"
+  },
+  {
+    "order_id": 34,
+    "href": "https://leetcode.com/problems/valid-anagram/",
     "name": "Valid Anagram",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "valid-anagram",
-    "difficulty": "Easy"
-  },
-  {
-    "href": "https://leetcode.com/problems/valid-palindrome",
-    "name": "Valid Palindrome",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "valid-palindrome",
-    "difficulty": "Easy"
+    "patterns": ["String", "Hash Table", "Sorting"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Easy",
+    "slug": "valid-anagram"
   },
   {
     "href": "https://leetcode.com/problems/valid-palindrome-ii/",
     "name": "Valid Palindrome II",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "valid-palindrome-ii",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "valid-palindrome-ii"
   },
   {
-    "href": "https://leetcode.com/problems/valid-parentheses",
+    "order_id": 47,
+    "href": "https://leetcode.com/problems/valid-palindrome/",
+    "name": "Valid Palindrome",
+    "patterns": ["String", "Two Pointers"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Easy",
+    "slug": "valid-palindrome"
+  },
+  {
+    "order_id": 6,
+    "href": "https://leetcode.com/problems/valid-parentheses/",
     "name": "Valid Parentheses",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "valid-parentheses",
-    "difficulty": "Easy"
+    "patterns": ["Stack", "String"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Easy",
+    "slug": "valid-parentheses"
   },
   {
     "href": "https://leetcode.com/problems/valid-parenthesis-string/",
     "name": "Valid Parenthesis String",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "valid-parenthesis-string",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "valid-parenthesis-string"
   },
   {
-    "href": "https://leetcode.com/problems/valid-sudoku",
+    "order_id": 67,
+    "href": "https://leetcode.com/problems/valid-sudoku/",
     "name": "Valid Sudoku",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "valid-sudoku",
-    "difficulty": "Medium"
+    "patterns": ["Hash Set", "Matrix"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Medium",
+    "slug": "valid-sudoku"
   },
   {
-    "href": "https://leetcode.com/problems/validate-binary-search-tree",
+    "href": "https://leetcode.com/problems/validate-binary-search-tree/",
     "name": "Validate Binary Search Tree",
     "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
     "patterns": [],
-    "slug": "validate-binary-search-tree",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "validate-binary-search-tree"
   },
   {
     "href": "https://leetcode.com/problems/verifying-an-alien-dictionary/",
     "name": "Verifying an Alien Dictionary",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "verifying-an-alien-dictionary",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "slug": "verifying-an-alien-dictionary"
   },
   {
     "href": "https://leetcode.com/problems/walls-and-gates/",
     "name": "Walls and Gates",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "walls-and-gates",
-    "difficulty": "Medium"
-  },
-  {
-    "href": "https://leetcode.com/problems/word-break",
-    "name": "Word Break",
-    "source": ["grind-75", "multiple", "neetcode-250", "sean-prashad-patterns"],
-    "patterns": [],
-    "slug": "word-break",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "slug": "walls-and-gates"
   },
   {
     "href": "https://leetcode.com/problems/word-break-ii",
     "name": "Word Break II",
     "source": ["neetcode-250"],
     "patterns": [],
-    "slug": "word-break-ii",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "word-break-ii"
   },
   {
-    "href": "https://leetcode.com/problems/word-ladder",
-    "name": "Word Ladder",
-    "source": ["grind-75", "multiple", "neetcode-250"],
-    "patterns": [],
-    "slug": "word-ladder",
-    "difficulty": "Hard"
-  },
-  {
-    "href": "https://leetcode.com/problems/word-search",
-    "name": "Word Search",
+    "href": "https://leetcode.com/problems/word-break/",
+    "name": "Word Break",
     "source": [
       "grind-75",
-      "ladderly-expanded-kata",
       "multiple",
       "neetcode-250",
-      "sean-prashad-patterns"
+      "sean-prashad-patterns",
+      "taro-75"
     ],
-    "patterns": ["Array", "Backtracking", "Matrix", "String"],
-    "slug": "word-search",
-    "difficulty": "Medium"
+    "patterns": ["Dynamic Programming", "String", "Trie"],
+    "difficulty": "Medium",
+    "slug": "word-break"
   },
   {
-    "href": "https://leetcode.com/problems/word-search-ii",
+    "order_id": 50,
+    "href": "https://leetcode.com/problems/word-ladder/",
+    "name": "Word Ladder",
+    "patterns": ["BFS", "Graph"],
+    "source": ["grind-75", "multiple", "neetcode-250", "taro-75"],
+    "difficulty": "Hard",
+    "slug": "word-ladder"
+  },
+  {
+    "href": "https://leetcode.com/problems/word-search-ii/",
     "name": "Word Search II",
     "source": [
       "grind-75",
@@ -2910,15 +3303,30 @@
       "sean-prashad-patterns"
     ],
     "patterns": ["Array", "DFS", "Matrix", "String", "Trie"],
-    "slug": "word-search-ii",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "word-search-ii"
+  },
+  {
+    "href": "https://leetcode.com/problems/word-search/",
+    "name": "Word Search",
+    "source": [
+      "grind-75",
+      "ladderly-expanded-kata",
+      "multiple",
+      "neetcode-250",
+      "sean-prashad-patterns",
+      "taro-75"
+    ],
+    "patterns": ["Array", "Backtracking", "Matrix", "String"],
+    "difficulty": "Medium",
+    "slug": "word-search"
   },
   {
     "href": "https://leetcode.com/problems/word-squares/",
     "name": "Word Squares",
     "source": ["sean-prashad-patterns"],
     "patterns": [],
-    "slug": "word-squares",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "slug": "word-squares"
   }
 ]

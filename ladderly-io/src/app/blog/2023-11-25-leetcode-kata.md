@@ -1,5 +1,5 @@
 ---
-title: '3. Ladderly Standard Leetcode Kata'
+title: '3. Ladderly Standard LeetCode Kata'
 author: John Vandivier
 ---
 
@@ -10,7 +10,7 @@ They are less common at Tier 2 and Tier 3 companies, but even in those markets t
 As we think about the job search for programmers, two facts are apparent:
 
 1. It's possible to [land a programming role without leetcode](https://github.com/poteto/hiring-without-whiteboards).
-2. Leetcode practice is a great return on investment, improving access to more job opportunities, including opportunities with industry-leading compensation.
+2. LeetCode practice is a great return on investment, improving access to more job opportunities, including opportunities with industry-leading compensation.
 
 Importantly, practicing with Ladderly's problem sets can improve your technical interview performance for both leetcode and non-leetcode interviews! How well do LeetCode ratings predict interview performance? See this [article](https://interviewing.io/blog/how-well-do-leetcode-ratings-predict-interview-performance) for the data showing that serious diminishing returns are associated with doing more than 500 questions. Ladderly's largest set has 690 problems, and it's intended as a joke. It's definitely overkill for the vast majority of job seekers.
 
@@ -18,19 +18,19 @@ Given this information, Ladderly.io recommends that you begin your job search be
 
 After you have solved your first problem, we recommend splitting your time 50/50 between trying new problems and revisiting old problems.
 
-## What is Leetcode Kata?
+## What is LeetCode Kata?
 
 Kata is a term of Japanese origin that refers to a choreographed pattern of martial arts movements. Practicing or drilling kata is a memorization technique that creates muscle memory in addition to the cognitive benefits.
 
 [Code kata](https://en.wikipedia.org/w/index.php?title=Kata&oldid=1177927890#Outside_martial_arts) are code snippets that are repeatedly typed out as a technique for memorizing solutions to programming problems and also to improve productivity or implementation time for those problems.
 
-Leetcode kata are code kata designed sourced from the popular [Leetcode website](http://leetcode.com/).
+LeetCode kata are code kata designed sourced from the popular [LeetCode website](http://leetcode.com/).
 Ladderly problem sets are crafted with several principles in mind:
 
 1. Unapologetically weaponize repitition, drilling, memorization, and brute force to crush interviews.
 2. Provide a beginner-friendly onboarding experience that scales to the senior-plus level.
 3. Ensure strong pattern coverage over all types of problems that are frequently asked in interviews.
-4. The Ladderly Standard Leetcode Kata should not contain any premium or paywalled questions.
+4. The Ladderly Standard LeetCode Kata should not contain any premium or paywalled questions.
 5. Achieve high cognitive load with comfort by:
    1. Starting with easy problems and working up to harder problems in the same pattern
    2. Ordering the patterns themselves so that initial patterns reflect concepts already encountered in project-based learning
@@ -46,21 +46,17 @@ Ladderly recommends timeboxing problem execution to 20 minutes, and reviewing th
 
 1. Many in the tech community began to emphasize the importance of learning patterns over solving specific problems, and [the 14 Patterns article](https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed) became a smash hit.
 2. Yangshun himself created an updated list called [the Grind 75](https://www.techinterviewhandbook.org/grind75/about), which actually includes 169 problems.
-3. Building on the 14 Patterns, Sean Prashad launched the [Leetcode Patterns tool](https://seanprashad.com/leetcode-patterns/), capturing 22 patterns across 174 problems.
+3. Building on the 14 Patterns, Sean Prashad launched the [LeetCode Patterns tool](https://seanprashad.com/leetcode-patterns/), capturing 22 patterns across 174 problems.
 4. John Vandivier, the creator of Ladderly.io, created the [5 to 23 Patterns article](https://hackernoon.com/5-to-23-patterns-to-ace-any-coding-interview), embracing both the movement to lower the barrier to entry and also raising the bar on the total addressed pattern set compared to Prashad's tool.
-5. LeetCode itself created the [Leetcode 75](https://leetcode.com/studyplan/leetcode-75/), a program targeted around 1-3 months of study and covering many essential patterns.
+5. LeetCode itself created the [LeetCode 75](https://leetcode.com/studyplan/leetcode-75/), a program targeted around 1-3 months of study and covering many essential patterns.
 6. Formation.dev published [The Engineering Method](https://formation.dev/blog/the-engineering-method/), a step-by-step process to solve any leetcode problem
 7. [Neetcode.io](https://neetcode.io/) created the bar-raising Neetcode 250
 8. [John Vandivier](https://www.linkedin.com/in/john-vandivier/) wrote [6 Problem Picking Patterns for Technical Success](https://hackernoon.com/mastering-leetcode-6-problem-picking-patterns-for-technical-success). This article defines an evergreen process for finding highly relevant problems and patterns at any point in time.
-9. Ladderly.io releases our Standard and Expanded Leetcode Kata.
+9. Ladderly.io releases our Standard and Expanded LeetCode Kata.
 10. [Interviewing.io documents](https://interviewing.io/blog/how-well-do-leetcode-ratings-predict-interview-performance) that serious diminishing returns are associated with doing more than 500 problems.
-11. Ladderly.io releases additional problem sets to scale up and past the documented point of serious diminishing returns:
-    1. The Ladderly 300
-    2. The Ladderly 420
-    3. The Ladderly 500
-    4. The Ladderly 690
+11. Ladderly.io releases the Ladderly 360, a new best-in-industry large structured problem set.
 
-## The Ladderly Standard Leetcode Kata
+## The Ladderly Standard LeetCode Kata
 
 Solve these problems in the given order. Step through each problem as if it were a coding interview round and leverage [Formation's Engineering Method](https://formation.dev/blog/the-engineering-method/). That means you should say things out loud as you go:
 
@@ -79,7 +75,7 @@ This kata is also a fantastic interview preperation and warmup tool!
 To prepare for a coding interview, begin this kata 2 hours before the interview, timeboxing kata performance to one hour at most, then take a break and relax before greeting your interviewer.
 Remember other basics of preparation including rest, nutrition, hydration, appearance management, and positive mindset!
 
-Here is the list of code challenges in the Ladderly Leetcode Standard Kata:
+Here is the list of code challenges in the Ladderly LeetCode Standard Kata:
 
 1. [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 
@@ -290,25 +286,74 @@ There are six main dangers to using code kata from Ladderly or elsewhere:
 
 3. Substituting memorization for learning. Kata is a memorization tool, and memorization is not a substitute for learning. While these problems can serve as a starting point for learning, you should continue to study many other variations to reduce the chance that a surprise question or twist during an interview will throw you into a difficult situation. Make a practice of calmly facing unexpected questions by:
 
-   1. Participating in Leetcode weekly competitions
+   1. Participating in LeetCode weekly competitions
    2. Referring back to the Standard Historical Guidance for continued learning
    3. Taking on many real and practice interviews and viewing them as a learning experience, acknowledging that you may be surprised and accepting it
 
-4. Treating the kata pattern set as an end goal rather than a market of basic competency. Recalling the 5 to 23 Patterns article, notice that only the most important five are covered in the Ladderly Standard Leetcode Kata. These five explain
+4. Treating the kata pattern set as an end goal rather than a market of basic competency. Recalling the 5 to 23 Patterns article, notice that only the most important five are covered in the Ladderly Standard LeetCode Kata. These five explain
 
 5. Prioritizing generic kata over company-specific information is a mistake. If you are able to access a company-specific list of frequently used questions, prioritize those. You can use the kata in addition to those tools, or modify the standard kata for your own situation.
 
 6. Neglecting others is a danger of becoming an elite programmer. You may forget how hard it was in the beginning. You may think that since you went through this difficult process other people should also do the same in order to earn their place as a software engineer. At Ladderly, we hope that you adopt an attitude of empathy toward others instead, and we'd welcome your personal support and contributions of time, resources, and effort to ensure that it gets easier for people to break into tech over time.
 
+## SWE 75 Hard
+
+The SWE 75 Hard can be accessed by filtering on source in the [Ladderly LeetCode Tool](https://www.ladderly.io/leetcode-tool). It is a list of 75 hard leetcode problems selected in an evidence-based way to boost your coding round interview performance.
+
+[Research shows](https://interviewing.io/blog/how-well-do-leetcode-ratings-predict-interview-performance) that completing a LeetCode hard carries over twice the benefits of a medium question.
+
+The problems contained in this list were selected as follows:
+
+1. Pick the hard problems from the Ladderly 360, omitting the SWE 65 Hard. This process identifies 57 problems.
+2. Take the 18 most frequent LeetCode hard problems not already identified, as of November 1, 2025.
+
+Feel free to integrate these problems into a transformative mental toughness program like [75 Hard](https://pennstatehealthnews.org/2024/01/the-medical-minute-75-hard-75-soft-and-how-to-keep-your-fitness-resolutions/), [75 Soft](https://pennstatehealthnews.org/2024/01/the-medical-minute-75-hard-75-soft-and-how-to-keep-your-fitness-resolutions/), or another variation, but that's not required.
+
+The SWE 65 Hard is simply the 65 most frequent of the SWE 75 Hard.
+
 ## Ladderly 360
 
-The union of the Grind 75, NeetCode 250, Sean Prashad's Patterns, and the Ladderly Expanded Kata is 349 problems, which can be explored using the [Leetcode Tool](https://www.ladderly.io/leetcode-tool).
+The Ladderly 360 is the problem set union of:
 
-The Ladderly 360 is a work in progress, improving over those prior problems to incorporate the following evidence-based features backed by [coding round performance research](https://optimality.substack.com/p/contra-interview-when-you-feel-ready):
+1. [Grind 75](https://www.techinterviewhandbook.org/grind75/)
+2. [Taro 75](https://www.jointaro.com/interviews/taro-75/)
+3. NeetCode 250
+4. [Sean Prashad's LeetCode Patterns](https://seanprashad.com/leetcode-patterns/)
+5. The Ladderly Expanded Kata
+6. SWE 65 Hard
 
-1. A problem count in the optimal range of 300-500
-2. A higher proportion of hard problems
+The Ladderly 360 problem set can be explored using the [LeetCode Tool](https://www.ladderly.io/leetcode-tool).
+
+The Ladderly 360 is a work in progress and currently includes 352 problems. Ladderly 360 improves subsumed problem sets with [evidence-based features of coding round preparedness](https://optimality.substack.com/p/contra-interview-when-you-feel-ready):
+
+1. Optimal Volume: Ladderly 360's problem count is in the optimal range of 300-480.
+2. Higher Difficulty Density: The Ladderly 360 has a higher proportion of hard problems compared to any subsumed set, and hard problems have a significantly higher association with interview round performance.
 
 Plus, the convenience of the number 360 which is adaptive to study plans in a wide variety of time ranges.
 
-Hard problem recommendations and other comments [are welcome here](https://github.com/Vandivier/ladderly-3/issues/561) as we collectively improve from the existing 349 problem set to the Ladderly 360!.
+Hard problem recommendations and other comments [are welcome here](https://github.com/Vandivier/ladderly-3/issues/561) as we collectively improve from the existing 352 problem set to the Ladderly 360!
+
+## Ladderly 370
+
+The Ladderly 370 is a useful accident. It is not optimized for return on investment to effort or time. It dips in to diminishing returns, but for someone who wants to further increase total performance, there is scientific reason to expect that the Ladderly 370 will prepare you better than the Ladderly 360: It is simply the Ladderly 360 plus ten more hard problems.
+
+What happened was: The Ladderly 360 was constructed by taking the union of some well-known problem sets, then adding additional hard problems to get to a total of 360 with a higher hard difficulty density. The naive union had 352 problems, so 8 hard problems were added, yielding 65 hard problems.
+
+[75 Hard](https://andyfrisella.com/pages/75hard-info) is already a recognized brand, and many of the existing problem sets are size 75, so SEO, sales, and marketing purposes, Ladderly.io selected ten more hard problems to make the SWE 75 Hard. As a result, if you complete the Ladderly 360 and the full SWE 75 Hard, congrats, you're a real freak, and you have completed the Ladderly 370.
+
+## Beyond LeetCode
+
+Besides practing leetcode problems, here are other things you can do to significantly improve your coding round performance:
+
+1. Repetition on these same problems. Drive down your solution time.
+   - To pass Meta's coding round, which is among the hardest in the industry, you should be able to solve two medium problems in thirty minutes.
+   - Meta gives you a few minutes more in the actual interview, but we recommend targeting practice-time performance with a higher difficulty bar than true interview-time performance.
+2. Target recent and high frequency questions at your target company. This won't expand your fundamental skill, but it will help you crush with that specific company.
+3. Perform mock or actual interviews, focusing on communication, attitude, and etiquette.
+   - Some of the etiquette includes discussing possible solutions and their time and space complexity before writing code, getting agreement on the approach with the interviewer before coding, and proactively moving from implementation to verification.
+4. Practice writing test cases.
+5. Practice non-leetcode coding round types. Four common kinds include:
+   1. DSA without a code compile or premade test cases.
+   2. Greenfield practical, project-based, or take-home coding problem.
+   3. Brownfield practical, troubleshooting, or feature enhancement problem.
+   4. AI assisted practical or project-based coding problem.

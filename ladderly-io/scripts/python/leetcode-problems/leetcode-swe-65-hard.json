@@ -1,0 +1,37 @@
+[
+  {
+    "href": "https://leetcode.com/problems/collect-coins-in-a-tree/",
+    "name": "2603. Collect Coins in a Tree",
+    "patterns": ["Array", "Tree", "Graph"]
+  },
+  {
+    "href": "https://leetcode.com/problems/total-characters-in-string-after-transformations-ii/",
+    "name": "3337. Total Characters in String After Transformations II",
+    "patterns": ["Hash Table", "Math", "String", "Dynamic Programming"]
+  },
+  {
+    "href": "https://leetcode.com/problems/special-binary-string/",
+    "name": "761. Special Binary String",
+    "patterns": ["String", "Recursion"]
+  },
+  {
+    "href": "https://leetcode.com/problems/shortest-distance-from-all-buildings/",
+    "name": "Shortest Distance from All Buildings"
+  },
+  {
+    "href": "https://leetcode.com/problems/text-justification/",
+    "name": "Text Justification"
+  },
+  {
+    "href": "https://leetcode.com/problems/find-the-minimum-area-to-cover-all-ones-ii/",
+    "name": "Find the Minimum Area to Cover All Ones II"
+  },
+  {
+    "href": "https://leetcode.com/problems/24-game/",
+    "name": "24 Game"
+  },
+  {
+    "href": "https://leetcode.com/problems/painting-a-grid-with-three-different-colors/",
+    "name": "Painting a Grid With Three Different Colors"
+  }
+]
