@@ -51,6 +51,14 @@ const perks: Perk[] = [
     linkText: 'Redeem your $300 discount',
   },
   {
+    title: 'Abundant Mines',
+    description:
+      'White-glove hosted Bitcoin mining service with low cost hydroelectric power.',
+    discount: '$50 cash back per miner',
+    link: 'https://abundantmines.com/ref/16',
+    linkText: 'Get cash back',
+  },
+  {
     title: 'BrandGhost',
     description:
       'BrandGhost enables consistent social media engagement with low effort, leading to a larger network and more opportunities for you!',
