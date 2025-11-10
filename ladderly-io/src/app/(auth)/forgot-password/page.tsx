@@ -41,11 +41,12 @@ const ForgotPasswordPage = () => {
               onSubmit={async (values) => {
                 try {
                   await forgotPasswordMutation.mutateAsync(values)
-                } catch (error: any) {
+                } catch (error: unknown) {
                   // Extract error message from tRPC error
                   const errorMessage =
-                    error?.message ??
-                    'Sorry, we had an unexpected error. Please try again.'
+                    error instanceof Error
+                      ? error.message
+                      : 'Sorry, we had an unexpected error. Please try again.'
                   return {
                     [FORM_ERROR]: errorMessage,
                   }

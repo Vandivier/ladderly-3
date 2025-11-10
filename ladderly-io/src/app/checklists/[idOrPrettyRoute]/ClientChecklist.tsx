@@ -165,7 +165,6 @@ export default function ClientChecklist({
 }) {
   const [userChecklist, setUserChecklist] = useState(initialUserChecklist)
   const [error, setError] = useState<string | null>(null)
-  const utils = api.useUtils()
 
   const {
     mutate: toggleItem,

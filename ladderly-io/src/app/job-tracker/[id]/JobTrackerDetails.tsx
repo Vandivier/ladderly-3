@@ -170,7 +170,6 @@ export function JobTrackerDetails({
 
       {/* Job Posts List */}
       <JobPostList
-        jobSearch={jobSearch}
         jobPosts={jobPosts}
         currentPage={currentPage}
         pageSize={pagination.pageSize}
