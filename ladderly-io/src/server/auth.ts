@@ -57,6 +57,11 @@ async function verifyPassword(
   }
 }
 
+const AUTH_ERROR_MESSAGE =
+  'An error occurred during authentication. ' +
+  'You may need to reset your password. ' +
+  'If the issue persists, please contact support at admin@ladderly.io or through Discord.'
+
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
@@ -212,7 +217,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null // NextAuth expects null for failed auth, not thrown errors
+          throw new Error(AUTH_ERROR_MESSAGE)
         }
 
         // Rate limiting BEFORE expensive operations (database query + password verification)
@@ -231,7 +236,7 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user) {
-          return null // NextAuth expects null for failed auth
+          throw new Error(AUTH_ERROR_MESSAGE)
         }
 
         if (!user.hashedPassword) {
@@ -248,7 +253,7 @@ export const authOptions: NextAuthOptions = {
           )
 
           if (!isValid) {
-            return null // NextAuth expects null for failed auth
+            throw new Error(AUTH_ERROR_MESSAGE)
           }
 
           return {
@@ -258,13 +263,13 @@ export const authOptions: NextAuthOptions = {
             image: user.image ?? null,
           }
         } catch (error) {
-          console.error('Password verification failed:', error)
           // Only catch unexpected errors from verifyPassword, not auth failures
-          throw new Error(
-            'An error occurred during authentication. ' +
-              'You may need to reset your password. ' +
-              'If the issue persists, please contact support at admin@ladderly.io or through Discord.',
-          )
+          // If it's already an Error (like invalid password above), re-throw it
+          if (error instanceof Error) {
+            throw error
+          }
+          console.error('Password verification failed:', error)
+          throw new Error(AUTH_ERROR_MESSAGE)
         }
       },
     }),
