@@ -22,7 +22,6 @@ import * as argon2 from 'argon2'
 import { env } from '~/env'
 import { db } from '~/server/db'
 import { LadderlyMigrationAdapter } from './LadderlyMigrationAdapter'
-import { TRPCError } from '@trpc/server'
 import type { JWT } from 'next-auth/jwt'
 import { checkGuestRateLimit } from './utils/rateLimit'
 
