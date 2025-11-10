@@ -30,7 +30,7 @@ Full package.json content:
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "test": "vitest",
+    "test": "vitest run",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:cov": "vitest run --coverage"
@@ -144,6 +144,10 @@ start-database.sh
 tailwind.config.ts
 tsconfig.json
 vitest.config.ts
+.github/
+    .github/workflows/
+        lint.yml
+        test.yml
 .next/
 prisma/
     schema.prisma
@@ -543,7 +547,10 @@ tests/
     tests/server/
         tests/server/api/
             tests/server/api/routers/
+                auth.test.ts
                 user.test.ts
+        tests/server/utils/
+            rateLimit.test.ts
 
 Other Rules:
 - Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible.
