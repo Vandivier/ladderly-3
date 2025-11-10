@@ -298,7 +298,7 @@ There are six main dangers to using code kata from Ladderly or elsewhere:
 
 ## SWE 75 Hard
 
-The SWE 75 Hard can be accessed by filtering on source in the [Ladderly LeetCode Tool](https://www.ladderly.io/leetcode-tool). It is a list of 75 hard leetcode problems selected in an evidence-based way to boost your coding round interview performance.
+The SWE 75 Hard can be accessed by filtering on source in the [Ladderly LeetCode Tool](https://www.ladderly.io/leetcode-tool). You can also view the list in JSON format [here for free in the open source repository](https://github.com/Vandivier/ladderly-3/blob/main/ladderly-io/scripts/python/leetcode-problems/leetcode-swe-75-hard.json). It is a list of 75 hard leetcode problems selected in an evidence-based way to boost your coding round interview performance.
 
 [Research shows](https://interviewing.io/blog/how-well-do-leetcode-ratings-predict-interview-performance) that completing a LeetCode hard carries over twice the benefits of a medium question.
 
