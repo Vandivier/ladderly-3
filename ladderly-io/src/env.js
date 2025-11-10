@@ -58,6 +58,6 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK,
   },
 
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+  skipValidation: !!process.env.SKIP_ENV_VALIDATION, // nice in GHA and Docker builds
   emptyStringAsUndefined: true,
 })

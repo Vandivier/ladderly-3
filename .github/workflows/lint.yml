@@ -29,3 +29,5 @@ jobs:
 
       - name: Run linter
         run: npm run lint
+        env:
+          SKIP_ENV_VALIDATION: 'true'
