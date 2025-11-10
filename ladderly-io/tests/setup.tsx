@@ -129,8 +129,10 @@ vi.mock('~/server/api/trpc', () => {
   }
   type RouterFactory = (routes: Record<string, AnyProcedure>) => AnyRouter
 
-  const createCallerFactory = (router: AnyRouter) => {
-    return (ctx: Record<string, unknown>) => {
+  const createCallerFactory = (
+    router: AnyRouter,
+  ): ((ctx: Record<string, unknown>) => Record<string, unknown>) => {
+    return (ctx: Record<string, unknown>): Record<string, unknown> => {
       return Object.fromEntries(
         Object.entries(router).map(([key, value]) => {
           if (typeof value === 'object' && value !== null) {

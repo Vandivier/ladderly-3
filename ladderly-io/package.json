@@ -20,7 +20,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "test": "vitest",
+    "test": "vitest run",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:cov": "vitest run --coverage"

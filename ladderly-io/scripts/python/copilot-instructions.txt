@@ -24,12 +24,13 @@ Full package.json content:
     "db:seed:courses": "tsx prisma/seedCoursesAndFlashcards.ts",
     "db:seed:in-place": "prisma db seed -- --update-latest-checklists",
     "db:studio": "prisma studio",
+    "db:clean": "tsx scripts/cleanupUnusedChecklists.ts",
     "dev": "next dev",
     "install:vercel": "npm install && npm rebuild argon2 --build-from-source && npm run postinstall",
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "test": "vitest",
+    "test": "vitest run",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:cov": "vitest run --coverage"
@@ -143,6 +144,10 @@ start-database.sh
 tailwind.config.ts
 tsconfig.json
 vitest.config.ts
+.github/
+    .github/workflows/
+        lint.yml
+        test.yml
 .next/
 prisma/
     schema.prisma
@@ -183,10 +188,9 @@ scripts/
     backupChecklists.ts
     backupUsers.ts
     cascadeDeleteChecklist.ts
+    cleanupUnusedChecklists.ts
     createLeadsFromTextList.ts
     createLeadsFromUsers.ts
-    deleteUnusedChecklistItems.js
-    deleteUnusedChecklists.js
     deleteUser.ts
     ensureSubscriptions.js
     generate-sitemap.ts
@@ -218,6 +222,9 @@ scripts/
             leetcode-ladderly-expanded-kata.json
             leetcode-neetcode-250.json
             leetcode-sean-prashad-leetcode-patterns.json
+            leetcode-swe-65-hard.json
+            leetcode-swe-75-hard.json
+            leetcode-taro-75.json
             unified-leetcode-problems.json
         scripts/python/youtube-transcriber/
             .env.template
@@ -241,7 +248,6 @@ src/
         src/app/(auth)/
             schemas.ts
             src/app/(auth)/components/
-                ForgotPasswordForm.tsx
                 LoginForm.tsx
                 SignupForm.tsx
             src/app/(auth)/forgot-password/
@@ -507,6 +513,8 @@ src/
             forgotPasswordMailer.ts
             journalReminderMailer.ts
             utils.ts
+        src/server/utils/
+            rateLimit.ts
     src/styles/
         Home.module.css
         globals.css
@@ -539,7 +547,10 @@ tests/
     tests/server/
         tests/server/api/
             tests/server/api/routers/
+                auth.test.ts
                 user.test.ts
+        tests/server/utils/
+            rateLimit.test.ts
 
 Other Rules:
 - Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible.

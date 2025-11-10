@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getUserDisplayName, type UserLike } from '../core/utils'
+import { getUserDisplayName } from '../core/utils'
 
 // Full public user type for detailed views
 export type PublicUser = {

@@ -11,9 +11,7 @@ export const SearchUserInformation = () => {
       <Info className="mt-0.5 size-5 shrink-0" />
       <p className="flex-1">
         Search results may match based on profile data outside of the preview
-        card. For example, these cards show the top three skills, but other
-        skills may result in a match for the search. Click the member name to
-        see their full profile.
+        card. Visit the profile page to learn more about the user.
       </p>
       <button
         onClick={() => setIsVisible(false)}

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { createTRPCRouter, publicProcedure } from '../trpc'
+import { createTRPCRouter, protectedProcedure } from '../trpc'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { env } from '~/env'
 import { TRPCError } from '@trpc/server'
@@ -16,16 +16,16 @@ You should:
 
 const genAI = new GoogleGenerativeAI(env.GOOGLE_AI_API_KEY ?? '')
 const model = genAI.getGenerativeModel({
-  model: 'gemini-1.5-flash',
+  model: 'gemini-2.0-flash',
   generationConfig: {
     maxOutputTokens: 1000,
-    temperature: 0.0, // TODO: make this configurable
+    temperature: 0.0,
   },
   systemInstruction: SYSTEM_PROMPT,
 })
 
 export const chatRouter = createTRPCRouter({
-  chat: publicProcedure
+  chat: protectedProcedure
     .input(
       z.object({
         messages: z.array(

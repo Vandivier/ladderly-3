@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
-import type { JobPostForCandidate, JobSearch } from '@prisma/client'
+import type { JobPostForCandidate } from '@prisma/client'
 import { Edit, Trash2 } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 import { api } from '~/trpc/react'
@@ -40,7 +40,6 @@ export const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
 }
 
 interface JobPostListProps {
-  jobSearch: JobSearch
   jobPosts: JobPostForCandidate[]
   currentPage: number
   pageSize: number
@@ -50,7 +49,6 @@ interface JobPostListProps {
 }
 
 export const JobPostList: React.FC<JobPostListProps> = ({
-  jobSearch,
   jobPosts,
   currentPage,
   pageSize,
