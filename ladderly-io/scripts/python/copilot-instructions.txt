@@ -24,6 +24,7 @@ Full package.json content:
     "db:seed:courses": "tsx prisma/seedCoursesAndFlashcards.ts",
     "db:seed:in-place": "prisma db seed -- --update-latest-checklists",
     "db:studio": "prisma studio",
+    "db:clean": "tsx scripts/cleanupUnusedChecklists.ts",
     "dev": "next dev",
     "install:vercel": "npm install && npm rebuild argon2 --build-from-source && npm run postinstall",
     "postinstall": "prisma generate",
@@ -183,10 +184,9 @@ scripts/
     backupChecklists.ts
     backupUsers.ts
     cascadeDeleteChecklist.ts
+    cleanupUnusedChecklists.ts
     createLeadsFromTextList.ts
     createLeadsFromUsers.ts
-    deleteUnusedChecklistItems.js
-    deleteUnusedChecklists.js
     deleteUser.ts
     ensureSubscriptions.js
     generate-sitemap.ts
@@ -218,6 +218,9 @@ scripts/
             leetcode-ladderly-expanded-kata.json
             leetcode-neetcode-250.json
             leetcode-sean-prashad-leetcode-patterns.json
+            leetcode-swe-65-hard.json
+            leetcode-swe-75-hard.json
+            leetcode-taro-75.json
             unified-leetcode-problems.json
         scripts/python/youtube-transcriber/
             .env.template
