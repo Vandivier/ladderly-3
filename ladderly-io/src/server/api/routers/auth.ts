@@ -23,8 +23,6 @@ export const authRouter = createTRPCRouter({
         await checkGuestRateLimit({
           db: ctx.db,
           email,
-          maxAttempts: 5, // Allow 5 login attempts per hour (override default of 3)
-          windowMs: 60 * 60 * 1000, // 1 hour (same as default)
           action: 'login',
           errorMessage:
             'Too many login attempts. Please wait before trying again.',

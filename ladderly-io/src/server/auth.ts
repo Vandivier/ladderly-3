@@ -24,6 +24,7 @@ import { db } from '~/server/db'
 import { LadderlyMigrationAdapter } from './LadderlyMigrationAdapter'
 import { TRPCError } from '@trpc/server'
 import type { JWT } from 'next-auth/jwt'
+import { checkGuestRateLimit } from './utils/rateLimit'
 
 export interface LadderlySession extends DefaultSession {
   user?: {
@@ -211,30 +212,33 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message: 'Invalid credentials',
-          })
+          return null // NextAuth expects null for failed auth, not thrown errors
         }
+
+        // Rate limiting BEFORE expensive operations (database query + password verification)
+        // This prevents attackers from draining server resources with invalid login attempts
+        // If rate limit exceeded, this will throw with a clear message before expensive operations
+        await checkGuestRateLimit({
+          db,
+          email: credentials.email,
+          action: 'login',
+          errorMessage:
+            'Too many login attempts. Please wait before trying again.',
+        })
 
         const user = await db.user.findUnique({
           where: { email: credentials.email },
         })
 
         if (!user) {
-          throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message: 'Invalid email or password',
-          })
+          return null // NextAuth expects null for failed auth
         }
 
         if (!user.hashedPassword) {
           // Trigger password reset flow
-          throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message:
-              'Password reset required. Please check your email to reset your password.',
-          })
+          throw new Error(
+            'Password reset required. Please check your email to reset your password.',
+          )
         }
 
         try {
@@ -244,10 +248,7 @@ export const authOptions: NextAuthOptions = {
           )
 
           if (!isValid) {
-            throw new TRPCError({
-              code: 'UNAUTHORIZED',
-              message: 'Invalid email or password',
-            })
+            return null // NextAuth expects null for failed auth
           }
 
           return {
@@ -258,13 +259,12 @@ export const authOptions: NextAuthOptions = {
           }
         } catch (error) {
           console.error('Password verification failed:', error)
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message:
-              'An error occurred during authentication. ' +
+          // Only catch unexpected errors from verifyPassword, not auth failures
+          throw new Error(
+            'An error occurred during authentication. ' +
               'You may need to reset your password. ' +
               'If the issue persists, please contact support at admin@ladderly.io or through Discord.',
-          })
+          )
         }
       },
     }),
