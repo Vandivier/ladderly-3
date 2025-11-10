@@ -510,6 +510,8 @@ src/
             forgotPasswordMailer.ts
             journalReminderMailer.ts
             utils.ts
+        src/server/utils/
+            rateLimit.ts
     src/styles/
         Home.module.css
         globals.css

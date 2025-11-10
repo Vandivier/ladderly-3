@@ -5,6 +5,7 @@ import { sendForgotPasswordEmail } from '~/server/mailers/forgotPasswordMailer'
 import crypto from 'crypto'
 import * as argon2 from 'argon2'
 import { Signup } from '~/app/(auth)/schemas'
+import { checkGuestRateLimit } from '~/server/utils/rateLimit'
 
 export const LoginSchema = z.object({
   email: z.string().email(),
@@ -16,6 +17,19 @@ export const authRouter = createTRPCRouter({
     .input(LoginSchema)
     .mutation(async ({ ctx, input }) => {
       const { email } = input
+
+      // Rate limiting for guests only
+      if (!ctx.session?.user) {
+        await checkGuestRateLimit({
+          db: ctx.db,
+          email,
+          maxAttempts: 5, // Allow 5 login attempts per hour (override default of 3)
+          windowMs: 60 * 60 * 1000, // 1 hour (same as default)
+          action: 'login',
+          errorMessage:
+            'Too many login attempts. Please wait before trying again.',
+        })
+      }
 
       const user = await ctx.db.user.findFirst({
         where: { email },
@@ -52,25 +66,12 @@ export const authRouter = createTRPCRouter({
         })
       }
 
-      // Rate limiting: Check for recent password reset attempts
-      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000)
-      const recentResetAttempts = await ctx.db.token.count({
-        where: {
+      // Rate limiting for guests only
+      if (!ctx.session?.user) {
+        await checkGuestRateLimit({
+          db: ctx.db,
           userId: user.id,
-          type: 'RESET_PASSWORD',
-          createdAt: {
-            gte: oneHourAgo,
-          },
-        },
-      })
-
-      // Allow maximum 3 password reset requests per hour per user
-      const MAX_RESET_ATTEMPTS_PER_HOUR = 3
-      if (recentResetAttempts >= MAX_RESET_ATTEMPTS_PER_HOUR) {
-        throw new TRPCError({
-          code: 'TOO_MANY_REQUESTS',
-          message:
-            'Too many password reset requests. Please wait before requesting another reset.',
+          action: 'password_reset',
         })
       }
 
@@ -148,6 +149,18 @@ export const authRouter = createTRPCRouter({
 
   signup: publicProcedure.input(Signup).mutation(async ({ ctx, input }) => {
     const { email, password } = input
+
+    // Rate limiting for guests only
+    if (!ctx.session?.user) {
+      await checkGuestRateLimit({
+        db: ctx.db,
+        email,
+        // Uses default: maxAttempts: 3, windowMs: 1 hour
+        action: 'signup',
+        errorMessage:
+          'Too many signup attempts. Please wait before trying again.',
+      })
+    }
 
     const existingUser = await ctx.db.user.findUnique({
       where: { email: email.toLowerCase() },
