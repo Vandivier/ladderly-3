@@ -53,9 +53,15 @@ The program experienced notable attrition:
 
 - 7 students dropped within the first two weeks
 - 3 more dropped by month two
-- 4 students remained active at the two-month mark
+- 4 students remained active at the two-month mark and stayed to close at 6 months
 
-Despite the attrition, all students with measured outcomes showed significant improvement in their job search metrics, even those who dropped out early. The most common reason for dropping was program cost.
+All four students that stayed to close obtained work offers of varying quality:
+
+- Two got competitive full-time offers
+- One got part-time freelancing work they describe as "consistent...solid work, pays the bills [with one client] talking about getting me and my buddy on for 6-12 months"
+- One got an equity-only offer
+
+All students with measured outcomes showed significant improvement in their job search metrics, even those who dropped out early. The most common reason for dropping was program cost. Example job search metrics include the application to interview ratio, interviews per week, and the interview pass rate.
 
 ## Key Learnings
 
@@ -86,7 +92,7 @@ At the two-month mark, the active participants demonstrated strong progress:
 - One student was in an ongoing FAANG interview process
 - Two students had active interviews at non-FAANG companies
 
-Even among early dropouts, at least one secured a new position, though comprehensive tracking of this group is ongoing.
+Even among early dropouts, at least one secured a new position.
 
 ### 4. Program Design Insights
 
@@ -176,6 +182,8 @@ Based on these learnings, Ladderly.io is implementing several improvements:
 3. More structured tracking of outcomes across all participants, including early dropouts
 
 4. Clearer communication about the 2-6 month typical job search timeline
+
+5. Pre-screening for cognitive and non-cognitive ability as well as technical ability.
 
 ## Conclusion
 
