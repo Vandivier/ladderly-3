@@ -23,7 +23,15 @@ A low-quality resume is one which fails technical parsing tests described in thi
 
 To A/B test a resume, it is important to apply to a substantial count of job posts and collect standardized information for each job post, so that you can determine the effect of the resume itself. A common pitfall for job seekers is to try out multiple resume variations without obtaining sufficient data to prove an actual lift in performance. This resume shuffling often becomes a source of wasted time, effort, and stress. In general, as long as your resume is parseable then your time is usually best spent on additional social networking and applying, rather than crafting many varied resume versions.
 
-If you decide to engage in an A/B test, Ladderly.io suggests applying to a minimum of 80 job posts for each resume under analysis. Ladderly.io also suggests applying to 80 job posts per week as a job search baseline. One reason for this rate of application is so that the job seeker can rapidly determine resume performance, as well as performance across other activities including social networking and content creation. You can use the tools in the next section to perform and analyze an A/B test.
+To enable statistical analysis of your A/B test, Ladderly.io recommends applying to a minimum of 40 job posts for each resume under analysis. This aligns with [our recommendation of applying to between 80 and 100 positions per week](https://www.ladderly.io/blog/2023-12-01-top-job-boards#final-thoughts), under the assumption that you are A/B testing two resume versions.
+
+Expect A/B testing two resumes to take 3 weeks. You will want to look at the 1 week lagged response rate as your performance measure in order to minimize truncation bias in your analysis. In other words, employers take time to respond, so your last applications will tend to not have a response. You shouldn't confuse that with the quality of the resume itself.
+
+If you have collected 80+ 1-week lagged results and the resumes are not performing significantly differently, just call it a tie. In most cases, the resume won't be your job search bottleneck and either resume will work well enough.
+
+In the rare case where you are getting a response rate under 1 percent, you should consult with an expert and you can consider A/B testing a third resume version. Carefully weigh the tradeoff and risk of doing this to other possible options, such as ramping up social networking.
+
+The tools in the next section can help you perform and analyze an A/B test.
 
 ## Job Search Spreadsheet Tools
 

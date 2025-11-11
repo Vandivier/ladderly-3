@@ -100,4 +100,4 @@ Here are some other specializations that you can learn beyond fullstack basics a
 
 Ladderly.io recommends using the above-specified job boards and tools to to quickly access a large number of relevant job opportunities. Ladderly recommends continuous skill development concurrent with the job search.
 
-Ladderly recommends applying to 100 positions per week as a starting point in order to enable statistical measurement of your job search performance. Once interviews begin taking up your time, you can reduce the number of applications you submit. You can also reduce the number of applications you submit if you are only passively looking and/or being highly selective.
+Ladderly.io recommends applying to between 80 and 100 positions per week as a starting point in order to enable statistical measurement of your job search performance on a weekly basis. Once interviews begin taking up your time, you can reduce the number of applications you submit. You can also reduce the number of applications you submit if you are only passively looking and/or being highly selective.
