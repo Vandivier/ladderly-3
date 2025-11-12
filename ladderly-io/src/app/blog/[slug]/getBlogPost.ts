@@ -7,10 +7,12 @@ import type {
 } from 'hast'
 import type { Node as MdastNode, Root as MdastRoot, Parent } from 'mdast'
 import path from 'path'
+import rehypeKatex from 'rehype-katex'
 import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
 import remarkDirective from 'remark-directive'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified, type Plugin } from 'unified'
@@ -234,10 +236,12 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
     const processor = unified()
       .use(remarkParse)
       .use(remarkGfm)
+      .use(remarkMath)
       .use(remarkDirective)
       .use(transformDirectivesPlugin)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeRaw)
+      .use(rehypeKatex)
       .use(addTargetBlankToLinks)
       .use(rehypeStringify)
 

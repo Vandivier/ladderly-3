@@ -29,6 +29,7 @@ Full package.json content:
     "install:vercel": "npm install && npm rebuild argon2 --build-from-source && npm run postinstall",
     "postinstall": "prisma generate",
     "lint": "next lint",
+    "check-types": "tsc --noEmit",
     "start": "next start",
     "test": "vitest run",
     "test:watch": "vitest --watch",
@@ -91,8 +92,8 @@ Full package.json content:
     "@types/papaparse": "^5.3.15",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^3.0.6",
     "@vitest/ui": "^3.0.6",
@@ -539,12 +540,21 @@ tests/
         tests/app/community/
             ClientCommunityPage.test.tsx
         tests/app/core/
+            utils.test.ts
             tests/app/core/components/
+                LabeledCheckboxField.test.tsx
+                LabeledDateField.test.tsx
+                LabeledTextField.test.tsx
                 tests/app/core/components/pricing-grid/
                     PricingGrid.test.tsx
+        tests/app/courses/
+            tests/app/courses/[courseSlug]/
+                tests/app/courses/[courseSlug]/quiz/
+                    QuizContent.test.tsx
         tests/app/home/
             HomePageContent.test.tsx
     tests/server/
+        LadderlyMigrationAdapter.test.ts
         tests/server/api/
             tests/server/api/routers/
                 auth.test.ts
