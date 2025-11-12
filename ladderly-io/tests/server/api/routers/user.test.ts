@@ -40,15 +40,17 @@ const mockSession = {
 }
 
 // Create a simple caller for testing
-const createCaller = (ctx) => {
-  const caller = {}
+const createCaller = (ctx: any): any => {
+  const caller: any = {}
 
   // Map each procedure in the router to a function that calls it with the context
-  Object.entries(userRouter).forEach(([key, procedure]) => {
-    caller[key] = async (input) => {
+  Object.entries(userRouter).forEach(([key, procedure]: [string, any]) => {
+    caller[key] = async (input?: any) => {
       return procedure.query
         ? procedure.query({ ctx, input })
-        : procedure({ ctx, input })
+        : procedure.mutation
+          ? procedure.mutation({ ctx, input })
+          : procedure({ ctx, input })
     }
   })
 

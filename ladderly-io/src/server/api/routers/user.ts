@@ -316,15 +316,13 @@ export const userRouter = createTRPCRouter({
 
       let subscription = user.subscriptions[0]
 
-      if (!subscription) {
-        subscription = await tx.subscription.create({
-          data: {
-            userId: id,
-            tier: PaymentTierEnum.FREE,
-            type: 'ACCOUNT_PLAN',
-          },
-        })
-      }
+      subscription ??= await tx.subscription.create({
+        data: {
+          userId: id,
+          tier: PaymentTierEnum.FREE,
+          type: 'ACCOUNT_PLAN',
+        },
+      })
 
       const settings: UserSettings = {
         email: user.email,
@@ -463,19 +461,17 @@ export const userRouter = createTRPCRouter({
     })
 
     // If no lead exists, create one
-    if (!lead) {
-      lead = await ctx.db.lead.create({
-        data: {
-          email,
-          userId,
-          isRecruiter: false,
-          hasOptOutMarketing: false,
-          hasOptOutFeatureUpdates: false,
-          hasOptOutEventAnnouncements: false,
-          hasOptOutNewsletterAndBlog: false,
-        },
-      })
-    }
+    lead ??= await ctx.db.lead.create({
+      data: {
+        email,
+        userId,
+        isRecruiter: false,
+        hasOptOutMarketing: false,
+        hasOptOutFeatureUpdates: false,
+        hasOptOutEventAnnouncements: false,
+        hasOptOutNewsletterAndBlog: false,
+      },
+    })
 
     return lead
   }),
