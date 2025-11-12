@@ -1,13 +1,19 @@
-import type { Account, Prisma, PrismaClient, Session, User } from "@prisma/client";
+import type {
+  Account,
+  Prisma,
+  PrismaClient,
+  Session,
+  User,
+} from '@prisma/client'
 import type {
   Adapter,
   AdapterAccount,
   AdapterSession,
   AdapterUser,
   VerificationToken,
-} from "@auth/core/adapters";
+} from '@auth/core/adapters'
 
-import type { AdapterAccountType } from "@auth/core/adapters";
+import type { AdapterAccountType } from '@auth/core/adapters'
 
 export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
   return {
@@ -17,50 +23,50 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
         email: data.email,
         emailVerified: data.emailVerified,
         image: data.image ?? null,
-        nameFirst: data.name?.split(" ")[0] ?? undefined,
-        nameLast: data.name?.split(" ").slice(1).join(" ") ?? undefined,
-        emailBackup: data.email ?? "",
-        emailStripe: data.email ?? "",
-      };
+        nameFirst: data.name?.split(' ')[0] ?? undefined,
+        nameLast: data.name?.split(' ').slice(1).join(' ') ?? undefined,
+        emailBackup: data.email ?? '',
+        emailStripe: data.email ?? '',
+      }
 
-      const user = await prisma.user.create({ data: prismaUserData });
-      return adaptUser(user);
+      const user = await prisma.user.create({ data: prismaUserData })
+      return adaptUser(user)
     },
     getUser: async (id) => {
       const user = await prisma.user.findUnique({
         where: { id: parseInt(id) },
-      });
-      return user ? adaptUser(user) : null;
+      })
+      return user ? adaptUser(user) : null
     },
     getUserByEmail: async (email) => {
-      const user = await prisma.user.findUnique({ where: { email } });
-      return user ? adaptUser(user) : null;
+      const user = await prisma.user.findUnique({ where: { email } })
+      return user ? adaptUser(user) : null
     },
     getUserByAccount: async (provider_providerAccountId) => {
       const account = await prisma.account.findUnique({
         where: { provider_providerAccountId },
         include: { user: true },
-      });
-      return account?.user ? adaptUser(account.user) : null;
+      })
+      return account?.user ? adaptUser(account.user) : null
     },
     updateUser: async ({ id, ...data }) => {
-      const maybeName = data.name;
+      const maybeName = data.name
       const userUpdatedInput: Prisma.UserUpdateInput = {
         ...data,
-        name: maybeName ?? "",
-      };
+        name: maybeName ?? '',
+      }
 
       const user = await prisma.user.update({
         where: { id: parseInt(id) },
         data: userUpdatedInput,
-      });
-      return adaptUser(user);
+      })
+      return adaptUser(user)
     },
     deleteUser: async (userId) => {
       const user = await prisma.user.delete({
         where: { id: parseInt(userId) },
-      });
-      return adaptUser(user);
+      })
+      return adaptUser(user)
     },
     linkAccount: async (account: AdapterAccount) => {
       const prismaAccountData: Prisma.AccountCreateInput = {
@@ -72,66 +78,69 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
         token_type: account.token_type,
         scope: account.scope,
         id_token: account.id_token,
+
+        // ignore  @typescript-eslint/no-base-to-string
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         session_state: account.session_state?.toString() ?? undefined,
         refresh_token: account.refresh_token,
         user: {
           connect: { id: parseInt(account.userId) },
         },
-      };
+      }
 
       const createdAccount = await prisma.account.create({
         data: prismaAccountData,
-      });
+      })
 
-      return adaptAccount(createdAccount);
+      return adaptAccount(createdAccount)
     },
     unlinkAccount: async (provider_providerAccountId) => {
       const account = await prisma.account.delete({
         where: { provider_providerAccountId },
-      });
-      return account ? adaptAccount(account) : undefined;
+      })
+      return account ? adaptAccount(account) : undefined
     },
     updateSession: async (data) => {
-      const { sessionToken, ...updateData } = data;
+      const { sessionToken, ...updateData } = data
 
       const prismaUpdateData: Prisma.SessionUpdateInput = {
         expires: updateData.expires,
         expiresAt: updateData.expires,
-      };
+      }
 
       const updatedSession = await prisma.session.update({
         where: { sessionToken },
         data: prismaUpdateData,
-      });
+      })
 
-      return adaptSession(updatedSession);
+      return adaptSession(updatedSession)
     },
     deleteSession: async (sessionToken) => {
-      await prisma.session.delete({ where: { sessionToken } });
+      await prisma.session.delete({ where: { sessionToken } })
     },
     createVerificationToken: (data: VerificationToken) =>
       prisma.verificationToken.create({ data }),
     useVerificationToken: (identifier_token) =>
       prisma.verificationToken.delete({ where: { identifier_token } }),
-  };
+  }
 }
 
 function adaptSession(session: Session): AdapterSession {
   return {
-    sessionToken: session.sessionToken  ?? session.handle,
-    userId: session.userId?.toString() ?? "",
-    expires: session.expiresAt  ?? session.expires,
-  };
+    sessionToken: session.sessionToken ?? session.handle,
+    userId: session.userId?.toString() ?? '',
+    expires: session.expiresAt ?? session.expires,
+  }
 }
 
 function adaptUser(user: User): AdapterUser {
   return {
     id: user.id.toString(),
-    name: user.name  ?? null,
+    name: user.name ?? null,
     email: user.email,
-    emailVerified: user.emailVerified  ?? null,
+    emailVerified: user.emailVerified ?? null,
     image: user.image ?? null,
-  };
+  }
 }
 
 function adaptAccount(account: Account): AdapterAccount {
@@ -143,9 +152,9 @@ function adaptAccount(account: Account): AdapterAccount {
     refresh_token: account.refresh_token ?? undefined,
     access_token: account.access_token ?? undefined,
     expires_at: account.expires_at ?? undefined,
-    token_type: account.token_type as Lowercase<string> ?? undefined,
+    token_type: (account.token_type as Lowercase<string>) ?? undefined,
     scope: account.scope ?? undefined,
     id_token: account.id_token ?? undefined,
     session_state: account.session_state ?? undefined,
-  };
+  }
 }
