@@ -168,9 +168,9 @@ export const csvRouter = createTRPCRouter({
           if (isNaN(stepDate.getTime())) {
             throw new Error('Invalid date')
           }
-        } catch (error) {
+        } catch (_error) {
           console.error(`Invalid date format for step: ${row['Step Date']}`)
-          stepDate = new Date() // Default to current date if invalid
+          stepDate = new Date()
         }
 
         // Parse isPassed to boolean
