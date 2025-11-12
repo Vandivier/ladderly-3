@@ -39,7 +39,7 @@ const NewestChecklistQueryHandler: React.FC<{
     try {
       await createUserChecklistAsClone({ checklistId: latestChecklist.id })
       setShowToast(false)
-    } catch (error) {
+    } catch {
       alert('Error updating checklist items.')
     }
   }

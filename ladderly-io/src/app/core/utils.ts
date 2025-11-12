@@ -7,7 +7,5 @@ export type UserLike = {
 export const getUserDisplayName = (userLike: UserLike) => {
   return userLike.nameFirst
     ? userLike.nameFirst + (userLike.nameLast ? ` ${userLike.nameLast}` : '')
-    : userLike.nameLast
-      ? userLike.nameLast
-      : `User ${userLike.id}`
+    : (userLike.nameLast ?? `User ${userLike.id}`)
 }
