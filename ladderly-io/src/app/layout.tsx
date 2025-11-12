@@ -1,4 +1,5 @@
 import '~/styles/globals.css'
+import 'katex/dist/katex.min.css'
 
 import { GeistSans } from 'geist/font/sans'
 import { type Metadata } from 'next'
