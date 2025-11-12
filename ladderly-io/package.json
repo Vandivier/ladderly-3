@@ -19,6 +19,7 @@
     "install:vercel": "npm install && npm rebuild argon2 --build-from-source && npm run postinstall",
     "postinstall": "prisma generate",
     "lint": "next lint",
+    "check-types": "tsc --noEmit",
     "start": "next start",
     "test": "vitest run",
     "test:watch": "vitest --watch",
