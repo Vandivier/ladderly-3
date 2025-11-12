@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import QuizContent from '~/app/courses/[courseSlug]/quiz/QuizContent'
 
@@ -140,9 +140,19 @@ describe('QuizContent', () => {
       isLoading: false,
     })
 
-    mockQuizFlashcardsQuery.mockReturnValue({
-      data: null,
-      isLoading: false,
+    // Mock flashcards query to return data only when enabled
+    mockQuizFlashcardsQuery.mockImplementation((...args: unknown[]) => {
+      const options = args[1] as { enabled?: boolean } | undefined
+      if (options?.enabled) {
+        return {
+          data: mockQuizData,
+          isLoading: false,
+        }
+      }
+      return {
+        data: null,
+        isLoading: false,
+      }
     })
   })
 
@@ -235,40 +245,46 @@ describe('QuizContent', () => {
     expect(screen.getByText(/Passed/)).toBeInTheDocument()
   })
 
-  it.skip('starts quiz when Start Quiz button is clicked', async () => {
-    // Skipping due to async state update issues in test environment
-    mockQuizFlashcardsQuery.mockReturnValue({
-      data: mockQuizData,
-      isLoading: false,
-    })
+  it('starts quiz when Start Quiz button is clicked', async () => {
+    vi.useRealTimers() // Use real timers for async React Query behavior
 
     render(<QuizContent courseSlug="test-course" />)
 
     const startButton = screen.getByRole('button', { name: 'Start Quiz' })
-    fireEvent.click(startButton)
 
-    await waitFor(() => {
-      expect(screen.getByText('Question 1 of 2')).toBeInTheDocument()
+    await act(async () => {
+      fireEvent.click(startButton)
     })
+
+    // Wait for quiz to start and flashcards to load
+    await waitFor(
+      () => {
+        expect(screen.getByText('Question 1 of 2')).toBeInTheDocument()
+      },
+      { timeout: 3000 },
+    )
   })
 
-  it.skip('displays quiz question and options when quiz starts', async () => {
-    // Skipping due to async state update issues in test environment
-    mockQuizFlashcardsQuery.mockReturnValue({
-      data: mockQuizData,
-      isLoading: false,
-    })
+  it('displays quiz question and options when quiz starts', async () => {
+    vi.useRealTimers() // Use real timers for async React Query behavior
 
     render(<QuizContent courseSlug="test-course" />)
 
     const startButton = screen.getByRole('button', { name: 'Start Quiz' })
-    fireEvent.click(startButton)
 
-    await waitFor(() => {
-      expect(screen.getByText('What is 2 + 2?')).toBeInTheDocument()
-      expect(screen.getByText('4')).toBeInTheDocument()
-      expect(screen.getByText('3')).toBeInTheDocument()
+    await act(async () => {
+      fireEvent.click(startButton)
     })
+
+    // Wait for quiz to start and question to display
+    await waitFor(
+      () => {
+        expect(screen.getByText('What is 2 + 2?')).toBeInTheDocument()
+        expect(screen.getByText('4')).toBeInTheDocument()
+        expect(screen.getByText('3')).toBeInTheDocument()
+      },
+      { timeout: 3000 },
+    )
   })
 
   it.skip('handles correct answer and moves to next question', async () => {
