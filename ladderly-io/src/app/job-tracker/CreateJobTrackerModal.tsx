@@ -111,7 +111,7 @@ export const CreateJobTrackerModal = () => {
               detailedError = `CSV Validation Error: ${dataError.fieldErrors[firstField]?.[0]} in column '${firstField}'. Please check row data.`
             }
           }
-        } catch (e) {
+        } catch {
           /* Ignore parsing errors */
         }
         setError(detailedError)

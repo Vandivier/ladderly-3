@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { api } from '~/trpc/react'
@@ -91,15 +91,12 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   const [quizId, setQuizId] = useState<number | null>(null)
   const [quizStarted, setQuizStarted] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [selectedAnswer, setSelectedAnswer] = useState<Record<number, string>>(
-    {},
-  )
+  const [, setSelectedAnswer] = useState<Record<number, string>>({})
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [score, setScore] = useState(0)
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
-  const [startTime, setStartTime] = useState<Date | null>(null)
-  const [endTime, setEndTime] = useState<Date | null>(null)
+  const [, setStartTime] = useState<Date | null>(null)
   const [questionOptions, setQuestionOptions] = useState<string[][]>([])
 
   // Get course data
@@ -145,27 +142,27 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   })
 
   // End the quiz and calculate score
-  const endQuiz = (_earlyExit: boolean) => {
-    setQuizCompleted(true)
+  const endQuiz = useCallback(
+    (_earlyExit: boolean) => {
+      setQuizCompleted(true)
 
-    // Always calculate score based on total questions (50)
-    const totalQuestions = 50
-    const calculatedScore = Math.round((correctAnswers / totalQuestions) * 100)
-    setScore(calculatedScore)
+      // Always calculate score based on total questions (50)
+      const totalQuestions = 50
+      const calculatedScore = Math.round(
+        (correctAnswers / totalQuestions) * 100,
+      )
+      setScore(calculatedScore)
 
-    // Submit quiz result
-    if (quizId) {
-      submitQuizMutation.mutate({
-        quizId,
-        score: calculatedScore,
-      })
-    }
-  }
-
-  // Quiz history
-  const { data: quizHistory } = api.quiz.getUserQuizHistory.useQuery<
-    QuizResult[]
-  >({ quizId: quizId ?? 0 }, { enabled: quizId !== null && !quizStarted })
+      // Submit quiz result
+      if (quizId) {
+        submitQuizMutation.mutate({
+          quizId,
+          score: calculatedScore,
+        })
+      }
+    },
+    [correctAnswers, quizId, submitQuizMutation],
+  )
 
   // Set up quiz timer
   useEffect(() => {
@@ -294,7 +291,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   // Handle answering a question
   const handleAnswer = (answer: string) => {
     const flashcard = quizData?.flashcards[currentQuestion]
-    const isCorrect = flashcard && flashcard.correctAnswer === answer
+    const isCorrect = flashcard?.correctAnswer === answer
     const currentQuestionIndex = currentQuestion
 
     // Update answers and score
@@ -373,9 +370,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   if (quizStarted && quizCompleted) {
     const passed = score >= 80
     const perfect = score === 100
-
-    // Get the latest quiz result from the mutation data or API
-    const latestQuizResult = submitQuizMutation.data ?? null
+    const latestQuizResult: QuizResult | null = submitQuizMutation.data ?? null
 
     return (
       <div className="w-full bg-gray-50 px-4 py-6 pb-16 dark:bg-gray-800 md:px-8">
@@ -416,7 +411,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
               </div>
             </div>
 
-            {passed && latestQuizResult && latestQuizResult.user && (
+            {passed && latestQuizResult?.user && (
               <div className="mb-8 rounded-lg bg-green-50 p-4 dark:bg-green-900/30">
                 <h3 className="mb-2 font-semibold text-green-800 dark:text-green-200">
                   Certificate Awarded

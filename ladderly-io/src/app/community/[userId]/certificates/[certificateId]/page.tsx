@@ -36,7 +36,7 @@ export async function generateMetadata({
         description: `Certificate of completion for ${courseName}`,
       },
     }
-  } catch (error) {
+  } catch {
     return {
       title: 'Certificate',
       description: 'Ladderly course certificate',
@@ -184,7 +184,7 @@ export default async function CertificatePage({
         </div>
       </LadderlyPageWrapper>
     )
-  } catch (error) {
+  } catch {
     return notFound()
   }
 }

@@ -39,7 +39,7 @@ export interface LadderlySession extends DefaultSession {
 }
 
 declare module 'next-auth' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface Session extends LadderlySession {}
 }
 

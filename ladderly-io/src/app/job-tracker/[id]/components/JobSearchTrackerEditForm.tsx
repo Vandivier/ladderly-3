@@ -22,7 +22,7 @@ const formatDateForInput = (date: Date | string | undefined | null): string => {
   if (!date) return ''
   try {
     return new Date(date).toISOString().split('T')[0] ?? ''
-  } catch (e) {
+  } catch {
     return ''
   }
 }

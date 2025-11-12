@@ -49,7 +49,9 @@ export async function POST(req: Request) {
           },
           data: {
             tier: PaymentTierEnum.PREMIUM,
+            // eslint-disable-next-line @typescript-eslint/no-base-to-string
             stripeCustomerId: String(session.customer),
+            // eslint-disable-next-line @typescript-eslint/no-base-to-string
             stripeSubscriptionId: String(session.subscription),
           },
         })

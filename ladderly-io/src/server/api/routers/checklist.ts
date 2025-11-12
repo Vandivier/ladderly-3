@@ -310,7 +310,7 @@ export const checklistRouter = createTRPCRouter({
         where: { id: input.userChecklistItemId },
       })
 
-      if (!item || item.userId !== parseInt(ctx.session.user.id)) {
+      if (item?.userId !== parseInt(ctx.session.user.id)) {
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: 'Checklist item not found',

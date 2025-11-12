@@ -34,7 +34,7 @@ export const LabeledDateField = forwardRef<
 
   const normalizedError = Array.isArray(error)
     ? error.join(', ')
-    : error || submitError
+    : (error ?? submitError)
 
   return (
     <div {...outerProps}>

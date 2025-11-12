@@ -21,7 +21,7 @@ export async function generateMetadata({
         canonical: `/courses/${params.courseSlug}`,
       },
     }
-  } catch (error) {
+  } catch {
     return {
       title: 'Course Not Found',
       description: 'The requested course could not be found.',
@@ -176,7 +176,7 @@ export default async function CoursePage({
         </div>
       </LadderlyPageWrapper>
     )
-  } catch (error) {
+  } catch {
     notFound()
   }
 }

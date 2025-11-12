@@ -199,7 +199,7 @@ export const courseRouter = createTRPCRouter({
         select: { role: true },
       })
 
-      if (!user || user.role !== 'ADMIN') {
+      if (user?.role !== 'ADMIN') {
         throw new TRPCError({
           code: 'FORBIDDEN',
           message: 'Only admins can create courses',
