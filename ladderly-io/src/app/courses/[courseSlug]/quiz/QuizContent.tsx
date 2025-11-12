@@ -91,15 +91,14 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   const [quizId, setQuizId] = useState<number | null>(null)
   const [quizStarted, setQuizStarted] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [selectedAnswer, setSelectedAnswer] = useState<Record<number, string>>(
+  const [_selectedAnswer, setSelectedAnswer] = useState<Record<number, string>>(
     {},
   )
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [score, setScore] = useState(0)
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
-  const [startTime, setStartTime] = useState<Date | null>(null)
-  const [endTime, setEndTime] = useState<Date | null>(null)
+  const [_startTime, setStartTime] = useState<Date | null>(null)
   const [questionOptions, setQuestionOptions] = useState<string[][]>([])
 
   // Get course data
@@ -161,11 +160,6 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
       })
     }
   }
-
-  // Quiz history
-  const { data: quizHistory } = api.quiz.getUserQuizHistory.useQuery<
-    QuizResult[]
-  >({ quizId: quizId ?? 0 }, { enabled: quizId !== null && !quizStarted })
 
   // Set up quiz timer
   useEffect(() => {
@@ -373,9 +367,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
   if (quizStarted && quizCompleted) {
     const passed = score >= 80
     const perfect = score === 100
-
-    // Get the latest quiz result from the mutation data or API
-    const latestQuizResult = submitQuizMutation.data ?? null
+    const latestQuizResult: QuizResult | null = submitQuizMutation.data ?? null
 
     return (
       <div className="w-full bg-gray-50 px-4 py-6 pb-16 dark:bg-gray-800 md:px-8">
