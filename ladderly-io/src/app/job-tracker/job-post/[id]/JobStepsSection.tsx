@@ -13,7 +13,7 @@ const formatDate = (date: Date | string | undefined | null): string => {
   try {
     // Use toLocaleDateString for better formatting
     return new Date(date).toLocaleDateString()
-  } catch (e) {
+  } catch {
     return 'Invalid Date'
   }
 }
