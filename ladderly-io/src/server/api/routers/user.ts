@@ -5,7 +5,7 @@ import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
   createTRPCRouter,
-  protectedProcedure,
+  protectedProcedureWithVerifiedEmail,
   publicProcedure,
 } from '~/server/api/trpc'
 import { NULL_RESULT_TRPC_INT } from '~/server/constants'
@@ -44,45 +44,47 @@ export const userRouter = createTRPCRouter({
     },
   ),
 
-  getSubscriptionLevel: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.user.findUnique({
-      where: {
-        id: parseInt(ctx.session.user.id),
-      },
-      include: {
-        subscriptions: true,
-      },
-    })
+  getSubscriptionLevel: protectedProcedureWithVerifiedEmail.query(
+    async ({ ctx }) => {
+      const user = await ctx.db.user.findUnique({
+        where: {
+          id: parseInt(ctx.session.user.id),
+        },
+        include: {
+          subscriptions: true,
+        },
+      })
 
-    if (!user) {
-      throw new Error('User not found')
-    }
-
-    if (user.subscriptions.length === 0) {
-      return { tier: PaymentTierEnum.FREE }
-    }
-
-    let minTier: PaymentTierEnum = PaymentTierEnum.PREMIUM
-
-    for (const subscription of user.subscriptions) {
-      if (subscription.tier === PaymentTierEnum.PREMIUM) {
-        minTier = PaymentTierEnum.PREMIUM
-        break
-      } else if (
-        subscription.tier === PaymentTierEnum.PAY_WHAT_YOU_CAN &&
-        tiersOrder[minTier] > tiersOrder[PaymentTierEnum.PAY_WHAT_YOU_CAN]
-      ) {
-        minTier = PaymentTierEnum.PAY_WHAT_YOU_CAN
-      } else if (
-        subscription.tier === PaymentTierEnum.FREE &&
-        tiersOrder[minTier] > tiersOrder[PaymentTierEnum.FREE]
-      ) {
-        minTier = PaymentTierEnum.FREE
+      if (!user) {
+        throw new Error('User not found')
       }
-    }
 
-    return { tier: minTier }
-  }),
+      if (user.subscriptions.length === 0) {
+        return { tier: PaymentTierEnum.FREE }
+      }
+
+      let minTier: PaymentTierEnum = PaymentTierEnum.PREMIUM
+
+      for (const subscription of user.subscriptions) {
+        if (subscription.tier === PaymentTierEnum.PREMIUM) {
+          minTier = PaymentTierEnum.PREMIUM
+          break
+        } else if (
+          subscription.tier === PaymentTierEnum.PAY_WHAT_YOU_CAN &&
+          tiersOrder[minTier] > tiersOrder[PaymentTierEnum.PAY_WHAT_YOU_CAN]
+        ) {
+          minTier = PaymentTierEnum.PAY_WHAT_YOU_CAN
+        } else if (
+          subscription.tier === PaymentTierEnum.FREE &&
+          tiersOrder[minTier] > tiersOrder[PaymentTierEnum.FREE]
+        ) {
+          minTier = PaymentTierEnum.FREE
+        }
+      }
+
+      return { tier: minTier }
+    },
+  ),
 
   getPaginatedUsers: publicProcedure
     .input(
@@ -293,7 +295,7 @@ export const userRouter = createTRPCRouter({
       return user
     }),
 
-  getSettings: protectedProcedure.query(async ({ ctx }) => {
+  getSettings: protectedProcedureWithVerifiedEmail.query(async ({ ctx }) => {
     const id = parseInt(ctx.session.user.id)
 
     const result = await ctx.db.$transaction(async (tx) => {
@@ -328,6 +330,7 @@ export const userRouter = createTRPCRouter({
         email: user.email,
         emailBackup: user.emailBackup,
         emailStripe: user.emailStripe,
+        emailVerified: user.emailVerified,
         hasInPersonEventInterest: user.hasInPersonEventInterest,
         hasLiveStreamInterest: user.hasLiveStreamInterest,
         hasOnlineEventInterest: user.hasOnlineEventInterest,
@@ -366,7 +369,7 @@ export const userRouter = createTRPCRouter({
     return result
   }),
 
-  updateSettings: protectedProcedure
+  updateSettings: protectedProcedureWithVerifiedEmail
     .input(UpdateUserSettingsSchema)
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -444,39 +447,41 @@ export const userRouter = createTRPCRouter({
       return GetUserSettingsSchema.parse(settings)
     }),
 
-  getLeadEmailPreferences: protectedProcedure.query(async ({ ctx }) => {
-    const userId = parseInt(ctx.session.user.id)
-    const email = ctx.session.user.email
+  getLeadEmailPreferences: protectedProcedureWithVerifiedEmail.query(
+    async ({ ctx }) => {
+      const userId = parseInt(ctx.session.user.id)
+      const email = ctx.session.user.email
 
-    if (!email) {
-      throw new TRPCError({
-        code: 'UNAUTHORIZED',
-        message: 'User email not found',
+      if (!email) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'User email not found',
+        })
+      }
+
+      // First try to find an existing lead
+      let lead = await ctx.db.lead.findUnique({
+        where: { email },
       })
-    }
 
-    // First try to find an existing lead
-    let lead = await ctx.db.lead.findUnique({
-      where: { email },
-    })
+      // If no lead exists, create one
+      lead ??= await ctx.db.lead.create({
+        data: {
+          email,
+          userId,
+          isRecruiter: false,
+          hasOptOutMarketing: false,
+          hasOptOutFeatureUpdates: false,
+          hasOptOutEventAnnouncements: false,
+          hasOptOutNewsletterAndBlog: false,
+        },
+      })
 
-    // If no lead exists, create one
-    lead ??= await ctx.db.lead.create({
-      data: {
-        email,
-        userId,
-        isRecruiter: false,
-        hasOptOutMarketing: false,
-        hasOptOutFeatureUpdates: false,
-        hasOptOutEventAnnouncements: false,
-        hasOptOutNewsletterAndBlog: false,
-      },
-    })
+      return lead
+    },
+  ),
 
-    return lead
-  }),
-
-  updateEmailPreferences: protectedProcedure
+  updateEmailPreferences: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         isRecruiter: z.boolean(),
@@ -511,7 +516,7 @@ export const userRouter = createTRPCRouter({
     }),
 
   // Get user profile - includes the deep journaling interest flag
-  getUserProfile: protectedProcedure.query(async ({ ctx }) => {
+  getUserProfile: protectedProcedureWithVerifiedEmail.query(async ({ ctx }) => {
     const userId = parseInt(ctx.session.user.id)
 
     const user = await ctx.db.user.findUnique({
@@ -534,7 +539,7 @@ export const userRouter = createTRPCRouter({
   }),
 
   // Update user profile with minimal fields
-  updateUserProfile: protectedProcedure
+  updateUserProfile: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         hasDeepJournalingInterest: z.boolean().optional(),

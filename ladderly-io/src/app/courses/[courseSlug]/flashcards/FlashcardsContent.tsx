@@ -86,7 +86,6 @@ export default function FlashcardsContent({
   const [flashcards, setFlashcards] = useState<
     Array<{ question: string; answer: string }>
   >([])
-  const [error, setError] = useState<string | null>(null)
   const [isCurrentCardFlipped, setIsCurrentCardFlipped] = useState(false)
   const [manualFlip, setManualFlip] = useState(true)
 

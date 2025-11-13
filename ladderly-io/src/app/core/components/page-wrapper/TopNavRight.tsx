@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 import { api } from '~/trpc/react'
 import { IconVerticalChevron } from '../icons/VerticalChevron'
 import { MenuContext } from './MenuProvider'
@@ -16,24 +17,55 @@ const TOP_NAV_RIGHT_SECTION_CLASSES = 'ml-auto flex items-center space-x-6'
 
 export const TopNavRight = () => {
   const router = useRouter()
-  const searchParams = useSearchParams() ?? new URLSearchParams()
-  const currentUserQuery = api.user.getCurrentUser.useQuery()
+  const searchParams = useSearchParams()
+  const { data: session, status: sessionStatus } = useSession()
+  const currentUserQuery = api.user.getCurrentUser.useQuery(undefined, {
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+  })
   const currentUser = currentUserQuery.data
   const { setMenu, openMenuName } = React.useContext(MenuContext)
 
+  // Track previous session status to detect transitions
+  const prevSessionStatusRef = React.useRef(sessionStatus)
+  const { refetch: refetchCurrentUser } = currentUserQuery
+
+  // Refetch when session changes from unauthenticated to authenticated
   useEffect(() => {
-    const refreshCurrentUser = searchParams.get('refresh_current_user')
+    const prevStatus = prevSessionStatusRef.current
+    prevSessionStatusRef.current = sessionStatus
+
+    if (prevStatus !== 'authenticated' && sessionStatus === 'authenticated') {
+      // Session just became authenticated, refetch user data
+      void refetchCurrentUser()
+    }
+  }, [sessionStatus, refetchCurrentUser])
+
+  // Use session from useSession as fallback - this updates immediately after login
+  // while the tRPC query might still be using stale server-side session
+  const isAuthenticated = sessionStatus === 'authenticated' && !!session?.user
+  // currentUser can be 0 (NULL_RESULT_TRPC_INT), so check if it's not 0
+  let showAccountButton = false
+  if (currentUser !== 0 && currentUser) {
+    showAccountButton = true
+  } else if (isAuthenticated) {
+    showAccountButton = true
+  }
+
+  useEffect(() => {
+    const params = searchParams ?? new URLSearchParams()
+    const refreshCurrentUser = params.get('refresh_current_user')
 
     if (refreshCurrentUser === 'true') {
-      // Remove the query parameter and refetch data
-      const newQuery = new URLSearchParams(searchParams)
+      // Remove the query parameter and refresh the page to ensure all state is updated
+      const newQuery = new URLSearchParams(params)
       newQuery.delete('refresh_current_user')
-      router.replace(`?${newQuery.toString()}`)
+      const newUrl = newQuery.toString() ? `?${newQuery.toString()}` : '/'
 
-      // Refetch the current user
-      void currentUserQuery.refetch()
+      // Refresh the page to ensure all server-side state is updated
+      window.location.href = newUrl
     }
-  }, [searchParams, currentUserQuery, router])
+  }, [searchParams, router])
 
   const handleAccountClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -44,6 +76,9 @@ export const TopNavRight = () => {
         <AccountMenuItems userId={currentUser.id.toString()} />,
         'account',
       )
+    } else if (session?.user?.id) {
+      // Fallback to session user ID if currentUser query hasn't loaded yet
+      setMenu?.(<AccountMenuItems userId={session.user.id} />, 'account')
     }
   }
 
@@ -84,7 +119,7 @@ export const TopNavRight = () => {
         Community
         <IconVerticalChevron isPointingUp={openMenuName === 'community'} />
       </button>
-      {currentUser ? (
+      {showAccountButton ? (
         <button
           onClick={handleAccountClick}
           className={TOP_NAV_STANDARD_CLASSES}

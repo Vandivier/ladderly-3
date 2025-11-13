@@ -9,7 +9,7 @@ import { z } from 'zod'
 import { JournalEntryEnum } from '~/app/journal/schemas'
 import {
   createTRPCRouter,
-  protectedProcedure,
+  protectedProcedureWithVerifiedEmail,
   publicProcedure,
 } from '~/server/api/trpc'
 
@@ -40,7 +40,7 @@ const updateJournalEntrySchema = z.object({
 
 export const journalRouter = createTRPCRouter({
   // Get user's journal entries with optional filtering
-  getUserEntries: publicProcedure
+  getUserEntries: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         limit: z.number().min(1).max(365).default(10),
@@ -60,14 +60,7 @@ export const journalRouter = createTRPCRouter({
         isCareerRelated,
         textFilter,
       } = input
-      const userId = ctx.session?.user?.id
-
-      if (!userId) {
-        throw new TRPCError({
-          code: 'UNAUTHORIZED',
-          message: 'You must be logged in to view journal entries',
-        })
-      }
+      const userId = ctx.session.user.id
 
       // Build filter based on inputs
       const filter: Prisma.JournalEntryWhereInput = {
@@ -128,7 +121,7 @@ export const journalRouter = createTRPCRouter({
     }),
 
   // Create a new journal entry
-  createEntry: protectedProcedure
+  createEntry: protectedProcedureWithVerifiedEmail
     .input(createJournalEntrySchema)
     .mutation(async ({ ctx, input }) => {
       const userId = Number(ctx.session.user.id)
@@ -225,7 +218,7 @@ export const journalRouter = createTRPCRouter({
     }),
 
   // Update a journal entry
-  updateEntry: protectedProcedure
+  updateEntry: protectedProcedureWithVerifiedEmail
     .input(updateJournalEntrySchema)
     .mutation(async ({ ctx, input }) => {
       const entry = await ctx.db.journalEntry.findUnique({
@@ -259,7 +252,7 @@ export const journalRouter = createTRPCRouter({
     }),
 
   // Delete a journal entry
-  deleteEntry: protectedProcedure
+  deleteEntry: protectedProcedureWithVerifiedEmail
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const entry = await ctx.db.journalEntry.findUnique({
@@ -280,34 +273,36 @@ export const journalRouter = createTRPCRouter({
     }),
 
   // Get user's reminder settings
-  getUserReminderSettings: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.user.findUnique({
-      where: {
-        id: Number(ctx.session.user.id),
-      },
-      select: {
-        journalReminderFrequency: true,
-        journalReminderLastReminded: true,
-      },
-    })
+  getUserReminderSettings: protectedProcedureWithVerifiedEmail.query(
+    async ({ ctx }) => {
+      const user = await ctx.db.user.findUnique({
+        where: {
+          id: Number(ctx.session.user.id),
+        },
+        select: {
+          journalReminderFrequency: true,
+          journalReminderLastReminded: true,
+        },
+      })
 
-    // Return default settings if somehow user not found (shouldn't happen)
-    if (!user) {
-      return {
-        frequency: ReminderFrequency.NONE,
-        lastReminded: null,
+      // Return default settings if somehow user not found (shouldn't happen)
+      if (!user) {
+        return {
+          frequency: ReminderFrequency.NONE,
+          lastReminded: null,
+        }
       }
-    }
 
-    // Map to original format to maintain API compatibility
-    return {
-      frequency: user.journalReminderFrequency,
-      lastReminded: user.journalReminderLastReminded,
-    }
-  }),
+      // Map to original format to maintain API compatibility
+      return {
+        frequency: user.journalReminderFrequency,
+        lastReminded: user.journalReminderLastReminded,
+      }
+    },
+  ),
 
   // Update user's reminder settings
-  updateReminderSettings: protectedProcedure
+  updateReminderSettings: protectedProcedureWithVerifiedEmail
     .input(updateReminderSchema)
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.db.user.update({
@@ -331,7 +326,7 @@ export const journalRouter = createTRPCRouter({
     }),
 
   // Get available practice items
-  getPracticeItems: protectedProcedure
+  getPracticeItems: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         category: z.nativeEnum(PracticeCategory).optional(),
@@ -352,7 +347,7 @@ export const journalRouter = createTRPCRouter({
     }),
 
   // Log practice completion
-  logPracticeCompletion: protectedProcedure
+  logPracticeCompletion: protectedProcedureWithVerifiedEmail
     .input(z.object({ practiceId: z.number() }))
     .mutation(async ({ ctx, input }) => {
       // Check if practice exists
@@ -374,7 +369,7 @@ export const journalRouter = createTRPCRouter({
     }),
 
   // Get practice completions for the current user
-  getUserPracticeCompletions: protectedProcedure
+  getUserPracticeCompletions: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         fromDate: z.date().optional(),

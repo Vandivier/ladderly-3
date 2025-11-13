@@ -150,7 +150,9 @@ export default function HappinessChart() {
       </div>
       <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-xl font-bold">Your Happiness (Past Year)</h2>
+          <h2 className="text-xl font-bold dark:text-gray-100">
+            Your Happiness (Past Year)
+          </h2>
           {happinessEntries.length > 0 && (
             <div className="rounded-md bg-purple-100 px-2 py-1 text-sm font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-300">
               Avg: {averageHappiness}/10
@@ -159,13 +161,15 @@ export default function HappinessChart() {
         </div>
 
         {isLoading ? (
-          <div className="p-8 text-center text-gray-500">Loading...</div>
+          <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+            Loading...
+          </div>
         ) : error ? (
-          <div className="p-8 text-center text-red-500">
+          <div className="p-8 text-center text-red-500 dark:text-red-400">
             {error.message || 'Failed to load data'}
           </div>
         ) : happinessEntries.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-gray-500 dark:text-gray-400">
             No happiness data found in your journal entries.
           </div>
         ) : (
@@ -206,7 +210,7 @@ export default function HappinessChart() {
             </ResponsiveContainer>
 
             {/* Entry count */}
-            <div className="mt-4 text-center text-sm text-gray-500">
+            <div className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
               Data from {happinessEntries.length}{' '}
               {happinessEntries.length === 1 ? 'day' : 'days'} of journal
               entries with happiness values

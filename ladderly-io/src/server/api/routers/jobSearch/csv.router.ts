@@ -1,6 +1,9 @@
 import type { Prisma } from '@prisma/client'
 import { JobApplicationStatus, JobSearchStepKind } from '@prisma/client'
-import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
+import {
+  createTRPCRouter,
+  protectedProcedureWithVerifiedEmail,
+} from '~/server/api/trpc'
 import { JobSearchCreateFromCsvSchema } from './schemas'
 import { mapCsvStatusToEnum } from './csv.helpers'
 import { z } from 'zod'
@@ -36,7 +39,7 @@ function mapToStepKind(kind: string): JobSearchStepKind {
 }
 
 export const csvRouter = createTRPCRouter({
-  createFromCsv: protectedProcedure
+  createFromCsv: protectedProcedureWithVerifiedEmail
     .input(JobSearchCreateFromCsvSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -87,7 +90,7 @@ export const csvRouter = createTRPCRouter({
       }
     }),
 
-  createRoundLevelFromCsv: protectedProcedure
+  createRoundLevelFromCsv: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         jobSearchId: z.number(),
@@ -229,7 +232,7 @@ export const csvRouter = createTRPCRouter({
       }
     }),
 
-  downloadRoundLevelCsv: protectedProcedure
+  downloadRoundLevelCsv: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         jobSearchId: z.number(),

@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { TRPCError } from '@trpc/server'
 import {
   createTRPCRouter,
-  protectedProcedure,
+  protectedProcedureWithVerifiedEmail,
   publicProcedure,
 } from '~/server/api/trpc'
 
@@ -111,26 +111,28 @@ export const certificateRouter = createTRPCRouter({
     }),
 
   // Get the current user's certificates (protected route)
-  getMyCurrentCertificates: protectedProcedure.query(async ({ ctx }) => {
-    const userId = +ctx.session.user.id
+  getMyCurrentCertificates: protectedProcedureWithVerifiedEmail.query(
+    async ({ ctx }) => {
+      const userId = +ctx.session.user.id
 
-    const certificates = await ctx.db.quizResult.findMany({
-      where: {
-        userId,
-        passed: true,
-      },
-      include: {
-        quiz: {
-          include: {
-            course: true,
+      const certificates = await ctx.db.quizResult.findMany({
+        where: {
+          userId,
+          passed: true,
+        },
+        include: {
+          quiz: {
+            include: {
+              course: true,
+            },
           },
         },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
+        orderBy: {
+          createdAt: 'desc',
+        },
+      })
 
-    return certificates
-  }),
+      return certificates
+    },
+  ),
 })

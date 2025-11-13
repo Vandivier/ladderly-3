@@ -1,9 +1,10 @@
 'use client'
 
 import { FORM_ERROR } from 'final-form'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { Signup as SignupSchema } from '~/app/(auth)/schemas'
 import { Form } from '~/app/core/components/Form'
 import { LabeledTextField } from '~/app/core/components/LabeledTextField'
@@ -15,9 +16,24 @@ type SignupFormProps = {
 
 export const SignupForm = (props: SignupFormProps) => {
   const router = useRouter()
+  const { data: session, status } = useSession()
   const signupMutation = api.auth.signup.useMutation()
+  const [isSigningUp, setIsSigningUp] = useState(false)
+  const [signupSuccess, setSignupSuccess] = useState(false)
+
+  // Redirect once session is available after successful signup/login
+  useEffect(() => {
+    if (signupSuccess && status === 'authenticated' && session?.user) {
+      props.onSuccess?.()
+      router.push('/?refresh_current_user=true')
+      router.refresh()
+    }
+  }, [signupSuccess, status, session, router, props])
 
   const handleSubmit = async (values: { email: string; password: string }) => {
+    setIsSigningUp(true)
+    setSignupSuccess(false)
+
     try {
       // Create user account using auth router mutation
       await signupMutation.mutateAsync(values)
@@ -30,15 +46,16 @@ export const SignupForm = (props: SignupFormProps) => {
       })
 
       if (result?.error) {
+        setIsSigningUp(false)
         return { [FORM_ERROR]: result.error }
       }
 
       if (result?.ok) {
-        props.onSuccess?.()
-        router.push('/?refresh_current_user=true')
-        router.refresh()
+        setSignupSuccess(true)
+        // Session will be updated via useSession hook, triggering the useEffect above
       }
     } catch (error: unknown) {
+      setIsSigningUp(false)
       if (error instanceof Error && error.message) {
         if (error.message === 'User already exists') {
           return { email: 'This email is already being used' }
@@ -47,6 +64,19 @@ export const SignupForm = (props: SignupFormProps) => {
       }
       return { [FORM_ERROR]: 'Something went wrong!' }
     }
+  }
+
+  if (isSigningUp || signupSuccess) {
+    return (
+      <div className="m-2 w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+        <h1 className="mb-4 text-2xl font-bold text-gray-800">
+          Creating your account...
+        </h1>
+        <p className="text-gray-600">
+          Please wait while we set up your account.
+        </p>
+      </div>
+    )
   }
 
   return (

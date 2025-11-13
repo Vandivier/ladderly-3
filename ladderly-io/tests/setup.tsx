@@ -1,6 +1,6 @@
 import * as matchers from '@testing-library/jest-dom/matchers'
 import { cleanup } from '@testing-library/react'
-import { afterEach, expect, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, expect, vi } from 'vitest'
 import React from 'react'
 import { PaymentTierEnum } from '@prisma/client'
 
@@ -10,6 +10,24 @@ expect.extend(matchers)
 // Cleanup after each test case
 afterEach(() => {
   cleanup()
+})
+
+// Suppress styled-jsx jsx attribute warnings in tests
+const originalError = console.error
+beforeAll(() => {
+  console.error = (...args: unknown[]) => {
+    if (
+      typeof args[0] === 'string' &&
+      args[0].includes('Received `true` for a non-boolean attribute `jsx`')
+    ) {
+      return
+    }
+    originalError.call(console, ...args)
+  }
+})
+
+afterAll(() => {
+  console.error = originalError
 })
 
 // Mock server-side modules
@@ -163,6 +181,26 @@ vi.mock('~/server/api/trpc', () => {
       }),
     },
     protectedProcedure: {
+      query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+      mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+        fn,
+      input: (schema: unknown) => ({
+        query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+        mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+          fn,
+      }),
+    },
+    protectedProcedureWithVerifiedEmail: {
+      query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+      mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+        fn,
+      input: (schema: unknown) => ({
+        query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+        mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+          fn,
+      }),
+    },
+    protectedProcedureWithoutEmailVerification: {
       query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
       mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
         fn,

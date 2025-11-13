@@ -13,6 +13,10 @@ import { ZodError } from 'zod'
 
 import { getServerAuthSession } from '~/server/auth'
 import { db } from '~/server/db'
+import {
+  checkGlobalRateLimit,
+  getRateLimitIdentifier,
+} from '~/server/utils/rateLimit'
 
 /**
  * 1. CONTEXT
@@ -79,6 +83,30 @@ export const createCallerFactory = t.createCallerFactory
 export const createTRPCRouter = t.router
 
 /**
+ * Global rate limiting middleware for all tRPC procedures.
+ * Rate limits by userId (if authenticated) or IP address (if not).
+ */
+const rateLimitMiddleware = t.middleware(async ({ ctx, next }) => {
+  // Extract IP address from headers (common headers used by proxies)
+  const forwardedFor = ctx.headers.get('x-forwarded-for')
+  const realIp = ctx.headers.get('x-real-ip')
+  const ipAddress = forwardedFor?.split(',')[0]?.trim() ?? realIp ?? 'unknown'
+
+  // Get rate limit identifier (userId if authenticated, otherwise IP)
+  const identifier = getRateLimitIdentifier(ctx.session?.user?.id, ipAddress)
+
+  // Apply global rate limiting
+  // Same limit for all users: 30 requests per minute
+  checkGlobalRateLimit({
+    identifier,
+    maxRequests: 30,
+    windowMs: 60 * 1000, // 1 minute
+  })
+
+  return next({ ctx })
+})
+
+/**
  * Middleware for timing procedure execution and adding an articifial delay in development.
  *
  * You can remove this if you don't like it, but it can help catch unwanted waterfalls by simulating
@@ -141,7 +169,9 @@ export const isAuthedOrInternalMiddleware = t.middleware((opts) => {
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure.use(timingMiddleware)
+export const publicProcedure = t.procedure
+  .use(rateLimitMiddleware)
+  .use(timingMiddleware)
 
 /**
  * Protected (authenticated) procedure
@@ -152,11 +182,71 @@ export const publicProcedure = t.procedure.use(timingMiddleware)
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure
+  .use(rateLimitMiddleware)
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
     if (!ctx.session?.user) {
       throw new TRPCError({ code: 'UNAUTHORIZED' })
     }
+    return next({
+      ctx: {
+        // infers the `session` as non-nullable
+        session: { ...ctx.session, user: ctx.session.user },
+      },
+    })
+  })
+
+/**
+ * Protected (authenticated) procedure WITHOUT email verification requirement
+ *
+ * Use this for endpoints that need to be accessible before email verification
+ * (e.g., sending verification emails). Most endpoints should use `protectedProcedure` or
+ * `protectedProcedureWithVerifiedEmail` instead.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
+export const protectedProcedureWithoutEmailVerification = t.procedure
+  .use(rateLimitMiddleware)
+  .use(timingMiddleware)
+  .use(({ ctx, next }) => {
+    if (!ctx.session?.user) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' })
+    }
+    return next({
+      ctx: {
+        // infers the `session` as non-nullable
+        session: { ...ctx.session, user: ctx.session.user },
+      },
+    })
+  })
+
+/**
+ * Protected (authenticated) procedure WITH email verification requirement
+ *
+ * Use this for endpoints that require the user's email to be verified. It verifies the session
+ * is valid, guarantees `ctx.session.user` is not null, and requires that the user's email is verified.
+ *
+ * This is an opt-in procedure - use it explicitly for endpoints that need email verification.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
+export const protectedProcedureWithVerifiedEmail = t.procedure
+  .use(rateLimitMiddleware)
+  .use(timingMiddleware)
+  .use(({ ctx, next }) => {
+    if (!ctx.session?.user) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' })
+    }
+
+    // Require email verification
+    if (!ctx.session.user.emailVerified) {
+      throw new TRPCError({
+        code: 'FORBIDDEN',
+        message:
+          'Please verify your email address to access this feature. Check your inbox for the verification email.',
+      })
+    }
+
     return next({
       ctx: {
         // infers the `session` as non-nullable

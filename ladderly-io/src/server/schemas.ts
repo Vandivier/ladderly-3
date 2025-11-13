@@ -49,6 +49,7 @@ export const GetUserSettingsSchema = UpdateUserSettingsSchema.extend({
   id: z.number(),
   emailBackup: z.string().nullable(),
   emailStripe: z.string().optional(),
+  emailVerified: z.date().nullable(),
   nameFirst: z.string().nullable(),
   nameLast: z.string().nullable(),
   profileBlurb: z.string().nullable(),

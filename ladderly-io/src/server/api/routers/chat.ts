@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { createTRPCRouter, protectedProcedure } from '../trpc'
+import { createTRPCRouter, protectedProcedureWithVerifiedEmail } from '../trpc'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { env } from '~/env'
 import { TRPCError } from '@trpc/server'
@@ -25,7 +25,7 @@ const model = genAI.getGenerativeModel({
 })
 
 export const chatRouter = createTRPCRouter({
-  chat: protectedProcedure
+  chat: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         messages: z.array(

@@ -1,17 +1,28 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { TRPCError } from '@trpc/server'
-import * as rateLimit from '~/server/utils/rateLimit'
-import * as forgotPasswordMailer from '~/server/mailers/forgotPasswordMailer'
-import crypto from 'crypto'
+import { checkGuestRateLimit } from '~/server/utils/rateLimit'
+import { sendForgotPasswordEmail } from '~/server/mailers/forgotPasswordMailer'
+import { sendVerificationEmail } from '~/server/mailers/verifyEmailMailer'
 
 // Mock the rate limit utility
 vi.mock('~/server/utils/rateLimit', () => ({
   checkGuestRateLimit: vi.fn(),
+  getIpAddressFromHeaders: vi.fn((headers: Headers) => {
+    const forwardedFor = headers.get('x-forwarded-for')
+    const realIp = headers.get('x-real-ip')
+    return forwardedFor?.split(',')[0]?.trim() ?? realIp ?? 'unknown'
+  }),
+  recordAuthAttemptByIp: vi.fn(),
 }))
 
 // Mock the forgot password mailer
 vi.mock('~/server/mailers/forgotPasswordMailer', () => ({
   sendForgotPasswordEmail: vi.fn(),
+}))
+
+// Mock the verification email mailer
+vi.mock('~/server/mailers/verifyEmailMailer', () => ({
+  sendVerificationEmail: vi.fn(),
 }))
 
 // Mock crypto
@@ -87,11 +98,9 @@ describe('authRouter', () => {
       }
 
       mockDb.user.findUnique.mockResolvedValue(mockUser)
-      vi.mocked(rateLimit.checkGuestRateLimit).mockResolvedValue(undefined)
+      vi.mocked(checkGuestRateLimit).mockResolvedValue(undefined)
       mockDb.token.create.mockResolvedValue({ id: 1 })
-      vi.mocked(forgotPasswordMailer.sendForgotPasswordEmail).mockResolvedValue(
-        undefined,
-      )
+      vi.mocked(sendForgotPasswordEmail).mockResolvedValue(undefined)
 
       const caller = createCaller({
         db: mockDb,
@@ -102,12 +111,14 @@ describe('authRouter', () => {
       const result = await caller.forgotPassword({ email: 'test@example.com' })
 
       expect(result).toEqual({ success: true })
-      expect(rateLimit.checkGuestRateLimit).toHaveBeenCalledWith({
+      expect(checkGuestRateLimit).toHaveBeenCalledWith({
         db: mockDb,
         userId: 1,
+        email: 'test@example.com',
+        ipAddress: 'unknown',
         action: 'password_reset',
       })
-      expect(forgotPasswordMailer.sendForgotPasswordEmail).toHaveBeenCalled()
+      expect(sendForgotPasswordEmail).toHaveBeenCalled()
     })
 
     it('throws rate limit error when too many attempts', async () => {
@@ -117,7 +128,7 @@ describe('authRouter', () => {
       }
 
       mockDb.user.findUnique.mockResolvedValue(mockUser)
-      vi.mocked(rateLimit.checkGuestRateLimit).mockRejectedValue(
+      vi.mocked(checkGuestRateLimit).mockRejectedValue(
         new TRPCError({
           code: 'TOO_MANY_REQUESTS',
           message:
@@ -135,9 +146,7 @@ describe('authRouter', () => {
         caller.forgotPassword({ email: 'test@example.com' }),
       ).rejects.toThrow('Too many password reset requests')
 
-      expect(
-        forgotPasswordMailer.sendForgotPasswordEmail,
-      ).not.toHaveBeenCalled()
+      expect(sendForgotPasswordEmail).not.toHaveBeenCalled()
     })
 
     it('does not rate limit authenticated users', async () => {
@@ -148,9 +157,7 @@ describe('authRouter', () => {
 
       mockDb.user.findUnique.mockResolvedValue(mockUser)
       mockDb.token.create.mockResolvedValue({ id: 1 })
-      vi.mocked(forgotPasswordMailer.sendForgotPasswordEmail).mockResolvedValue(
-        undefined,
-      )
+      vi.mocked(sendForgotPasswordEmail).mockResolvedValue(undefined)
 
       const caller = createCaller({
         db: mockDb,
@@ -166,8 +173,8 @@ describe('authRouter', () => {
       const result = await caller.forgotPassword({ email: 'test@example.com' })
 
       expect(result).toEqual({ success: true })
-      expect(rateLimit.checkGuestRateLimit).not.toHaveBeenCalled()
-      expect(forgotPasswordMailer.sendForgotPasswordEmail).toHaveBeenCalled()
+      expect(checkGuestRateLimit).not.toHaveBeenCalled()
+      expect(sendForgotPasswordEmail).toHaveBeenCalled()
     })
 
     it('returns success message even if user does not exist (security)', async () => {
@@ -183,17 +190,15 @@ describe('authRouter', () => {
         caller.forgotPassword({ email: 'nonexistent@example.com' }),
       ).rejects.toThrow('If your email is in our system')
 
-      expect(rateLimit.checkGuestRateLimit).not.toHaveBeenCalled()
-      expect(
-        forgotPasswordMailer.sendForgotPasswordEmail,
-      ).not.toHaveBeenCalled()
+      expect(checkGuestRateLimit).not.toHaveBeenCalled()
+      expect(sendForgotPasswordEmail).not.toHaveBeenCalled()
     })
   })
 
   describe('signup', () => {
     it('creates user when email does not exist', async () => {
       mockDb.user.findUnique.mockResolvedValue(null)
-      vi.mocked(rateLimit.checkGuestRateLimit).mockResolvedValue(undefined)
+      vi.mocked(checkGuestRateLimit).mockResolvedValue(undefined)
       mockDb.user.create.mockResolvedValue({
         id: 1,
         email: 'newuser@example.com',
@@ -211,9 +216,10 @@ describe('authRouter', () => {
       })
 
       expect(result).toEqual({ success: true, userId: 1 })
-      expect(rateLimit.checkGuestRateLimit).toHaveBeenCalledWith({
+      expect(checkGuestRateLimit).toHaveBeenCalledWith({
         db: mockDb,
         email: 'newuser@example.com',
+        ipAddress: 'unknown',
         action: 'signup',
         errorMessage:
           'Too many signup attempts. Please wait before trying again.',
@@ -222,7 +228,7 @@ describe('authRouter', () => {
 
     it('throws rate limit error when too many signup attempts', async () => {
       mockDb.user.findUnique.mockResolvedValue(null)
-      vi.mocked(rateLimit.checkGuestRateLimit).mockRejectedValue(
+      vi.mocked(checkGuestRateLimit).mockRejectedValue(
         new TRPCError({
           code: 'TOO_MANY_REQUESTS',
           message: 'Too many signup attempts. Please wait before trying again.',
@@ -250,7 +256,7 @@ describe('authRouter', () => {
         id: 1,
         email: 'existing@example.com',
       })
-      vi.mocked(rateLimit.checkGuestRateLimit).mockResolvedValue(undefined)
+      vi.mocked(checkGuestRateLimit).mockResolvedValue(undefined)
 
       const caller = createCaller({
         db: mockDb,
@@ -279,7 +285,7 @@ describe('authRouter', () => {
       }
 
       mockDb.user.findFirst.mockResolvedValue(mockUser)
-      vi.mocked(rateLimit.checkGuestRateLimit).mockResolvedValue(undefined)
+      vi.mocked(checkGuestRateLimit).mockResolvedValue(undefined)
 
       const caller = createCaller({
         db: mockDb,
@@ -293,9 +299,10 @@ describe('authRouter', () => {
       })
 
       expect(result).toEqual(mockUser)
-      expect(rateLimit.checkGuestRateLimit).toHaveBeenCalledWith({
+      expect(checkGuestRateLimit).toHaveBeenCalledWith({
         db: mockDb,
         email: 'test@example.com',
+        ipAddress: 'unknown',
         action: 'login',
         errorMessage:
           'Too many login attempts. Please wait before trying again.',
@@ -303,7 +310,7 @@ describe('authRouter', () => {
     })
 
     it('throws rate limit error when too many login attempts', async () => {
-      vi.mocked(rateLimit.checkGuestRateLimit).mockRejectedValue(
+      vi.mocked(checkGuestRateLimit).mockRejectedValue(
         new TRPCError({
           code: 'TOO_MANY_REQUESTS',
           message: 'Too many login attempts. Please wait before trying again.',
@@ -353,12 +360,12 @@ describe('authRouter', () => {
       })
 
       expect(result).toEqual(mockUser)
-      expect(rateLimit.checkGuestRateLimit).not.toHaveBeenCalled()
+      expect(checkGuestRateLimit).not.toHaveBeenCalled()
     })
 
     it('throws error when user does not exist', async () => {
       mockDb.user.findFirst.mockResolvedValue(null)
-      vi.mocked(rateLimit.checkGuestRateLimit).mockResolvedValue(undefined)
+      vi.mocked(checkGuestRateLimit).mockResolvedValue(undefined)
 
       const caller = createCaller({
         db: mockDb,
@@ -440,6 +447,176 @@ describe('authRouter', () => {
           passwordConfirmation: 'newpassword123',
         }),
       ).rejects.toThrow('Invalid or expired token')
+
+      expect(mockDb.user.update).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('sendVerificationEmail', () => {
+    it('sends verification email when user exists and email is not verified', async () => {
+      const mockUser = {
+        id: 1,
+        email: 'test@example.com',
+        emailVerified: null,
+      }
+
+      mockDb.user.findUnique.mockResolvedValue(mockUser)
+      vi.mocked(checkGuestRateLimit).mockResolvedValue(undefined)
+      mockDb.token.create.mockResolvedValue({ id: 1 })
+      vi.mocked(sendVerificationEmail).mockResolvedValue(undefined)
+
+      const caller = createCaller({
+        db: mockDb,
+        session: {
+          user: {
+            id: '1',
+            email: 'test@example.com',
+          },
+        },
+        headers: new Headers(),
+      })
+
+      const result = await caller.sendVerificationEmail()
+
+      expect(result).toEqual({ success: true })
+      expect(mockDb.user.findUnique).toHaveBeenCalledWith({
+        where: { id: 1 },
+      })
+      expect(checkGuestRateLimit).toHaveBeenCalledWith({
+        db: mockDb,
+        userId: 1,
+        email: 'test@example.com',
+        ipAddress: 'unknown',
+        action: 'verify_email',
+        errorMessage:
+          'Too many verification email requests. Please wait before requesting another email.',
+      })
+      expect(sendVerificationEmail).toHaveBeenCalled()
+    })
+
+    it('throws error when user email is already verified', async () => {
+      const mockUser = {
+        id: 1,
+        email: 'test@example.com',
+        emailVerified: new Date(),
+      }
+
+      mockDb.user.findUnique.mockResolvedValue(mockUser)
+
+      const caller = createCaller({
+        db: mockDb,
+        session: {
+          user: {
+            id: '1',
+            email: 'test@example.com',
+          },
+        },
+        headers: new Headers(),
+      })
+
+      await expect(caller.sendVerificationEmail()).rejects.toThrow(
+        'Email is already verified',
+      )
+
+      expect(sendVerificationEmail).not.toHaveBeenCalled()
+    })
+
+    it('throws rate limit error when too many attempts', async () => {
+      const mockUser = {
+        id: 1,
+        email: 'test@example.com',
+        emailVerified: null,
+      }
+
+      mockDb.user.findUnique.mockResolvedValue(mockUser)
+      vi.mocked(checkGuestRateLimit).mockRejectedValue(
+        new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message:
+            'Too many verification email requests. Please wait before requesting another email.',
+        }),
+      )
+
+      const caller = createCaller({
+        db: mockDb,
+        session: {
+          user: {
+            id: '1',
+            email: 'test@example.com',
+          },
+        },
+        headers: new Headers(),
+      })
+
+      await expect(caller.sendVerificationEmail()).rejects.toThrow(
+        'Too many verification email requests',
+      )
+
+      expect(sendVerificationEmail).not.toHaveBeenCalled()
+    })
+
+    it('throws error when user is not found', async () => {
+      mockDb.user.findUnique.mockResolvedValue(null)
+
+      const caller = createCaller({
+        db: mockDb,
+        session: {
+          user: {
+            id: '999',
+            email: 'nonexistent@example.com',
+          },
+        },
+        headers: new Headers(),
+      })
+
+      await expect(caller.sendVerificationEmail()).rejects.toThrow(
+        'User not found',
+      )
+    })
+  })
+
+  describe('verifyEmail', () => {
+    it('verifies email when token is valid', async () => {
+      const mockToken = {
+        id: 1,
+        userId: 1,
+        hashedToken: 'mock-hashed-token',
+        type: 'VERIFY_EMAIL',
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
+      }
+
+      mockDb.token.findFirst.mockResolvedValue(mockToken)
+      mockDb.user.update.mockResolvedValue({ id: 1 })
+      mockDb.token.delete.mockResolvedValue(mockToken)
+
+      const caller = createCaller({
+        db: mockDb,
+        session: null,
+        headers: new Headers(),
+      })
+
+      const result = await caller.verifyEmail({ token: 'valid-token' })
+
+      expect(result).toEqual({ success: true })
+      expect(mockDb.user.update).toHaveBeenCalledWith({
+        where: { id: 1 },
+        data: { emailVerified: expect.any(Date) },
+      })
+      expect(mockDb.token.delete).toHaveBeenCalledWith({ where: { id: 1 } })
+    })
+
+    it('throws error when token is invalid or expired', async () => {
+      mockDb.token.findFirst.mockResolvedValue(null)
+
+      const caller = createCaller({
+        db: mockDb,
+        session: null,
+        headers: new Headers(),
+      })
+
+      await expect(
+        caller.verifyEmail({ token: 'invalid-token' }),
+      ).rejects.toThrow('Invalid or expired verification token')
 
       expect(mockDb.user.update).not.toHaveBeenCalled()
     })

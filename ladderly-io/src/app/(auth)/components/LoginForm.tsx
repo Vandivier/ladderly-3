@@ -1,17 +1,32 @@
 'use client'
 
 import { FORM_ERROR } from 'final-form'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { Login as LoginSchema } from '~/app/(auth)/schemas'
 import { Form } from '~/app/core/components/Form'
 import { LabeledTextField } from '~/app/core/components/LabeledTextField'
 
 export const LoginForm = () => {
   const router = useRouter()
+  const { data: session, status } = useSession()
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
+  const [loginSuccess, setLoginSuccess] = useState(false)
+
+  // Redirect once session is available after successful login
+  useEffect(() => {
+    if (loginSuccess && status === 'authenticated' && session?.user) {
+      router.push('/?refresh_current_user=true')
+      router.refresh()
+    }
+  }, [loginSuccess, status, session, router])
 
   const handleSubmit = async (values: { email: string; password: string }) => {
+    setIsLoggingIn(true)
+    setLoginSuccess(false)
+
     const result = await signIn('credentials', {
       redirect: false,
       email: values.email,
@@ -19,13 +34,23 @@ export const LoginForm = () => {
     })
 
     if (result?.error) {
+      setIsLoggingIn(false)
       return { [FORM_ERROR]: result.error }
     }
 
     if (result?.ok) {
-      router.push('/?refresh_current_user=true')
-      router.refresh()
+      setLoginSuccess(true)
+      // Session will be updated via useSession hook, triggering the useEffect above
     }
+  }
+
+  if (isLoggingIn || loginSuccess) {
+    return (
+      <div className="m-2 w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+        <h1 className="mb-4 text-2xl font-bold text-gray-800">Logging in...</h1>
+        <p className="text-gray-600">Please wait while we sign you in.</p>
+      </div>
+    )
   }
 
   return (

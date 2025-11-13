@@ -1,7 +1,10 @@
 import { JobApplicationStatus } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
-import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
+import {
+  createTRPCRouter,
+  protectedProcedureWithVerifiedEmail,
+} from '~/server/api/trpc'
 import {
   JobPostForCandidateCreateSchema,
   UpdateJobPostStatusSchema,
@@ -10,7 +13,7 @@ import {
 
 export const jobPostRouter = createTRPCRouter({
   // Create a new job post for candidate
-  create: protectedProcedure
+  create: protectedProcedureWithVerifiedEmail
     .input(JobPostForCandidateCreateSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -59,7 +62,7 @@ export const jobPostRouter = createTRPCRouter({
     }),
 
   // Delete a job post
-  delete: protectedProcedure
+  delete: protectedProcedureWithVerifiedEmail
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -103,7 +106,7 @@ export const jobPostRouter = createTRPCRouter({
     }),
 
   // Get a single job post by ID
-  get: protectedProcedure
+  get: protectedProcedureWithVerifiedEmail
     .input(z.object({ id: z.number() }))
     .query(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -141,7 +144,7 @@ export const jobPostRouter = createTRPCRouter({
     }),
 
   // Update job application status
-  updateStatus: protectedProcedure
+  updateStatus: protectedProcedureWithVerifiedEmail
     .input(UpdateJobPostStatusSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -181,7 +184,7 @@ export const jobPostRouter = createTRPCRouter({
     }),
 
   // Update Job Post (general fields)
-  update: protectedProcedure
+  update: protectedProcedureWithVerifiedEmail
     .input(JobPostForCandidateUpdateSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
