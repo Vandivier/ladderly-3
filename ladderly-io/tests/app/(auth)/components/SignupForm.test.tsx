@@ -1,5 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { PaymentTierEnum } from '@prisma/client'
+import type { Session } from 'next-auth'
 import SignupForm from '~/app/(auth)/components/SignupForm'
 
 // Mock next-auth/react
@@ -67,8 +69,9 @@ describe('SignupForm', () => {
 
   it('calls onSuccess callback when provided', async () => {
     const mockOnSuccess = vi.fn()
-    let sessionStatus = 'unauthenticated'
-    let sessionData = null
+    let sessionStatus: 'authenticated' | 'unauthenticated' | 'loading' =
+      'unauthenticated'
+    let sessionData: Session | null = null
 
     mockUseSession.mockImplementation(() => ({
       data: sessionData,
@@ -103,7 +106,15 @@ describe('SignupForm', () => {
       user: {
         id: '123',
         email: 'test@example.com',
+        name: null,
+        image: null,
+        subscription: {
+          tier: PaymentTierEnum.FREE,
+          type: 'FREE',
+        },
+        emailVerified: null,
       },
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
     }
 
     mockUseSession.mockReturnValue({
@@ -208,11 +219,13 @@ describe('SignupForm', () => {
       expect(mockMutateAsync).toHaveBeenCalled()
     })
 
-    // Should not show loading state after error
-    expect(
-      screen.queryByText('Creating your account...'),
-    ).not.toBeInTheDocument()
-    expect(mockSignIn).not.toHaveBeenCalled()
+    // Wait for error handling to complete and component to re-render
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Creating your account...'),
+      ).not.toBeInTheDocument()
+      expect(mockSignIn).not.toHaveBeenCalled()
+    })
     // Form should still be visible (not in loading state)
     expect(screen.getByText('Create an Account')).toBeInTheDocument()
   })
@@ -235,10 +248,13 @@ describe('SignupForm', () => {
       expect(mockMutateAsync).toHaveBeenCalled()
     })
 
-    expect(
-      screen.queryByText('Creating your account...'),
-    ).not.toBeInTheDocument()
-    expect(mockSignIn).not.toHaveBeenCalled()
+    // Wait for error handling to complete and component to re-render
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Creating your account...'),
+      ).not.toBeInTheDocument()
+      expect(mockSignIn).not.toHaveBeenCalled()
+    })
     // Form should still be visible (not in loading state)
     expect(screen.getByText('Create an Account')).toBeInTheDocument()
   })
@@ -277,8 +293,9 @@ describe('SignupForm', () => {
   })
 
   it('redirects when session becomes authenticated after successful signup', async () => {
-    let sessionStatus = 'unauthenticated'
-    let sessionData = null
+    let sessionStatus: 'authenticated' | 'unauthenticated' | 'loading' =
+      'unauthenticated'
+    let sessionData: Session | null = null
 
     mockUseSession.mockImplementation(() => ({
       data: sessionData,
@@ -311,7 +328,15 @@ describe('SignupForm', () => {
       user: {
         id: '123',
         email: 'test@example.com',
+        name: null,
+        image: null,
+        subscription: {
+          tier: PaymentTierEnum.FREE,
+          type: 'FREE',
+        },
+        emailVerified: null,
       },
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
     }
 
     mockUseSession.mockReturnValue({

@@ -54,6 +54,7 @@ Full package.json content:
     "eslint-plugin-tailwindcss": "^3.17.5",
     "geist": "^1.3.0",
     "gray-matter": "^4.0.3",
+    "katex": "^0.16.25",
     "lucide-react": "^0.469.0",
     "next": "^14.2.4",
     "next-auth": "^4.24.7",
@@ -70,11 +71,13 @@ Full package.json content:
     "rehype-autolink-headings": "^7.1.0",
     "rehype-external-links": "^3.0.0",
     "rehype-highlight": "^7.0.1",
+    "rehype-katex": "^7.0.1",
     "rehype-slug": "^6.0.0",
     "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
     "remark-directive": "^4.0.0",
     "remark-gfm": "^4.0.0",
+    "remark-math": "^6.0.0",
     "server-only": "^0.0.1",
     "stripe": "^14.18.0",
     "superjson": "^2.2.1",
@@ -354,6 +357,8 @@ src/
         src/app/core/
             utils.ts
             src/app/core/components/
+                EmailVerificationChecker.tsx
+                EmailVerificationModal.tsx
                 Form.tsx
                 LabeledAutocompleteField.tsx
                 LabeledCheckboxField.tsx
@@ -481,6 +486,8 @@ src/
                 page.tsx
                 src/app/settings/email-preferences/components/
                     EmailPreferencesFormWrapper.tsx
+        src/app/verify-email/
+            page.tsx
     src/pages/
         src/pages/api/
             send-journal-reminders.ts
@@ -514,6 +521,7 @@ src/
             forgotPasswordMailer.ts
             journalReminderMailer.ts
             utils.ts
+            verifyEmailMailer.ts
         src/server/utils/
             rateLimit.ts
     src/styles/
@@ -528,6 +536,10 @@ tests/
     setup.tsx
     tests/app/
         page.test.tsx
+        tests/app/(auth)/
+            tests/app/(auth)/components/
+                LoginForm.test.tsx
+                SignupForm.test.tsx
         tests/app/api/
             tests/app/api/webhooks/
                 tests/app/api/webhooks/stripe/
@@ -542,9 +554,13 @@ tests/
         tests/app/core/
             utils.test.ts
             tests/app/core/components/
+                EmailVerificationChecker.test.tsx
+                EmailVerificationModal.test.tsx
                 LabeledCheckboxField.test.tsx
                 LabeledDateField.test.tsx
                 LabeledTextField.test.tsx
+                tests/app/core/components/page-wrapper/
+                    TopNavRight.test.tsx
                 tests/app/core/components/pricing-grid/
                     PricingGrid.test.tsx
         tests/app/courses/
@@ -559,6 +575,8 @@ tests/
             tests/server/api/routers/
                 auth.test.ts
                 user.test.ts
+        tests/server/mailers/
+            verifyEmailMailer.test.ts
         tests/server/utils/
             rateLimit.test.ts
 

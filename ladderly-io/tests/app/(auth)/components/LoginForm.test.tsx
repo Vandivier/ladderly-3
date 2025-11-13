@@ -1,5 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { PaymentTierEnum } from '@prisma/client'
+import type { Session } from 'next-auth'
 import { LoginForm } from '~/app/(auth)/components/LoginForm'
 
 // Mock next-auth/react
@@ -125,8 +127,9 @@ describe('LoginForm', () => {
   })
 
   it('redirects when session becomes authenticated after successful login', async () => {
-    let sessionStatus = 'unauthenticated'
-    let sessionData = null
+    let sessionStatus: 'authenticated' | 'unauthenticated' | 'loading' =
+      'unauthenticated'
+    let sessionData: Session | null = null
 
     mockUseSession.mockImplementation(() => ({
       data: sessionData,
@@ -158,7 +161,15 @@ describe('LoginForm', () => {
       user: {
         id: '123',
         email: 'test@example.com',
+        name: null,
+        image: null,
+        subscription: {
+          tier: PaymentTierEnum.FREE,
+          type: 'FREE',
+        },
+        emailVerified: null,
       },
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
     }
 
     // Update mock and re-render to trigger useEffect
