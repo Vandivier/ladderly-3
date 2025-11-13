@@ -490,6 +490,7 @@ describe('userRouter', () => {
         email: 'test@example.com',
         emailBackup: '',
         emailStripe: '',
+        emailVerified: new Date('2024-01-01'),
         nameFirst: 'Test',
         nameLast: 'User',
         hasOpenToWork: false,
@@ -549,6 +550,7 @@ describe('userRouter', () => {
         email: 'test@example.com',
         emailBackup: '',
         emailStripe: '',
+        emailVerified: null,
         nameFirst: 'Test',
         nameLast: 'User',
         hasOpenToWork: false,
@@ -648,6 +650,7 @@ describe('userRouter', () => {
       const mockUpdatedUser = {
         id: 1,
         ...updateData,
+        emailVerified: new Date('2024-01-01'),
         subscriptions: [
           {
             tier: PaymentTierEnum.PREMIUM,

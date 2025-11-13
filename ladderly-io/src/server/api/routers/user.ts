@@ -330,6 +330,7 @@ export const userRouter = createTRPCRouter({
         email: user.email,
         emailBackup: user.emailBackup,
         emailStripe: user.emailStripe,
+        emailVerified: user.emailVerified,
         hasInPersonEventInterest: user.hasInPersonEventInterest,
         hasLiveStreamInterest: user.hasLiveStreamInterest,
         hasOnlineEventInterest: user.hasOnlineEventInterest,
