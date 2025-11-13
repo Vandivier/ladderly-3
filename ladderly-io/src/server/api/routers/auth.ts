@@ -1,9 +1,5 @@
 import { z } from 'zod'
-import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from '~/server/api/trpc'
+import { createTRPCRouter, publicProcedure } from '~/server/api/trpc'
 import { TRPCError } from '@trpc/server'
 import { sendForgotPasswordEmail } from '~/server/mailers/forgotPasswordMailer'
 import { sendVerificationEmail } from '~/server/mailers/verifyEmailMailer'
@@ -15,6 +11,7 @@ import {
   getIpAddressFromHeaders,
   recordAuthAttemptByIp,
 } from '~/server/utils/rateLimit'
+import { protectedProcedureWithoutEmailVerification } from '~/server/api/trpc'
 
 export const LoginSchema = z.object({
   email: z.string().email(),
@@ -207,59 +204,64 @@ export const authRouter = createTRPCRouter({
     return { success: true, userId: user.id }
   }),
 
-  sendVerificationEmail: protectedProcedure.mutation(async ({ ctx }) => {
-    const userId = parseInt(ctx.session.user.id)
-    const user = await ctx.db.user.findUnique({
-      where: { id: userId },
-    })
-
-    if (!user) {
-      throw new TRPCError({
-        code: 'NOT_FOUND',
-        message: 'User not found',
+  sendVerificationEmail: protectedProcedureWithoutEmailVerification.mutation(
+    async ({ ctx }) => {
+      const userId = parseInt(ctx.session.user.id)
+      const user = await ctx.db.user.findUnique({
+        where: { id: userId },
       })
-    }
 
-    if (user.emailVerified) {
-      throw new TRPCError({
-        code: 'BAD_REQUEST',
-        message: 'Email is already verified',
-      })
-    }
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'User not found',
+        })
+      }
 
-    // Rate limiting for email verification (uses defaults: max 3 attempts per hour)
-    const ipAddress = getIpAddressFromHeaders(ctx.headers)
-    await checkGuestRateLimit({
-      db: ctx.db,
-      userId: user.id,
-      email: user.email,
-      ipAddress,
-      action: 'verify_email',
-      errorMessage:
-        'Too many verification email requests. Please wait before requesting another email.',
-    })
+      if (user.emailVerified) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Email is already verified',
+        })
+      }
 
-    const token = crypto.randomBytes(32).toString('hex')
-    const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
-    const twentyFourHours = 24 * 60 * 60 * 1000
-
-    await ctx.db.token.create({
-      data: {
+      // Rate limiting for email verification (uses defaults: max 3 attempts per hour)
+      const ipAddress = getIpAddressFromHeaders(ctx.headers)
+      await checkGuestRateLimit({
+        db: ctx.db,
         userId: user.id,
-        hashedToken,
-        type: 'VERIFY_EMAIL',
-        expiresAt: new Date(Date.now() + twentyFourHours),
-        sentTo: user.email,
-      },
-    })
+        email: user.email,
+        ipAddress,
+        action: 'verify_email',
+        errorMessage:
+          'Too many verification email requests. Please wait before requesting another email.',
+      })
 
-    // Record verification email attempt by IP for tracking
-    recordAuthAttemptByIp(ipAddress)
+      const token = crypto.randomBytes(32).toString('hex')
+      const hashedToken = crypto
+        .createHash('sha256')
+        .update(token)
+        .digest('hex')
+      const twentyFourHours = 24 * 60 * 60 * 1000
 
-    await sendVerificationEmail({ to: user.email, token })
+      await ctx.db.token.create({
+        data: {
+          userId: user.id,
+          hashedToken,
+          type: 'VERIFY_EMAIL',
+          expiresAt: new Date(Date.now() + twentyFourHours),
+          sentTo: user.email,
+        },
+      })
 
-    return { success: true }
-  }),
+      // Record verification email attempt by IP for tracking
+      recordAuthAttemptByIp(ipAddress)
+
+      await sendVerificationEmail({ to: user.email, token })
+
+      return { success: true }
+    },
+  ),
 
   verifyEmail: publicProcedure
     .input(z.object({ token: z.string() }))

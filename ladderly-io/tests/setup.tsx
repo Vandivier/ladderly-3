@@ -172,6 +172,26 @@ vi.mock('~/server/api/trpc', () => {
           fn,
       }),
     },
+    protectedProcedureWithVerifiedEmail: {
+      query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+      mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+        fn,
+      input: (schema: unknown) => ({
+        query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+        mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+          fn,
+      }),
+    },
+    protectedProcedureWithoutEmailVerification: {
+      query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+      mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+        fn,
+      input: (schema: unknown) => ({
+        query: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) => fn,
+        mutation: (fn: (args: { ctx: any; input: any }) => Promise<unknown>) =>
+          fn,
+      }),
+    },
     createCallerFactory,
     createTRPCContext: ({ headers = new Headers(), ...rest } = {}) => ({
       headers,

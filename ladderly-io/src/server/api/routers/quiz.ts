@@ -1,10 +1,13 @@
 import { z } from 'zod'
 import { TRPCError } from '@trpc/server'
-import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
+import {
+  createTRPCRouter,
+  protectedProcedureWithVerifiedEmail,
+} from '~/server/api/trpc'
 
 export const quizRouter = createTRPCRouter({
   // Get quiz info including last attempt and cooldown status
-  getQuizInfo: protectedProcedure
+  getQuizInfo: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         courseSlug: z.string(),
@@ -70,7 +73,7 @@ export const quizRouter = createTRPCRouter({
     }),
 
   // Get 50 random flashcards from a deck for a quiz
-  getQuizFlashcards: protectedProcedure
+  getQuizFlashcards: protectedProcedureWithVerifiedEmail
     .input(z.object({ quizId: z.number() }))
     .query(async ({ ctx, input }) => {
       // Get the quiz with its flashcard deck
@@ -115,7 +118,7 @@ export const quizRouter = createTRPCRouter({
     }),
 
   // Record a new quiz attempt
-  submitQuizAttempt: protectedProcedure
+  submitQuizAttempt: protectedProcedureWithVerifiedEmail
     .input(
       z.object({
         quizId: z.number(),
@@ -177,7 +180,7 @@ export const quizRouter = createTRPCRouter({
     }),
 
   // Get a user's quiz history
-  getUserQuizHistory: protectedProcedure
+  getUserQuizHistory: protectedProcedureWithVerifiedEmail
     .input(z.object({ quizId: z.number() }))
     .query(async ({ ctx, input }) => {
       const userId = +ctx.session.user.id

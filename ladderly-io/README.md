@@ -64,3 +64,14 @@ This application implements a two-tier rate limiting system to protect against a
 5. **DDoS Protection**: Whole-service auth limit (10/min) prevents distributed attacks across all auth endpoints
 
 Both systems use in-memory caching with automatic cleanup to prevent memory leaks. In production, consider migrating to Redis or another distributed cache for multi-instance deployments.
+
+### Email Verification Gating
+
+This application requires email verification for all user-facing write operations and sensitive read operations:
+
+- **Purpose**: Ensure users have verified their email address before accessing protected features
+- **Implementation**: Opt-in via `protectedProcedureWithVerifiedEmail` procedure
+- **Coverage**: 42 endpoints across User Management, Journal & Practice, Checklists, Learning & Assessment, AI Chat, and Job Search Management
+- **Exemptions**: `auth.sendVerificationEmail` uses `protectedProcedureWithoutEmailVerification` to allow users to request verification emails
+- **Location**: `src/server/api/trpc.ts` - `protectedProcedureWithVerifiedEmail`
+- **User Experience**: Unverified users see a modal prompting email verification; closing the modal logs them out
