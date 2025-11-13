@@ -5,7 +5,11 @@ import { sendForgotPasswordEmail } from '~/server/mailers/forgotPasswordMailer'
 import crypto from 'crypto'
 import * as argon2 from 'argon2'
 import { Signup } from '~/app/(auth)/schemas'
-import { checkGuestRateLimit } from '~/server/utils/rateLimit'
+import {
+  checkGuestRateLimit,
+  getIpAddressFromHeaders,
+  recordAuthAttemptByIp,
+} from '~/server/utils/rateLimit'
 
 export const LoginSchema = z.object({
   email: z.string().email(),
@@ -20,9 +24,11 @@ export const authRouter = createTRPCRouter({
 
       // Rate limiting for guests only
       if (!ctx.session?.user) {
+        const ipAddress = getIpAddressFromHeaders(ctx.headers)
         await checkGuestRateLimit({
           db: ctx.db,
           email,
+          ipAddress,
           action: 'login',
           errorMessage:
             'Too many login attempts. Please wait before trying again.',
@@ -66,9 +72,12 @@ export const authRouter = createTRPCRouter({
 
       // Rate limiting for guests only
       if (!ctx.session?.user) {
+        const ipAddress = getIpAddressFromHeaders(ctx.headers)
         await checkGuestRateLimit({
           db: ctx.db,
           userId: user.id,
+          email: user.email,
+          ipAddress,
           action: 'password_reset',
         })
       }
@@ -89,6 +98,10 @@ export const authRouter = createTRPCRouter({
           sentTo: user.email,
         },
       })
+
+      // Record password reset attempt by IP for tracking
+      const ipAddress = getIpAddressFromHeaders(ctx.headers)
+      recordAuthAttemptByIp(ipAddress)
 
       await sendForgotPasswordEmail({ to: user.email, token })
 
@@ -150,9 +163,11 @@ export const authRouter = createTRPCRouter({
 
     // Rate limiting for guests only
     if (!ctx.session?.user) {
+      const ipAddress = getIpAddressFromHeaders(ctx.headers)
       await checkGuestRateLimit({
         db: ctx.db,
         email,
+        ipAddress,
         // Uses default: maxAttempts: 3, windowMs: 1 hour
         action: 'signup',
         errorMessage:
@@ -179,6 +194,10 @@ export const authRouter = createTRPCRouter({
         hashedPassword,
       },
     })
+
+    // Record successful signup attempt by IP for tracking
+    const ipAddress = getIpAddressFromHeaders(ctx.headers)
+    recordAuthAttemptByIp(ipAddress)
 
     return { success: true, userId: user.id }
   }),

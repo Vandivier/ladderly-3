@@ -103,7 +103,7 @@ export const CreateJournalEntryForm = ({
       }
 
       createEntryMutation.mutate(values)
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred')
     }
   }

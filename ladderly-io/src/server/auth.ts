@@ -23,7 +23,10 @@ import { env } from '~/env'
 import { db } from '~/server/db'
 import { LadderlyMigrationAdapter } from './LadderlyMigrationAdapter'
 import type { JWT } from 'next-auth/jwt'
-import { checkGuestRateLimit } from './utils/rateLimit'
+import {
+  checkGuestRateLimit,
+  recordFailedLoginAttempt,
+} from './utils/rateLimit'
 
 export interface LadderlySession extends DefaultSession {
   user?: {
@@ -235,10 +238,14 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user) {
+          // Record failed login attempt for non-existent user
+          recordFailedLoginAttempt(credentials.email)
           throw new Error(AUTH_ERROR_MESSAGE)
         }
 
         if (!user.hashedPassword) {
+          // Record failed login attempt
+          recordFailedLoginAttempt(credentials.email)
           // Trigger password reset flow
           throw new Error(
             'Password reset required. Please check your email to reset your password.',
@@ -252,6 +259,8 @@ export const authOptions: NextAuthOptions = {
           )
 
           if (!isValid) {
+            // Record failed login attempt
+            recordFailedLoginAttempt(credentials.email)
             throw new Error(AUTH_ERROR_MESSAGE)
           }
 
