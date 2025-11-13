@@ -77,6 +77,10 @@ export function EmailVerificationModal({
             Please verify your email address ({email}) to access all site
             features.
           </p>
+          <p className="mt-2 text-sm font-semibold text-red-600 dark:text-red-400">
+            Warning: If you close this modal without verifying your email, you
+            will be logged out and will need to sign in again.
+          </p>
         </div>
 
         {message && (

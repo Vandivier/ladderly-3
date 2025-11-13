@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { EmailVerificationModal } from './EmailVerificationModal'
 import type { LadderlySession } from '~/server/auth'
 
@@ -32,10 +32,17 @@ export function EmailVerificationChecker() {
     return null
   }
 
+  const handleClose = () => {
+    // Force logout if user tries to close without verifying
+    void signOut({
+      callbackUrl: '/',
+    })
+  }
+
   return (
     <EmailVerificationModal
       email={ladderlySession.user.email}
-      onClose={() => setShowModal(false)}
+      onClose={handleClose}
     />
   )
 }

@@ -73,6 +73,13 @@ describe('EmailVerificationModal', () => {
     // Check for the Close button at bottom (has text content)
     const closeButton = screen.getByText('Close')
     expect(closeButton).toBeInTheDocument()
+
+    // Check for warning message about logout
+    expect(
+      screen.getByText(
+        /Warning: If you close this modal without verifying your email, you will be logged out/i,
+      ),
+    ).toBeInTheDocument()
   })
 
   it('does not render close buttons when onClose is not provided', () => {
