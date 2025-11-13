@@ -128,9 +128,9 @@ function checkWholeServiceAuthLimit(ipAddress?: string): void {
     })
   }
 
-  // Record this attempt
-  recentAttempts.push(Date.now())
-  wholeServiceAuthAttempts.set(ipAddress, recentAttempts)
+  // Record this attempt (add to original attempts array, not filtered array)
+  attempts.push(Date.now())
+  wholeServiceAuthAttempts.set(ipAddress, attempts)
 }
 
 /**

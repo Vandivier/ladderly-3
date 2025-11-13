@@ -7,6 +7,12 @@ import crypto from 'crypto'
 // Mock the rate limit utility
 vi.mock('~/server/utils/rateLimit', () => ({
   checkGuestRateLimit: vi.fn(),
+  getIpAddressFromHeaders: vi.fn((headers: Headers) => {
+    const forwardedFor = headers.get('x-forwarded-for')
+    const realIp = headers.get('x-real-ip')
+    return forwardedFor?.split(',')[0]?.trim() ?? realIp ?? 'unknown'
+  }),
+  recordAuthAttemptByIp: vi.fn(),
 }))
 
 // Mock the forgot password mailer
@@ -105,6 +111,8 @@ describe('authRouter', () => {
       expect(rateLimit.checkGuestRateLimit).toHaveBeenCalledWith({
         db: mockDb,
         userId: 1,
+        email: 'test@example.com',
+        ipAddress: 'unknown',
         action: 'password_reset',
       })
       expect(forgotPasswordMailer.sendForgotPasswordEmail).toHaveBeenCalled()
@@ -214,6 +222,7 @@ describe('authRouter', () => {
       expect(rateLimit.checkGuestRateLimit).toHaveBeenCalledWith({
         db: mockDb,
         email: 'newuser@example.com',
+        ipAddress: 'unknown',
         action: 'signup',
         errorMessage:
           'Too many signup attempts. Please wait before trying again.',
@@ -296,6 +305,7 @@ describe('authRouter', () => {
       expect(rateLimit.checkGuestRateLimit).toHaveBeenCalledWith({
         db: mockDb,
         email: 'test@example.com',
+        ipAddress: 'unknown',
         action: 'login',
         errorMessage:
           'Too many login attempts. Please wait before trying again.',

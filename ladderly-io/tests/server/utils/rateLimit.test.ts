@@ -1,11 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { TRPCError } from '@trpc/server'
-import {
-  checkGuestRateLimit,
-  recordFailedLoginAttempt,
-  recordAuthAttemptByIp,
-  getIpAddressFromHeaders,
-} from '~/server/utils/rateLimit'
 
 // Create a mock database object
 const mockDb = {
@@ -23,12 +17,13 @@ describe('checkGuestRateLimit', () => {
     vi.clearAllMocks()
     // Reset Date.now mock if it was set
     vi.useRealTimers()
-    // Clear in-memory rate limit caches by re-importing the module
-    // Note: In a real scenario, you'd want to expose a reset function or use a test helper
+    // Reset modules to get fresh rate limit caches between tests
+    vi.resetModules()
   })
 
   describe('signup action', () => {
     it('allows signup when under rate limit by email', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.user.count.mockResolvedValue(2) // Below limit of 3
 
       await expect(
@@ -49,6 +44,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('allows signup when under rate limit by IP', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.user.count.mockResolvedValue(0) // No signups by email
       // No IP attempts recorded yet
 
@@ -64,6 +60,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when signup rate limit exceeded by email', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.user.count.mockResolvedValue(3) // At limit of 3
 
       await expect(
@@ -86,6 +83,9 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when signup rate limit exceeded by IP', async () => {
+      const { checkGuestRateLimit, recordAuthAttemptByIp } = await import(
+        '~/server/utils/rateLimit'
+      )
       mockDb.user.count.mockResolvedValue(0) // No signups by email
       const ipAddress = '192.168.1.1'
       const now = Date.now()
@@ -113,6 +113,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('uses custom error message when provided', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.user.count.mockResolvedValue(3)
 
       await expect(
@@ -127,6 +128,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when email is missing', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       await expect(
         checkGuestRateLimit({
           db: mockDb as any,
@@ -136,6 +138,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('normalizes email to lowercase', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.user.count.mockResolvedValue(0)
 
       await checkGuestRateLimit({
@@ -155,6 +158,7 @@ describe('checkGuestRateLimit', () => {
 
   describe('login action', () => {
     it('allows login when under rate limit by email', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       // No failed attempts recorded yet
       await expect(
         checkGuestRateLimit({
@@ -167,6 +171,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('allows login when under rate limit by IP', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       await expect(
         checkGuestRateLimit({
           db: mockDb as any,
@@ -179,6 +184,9 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when login rate limit exceeded by email', async () => {
+      const { checkGuestRateLimit, recordFailedLoginAttempt } = await import(
+        '~/server/utils/rateLimit'
+      )
       // Record 3 failed attempts for this email
       const now = Date.now()
       recordFailedLoginAttempt('test@example.com')
@@ -212,6 +220,9 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when login rate limit exceeded by IP', async () => {
+      const { checkGuestRateLimit, recordFailedLoginAttempt } = await import(
+        '~/server/utils/rateLimit'
+      )
       const ipAddress = '192.168.1.1'
       const now = Date.now()
 
@@ -238,6 +249,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when email is missing', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       await expect(
         checkGuestRateLimit({
           db: mockDb as any,
@@ -247,6 +259,9 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('allows login when rate limit exceeded but outside time window', async () => {
+      const { checkGuestRateLimit, recordFailedLoginAttempt } = await import(
+        '~/server/utils/rateLimit'
+      )
       const now = Date.now()
       recordFailedLoginAttempt('test@example.com')
       recordFailedLoginAttempt('test@example.com')
@@ -272,6 +287,7 @@ describe('checkGuestRateLimit', () => {
 
   describe('password_reset action', () => {
     it('allows password reset when under rate limit by userId', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.token.count.mockResolvedValue(2) // Below limit of 3
 
       await expect(
@@ -293,6 +309,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('allows password reset when under rate limit by IP', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.token.count.mockResolvedValue(0) // No resets by userId
       // No IP attempts recorded yet
 
@@ -309,6 +326,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when password reset rate limit exceeded by userId', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.token.count.mockResolvedValue(3) // At limit of 3
 
       await expect(
@@ -331,6 +349,9 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when password reset rate limit exceeded by IP', async () => {
+      const { checkGuestRateLimit, recordAuthAttemptByIp } = await import(
+        '~/server/utils/rateLimit'
+      )
       mockDb.token.count.mockResolvedValue(0) // No resets by userId
       const ipAddress = '192.168.1.1'
       const now = Date.now()
@@ -359,6 +380,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when userId and email are both missing', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       await expect(
         checkGuestRateLimit({
           db: mockDb as any,
@@ -372,6 +394,7 @@ describe('checkGuestRateLimit', () => {
 
   describe('time window', () => {
     it('uses default 1 hour window', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       vi.useFakeTimers()
       const now = new Date('2024-01-01T12:00:00Z')
       vi.setSystemTime(now)
@@ -397,6 +420,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('uses custom window when provided', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       vi.useFakeTimers()
       const now = new Date('2024-01-01T12:00:00Z')
       vi.setSystemTime(now)
@@ -424,6 +448,7 @@ describe('checkGuestRateLimit', () => {
 
   describe('default values', () => {
     it('uses default maxAttempts of 3', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.user.count.mockResolvedValue(3) // At default limit
 
       await expect(
@@ -437,6 +462,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('uses default windowMs of 1 hour', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       vi.useFakeTimers()
       const now = new Date('2024-01-01T12:00:00Z')
       vi.setSystemTime(now)
@@ -462,6 +488,7 @@ describe('checkGuestRateLimit', () => {
 
   describe('whole-service auth rate limiting', () => {
     it('allows auth operations when under whole-service limit', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       // No whole-service attempts recorded yet
       await expect(
         checkGuestRateLimit({
@@ -474,6 +501,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when whole-service limit exceeded (10 per minute)', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       const ipAddress = '192.168.1.1'
       const now = Date.now()
 
@@ -506,6 +534,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('allows auth operations when whole-service limit exceeded but outside time window', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       const ipAddress = '192.168.1.1'
       const now = Date.now()
 
@@ -538,6 +567,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('skips whole-service limit check when IP is unknown', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       mockDb.user.count.mockResolvedValue(0)
 
       await expect(
@@ -551,6 +581,7 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('applies whole-service limit across different auth actions', async () => {
+      const { checkGuestRateLimit } = await import('~/server/utils/rateLimit')
       const ipAddress = '192.168.1.1'
       const now = Date.now()
 
@@ -605,7 +636,10 @@ describe('checkGuestRateLimit', () => {
   })
 
   describe('getIpAddressFromHeaders', () => {
-    it('extracts IP from x-forwarded-for header', () => {
+    it('extracts IP from x-forwarded-for header', async () => {
+      const { getIpAddressFromHeaders } = await import(
+        '~/server/utils/rateLimit'
+      )
       const headers = new Headers()
       headers.set('x-forwarded-for', '192.168.1.1, 10.0.0.1')
 
@@ -613,7 +647,10 @@ describe('checkGuestRateLimit', () => {
       expect(ip).toBe('192.168.1.1')
     })
 
-    it('extracts IP from x-real-ip header when x-forwarded-for is missing', () => {
+    it('extracts IP from x-real-ip header when x-forwarded-for is missing', async () => {
+      const { getIpAddressFromHeaders } = await import(
+        '~/server/utils/rateLimit'
+      )
       const headers = new Headers()
       headers.set('x-real-ip', '192.168.1.2')
 
@@ -621,14 +658,20 @@ describe('checkGuestRateLimit', () => {
       expect(ip).toBe('192.168.1.2')
     })
 
-    it('returns unknown when no IP headers are present', () => {
+    it('returns unknown when no IP headers are present', async () => {
+      const { getIpAddressFromHeaders } = await import(
+        '~/server/utils/rateLimit'
+      )
       const headers = new Headers()
 
       const ip = getIpAddressFromHeaders(headers)
       expect(ip).toBe('unknown')
     })
 
-    it('prefers x-forwarded-for over x-real-ip', () => {
+    it('prefers x-forwarded-for over x-real-ip', async () => {
+      const { getIpAddressFromHeaders } = await import(
+        '~/server/utils/rateLimit'
+      )
       const headers = new Headers()
       headers.set('x-forwarded-for', '192.168.1.1')
       headers.set('x-real-ip', '192.168.1.2')
