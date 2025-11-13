@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from '../theme/ThemeContext'
 import { TRPCReactProvider } from '~/trpc/react'
+import { EmailVerificationChecker } from './EmailVerificationChecker'
 
 export const ProviderProvider = ({
   children,
@@ -9,6 +10,9 @@ export const ProviderProvider = ({
   children: React.ReactNode
 }) => (
   <TRPCReactProvider>
-    <ThemeProvider>{children}</ThemeProvider>
+    <ThemeProvider>
+      {children}
+      <EmailVerificationChecker />
+    </ThemeProvider>
   </TRPCReactProvider>
 )

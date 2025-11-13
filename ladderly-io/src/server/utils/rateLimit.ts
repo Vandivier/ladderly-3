@@ -101,7 +101,7 @@ type RateLimitOptions = {
   ipAddress?: string // IP address for rate limiting
   maxAttempts?: number // Defaults to 3
   windowMs?: number // Defaults to 1 hour
-  action: 'signup' | 'login' | 'password_reset'
+  action: 'signup' | 'login' | 'password_reset' | 'verify_email'
   errorMessage?: string
 }
 
@@ -266,6 +266,48 @@ export async function checkGuestRateLimit({
         message:
           errorMessage ??
           'Too many password reset requests. Please wait before requesting another reset.',
+      })
+    }
+  } else if (action === 'verify_email') {
+    if (!userId && !email) {
+      throw new Error(
+        'UserId or email is required for verify_email rate limiting',
+      )
+    }
+
+    let recentVerifyAttempts = 0
+    if (userId) {
+      // Check for recent verification email attempts by userId
+      recentVerifyAttempts = await db.token.count({
+        where: {
+          userId,
+          type: 'VERIFY_EMAIL',
+          createdAt: {
+            gte: windowStart,
+          },
+        },
+      })
+    }
+
+    // Also check by IP address if provided
+    let recentIpAttempts = 0
+    if (ipAddress && ipAddress !== 'unknown') {
+      const ipAttempts = authAttemptsByIp.get(ipAddress) ?? []
+      recentIpAttempts = ipAttempts.filter(
+        (timestamp) => timestamp >= windowStart.getTime(),
+      ).length
+    }
+
+    // Rate limit if EITHER userId OR IP exceeds the limit
+    if (
+      recentVerifyAttempts >= maxAttempts ||
+      recentIpAttempts >= maxAttempts
+    ) {
+      throw new TRPCError({
+        code: 'TOO_MANY_REQUESTS',
+        message:
+          errorMessage ??
+          'Too many verification email requests. Please wait before requesting another email.',
       })
     }
   }

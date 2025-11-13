@@ -38,6 +38,7 @@ export interface LadderlySession extends DefaultSession {
     email: string | null
     name: string | null
     image?: string | null
+    emailVerified: Date | null
   }
 }
 
@@ -90,6 +91,18 @@ export const authOptions: NextAuthOptions = {
           tier: PaymentTierEnum.FREE,
           type: 'ACCOUNT_PLAN',
         }
+        token.emailVerified = dbUser?.emailVerified ?? null
+      } else if (token.id) {
+        // On subsequent requests, refresh emailVerified from DB
+        const userId =
+          typeof token.id === 'string' ? parseInt(token.id) : token.id
+        const dbUser = await db.user.findUnique({
+          where: { id: userId },
+          select: { emailVerified: true },
+        })
+        if (dbUser) {
+          token.emailVerified = dbUser.emailVerified ?? null
+        }
       }
       return token
     },
@@ -115,6 +128,7 @@ export const authOptions: NextAuthOptions = {
                 tier: PaymentTierEnum
                 type: string
               },
+              emailVerified: (token.emailVerified as Date | null) ?? null,
             }
           : undefined,
       }
