@@ -1,6 +1,11 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { TRPCError } from '@trpc/server'
-import { checkGuestRateLimit } from '~/server/utils/rateLimit'
+import {
+  checkGuestRateLimit,
+  recordFailedLoginAttempt,
+  recordAuthAttemptByIp,
+  getIpAddressFromHeaders,
+} from '~/server/utils/rateLimit'
 
 // Create a mock database object
 const mockDb = {
@@ -18,10 +23,12 @@ describe('checkGuestRateLimit', () => {
     vi.clearAllMocks()
     // Reset Date.now mock if it was set
     vi.useRealTimers()
+    // Clear in-memory rate limit caches by re-importing the module
+    // Note: In a real scenario, you'd want to expose a reset function or use a test helper
   })
 
   describe('signup action', () => {
-    it('allows signup when under rate limit', async () => {
+    it('allows signup when under rate limit by email', async () => {
       mockDb.user.count.mockResolvedValue(2) // Below limit of 3
 
       await expect(
@@ -41,7 +48,22 @@ describe('checkGuestRateLimit', () => {
       })
     })
 
-    it('throws error when signup rate limit exceeded', async () => {
+    it('allows signup when under rate limit by IP', async () => {
+      mockDb.user.count.mockResolvedValue(0) // No signups by email
+      // No IP attempts recorded yet
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'test@example.com',
+          ipAddress: '192.168.1.1',
+          action: 'signup',
+          maxAttempts: 3,
+        }),
+      ).resolves.toBeUndefined()
+    })
+
+    it('throws error when signup rate limit exceeded by email', async () => {
       mockDb.user.count.mockResolvedValue(3) // At limit of 3
 
       await expect(
@@ -61,6 +83,33 @@ describe('checkGuestRateLimit', () => {
           maxAttempts: 3,
         }),
       ).rejects.toThrow('Too many signup attempts')
+    })
+
+    it('throws error when signup rate limit exceeded by IP', async () => {
+      mockDb.user.count.mockResolvedValue(0) // No signups by email
+      const ipAddress = '192.168.1.1'
+      const now = Date.now()
+
+      // Record 3 signup attempts for this IP
+      recordAuthAttemptByIp(ipAddress)
+      recordAuthAttemptByIp(ipAddress)
+      recordAuthAttemptByIp(ipAddress)
+
+      vi.useFakeTimers()
+      vi.setSystemTime(now + 1000)
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'newuser@example.com',
+          ipAddress,
+          action: 'signup',
+          maxAttempts: 3,
+          windowMs: 60 * 60 * 1000,
+        }),
+      ).rejects.toThrow('Too many signup attempts')
+
+      vi.useRealTimers()
     })
 
     it('uses custom error message when provided', async () => {
@@ -105,11 +154,8 @@ describe('checkGuestRateLimit', () => {
   })
 
   describe('login action', () => {
-    it('allows login when under rate limit', async () => {
-      const mockUser = { id: 1 }
-      mockDb.user.findUnique.mockResolvedValue(mockUser)
-      mockDb.token.count.mockResolvedValue(2) // Below limit of 3
-
+    it('allows login when under rate limit by email', async () => {
+      // No failed attempts recorded yet
       await expect(
         checkGuestRateLimit({
           db: mockDb as any,
@@ -118,35 +164,30 @@ describe('checkGuestRateLimit', () => {
           maxAttempts: 3,
         }),
       ).resolves.toBeUndefined()
-
-      expect(mockDb.token.count).toHaveBeenCalledWith({
-        where: {
-          userId: 1,
-          type: 'RESET_PASSWORD',
-          createdAt: expect.any(Object),
-        },
-      })
     })
 
-    it('allows login when user does not exist', async () => {
-      mockDb.user.findUnique.mockResolvedValue(null)
-
+    it('allows login when under rate limit by IP', async () => {
       await expect(
         checkGuestRateLimit({
           db: mockDb as any,
-          email: 'nonexistent@example.com',
+          email: 'test@example.com',
+          ipAddress: '192.168.1.1',
           action: 'login',
           maxAttempts: 3,
         }),
       ).resolves.toBeUndefined()
-
-      expect(mockDb.token.count).not.toHaveBeenCalled()
     })
 
-    it('throws error when login rate limit exceeded', async () => {
-      const mockUser = { id: 1 }
-      mockDb.user.findUnique.mockResolvedValue(mockUser)
-      mockDb.token.count.mockResolvedValue(3) // At limit of 3
+    it('throws error when login rate limit exceeded by email', async () => {
+      // Record 3 failed attempts for this email
+      const now = Date.now()
+      recordFailedLoginAttempt('test@example.com')
+      recordFailedLoginAttempt('test@example.com')
+      recordFailedLoginAttempt('test@example.com')
+
+      // Mock Date.now to return a time within the window
+      vi.useFakeTimers()
+      vi.setSystemTime(now + 1000) // 1 second later
 
       await expect(
         checkGuestRateLimit({
@@ -154,6 +195,7 @@ describe('checkGuestRateLimit', () => {
           email: 'test@example.com',
           action: 'login',
           maxAttempts: 3,
+          windowMs: 60 * 60 * 1000, // 1 hour
         }),
       ).rejects.toThrow(TRPCError)
 
@@ -165,6 +207,34 @@ describe('checkGuestRateLimit', () => {
           maxAttempts: 3,
         }),
       ).rejects.toThrow('Too many login attempts')
+
+      vi.useRealTimers()
+    })
+
+    it('throws error when login rate limit exceeded by IP', async () => {
+      const ipAddress = '192.168.1.1'
+      const now = Date.now()
+
+      // Record 3 failed attempts for this IP
+      recordFailedLoginAttempt('user1@example.com', ipAddress)
+      recordFailedLoginAttempt('user2@example.com', ipAddress)
+      recordFailedLoginAttempt('user3@example.com', ipAddress)
+
+      vi.useFakeTimers()
+      vi.setSystemTime(now + 1000)
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'newuser@example.com',
+          ipAddress,
+          action: 'login',
+          maxAttempts: 3,
+          windowMs: 60 * 60 * 1000,
+        }),
+      ).rejects.toThrow('Too many login attempts')
+
+      vi.useRealTimers()
     })
 
     it('throws error when email is missing', async () => {
@@ -175,10 +245,33 @@ describe('checkGuestRateLimit', () => {
         }),
       ).rejects.toThrow('Email is required for login rate limiting')
     })
+
+    it('allows login when rate limit exceeded but outside time window', async () => {
+      const now = Date.now()
+      recordFailedLoginAttempt('test@example.com')
+      recordFailedLoginAttempt('test@example.com')
+      recordFailedLoginAttempt('test@example.com')
+
+      // Set time to 2 hours later (outside 1 hour window)
+      vi.useFakeTimers()
+      vi.setSystemTime(now + 2 * 60 * 60 * 1000)
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'test@example.com',
+          action: 'login',
+          maxAttempts: 3,
+          windowMs: 60 * 60 * 1000,
+        }),
+      ).resolves.toBeUndefined()
+
+      vi.useRealTimers()
+    })
   })
 
   describe('password_reset action', () => {
-    it('allows password reset when under rate limit', async () => {
+    it('allows password reset when under rate limit by userId', async () => {
       mockDb.token.count.mockResolvedValue(2) // Below limit of 3
 
       await expect(
@@ -199,7 +292,23 @@ describe('checkGuestRateLimit', () => {
       })
     })
 
-    it('throws error when password reset rate limit exceeded', async () => {
+    it('allows password reset when under rate limit by IP', async () => {
+      mockDb.token.count.mockResolvedValue(0) // No resets by userId
+      // No IP attempts recorded yet
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          userId: 1,
+          email: 'test@example.com',
+          ipAddress: '192.168.1.1',
+          action: 'password_reset',
+          maxAttempts: 3,
+        }),
+      ).resolves.toBeUndefined()
+    })
+
+    it('throws error when password reset rate limit exceeded by userId', async () => {
       mockDb.token.count.mockResolvedValue(3) // At limit of 3
 
       await expect(
@@ -221,13 +330,43 @@ describe('checkGuestRateLimit', () => {
       ).rejects.toThrow('Too many password reset requests')
     })
 
-    it('throws error when userId is missing', async () => {
+    it('throws error when password reset rate limit exceeded by IP', async () => {
+      mockDb.token.count.mockResolvedValue(0) // No resets by userId
+      const ipAddress = '192.168.1.1'
+      const now = Date.now()
+
+      // Record 3 password reset attempts for this IP
+      recordAuthAttemptByIp(ipAddress)
+      recordAuthAttemptByIp(ipAddress)
+      recordAuthAttemptByIp(ipAddress)
+
+      vi.useFakeTimers()
+      vi.setSystemTime(now + 1000)
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          userId: 1,
+          email: 'test@example.com',
+          ipAddress,
+          action: 'password_reset',
+          maxAttempts: 3,
+          windowMs: 60 * 60 * 1000,
+        }),
+      ).rejects.toThrow('Too many password reset requests')
+
+      vi.useRealTimers()
+    })
+
+    it('throws error when userId and email are both missing', async () => {
       await expect(
         checkGuestRateLimit({
           db: mockDb as any,
           action: 'password_reset',
         }),
-      ).rejects.toThrow('UserId is required for password_reset rate limiting')
+      ).rejects.toThrow(
+        'UserId or email is required for password_reset rate limiting',
+      )
     })
   })
 
@@ -318,6 +457,184 @@ describe('checkGuestRateLimit', () => {
       expect(timeDiff).toBeLessThan(1000)
 
       vi.useRealTimers()
+    })
+  })
+
+  describe('whole-service auth rate limiting', () => {
+    it('allows auth operations when under whole-service limit', async () => {
+      // No whole-service attempts recorded yet
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'test@example.com',
+          ipAddress: '192.168.1.1',
+          action: 'login',
+        }),
+      ).resolves.toBeUndefined()
+    })
+
+    it('throws error when whole-service limit exceeded (10 per minute)', async () => {
+      const ipAddress = '192.168.1.1'
+      const now = Date.now()
+
+      vi.useFakeTimers()
+      vi.setSystemTime(now)
+
+      // Make 10 auth attempts (each call to checkGuestRateLimit records to wholeServiceAuthAttempts)
+      for (let i = 0; i < 10; i++) {
+        await checkGuestRateLimit({
+          db: mockDb as any,
+          email: `test${i}@example.com`,
+          ipAddress,
+          action: 'login',
+        })
+      }
+
+      // Now the 11th attempt should fail
+      vi.setSystemTime(now + 1000) // 1 second later
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'test11@example.com',
+          ipAddress,
+          action: 'login',
+        }),
+      ).rejects.toThrow('Too many authentication attempts')
+
+      vi.useRealTimers()
+    })
+
+    it('allows auth operations when whole-service limit exceeded but outside time window', async () => {
+      const ipAddress = '192.168.1.1'
+      const now = Date.now()
+
+      vi.useFakeTimers()
+      vi.setSystemTime(now)
+
+      // Make 10 auth attempts
+      for (let i = 0; i < 10; i++) {
+        await checkGuestRateLimit({
+          db: mockDb as any,
+          email: `test${i}@example.com`,
+          ipAddress,
+          action: 'login',
+        })
+      }
+
+      // Set time to 2 minutes later (outside 1 minute window)
+      vi.setSystemTime(now + 2 * 60 * 1000)
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'test@example.com',
+          ipAddress,
+          action: 'login',
+        }),
+      ).resolves.toBeUndefined()
+
+      vi.useRealTimers()
+    })
+
+    it('skips whole-service limit check when IP is unknown', async () => {
+      mockDb.user.count.mockResolvedValue(0)
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'test@example.com',
+          ipAddress: 'unknown',
+          action: 'signup',
+        }),
+      ).resolves.toBeUndefined()
+    })
+
+    it('applies whole-service limit across different auth actions', async () => {
+      const ipAddress = '192.168.1.1'
+      const now = Date.now()
+
+      vi.useFakeTimers()
+      vi.setSystemTime(now)
+
+      // Mix of login, signup, and password reset attempts
+      for (let i = 0; i < 5; i++) {
+        await checkGuestRateLimit({
+          db: mockDb as any,
+          email: `login${i}@example.com`,
+          ipAddress,
+          action: 'login',
+        })
+      }
+
+      mockDb.user.count.mockResolvedValue(0)
+      for (let i = 0; i < 3; i++) {
+        await checkGuestRateLimit({
+          db: mockDb as any,
+          email: `signup${i}@example.com`,
+          ipAddress,
+          action: 'signup',
+        })
+      }
+
+      mockDb.token.count.mockResolvedValue(0)
+      for (let i = 0; i < 2; i++) {
+        await checkGuestRateLimit({
+          db: mockDb as any,
+          userId: i + 1,
+          email: `reset${i}@example.com`,
+          ipAddress,
+          action: 'password_reset',
+        })
+      }
+
+      // Total: 10 attempts, so 11th should fail
+      vi.setSystemTime(now + 1000)
+
+      await expect(
+        checkGuestRateLimit({
+          db: mockDb as any,
+          email: 'final@example.com',
+          ipAddress,
+          action: 'login',
+        }),
+      ).rejects.toThrow('Too many authentication attempts')
+
+      vi.useRealTimers()
+    })
+  })
+
+  describe('getIpAddressFromHeaders', () => {
+    it('extracts IP from x-forwarded-for header', () => {
+      const headers = new Headers()
+      headers.set('x-forwarded-for', '192.168.1.1, 10.0.0.1')
+
+      const ip = getIpAddressFromHeaders(headers)
+      expect(ip).toBe('192.168.1.1')
+    })
+
+    it('extracts IP from x-real-ip header when x-forwarded-for is missing', () => {
+      const headers = new Headers()
+      headers.set('x-real-ip', '192.168.1.2')
+
+      const ip = getIpAddressFromHeaders(headers)
+      expect(ip).toBe('192.168.1.2')
+    })
+
+    it('returns unknown when no IP headers are present', () => {
+      const headers = new Headers()
+
+      const ip = getIpAddressFromHeaders(headers)
+      expect(ip).toBe('unknown')
+    })
+
+    it('prefers x-forwarded-for over x-real-ip', () => {
+      const headers = new Headers()
+      headers.set('x-forwarded-for', '192.168.1.1')
+      headers.set('x-real-ip', '192.168.1.2')
+
+      const ip = getIpAddressFromHeaders(headers)
+      expect(ip).toBe('192.168.1.1')
     })
   })
 })

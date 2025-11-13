@@ -13,6 +13,10 @@ import { ZodError } from 'zod'
 
 import { getServerAuthSession } from '~/server/auth'
 import { db } from '~/server/db'
+import {
+  checkGlobalRateLimit,
+  getRateLimitIdentifier,
+} from '~/server/utils/rateLimit'
 
 /**
  * 1. CONTEXT
@@ -79,6 +83,30 @@ export const createCallerFactory = t.createCallerFactory
 export const createTRPCRouter = t.router
 
 /**
+ * Global rate limiting middleware for all tRPC procedures.
+ * Rate limits by userId (if authenticated) or IP address (if not).
+ */
+const rateLimitMiddleware = t.middleware(async ({ ctx, next }) => {
+  // Extract IP address from headers (common headers used by proxies)
+  const forwardedFor = ctx.headers.get('x-forwarded-for')
+  const realIp = ctx.headers.get('x-real-ip')
+  const ipAddress = forwardedFor?.split(',')[0]?.trim() ?? realIp ?? 'unknown'
+
+  // Get rate limit identifier (userId if authenticated, otherwise IP)
+  const identifier = getRateLimitIdentifier(ctx.session?.user?.id, ipAddress)
+
+  // Apply global rate limiting
+  // Same limit for all users: 30 requests per minute
+  checkGlobalRateLimit({
+    identifier,
+    maxRequests: 30,
+    windowMs: 60 * 1000, // 1 minute
+  })
+
+  return next({ ctx })
+})
+
+/**
  * Middleware for timing procedure execution and adding an articifial delay in development.
  *
  * You can remove this if you don't like it, but it can help catch unwanted waterfalls by simulating
@@ -141,7 +169,9 @@ export const isAuthedOrInternalMiddleware = t.middleware((opts) => {
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure.use(timingMiddleware)
+export const publicProcedure = t.procedure
+  .use(rateLimitMiddleware)
+  .use(timingMiddleware)
 
 /**
  * Protected (authenticated) procedure
@@ -152,6 +182,7 @@ export const publicProcedure = t.procedure.use(timingMiddleware)
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure
+  .use(rateLimitMiddleware)
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
     if (!ctx.session?.user) {
