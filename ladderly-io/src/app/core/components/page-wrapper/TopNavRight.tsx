@@ -45,23 +45,27 @@ export const TopNavRight = () => {
   // while the tRPC query might still be using stale server-side session
   const isAuthenticated = sessionStatus === 'authenticated' && !!session?.user
   // currentUser can be 0 (NULL_RESULT_TRPC_INT), so check if it's not 0
-  const showAccountButton =
-    (currentUser !== 0 && currentUser) ?? isAuthenticated
+  let showAccountButton = false
+  if (currentUser !== 0 && currentUser) {
+    showAccountButton = true
+  } else if (isAuthenticated) {
+    showAccountButton = true
+  }
 
   useEffect(() => {
     const params = searchParams ?? new URLSearchParams()
     const refreshCurrentUser = params.get('refresh_current_user')
 
     if (refreshCurrentUser === 'true') {
-      // Remove the query parameter and refetch data
+      // Remove the query parameter and refresh the page to ensure all state is updated
       const newQuery = new URLSearchParams(params)
       newQuery.delete('refresh_current_user')
-      router.replace(`?${newQuery.toString()}`)
+      const newUrl = newQuery.toString() ? `?${newQuery.toString()}` : '/'
 
-      // Refetch the current user
-      void currentUserQuery.refetch()
+      // Refresh the page to ensure all server-side state is updated
+      window.location.href = newUrl
     }
-  }, [searchParams, currentUserQuery, router])
+  }, [searchParams, router])
 
   const handleAccountClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

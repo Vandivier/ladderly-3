@@ -44,18 +44,14 @@ vi.mock('next/navigation', async (importOriginal) => {
       prefetch: vi.fn(),
     }),
     useSearchParams: () => {
+      // Create a URLSearchParams object and populate it based on mock
       const params = new URLSearchParams()
-      const get = (key: string) => {
-        const result = mockSearchParamsGet(key)
-        if (result !== null && result !== undefined) {
-          params.set(key, String(result))
-        }
-        return result
+      // Call the mock to get the value and populate params
+      const refreshValue = mockSearchParamsGet('refresh_current_user')
+      if (refreshValue !== null && refreshValue !== undefined) {
+        params.set('refresh_current_user', String(refreshValue))
       }
-      return {
-        get,
-        toString: () => params.toString(),
-      }
+      return params
     },
   }
 })
@@ -456,7 +452,25 @@ describe('TopNavRight', () => {
   })
 
   describe('refresh_current_user query parameter', () => {
-    it('refetches currentUser and removes query parameter when refresh_current_user is true', async () => {
+    let originalLocation: Location
+
+    beforeEach(() => {
+      // Save original location
+      originalLocation = window.location
+      // Mock window.location.href
+      delete (window as { location?: Location }).location
+      window.location = {
+        ...originalLocation,
+        href: '',
+      } as Location
+    })
+
+    afterEach(() => {
+      // Restore original location
+      window.location = originalLocation
+    })
+
+    it('refreshes page and removes query parameter when refresh_current_user is true', async () => {
       mockSearchParamsGet.mockImplementation((key: string) => {
         if (key === 'refresh_current_user') return 'true'
         return null
@@ -469,12 +483,11 @@ describe('TopNavRight', () => {
       )
 
       await waitFor(() => {
-        expect(mockReplace).toHaveBeenCalled()
-        expect(mockRefetch).toHaveBeenCalled()
+        expect(window.location.href).toBe('/')
       })
     })
 
-    it('does not refetch when refresh_current_user is not present', () => {
+    it('does not refresh when refresh_current_user is not present', () => {
       mockSearchParamsGet.mockReturnValue(null)
 
       render(
@@ -483,8 +496,7 @@ describe('TopNavRight', () => {
         </MenuProvider>,
       )
 
-      expect(mockReplace).not.toHaveBeenCalled()
-      expect(mockRefetch).not.toHaveBeenCalled()
+      expect(window.location.href).toBe('')
     })
   })
 
