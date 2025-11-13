@@ -42,7 +42,7 @@ vi.mock('~/app/blog/[slug]/BlogPostContent', () => ({
 
 // Mock the PreviewBlogContent to test excerpt rendering
 vi.mock('~/app/blog/[slug]/page', async (importOriginal) => {
-  const original = await importOriginal()
+  const original = (await importOriginal()) as Record<string, unknown>
   return {
     ...original,
     PreviewBlogContent: ({ post, isAuthenticated }: any) =>

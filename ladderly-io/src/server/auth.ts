@@ -43,8 +43,29 @@ export interface LadderlySession extends DefaultSession {
 }
 
 declare module 'next-auth' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  interface Session extends LadderlySession {}
+  interface Session extends LadderlySession {
+    user?: {
+      id: string
+      subscription: {
+        tier: PaymentTierEnum
+        type: string
+      }
+      email: string | null
+      name: string | null
+      image?: string | null
+      emailVerified: Date | null
+    }
+  }
+
+  interface User {
+    emailVerified?: Date | null
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    emailVerified?: Date | null
+  }
 }
 
 // Helper function to verify password
@@ -94,8 +115,15 @@ export const authOptions: NextAuthOptions = {
         token.emailVerified = dbUser?.emailVerified ?? null
       } else if (token.id) {
         // On subsequent requests, refresh emailVerified from DB
-        const userId =
-          typeof token.id === 'string' ? parseInt(token.id) : token.id
+        let userId: number | null = null
+        if (typeof token.id === 'string') {
+          userId = parseInt(token.id)
+        } else if (typeof token.id === 'number') {
+          userId = token.id
+        }
+        if (!userId || isNaN(userId)) {
+          return token
+        }
         const dbUser = await db.user.findUnique({
           where: { id: userId },
           select: { emailVerified: true },
