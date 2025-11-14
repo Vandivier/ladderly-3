@@ -8,6 +8,13 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './tests/setup.tsx',
+    pool: 'threads',
+    poolOptions: {
+      threads: {
+        // TODO: this is hiding leaked test state...
+        singleThread: true,
+      },
+    },
     coverage: {
       reporter: ['text', 'json', 'html'],
       reportsDirectory: './tests/coverage',
