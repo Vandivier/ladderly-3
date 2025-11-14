@@ -35,7 +35,11 @@ export const updateChecklistsInPlace = async (
   if (checklist === null) {
     console.warn(`Checklist not found: ${checklistData.name}. Creating now.`)
     checklist = await db.checklist.create({
-      data: { name: checklistData.name, version: checklistData.version },
+      data: {
+        name: checklistData.name,
+        version: checklistData.version,
+        publishedAt: new Date(),
+      },
       include: { checklistItems: true },
     })
   }

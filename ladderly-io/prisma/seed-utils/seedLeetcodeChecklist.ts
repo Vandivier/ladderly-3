@@ -162,6 +162,7 @@ export const seedLeetcodeChecklist = async () => {
     data: {
       name: 'LeetCode Problems',
       version,
+      publishedAt: new Date(),
     },
   })
 
