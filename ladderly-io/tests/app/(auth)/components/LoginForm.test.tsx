@@ -4,7 +4,7 @@ import { PaymentTierEnum } from '@prisma/client'
 import type { Session } from 'next-auth'
 import { LoginForm } from '~/app/(auth)/components/LoginForm'
 
-// Mock next-auth/react
+// Mock next-auth/react - this module is NOT mocked globally so we mock it here
 const mockSignIn = vi.fn()
 const mockUseSession = vi.fn()
 vi.mock('next-auth/react', () => ({
@@ -12,7 +12,7 @@ vi.mock('next-auth/react', () => ({
   useSession: () => mockUseSession(),
 }))
 
-// Mock next/navigation
+// Mock next/navigation - re-mock to override the global mock with test-specific mocks
 const mockPush = vi.fn()
 const mockRefresh = vi.fn()
 vi.mock('next/navigation', () => ({
@@ -20,7 +20,16 @@ vi.mock('next/navigation', () => ({
     push: mockPush,
     refresh: mockRefresh,
     prefetch: vi.fn(),
+    replace: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
   }),
+  useSearchParams: () => ({
+    get: vi.fn(),
+    toString: () => '',
+  }),
+  usePathname: () => '',
+  notFound: vi.fn(),
 }))
 
 // Mock Form component - use actual Form but simplify it for testing
@@ -36,6 +45,12 @@ vi.mock('~/app/core/components/Form', async (importOriginal) => {
 describe('LoginForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Reset mocks to ensure clean state between tests
+    mockSignIn.mockReset()
+    mockUseSession.mockReset()
+    mockPush.mockReset()
+    mockRefresh.mockReset()
+
     mockUseSession.mockReturnValue({
       data: null,
       status: 'unauthenticated',
