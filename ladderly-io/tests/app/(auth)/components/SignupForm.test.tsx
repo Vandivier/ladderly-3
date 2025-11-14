@@ -203,10 +203,9 @@ describe('SignupForm', () => {
 
   it('handles signup error - user already exists', async () => {
     // Override the beforeEach mockResolvedValue with a rejection
-    // Use mockImplementation to ensure it always rejects for this test
-    mockMutateAsync.mockImplementation(() =>
-      Promise.reject(new Error('User already exists')),
-    )
+    // Use mockRejectedValue to ensure it always rejects for this test
+    mockMutateAsync.mockReset()
+    mockMutateAsync.mockRejectedValue(new Error('User already exists'))
     mockSignIn.mockClear()
 
     render(<SignupForm />)
@@ -251,10 +250,9 @@ describe('SignupForm', () => {
 
   it('handles signup error - generic error', async () => {
     // Override the beforeEach mockResolvedValue with a rejection
-    // Use mockImplementation to ensure it always rejects for this test
-    mockMutateAsync.mockImplementation(() =>
-      Promise.reject(new Error('Something went wrong')),
-    )
+    // Use mockRejectedValue to ensure it always rejects for this test
+    mockMutateAsync.mockReset()
+    mockMutateAsync.mockRejectedValue(new Error('Something went wrong'))
     mockSignIn.mockClear()
 
     render(<SignupForm />)
