@@ -24,8 +24,26 @@ const createNewChecklist = async (
 ): Promise<void> => {
   const { name, items } = checklistData as ChecklistSeedDataType
   const version = 'ignoreme_version_field_deprecation_in_progress'
+
+  const existingChecklist = await db.checklist.findFirst({
+    where: { name },
+    include: { checklistItems: true },
+  })
+
+  if (existingChecklist) {
+    console.log(
+      `Checklist "${name}" already exists (ID: ${existingChecklist.id}). Skipping creation.`,
+    )
+    return
+  }
+
+  console.log(`Creating new checklist: "${name}"`)
   const checklist: Checklist | null = await db.checklist.create({
-    data: { name, version },
+    data: {
+      name,
+      version,
+      publishedAt: new Date(),
+    },
   })
 
   for (let i = 0; i < items.length; i++) {
