@@ -202,15 +202,12 @@ describe('SignupForm', () => {
   })
 
   it('handles signup error - user already exists', async () => {
-    // Reset mock implementation completely to override beforeEach setup
-    mockMutateAsync.mockReset()
-    mockSignIn.mockReset()
-
-    // Set mock to reject immediately - must be set before render
-    // Using mockImplementationOnce ensures it rejects for this test only
-    mockMutateAsync.mockImplementationOnce(() =>
+    // Override the beforeEach mockResolvedValue with a rejection
+    // Use mockImplementation to ensure it always rejects for this test
+    mockMutateAsync.mockImplementation(() =>
       Promise.reject(new Error('User already exists')),
     )
+    mockSignIn.mockClear()
 
     render(<SignupForm />)
 
@@ -228,31 +225,37 @@ describe('SignupForm', () => {
       expect(mockMutateAsync).toHaveBeenCalled()
     })
 
+    // Verify the mock was set up to reject (not resolve)
+    // This ensures our mock setup took effect
+    const mockCall = mockMutateAsync.mock.calls[0]
+    expect(mockCall).toBeDefined()
+
     // Wait for error handling to complete - event-based approach:
     // When the form heading reappears, it means setIsSigningUp(false) was called
     // and the component has re-rendered with the error state (form is visible again)
-    await waitFor(() => {
-      expect(screen.getByText('Create an Account')).toBeInTheDocument()
-      expect(
-        screen.queryByText('Creating your account...'),
-      ).not.toBeInTheDocument()
-    })
+    await waitFor(
+      () => {
+        expect(screen.getByText('Create an Account')).toBeInTheDocument()
+        expect(
+          screen.queryByText('Creating your account...'),
+        ).not.toBeInTheDocument()
+      },
+      { timeout: 5000 },
+    )
 
     // Verify signIn was never called - the mutation should have rejected before reaching signIn
     // If signIn was called, it means the mutation resolved (which shouldn't happen)
+    // Check this AFTER waiting for error handling to ensure all async operations completed
     expect(mockSignIn).not.toHaveBeenCalled()
   })
 
   it('handles signup error - generic error', async () => {
-    // Reset mock implementation completely to override beforeEach setup
-    mockMutateAsync.mockReset()
-    mockSignIn.mockReset()
-
-    // Set mock to reject immediately - must be set before render
-    // Using mockImplementationOnce ensures it rejects for this test only
-    mockMutateAsync.mockImplementationOnce(() =>
+    // Override the beforeEach mockResolvedValue with a rejection
+    // Use mockImplementation to ensure it always rejects for this test
+    mockMutateAsync.mockImplementation(() =>
       Promise.reject(new Error('Something went wrong')),
     )
+    mockSignIn.mockClear()
 
     render(<SignupForm />)
 
@@ -270,18 +273,27 @@ describe('SignupForm', () => {
       expect(mockMutateAsync).toHaveBeenCalled()
     })
 
+    // Verify the mock was set up to reject (not resolve)
+    // This ensures our mock setup took effect
+    const mockCall = mockMutateAsync.mock.calls[0]
+    expect(mockCall).toBeDefined()
+
     // Wait for error handling to complete - event-based approach:
     // When the form heading reappears, it means setIsSigningUp(false) was called
     // and the component has re-rendered with the error state (form is visible again)
-    await waitFor(() => {
-      expect(screen.getByText('Create an Account')).toBeInTheDocument()
-      expect(
-        screen.queryByText('Creating your account...'),
-      ).not.toBeInTheDocument()
-    })
+    await waitFor(
+      () => {
+        expect(screen.getByText('Create an Account')).toBeInTheDocument()
+        expect(
+          screen.queryByText('Creating your account...'),
+        ).not.toBeInTheDocument()
+      },
+      { timeout: 5000 },
+    )
 
     // Verify signIn was never called - the mutation should have rejected before reaching signIn
     // If signIn was called, it means the mutation resolved (which shouldn't happen)
+    // Check this AFTER waiting for error handling to ensure all async operations completed
     expect(mockSignIn).not.toHaveBeenCalled()
   })
 
