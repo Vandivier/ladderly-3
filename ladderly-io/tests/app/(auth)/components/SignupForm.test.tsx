@@ -202,7 +202,15 @@ describe('SignupForm', () => {
   })
 
   it('handles signup error - user already exists', async () => {
-    mockMutateAsync.mockRejectedValue(new Error('User already exists'))
+    // Reset mock implementation completely to override beforeEach setup
+    mockMutateAsync.mockReset()
+    mockSignIn.mockReset()
+
+    // Set mock to reject immediately - must be set before render
+    // Using mockImplementationOnce ensures it rejects for this test only
+    mockMutateAsync.mockImplementationOnce(() =>
+      Promise.reject(new Error('User already exists')),
+    )
 
     render(<SignupForm />)
 
@@ -215,27 +223,36 @@ describe('SignupForm', () => {
     const submitButton = screen.getByText('Create Account')
     fireEvent.click(submitButton)
 
+    // Wait for mutation to be called
     await waitFor(() => {
       expect(mockMutateAsync).toHaveBeenCalled()
     })
 
-    // Wait for error handling to complete and component to re-render
+    // Wait for error handling to complete - event-based approach:
+    // When the form heading reappears, it means setIsSigningUp(false) was called
+    // and the component has re-rendered with the error state (form is visible again)
     await waitFor(() => {
+      expect(screen.getByText('Create an Account')).toBeInTheDocument()
       expect(
         screen.queryByText('Creating your account...'),
       ).not.toBeInTheDocument()
     })
 
-    // Check that signIn was not called (outside waitFor to avoid retry issues)
-    // This assertion is outside waitFor because waitFor retries, and we don't want
-    // to catch calls that might happen during retries or from timing issues
+    // Verify signIn was never called - the mutation should have rejected before reaching signIn
+    // If signIn was called, it means the mutation resolved (which shouldn't happen)
     expect(mockSignIn).not.toHaveBeenCalled()
-    // Form should still be visible (not in loading state)
-    expect(screen.getByText('Create an Account')).toBeInTheDocument()
   })
 
   it('handles signup error - generic error', async () => {
-    mockMutateAsync.mockRejectedValue(new Error('Something went wrong'))
+    // Reset mock implementation completely to override beforeEach setup
+    mockMutateAsync.mockReset()
+    mockSignIn.mockReset()
+
+    // Set mock to reject immediately - must be set before render
+    // Using mockImplementationOnce ensures it rejects for this test only
+    mockMutateAsync.mockImplementationOnce(() =>
+      Promise.reject(new Error('Something went wrong')),
+    )
 
     render(<SignupForm />)
 
@@ -248,23 +265,24 @@ describe('SignupForm', () => {
     const submitButton = screen.getByText('Create Account')
     fireEvent.click(submitButton)
 
+    // Wait for mutation to be called
     await waitFor(() => {
       expect(mockMutateAsync).toHaveBeenCalled()
     })
 
-    // Wait for error handling to complete and component to re-render
+    // Wait for error handling to complete - event-based approach:
+    // When the form heading reappears, it means setIsSigningUp(false) was called
+    // and the component has re-rendered with the error state (form is visible again)
     await waitFor(() => {
+      expect(screen.getByText('Create an Account')).toBeInTheDocument()
       expect(
         screen.queryByText('Creating your account...'),
       ).not.toBeInTheDocument()
     })
 
-    // Check that signIn was not called (outside waitFor to avoid retry issues)
-    // This assertion is outside waitFor because waitFor retries, and we don't want
-    // to catch calls that might happen during retries or from timing issues
+    // Verify signIn was never called - the mutation should have rejected before reaching signIn
+    // If signIn was called, it means the mutation resolved (which shouldn't happen)
     expect(mockSignIn).not.toHaveBeenCalled()
-    // Form should still be visible (not in loading state)
-    expect(screen.getByText('Create an Account')).toBeInTheDocument()
   })
 
   it('handles signIn error after successful signup', async () => {
