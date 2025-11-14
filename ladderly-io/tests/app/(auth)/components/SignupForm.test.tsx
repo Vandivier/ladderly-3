@@ -224,8 +224,12 @@ describe('SignupForm', () => {
       expect(
         screen.queryByText('Creating your account...'),
       ).not.toBeInTheDocument()
-      expect(mockSignIn).not.toHaveBeenCalled()
     })
+
+    // Check that signIn was not called (outside waitFor to avoid retry issues)
+    // This assertion is outside waitFor because waitFor retries, and we don't want
+    // to catch calls that might happen during retries or from timing issues
+    expect(mockSignIn).not.toHaveBeenCalled()
     // Form should still be visible (not in loading state)
     expect(screen.getByText('Create an Account')).toBeInTheDocument()
   })
@@ -253,8 +257,12 @@ describe('SignupForm', () => {
       expect(
         screen.queryByText('Creating your account...'),
       ).not.toBeInTheDocument()
-      expect(mockSignIn).not.toHaveBeenCalled()
     })
+
+    // Check that signIn was not called (outside waitFor to avoid retry issues)
+    // This assertion is outside waitFor because waitFor retries, and we don't want
+    // to catch calls that might happen during retries or from timing issues
+    expect(mockSignIn).not.toHaveBeenCalled()
     // Form should still be visible (not in loading state)
     expect(screen.getByText('Create an Account')).toBeInTheDocument()
   })
