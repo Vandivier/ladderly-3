@@ -32,17 +32,6 @@ export default async function VerifyEmailPage({
     await api.auth.verifyEmail({ token: searchParams.token })
     redirect('/?verified=true')
   } catch (error) {
-    // Re-throw redirect errors - they are special Next.js errors that should not be caught
-    if (
-      error &&
-      typeof error === 'object' &&
-      'digest' in error &&
-      typeof error.digest === 'string' &&
-      error.digest.startsWith('NEXT_REDIRECT')
-    ) {
-      throw error
-    }
-
     return (
       <div className="container mx-auto max-w-2xl px-4 py-8">
         <h1 className="mb-4 text-2xl font-bold">Email Verification Failed</h1>

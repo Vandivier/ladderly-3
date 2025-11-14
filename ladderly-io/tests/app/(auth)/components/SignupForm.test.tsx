@@ -4,12 +4,23 @@ import { PaymentTierEnum } from '@prisma/client'
 import type { Session } from 'next-auth'
 import SignupForm from '~/app/(auth)/components/SignupForm'
 
-// Mock next-auth/react - this module is NOT mocked globally so we mock it here
+// Mock next-auth/react
 const mockSignIn = vi.fn()
 const mockUseSession = vi.fn()
 vi.mock('next-auth/react', () => ({
   signIn: (...args: unknown[]) => mockSignIn(...args),
   useSession: () => mockUseSession(),
+}))
+
+// Mock next/navigation
+const mockPush = vi.fn()
+const mockRefresh = vi.fn()
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: mockPush,
+    refresh: mockRefresh,
+    prefetch: vi.fn(),
+  }),
 }))
 
 // Mock tRPC
@@ -19,31 +30,11 @@ vi.mock('~/trpc/react', () => ({
     auth: {
       signup: {
         useMutation: () => ({
-          mutateAsync: (...args: unknown[]) => mockMutateAsync(...args),
+          mutateAsync: mockMutateAsync,
         }),
       },
     },
   },
-}))
-
-// Mock next/navigation - re-mock to override the global mock with test-specific mocks
-const mockPush = vi.fn()
-const mockRefresh = vi.fn()
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: mockPush,
-    refresh: mockRefresh,
-    prefetch: vi.fn(),
-    replace: vi.fn(),
-    back: vi.fn(),
-    forward: vi.fn(),
-  }),
-  useSearchParams: () => ({
-    get: vi.fn(),
-    toString: () => '',
-  }),
-  usePathname: () => '',
-  notFound: vi.fn(),
 }))
 
 // Mock Form component - use actual Form but simplify it for testing
@@ -59,13 +50,6 @@ vi.mock('~/app/core/components/Form', async (importOriginal) => {
 describe('SignupForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    // Reset mocks to ensure clean state between tests
-    mockMutateAsync.mockReset()
-    mockSignIn.mockReset()
-    mockUseSession.mockReset()
-    mockPush.mockReset()
-    mockRefresh.mockReset()
-
     mockUseSession.mockReturnValue({
       data: null,
       status: 'unauthenticated',
@@ -218,16 +202,7 @@ describe('SignupForm', () => {
   })
 
   it('handles signup error - user already exists', async () => {
-    // Override the beforeEach mockResolvedValue with a rejection
-    // CRITICAL: Set up mock to reject BEFORE rendering to ensure the component captures the correct mock
-    mockMutateAsync.mockReset()
-    // Use mockImplementation to ensure the promise properly rejects
-    mockMutateAsync.mockImplementation(() =>
-      Promise.reject(new Error('User already exists')),
-    )
-    mockSignIn.mockReset()
-    // Ensure mockSignIn has the default implementation from beforeEach
-    mockSignIn.mockResolvedValue({ ok: true, error: null })
+    mockMutateAsync.mockRejectedValue(new Error('User already exists'))
 
     render(<SignupForm />)
 
@@ -240,46 +215,23 @@ describe('SignupForm', () => {
     const submitButton = screen.getByText('Create Account')
     fireEvent.click(submitButton)
 
-    // Wait for mutation to be called
     await waitFor(() => {
       expect(mockMutateAsync).toHaveBeenCalled()
     })
 
-    // Verify the mock was set up to reject (not resolve)
-    // This ensures our mock setup took effect
-    const mockCall = mockMutateAsync.mock.calls[0]
-    expect(mockCall).toBeDefined()
-
-    // Wait for error handling to complete - event-based approach:
-    // When the form heading reappears, it means setIsSigningUp(false) was called
-    // and the component has re-rendered with the error state (form is visible again)
-    await waitFor(
-      () => {
-        expect(screen.getByText('Create an Account')).toBeInTheDocument()
-        expect(
-          screen.queryByText('Creating your account...'),
-        ).not.toBeInTheDocument()
-      },
-      { timeout: 5000 },
-    )
-
-    // Verify signIn was never called - the mutation should have rejected before reaching signIn
-    // If signIn was called, it means the mutation resolved (which shouldn't happen)
-    // Check this AFTER waiting for error handling to ensure all async operations completed
-    expect(mockSignIn).not.toHaveBeenCalled()
+    // Wait for error handling to complete and component to re-render
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Creating your account...'),
+      ).not.toBeInTheDocument()
+      expect(mockSignIn).not.toHaveBeenCalled()
+    })
+    // Form should still be visible (not in loading state)
+    expect(screen.getByText('Create an Account')).toBeInTheDocument()
   })
 
   it('handles signup error - generic error', async () => {
-    // Override the beforeEach mockResolvedValue with a rejection
-    // CRITICAL: Set up mock to reject BEFORE rendering to ensure the component captures the correct mock
-    mockMutateAsync.mockReset()
-    // Use mockImplementation to ensure the promise properly rejects
-    mockMutateAsync.mockImplementation(() =>
-      Promise.reject(new Error('Something went wrong')),
-    )
-    mockSignIn.mockReset()
-    // Ensure mockSignIn has the default implementation from beforeEach
-    mockSignIn.mockResolvedValue({ ok: true, error: null })
+    mockMutateAsync.mockRejectedValue(new Error('Something went wrong'))
 
     render(<SignupForm />)
 
@@ -292,33 +244,19 @@ describe('SignupForm', () => {
     const submitButton = screen.getByText('Create Account')
     fireEvent.click(submitButton)
 
-    // Wait for mutation to be called
     await waitFor(() => {
       expect(mockMutateAsync).toHaveBeenCalled()
     })
 
-    // Verify the mock was set up to reject (not resolve)
-    // This ensures our mock setup took effect
-    const mockCall = mockMutateAsync.mock.calls[0]
-    expect(mockCall).toBeDefined()
-
-    // Wait for error handling to complete - event-based approach:
-    // When the form heading reappears, it means setIsSigningUp(false) was called
-    // and the component has re-rendered with the error state (form is visible again)
-    await waitFor(
-      () => {
-        expect(screen.getByText('Create an Account')).toBeInTheDocument()
-        expect(
-          screen.queryByText('Creating your account...'),
-        ).not.toBeInTheDocument()
-      },
-      { timeout: 5000 },
-    )
-
-    // Verify signIn was never called - the mutation should have rejected before reaching signIn
-    // If signIn was called, it means the mutation resolved (which shouldn't happen)
-    // Check this AFTER waiting for error handling to ensure all async operations completed
-    expect(mockSignIn).not.toHaveBeenCalled()
+    // Wait for error handling to complete and component to re-render
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Creating your account...'),
+      ).not.toBeInTheDocument()
+      expect(mockSignIn).not.toHaveBeenCalled()
+    })
+    // Form should still be visible (not in loading state)
+    expect(screen.getByText('Create an Account')).toBeInTheDocument()
   })
 
   it('handles signIn error after successful signup', async () => {

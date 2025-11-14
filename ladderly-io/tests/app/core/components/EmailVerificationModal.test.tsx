@@ -39,8 +39,6 @@ vi.mock('~/trpc/react', () => ({
 describe('EmailVerificationModal', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    // Reset mocks to ensure clean state between tests
-    mockMutateAsync.mockReset()
     // Reset mock to return success by default
     mockMutateAsync.mockResolvedValue({ success: true })
   })
@@ -157,8 +155,7 @@ describe('EmailVerificationModal', () => {
   it('displays error message when sending fails', async () => {
     const errorMessage = 'Too many verification email requests'
     const error = new Error(errorMessage)
-    mockMutateAsync.mockReset()
-    mockMutateAsync.mockReturnValue(Promise.reject(error))
+    mockMutateAsync.mockRejectedValue(error)
 
     render(<EmailVerificationModal email="test@example.com" />)
 
