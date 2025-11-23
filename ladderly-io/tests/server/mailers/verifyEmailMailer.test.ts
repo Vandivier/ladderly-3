@@ -82,7 +82,7 @@ describe('sendVerificationEmail', () => {
 
     const callArgs = mockSendEmail.mock.calls[0]?.[0]
     expect(callArgs?.HtmlBody).toContain(
-      "If you didn't create an account with Ladderly, you can safely ignore this email.",
+      "If you didn't create an account with Ladderly.io, you can safely ignore this email.",
     )
   })
 

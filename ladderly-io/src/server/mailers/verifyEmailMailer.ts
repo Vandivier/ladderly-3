@@ -16,7 +16,7 @@ export async function sendVerificationEmail({ to, token }: VerifyEmailMailer) {
     <a href="${verifyUrl}">
       Verify Email Address
     </a>
-    <p>If you didn't create an account with Ladderly, you can safely ignore this email.</p>
+    <p>If you didn't create an account with Ladderly.io, you can safely ignore this email.</p>
   `
 
   const msg = {
