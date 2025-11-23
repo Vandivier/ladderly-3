@@ -12,7 +12,7 @@ const lowercaseStringList = z
   .array(z.string())
   .transform((val) => val?.map((reason) => reason.toLowerCase()))
 
-const nameRegex = /^[A-Za-z -]+$/
+const nameRegex = /^[\p{L} -]+$/u
 const optionalNameSchema = z
   .string()
   .nullable()
