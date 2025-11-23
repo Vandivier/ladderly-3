@@ -12,6 +12,29 @@ const lowercaseStringList = z
   .array(z.string())
   .transform((val) => val?.map((reason) => reason.toLowerCase()))
 
+const nameRegex = /^[\p{L} -]+$/u
+const optionalNameSchema = z
+  .string()
+  .nullable()
+  .refine(
+    (value) => {
+      if (value === null) {
+        return true
+      }
+
+      const trimmedValue = value.trim()
+
+      if (trimmedValue === '') {
+        return true
+      }
+
+      return nameRegex.test(trimmedValue)
+    },
+    {
+      message: 'Names may only include letters, spaces, and dashes',
+    },
+  )
+
 // Define the settings input type
 export const UpdateUserSettingsSchema = z.object({
   email: z.string(),
@@ -25,8 +48,8 @@ export const UpdateUserSettingsSchema = z.object({
   hasPublicProfileEnabled: z.boolean(),
   hasShoutOutsEnabled: z.boolean(),
   hasSmallGroupInterest: z.boolean(),
-  nameFirst: z.string().nullable(),
-  nameLast: z.string().nullable(),
+  nameFirst: optionalNameSchema,
+  nameLast: optionalNameSchema,
   profileBlurb: z.string().nullable(),
   profileContactEmail: z.string().nullable(),
   profileCurrentJobCompany: z.string().optional(),
