@@ -4,6 +4,21 @@ const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 export const isValidOptionalEmail = (value: string) =>
   value === '' || emailRegex.test(value)
 
+const nameRegex = /^[A-Za-z -]+$/
+const isValidOptionalName = (value: string | null | undefined) => {
+  if (value === undefined || value === null) {
+    return true
+  }
+
+  const trimmedValue = value.trim()
+
+  if (trimmedValue === '') {
+    return true
+  }
+
+  return nameRegex.test(trimmedValue)
+}
+
 export const optionalEmailValidator = z
   .string()
   .refine(isValidOptionalEmail, {
@@ -11,6 +26,14 @@ export const optionalEmailValidator = z
   })
   .nullable()
   .optional()
+
+const optionalNameValidator = z
+  .string()
+  .nullable()
+  .optional()
+  .refine(isValidOptionalName, {
+    message: 'Names may only include letters, spaces, and dashes',
+  })
 
 export const uriValidator = z
   .string()
@@ -51,8 +74,8 @@ export const UpdateSettingsFormSchema = z.object({
   hasShoutOutsEnabled: z.boolean().default(false),
   hasSmallGroupInterest: z.boolean().default(false),
 
-  nameFirst: z.string().nullable().optional(),
-  nameLast: z.string().nullable().optional(),
+  nameFirst: optionalNameValidator,
+  nameLast: optionalNameValidator,
   profileBlurb: z.string().nullable().optional(),
   profileContactEmail: optionalEmailValidator,
   profileCurrentJobCompany: z.string(),
