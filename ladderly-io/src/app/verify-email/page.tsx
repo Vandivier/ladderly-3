@@ -30,7 +30,6 @@ export default async function VerifyEmailPage({
 
   try {
     await api.auth.verifyEmail({ token: searchParams.token })
-    redirect('/?verified=true')
   } catch (error) {
     return (
       <div className="container mx-auto max-w-2xl px-4 py-8">
@@ -43,4 +42,6 @@ export default async function VerifyEmailPage({
       </div>
     )
   }
+
+  return redirect('/?verified=true')
 }
