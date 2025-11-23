@@ -5,6 +5,7 @@ import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/Ladderly
 import CreateJournalEntryForm from './CreateJournalEntryForm'
 import JournalEntryList from './JournalEntryList'
 import ReminderSettings from './ReminderSettings'
+import RecentChecklists from './RecentChecklists'
 import PracticeSection from './PracticeSection'
 import StoryGenerator from './StoryGenerator'
 import { DeepJournalingWaitlist } from './DeepJournalingWaitlist'
@@ -58,6 +59,10 @@ export default async function JournalPage() {
 
           {/* Right sidebar - utilities */}
           <div className="w-full space-y-6 lg:w-80">
+            <Suspense fallback={<div>Loading recent checklists...</div>}>
+              <RecentChecklists />
+            </Suspense>
+
             <Suspense fallback={<div>Loading reminders...</div>}>
               <ReminderSettings />
             </Suspense>

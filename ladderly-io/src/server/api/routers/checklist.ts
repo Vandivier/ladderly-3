@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import {
   createTRPCRouter,
+  protectedProcedure,
   protectedProcedureWithVerifiedEmail,
   publicProcedure,
   isAuthedOrInternalMiddleware,
@@ -112,6 +113,13 @@ export const checklistRouter = createTRPCRouter({
                 },
               },
             },
+          },
+        })
+      } else {
+        await db.userChecklist.update({
+          where: { id: userChecklist.id },
+          data: {
+            updatedAt: new Date(),
           },
         })
       }
@@ -317,13 +325,20 @@ export const checklistRouter = createTRPCRouter({
         })
       }
 
-      return db.userChecklistItem.update({
+      const updatedItem = await db.userChecklistItem.update({
         where: { id: input.userChecklistItemId },
         data: { isComplete: input.isComplete },
         include: {
           checklistItem: true,
         },
       })
+
+      await db.userChecklist.update({
+        where: { id: item.userChecklistId },
+        data: { updatedAt: new Date() },
+      })
+
+      return updatedItem
     }),
 
   list: publicProcedure
@@ -347,4 +362,26 @@ export const checklistRouter = createTRPCRouter({
         checklists,
       }
     }),
+
+  getRecentChecklists: protectedProcedure.query(async ({ ctx }) => {
+    const recentChecklists = await db.userChecklist.findMany({
+      where: {
+        userId: parseInt(ctx.session.user.id),
+      },
+      include: {
+        checklist: true,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      take: 3,
+    })
+
+    return recentChecklists.map((uc) => ({
+      id: uc.checklist.id,
+      name: uc.checklist.name,
+      prettyRoute: uc.checklist.prettyRoute,
+      lastAccessed: uc.updatedAt,
+    }))
+  }),
 })
