@@ -5,9 +5,9 @@ import type { PrismaClient } from '@prisma/client'
 // Auth-specific rate limiting (for login, signup, password reset)
 // ============================================================================
 
-// In-memory cache for tracking failed login attempts by email
-// Key: email (lowercase), Value: array of timestamps of failed attempts
-const failedLoginAttempts = new Map<string, number[]>()
+// In-memory cache for tracking login attempts by email (success or failure)
+// Key: email (lowercase), Value: array of timestamps of attempts
+const loginAttemptsByEmail = new Map<string, number[]>()
 
 // In-memory cache for tracking auth attempts by IP address
 // Key: IP address, Value: array of timestamps of auth attempts
@@ -21,14 +21,14 @@ const wholeServiceAuthAttempts = new Map<string, number[]>()
 setInterval(
   () => {
     const oneHourAgo = Date.now() - 60 * 60 * 1000
-    for (const [email, attempts] of failedLoginAttempts.entries()) {
+    for (const [email, attempts] of loginAttemptsByEmail.entries()) {
       const recentAttempts = attempts.filter(
         (timestamp) => timestamp > oneHourAgo,
       )
       if (recentAttempts.length === 0) {
-        failedLoginAttempts.delete(email)
+        loginAttemptsByEmail.delete(email)
       } else {
-        failedLoginAttempts.set(email, recentAttempts)
+        loginAttemptsByEmail.set(email, recentAttempts)
       }
     }
     for (const [ip, attempts] of authAttemptsByIp.entries()) {
@@ -61,17 +61,14 @@ setInterval(() => {
 }, 30 * 1000) // Clean up every 30 seconds
 
 /**
- * Record a failed login attempt for rate limiting purposes
+ * Record a login attempt for rate limiting purposes
  */
-export function recordFailedLoginAttempt(
-  email: string,
-  ipAddress?: string,
-): void {
+export function recordLoginAttempt(email: string, ipAddress?: string): void {
   const lowerEmail = email.toLowerCase()
   const now = Date.now()
-  const attempts = failedLoginAttempts.get(lowerEmail) ?? []
+  const attempts = loginAttemptsByEmail.get(lowerEmail) ?? []
   attempts.push(now)
-  failedLoginAttempts.set(lowerEmail, attempts)
+  loginAttemptsByEmail.set(lowerEmail, attempts)
 
   // Also track by IP if provided
   if (ipAddress && ipAddress !== 'unknown') {
@@ -203,7 +200,7 @@ export async function checkGuestRateLimit({
     const lowerEmail = email.toLowerCase()
 
     // Check in-memory cache for recent failed login attempts by email
-    const emailAttempts = failedLoginAttempts.get(lowerEmail) ?? []
+    const emailAttempts = loginAttemptsByEmail.get(lowerEmail) ?? []
     const recentEmailAttempts = emailAttempts.filter(
       (timestamp) => timestamp >= windowStart.getTime(),
     )

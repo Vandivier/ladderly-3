@@ -25,8 +25,34 @@ import { LadderlyMigrationAdapter } from './LadderlyMigrationAdapter'
 import type { JWT } from 'next-auth/jwt'
 import {
   checkGuestRateLimit,
-  recordFailedLoginAttempt,
+  getIpAddressFromHeaders,
+  recordAuthAttemptByIp,
+  recordLoginAttempt,
 } from './utils/rateLimit'
+
+type RequestWithHeaders = {
+  headers?: Record<string, string | string[] | undefined>
+}
+
+const getIpAddressFromRequest = (req?: RequestWithHeaders): string => {
+  if (!req?.headers) {
+    return 'unknown'
+  }
+
+  const headers = new Headers()
+
+  for (const [key, value] of Object.entries(req.headers)) {
+    if (typeof value === 'string') {
+      headers.append(key, value)
+    } else if (Array.isArray(value)) {
+      value
+        .filter((entry): entry is string => typeof entry === 'string')
+        .forEach((entry) => headers.append(key, entry))
+    }
+  }
+
+  return getIpAddressFromHeaders(headers)
+}
 
 export interface LadderlySession extends DefaultSession {
   user?: {
@@ -259,21 +285,32 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error(AUTH_ERROR_MESSAGE)
         }
-
+        const ipAddress = getIpAddressFromRequest(req)
         // Rate limiting BEFORE expensive operations (database query + password verification)
         // This prevents attackers from draining server resources with invalid login attempts
         // If rate limit exceeded, this will throw with a clear message before expensive operations
         await checkGuestRateLimit({
           db,
           email: credentials.email,
+          ipAddress,
           action: 'login',
           errorMessage:
             'Too many login attempts. Please wait before trying again.',
         })
+
+        let attemptRecorded = false
+        const recordAttempt = () => {
+          if (attemptRecorded) {
+            return
+          }
+          recordLoginAttempt(credentials.email)
+          recordAuthAttemptByIp(ipAddress)
+          attemptRecorded = true
+        }
 
         const user = await db.user.findUnique({
           where: { email: credentials.email },
@@ -281,13 +318,13 @@ export const authOptions: NextAuthOptions = {
 
         if (!user) {
           // Record failed login attempt for non-existent user
-          recordFailedLoginAttempt(credentials.email)
+          recordAttempt()
           throw new Error(AUTH_ERROR_MESSAGE)
         }
 
         if (!user.hashedPassword) {
           // Record failed login attempt
-          recordFailedLoginAttempt(credentials.email)
+          recordAttempt()
           // Trigger password reset flow
           throw new Error(
             'Password reset required. Please check your email to reset your password.',
@@ -302,10 +339,11 @@ export const authOptions: NextAuthOptions = {
 
           if (!isValid) {
             // Record failed login attempt
-            recordFailedLoginAttempt(credentials.email)
+            recordAttempt()
             throw new Error(AUTH_ERROR_MESSAGE)
           }
 
+          recordAttempt()
           return {
             id: user.id.toString(),
             email: user.email,
@@ -313,6 +351,7 @@ export const authOptions: NextAuthOptions = {
             image: user.image ?? null,
           }
         } catch (error) {
+          recordAttempt()
           // Only catch unexpected errors from verifyPassword, not auth failures
           // If it's already an Error (like invalid password above), re-throw it
           if (error instanceof Error) {
