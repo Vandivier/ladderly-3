@@ -1,0 +1,14 @@
+.git
+.gitignore
+.DS_Store
+node_modules
+.next
+out
+dist
+npm-debug.log*
+yarn-error.log*
+coverage
+tmp
+temp
+.env
+

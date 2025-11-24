@@ -22,6 +22,7 @@
     "check-types": "tsc --noEmit",
     "start": "next start",
     "test": "vitest run",
+    "test:integration": "vitest run tests/integration",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:cov": "vitest run --coverage"
