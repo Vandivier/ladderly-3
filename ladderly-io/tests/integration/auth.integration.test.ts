@@ -67,9 +67,7 @@ async function loginWithCredentials(options: {
   jar?: CookieJar
 }) {
   const { email, password, ip, jar = new CookieJar() } = options
-  const sharedHeaders = new Headers({
-    Accept: 'application/json',
-  })
+  const sharedHeaders = new Headers()
   if (ip) {
     sharedHeaders.set('x-forwarded-for', ip)
   }
@@ -143,24 +141,17 @@ async function callTrpc<TInput, TOutput>({
     method: 'POST',
     headers,
     body: JSON.stringify({
-      id: 0,
-      jsonrpc: '2.0',
-      method: 'mutation',
-      params: { path, input },
+      0: { json: input },
     }),
   })
 
-  const payload = (await response.json()) as
-    | TrpcEnvelope<TOutput>
-    | TrpcEnvelope<TOutput>[]
+  const payload = (await response.json()) as TrpcEnvelope<TOutput>
 
-  const [first] = Array.isArray(payload) ? payload : [payload]
-
-  if (first?.error) {
-    throw new Error(first.error.message ?? 'Unknown tRPC error')
+  if (payload?.error) {
+    throw new Error(payload.error.message ?? 'Unknown tRPC error')
   }
 
-  return first?.result?.data?.json as TOutput
+  return payload?.result?.data?.json as TOutput
 }
 
 describe.sequential('Authentication integration tests', () => {
