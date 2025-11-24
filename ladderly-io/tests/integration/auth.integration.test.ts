@@ -1,18 +1,17 @@
 import { describe, expect, test, beforeEach } from 'vitest'
-import {
-  fetch as undiciFetch,
-  Headers as UndiciHeaders,
-  type HeadersInit as UndiciHeadersInit,
-} from 'node:undici'
 
 const APP_ORIGIN = process.env.APP_ORIGIN ?? 'http://127.0.0.1:3000'
 
-const fetchImpl: typeof fetch =
-  typeof fetch === 'function' ? fetch : undiciFetch
-const HeadersImpl: typeof Headers =
-  typeof Headers === 'function' ? Headers : UndiciHeaders
+const fetchImpl: typeof fetch = (() => {
+  if (typeof globalThis.fetch === 'function') {
+    return globalThis.fetch.bind(globalThis)
+  }
+  throw new Error('Global fetch not available. Node 18+ is required.')
+})()
 
-type HeadersInput = HeadersInit | UndiciHeadersInit
+if (typeof Headers === 'undefined') {
+  throw new Error('Global Headers not available. Node 18+ is required.')
+}
 
 class CookieJar {
   private cookies = new Map<string, string>()
@@ -62,7 +61,7 @@ async function fetchWithCookies(
   jar?: CookieJar,
 ) {
   const url = path.startsWith('http') ? path : `${APP_ORIGIN}${path}`
-  const headers = new HeadersImpl(init.headers as HeadersInput)
+  const headers = new Headers(init.headers)
   const cookieValue = jar?.headerValue()
   if (cookieValue) {
     headers.set('cookie', cookieValue)
@@ -79,7 +78,7 @@ async function loginWithCredentials(options: {
   jar?: CookieJar
 }) {
   const { email, password, ip, jar = new CookieJar() } = options
-  const sharedHeaders = new HeadersImpl()
+  const sharedHeaders = new Headers()
   if (ip) {
     sharedHeaders.set('x-forwarded-for', ip)
   }
@@ -147,7 +146,7 @@ async function callTrpc<TInput, TOutput>({
   input: TInput
   ip?: string
 }) {
-  const headers = new HeadersImpl({
+  const headers = new Headers({
     'Content-Type': 'application/json',
     'x-trpc-source': 'integration-tests',
   })
