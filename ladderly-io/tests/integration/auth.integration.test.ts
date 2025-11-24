@@ -1,6 +1,18 @@
 import { describe, expect, test, beforeEach } from 'vitest'
+import {
+  fetch as undiciFetch,
+  Headers as UndiciHeaders,
+  type HeadersInit as UndiciHeadersInit,
+} from 'node:undici'
 
 const APP_ORIGIN = process.env.APP_ORIGIN ?? 'http://127.0.0.1:3000'
+
+const fetchImpl: typeof fetch =
+  typeof fetch === 'function' ? fetch : undiciFetch
+const HeadersImpl: typeof Headers =
+  typeof Headers === 'function' ? Headers : UndiciHeaders
+
+type HeadersInput = HeadersInit | UndiciHeadersInit
 
 class CookieJar {
   private cookies = new Map<string, string>()
@@ -50,12 +62,12 @@ async function fetchWithCookies(
   jar?: CookieJar,
 ) {
   const url = path.startsWith('http') ? path : `${APP_ORIGIN}${path}`
-  const headers = new Headers(init.headers)
+  const headers = new HeadersImpl(init.headers as HeadersInput)
   const cookieValue = jar?.headerValue()
   if (cookieValue) {
     headers.set('cookie', cookieValue)
   }
-  const response = await fetch(url, { ...init, headers })
+  const response = await fetchImpl(url, { ...init, headers })
   jar?.storeFrom(response)
   return response
 }
@@ -67,7 +79,7 @@ async function loginWithCredentials(options: {
   jar?: CookieJar
 }) {
   const { email, password, ip, jar = new CookieJar() } = options
-  const sharedHeaders = new Headers()
+  const sharedHeaders = new HeadersImpl()
   if (ip) {
     sharedHeaders.set('x-forwarded-for', ip)
   }
@@ -135,7 +147,7 @@ async function callTrpc<TInput, TOutput>({
   input: TInput
   ip?: string
 }) {
-  const headers = new Headers({
+  const headers = new HeadersImpl({
     'Content-Type': 'application/json',
     'x-trpc-source': 'integration-tests',
   })
@@ -143,7 +155,7 @@ async function callTrpc<TInput, TOutput>({
     headers.set('x-forwarded-for', ip)
   }
 
-  const response = await fetch(`${APP_ORIGIN}/api/trpc/${path}`, {
+  const response = await fetchImpl(`${APP_ORIGIN}/api/trpc/${path}`, {
     method: 'POST',
     headers,
     body: JSON.stringify({
