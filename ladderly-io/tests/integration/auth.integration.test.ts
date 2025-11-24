@@ -77,6 +77,12 @@ async function loginWithCredentials(options: {
     { method: 'GET', headers: sharedHeaders },
     jar,
   )
+  if (!csrfResponse.ok) {
+    const body = await csrfResponse.text()
+    throw new Error(
+      `Failed to load CSRF token (${csrfResponse.status}): ${body}`,
+    )
+  }
   const csrfBody = (await csrfResponse.json()) as { csrfToken: string }
 
   const formBody = new URLSearchParams({
@@ -144,8 +150,19 @@ async function callTrpc<TInput, TOutput>({
       0: { json: input },
     }),
   })
+  const raw = await response.text()
 
-  const payload = (await response.json()) as TrpcEnvelope<TOutput>
+  if (!raw) {
+    throw new Error(
+      `tRPC ${path} returned empty response (status ${response.status})`,
+    )
+  }
+
+  const parsed = JSON.parse(raw) as
+    | TrpcEnvelope<TOutput>
+    | TrpcEnvelope<TOutput>[]
+
+  const payload = Array.isArray(parsed) ? parsed[0] : parsed
 
   if (payload?.error) {
     throw new Error(payload.error.message ?? 'Unknown tRPC error')
