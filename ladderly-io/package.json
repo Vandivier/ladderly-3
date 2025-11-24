@@ -21,11 +21,11 @@
     "lint": "next lint",
     "check-types": "tsc --noEmit",
     "start": "next start",
-    "test": "vitest run",
+    "test": "vitest run --exclude \"tests/integration/**\"",
     "test:integration": "vitest run tests/integration",
-    "test:watch": "vitest --watch",
-    "test:ui": "vitest --ui",
-    "test:cov": "vitest run --coverage"
+    "test:watch": "vitest --watch --exclude \"tests/integration/**\"",
+    "test:ui": "vitest --ui --exclude \"tests/integration/**\"",
+    "test:cov": "vitest run --coverage --exclude \"tests/integration/**\""
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.6.0",
