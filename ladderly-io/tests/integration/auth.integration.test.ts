@@ -1,33 +1,20 @@
 import { describe, expect, test, beforeEach } from 'vitest'
+import { createTRPCClient, httpBatchLink } from '@trpc/client'
+import superjson from 'superjson'
+import type { AppRouter } from '~/server/api/root'
 
 const APP_ORIGIN = process.env.APP_ORIGIN ?? 'http://127.0.0.1:3000'
 
-type TrpcBatchCall<TInput> = {
-  id: number
-  jsonrpc: '2.0'
-  method: 'mutation'
-  params: {
-    path: string
-    input: TInput
-  }
-}
-
-type TrpcBatchResult<TOutput> =
-  | {
-      id: number
-      result?: {
-        type?: 'data'
-        data?: {
-          json?: TOutput
-        }
-      }
-    }
-  | {
-      id: number
-      error: {
-        message?: string
-      }
-    }
+const trpc = createTRPCClient<AppRouter>({
+  links: [
+    httpBatchLink({
+      url: `${APP_ORIGIN}/api/trpc`,
+      transformer: superjson,
+      fetch: (input, init) =>
+        fetch(input, init as RequestInit | undefined) as Promise<Response>,
+    }),
+  ],
+})
 
 class CookieJar {
   private cookies = new Map<string, string>()
@@ -129,56 +116,6 @@ async function loginWithCredentials(options: {
 const randomEmail = (prefix: string) =>
   `${prefix}-${Date.now()}-${Math.round(Math.random() * 10_000)}@example.com`
 
-async function trpcMutation<TInput, TOutput>({
-  path,
-  input,
-  jar,
-  ip,
-}: {
-  path: string
-  input: TInput
-  jar?: CookieJar
-  ip?: string
-}) {
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    'x-trpc-source': 'integration-tests',
-  })
-  if (ip) {
-    headers.set('x-forwarded-for', ip)
-  }
-
-  const response = await fetchWithCookies(
-    `/api/trpc/${path}`,
-    {
-      method: 'POST',
-      headers,
-      body: JSON.stringify([
-        {
-          id: 0,
-          jsonrpc: '2.0',
-          method: 'mutation',
-          params: { path, input },
-        } satisfies TrpcBatchCall<TInput>,
-      ]),
-    },
-    jar,
-  )
-
-  const json = (await response.json()) as TrpcBatchResult<TOutput>[]
-  const first = json[0]
-
-  if (!first) {
-    throw new Error('Empty tRPC response')
-  }
-
-  if ('error' in first) {
-    throw new Error(first.error.message ?? 'Unknown tRPC error')
-  }
-
-  return (first.result?.data?.json ?? undefined) as TOutput
-}
-
 describe.sequential('Authentication integration tests', () => {
   const jar = new CookieJar()
 
@@ -190,7 +127,7 @@ describe.sequential('Authentication integration tests', () => {
     const email = randomEmail('signup')
     const password = 'Str0ngP@ssword42'
 
-    await trpcMutation({ path: 'auth.signup', input: { email, password } })
+    await trpc.auth.signup.mutate({ email, password })
 
     const loginResponse = await loginWithCredentials({
       email,
@@ -215,7 +152,7 @@ describe.sequential('Authentication integration tests', () => {
     const email = randomEmail('ratelimit-email')
     const password = 'Corr3ctPassword!'
 
-    await trpcMutation({ path: 'auth.signup', input: { email, password } })
+    await trpc.auth.signup.mutate({ email, password })
 
     for (let i = 0; i < 3; i++) {
       const response = await loginWithCredentials({
