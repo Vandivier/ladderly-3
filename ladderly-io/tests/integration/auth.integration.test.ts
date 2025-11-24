@@ -1,20 +1,6 @@
 import { describe, expect, test, beforeEach } from 'vitest'
-import { createTRPCClient, httpBatchLink } from '@trpc/client'
-import superjson from 'superjson'
-import type { AppRouter } from '~/server/api/root'
 
 const APP_ORIGIN = process.env.APP_ORIGIN ?? 'http://127.0.0.1:3000'
-
-const trpc = createTRPCClient<AppRouter>({
-  links: [
-    httpBatchLink({
-      url: `${APP_ORIGIN}/api/trpc`,
-      transformer: superjson,
-      fetch: (input, init) =>
-        fetch(input, init as RequestInit | undefined) as Promise<Response>,
-    }),
-  ],
-})
 
 class CookieJar {
   private cookies = new Map<string, string>()
@@ -116,6 +102,57 @@ async function loginWithCredentials(options: {
 const randomEmail = (prefix: string) =>
   `${prefix}-${Date.now()}-${Math.round(Math.random() * 10_000)}@example.com`
 
+type TrpcSuccess<T> = {
+  result?: {
+    data?: {
+      json?: T
+    }
+  }
+}
+
+type TrpcError = {
+  error?: {
+    message?: string
+  }
+}
+
+async function callTrpc<TInput, TOutput>({
+  path,
+  input,
+  ip,
+}: {
+  path: string
+  input: TInput
+  ip?: string
+}) {
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'x-trpc-source': 'integration-tests',
+  })
+  if (ip) {
+    headers.set('x-forwarded-for', ip)
+  }
+
+  const response = await fetch(`${APP_ORIGIN}/api/trpc/${path}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      id: 0,
+      jsonrpc: '2.0',
+      method: 'mutation',
+      params: { path, input },
+    }),
+  })
+
+  const json = (await response.json()) as TrpcSuccess<TOutput> & TrpcError
+
+  if (json.error) {
+    throw new Error(json.error.message ?? 'Unknown tRPC error')
+  }
+
+  return json.result?.data?.json as TOutput
+}
+
 describe.sequential('Authentication integration tests', () => {
   const jar = new CookieJar()
 
@@ -127,7 +164,10 @@ describe.sequential('Authentication integration tests', () => {
     const email = randomEmail('signup')
     const password = 'Str0ngP@ssword42'
 
-    await trpc.auth.signup.mutate({ email, password })
+    await callTrpc({
+      path: 'auth.signup',
+      input: { email, password },
+    })
 
     const loginResponse = await loginWithCredentials({
       email,
@@ -152,7 +192,10 @@ describe.sequential('Authentication integration tests', () => {
     const email = randomEmail('ratelimit-email')
     const password = 'Corr3ctPassword!'
 
-    await trpc.auth.signup.mutate({ email, password })
+    await callTrpc({
+      path: 'auth.signup',
+      input: { email, password },
+    })
 
     for (let i = 0; i < 3; i++) {
       const response = await loginWithCredentials({

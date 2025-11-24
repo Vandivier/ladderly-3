@@ -31,8 +31,7 @@ Integration tests are run via Docker Compose with a Supabase Postgres container 
 
 ```bash
 cd ladderly-io
-DOCKER_DEFAULT_PLATFORM=linux/amd64 docker compose -f docker/docker-compose.integration.yml build
-docker compose -f docker/docker-compose.integration.yml up --abort-on-container-exit
+DOCKER_DEFAULT_PLATFORM=linux/amd64 docker compose -f docker/docker-compose.integration.yml up --build --abort-on-container-exit
 ```
 
 If you have an issue creating your container, you might want to try breaking the Docker cache when you build again:
