@@ -28,12 +28,16 @@ class CookieJar {
   }
 }
 
-function getSetCookieHeaders(response: Response) {
+function getSetCookieHeaders(response?: Response) {
+  if (!response) {
+    return []
+  }
+
   const headerLike = response.headers as Headers & {
     getSetCookie?: () => string[]
   }
   const cookies = headerLike.getSetCookie?.()
-  if (cookies && cookies.length > 0) {
+  if (cookies?.length) {
     return cookies
   }
   const single = response.headers.get('set-cookie')
@@ -116,6 +120,8 @@ type TrpcError = {
   }
 }
 
+type TrpcEnvelope<T> = TrpcSuccess<T> & TrpcError
+
 async function callTrpc<TInput, TOutput>({
   path,
   input,
@@ -144,13 +150,17 @@ async function callTrpc<TInput, TOutput>({
     }),
   })
 
-  const json = (await response.json()) as TrpcSuccess<TOutput> & TrpcError
+  const payload = (await response.json()) as
+    | TrpcEnvelope<TOutput>
+    | TrpcEnvelope<TOutput>[]
 
-  if (json.error) {
-    throw new Error(json.error.message ?? 'Unknown tRPC error')
+  const [first] = Array.isArray(payload) ? payload : [payload]
+
+  if (first?.error) {
+    throw new Error(first.error.message ?? 'Unknown tRPC error')
   }
 
-  return json.result?.data?.json as TOutput
+  return first?.result?.data?.json as TOutput
 }
 
 describe.sequential('Authentication integration tests', () => {
