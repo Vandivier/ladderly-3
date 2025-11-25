@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 import { PaymentTierEnum } from '@prisma/client'
-import { getServerAuthSession } from '~/server/auth'
+import { auth, type LadderlyServerSession } from '~/server/better-auth'
+import { headers } from 'next/headers'
 
 import { LadderlyAnalytics } from '../LadderlyAnalytics'
 import { TopNav } from './TopNav'
@@ -27,14 +28,16 @@ export async function LadderlyPageWrapper({
   let content = children
 
   if (authenticate) {
-    const session = await getServerAuthSession()
+    const session = await auth.api.getSession({
+      headers: headers(),
+    }) as LadderlyServerSession
     const user = session?.user
 
     if (!session) {
       content = unauthenticatedView ?? <LadderlyPitch />
     } else if (
       requirePremium &&
-      user?.subscription.tier === PaymentTierEnum.FREE
+      user?.subscription?.tier === PaymentTierEnum.FREE
     ) {
       content = previewView ?? (
         <div className="container mx-auto max-w-3xl px-4 py-8">

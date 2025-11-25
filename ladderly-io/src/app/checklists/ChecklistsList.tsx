@@ -1,13 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { type LadderlySession } from '~/server/auth'
+import { type LadderlyServerSession } from '~/server/better-auth'
 import { type Checklist } from '@prisma/client'
 import { ChecklistCard } from '~/app/checklists/ChecklistCard'
 
 export const ChecklistsList: React.FC<{
   checklists: Checklist[]
-  session: LadderlySession | null
+  session: LadderlyServerSession | null
 }> = ({ checklists, session }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 

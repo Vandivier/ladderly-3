@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { SignupForm } from '~/app/(auth)/components/SignupForm'
 import { TestimonialBlock } from '~/app/home/TestimonialBlock'
-import { getServerAuthSession, type LadderlySession } from '~/server/auth'
-import { LadderlyAnalytics } from '../LadderlyAnalytics' // Adjusted path as per user instruction
+import { auth, type LadderlyServerSession } from '~/server/better-auth'
+import { headers } from 'next/headers'
+import { LadderlyAnalytics } from '../LadderlyAnalytics'
 
 const HomePageCardSubheading = ({
   children,
@@ -21,7 +22,9 @@ export const SignupPageWrapper = async ({
   valueProps,
   heroHeadline,
 }: SignupPageWrapperProps) => {
-  const session: LadderlySession | null = await getServerAuthSession()
+  const session = await auth.api.getSession({
+    headers: headers(),
+  }) as LadderlyServerSession
   const dashboardHref = '/'
 
   return (

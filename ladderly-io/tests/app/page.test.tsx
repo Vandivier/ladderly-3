@@ -8,8 +8,8 @@ vi.mock('server-only', () => ({}))
 // Mock the HomePage component instead of importing it directly
 vi.mock('~/app/page', () => ({
   default: async () => {
-    const { getServerAuthSession } = await import('~/server/auth')
-    const session = await getServerAuthSession()
+    const { auth } = await import('~/server/better-auth')
+    const session = await auth.api.getSession({ headers: new Headers() })
 
     return (
       <div>
@@ -23,7 +23,7 @@ vi.mock('~/app/page', () => ({
           <a href="https://buy.stripe.com/cN2bMfbOQ2CX5dC7su">
             Book an Expert Session
           </a>
-          {session?.user?.subscription?.tier === PaymentTierEnum.PREMIUM && (
+          {session && 'subscription' in session?.user && session?.user?.subscription?.tier === PaymentTierEnum.PREMIUM && (
             <a href="/checklists/my-premium-checklist">Advanced Checklist</a>
           )}
           <div>
@@ -40,8 +40,12 @@ vi.mock('~/app/page', () => ({
 }))
 
 // Mock auth
-vi.mock('~/server/auth', () => ({
-  getServerAuthSession: vi.fn().mockResolvedValue(null),
+vi.mock('~/server/better-auth', () => ({
+  auth: {
+    api: {
+      getSession: vi.fn().mockResolvedValue(null),
+    },
+  },
 }))
 
 const mockPremiumSession = {
@@ -49,12 +53,24 @@ const mockPremiumSession = {
     id: '1',
     name: 'Test User',
     email: 'test@test.com',
+    emailVerified: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
     subscription: {
       tier: PaymentTierEnum.PREMIUM,
       type: 'ACCOUNT_PLAN',
     },
   },
-  expires: new Date().toISOString(),
+  session: {
+    id: 'session-1',
+    userId: '1',
+    expiresAt: new Date(),
+    token: 'token-1',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    ipAddress: '127.0.0.1',
+    userAgent: 'Mozilla/5.0',
+  },
 }
 
 const mockFreeSession = {
@@ -62,18 +78,30 @@ const mockFreeSession = {
     id: '1',
     name: 'Test User',
     email: 'test@test.com',
+    emailVerified: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
     subscription: {
       tier: PaymentTierEnum.FREE,
       type: 'ACCOUNT_PLAN',
     },
   },
-  expires: new Date().toISOString(),
+  session: {
+    id: 'session-1',
+    userId: '1',
+    expiresAt: new Date(),
+    token: 'token-1',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    ipAddress: '127.0.0.1',
+    userAgent: 'Mozilla/5.0',
+  },
 }
 
 describe('HomePage', () => {
   test('renders homepage for guest users', async () => {
-    const { getServerAuthSession } = await import('~/server/auth')
-    vi.mocked(getServerAuthSession).mockResolvedValue(null)
+    const { auth } = await import('~/server/better-auth')
+    vi.mocked(auth.api.getSession).mockResolvedValue(null)
 
     const { default: HomePage } = await import('~/app/page')
     const page = await HomePage()
@@ -100,8 +128,8 @@ describe('HomePage', () => {
   })
 
   test('renders homepage for premium users', async () => {
-    const { getServerAuthSession } = await import('~/server/auth')
-    vi.mocked(getServerAuthSession).mockResolvedValue(mockPremiumSession)
+    const { auth } = await import('~/server/better-auth')
+    vi.mocked(auth.api.getSession).mockResolvedValue(mockPremiumSession)
 
     const { default: HomePage } = await import('~/app/page')
     const page = await HomePage()
@@ -115,8 +143,8 @@ describe('HomePage', () => {
   })
 
   test('renders homepage for free users', async () => {
-    const { getServerAuthSession } = await import('~/server/auth')
-    vi.mocked(getServerAuthSession).mockResolvedValue(mockFreeSession)
+    const { auth } = await import('~/server/better-auth')
+    vi.mocked(auth.api.getSession).mockResolvedValue(mockFreeSession)
 
     const { default: HomePage } = await import('~/app/page')
     const page = await HomePage()

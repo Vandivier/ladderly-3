@@ -62,19 +62,6 @@ vi.mock('~/server/env', () => ({
   },
 }))
 
-// Mock server-only
-vi.mock('server-only', () => ({}))
-
-// Mock auth
-vi.mock('~/server/auth', () => ({
-  auth: vi.fn(() => Promise.resolve({ user: null })),
-  signIn: vi.fn(),
-  signOut: vi.fn(),
-  getServerSession: vi.fn(() => Promise.resolve(null)),
-  LadderlyMigrationAdapter: vi.fn(),
-  createLadderlySession: vi.fn(),
-}))
-
 // Mock Next.js components
 vi.mock('next/link', () => ({
   default: ({

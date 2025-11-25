@@ -10,7 +10,10 @@ const config = {
     typedRoutes: true,
   },
   images: {
-    remotePatterns: [{ hostname: 'api.producthunt.com' }],
+    remotePatterns: [
+      { hostname: 'api.producthunt.com' },
+      { hostname: 'www.google.com' },
+    ],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },

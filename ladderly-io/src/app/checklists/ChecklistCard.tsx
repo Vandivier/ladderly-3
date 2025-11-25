@@ -2,12 +2,12 @@
 
 import { type Checklist, PaymentTierEnum } from '@prisma/client'
 import Link from 'next/link'
-import { type LadderlySession } from '~/server/auth'
+import { type LadderlyServerSession } from '~/server/better-auth'
 import { PremiumLockIcon } from './PremiumLockIcon'
 
 export const ChecklistCard: React.FC<{
   checklist: Checklist
-  session: LadderlySession | null
+  session: LadderlyServerSession | null
   onLockClick: () => void
 }> = ({ checklist, session, onLockClick }) => {
   const checklistSubRoute = checklist.prettyRoute ?? checklist.id

@@ -1,14 +1,16 @@
 import Link from 'next/link'
 import { LoginForm } from '~/app/(auth)/components/LoginForm'
-import { getServerAuthSession } from '~/server/auth'
-import type { LadderlySession } from '~/server/auth'
+import { auth } from '~/server/better-auth'
+import { headers } from 'next/headers'
 
 export const metadata = {
   title: 'Log In',
 }
 
 const LoginPage = async () => {
-  const session: LadderlySession | null = await getServerAuthSession()
+  const session = await auth.api.getSession({
+    headers: headers(),
+  })
 
   return (
     <div className="relative min-h-screen">

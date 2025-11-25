@@ -7,7 +7,7 @@ import { TRPCClientError } from '@trpc/client'
 import type { Checklist, ChecklistItem } from '@prisma/client'
 import { InfoIcon, X } from 'lucide-react'
 import { LadderlyToast } from '~/app/core/components/LadderlyToast'
-import { type LadderlySession } from '~/server/auth'
+import { type LadderlyServerSession } from '~/server/better-auth'
 
 type UserChecklist = Exclude<
   RouterOutputs['checklist']['getChecklistForUser'],
@@ -59,7 +59,7 @@ const NewestChecklistQueryHandler: React.FC<{
 
 const UserChecklistItems: React.FC<{
   items: (UserChecklistItem | ChecklistItem)[]
-  session: LadderlySession | null
+  session: LadderlyServerSession | null
   onToggle?: (item: UserChecklistItem) => void
   isMutating?: boolean
   mutatingItemId?: number
@@ -161,7 +161,7 @@ export default function ClientChecklist({
 }: {
   initialUserChecklist: UserChecklist | null
   latestChecklist: Checklist & { checklistItems: ChecklistItem[] }
-  session: LadderlySession | null
+  session: LadderlyServerSession | null
 }) {
   const [userChecklist, setUserChecklist] = useState(initialUserChecklist)
   const [error, setError] = useState<string | null>(null)

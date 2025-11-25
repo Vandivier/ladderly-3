@@ -186,7 +186,12 @@
     </url>
     <url>
         <loc>
-            https://www.ladderly.io/blog/2025-06-03-data-engineering-interview
+            https://www.ladderly.io/blog/2025-06-03-data-Engineering-Interview
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://www.ladderly.io/blog/2025-08-31-backtracking
         </loc>
     </url>
     <url>
@@ -297,6 +302,11 @@
     <url>
         <loc>
             https://www.ladderly.io/signup/wellness
+        </loc>
+    </url>
+    <url>
+        <loc>
+            https://www.ladderly.io/verify-email
         </loc>
     </url>
 </urlset>

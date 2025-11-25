@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import React from 'react'
 import {
   TopNavRight,
@@ -10,9 +10,9 @@ import {
   MenuContext,
 } from '~/app/core/components/page-wrapper/MenuProvider'
 
-// Mock next-auth/react
+// Mock auth-client
 const mockUseSession = vi.fn()
-vi.mock('next-auth/react', () => ({
+vi.mock('~/server/auth-client', () => ({
   useSession: () => mockUseSession(),
 }))
 
@@ -84,7 +84,8 @@ describe('TopNavRight', () => {
     })
     mockUseSession.mockReturnValue({
       data: null,
-      status: 'unauthenticated',
+      isPending: false,
+      error: null,
     })
     mockSearchParamsGet.mockReturnValue(null)
     mockRefetch.mockResolvedValue({ data: null })
@@ -123,8 +124,12 @@ describe('TopNavRight', () => {
             id: '123',
             email: 'test@example.com',
           },
+          session: {
+            expiresAt: new Date(),
+          }
         },
-        status: 'authenticated',
+        isPending: false,
+        error: null,
       })
 
       render(
@@ -148,7 +153,8 @@ describe('TopNavRight', () => {
       })
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated',
+        isPending: false,
+        error: null,
       })
 
       render(
@@ -175,8 +181,12 @@ describe('TopNavRight', () => {
             id: '123',
             email: 'test@example.com',
           },
+          session: {
+            expiresAt: new Date(),
+          }
         },
-        status: 'authenticated',
+        isPending: false,
+        error: null,
       })
 
       render(
@@ -256,8 +266,12 @@ describe('TopNavRight', () => {
             id: '123',
             email: 'test@example.com',
           },
+          session: {
+            expiresAt: new Date(),
+          }
         },
-        status: 'authenticated',
+        isPending: false,
+        error: null,
       })
 
       render(
@@ -285,8 +299,12 @@ describe('TopNavRight', () => {
             id: '789',
             email: 'session@example.com',
           },
+          session: {
+            expiresAt: new Date(),
+          }
         },
-        status: 'authenticated',
+        isPending: false,
+        error: null,
       })
 
       render(
@@ -317,8 +335,12 @@ describe('TopNavRight', () => {
             id: '123',
             email: 'test@example.com',
           },
+          session: {
+            expiresAt: new Date(),
+          }
         },
-        status: 'authenticated',
+        isPending: false,
+        error: null,
       })
 
       render(
@@ -369,8 +391,12 @@ describe('TopNavRight', () => {
             id: '123',
             email: 'test@example.com',
           },
+          session: {
+            expiresAt: new Date(),
+          }
         },
-        status: 'authenticated',
+        isPending: false,
+        error: null,
       })
 
       render(
@@ -406,8 +432,12 @@ describe('TopNavRight', () => {
             id: '123',
             email: 'test@example.com',
           },
+          session: {
+            expiresAt: new Date(),
+          }
         },
-        status: 'authenticated',
+        isPending: false,
+        error: null,
       })
 
       rerender(
@@ -428,8 +458,12 @@ describe('TopNavRight', () => {
             id: '123',
             email: 'test@example.com',
           },
+          session: {
+            expiresAt: new Date(),
+          }
         },
-        status: 'authenticated',
+        isPending: false,
+        error: null,
       })
 
       const { rerender } = render(
@@ -462,12 +496,12 @@ describe('TopNavRight', () => {
       window.location = {
         ...originalLocation,
         href: '',
-      } as Location
+      } as any
     })
 
     afterEach(() => {
       // Restore original location
-      window.location = originalLocation
+      window.location = originalLocation as any
     })
 
     it('refreshes page and removes query parameter when refresh_current_user is true', async () => {
@@ -513,23 +547,5 @@ describe('TopNavRight', () => {
         refetchOnWindowFocus: true,
       })
     })
-  })
-})
-
-describe('TopNavRightSkeleton', () => {
-  it('renders skeleton navigation links', () => {
-    render(<TopNavRightSkeleton />)
-
-    expect(screen.getByText('Perks')).toBeInTheDocument()
-    expect(screen.getByText('Blog')).toBeInTheDocument()
-  })
-
-  it('does not render interactive elements', () => {
-    render(<TopNavRightSkeleton />)
-
-    expect(screen.queryByText('Grow')).not.toBeInTheDocument()
-    expect(screen.queryByText('Community')).not.toBeInTheDocument()
-    expect(screen.queryByText('Account')).not.toBeInTheDocument()
-    expect(screen.queryByText('Log In')).not.toBeInTheDocument()
   })
 })

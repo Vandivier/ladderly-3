@@ -3,18 +3,19 @@
 import { LabeledTextField } from '~/app/core/components/LabeledTextField'
 import { Form, FORM_ERROR } from '~/app/core/components/Form'
 import { ResetPassword } from 'src/app/(auth)/schemas'
-import { api } from '~/trpc/react'
+import { authClient } from '~/server/auth-client'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const ResetPasswordClientPageClient = () => {
   const searchParams = useSearchParams()
   const token = searchParams?.get('token')?.toString()
-  const resetPasswordMutation = api.auth.resetPassword.useMutation()
+  const [isSuccess, setIsSuccess] = useState(false)
 
   return (
     <>
-      {resetPasswordMutation.isSuccess ? (
+      {isSuccess ? (
         <div>
           <h2>Password Reset Successfully</h2>
           <p className="mt-4">
@@ -41,10 +42,17 @@ const ResetPasswordClientPageClient = () => {
           onSubmit={async (values) => {
             try {
               if (!token) throw new Error('Token is required.')
-              await resetPasswordMutation.mutateAsync({
-                ...values,
-                token,
+
+              const { error } = await authClient.resetPassword({
+                newPassword: values.password,
+                token
               })
+
+              if (error) {
+                return { [FORM_ERROR]: error.message ?? 'Failed to reset password' }
+              }
+
+              setIsSuccess(true)
             } catch (error) {
               return {
                 [FORM_ERROR]:

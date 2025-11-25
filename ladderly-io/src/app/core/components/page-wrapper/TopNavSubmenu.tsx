@@ -1,8 +1,8 @@
 'use client'
 
-import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
+import { signOut } from '~/server/auth-client'
 
 import { MenuContext, MenuItemsWrapper } from './MenuProvider'
 
@@ -88,10 +88,14 @@ const LogoutButton = ({ className }: { className: string }) => {
   return (
     <button
       className={className}
-      onClick={() => {
+      onClick={async () => {
         setMenu?.(null, '')
-        void signOut({
-          callbackUrl: '/',
+        await signOut({
+          fetchOptions: {
+            onSuccess: () => {
+              window.location.href = '/'
+            }
+          }
         })
       }}
     >

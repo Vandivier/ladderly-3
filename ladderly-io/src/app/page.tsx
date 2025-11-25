@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
-import { getServerAuthSession, type LadderlySession } from '~/server/auth'
+import { auth, type LadderlyServerSession } from '~/server/better-auth'
+import { headers } from 'next/headers'
 import HomePageContent from './home/HomePageContent'
 import HomePageSkeleton from './home/HomePageSkeleton'
 
@@ -9,7 +10,9 @@ export const metadata = {
 }
 
 export default async function HomePage() {
-  const session: LadderlySession | null = await getServerAuthSession()
+  const session = await auth.api.getSession({
+    headers: headers(),
+  }) as LadderlyServerSession
 
   if (session?.user) {
     redirect('/journal')

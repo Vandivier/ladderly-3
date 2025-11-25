@@ -11,12 +11,13 @@ import { initTRPC, TRPCError } from '@trpc/server'
 import superjson from 'superjson'
 import { ZodError } from 'zod'
 
-import { getServerAuthSession } from '~/server/auth'
+
 import { db } from '~/server/db'
 import {
   checkGlobalRateLimit,
   getRateLimitIdentifier,
 } from '~/server/utils/rateLimit'
+import { auth, type LadderlyServerSession } from '../better-auth'
 
 /**
  * 1. CONTEXT
@@ -31,11 +32,11 @@ import {
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await getServerAuthSession()
+  const session = await auth.api.getSession({ headers: opts.headers })
 
   return {
     db,
-    session,
+    session: session as LadderlyServerSession,
     ...opts,
   }
 }

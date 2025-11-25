@@ -5,7 +5,8 @@ import { notFound } from 'next/navigation'
 import path from 'path'
 import { calculateReadingTime } from '~/app/blog/blog-utils'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
-import { getServerAuthSession } from '~/server/auth'
+import { auth, type LadderlyServerSession } from '~/server/better-auth'
+import { headers } from 'next/headers'
 
 import { BlogPostContent } from './BlogPostContent'
 import { getBlogPost } from './getBlogPost'
@@ -219,7 +220,9 @@ export default async function BlogPost({
 }) {
   // Use the external getBlogPost
   const post = await getBlogPost(params.slug)
-  const session = await getServerAuthSession()
+  const session = await auth.api.getSession({
+    headers: headers(),
+  }) as LadderlyServerSession
 
   if (!post) {
     notFound()

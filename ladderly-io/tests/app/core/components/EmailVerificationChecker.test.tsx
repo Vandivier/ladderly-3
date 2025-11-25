@@ -2,10 +2,10 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { EmailVerificationChecker } from '~/app/core/components/EmailVerificationChecker'
 
-// Mock next-auth
+// Mock auth-client
 const mockUseSession = vi.fn()
 const mockSignOut = vi.fn()
-vi.mock('next-auth/react', () => ({
+vi.mock('~/server/auth-client', () => ({
   useSession: () => mockUseSession(),
   signOut: (...args: unknown[]) => mockSignOut(...args),
 }))
@@ -39,7 +39,8 @@ describe('EmailVerificationChecker', () => {
   it('does not render modal when user is not authenticated', () => {
     mockUseSession.mockReturnValue({
       data: null,
-      status: 'unauthenticated',
+      isPending: false,
+      error: null,
     })
 
     render(<EmailVerificationChecker />)
@@ -55,10 +56,14 @@ describe('EmailVerificationChecker', () => {
         user: {
           id: '1',
           email: 'test@example.com',
-          emailVerified: new Date(),
+          emailVerified: true,
         },
+        session: {
+          expiresAt: new Date()
+        }
       },
-      status: 'authenticated',
+      isPending: false,
+      error: null,
     })
 
     render(<EmailVerificationChecker />)
@@ -74,10 +79,14 @@ describe('EmailVerificationChecker', () => {
         user: {
           id: '1',
           email: 'test@example.com',
-          emailVerified: null,
+          emailVerified: false,
         },
+        session: {
+          expiresAt: new Date()
+        }
       },
-      status: 'authenticated',
+      isPending: false,
+      error: null,
     })
 
     render(<EmailVerificationChecker />)
@@ -92,10 +101,14 @@ describe('EmailVerificationChecker', () => {
         user: {
           id: '1',
           email: null,
-          emailVerified: null,
+          emailVerified: false,
         },
+        session: {
+          expiresAt: new Date()
+        }
       },
-      status: 'authenticated',
+      isPending: false,
+      error: null,
     })
 
     render(<EmailVerificationChecker />)
@@ -108,7 +121,8 @@ describe('EmailVerificationChecker', () => {
   it('does not render modal when session is loading', () => {
     mockUseSession.mockReturnValue({
       data: undefined,
-      status: 'loading',
+      isPending: true,
+      error: null,
     })
 
     render(<EmailVerificationChecker />)
@@ -124,10 +138,14 @@ describe('EmailVerificationChecker', () => {
         user: {
           id: '1',
           email: 'test@example.com',
-          emailVerified: null,
+          emailVerified: false,
         },
+        session: {
+          expiresAt: new Date()
+        }
       },
-      status: 'authenticated',
+      isPending: false,
+      error: null,
     })
 
     render(<EmailVerificationChecker />)
@@ -137,7 +155,9 @@ describe('EmailVerificationChecker', () => {
 
     expect(mockSignOut).toHaveBeenCalledTimes(1)
     expect(mockSignOut).toHaveBeenCalledWith({
-      callbackUrl: '/',
+      fetchOptions: {
+        onSuccess: expect.any(Function),
+      },
     })
   })
 })

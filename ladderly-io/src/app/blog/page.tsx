@@ -33,13 +33,19 @@ async function getBlogPosts(): Promise<BlogPost[]> {
         .readFileSync(path.join(process.cwd(), 'src/app/blog', filename))
         .toString()
       const { data } = matter(markdownWithMetadata)
+      const frontmatter = data as {
+        title: string
+        date: string
+        author: string
+        premium?: boolean
+      }
 
       return {
         slug,
-        title: data.title,
-        date: data.date,
-        author: data.author,
-        premium: data.premium === true,
+        title: frontmatter.title,
+        date: frontmatter.date,
+        author: frontmatter.author,
+        premium: frontmatter.premium === true,
       }
     })
     .reverse()

@@ -9,7 +9,8 @@ import RecentChecklists from './RecentChecklists'
 import PracticeSection from './PracticeSection'
 import StoryGenerator from './StoryGenerator'
 import { DeepJournalingWaitlist } from './DeepJournalingWaitlist'
-import { getServerAuthSession } from '~/server/auth'
+import { auth, type LadderlyServerSession } from '~/server/better-auth'
+import { headers } from 'next/headers'
 import Link from 'next/link'
 
 export const metadata = {
@@ -20,7 +21,9 @@ export const metadata = {
 }
 
 export default async function JournalPage() {
-  const session = await getServerAuthSession()
+  const session = await auth.api.getSession({
+    headers: headers(),
+  }) as LadderlyServerSession
   const userTier = session?.user?.subscription?.tier
 
   if (!userTier) {

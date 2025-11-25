@@ -2,7 +2,7 @@ import { PaymentTierEnum } from '@prisma/client'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, test, vi } from 'vitest'
 import HomePageContent from '~/app/home/HomePageContent'
-import type { LadderlySession } from '~/server/auth'
+import type { LadderlyServerSession } from '~/server/better-auth'
 
 // Mock PricingGrid component
 vi.mock('~/app/core/components/pricing-grid/PricingGrid', () => ({
@@ -47,17 +47,29 @@ describe('HomePageContent', () => {
   })
 
   test('renders homepage for premium users', () => {
-    const premiumSession: LadderlySession = {
+    const premiumSession: LadderlyServerSession = {
       user: {
         id: '1',
         name: 'Test User',
         email: 'test@test.com',
+        emailVerified: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
         subscription: {
           tier: PaymentTierEnum.PREMIUM,
           type: 'ACCOUNT_PLAN',
         },
       },
-      expires: new Date().toISOString(),
+      session: {
+        id: 'session-1',
+        userId: '1',
+        expiresAt: new Date(),
+        token: 'token-1',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ipAddress: '127.0.0.1',
+        userAgent: 'Mozilla/5.0',
+      },
     }
 
     render(<HomePageContent session={premiumSession} />)
@@ -70,17 +82,29 @@ describe('HomePageContent', () => {
   })
 
   test('renders homepage for free users', () => {
-    const freeSession: LadderlySession = {
+    const freeSession: LadderlyServerSession = {
       user: {
         id: '1',
         name: 'Test User',
         email: 'test@test.com',
+        emailVerified: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
         subscription: {
           tier: PaymentTierEnum.FREE,
           type: 'ACCOUNT_PLAN',
         },
       },
-      expires: new Date().toISOString(),
+      session: {
+        id: 'session-1',
+        userId: '1',
+        expiresAt: new Date(),
+        token: 'token-1',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ipAddress: '127.0.0.1',
+        userAgent: 'Mozilla/5.0',
+      },
     }
 
     render(<HomePageContent session={freeSession} />)

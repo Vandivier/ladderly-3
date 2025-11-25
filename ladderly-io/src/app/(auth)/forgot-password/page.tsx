@@ -1,13 +1,15 @@
 'use client'
 
+import { useState } from 'react'
+
 import { LabeledTextField } from '~/app/core/components/LabeledTextField'
 import { Form, FORM_ERROR } from '~/app/core/components/Form'
 import { ForgotPassword } from 'src/app/(auth)/schemas'
-import { api } from '~/trpc/react'
+import { authClient } from '~/server/auth-client'
 import Link from 'next/link'
 
 const ForgotPasswordPage = () => {
-  const forgotPasswordMutation = api.auth.forgotPassword.useMutation()
+  const [isSuccess, setIsSuccess] = useState(false)
 
   return (
     <div className="relative min-h-screen">
@@ -25,7 +27,7 @@ const ForgotPasswordPage = () => {
             Reset Your Password
           </h1>
 
-          {forgotPasswordMutation.isSuccess ? (
+          {isSuccess ? (
             <div>
               <h2>Request Submitted</h2>
               <p>
@@ -40,15 +42,21 @@ const ForgotPasswordPage = () => {
               initialValues={{ email: '' }}
               onSubmit={async (values) => {
                 try {
-                  await forgotPasswordMutation.mutateAsync(values)
-                } catch (error: unknown) {
-                  // Extract error message from tRPC error
-                  const errorMessage =
-                    error instanceof Error
-                      ? error.message
-                      : 'Sorry, we had an unexpected error. Please try again.'
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+                  const { error } = await (authClient as any).forgotPassword({
+                    email: values.email,
+                    redirectTo: '/reset-password',
+                  })
+
+                  if (error) {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+                    return { [FORM_ERROR]: error.message ?? 'Failed to send reset email' }
+                  }
+
+                  setIsSuccess(true)
+                } catch {
                   return {
-                    [FORM_ERROR]: errorMessage,
+                    [FORM_ERROR]: 'Sorry, we had an unexpected error. Please try again.',
                   }
                 }
               }}

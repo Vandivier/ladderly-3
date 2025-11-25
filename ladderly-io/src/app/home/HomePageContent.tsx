@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import PricingGrid from '~/app/core/components/pricing-grid/PricingGrid'
-import type { LadderlySession } from '~/server/auth'
+import type { LadderlyServerSession } from '~/server/better-auth'
 import { LadderlyHelpsBlock } from './LadderlyHelpsBlock'
 import { TestimonialBlock } from './TestimonialBlock'
 
@@ -27,10 +27,10 @@ const HomePageCardSubheading = ({
 const AdvancedChecklistContentBlock = ({
   session,
 }: {
-  session: LadderlySession | null
+  session: LadderlyServerSession | null
 }) => {
   const isLoggedIn = !!session?.user
-  const isPaid = session?.user?.subscription.tier !== PaymentTierEnum.FREE
+  const isPaid = session?.user?.subscription?.tier !== PaymentTierEnum.FREE
 
   return isLoggedIn && isPaid ? (
     <div
@@ -50,7 +50,7 @@ const AdvancedChecklistContentBlock = ({
   ) : null
 }
 
-const HomePageContent = ({ session }: { session: LadderlySession | null }) => (
+const HomePageContent = ({ session }: { session: LadderlyServerSession | null }) => (
   <LadderlyPageWrapper>
     <div
       id="chatbot-subheading"
