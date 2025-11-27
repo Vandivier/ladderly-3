@@ -2,15 +2,43 @@ import { describe, expect, test, beforeEach } from 'vitest'
 
 const APP_ORIGIN = process.env.APP_ORIGIN ?? 'http://127.0.0.1:3000'
 
-const fetchImpl: typeof fetch = (() => {
-  if (typeof globalThis.fetch === 'function') {
-    return globalThis.fetch.bind(globalThis)
-  }
-  throw new Error('Global fetch not available. Node 18+ is required.')
-})()
+type NodeFetchModule = typeof import('node-fetch')
 
-if (typeof Headers === 'undefined') {
-  throw new Error('Global Headers not available. Node 18+ is required.')
+let nodeFetchModulePromise: Promise<NodeFetchModule> | null = null
+
+async function ensureHttpGlobals() {
+  if (
+    typeof globalThis.fetch !== 'function' ||
+    typeof globalThis.Headers !== 'function'
+  ) {
+    nodeFetchModulePromise ??= import('node-fetch')
+    const nodeFetch = await nodeFetchModulePromise
+
+    if (typeof globalThis.fetch !== 'function') {
+      const candidate =
+        nodeFetch.default ??
+        (nodeFetch as unknown as { fetch?: typeof fetch }).fetch
+      if (!candidate) {
+        throw new Error('Unable to resolve fetch implementation')
+      }
+      globalThis.fetch = candidate.bind(globalThis) as typeof fetch
+    }
+
+    if (typeof globalThis.Headers !== 'function' && nodeFetch.Headers) {
+      globalThis.Headers = nodeFetch.Headers as unknown as typeof Headers
+    }
+  }
+
+  const fetchFn = globalThis.fetch
+  const HeadersCtor = globalThis.Headers
+
+  if (typeof fetchFn !== 'function' || typeof HeadersCtor !== 'function') {
+    throw new Error(
+      'Global fetch/Headers not available. Node 18+ or node-fetch is required.',
+    )
+  }
+
+  return { fetchFn: fetchFn.bind(globalThis), HeadersCtor }
 }
 
 class CookieJar {
@@ -60,13 +88,14 @@ async function fetchWithCookies(
   init: RequestInit = {},
   jar?: CookieJar,
 ) {
+  const { fetchFn, HeadersCtor } = await ensureHttpGlobals()
   const url = path.startsWith('http') ? path : `${APP_ORIGIN}${path}`
-  const headers = new Headers(init.headers)
+  const headers = new HeadersCtor(init.headers)
   const cookieValue = jar?.headerValue()
   if (cookieValue) {
     headers.set('cookie', cookieValue)
   }
-  const response = await fetchImpl(url, { ...init, headers })
+  const response = await fetchFn(url, { ...init, headers })
   jar?.storeFrom(response)
   return response
 }
@@ -78,7 +107,8 @@ async function loginWithCredentials(options: {
   jar?: CookieJar
 }) {
   const { email, password, ip, jar = new CookieJar() } = options
-  const sharedHeaders = new Headers()
+  const { HeadersCtor } = await ensureHttpGlobals()
+  const sharedHeaders = new HeadersCtor()
   if (ip) {
     sharedHeaders.set('x-forwarded-for', ip)
   }
@@ -104,7 +134,7 @@ async function loginWithCredentials(options: {
     json: 'true',
   })
 
-  const loginHeaders = new Headers(sharedHeaders)
+  const loginHeaders = new HeadersCtor(sharedHeaders)
   loginHeaders.set('Content-Type', 'application/x-www-form-urlencoded')
 
   return fetchWithCookies(
@@ -146,7 +176,8 @@ async function callTrpc<TInput, TOutput>({
   input: TInput
   ip?: string
 }) {
-  const headers = new Headers({
+  const { fetchFn, HeadersCtor } = await ensureHttpGlobals()
+  const headers = new HeadersCtor({
     'Content-Type': 'application/json',
     'x-trpc-source': 'integration-tests',
   })
@@ -154,7 +185,7 @@ async function callTrpc<TInput, TOutput>({
     headers.set('x-forwarded-for', ip)
   }
 
-  const response = await fetchImpl(`${APP_ORIGIN}/api/trpc/${path}`, {
+  const response = await fetchFn(`${APP_ORIGIN}/api/trpc/${path}`, {
     method: 'POST',
     headers,
     body: JSON.stringify({
