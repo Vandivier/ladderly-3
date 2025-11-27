@@ -1,7 +1,11 @@
 declare module 'node-fetch' {
-  const fetchFn: typeof fetch
-  const HeadersCtor: typeof Headers
+  import { RequestInfo, RequestInit, Response, Headers } from 'node-fetch'
 
-  export { HeadersCtor as Headers }
+  export interface Fetch {
+    (url: RequestInfo, init?: RequestInit): Promise<Response>
+  }
+
+  const fetchFn: Fetch
+  export { Headers }
   export default fetchFn
 }
