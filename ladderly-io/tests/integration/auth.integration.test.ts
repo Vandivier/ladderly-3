@@ -6,11 +6,14 @@ type NodeFetchModule = typeof import('node-fetch')
 
 let nodeFetchModulePromise: Promise<NodeFetchModule> | null = null
 
-async function ensureHttpGlobals() {
-  if (
-    typeof globalThis.fetch !== 'function' ||
-    typeof globalThis.Headers !== 'function'
-  ) {
+async function ensureHttpGlobals(): Promise<{
+  fetchFn: typeof fetch
+  HeadersCtor: typeof Headers
+}> {
+  const needsFetch = typeof globalThis.fetch !== 'function'
+  const needsHeaders = typeof globalThis.Headers !== 'function'
+
+  if (needsFetch || needsHeaders) {
     nodeFetchModulePromise ??= import('node-fetch')
     const nodeFetch = await nodeFetchModulePromise
 
@@ -29,10 +32,12 @@ async function ensureHttpGlobals() {
     }
   }
 
-  const fetchFn = globalThis.fetch
-  const HeadersCtor = globalThis.Headers
+  const fetchFn =
+    typeof globalThis.fetch === 'function' ? globalThis.fetch : null
+  const HeadersCtor =
+    typeof globalThis.Headers === 'function' ? globalThis.Headers : null
 
-  if (typeof fetchFn !== 'function' || typeof HeadersCtor !== 'function') {
+  if (!fetchFn || !HeadersCtor) {
     throw new Error(
       'Global fetch/Headers not available. Node 18+ or node-fetch is required.',
     )
