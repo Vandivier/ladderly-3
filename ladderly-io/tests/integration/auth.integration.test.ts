@@ -150,9 +150,7 @@ async function callTrpc<TInput, TOutput>({
   const response = await fetch(`${APP_ORIGIN}/api/trpc/${path}`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({
-      0: { json: input },
-    }),
+    body: JSON.stringify({ json: input }),
   })
   const raw = await response.text()
 
@@ -162,20 +160,17 @@ async function callTrpc<TInput, TOutput>({
     )
   }
 
-  const parsed = JSON.parse(raw) as
-    | TrpcResponse<TOutput>
-    | TrpcResponse<TOutput>[]
-  const payload = Array.isArray(parsed) ? parsed[0] : parsed
+  const parsed = JSON.parse(raw) as TrpcResponse<TOutput>
 
-  if (payload?.error) {
+  if (parsed?.error) {
     const errorMessage =
-      payload.error.message ??
-      payload.error.json?.message ??
-      `tRPC error: ${JSON.stringify(payload.error)}`
+      parsed.error.message ??
+      parsed.error.json?.message ??
+      `tRPC error: ${JSON.stringify(parsed.error)}`
     throw new Error(errorMessage)
   }
 
-  return payload?.result?.data?.json as TOutput
+  return parsed?.result?.data?.json as TOutput
 }
 
 describe.sequential('Authentication integration tests', () => {
