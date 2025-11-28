@@ -147,10 +147,11 @@ async function callTrpc<TInput, TOutput>({
     headers.set('x-forwarded-for', ip)
   }
 
-  const response = await fetch(`${APP_ORIGIN}/api/trpc/${path}`, {
+  // tRPC v11 with httpBatchStreamLink expects batched format
+  const response = await fetch(`${APP_ORIGIN}/api/trpc/${path}?batch=1`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({ json: input }),
+    body: JSON.stringify({ '0': { json: input } }),
   })
   const raw = await response.text()
 
@@ -160,17 +161,19 @@ async function callTrpc<TInput, TOutput>({
     )
   }
 
-  const parsed = JSON.parse(raw) as TrpcResponse<TOutput>
+  // Response is an array for batched requests
+  const parsed = JSON.parse(raw) as TrpcResponse<TOutput>[]
+  const payload = parsed[0]
 
-  if (parsed?.error) {
+  if (payload?.error) {
     const errorMessage =
-      parsed.error.message ??
-      parsed.error.json?.message ??
-      `tRPC error: ${JSON.stringify(parsed.error)}`
+      payload.error.message ??
+      payload.error.json?.message ??
+      `tRPC error: ${JSON.stringify(payload.error)}`
     throw new Error(errorMessage)
   }
 
-  return parsed?.result?.data?.json as TOutput
+  return payload?.result?.data?.json as TOutput
 }
 
 describe.sequential('Authentication integration tests', () => {
