@@ -32,8 +32,8 @@ function wait_for_db() {
 }
 
 function start_app() {
-  echo "Syncing Prisma schema to database..."
-  npx prisma db push --skip-generate
+  echo "Resetting database and syncing Prisma schema..."
+  npx prisma db push --force-reset --skip-generate
 
   echo "Building Next.js app"
   npm run build
