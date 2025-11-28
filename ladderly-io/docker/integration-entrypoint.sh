@@ -32,8 +32,8 @@ function wait_for_db() {
 }
 
 function start_app() {
-  echo "Running Prisma migrations against ${DATABASE_URL}"
-  npx prisma migrate deploy
+  echo "Syncing Prisma schema to database..."
+  npx prisma db push --skip-generate
 
   echo "Building Next.js app"
   npm run build
