@@ -116,21 +116,19 @@ async function loginWithCredentials(options: {
 const randomEmail = (prefix: string) =>
   `${prefix}-${Date.now()}-${Math.round(Math.random() * 10_000)}@example.com`
 
-type TrpcSuccess<T> = {
+type TrpcResponse<T> = {
   result?: {
     data?: {
       json?: T
     }
   }
-}
-
-type TrpcError = {
   error?: {
     message?: string
+    json?: {
+      message?: string
+    }
   }
 }
-
-type TrpcEnvelope<T> = TrpcSuccess<T> & TrpcError
 
 async function callTrpc<TInput, TOutput>({
   path,
@@ -165,13 +163,16 @@ async function callTrpc<TInput, TOutput>({
   }
 
   const parsed = JSON.parse(raw) as
-    | TrpcEnvelope<TOutput>
-    | TrpcEnvelope<TOutput>[]
-
+    | TrpcResponse<TOutput>
+    | TrpcResponse<TOutput>[]
   const payload = Array.isArray(parsed) ? parsed[0] : parsed
 
   if (payload?.error) {
-    throw new Error(payload.error.message ?? 'Unknown tRPC error')
+    const errorMessage =
+      payload.error.message ??
+      payload.error.json?.message ??
+      `tRPC error: ${JSON.stringify(payload.error)}`
+    throw new Error(errorMessage)
   }
 
   return payload?.result?.data?.json as TOutput
@@ -233,7 +234,7 @@ describe.sequential('Authentication integration tests', () => {
       email,
       password: 'WrongPassword!',
     })
-    const bodyText = await blockedResponse.text()
+    const bodyText = decodeURIComponent(await blockedResponse.text())
     expect(blockedResponse.status).toBeGreaterThanOrEqual(400)
     expect(bodyText).toContain('Too many login attempts')
   }, 60_000)
@@ -255,7 +256,7 @@ describe.sequential('Authentication integration tests', () => {
       password: 'WrongPassword!',
       ip: attackerIp,
     })
-    const bodyText = await blockedResponse.text()
+    const bodyText = decodeURIComponent(await blockedResponse.text())
     expect(blockedResponse.status).toBeGreaterThanOrEqual(400)
     expect(bodyText).toContain('Too many login attempts')
   }, 60_000)
