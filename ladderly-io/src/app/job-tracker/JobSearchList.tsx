@@ -18,7 +18,11 @@ interface JobSearchWithCount extends JobSearch {
 }
 
 export const JobSearchList = () => {
-  const searchParams = useSearchParams() ?? new URLSearchParams()
+  const searchParamsHook = useSearchParams()
+  const searchParams = React.useMemo(() => {
+    return new URLSearchParams(searchParamsHook?.toString() ?? '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParamsHook?.toString()])
   const pathname = usePathname()
 
   // Check if we're on the job search list page, not a detail page

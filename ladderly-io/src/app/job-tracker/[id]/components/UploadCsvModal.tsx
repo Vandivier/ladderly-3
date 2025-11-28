@@ -134,7 +134,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
         <h2 className="mb-4 text-xl font-bold dark:text-white">
           Upload CSV Data
@@ -215,11 +215,10 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
             <div className="flex items-center gap-2">
               <label
                 htmlFor="csvFile"
-                className={`inline-block rounded-md border px-4 py-2 text-sm font-medium shadow-sm ${
-                  isSubmitting
+                className={`inline-block rounded-md border px-4 py-2 text-sm font-medium shadow-sm ${isSubmitting
                     ? 'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500'
                     : 'cursor-pointer border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
-                }`}
+                  }`}
               >
                 {selectedFile ? 'Change CSV File' : 'Select CSV File'}
               </label>
@@ -273,7 +272,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
                 )
               ) : (
                 <>
-                  <Upload className="mr-2 h-4 w-4" /> Upload
+                  <Upload className="mr-2 size-4" /> Upload
                 </>
               )}
             </button>

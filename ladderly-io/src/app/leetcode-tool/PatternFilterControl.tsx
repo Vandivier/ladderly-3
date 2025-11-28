@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
 const patterns = [
   'all',
@@ -13,7 +13,11 @@ const patterns = [
 
 export function PatternFilterControl() {
   const router = useRouter()
-  const searchParams = useSearchParams() ?? new URLSearchParams()
+  const searchParamsHook = useSearchParams()
+  const searchParams = useMemo(() => {
+    return new URLSearchParams(searchParamsHook?.toString() ?? '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParamsHook?.toString()])
   const currentPattern = searchParams.get('source') ?? 'all'
 
   const handleFilterChange = useCallback(
@@ -29,7 +33,7 @@ export function PatternFilterControl() {
     <select
       onChange={handleFilterChange}
       value={currentPattern}
-      className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 md:w-64"
+      className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200/50 md:w-64"
     >
       {patterns.map((pattern) => (
         <option key={pattern} value={pattern}>

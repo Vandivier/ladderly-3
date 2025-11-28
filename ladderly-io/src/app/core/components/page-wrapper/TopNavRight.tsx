@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
-import { authClient, useSession } from '~/server/auth-client'
+import { useSession } from '~/server/auth-client'
 import { api } from '~/trpc/react'
 import { IconVerticalChevron } from '../icons/VerticalChevron'
 import { MenuContext } from './MenuProvider'
@@ -18,7 +18,7 @@ const TOP_NAV_RIGHT_SECTION_CLASSES = 'ml-auto flex items-center space-x-6'
 export const TopNavRight = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { data: session, isPending: isSessionPending } = useSession()
+  const { data: session } = useSession()
   const currentUserQuery = api.user.getCurrentUser.useQuery(undefined, {
     refetchOnMount: true,
     refetchOnWindowFocus: true,

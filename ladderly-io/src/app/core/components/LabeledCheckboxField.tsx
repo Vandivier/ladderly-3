@@ -36,22 +36,24 @@ export const LabeledCheckboxField = forwardRef<
     ref,
   ) => {
     const {
-      input,
+      input: { value, ...inputProps },
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       meta: { touched, error, submitError, submitting },
-    } = useField(String(name), {
+    } = useField<boolean>(String(name), {
       type: 'checkbox',
       ...fieldProps,
     })
 
-    const normalizedError = Array.isArray(error)
+    const normalizedError = (Array.isArray(error)
       ? error.join(', ')
-      : (error ?? submitError)
+      : (error ?? submitError)) as string | undefined
 
     return (
       <div {...outerProps}>
         <label {...labelProps}>
           <input
-            {...input}
+            {...inputProps}
+            checked={!!value}
             type="checkbox"
             disabled={submitting}
             {...props}

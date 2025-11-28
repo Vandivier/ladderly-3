@@ -25,16 +25,17 @@ export const LabeledDateField = forwardRef<
 >(({ name, label, outerProps, fieldProps = {}, labelProps, ...props }, ref) => {
   const {
     input,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     meta: { touched, error, submitError, submitting },
-  } = useField(String(name), {
+  } = useField<string | null>(String(name), {
     parse: (val) => (val === '' ? null : String(val)),
     format: (val) => (val ? String(val) : ''),
     ...fieldProps,
   })
 
-  const normalizedError = Array.isArray(error)
+  const normalizedError = (Array.isArray(error)
     ? error.join(', ')
-    : (error ?? submitError)
+    : (error ?? submitError)) as string | undefined
 
   return (
     <div {...outerProps}>

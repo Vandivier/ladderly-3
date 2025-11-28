@@ -116,17 +116,17 @@ const PublicJournalEntry: React.FC<PublicJournalEntryProps> = ({ entry }) => {
       {/* User info and entry metadata */}
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center">
-          <div className="mr-3 h-10 w-10 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+          <div className="mr-3 size-10 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
             {entry.user.profilePicture ? (
               <Image
                 src={entry.user.profilePicture}
                 alt={fullName}
                 width={40}
                 height={40}
-                className="h-full w-full object-cover"
+                className="size-full object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-blue-100 text-blue-500 dark:bg-blue-900 dark:text-blue-300">
+              <div className="flex size-full items-center justify-center bg-blue-100 text-blue-500 dark:bg-blue-900 dark:text-blue-300">
                 {fullName.substring(0, 1).toUpperCase()}
               </div>
             )}
@@ -251,7 +251,7 @@ export default function PublicJournalFeed() {
   if (isLoading && allEntries.length === 0) {
     return (
       <div className="flex justify-center py-10">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+        <div className="size-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
       </div>
     )
   }

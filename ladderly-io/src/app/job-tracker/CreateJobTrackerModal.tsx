@@ -178,7 +178,8 @@ export const CreateJobTrackerModal = () => {
             name: name.trim(),
             startDate: new Date(startDate),
             isActive: true,
-            jobPosts: validRows as any,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            jobPosts: validRows as unknown as any,
           })
         } catch (validationError) {
           console.error('CSV Validation Error:', validationError)

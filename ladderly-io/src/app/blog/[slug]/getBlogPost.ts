@@ -4,6 +4,7 @@ import type {
   Element as HastElement,
   Properties as HastProperties,
   Root as HastRoot,
+  ElementContent as HastElementContent,
 } from 'hast'
 import type { Node as MdastNode, Root as MdastRoot, Parent } from 'mdast'
 import path from 'path'
@@ -34,12 +35,12 @@ interface DirectiveNode extends Parent {
   data?: {
     hName?: string
     hProperties?: HastProperties // Use HastProperties type
-    hChildren?: Array<HastNode> // Use a more specific HAST node type if available
+    hChildren?: Array<HastElementContent> // Use a more specific HAST node type if available
     [key: string]: unknown // Allow other potential data properties
   }
 }
 // Define a simple HastNode type for children if needed, or use any for now if complex
-type HastNode = any
+// HastElementContent is now imported from 'hast'
 
 // Helper function to set HAST properties for the :a directive
 function handleAnchorDirectiveHast(directive: DirectiveNode) {
@@ -213,6 +214,16 @@ interface BlogPostData {
   description?: string
 }
 
+interface Frontmatter {
+  title?: string
+  author?: string
+  premium?: boolean
+  ogImage?: string
+  heroImage?: string
+  description?: string
+  [key: string]: unknown
+}
+
 export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
   const markdownFile = path.join(process.cwd(), 'src/app/blog', `${slug}.md`)
 
@@ -221,13 +232,14 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
   }
 
   const markdownWithMetadata = fs.readFileSync(markdownFile).toString()
-  const { data, content } = matter(markdownWithMetadata)
+  const { data: rawData, content } = matter(markdownWithMetadata)
+  const data = rawData as Frontmatter
 
   // Prioritize ogImage from front matter, then find first image
   const ogImage = data.ogImage ?? '/logo.png'
 
   // Read heroImage from front matter
-  const heroImage = data.heroImage as string | undefined
+  const heroImage = data.heroImage
 
   // Extract table of contents from the markdown content
   const toc = extractTableOfContents(content)
@@ -276,7 +288,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       excerpt,
       ogImage,
       heroImage,
-      description: data.description as string | undefined,
+      description: data.description,
     }
   } catch (error) {
     console.error(`Error processing markdown for ${slug}:`, error)
@@ -289,7 +301,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
       excerpt: '<p>Error processing content.</p>',
       ogImage,
       heroImage,
-      description: data.description as string | undefined,
+      description: data.description,
     }
   }
 }

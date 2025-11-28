@@ -39,7 +39,7 @@ const Flashcard = ({
       >
         {/* Front of card (Question) */}
         <div
-          className="absolute inset-0 flex h-full w-full flex-col items-center justify-center rounded-lg border border-gray-300 bg-white p-6 shadow-lg dark:border-gray-600 dark:bg-gray-700"
+          className="absolute inset-0 flex size-full flex-col items-center justify-center rounded-lg border border-gray-300 bg-white p-6 shadow-lg dark:border-gray-600 dark:bg-gray-700"
           style={{ backfaceVisibility: 'hidden' }}
         >
           <h3 className="mb-4 text-xl font-semibold text-gray-800 dark:text-white">
@@ -55,7 +55,7 @@ const Flashcard = ({
 
         {/* Back of card (Answer) */}
         <div
-          className="absolute inset-0 flex h-full w-full flex-col items-center justify-center rounded-lg border border-gray-300 bg-white p-6 shadow-lg dark:border-gray-600 dark:bg-gray-700"
+          className="absolute inset-0 flex size-full flex-col items-center justify-center rounded-lg border border-gray-300 bg-white p-6 shadow-lg dark:border-gray-600 dark:bg-gray-700"
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
           <h3 className="mb-4 text-xl font-semibold text-gray-800 dark:text-white">

@@ -1,13 +1,17 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 
 type CompletionStatus = 'all' | 'solved' | 'unsolved'
 
 export const CompletionStatusFilter = () => {
   const router = useRouter()
-  const searchParams = useSearchParams() ?? new URLSearchParams()
+  const searchParamsHook = useSearchParams()
+  const searchParams = React.useMemo(() => {
+    return new URLSearchParams(searchParamsHook?.toString() ?? '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParamsHook?.toString()])
 
   // Get current status from URL or default to 'all'
   const currentStatus =

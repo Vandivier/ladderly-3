@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { type MultiValue } from 'react-select'
 import Select from 'react-select'
 
@@ -34,7 +34,11 @@ const options: OptionType[] = patterns.map((p) => ({ value: p, label: p }))
 
 export function PatternNameFilter() {
   const router = useRouter()
-  const params = useSearchParams() ?? new URLSearchParams()
+  const searchParams = useSearchParams()
+  const params = React.useMemo(() => {
+    return new URLSearchParams(searchParams?.toString() ?? '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams?.toString()])
   const currentPatterns = params.getAll('pattern')
   const value = options.filter((o) => currentPatterns.includes(o.value))
 

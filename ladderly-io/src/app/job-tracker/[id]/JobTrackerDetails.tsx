@@ -14,6 +14,7 @@ import {
 import { JobPostList } from './components/JobPostList'
 import { AddJobPostModal } from './components/AddJobPostModal'
 import { UploadCsvModal } from './components/UploadCsvModal'
+import { type AppRouter } from '~/server/api/root'
 
 // Define a proper type for job search data with pagination
 interface JobSearchPagination {
@@ -35,7 +36,11 @@ interface JobSearchTrackerDetailsProps {
 export function JobTrackerDetails({
   initialJobSearch,
 }: JobSearchTrackerDetailsProps) {
-  const searchParams = useSearchParams() ?? new URLSearchParams()
+  const searchParamsHook = useSearchParams()
+  const searchParams = React.useMemo(() => {
+    return new URLSearchParams(searchParamsHook?.toString() ?? '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParamsHook?.toString()])
 
   // Get page from URL or default to the initial job search page
   const pageFromUrl = searchParams.get('page')
@@ -72,7 +77,8 @@ export function JobTrackerDetails({
     },
     {
       // Use type assertion for initialData to satisfy TypeScript
-      initialData: initialJobSearch as any,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      initialData: initialJobSearch as unknown as any,
       refetchOnWindowFocus: false,
     },
   )
@@ -112,7 +118,7 @@ export function JobTrackerDetails({
       setIsUpdating(false)
       return {
         [FORM_ERROR]:
-          (error as TRPCClientErrorLike<any>).message ??
+          (error as TRPCClientErrorLike<AppRouter>).message ??
           'Failed to update job search',
       }
     }

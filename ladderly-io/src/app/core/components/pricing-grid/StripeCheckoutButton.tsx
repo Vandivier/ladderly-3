@@ -32,7 +32,7 @@ export const StripeCheckoutButton = ({
         }),
       })
 
-      const { sessionId } = await response.json()
+      const { sessionId } = (await response.json()) as { sessionId: string }
       const stripe = await stripePromise
       const { error } = await stripe!.redirectToCheckout({ sessionId })
 

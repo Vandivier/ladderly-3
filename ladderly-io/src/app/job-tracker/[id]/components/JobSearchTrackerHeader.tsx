@@ -23,7 +23,7 @@ export const JobSearchTrackerHeader: React.FC<JobSearchTrackerHeaderProps> = ({
           href="/job-tracker"
           className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
         >
-          <ArrowLeft className="mr-1 h-4 w-4" /> Back to Archive
+          <ArrowLeft className="mr-1 size-4" /> Back to Archive
         </Link>
       </div>
       <div className="mb-4 flex flex-wrap items-center justify-between">
@@ -32,12 +32,12 @@ export const JobSearchTrackerHeader: React.FC<JobSearchTrackerHeaderProps> = ({
           <div className="mt-2 text-sm text-gray-500">
             {jobSearch.isActive ? (
               <span className="inline-flex items-center">
-                <span className="mr-1 h-2 w-2 rounded-full bg-green-500"></span>
+                <span className="mr-1 size-2 rounded-full bg-green-500"></span>
                 Active
               </span>
             ) : (
               <span className="inline-flex items-center">
-                <span className="mr-1 h-2 w-2 rounded-full bg-gray-500"></span>
+                <span className="mr-1 size-2 rounded-full bg-gray-500"></span>
                 Inactive
               </span>
             )}
@@ -58,7 +58,7 @@ export const JobSearchTrackerHeader: React.FC<JobSearchTrackerHeaderProps> = ({
             onClick={handleDownloadRoundLevelCsv}
             className="flex items-center gap-1 rounded bg-green-50 px-3 py-1 text-green-600 hover:bg-green-100 dark:bg-green-900/20 dark:text-green-400 dark:hover:bg-green-800/30"
           >
-            <Download className="h-4 w-4" /> CSV
+            <Download className="size-4" /> CSV
           </button>
           <button
             onClick={onEditClick}

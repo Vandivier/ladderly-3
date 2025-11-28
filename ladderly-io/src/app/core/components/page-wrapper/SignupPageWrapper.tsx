@@ -31,7 +31,7 @@ export const SignupPageWrapper = async ({
     <div className="flex min-h-screen flex-col bg-ladderly-off-white">
       <LadderlyAnalytics />
 
-      <main className="flex flex-grow justify-center p-2 md:items-center">
+      <main className="flex grow justify-center p-2 md:items-center">
         <div
           id="signup-page-card"
           className="w-full max-w-4xl rounded-xl bg-white p-4 shadow-xl md:grid md:grid-cols-2 md:gap-8 md:p-8"
@@ -46,7 +46,7 @@ export const SignupPageWrapper = async ({
                 {valueProps.map((prop, index) => (
                   <li key={index} className="flex items-start">
                     <svg
-                      className="mr-2 mt-1 size-5 flex-shrink-0 text-ladderly-pink"
+                      className="mr-2 mt-1 size-5 shrink-0 text-ladderly-pink"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"

@@ -13,32 +13,32 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
-    sendResetPassword: async ({ user, token, url }) => {
+    sendResetPassword: async ({ user, token, url: _url }) => {
       try {
         await sendForgotPasswordEmail({ to: user.email, token })
-      } catch (error: any) {
+      } catch {
         throw new Error("Failed to send reset email")
       }
     }
   },
   emailVerification: {
     sendOnSignUp: true,
-    sendVerificationEmail: async ({ user, url, token }, request) => {
+    sendVerificationEmail: async ({ user, url: _url, token }, _request) => {
       await sendVerificationEmail({ to: user.email, token })
     }
   },
   socialProviders: {
     github: {
-      clientId: env.GITHUB_CLIENT_ID as string,
-      clientSecret: env.GITHUB_CLIENT_SECRET as string
+      clientId: env.GITHUB_CLIENT_ID!,
+      clientSecret: env.GITHUB_CLIENT_SECRET!,
     },
     discord: {
-      clientId: env.DISCORD_CLIENT_ID as string,
-      clientSecret: env.DISCORD_CLIENT_SECRET as string
+      clientId: env.DISCORD_CLIENT_ID!,
+      clientSecret: env.DISCORD_CLIENT_SECRET!,
     },
     google: {
-      clientId: env.GOOGLE_CLIENT_ID as string,
-      clientSecret: env.GOOGLE_CLIENT_SECRET as string
+      clientId: env.GOOGLE_CLIENT_ID!,
+      clientSecret: env.GOOGLE_CLIENT_SECRET!,
     }
   },
   user: {
@@ -113,7 +113,7 @@ export const auth = betterAuth({
       return { user, session }
     })
   ],
-  trustedOrigins: [process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"]
+  trustedOrigins: [process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"]
 })
 
 type BaseUser = typeof auth.$Infer.Session['user']

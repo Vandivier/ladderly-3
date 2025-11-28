@@ -1,13 +1,17 @@
 'use client'
 
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 
 const difficulties = ['All Difficulties', 'Easy', 'Medium', 'Hard']
 
 export function DifficultyFilter() {
   const router = useRouter()
-  const params = useSearchParams() ?? new URLSearchParams()
+  const searchParams = useSearchParams()
+  const params = React.useMemo(() => {
+    return new URLSearchParams(searchParams?.toString() ?? '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams?.toString()])
   const current = params.get('difficulty') ?? 'All Difficulties'
 
   const onChange = useCallback(
