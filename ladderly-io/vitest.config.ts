@@ -7,7 +7,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./tests/setup-fetch.ts', './tests/setup.tsx'],
+    setupFiles: ['./tests/setup.tsx'],
     pool: 'threads',
     poolOptions: {
       threads: {

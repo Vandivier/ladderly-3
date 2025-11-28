@@ -22,7 +22,7 @@
     "check-types": "tsc --noEmit",
     "start": "next start",
     "test": "vitest run --exclude \"tests/integration/**\"",
-    "test:integration": "vitest run tests/integration",
+    "test:integration": "vitest run --config vitest.config.integration.ts",
     "test:watch": "vitest --watch --exclude \"tests/integration/**\"",
     "test:ui": "vitest --ui --exclude \"tests/integration/**\"",
     "test:cov": "vitest run --coverage --exclude \"tests/integration/**\""
@@ -97,7 +97,6 @@
     "fs-extra": "^11.2.0",
     "hastscript": "^9.0.1",
     "jsdom": "^26.0.0",
-    "node-fetch": "^3.3.2",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
