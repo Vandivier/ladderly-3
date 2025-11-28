@@ -11,9 +11,7 @@ import type {
   AdapterSession,
   AdapterUser,
   VerificationToken,
-} from '@auth/core/adapters'
-
-import type { AdapterAccountType } from '@auth/core/adapters'
+} from 'next-auth/adapters'
 
 export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
   return {
@@ -146,7 +144,7 @@ function adaptUser(user: User): AdapterUser {
 function adaptAccount(account: Account): AdapterAccount {
   return {
     userId: account.userId.toString(),
-    type: account.type as AdapterAccountType,
+    type: account.type as AdapterAccount['type'],
     provider: account.provider,
     providerAccountId: account.providerAccountId,
     refresh_token: account.refresh_token ?? undefined,
