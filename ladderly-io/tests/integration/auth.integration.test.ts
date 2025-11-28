@@ -1,50 +1,12 @@
+/**
+ * @vitest-environment node
+ *
+ * Integration tests run against a live Next.js server and make real HTTP requests.
+ * They require the 'node' environment (not jsdom) to use Node 22's native fetch.
+ */
 import { describe, expect, test, beforeEach } from 'vitest'
 
 const APP_ORIGIN = process.env.APP_ORIGIN ?? 'http://127.0.0.1:3000'
-
-type NodeFetchModule = typeof import('node-fetch')
-
-let nodeFetchModulePromise: Promise<NodeFetchModule> | null = null
-
-async function ensureHttpGlobals(): Promise<{
-  fetchFn: typeof fetch
-  HeadersCtor: typeof Headers
-}> {
-  const needsFetch = typeof globalThis.fetch !== 'function'
-  const needsHeaders = typeof globalThis.Headers !== 'function'
-
-  if (needsFetch || needsHeaders) {
-    nodeFetchModulePromise ??= import('node-fetch')
-    const nodeFetch = await nodeFetchModulePromise
-
-    if (typeof globalThis.fetch !== 'function') {
-      const candidate =
-        nodeFetch.default ??
-        (nodeFetch as unknown as { fetch?: typeof fetch }).fetch
-      if (!candidate) {
-        throw new Error('Unable to resolve fetch implementation')
-      }
-      globalThis.fetch = candidate.bind(globalThis) as typeof fetch
-    }
-
-    if (typeof globalThis.Headers !== 'function' && nodeFetch.Headers) {
-      globalThis.Headers = nodeFetch.Headers as unknown as typeof Headers
-    }
-  }
-
-  const fetchFn =
-    typeof globalThis.fetch === 'function' ? globalThis.fetch : null
-  const HeadersCtor =
-    typeof globalThis.Headers === 'function' ? globalThis.Headers : null
-
-  if (!fetchFn || !HeadersCtor) {
-    throw new Error(
-      'Global fetch/Headers not available. Node 18+ or node-fetch is required.',
-    )
-  }
-
-  return { fetchFn: fetchFn.bind(globalThis), HeadersCtor }
-}
 
 class CookieJar {
   private cookies = new Map<string, string>()
@@ -93,14 +55,13 @@ async function fetchWithCookies(
   init: RequestInit = {},
   jar?: CookieJar,
 ) {
-  const { fetchFn, HeadersCtor } = await ensureHttpGlobals()
   const url = path.startsWith('http') ? path : `${APP_ORIGIN}${path}`
-  const headers = new HeadersCtor(init.headers)
+  const headers = new Headers(init.headers)
   const cookieValue = jar?.headerValue()
   if (cookieValue) {
     headers.set('cookie', cookieValue)
   }
-  const response = await fetchFn(url, { ...init, headers })
+  const response = await fetch(url, { ...init, headers })
   jar?.storeFrom(response)
   return response
 }
@@ -112,8 +73,7 @@ async function loginWithCredentials(options: {
   jar?: CookieJar
 }) {
   const { email, password, ip, jar = new CookieJar() } = options
-  const { HeadersCtor } = await ensureHttpGlobals()
-  const sharedHeaders = new HeadersCtor()
+  const sharedHeaders = new Headers()
   if (ip) {
     sharedHeaders.set('x-forwarded-for', ip)
   }
@@ -139,7 +99,7 @@ async function loginWithCredentials(options: {
     json: 'true',
   })
 
-  const loginHeaders = new HeadersCtor(sharedHeaders)
+  const loginHeaders = new Headers(sharedHeaders)
   loginHeaders.set('Content-Type', 'application/x-www-form-urlencoded')
 
   return fetchWithCookies(
@@ -181,8 +141,7 @@ async function callTrpc<TInput, TOutput>({
   input: TInput
   ip?: string
 }) {
-  const { fetchFn, HeadersCtor } = await ensureHttpGlobals()
-  const headers = new HeadersCtor({
+  const headers = new Headers({
     'Content-Type': 'application/json',
     'x-trpc-source': 'integration-tests',
   })
@@ -190,7 +149,7 @@ async function callTrpc<TInput, TOutput>({
     headers.set('x-forwarded-for', ip)
   }
 
-  const response = await fetchFn(`${APP_ORIGIN}/api/trpc/${path}`, {
+  const response = await fetch(`${APP_ORIGIN}/api/trpc/${path}`, {
     method: 'POST',
     headers,
     body: JSON.stringify({
