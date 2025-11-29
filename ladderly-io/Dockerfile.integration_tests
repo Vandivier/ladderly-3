@@ -16,7 +16,8 @@ RUN apt-get update \
 COPY package*.json ./
 COPY prisma ./prisma
 COPY .env.template ./.env.template
-RUN npm ci && npm rebuild argon2 --build-from-source
+# Use npm install instead of npm ci to get correct platform-specific optional deps (e.g., rollup Linux bindings)
+RUN npm install --ignore-scripts && npm rebuild && npm rebuild argon2 --build-from-source
 
 # Copy the rest of the application code (excluding secrets via .dockerignore)
 COPY . .
