@@ -139,6 +139,14 @@ describe.sequential('Authentication integration tests', () => {
       jar,
       ip: testIp,
     })
+
+    if (!signInResponse.ok) {
+      const errorBody = await signInResponse.text()
+      console.error(
+        `Sign-in failed: ${signInResponse.status} ${signInResponse.statusText}`,
+        errorBody,
+      )
+    }
     expect(signInResponse.ok).toBe(true)
 
     // Verify session was created

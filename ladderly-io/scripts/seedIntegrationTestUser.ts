@@ -30,7 +30,7 @@ async function main() {
   })
 
   // Create the credential account with the password
-  await prisma.account.create({
+  const account = await prisma.account.create({
     data: {
       userId: user.id,
       provider: 'credential',
@@ -39,8 +39,21 @@ async function main() {
     },
   })
 
+  // Verify the user was created correctly
+  const verifyUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: { email: true, emailVerified: true, emailVerifiedDate: true },
+  })
+
   console.log(`Created verified test user: ${TEST_USER.email}`)
-  console.log(`Password: ${TEST_USER.password}`)
+  console.log(`User ID: ${user.id}`)
+  console.log(`emailVerified: ${verifyUser?.emailVerified}`)
+  console.log(`emailVerifiedDate: ${verifyUser?.emailVerifiedDate}`)
+  console.log(`Account ID: ${account.id}`)
+  console.log(`Provider: ${account.provider}`)
+  console.log(
+    `Password hash starts with: ${hashedPassword.substring(0, 20)}...`,
+  )
 }
 
 main()
