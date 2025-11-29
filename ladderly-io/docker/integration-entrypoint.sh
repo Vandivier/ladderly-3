@@ -35,6 +35,9 @@ function start_app() {
   echo "Resetting database and syncing Prisma schema..."
   npx prisma db push --force-reset --skip-generate
 
+  echo "Seeding integration test user..."
+  node --experimental-strip-types scripts/seedIntegrationTestUser.ts
+
   echo "Building Next.js app"
   npm run build
 

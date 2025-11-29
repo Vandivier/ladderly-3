@@ -115,12 +115,44 @@ async function signIn(options: {
 const randomEmail = (prefix: string) =>
   `${prefix}-${Date.now()}-${Math.round(Math.random() * 10_000)}@example.com`
 
+// Pre-seeded verified test user (created by scripts/seedIntegrationTestUser.ts)
+const VERIFIED_TEST_USER = {
+  email: 'verified-test-user@example.com',
+  password: 'TestP@ssword123',
+}
+
 describe.sequential('Authentication integration tests', () => {
   const jar = new CookieJar()
 
   beforeEach(() => {
     jar.clear()
   })
+
+  test('allows sign-in with verified email and creates session', async () => {
+    // Use unique IP to isolate from other tests' rate limits
+    const testIp = '10.0.0.10'
+
+    // Sign in with pre-seeded verified user
+    const signInResponse = await signIn({
+      email: VERIFIED_TEST_USER.email,
+      password: VERIFIED_TEST_USER.password,
+      jar,
+      ip: testIp,
+    })
+    expect(signInResponse.ok).toBe(true)
+
+    // Verify session was created
+    const sessionResponse = await fetchWithCookies(
+      '/api/auth/get-session',
+      { headers: { Accept: 'application/json' } },
+      jar,
+    )
+    expect(sessionResponse.status).toBe(200)
+    const session = (await sessionResponse.json()) as {
+      user?: { email?: string }
+    }
+    expect(session?.user?.email).toBe(VERIFIED_TEST_USER.email)
+  }, 60_000)
 
   test('allows successful registration (email verification required for login)', async () => {
     // Use unique IP to isolate from other tests' rate limits
