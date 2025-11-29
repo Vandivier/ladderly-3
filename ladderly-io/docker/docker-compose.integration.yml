@@ -1,0 +1,34 @@
+services:
+  supabase-db:
+    image: supabase/postgres:15.1.1.84
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_DB: ${DB_NAME:-ladderly_io_test}
+      SUPABASE_DB_VERSION: 15
+    ports:
+      - '${DB_PORT:-5432}:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-postgres}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  integration-tests:
+    build:
+      context: ..
+      dockerfile: Dockerfile.integration_tests
+    depends_on:
+      supabase-db:
+        condition: service_healthy
+    environment:
+      DB_HOST: supabase-db
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME:-ladderly_io_test}
+      APP_PORT: 3000
+      INTEGRATION_TEST_COMMAND: ${INTEGRATION_TEST_COMMAND:-npm run test:integration}
+    ports:
+      - '${APP_PORT:-3000}:3000'
