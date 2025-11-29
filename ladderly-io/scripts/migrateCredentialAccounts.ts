@@ -1,6 +1,8 @@
 // run like `node --experimental-strip-types scripts/migrateCredentialAccounts.ts`
-// This script creates Account entries for users with hashedPassword (credential login)
-// Better-auth expects passwords in the Account table with provider="credential"
+// This script ensures credential accounts are properly set up for better-auth:
+// 1. Deletes invalid credential accounts (providerAccountId not an email)
+// 2. Creates/updates credential accounts with correct providerAccountId (email) and password
+// 3. Normalizes provider from 'credentials' to 'credential'
 
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -18,7 +20,18 @@ const prisma = new PrismaClient()
 
 async function migrateCredentialAccounts(): Promise<void> {
   try {
-    // Find all users with a hashedPassword (credential users)
+    // Step 1: Delete invalid credential accounts (providerAccountId is not an email)
+    const invalidAccounts = await prisma.account.deleteMany({
+      where: {
+        provider: { in: ['credential', 'credentials'] },
+        NOT: { providerAccountId: { contains: '@' } },
+      },
+    })
+    console.log(
+      `Step 1: Deleted ${invalidAccounts.count} invalid credential accounts (non-email providerAccountId)`,
+    )
+
+    // Step 2: Find all users with a hashedPassword (credential users)
     const usersWithPassword = await prisma.user.findMany({
       where: {
         hashedPassword: { not: null },
@@ -31,14 +44,15 @@ async function migrateCredentialAccounts(): Promise<void> {
     })
 
     console.log(
-      `Found ${usersWithPassword.length} users with credential passwords to migrate`,
+      `Step 2: Found ${usersWithPassword.length} users with credential passwords to migrate`,
     )
 
-    let migratedCount = 0
+    let createdCount = 0
+    let updatedCount = 0
     let skippedCount = 0
 
     for (const user of usersWithPassword) {
-      // Check if credential account already exists (handle both singular and plural)
+      // Find existing credential account for this user
       const existingAccount = await prisma.account.findFirst({
         where: {
           userId: user.id,
@@ -47,27 +61,29 @@ async function migrateCredentialAccounts(): Promise<void> {
       })
 
       if (existingAccount) {
-        // Update existing credential account: set password and normalize provider to 'credential'
-        if (
+        // Check if account needs updating
+        const needsUpdate =
           !existingAccount.password ||
-          existingAccount.provider === 'credentials'
-        ) {
+          existingAccount.provider === 'credentials' ||
+          existingAccount.providerAccountId !== user.email
+
+        if (needsUpdate) {
           await prisma.account.update({
             where: { id: existingAccount.id },
             data: {
               password: user.hashedPassword,
-              provider: 'credential', // Normalize to better-auth's expected value
+              provider: 'credential',
+              providerAccountId: user.email,
             },
           })
-          migratedCount++
-          console.log(`Updated account for user ${user.email}`)
+          updatedCount++
         } else {
           skippedCount++
         }
         continue
       }
 
-      // Create credential account with the password
+      // Create new credential account
       await prisma.account.create({
         data: {
           userId: user.id,
@@ -76,22 +92,18 @@ async function migrateCredentialAccounts(): Promise<void> {
           password: user.hashedPassword,
         },
       })
-
-      migratedCount++
-
-      if (migratedCount % 100 === 0) {
-        console.log(`Migrated ${migratedCount} users...`)
-      }
+      createdCount++
     }
 
-    // Also normalize any remaining accounts with 'credentials' (plural) to 'credential'
+    // Step 3: Normalize any remaining 'credentials' to 'credential'
     const normalizeResult = await prisma.account.updateMany({
       where: { provider: 'credentials' },
       data: { provider: 'credential' },
     })
 
-    console.log(`Migration complete!`)
-    console.log(`- Created/updated credential accounts: ${migratedCount}`)
+    console.log(`\nMigration complete!`)
+    console.log(`- Created new credential accounts: ${createdCount}`)
+    console.log(`- Updated existing accounts: ${updatedCount}`)
     console.log(`- Skipped (already correct): ${skippedCount}`)
     console.log(`- Normalized provider name: ${normalizeResult.count}`)
   } catch (error) {
