@@ -30,40 +30,26 @@ Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/ver
 
 ## FAQ and Architecture Notes
 
-### Two-Tier Rate Limiting System
+### Rate Limiting System
 
-This application implements a two-tier rate limiting system to protect against abuse while maintaining good user experience:
+This application implements layered rate limiting:
 
-#### 1. Global Rate Limiting (All API Endpoints)
+#### 1. Auth Rate Limiting (better-auth)
 
-- **Purpose**: General API abuse protection for all tRPC procedures
-- **Tracking**: By userId (if authenticated) or IP address (if not)
-- **Limits**:
-  - All users: 30 requests per minute
-- **Implementation**: Applied automatically via tRPC middleware to all `publicProcedure` and `protectedProcedure` calls
-- **Location**: `src/server/api/trpc.ts` - `rateLimitMiddleware`
+- **IP-based**: 3 attempts per hour for sign-in, sign-up, password reset, verify-email
+- **Location**: `src/server/better-auth.ts`
 
-#### 2. Auth-Specific Rate Limiting (Sensitive Operations)
+#### 2. Per-Email Rate Limiting (Next.js Middleware)
 
-- **Purpose**: Prevent brute force attacks and password spray attacks on authentication endpoints
-- **Tracking**: By email address OR IP address (whichever limit is hit first)
-- **Limits**:
-  - Login: 3 failed attempts per hour (by email OR IP)
-  - Signup: 3 attempts per hour (by email OR IP)
-  - Password reset: 3 attempts per hour (by userId OR IP)
-- **Whole-Service Limit**: 10 auth operations per minute per IP (prevents DDoS across all auth endpoints)
-- **Implementation**: Applied manually before expensive operations (database queries, password verification) in auth flows
-- **Location**: `src/server/utils/rateLimit.ts` - `checkGuestRateLimit()`
+- **Email-based**: 3 login attempts per email per hour (prevents distributed attacks from multiple IPs targeting one account)
+- **Location**: `src/middleware.ts`
 
-#### Why Two Tiers?
+#### 3. Global API Rate Limiting (tRPC)
 
-1. **Different Scopes**: Global protects all endpoints; auth-specific protects sensitive operations
-2. **Different Limits**: Auth operations need stricter limits (3 per hour vs 30 per minute) to prevent brute force attacks
-3. **Different Tracking**: Global uses IP/userId; auth uses email OR IP to prevent both targeted attacks (email-based) and password spray attacks (IP-based)
-4. **Defense in Depth**: Multiple layers of protection provide better security
-5. **DDoS Protection**: Whole-service auth limit (10/min) prevents distributed attacks across all auth endpoints
+- **By userId or IP**: 30 requests per minute for all tRPC procedures
+- **Location**: `src/server/api/trpc.ts`
 
-Both systems use in-memory caching with automatic cleanup to prevent memory leaks. In production, consider migrating to Redis or another distributed cache for multi-instance deployments.
+All rate limiting uses in-memory storage.
 
 ### Email Verification Gating
 
