@@ -34,7 +34,8 @@ export async function middleware(request: NextRequest) {
     try {
       // Clone the request to read the body
       const body = await request.clone().json()
-      const email = body?.email?.toLowerCase()
+      const rawEmail = (body as { email?: unknown })?.email
+      const email = typeof rawEmail === 'string' ? rawEmail.toLowerCase() : null
 
       if (email) {
         const now = Date.now()

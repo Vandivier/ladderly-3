@@ -25,7 +25,7 @@ Thirdly, copy .env to .env.local and provide the connection-string value to the 
 DATABASE_URL=postgres://postgres.zrpwqlogwfcxwcuyfnmd:[PASSWORD_WITHOUT_SQUARE_BRACKETS]@aws-0-us-west-1.pooler.supabase.com:5432/postgres
 ```
 
-Only the `DATABASE_URL`, `NEXTAUTH_SECRET`, and `NEXTAUTH_URL` keys in the .env file are required. Other keys are optional.
+Only the `DATABASE_URL`, `BETTER_AUTH_SECRET`, and `NEXTAUTH_URL` keys in the .env file are required. Other keys are optional.
 
 Fourth, generate tables and columns in your Supabase Postgres database.
 

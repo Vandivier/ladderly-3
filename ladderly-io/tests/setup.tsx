@@ -57,7 +57,7 @@ vi.mock('~/server/env', () => ({
     GOOGLE_CLIENT_SECRET: 'test-google-secret',
     EMAIL_SERVER: 'test-email-server',
     EMAIL_FROM: 'test@example.com',
-    NEXTAUTH_SECRET: 'test-nextauth-secret',
+    BETTER_AUTH_SECRET: 'test-nextauth-secret',
     NEXTAUTH_URL: 'http://localhost:3000',
   },
 }))

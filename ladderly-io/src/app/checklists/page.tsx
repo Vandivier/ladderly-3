@@ -13,11 +13,11 @@ export default async function ChecklistsPage() {
   // note: we statically render all checklists,
   // so if we have a bunch of checklists in the future, maybe 30+, we will want to paginate
   const { checklists } = await api.checklist.list({
-    internalSecret: process.env.NEXTAUTH_SECRET,
+    internalSecret: process.env.BETTER_AUTH_SECRET,
   })
-  const session = await auth.api.getSession({
+  const session = (await auth.api.getSession({
     headers: headers(),
-  }) as LadderlyServerSession
+  })) as LadderlyServerSession
 
   return (
     <LadderlyPageWrapper>

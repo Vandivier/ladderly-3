@@ -148,7 +148,7 @@ export const isAuthedOrInternalMiddleware = t.middleware((opts) => {
 
   // For build-time calls, we verify a secret key from the procedure's input.
   const input = opts.input as { internalSecret?: string }
-  const serverInternalSecret = process.env.NEXTAUTH_SECRET
+  const serverInternalSecret = process.env.BETTER_AUTH_SECRET
 
   if (
     serverInternalSecret &&
