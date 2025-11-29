@@ -2,11 +2,13 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 // In-memory tracking for per-email rate limiting
-// For production with multiple instances, use database storage via API route
-const emailAttempts = new Map<string, { count: number; expiresAt: number }>()
+export const emailAttempts = new Map<
+  string,
+  { count: number; expiresAt: number }
+>()
 
-const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000 // 1 hour
-const MAX_ATTEMPTS_PER_EMAIL = 3 // Max login attempts per email per hour
+export const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000 // 1 hour
+export const MAX_ATTEMPTS_PER_EMAIL = 3
 
 // Cleanup expired entries every 5 minutes
 if (typeof setInterval !== 'undefined') {
