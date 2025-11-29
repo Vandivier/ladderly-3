@@ -40,7 +40,12 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       const user = await prisma.user.findUnique({ where: { email } })
       return user ? adaptUser(user) : null
     },
-    getUserByAccount: async (provider_providerAccountId) => {
+    getUserByAccount: async (
+      provider_providerAccountId: Pick<
+        AdapterAccount,
+        'provider' | 'providerAccountId'
+      >,
+    ) => {
       const account = await prisma.account.findUnique({
         where: { provider_providerAccountId },
         include: { user: true },
@@ -92,7 +97,12 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
 
       return adaptAccount(createdAccount)
     },
-    unlinkAccount: async (provider_providerAccountId) => {
+    unlinkAccount: async (
+      provider_providerAccountId: Pick<
+        AdapterAccount,
+        'provider' | 'providerAccountId'
+      >,
+    ) => {
       const account = await prisma.account.delete({
         where: { provider_providerAccountId },
       })
