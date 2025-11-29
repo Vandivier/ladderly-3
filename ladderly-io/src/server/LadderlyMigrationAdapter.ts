@@ -11,9 +11,7 @@ import type {
   AdapterSession,
   AdapterUser,
   VerificationToken,
-} from '@auth/core/adapters'
-
-import type { AdapterAccountType } from '@auth/core/adapters'
+} from 'next-auth/adapters'
 
 export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
   return {
@@ -42,7 +40,12 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
       const user = await prisma.user.findUnique({ where: { email } })
       return user ? adaptUser(user) : null
     },
-    getUserByAccount: async (provider_providerAccountId) => {
+    getUserByAccount: async (
+      provider_providerAccountId: Pick<
+        AdapterAccount,
+        'provider' | 'providerAccountId'
+      >,
+    ) => {
       const account = await prisma.account.findUnique({
         where: { provider_providerAccountId },
         include: { user: true },
@@ -94,7 +97,12 @@ export function LadderlyMigrationAdapter(prisma: PrismaClient): Adapter {
 
       return adaptAccount(createdAccount)
     },
-    unlinkAccount: async (provider_providerAccountId) => {
+    unlinkAccount: async (
+      provider_providerAccountId: Pick<
+        AdapterAccount,
+        'provider' | 'providerAccountId'
+      >,
+    ) => {
       const account = await prisma.account.delete({
         where: { provider_providerAccountId },
       })
@@ -146,7 +154,7 @@ function adaptUser(user: User): AdapterUser {
 function adaptAccount(account: Account): AdapterAccount {
   return {
     userId: account.userId.toString(),
-    type: account.type as AdapterAccountType,
+    type: account.type as AdapterAccount['type'],
     provider: account.provider,
     providerAccountId: account.providerAccountId,
     refresh_token: account.refresh_token ?? undefined,

@@ -184,14 +184,14 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when login rate limit exceeded by email', async () => {
-      const { checkGuestRateLimit, recordFailedLoginAttempt } = await import(
+      const { checkGuestRateLimit, recordLoginAttempt } = await import(
         '~/server/utils/rateLimit'
       )
       // Record 3 failed attempts for this email
       const now = Date.now()
-      recordFailedLoginAttempt('test@example.com')
-      recordFailedLoginAttempt('test@example.com')
-      recordFailedLoginAttempt('test@example.com')
+      recordLoginAttempt('test@example.com')
+      recordLoginAttempt('test@example.com')
+      recordLoginAttempt('test@example.com')
 
       // Mock Date.now to return a time within the window
       vi.useFakeTimers()
@@ -220,16 +220,16 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('throws error when login rate limit exceeded by IP', async () => {
-      const { checkGuestRateLimit, recordFailedLoginAttempt } = await import(
+      const { checkGuestRateLimit, recordLoginAttempt } = await import(
         '~/server/utils/rateLimit'
       )
       const ipAddress = '192.168.1.1'
       const now = Date.now()
 
       // Record 3 failed attempts for this IP
-      recordFailedLoginAttempt('user1@example.com', ipAddress)
-      recordFailedLoginAttempt('user2@example.com', ipAddress)
-      recordFailedLoginAttempt('user3@example.com', ipAddress)
+      recordLoginAttempt('user1@example.com', ipAddress)
+      recordLoginAttempt('user2@example.com', ipAddress)
+      recordLoginAttempt('user3@example.com', ipAddress)
 
       vi.useFakeTimers()
       vi.setSystemTime(now + 1000)
@@ -259,13 +259,13 @@ describe('checkGuestRateLimit', () => {
     })
 
     it('allows login when rate limit exceeded but outside time window', async () => {
-      const { checkGuestRateLimit, recordFailedLoginAttempt } = await import(
+      const { checkGuestRateLimit, recordLoginAttempt } = await import(
         '~/server/utils/rateLimit'
       )
       const now = Date.now()
-      recordFailedLoginAttempt('test@example.com')
-      recordFailedLoginAttempt('test@example.com')
-      recordFailedLoginAttempt('test@example.com')
+      recordLoginAttempt('test@example.com')
+      recordLoginAttempt('test@example.com')
+      recordLoginAttempt('test@example.com')
 
       // Set time to 2 hours later (outside 1 hour window)
       vi.useFakeTimers()
