@@ -14,16 +14,17 @@ model User {
   id        Int      @id @default(autoincrement())
   updatedAt DateTime @updatedAt
 
-  adminNotes     String  @default("")
-  email          String  @unique
-  emailBackup    String  @default("")
-  emailStripe    String  @default("")
-  emailVerified  Boolean @default(false)
-  hashedPassword String?
-  image          String?
-  name           String  @default("")
-  nameFirst      String  @default("")
-  nameLast       String  @default("")
+  adminNotes        String    @default("")
+  email             String    @unique
+  emailBackup       String    @default("")
+  emailStripe       String    @default("")
+  emailVerified     DateTime?
+  emailVerifiedDate DateTime?
+  hashedPassword    String?
+  image             String?
+  name              String    @default("")
+  nameFirst         String    @default("")
+  nameLast          String    @default("")
 
   hasInPersonEventInterest  Boolean @default(false)
   hasLiveStreamInterest     Boolean @default(false)
@@ -91,7 +92,7 @@ model Account {
   scope                 String?
   password              String?
   createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
+  updatedAt             DateTime  @default(now()) @updatedAt
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
