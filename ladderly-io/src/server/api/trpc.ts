@@ -174,10 +174,11 @@ export const publicProcedure = t.procedure
   .use(timingMiddleware)
 
 /**
- * Protected (authenticated) procedure
+ * Protected (authenticated) procedure WITH email verification requirement
  *
- * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
- * the session is valid and guarantees `ctx.session.user` is not null.
+ * If you want a query or mutation to ONLY be accessible to logged in users with verified emails,
+ * use this. It verifies the session is valid, guarantees `ctx.session.user` is not null,
+ * and requires email verification.
  *
  * @see https://trpc.io/docs/procedures
  */
@@ -188,6 +189,16 @@ export const protectedProcedure = t.procedure
     if (!ctx.session?.user) {
       throw new TRPCError({ code: 'UNAUTHORIZED' })
     }
+
+    // Require email verification for protected procedures
+    if (!ctx.session.user.emailVerified) {
+      throw new TRPCError({
+        code: 'FORBIDDEN',
+        message:
+          'Please verify your email address to access this feature. Check your inbox for the verification email.',
+      })
+    }
+
     return next({
       ctx: {
         // infers the `session` as non-nullable
@@ -199,9 +210,9 @@ export const protectedProcedure = t.procedure
 /**
  * Protected (authenticated) procedure WITHOUT email verification requirement
  *
- * Use this for endpoints that need to be accessible before email verification
- * (e.g., sending verification emails). Most endpoints should use `protectedProcedure` or
- * `protectedProcedureWithVerifiedEmail` instead.
+ * Use this ONLY for endpoints that must be accessible before email verification
+ * (e.g., sending verification emails, viewing verification status).
+ * Most endpoints should use `protectedProcedure` which requires email verification.
  *
  * @see https://trpc.io/docs/procedures
  */
@@ -223,34 +234,10 @@ export const protectedProcedureWithoutEmailVerification = t.procedure
 /**
  * Protected (authenticated) procedure WITH email verification requirement
  *
- * Use this for endpoints that require the user's email to be verified. It verifies the session
- * is valid, guarantees `ctx.session.user` is not null, and requires that the user's email is verified.
+ * This is now an alias for `protectedProcedure` since all protected procedures
+ * require email verification by default.
  *
- * This is an opt-in procedure - use it explicitly for endpoints that need email verification.
- *
+ * @deprecated Use `protectedProcedure` instead - it now requires email verification.
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedureWithVerifiedEmail = t.procedure
-  .use(rateLimitMiddleware)
-  .use(timingMiddleware)
-  .use(({ ctx, next }) => {
-    if (!ctx.session?.user) {
-      throw new TRPCError({ code: 'UNAUTHORIZED' })
-    }
-
-    // Require email verification
-    if (!ctx.session.user.emailVerified) {
-      throw new TRPCError({
-        code: 'FORBIDDEN',
-        message:
-          'Please verify your email address to access this feature. Check your inbox for the verification email.',
-      })
-    }
-
-    return next({
-      ctx: {
-        // infers the `session` as non-nullable
-        session: { ...ctx.session, user: ctx.session.user },
-      },
-    })
-  })
+export const protectedProcedureWithVerifiedEmail = protectedProcedure
