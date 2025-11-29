@@ -122,47 +122,48 @@ describe.sequential('Authentication integration tests', () => {
     jar.clear()
   })
 
-  test('allows successful registration and login', async () => {
+  test('allows successful registration (email verification required for login)', async () => {
+    // Use unique IP to isolate from other tests' rate limits
+    const testIp = '10.0.0.1'
     const email = randomEmail('signup')
     const password = 'Str0ngP@ssword42'
 
-    // Sign up
-    const signUpResponse = await signUp({ email, password })
+    // Sign up should succeed
+    const signUpResponse = await signUp({ email, password, ip: testIp })
     expect(signUpResponse.ok).toBe(true)
 
-    // Sign in
-    const signInResponse = await signIn({ email, password, jar })
-    expect(signInResponse.ok).toBe(true)
-
-    // Verify session
-    const sessionResponse = await fetchWithCookies(
-      '/api/auth/get-session',
-      { headers: { Accept: 'application/json' } },
-      jar,
-    )
-    expect(sessionResponse.status).toBe(200)
-    const session = (await sessionResponse.json()) as {
-      user?: { email?: string }
-    }
-    expect(session?.user?.email).toBe(email)
+    // Sign in should fail because email is not verified (requireEmailVerification: true)
+    const signInResponse = await signIn({ email, password, jar, ip: testIp })
+    // better-auth returns 403 for unverified email
+    expect(signInResponse.status).toBe(403)
   }, 60_000)
 
   test('enforces rate limit for repeated failures with the same account', async () => {
+    // Use unique IP to isolate from other tests' rate limits
+    const testIp = '10.0.0.2'
     const email = randomEmail('ratelimit-email')
     const password = 'Corr3ctPassword!'
 
     // Sign up first
-    await signUp({ email, password })
+    await signUp({ email, password, ip: testIp })
 
     // Make failed login attempts (wrong password)
     for (let i = 0; i < 3; i++) {
-      const response = await signIn({ email, password: 'WrongPassword!' })
+      const response = await signIn({
+        email,
+        password: 'WrongPassword!',
+        ip: testIp,
+      })
       // Better-auth returns 401 for invalid credentials
       expect(response.status).toBe(401)
     }
 
     // The 4th attempt should be rate limited
-    const blockedResponse = await signIn({ email, password: 'WrongPassword!' })
+    const blockedResponse = await signIn({
+      email,
+      password: 'WrongPassword!',
+      ip: testIp,
+    })
     expect(blockedResponse.status).toBe(429)
   }, 60_000)
 
