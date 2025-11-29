@@ -52,7 +52,13 @@ function start_app() {
     sleep 1
   done
 
-  echo "App is up (PID ${APP_PID}); running integration tests"
+  echo "App is up (PID ${APP_PID})"
+
+  # Seed test user via API (must happen after server is running)
+  echo "Seeding integration test user via API..."
+  node --experimental-strip-types scripts/seedIntegrationTestUser.ts
+
+  echo "Running integration tests"
   trap 'kill "${APP_PID}" >/dev/null 2>&1 || true' EXIT HUP INT TERM
 
   # Execute the test command.

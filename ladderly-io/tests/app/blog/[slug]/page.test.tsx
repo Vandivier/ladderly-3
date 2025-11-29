@@ -6,7 +6,7 @@ import path from 'path'
 import React from 'react'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { calculateReadingTime } from '~/app/blog/blog-utils'
-import { getServerAuthSession } from '~/server/auth'
+import { auth } from '~/server/better-auth'
 
 // Mock all external components and modules
 vi.mock('fs', () => ({
@@ -27,8 +27,12 @@ vi.mock('gray-matter', () => ({
   default: vi.fn(),
 }))
 
-vi.mock('~/server/auth', () => ({
-  getServerAuthSession: vi.fn(),
+vi.mock('~/server/better-auth', () => ({
+  auth: {
+    api: {
+      getSession: vi.fn(),
+    },
+  },
 }))
 
 // Mock the BlogPostContent component
@@ -59,13 +63,13 @@ vi.mock('~/app/blog/[slug]/page', async (importOriginal) => {
           }),
           post.toc && post.toc.length > 0
             ? React.createElement(
-                'div',
-                {
-                  'data-testid': 'toc-content',
-                  key: 'toc',
-                },
-                'Table of Contents',
-              )
+              'div',
+              {
+                'data-testid': 'toc-content',
+                key: 'toc',
+              },
+              'Table of Contents',
+            )
             : null,
           React.createElement(
             'div',
@@ -177,7 +181,7 @@ describe('BlogPost', () => {
       matter: '',
       stringify: () => '',
     })
-    vi.mocked(getServerAuthSession).mockResolvedValue(null)
+    vi.mocked(auth.api.getSession).mockResolvedValue(null)
   })
 
   test('renders blog post title', async () => {
@@ -218,7 +222,7 @@ describe('BlogPost', () => {
     })
 
     // Mock getServerAuthSession to return null (unauthenticated)
-    vi.mocked(getServerAuthSession).mockResolvedValue(null)
+    vi.mocked(auth.api.getSession).mockResolvedValue(null)
 
     const component = await BlogPost({ params: { slug: 'test-post' } })
     render(component)
@@ -274,7 +278,7 @@ describe('BlogPost', () => {
     })
 
     // Mock getServerAuthSession to return null (unauthenticated)
-    vi.mocked(getServerAuthSession).mockResolvedValue(null)
+    vi.mocked(auth.api.getSession).mockResolvedValue(null)
 
     const component = await BlogPost({ params: { slug: 'test-post' } })
     render(component)
@@ -381,7 +385,7 @@ describe('BlogPost', () => {
     })
 
     // Mock getServerAuthSession to return null (unauthenticated)
-    vi.mocked(getServerAuthSession).mockResolvedValue(null)
+    vi.mocked(auth.api.getSession).mockResolvedValue(null)
 
     const component = await BlogPost({ params: { slug: 'test-post' } })
     render(component)

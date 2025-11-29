@@ -39,8 +39,7 @@ export default async function SettingsPage() {
               </p>
               {settings.emailVerified ? (
                 <p className="mt-2 text-sm text-green-600">
-                  ✓ Your email address has been verified on{' '}
-                  {new Date(settings.emailVerified).toLocaleDateString()}
+                  ✓ Your email address has been verified.
                 </p>
               ) : (
                 <p className="mt-2 text-sm text-amber-600">

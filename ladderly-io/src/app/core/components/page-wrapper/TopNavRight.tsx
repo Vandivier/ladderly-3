@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { authClient, useSession } from '~/server/auth-client'
 import { api } from '~/trpc/react'
 import { IconVerticalChevron } from '../icons/VerticalChevron'
 import { MenuContext } from './MenuProvider'
@@ -18,7 +18,7 @@ const TOP_NAV_RIGHT_SECTION_CLASSES = 'ml-auto flex items-center space-x-6'
 export const TopNavRight = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { data: session, status: sessionStatus } = useSession()
+  const { data: session, isPending: isSessionPending } = useSession()
   const currentUserQuery = api.user.getCurrentUser.useQuery(undefined, {
     refetchOnMount: true,
     refetchOnWindowFocus: true,
@@ -27,23 +27,22 @@ export const TopNavRight = () => {
   const { setMenu, openMenuName } = React.useContext(MenuContext)
 
   // Track previous session status to detect transitions
-  const prevSessionStatusRef = React.useRef(sessionStatus)
+  const prevIsAuthenticatedRef = React.useRef(!!session?.user)
   const { refetch: refetchCurrentUser } = currentUserQuery
+
+  const isAuthenticated = !!session?.user
 
   // Refetch when session changes from unauthenticated to authenticated
   useEffect(() => {
-    const prevStatus = prevSessionStatusRef.current
-    prevSessionStatusRef.current = sessionStatus
+    const prevIsAuthenticated = prevIsAuthenticatedRef.current
+    prevIsAuthenticatedRef.current = isAuthenticated
 
-    if (prevStatus !== 'authenticated' && sessionStatus === 'authenticated') {
+    if (!prevIsAuthenticated && isAuthenticated) {
       // Session just became authenticated, refetch user data
       void refetchCurrentUser()
     }
-  }, [sessionStatus, refetchCurrentUser])
+  }, [isAuthenticated, refetchCurrentUser])
 
-  // Use session from useSession as fallback - this updates immediately after login
-  // while the tRPC query might still be using stale server-side session
-  const isAuthenticated = sessionStatus === 'authenticated' && !!session?.user
   // currentUser can be 0 (NULL_RESULT_TRPC_INT), so check if it's not 0
   let showAccountButton = false
   if (currentUser !== 0 && currentUser) {

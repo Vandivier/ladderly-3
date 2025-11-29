@@ -1,13 +1,16 @@
 import Link from 'next/link'
 import { SignupForm } from '~/app/(auth)/components/SignupForm'
-import { getServerAuthSession, type LadderlySession } from '~/server/auth'
+import { auth } from '~/server/better-auth'
+import { headers } from 'next/headers'
 
 export const metadata = {
   title: 'Create Account',
 }
 
 const CreateAccountPage = async () => {
-  const session: LadderlySession | null = await getServerAuthSession()
+  const session = await auth.api.getSession({
+    headers: headers(),
+  })
 
   return (
     <div className="relative min-h-screen">

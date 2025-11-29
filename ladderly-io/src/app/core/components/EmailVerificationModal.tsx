@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { api } from '~/trpc/react'
+import { authClient } from '~/server/auth-client'
 
 interface EmailVerificationModalProps {
   email: string
@@ -16,27 +16,25 @@ export function EmailVerificationModal({
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const sendVerificationEmail = api.auth.sendVerificationEmail.useMutation({
-    onSuccess: () => {
-      setIsSending(false)
-      setMessage('Verification email sent! Please check your inbox.')
-      setError(null)
-    },
-    onError: (err) => {
-      setIsSending(false)
-      setError(err.message || 'Failed to send verification email')
-      setMessage(null)
-    },
-  })
-
   const handleSendEmail = async () => {
     setIsSending(true)
     setError(null)
     setMessage(null)
     try {
-      await sendVerificationEmail.mutateAsync()
+      const { error } = await authClient.sendVerificationEmail({
+        email,
+        callbackURL: '/verify-email'
+      })
+
+      if (error) {
+        setError(error.message ?? 'Failed to send verification email')
+      } else {
+        setMessage('Verification email sent! Please check your inbox.')
+      }
     } catch {
-      // Error handled by onError callback
+      setError('Failed to send verification email')
+    } finally {
+      setIsSending(false)
     }
   }
 

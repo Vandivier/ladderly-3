@@ -57,22 +57,9 @@ vi.mock('~/server/env', () => ({
     GOOGLE_CLIENT_SECRET: 'test-google-secret',
     EMAIL_SERVER: 'test-email-server',
     EMAIL_FROM: 'test@example.com',
-    NEXTAUTH_SECRET: 'test-nextauth-secret',
+    BETTER_AUTH_SECRET: 'test-nextauth-secret',
     NEXTAUTH_URL: 'http://localhost:3000',
   },
-}))
-
-// Mock server-only
-vi.mock('server-only', () => ({}))
-
-// Mock auth
-vi.mock('~/server/auth', () => ({
-  auth: vi.fn(() => Promise.resolve({ user: null })),
-  signIn: vi.fn(),
-  signOut: vi.fn(),
-  getServerSession: vi.fn(() => Promise.resolve(null)),
-  LadderlyMigrationAdapter: vi.fn(),
-  createLadderlySession: vi.fn(),
 }))
 
 // Mock Next.js components

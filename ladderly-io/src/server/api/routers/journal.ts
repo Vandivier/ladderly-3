@@ -125,7 +125,7 @@ export const journalRouter = createTRPCRouter({
     .input(createJournalEntrySchema)
     .mutation(async ({ ctx, input }) => {
       const userId = Number(ctx.session.user.id)
-      const userTier = ctx.session.user.subscription.tier
+      const userTier = ctx.session.user.subscription?.tier
 
       // Check if this is a minted entry
       const isMintedEntry = input.entryType === JournalEntryType.MINTED

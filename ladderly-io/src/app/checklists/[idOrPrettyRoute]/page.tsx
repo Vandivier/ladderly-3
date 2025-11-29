@@ -6,7 +6,8 @@ import { notFound } from 'next/navigation'
 import { api } from '~/trpc/server'
 import { TRPCError } from '@trpc/server'
 import { db } from '~/server/db'
-import { getServerAuthSession } from '~/server/auth'
+import { auth, type LadderlyServerSession } from '~/server/better-auth'
+import { headers } from 'next/headers'
 
 export const metadata = {
   title: 'Checklist',
@@ -17,7 +18,10 @@ export default async function ChecklistPage({
 }: {
   params: { idOrPrettyRoute: string }
 }) {
-  const session = await getServerAuthSession()
+  const session = await auth.api.getSession({
+    headers: headers(),
+  }) as LadderlyServerSession
+
   // Try to parse as number first
   const checklistId = parseInt(params.idOrPrettyRoute, 10)
   let checklist

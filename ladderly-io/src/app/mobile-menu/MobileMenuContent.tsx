@@ -7,7 +7,7 @@ import { TopNavFlexContainer } from '~/app/core/components/page-wrapper/TopNav'
 import { TopNavLeft } from '~/app/core/components/page-wrapper/TopNavLeft'
 import { TOP_NAV_STANDARD_CLASSES } from '~/app/core/components/page-wrapper/TopNavSubmenu'
 import { ThemeProvider } from '~/app/core/theme/ThemeContext'
-import { type LadderlySession } from '~/server/auth'
+import { type LadderlyServerSession } from '~/server/better-auth'
 import { LadderlyAnalytics } from '../core/components/LadderlyAnalytics'
 import {
   MOBILE_LINK_CLASSES,
@@ -16,7 +16,7 @@ import {
   MobileGrowDropdown,
 } from './MobileMenuDropdowns'
 
-const AuthenticatedMenuItems = ({ session }: { session: LadderlySession }) => {
+const AuthenticatedMenuItems = ({ session }: { session: LadderlyServerSession }) => {
   const [isSubmenuOpen, setIsSubmenuOpen] = React.useState(false)
 
   return (
@@ -50,7 +50,7 @@ const GuestMenuItems = () => {
 const AuthenticatedPartialMenu = ({
   session,
 }: {
-  session: LadderlySession | null
+  session: LadderlyServerSession | null
 }) => {
   return session?.user ? (
     <AuthenticatedMenuItems session={session} />
@@ -59,10 +59,10 @@ const AuthenticatedPartialMenu = ({
   )
 }
 
-export function MobileMenuContent({
+export default function MobileMenuContent({
   session,
 }: {
-  session: LadderlySession | null
+  session: LadderlyServerSession | null
 }) {
   const router = useRouter()
   const [isCommunitySubmenuOpen, setIsCommunitySubmenuOpen] =

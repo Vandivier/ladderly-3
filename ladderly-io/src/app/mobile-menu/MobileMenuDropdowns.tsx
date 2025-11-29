@@ -1,4 +1,4 @@
-import type { LadderlySession } from '~/server/auth'
+import type { LadderlyServerSession } from '~/server/better-auth'
 import { IconVerticalChevron } from '../core/components/icons/VerticalChevron'
 import {
   AccountMenuItems,
@@ -19,13 +19,12 @@ export const MobileAccountDropdown = ({
 }: {
   toggleAccountSubmenu: () => void
   isSubmenuOpen: boolean
-  session: LadderlySession
+  session: LadderlyServerSession
 }) => (
   <li>
     <button
-      className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
-        isSubmenuOpen && 'border border-gray-200 bg-gray-100'
-      }`}
+      className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${isSubmenuOpen && 'border border-gray-200 bg-gray-100'
+        }`}
       onClick={toggleAccountSubmenu}
     >
       Account
@@ -35,7 +34,7 @@ export const MobileAccountDropdown = ({
     {isSubmenuOpen && (
       <ul className="flex w-full">
         <AccountMenuItems
-          userId={session.user?.id ?? ''}
+          userId={session?.user?.id ?? ''}
           linkClassName={MOBILE_SUBMENU_ITEM_CLASSES}
         />
       </ul>
@@ -53,9 +52,8 @@ export const MobileCommunityDropdown = ({
   <li>
     <button
       onClick={toggleCommunitySubmenu}
-      className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
-        isCommunitySubmenuOpen ? 'border border-gray-200 bg-gray-100' : ''
-      }`}
+      className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${isCommunitySubmenuOpen ? 'border border-gray-200 bg-gray-100' : ''
+        }`}
     >
       Community
       <IconVerticalChevron isPointingUp={isCommunitySubmenuOpen} />
@@ -78,9 +76,8 @@ export const MobileGrowDropdown = ({
   <li>
     <button
       onClick={toggleGrowSubmenu}
-      className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${
-        isGrowSubmenuOpen ? 'border border-gray-200 bg-gray-100' : ''
-      }`}
+      className={`${MOBILE_LINK_CLASSES} flex items-center justify-between ${isGrowSubmenuOpen ? 'border border-gray-200 bg-gray-100' : ''
+        }`}
     >
       Grow
       <IconVerticalChevron isPointingUp={isGrowSubmenuOpen} />

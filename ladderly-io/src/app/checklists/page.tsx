@@ -1,7 +1,8 @@
 import { LadderlyPageWrapper } from '~/app/core/components/page-wrapper/LadderlyPageWrapper'
 import { ChecklistsList } from './ChecklistsList'
 import { api } from '~/trpc/server'
-import { getServerAuthSession } from '~/server/auth'
+import { auth, type LadderlyServerSession } from '~/server/better-auth'
+import { headers } from 'next/headers'
 
 export const metadata = {
   title: 'Checklists',
@@ -12,9 +13,11 @@ export default async function ChecklistsPage() {
   // note: we statically render all checklists,
   // so if we have a bunch of checklists in the future, maybe 30+, we will want to paginate
   const { checklists } = await api.checklist.list({
-    internalSecret: process.env.NEXTAUTH_SECRET,
+    internalSecret: process.env.BETTER_AUTH_SECRET,
   })
-  const session = await getServerAuthSession()
+  const session = (await auth.api.getSession({
+    headers: headers(),
+  })) as LadderlyServerSession
 
   return (
     <LadderlyPageWrapper>

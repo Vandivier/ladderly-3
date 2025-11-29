@@ -66,114 +66,59 @@ async function fetchWithCookies(
   return response
 }
 
-async function loginWithCredentials(options: {
+// Better-auth sign up endpoint
+async function signUp(options: {
+  email: string
+  password: string
+  name?: string
+  ip?: string
+}) {
+  const { email, password, name = 'Test User', ip } = options
+  const headers = new Headers({ 'Content-Type': 'application/json' })
+  if (ip) {
+    headers.set('x-forwarded-for', ip)
+  }
+
+  return fetch(`${APP_ORIGIN}/api/auth/sign-up/email`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ email, password, name }),
+  })
+}
+
+// Better-auth sign in endpoint
+async function signIn(options: {
   email: string
   password: string
   ip?: string
   jar?: CookieJar
 }) {
   const { email, password, ip, jar = new CookieJar() } = options
-  const sharedHeaders = new Headers()
+  const headers = new Headers({ 'Content-Type': 'application/json' })
   if (ip) {
-    sharedHeaders.set('x-forwarded-for', ip)
+    headers.set('x-forwarded-for', ip)
+  }
+  const cookieValue = jar.headerValue()
+  if (cookieValue) {
+    headers.set('cookie', cookieValue)
   }
 
-  const csrfResponse = await fetchWithCookies(
-    '/api/auth/csrf',
-    { method: 'GET', headers: sharedHeaders },
-    jar,
-  )
-  if (!csrfResponse.ok) {
-    const body = await csrfResponse.text()
-    throw new Error(
-      `Failed to load CSRF token (${csrfResponse.status}): ${body}`,
-    )
-  }
-  const csrfBody = (await csrfResponse.json()) as { csrfToken: string }
-
-  const formBody = new URLSearchParams({
-    csrfToken: csrfBody.csrfToken,
-    email,
-    password,
-    callbackUrl: '/',
-    json: 'true',
+  const response = await fetch(`${APP_ORIGIN}/api/auth/sign-in/email`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ email, password }),
   })
-
-  const loginHeaders = new Headers(sharedHeaders)
-  loginHeaders.set('Content-Type', 'application/x-www-form-urlencoded')
-
-  return fetchWithCookies(
-    '/api/auth/callback/credentials?json=true',
-    {
-      method: 'POST',
-      headers: loginHeaders,
-      body: formBody.toString(),
-    },
-    jar,
-  )
+  jar.storeFrom(response)
+  return response
 }
 
 const randomEmail = (prefix: string) =>
   `${prefix}-${Date.now()}-${Math.round(Math.random() * 10_000)}@example.com`
 
-type TrpcResponse<T> = {
-  result?: {
-    data?: {
-      json?: T
-    }
-  }
-  error?: {
-    message?: string
-    json?: {
-      message?: string
-    }
-  }
-}
-
-async function callTrpc<TInput, TOutput>({
-  path,
-  input,
-  ip,
-}: {
-  path: string
-  input: TInput
-  ip?: string
-}) {
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    'x-trpc-source': 'integration-tests',
-  })
-  if (ip) {
-    headers.set('x-forwarded-for', ip)
-  }
-
-  // tRPC v11 with httpBatchStreamLink expects batched format
-  const response = await fetch(`${APP_ORIGIN}/api/trpc/${path}?batch=1`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({ '0': { json: input } }),
-  })
-  const raw = await response.text()
-
-  if (!raw) {
-    throw new Error(
-      `tRPC ${path} returned empty response (status ${response.status})`,
-    )
-  }
-
-  // Response is an array for batched requests
-  const parsed = JSON.parse(raw) as TrpcResponse<TOutput>[]
-  const payload = parsed[0]
-
-  if (payload?.error) {
-    const errorMessage =
-      payload.error.message ??
-      payload.error.json?.message ??
-      `tRPC error: ${JSON.stringify(payload.error)}`
-    throw new Error(errorMessage)
-  }
-
-  return payload?.result?.data?.json as TOutput
+// Pre-seeded verified test user (created by scripts/seedIntegrationTestUser.ts)
+const VERIFIED_TEST_USER = {
+  email: 'verified-test-user@example.com',
+  password: 'TestP@ssword123',
 }
 
 describe.sequential('Authentication integration tests', () => {
@@ -183,24 +128,30 @@ describe.sequential('Authentication integration tests', () => {
     jar.clear()
   })
 
-  test('allows successful registration and login', async () => {
-    const email = randomEmail('signup')
-    const password = 'Str0ngP@ssword42'
+  test('allows sign-in with verified email and creates session', async () => {
+    // Use unique IP to isolate from other tests' rate limits
+    const testIp = '10.0.0.10'
 
-    await callTrpc({
-      path: 'auth.signup',
-      input: { email, password },
-    })
-
-    const loginResponse = await loginWithCredentials({
-      email,
-      password,
+    // Sign in with pre-seeded verified user
+    const signInResponse = await signIn({
+      email: VERIFIED_TEST_USER.email,
+      password: VERIFIED_TEST_USER.password,
       jar,
+      ip: testIp,
     })
-    expect(loginResponse.status).toBe(200)
 
+    if (!signInResponse.ok) {
+      const errorBody = await signInResponse.text()
+      console.error(
+        `Sign-in failed: ${signInResponse.status} ${signInResponse.statusText}`,
+        errorBody,
+      )
+    }
+    expect(signInResponse.ok).toBe(true)
+
+    // Verify session was created
     const sessionResponse = await fetchWithCookies(
-      '/api/auth/session',
+      '/api/auth/get-session',
       { headers: { Accept: 'application/json' } },
       jar,
     )
@@ -208,54 +159,74 @@ describe.sequential('Authentication integration tests', () => {
     const session = (await sessionResponse.json()) as {
       user?: { email?: string }
     }
-    expect(session?.user?.email).toBe(email)
+    expect(session?.user?.email).toBe(VERIFIED_TEST_USER.email)
+  }, 60_000)
+
+  test('allows successful registration (email verification required for login)', async () => {
+    // Use unique IP to isolate from other tests' rate limits
+    const testIp = '10.0.0.1'
+    const email = randomEmail('signup')
+    const password = 'Str0ngP@ssword42'
+
+    // Sign up should succeed
+    const signUpResponse = await signUp({ email, password, ip: testIp })
+    expect(signUpResponse.ok).toBe(true)
+
+    // Sign in should fail because email is not verified (requireEmailVerification: true)
+    const signInResponse = await signIn({ email, password, jar, ip: testIp })
+    // better-auth returns 403 for unverified email
+    expect(signInResponse.status).toBe(403)
   }, 60_000)
 
   test('enforces rate limit for repeated failures with the same account', async () => {
+    // Use unique IP to isolate from other tests' rate limits
+    const testIp = '10.0.0.2'
     const email = randomEmail('ratelimit-email')
     const password = 'Corr3ctPassword!'
 
-    await callTrpc({
-      path: 'auth.signup',
-      input: { email, password },
-    })
+    // Sign up first
+    await signUp({ email, password, ip: testIp })
 
+    // Make failed login attempts (wrong password)
     for (let i = 0; i < 3; i++) {
-      const response = await loginWithCredentials({
+      const response = await signIn({
         email,
         password: 'WrongPassword!',
+        ip: testIp,
       })
+      // Better-auth returns 401 for invalid credentials
       expect(response.status).toBe(401)
     }
 
-    const blockedResponse = await loginWithCredentials({
+    // The 4th attempt should be rate limited
+    const blockedResponse = await signIn({
       email,
       password: 'WrongPassword!',
+      ip: testIp,
     })
-    const bodyText = decodeURIComponent(await blockedResponse.text())
-    expect(blockedResponse.status).toBeGreaterThanOrEqual(400)
-    expect(bodyText).toContain('Too many login attempts')
+    expect(blockedResponse.status).toBe(429)
   }, 60_000)
 
   test('blocks password spray attempts coming from the same IP address', async () => {
     const attackerIp = '203.0.113.55'
 
+    // Make login attempts with different emails from same IP
     for (let i = 0; i < 3; i++) {
-      const response = await loginWithCredentials({
+      const response = await signIn({
         email: randomEmail(`spray-${i}`),
         password: 'WrongPassword!',
         ip: attackerIp,
       })
+      // Better-auth returns 401 for invalid credentials (user not found)
       expect(response.status).toBe(401)
     }
 
-    const blockedResponse = await loginWithCredentials({
+    // The 4th attempt should be rate limited by IP
+    const blockedResponse = await signIn({
       email: randomEmail('spray-blocked'),
       password: 'WrongPassword!',
       ip: attackerIp,
     })
-    const bodyText = decodeURIComponent(await blockedResponse.text())
-    expect(blockedResponse.status).toBeGreaterThanOrEqual(400)
-    expect(bodyText).toContain('Too many login attempts')
+    expect(blockedResponse.status).toBe(429)
   }, 60_000)
 })

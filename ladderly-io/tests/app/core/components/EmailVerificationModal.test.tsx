@@ -2,37 +2,16 @@ import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { EmailVerificationModal } from '~/app/core/components/EmailVerificationModal'
 
-// Mock tRPC - define mock functions before vi.mock (they get hoisted together)
-const mockMutateAsync = vi.fn()
+const mocks = vi.hoisted(() => {
+  return {
+    sendVerificationEmail: vi.fn(),
+  }
+})
 
-vi.mock('~/trpc/react', () => ({
-  api: {
-    auth: {
-      sendVerificationEmail: {
-        useMutation: vi.fn(
-          (options?: {
-            onSuccess?: () => void
-            onError?: (error: Error) => void
-          }) => {
-            // Wrap mutateAsync to call callbacks
-            const wrappedMutateAsync = vi.fn(async () => {
-              try {
-                const result = await mockMutateAsync()
-                options?.onSuccess?.()
-                return result
-              } catch (error) {
-                options?.onError?.(error as Error)
-                throw error
-              }
-            })
-
-            return {
-              mutateAsync: wrappedMutateAsync,
-            }
-          },
-        ),
-      },
-    },
+// Mock auth-client
+vi.mock('~/server/auth-client', () => ({
+  authClient: {
+    sendVerificationEmail: mocks.sendVerificationEmail,
   },
 }))
 
@@ -40,7 +19,7 @@ describe('EmailVerificationModal', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     // Reset mock to return success by default
-    mockMutateAsync.mockResolvedValue({ success: true })
+    mocks.sendVerificationEmail.mockResolvedValue({ data: { success: true }, error: null })
   })
 
   it('renders modal with email address', () => {
@@ -115,7 +94,7 @@ describe('EmailVerificationModal', () => {
   })
 
   it('sends verification email when button is clicked', async () => {
-    mockMutateAsync.mockResolvedValue({ success: true })
+    mocks.sendVerificationEmail.mockResolvedValue({ data: { success: true }, error: null })
 
     render(<EmailVerificationModal email="test@example.com" />)
 
@@ -128,12 +107,16 @@ describe('EmailVerificationModal', () => {
     })
 
     await waitFor(() => {
-      expect(mockMutateAsync).toHaveBeenCalledTimes(1)
+      expect(mocks.sendVerificationEmail).toHaveBeenCalledTimes(1)
+      expect(mocks.sendVerificationEmail).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        callbackURL: '/verify-email',
+      })
     })
   })
 
   it('displays success message after sending email', async () => {
-    mockMutateAsync.mockResolvedValue({ success: true })
+    mocks.sendVerificationEmail.mockResolvedValue({ data: { success: true }, error: null })
 
     render(<EmailVerificationModal email="test@example.com" />)
 
@@ -154,8 +137,7 @@ describe('EmailVerificationModal', () => {
 
   it('displays error message when sending fails', async () => {
     const errorMessage = 'Too many verification email requests'
-    const error = new Error(errorMessage)
-    mockMutateAsync.mockRejectedValue(error)
+    mocks.sendVerificationEmail.mockResolvedValue({ data: null, error: { message: errorMessage } })
 
     render(<EmailVerificationModal email="test@example.com" />)
 
@@ -173,11 +155,11 @@ describe('EmailVerificationModal', () => {
   })
 
   it('disables button while sending', async () => {
-    let resolvePromise: () => void
-    const promise = new Promise<{ success: boolean }>((resolve) => {
-      resolvePromise = () => resolve({ success: true })
+    let resolvePromise: (value: any) => void
+    const promise = new Promise((resolve) => {
+      resolvePromise = resolve
     })
-    mockMutateAsync.mockReturnValue(promise)
+    mocks.sendVerificationEmail.mockReturnValue(promise)
 
     render(<EmailVerificationModal email="test@example.com" />)
 
@@ -194,7 +176,7 @@ describe('EmailVerificationModal', () => {
     })
 
     await act(async () => {
-      resolvePromise!()
+      resolvePromise!({ data: { success: true }, error: null })
       await promise
     })
   })

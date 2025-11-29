@@ -1,13 +1,15 @@
+import { auth } from '~/server/better-auth'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { getServerAuthSession } from '~/server/auth'
-import { api } from '~/trpc/server'
 
 export default async function VerifyEmailPage({
   searchParams,
 }: {
   searchParams: { token?: string }
 }) {
-  const session = await getServerAuthSession()
+  const session = await auth.api.getSession({
+    headers: headers(),
+  })
 
   if (!session?.user) {
     redirect('/login')
@@ -29,7 +31,12 @@ export default async function VerifyEmailPage({
   }
 
   try {
-    await api.auth.verifyEmail({ token: searchParams.token })
+    await auth.api.verifyEmail({
+      query: {
+        token: searchParams.token
+      },
+      headers: headers()
+    })
   } catch (error) {
     return (
       <div className="container mx-auto max-w-2xl px-4 py-8">
