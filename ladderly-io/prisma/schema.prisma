@@ -18,7 +18,7 @@ model User {
   email             String    @unique
   emailBackup       String    @default("")
   emailStripe       String    @default("")
-  emailVerified     DateTime?
+  emailVerified     Boolean   @default(false)
   emailVerifiedDate DateTime?
   hashedPassword    String?
   image             String?
