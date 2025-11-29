@@ -30,5 +30,7 @@ services:
       DB_NAME: ${DB_NAME:-ladderly_io_test}
       APP_PORT: 3000
       INTEGRATION_TEST_COMMAND: ${INTEGRATION_TEST_COMMAND:-npm run test:integration}
+      # Postmark test token - accepts API calls without sending real emails
+      POSTMARK_API_KEY: POSTMARK_API_TEST
     ports:
       - '${APP_PORT:-3000}:3000'
