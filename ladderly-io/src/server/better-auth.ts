@@ -58,11 +58,6 @@ export const auth = betterAuth({
     fields: {
       providerId: 'provider',
       accountId: 'providerAccountId',
-      accessToken: 'access_token',
-      refreshToken: 'refresh_token',
-      accessTokenExpiresAt: 'expires_at',
-      idToken: 'id_token',
-      scope: 'scope',
     },
   },
   verification: {
