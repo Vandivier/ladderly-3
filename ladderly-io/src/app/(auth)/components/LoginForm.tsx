@@ -15,6 +15,7 @@ export const LoginForm = () => {
   const { data: session } = useSession()
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [loginSuccess, setLoginSuccess] = useState(false)
+  const [showResetSuggestion, setShowResetSuggestion] = useState(false)
 
   // Redirect once session is available after successful login
   useEffect(() => {
@@ -27,6 +28,7 @@ export const LoginForm = () => {
   const handleSubmit = async (values: { email: string; password: string }) => {
     setIsLoggingIn(true)
     setLoginSuccess(false)
+    setShowResetSuggestion(false)
 
     const { data, error } = await signIn.email({
       email: values.email,
@@ -35,6 +37,21 @@ export const LoginForm = () => {
 
     if (error) {
       setIsLoggingIn(false)
+      // eslint-disable-next-line no-console
+      console.log('[LoginForm] Error:', JSON.stringify(error))
+
+      const errorMsg = (error.message ?? '').toLowerCase()
+      // Show reset suggestion for password-related errors or any auth failure
+      // This helps users who need to reset passwords after the better-auth migration
+      if (
+        errorMsg.includes('password') ||
+        errorMsg.includes('invalid') ||
+        errorMsg.includes('credentials') ||
+        errorMsg.includes('hash') ||
+        error.status === 500
+      ) {
+        setShowResetSuggestion(true)
+      }
       return { [FORM_ERROR]: error.message ?? 'An error occurred' }
     }
 
@@ -80,6 +97,21 @@ export const LoginForm = () => {
         </div>
       </div>
 
+      {showResetSuggestion && (
+        <div className="mb-4 rounded-md border border-amber-300 bg-amber-50 p-4">
+          <p className="text-sm text-amber-800">
+            <strong>Having trouble logging in?</strong> Password reset
+            frequently resolves login issues!
+          </p>
+          <Link
+            href="/forgot-password"
+            className="mt-2 inline-block rounded-md bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-700"
+          >
+            Reset Password Now
+          </Link>
+        </div>
+      )}
+
       <Form
         className="space-y-4"
         submitText="Log In with Email"
@@ -93,7 +125,6 @@ export const LoginForm = () => {
           label="Password"
           placeholder="Password"
           type="password"
-
         />
         <div className="mt-4 text-left">
           <Link className="underline" href="/forgot-password">

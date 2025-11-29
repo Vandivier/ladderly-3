@@ -5,11 +5,29 @@ export const email = z
   .email()
   .transform((str) => str.toLowerCase().trim())
 
+// Password complexity requirements:
+// - At least 10 characters
+// - At least one uppercase letter
+// - At least one lowercase letter
+// - At least one number
+// - At least one special character
 export const password = z
   .string()
-  .min(10)
-  .max(100)
+  .min(10, 'Password must be at least 10 characters')
+  .max(100, 'Password must be at most 100 characters')
+  .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+  .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+  .regex(/[0-9]/, 'Password must contain at least one number')
+  .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character')
   .transform((str) => str.trim())
+
+export const PASSWORD_REQUIREMENTS = [
+  'At least 10 characters',
+  'At least one uppercase letter (A-Z)',
+  'At least one lowercase letter (a-z)',
+  'At least one number (0-9)',
+  'At least one special character (!@#$%^&*...)',
+]
 
 export const Signup = z.object({
   email,

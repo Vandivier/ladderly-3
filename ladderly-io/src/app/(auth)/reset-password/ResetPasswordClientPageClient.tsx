@@ -2,7 +2,7 @@
 
 import { LabeledTextField } from '~/app/core/components/LabeledTextField'
 import { Form, FORM_ERROR } from '~/app/core/components/Form'
-import { ResetPassword } from 'src/app/(auth)/schemas'
+import { ResetPassword, PASSWORD_REQUIREMENTS } from 'src/app/(auth)/schemas'
 import { authClient } from '~/server/auth-client'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -31,49 +31,64 @@ const ResetPasswordClientPageClient = () => {
           </p>
         </div>
       ) : (
-        <Form
-          submitText="Reset Password"
-          schema={ResetPassword}
-          initialValues={{
-            password: '',
-            passwordConfirmation: '',
-            token,
-          }}
-          onSubmit={async (values) => {
-            try {
-              if (!token) throw new Error('Token is required.')
+        <>
+          <div className="mb-4 rounded-md border border-blue-200 bg-blue-50 p-3">
+            <p className="mb-2 text-sm font-medium text-blue-800">
+              Password Requirements:
+            </p>
+            <ul className="list-inside list-disc space-y-1 text-xs text-blue-700">
+              {PASSWORD_REQUIREMENTS.map((req) => (
+                <li key={req}>{req}</li>
+              ))}
+            </ul>
+          </div>
 
-              const { error } = await authClient.resetPassword({
-                newPassword: values.password,
-                token
-              })
+          <Form
+            submitText="Reset Password"
+            schema={ResetPassword}
+            initialValues={{
+              password: '',
+              passwordConfirmation: '',
+              token,
+            }}
+            onSubmit={async (values) => {
+              try {
+                if (!token) throw new Error('Token is required.')
 
-              if (error) {
-                return { [FORM_ERROR]: error.message ?? 'Failed to reset password' }
+                const { error } = await authClient.resetPassword({
+                  newPassword: values.password,
+                  token,
+                })
+
+                if (error) {
+                  return {
+                    [FORM_ERROR]: error.message ?? 'Failed to reset password',
+                  }
+                }
+
+                setIsSuccess(true)
+              } catch (error) {
+                return {
+                  [FORM_ERROR]:
+                    error instanceof Error
+                      ? error.message
+                      : 'Sorry, we had an unexpected error. Please try again.',
+                }
               }
-
-              setIsSuccess(true)
-            } catch (error) {
-              return {
-                [FORM_ERROR]:
-                  error instanceof Error
-                    ? error.message
-                    : 'Sorry, we had an unexpected error. Please try again.',
-              }
-            }
-          }}
-        >
-          <LabeledTextField
-            name="password"
-            label="New Password"
-            type="password"
-          />
-          <LabeledTextField
-            name="passwordConfirmation"
-            label="Confirm New Password"
-            type="password"
-          />
-        </Form>
+            }}
+          >
+            <LabeledTextField
+              name="password"
+              label="New Password"
+              type="password"
+            />
+            <LabeledTextField
+              name="passwordConfirmation"
+              label="Confirm New Password"
+              type="password"
+            />
+          </Form>
+        </>
       )}
     </>
   )
