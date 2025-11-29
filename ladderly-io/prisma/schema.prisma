@@ -81,21 +81,20 @@ enum RoleEnum {
 }
 
 model Account {
-  // better-auth uses snake_case
-  id                       Int       @id @default(autoincrement())
-  userId                   Int
-  providerAccountId        String
-  provider                 String
-  access_token             String?   @map("accessToken")
-  refresh_token            String?   @map("refreshToken")
-  expires_at               DateTime? @map("accessTokenExpiresAt")
-  refresh_token_expires_at DateTime? @map("refreshTokenExpiresAt")
-  id_token                 String?   @map("idToken")
-  scope                    String?
-  password                 String?
-  createdAt                DateTime  @default(now())
-  updatedAt                DateTime  @default(now()) @updatedAt
-  user                     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                    Int       @id @default(autoincrement())
+  userId                Int
+  providerAccountId     String
+  provider              String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  idToken               String?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @default(now()) @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
