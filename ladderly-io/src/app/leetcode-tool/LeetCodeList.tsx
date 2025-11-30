@@ -120,11 +120,21 @@ export function LeetCodeList() {
 
   // Filter by pattern tag if selected
   if (patternFilters.length > 0) {
-    const requiredTags = patternFilters.map((p) => `pattern:${p}`)
-    filteredItems = filteredItems.filter((item) =>
-      item.checklistItem.tags.some((tag) => requiredTags.includes(tag)),
+    const requiredPatterns = patternFilters.map((p) =>
+      p.trim().toLowerCase(),
     )
+
+    filteredItems = filteredItems.filter((item) => {
+      // collect pattern tags for this item
+      const itemPatterns = item.checklistItem.tags
+        .filter((tag) => tag.startsWith('pattern:'))
+        .map((tag) => tag.slice('pattern:'.length).trim().toLowerCase())
+
+      // show the item if it has at least one of the selected patterns
+      return requiredPatterns.some((pattern) => itemPatterns.includes(pattern))
+    })
   }
+
 
   // Filter by difficulty tag if selected
   if (difficultyFilter && difficultyFilter !== 'All Difficulties') {
