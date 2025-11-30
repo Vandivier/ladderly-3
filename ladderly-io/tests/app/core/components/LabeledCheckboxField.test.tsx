@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import type { HTMLAttributes, LabelHTMLAttributes } from 'react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { LabeledCheckboxField } from '~/app/core/components/LabeledCheckboxField'
 
@@ -87,7 +88,11 @@ describe('LabeledCheckboxField', () => {
       <LabeledCheckboxField
         name="testCheckbox"
         label="Checkbox Label"
-        labelProps={{ 'data-testid': 'custom-label' }}
+        labelProps={
+          {
+            'data-testid': 'custom-label',
+          } as LabelHTMLAttributes<HTMLLabelElement>
+        }
       />,
     )
 
@@ -99,7 +104,9 @@ describe('LabeledCheckboxField', () => {
       <LabeledCheckboxField
         name="testCheckbox"
         label="Checkbox Label"
-        outerProps={{ 'data-testid': 'outer-div' }}
+        outerProps={
+          { 'data-testid': 'outer-div' } as HTMLAttributes<HTMLDivElement>
+        }
       />,
     )
 

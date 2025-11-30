@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import type { HTMLAttributes, LabelHTMLAttributes } from 'react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { LabeledTextField } from '~/app/core/components/LabeledTextField'
 
@@ -110,7 +111,9 @@ describe('LabeledTextField', () => {
       <LabeledTextField
         name="testField"
         label="Test Label"
-        outerProps={{ 'data-testid': 'outer-div' }}
+        outerProps={
+          { 'data-testid': 'outer-div' } as HTMLAttributes<HTMLDivElement>
+        }
       />,
     )
 
@@ -122,7 +125,11 @@ describe('LabeledTextField', () => {
       <LabeledTextField
         name="testField"
         label="Test Label"
-        labelProps={{ 'data-testid': 'custom-label' }}
+        labelProps={
+          {
+            'data-testid': 'custom-label',
+          } as LabelHTMLAttributes<HTMLLabelElement>
+        }
       />,
     )
 

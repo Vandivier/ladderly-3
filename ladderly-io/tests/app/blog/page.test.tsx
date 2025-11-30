@@ -152,7 +152,7 @@ describe('BlogIndex', () => {
     // The premium post should be linked to the correct post
     const premiumPostLink = screen.getByText(mockPosts[1].title)
     expect(premiumPostLink).toBeInTheDocument()
-    expect(premiumPostLink.closest('div')).toContainElement(lockIcons[0])
+    expect(premiumPostLink.closest('div')).toContainElement(lockIcons[0]!)
   })
 
   test('properly structures premium badge with tooltip', async () => {
@@ -199,7 +199,7 @@ describe('BlogIndex', () => {
     const titles = screen.getAllByText(/Test Post/i)
 
     // The second post (newer date) should appear first
-    expect(titles[0].textContent).toBe(mockPosts[1].title)
-    expect(titles[1].textContent).toBe(mockPosts[0].title)
+    expect(titles[0]?.textContent).toBe(mockPosts[1].title)
+    expect(titles[1]?.textContent).toBe(mockPosts[0].title)
   })
 })
