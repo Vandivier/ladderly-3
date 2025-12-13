@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, expect, test, vi, beforeEach } from 'vitest'
 import ClientCommunityPage from '~/app/community/ClientCommunityPage'
+import type { CommunityMemberListUser } from '~/app/community/CommunityMemberListItem'
 
 // Mock the useRouter hook
 const mockPush = vi.fn()
@@ -33,9 +34,11 @@ vi.mock('next/navigation', () => ({
 
 // Mock the CommunityMemberListItem component
 vi.mock('~/app/community/CommunityMemberListItem', () => ({
-  CommunityMemberListItem: ({ user }) => (
+  CommunityMemberListItem: ({ user }: { user: CommunityMemberListUser }) => (
     <li data-testid={`user-${user.id}`}>
-      <div>{user.name}</div>
+      <div>
+        {user.nameFirst} {user.nameLast}
+      </div>
       <div>{user.profileCurrentJobTitle}</div>
     </li>
   ),
@@ -48,7 +51,7 @@ vi.mock('~/trpc/react', () => {
     api: {
       user: {
         getPaginatedUsers: {
-          useQuery: (...args) => mockUseQueryFn(...args),
+          useQuery: (...args: unknown[]) => mockUseQueryFn(...args),
         },
       },
     },

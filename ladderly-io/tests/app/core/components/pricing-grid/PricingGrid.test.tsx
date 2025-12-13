@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import PricingGrid from '~/app/core/components/pricing-grid/PricingGrid'
-import { PaymentTierEnum, RoleEnum } from '@prisma/client'
+import { PaymentTierEnum } from '@prisma/client'
 import type { UserWithSubscriptionsOrZero } from '~/server/schemas'
+import { makeMockUser } from '@tests/factories/userFactory'
 
 // Mock the server API
 vi.mock('~/trpc/server', () => ({
@@ -23,70 +24,6 @@ vi.mock('next/link', () => ({
     href: string
   }) => <a href={href}>{children}</a>,
 }))
-
-const mockUserBase = {
-  id: 1,
-  email: 'test@test.com',
-  name: 'Test User',
-  nameFirst: 'Test',
-  nameLast: 'User',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  emailVerified: null,
-  image: null,
-  adminNotes: '',
-  emailBackup: '',
-  emailStripe: '',
-  hashedPassword: null,
-  uuid: 'test-uuid',
-
-  // Boolean flags
-  hasInPersonEventInterest: false,
-  hasLiveStreamInterest: false,
-  hasNewsletterInterest: false,
-  hasSMSInterest: false,
-  hasOnlineEventInterest: false,
-  hasOpenToWork: false,
-  hasOpenToRelocation: false,
-  hasPublicProfileEnabled: false,
-  hasShoutOutsEnabled: false,
-  hasSmallGroupInterest: false,
-
-  // Profile fields from schema
-  profileBlurb: null,
-  profileContactEmail: null,
-  profileCurrentJobCompany: '',
-  profileCurrentJobTitle: '',
-  profileDiscordHandle: null,
-  profileGitHubUri: null,
-  profileHomepageUri: null,
-  profileLinkedInUri: null,
-  profileTopNetworkingReasons: [] as string[],
-  profileTopServices: [] as string[],
-  profileTopSkills: [] as string[],
-  profileYearsOfExperience: null,
-  profileHighestDegree: null,
-  profilePicture: '',
-
-  // Location
-  residenceCountry: '',
-  residenceUSState: '',
-
-  // Role and other fields
-  role: RoleEnum.USER,
-  isAdmin: false,
-  isEmailVerified: false,
-  isOnboardingComplete: false,
-  isProfileComplete: false,
-  isSuperAdmin: false,
-  phoneNumber: null,
-  phoneNumberVerified: false,
-  preferredName: null,
-  timezone: 'UTC',
-  twoFactorEnabled: false,
-  twoFactorSecret: null,
-  twoFactorVerified: false,
-}
 
 describe('PricingGrid', () => {
   it('renders pricing plans section', async () => {
@@ -130,10 +67,7 @@ describe('PricingGrid', () => {
 
   it('shows correct UI for logged in users with free tier', async () => {
     const { api } = await import('~/trpc/server')
-    const mockUser: UserWithSubscriptionsOrZero = {
-      ...mockUserBase,
-      subscriptions: [],
-    }
+    const mockUser = makeMockUser() as UserWithSubscriptionsOrZero
     vi.mocked(api.user.getCurrentUser).mockResolvedValue(mockUser)
 
     const pricingGrid = await PricingGrid({})
@@ -147,8 +81,7 @@ describe('PricingGrid', () => {
 
   it('shows correct UI for premium subscribers', async () => {
     const { api } = await import('~/trpc/server')
-    const mockUser: UserWithSubscriptionsOrZero = {
-      ...mockUserBase,
+    const mockUser = makeMockUser({
       subscriptions: [
         {
           id: 1,
@@ -161,7 +94,7 @@ describe('PricingGrid', () => {
           stripeSubscriptionId: null,
         },
       ],
-    }
+    }) as UserWithSubscriptionsOrZero
     vi.mocked(api.user.getCurrentUser).mockResolvedValue(mockUser)
 
     const pricingGrid = await PricingGrid({})
