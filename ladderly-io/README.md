@@ -32,24 +32,37 @@ Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/ver
 
 ### Rate Limiting System
 
-This application implements layered rate limiting:
+This application implements a multi-layered rate limiting strategy to protect against abuse:
 
-#### 1. Auth Rate Limiting (better-auth)
+#### 1. tRPC Global Rate Limiting
 
-- **IP-based**: 3 attempts per hour for sign-in, sign-up, password reset, verify-email
-- **Location**: `src/server/better-auth.ts`
+- **Purpose**: Protect all API endpoints from excessive requests
+- **Implementation**: In-memory sliding window counter in `src/server/utils/rateLimit.ts`
+- **Limit**: 30 requests per minute per identifier
+- **Identifier**: Uses `userId` for authenticated users, falls back to IP address for unauthenticated requests
+- **Error Response**: Throws tRPC `TOO_MANY_REQUESTS` error
+- **Cleanup**: Stale entries removed every 5 minutes
+- **Applied To**: All tRPC procedures via `rateLimitMiddleware` in `src/server/api/trpc.ts`
 
-#### 2. Per-Email Rate Limiting (Next.js Middleware)
+#### 2. Authentication Rate Limiting (better-auth)
 
-- **Email-based**: 3 login attempts per email per hour (prevents distributed attacks from multiple IPs targeting one account)
-- **Location**: `src/middleware.ts`
+- **Purpose**: Protect authentication endpoints from brute force attacks
+- **Implementation**: Built-in better-auth rate limiter configured in `src/server/better-auth.ts`
+- **Default Limit**: 100 requests per hour per IP
+- **Sensitive Endpoints** (3 requests per hour per IP):
+  - `/sign-in/email`
+  - `/sign-up/email`
+  - `/forgot-password`
+  - `/reset-password`
+  - `/verify-email`
 
-#### 3. Global API Rate Limiting (tRPC)
+#### 3. Per-Email Sign-In Rate Limiting (Middleware)
 
-- **By userId or IP**: 30 requests per minute for all tRPC procedures
-- **Location**: `src/server/api/trpc.ts`
-
-All rate limiting uses in-memory storage.
+- **Purpose**: Prevent credential stuffing by limiting attempts per email address (complements IP-based limiting)
+- **Implementation**: Next.js middleware in `src/middleware.ts`
+- **Limit**: 3 login attempts per email per hour
+- **Error Response**: HTTP 429 with `X-Retry-After` header
+- **Cleanup**: Expired entries removed every 5 minutes
 
 ### Email Verification Gating
 
