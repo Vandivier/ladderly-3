@@ -25,24 +25,26 @@ export const LoginForm = () => {
     }
   }, [loginSuccess, session, router])
 
-  const handleSubmit = async (values: { email: string; password: string }) => {
+  const handleSubmit = async ({
+    email,
+    password,
+  }: {
+    email: string
+    password: string
+  }) => {
     setIsLoggingIn(true)
     setLoginSuccess(false)
     setShowResetSuggestion(false)
 
     const { data, error } = await signIn.email({
-      email: values.email,
-      password: values.password,
+      email,
+      password,
     })
 
     if (error) {
       setIsLoggingIn(false)
-      // eslint-disable-next-line no-console
-      console.log('[LoginForm] Error:', JSON.stringify(error))
-
       const errorMsg = (error.message ?? '').toLowerCase()
-      // Show reset suggestion for password-related errors or any auth failure
-      // This helps users who need to reset passwords after the better-auth migration
+
       if (
         errorMsg.includes('password') ||
         errorMsg.includes('invalid') ||
@@ -57,7 +59,6 @@ export const LoginForm = () => {
 
     if (data) {
       setLoginSuccess(true)
-      // Session will be updated via useSession hook
     }
   }
 
