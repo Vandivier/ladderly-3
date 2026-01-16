@@ -23,7 +23,7 @@ def read_package_json(script_path):
 
 def get_folder_structure(script_path, ignore_file=".gitignore"):
     """Generates a folder structure representation, respecting .gitignore with glob syntax."""
-    project_root = script_path.parents[2]
+    project_root = script_path.parents[3]
     gitignore_path = project_root / ignore_file
     migrations_dir_parts = ("prisma", "migrations")
 
@@ -102,18 +102,20 @@ def create_copilot_instructions():
     """Creates the copilot-instructions.txt file."""
     script_path = Path(__file__).resolve()
     instructions = (
-        "Act as an expert web developer to help me resolve a concern. "
+        "# AI Assistant Instructions"
+        "\n\n"
+        "Act as an expert web developer to help me resolve a concern."
         "\n"
-        "We are working on the Ladderly.io web project and I will describe the dependencies for the project, "
+        "We are working on the Ladderly.io web project and I will describe the dependencies for the project,"
         "\n"
-        "the folder structure, and the data model. Once you have read through these materials, ask any clarifying "
+        "the folder structure, and the data model. Once you have read through these materials, ask any clarifying"
         "\n"
         "questions that you have."
         "\n"
-        "If you have no questions, state that you have read through the high-level context "
+        "If you have no questions, state that you have read through the high-level context"
         "\n"
-        "and you are ready to help with the current concern.\n\n"
-        "\n"
+        "and you are ready to help with the current concern."
+        "\n\n"
         "Here is the project.json file for this project which describes the dependencies:\n"
         f"{read_package_json(script_path)}\n\n"
         "Here is the folder structure of the project:\n"
@@ -122,11 +124,11 @@ def create_copilot_instructions():
         "- Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible."
     )
 
-    output_path = script_path.parent / "copilot-instructions.txt"
+    output_path = script_path.parents[3] / "AGENTS.md"
     with open(output_path, "w") as file:
         file.write(instructions)
 
-    print(f"copilot-instructions.txt has been created at {output_path}.")
+    print(f"AGENTS.md has been created at {output_path}.")
 
 
 if __name__ == "__main__":
