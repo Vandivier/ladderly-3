@@ -184,7 +184,7 @@ const PerksPage = () => {
       <div className="flex flex-col items-center justify-center">
         <h1 className="my-4 text-2xl font-semibold">Ladderly Perks!</h1>
         <h2 className="mb-3 text-center text-xl">
-          Earn a discount with recommended partners!
+          Exclusive discounts and partnerships!
         </h2>
       </div>
 
