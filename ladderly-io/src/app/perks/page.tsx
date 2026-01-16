@@ -19,12 +19,19 @@ interface Perk {
 
 const perks: Perk[] = [
   {
+    title: 'Mercor',
+    description:
+      'Mercor helps you find part-time and full-time remote jobs and side hustles!',
+    link: 'https://work.mercor.com/?referralCode=ae8e7873-fa49-41bd-ac2d-2d5a17b301aa&utm_source=referral&utm_medium=direct&utm_campaign=platform',
+    linkText: 'Find a remote job',
+  },
+  {
     title: 'CareerFoundry',
     description:
       'CareerFoundry is top-rated coding bootcamp of the highest caliber, one of only two that Ladderly.io officially recommends, and they offer a job guarantee!',
-    discount: '10% off and a guaranteed job!',
+    discount: '5% off and a guaranteed job',
     link: 'https://careerfoundry.com/en/referral_registrations/new?referral=A7NKm6rk',
-    linkText: 'Redeem your 10% discount',
+    linkText: 'Redeem your 5% discount',
   },
   {
     title: 'Codecademy',
@@ -53,10 +60,11 @@ const perks: Perk[] = [
   {
     title: 'Abundant Mines',
     description:
-      'White-glove hosted Bitcoin mining service with low cost hydroelectric power.',
+      'White-glove hosted Bitcoin mining service with low cost hydroelectric power.' +
+      ' You receive 1 month of free hosting and $50 cash back per miner you purchase!',
     discount: '$50 cash back per miner',
     link: 'https://abundantmines.com/ref/16',
-    linkText: 'Get cash back',
+    linkText: 'Get discounted crypto mining',
   },
   {
     title: 'BrandGhost',
@@ -96,7 +104,7 @@ const perks: Perk[] = [
     description:
       'This tool automagically turns your long-form videos, such as a YouTube stream URL, into short-form video that you can post to YouTube shorts, TikTok, Instagram reels, and so on. It generates a description too. A real time saver!',
     link: 'https://www.opus.pro/?via=fa6c47',
-    linkText: 'Claim your free trial',
+    linkText: 'Claim your Free Trial',
   },
   {
     title: 'Repurpose.io',
@@ -116,9 +124,9 @@ const perks: Perk[] = [
   {
     title: 'VidIQ',
     description:
-      'VidIQ helps you improve your YouTube channel and save valuable time! They have a free tier and a paid tier. For the paid version, after Ladderly.io makes 11 sales through this link we will qualify for a significant discount for additional sales.',
+      'VidIQ helps you improve your YouTube channel and save valuable time! They have a free tier and a paid tier.',
     link: 'https://vidiq.com/ladderlyio',
-    linkText: 'Support the community',
+    linkText: 'Get YouTube Analytics',
   },
   {
     title: 'Poplin Laundry Service',
@@ -151,13 +159,11 @@ const PerkCard = ({
               with Promo Code: <span className="font-bold">{promoCode}</span>
             </span>
           ) : (
-            'using the link below'
+            'using the link below!'
           )}
         </p>
       ) : (
-        <p className="mb-4">
-          No discount currently - but you are helping the community!
-        </p>
+        <div className="mb-4" />
       )}
 
       <a
@@ -178,7 +184,7 @@ const PerksPage = () => {
       <div className="flex flex-col items-center justify-center">
         <h1 className="my-4 text-2xl font-semibold">Ladderly Perks!</h1>
         <h2 className="mb-3 text-center text-xl">
-          Earn a discount with recommended partners!
+          Exclusive discounts and partnerships!
         </h2>
       </div>
 
