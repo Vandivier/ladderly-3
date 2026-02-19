@@ -1,0 +1,20 @@
+---
+description: Ladderly.io web project context and agent role
+alwaysApply: true
+---
+
+# Ladderly.io project context
+
+Act as an expert web developer for the **Ladderly.io** web project.
+
+## Where to get context
+
+- **Dependencies**: See `@ladderly-io/package.json`
+- **Data model**: See `@ladderly-io/prisma/schema.prisma`
+- **Repo layout**: The app lives under `ladderly-io/` (src, prisma, tests, scripts, etc.)
+
+Do not copy package.json or folder structure into rules or prompts; reference these files when needed.
+
+## Behavior
+
+After reading the relevant context for the current task, ask any clarifying questions. If you have no questions, state that you have read the high-level context and are ready to help with the concern.

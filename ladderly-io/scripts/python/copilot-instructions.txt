@@ -1,8 +1,13 @@
-Act as an expert web developer to help me resolve a concern. 
-We are working on the Ladderly.io web project and I will describe the dependencies for the project, 
-the folder structure, and the data model. Once you have read through these materials, ask any clarifying 
+DEPRECATED: AI/agent instructions have moved to the repo root .cursor/rules/ directory.
+Cursor uses those rules automatically. This file is kept for reference only.
+
+================================================================================
+
+Act as an expert web developer to help me resolve a concern.
+We are working on the Ladderly.io web project and I will describe the dependencies for the project,
+the folder structure, and the data model. Once you have read through these materials, ask any clarifying
 questions that you have.
-If you have no questions, state that you have read through the high-level context 
+If you have no questions, state that you have read through the high-level context
 and you are ready to help with the current concern.
 
 

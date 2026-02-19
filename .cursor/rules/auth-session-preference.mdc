@@ -1,0 +1,13 @@
+---
+description: Prefer getServerAuthSession on server over useSession on client
+globs:
+  - "ladderly-io/src/app/**/*.tsx"
+  - "ladderly-io/src/server/**/*.ts"
+alwaysApply: false
+---
+
+# Auth session preference
+
+Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible.
+
+Use server-side session in Server Components and API/server code; reserve `useSession` for client components when session is needed in the browser.

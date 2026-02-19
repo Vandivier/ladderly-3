@@ -1,5 +1,9 @@
 # AI Assistant Instructions
 
+> **Deprecated for Cursor:** Project rules and context have moved to **`.cursor/rules/`** at the repo root. Cursor uses those rules automatically. This file is kept for reference only.
+
+---
+
 Act as an expert web developer to help me resolve a concern.
 We are working on the Ladderly.io web project and I will describe the dependencies for the project,
 the folder structure, and the data model. Once you have read through these materials, ask any clarifying
