@@ -1,0 +1,59 @@
+name: Claude / .agents parity
+
+on:
+  pull_request:
+    branches: [main, master]
+    paths:
+      - '.claude/**'
+      - '.agents/**'
+      - '.github/workflows/claude-agents-parity.yml'
+  push:
+    branches: [main, master]
+    paths:
+      - '.claude/**'
+      - '.agents/**'
+      - '.github/workflows/claude-agents-parity.yml'
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify .claude and .agents are identical
+        run: |
+          set -euo pipefail
+          for root in .claude .agents; do
+            if [ ! -d "$root" ]; then
+              echo "Missing directory: $root" >&2
+              exit 1
+            fi
+          done
+
+          while IFS= read -r -d '' f; do
+            rel="${f#.claude/}"
+            b=".agents/${rel}"
+            if [ ! -f "$b" ]; then
+              echo "Missing mirror under .agents: $b (expected from .claude: $f)" >&2
+              exit 1
+            fi
+            if ! cmp -s "$f" "$b"; then
+              echo "Content mismatch between:" >&2
+              echo "  $f" >&2
+              echo "  $b" >&2
+              diff -u "$b" "$f" >&2 || true
+              exit 1
+            fi
+          done < <(find .claude -type f -print0 | sort -z)
+
+          while IFS= read -r -d '' f; do
+            rel="${f#.agents/}"
+            a=".claude/${rel}"
+            if [ ! -f "$a" ]; then
+              echo "Orphan under .agents (no .claude file): $f" >&2
+              exit 1
+            fi
+          done < <(find .agents -type f -print0 | sort -z)
+
+          echo "OK: .claude and .agents are in file and content parity."
