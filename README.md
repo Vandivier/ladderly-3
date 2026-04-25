@@ -17,6 +17,14 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the app!
 
+## AI Development
+
+`gemini-cli` is the officially recommended agent for this repository. It is the only agent that supports `.gemini/settings.json`, which we consider the gold standard for agent configuration in this project.
+
+The use of Gemini aligns with Ladderly.io's mission for low-cost and accessible software development education, thanks to its generous free tier. While Claude users are welcome, they may not benefit from the predefined lists of allowed and denied agent commands provided in our `.gemini/settings.json`.
+
+For more detailed instructions for AI assistants, see [AGENTS.md](./AGENTS.md).
+
 ## Tests
 
 Runs your tests using Jest.

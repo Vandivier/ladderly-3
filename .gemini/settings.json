@@ -1,0 +1,32 @@
+{
+  "context": {
+    "fileName": ["AGENTS.md"]
+  },
+  "tools": {
+    "allowed": [
+      "git status",
+      "git diff",
+      "git log",
+      "git rev-parse",
+      "git show",
+      "gh issue list",
+      "gh search issues",
+      "gh issue view",
+      "gh pr list",
+      "git cherry-pick",
+      "git reset",
+      "gh pr view"
+    ],
+    "exclude": [
+      "git commit",
+      "git push",
+      "git merge",
+      "git rebase",
+      "git tag",
+      "gh pr create",
+      "gh pr merge",
+      "gh pr close",
+      "gh release create"
+    ]
+  }
+}
