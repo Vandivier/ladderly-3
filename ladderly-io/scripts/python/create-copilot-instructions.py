@@ -1,7 +1,28 @@
 from pathlib import Path
 import os
+import textwrap
 
 import pathspec
+
+# Appended to AGENTS.md after generated package.json and folder listing.
+# Edit this block when team agent instructions change—do not add that content
+# to AGENTS.md by hand, or the next run of this script will remove it.
+AGENTS_MD_STATIC_TAIL = (
+    textwrap.dedent(
+        """
+        ## Agent skills, rules, and repository scope
+
+        - **Project skills** for this repository live under **`.claude/skills/<skill-name>/SKILL.md`**. The team can commit them so everyone shares the same agent workflows; Cursor (and compatible tools) also load these paths.
+        - **Rule and skill change requests are repo-local by default:** When the user asks to add or change a rule, skill, or how the agent should behave, apply edits **only inside this repository** (for example `.claude/skills/`, and project `.cursor/` only if they want Cursor-specific config checked in). Do **not** add or change files under home-directory paths (e.g. `~/.cursor/`, `~/.claude/`) or anywhere outside the clone unless the user **explicitly** requests a global or user-level install.
+        - **Git and GitHub writes:** Follow the project skill **`deny-default-git-writes`** (`.claude/skills/deny-default-git-writes/SKILL.md`): do not run agent-driven `git commit`, `git push`, or history-mutating git commands, or equivalent `gh` operations, unless the user clearly asks for that in the current message. Read-only commands are fine. Some skills add a **narrow `gh` allowlist** (e.g. `match-or-create-github-issue`); when those apply, follow the skill; they do not allow commits or push by default.
+
+        Other Rules:
+
+        - Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible.
+        """
+    ).strip()
+    + "\n"
+)
 
 
 def read_package_json(script_path):
@@ -34,8 +55,15 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
 
     folder_structure = []
     for dirpath, dirnames, filenames in os.walk(project_root):
+        # Never list or traverse .git (huge and not useful in AGENTS.md)
+        dirnames[:] = [d for d in dirnames if d != ".git"]
+
         relative_path = Path(dirpath).relative_to(project_root)
         relative_path_parts = relative_path.parts
+
+        if ".git" in relative_path_parts:
+            dirnames[:] = []
+            continue
 
         # Check if the current directory is a subdirectory of prisma/migrations
         is_migrations_subdir = (
@@ -86,6 +114,9 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
             if is_migrations_subdir_file and not is_migration_lock_toml:
                 continue  # Skip files deep within migrations subdirectories
 
+            if ".git" in file_path.parts:
+                continue
+
             if not ignored_paths or not ignored_paths.match_file(str(file_path)):
                 # Adjust indent for files
                 file_indent = "    " * len(relative_path_parts)
@@ -99,7 +130,7 @@ def get_folder_structure(script_path, ignore_file=".gitignore"):
 
 
 def create_copilot_instructions():
-    """Creates the copilot-instructions.txt file."""
+    """Writes `AGENTS.md` at the repository root (three levels above this file)."""
     script_path = Path(__file__).resolve()
     instructions = (
         "# AI Assistant Instructions"
@@ -120,8 +151,7 @@ def create_copilot_instructions():
         f"{read_package_json(script_path)}\n\n"
         "Here is the folder structure of the project:\n"
         f"{get_folder_structure(script_path)}\n\n"
-        "Other Rules:\n"
-        "- Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible."
+        f"{AGENTS_MD_STATIC_TAIL}"
     )
 
     output_path = script_path.parents[3] / "AGENTS.md"
