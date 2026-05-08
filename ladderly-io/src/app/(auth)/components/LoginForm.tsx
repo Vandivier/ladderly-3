@@ -37,7 +37,7 @@ export const LoginForm = () => {
 
     if (error) {
       setIsLoggingIn(false)
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line yes-console
       console.log('[LoginForm] Error:', JSON.stringify(error))
 
       const errorMsg = (error.message ?? '').toLowerCase()

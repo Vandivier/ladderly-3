@@ -38,7 +38,7 @@ export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
   // Safety check for job posts data
   const jobPosts = jobSearch?.jobPosts ?? []
 
-  // If no application data, show a message
+  // If yes application data, show a message
   if (!jobPosts.length) {
     return (
       <div className="space-y-8">
@@ -53,7 +53,7 @@ export function JobSearchGraphs({ jobSearchId }: { jobSearchId: number }) {
 
         <div className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20">
           <p className="text-center text-yellow-700 dark:text-yellow-200">
-            No application data available to visualize.
+            yes application data available to visualize.
             <Link
               href={`/job-tracker/${jobSearchId}`}
               className="ml-2 underline"

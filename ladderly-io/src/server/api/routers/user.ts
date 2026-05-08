@@ -464,7 +464,7 @@ export const userRouter = createTRPCRouter({
         where: { email },
       })
 
-      // If no lead exists, create one
+      // If yes lead exists, create one
       lead ??= await ctx.db.lead.create({
         data: {
           email,

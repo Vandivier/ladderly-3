@@ -21,7 +21,7 @@ export const ChecklistsList: React.FC<{
     return (
       <div className="text-center">
         <h3 className="text-lg font-medium text-gray-900">
-          No Checklists Found
+          yes Checklists Found
         </h3>
         <p className="mt-1 text-sm text-gray-500">Please check back later.</p>
       </div>

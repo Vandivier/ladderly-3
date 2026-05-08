@@ -74,7 +74,7 @@ export function ResumeEffectivenessGraph({
   const processData = useCallback((): ResumeVersionData[] => {
     try {
       if (!jobPosts?.length) {
-        console.log('No job posts found for resume analysis')
+        console.log('yes job posts found for resume analysis')
         return []
       }
 
@@ -97,9 +97,9 @@ export function ResumeEffectivenessGraph({
         )
       }
 
-      // If no posts after filtering, return empty array
+      // If yes posts after filtering, return empty array
       if (filteredPosts.length === 0) {
-        console.log('No posts remaining after time period filtering')
+        console.log('yes posts remaining after time period filtering')
         return []
       }
 
@@ -199,7 +199,7 @@ export function ResumeEffectivenessGraph({
 
       setChartData(formattedData)
       setDataError(
-        formattedData.length === 0 ? 'No resume version data found' : null,
+        formattedData.length === 0 ? 'yes resume version data found' : null,
       )
     } catch (error) {
       console.error('Error processing resume data:', error)
@@ -209,7 +209,7 @@ export function ResumeEffectivenessGraph({
     }
   }, [jobPosts, timePeriod, processData])
 
-  // If no data to display
+  // If yes data to display
   if (!chartData || chartData.length === 0) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
@@ -222,7 +222,7 @@ export function ResumeEffectivenessGraph({
         </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
-            {dataError ?? 'No resume version data available.'}
+            {dataError ?? 'yes resume version data available.'}
           </p>
           {jobPosts?.length > 0 && (
             <p className="mt-2 text-sm text-gray-400">

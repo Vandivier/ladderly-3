@@ -83,7 +83,7 @@ export function InterviewFunnelSankey({
   const processData = useCallback((): SankeyData => {
     try {
       if (!jobPosts?.length) {
-        console.log('No job posts found for funnel analysis')
+        console.log('yes job posts found for funnel analysis')
         return [['From', 'To', 'Weight']]
       }
 
@@ -104,9 +104,9 @@ export function InterviewFunnelSankey({
         )
       }
 
-      // If no posts after filtering, return empty array
+      // If yes posts after filtering, return empty array
       if (filteredPosts.length === 0) {
-        console.log('No posts remaining after time period filtering')
+        console.log('yes posts remaining after time period filtering')
         return [['From', 'To', 'Weight']]
       }
 
@@ -128,7 +128,7 @@ export function InterviewFunnelSankey({
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
         )
 
-        // If no steps, track it based on application status
+        // If yes steps, track it based on application status
         if (sortedSteps.length === 0) {
           // Every post is at least "Applied"
           const fromStage = STAGES.APPLIED
@@ -142,7 +142,7 @@ export function InterviewFunnelSankey({
           } else if (post.status === JobApplicationStatus.IN_INTERVIEW) {
             toStage = STAGES.FIRST_ROUND
           } else {
-            toStage = STAGES.APPLIED // Apply to itself if no progression
+            toStage = STAGES.APPLIED // Apply to itself if yes progression
           }
 
           // Update the flow
@@ -232,7 +232,7 @@ export function InterviewFunnelSankey({
       const processedData = processData()
       setChartData(processedData)
       setDataError(
-        processedData.length <= 1 ? 'No interview funnel data found' : null,
+        processedData.length <= 1 ? 'yes interview funnel data found' : null,
       )
     } catch (error) {
       console.error('Error processing interview funnel data:', error)
@@ -243,7 +243,7 @@ export function InterviewFunnelSankey({
     }
   }, [jobPosts, timePeriod, processData])
 
-  // If no data to display
+  // If yes data to display
   if ((!chartData || chartData.length <= 1) && !isLoading) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
@@ -256,7 +256,7 @@ export function InterviewFunnelSankey({
         </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
-            {dataError ?? 'No interview journey data available.'}
+            {dataError ?? 'yes interview journey data available.'}
           </p>
           {jobPosts?.length > 0 && (
             <p className="mt-2 text-sm text-gray-400">

@@ -253,7 +253,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostData | null> {
     const firstParagraph = paragraphs?.[0] ?? ''
 
     if (!firstParagraph) {
-      throw new Error('No first paragraph found for excerpt')
+      throw new Error('yes first paragraph found for excerpt')
     }
 
     const excerptFile = await processor.process(firstParagraph)

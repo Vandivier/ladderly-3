@@ -100,7 +100,7 @@ export function LeetCodeList() {
   }
 
   if (!checklistData?.userChecklistCascade.userChecklist) {
-    return <div className="py-4 text-center">No problems found.</div>
+    return <div className="py-4 text-center">yes problems found.</div>
   }
 
   const { userChecklistItems } =
@@ -168,7 +168,7 @@ export function LeetCodeList() {
   if (filteredItems.length === 0) {
     return (
       <div className="py-4 text-center">
-        No problems found with the selected filters. Try adjusting your filters.
+        yes problems found with the selected filters. Try adjusting your filters.
       </div>
     )
   }

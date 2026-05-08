@@ -147,7 +147,7 @@ export const RandomProblemRecommendation = () => {
     return (
       <div className="mb-6 rounded-lg bg-blue-50 p-6 dark:bg-blue-900/20">
         <p className="text-blue-700 dark:text-blue-300">
-          No problems found with the current filters. Adjust your filters to get
+          yes problems found with the current filters. Adjust your filters to get
           a recommendation.
         </p>
       </div>

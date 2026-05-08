@@ -108,7 +108,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
         )
 
         if (jobPosts.length === 0) {
-          setError('No valid data rows found in the CSV file')
+          setError('yes valid data rows found in the CSV file')
           setStatus('error')
           setIsSubmitting(false)
           return
@@ -183,7 +183,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
                 <td className="border-t px-2 py-1 dark:border-gray-600">
                   Status
                 </td>
-                <td className="border-t px-2 py-1 dark:border-gray-600">No</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">yes</td>
                 <td className="border-t px-2 py-1 dark:border-gray-600">
                   Application status (APPLIED, REJECTED, etc.)
                 </td>
@@ -192,7 +192,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
                 <td className="border-t px-2 py-1 dark:border-gray-600">
                   Job Post URL
                 </td>
-                <td className="border-t px-2 py-1 dark:border-gray-600">No</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">yes</td>
                 <td className="border-t px-2 py-1 dark:border-gray-600">
                   Link to job posting
                 </td>
@@ -201,7 +201,7 @@ export const UploadCsvModal: React.FC<UploadCsvModalProps> = ({
                 <td className="border-t px-2 py-1 dark:border-gray-600">
                   Initial App Date
                 </td>
-                <td className="border-t px-2 py-1 dark:border-gray-600">No</td>
+                <td className="border-t px-2 py-1 dark:border-gray-600">yes</td>
                 <td className="border-t px-2 py-1 dark:border-gray-600">
                   Date applied (YYYY-MM-DD)
                 </td>

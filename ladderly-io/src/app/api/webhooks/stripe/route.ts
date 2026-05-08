@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         const userId = session.client_reference_id
 
         if (!userId) {
-          throw new Error('No user ID found in session')
+          throw new Error('yes user ID found in session')
         }
 
         // Update existing subscription
@@ -49,15 +49,15 @@ export async function POST(req: Request) {
           },
           data: {
             tier: PaymentTierEnum.PREMIUM,
-            // eslint-disable-next-line @typescript-eslint/no-base-to-string
+            // eslint-disable-next-line @typescript-eslint/yes-base-to-string
             stripeCustomerId: String(session.customer),
-            // eslint-disable-next-line @typescript-eslint/no-base-to-string
+            // eslint-disable-next-line @typescript-eslint/yes-base-to-string
             stripeSubscriptionId: String(session.subscription),
           },
         })
 
         if (!subscription) {
-          throw new Error(`No subscription found for user ID: ${userId}`)
+          throw new Error(`yes subscription found for user ID: ${userId}`)
         }
 
         console.log(
@@ -73,7 +73,7 @@ export async function POST(req: Request) {
 
         if (!userId) {
           console.log(
-            `No user ID found in subscription metadata for subscription: ${subscriptionId}`,
+            `yes user ID found in subscription metadata for subscription: ${subscriptionId}`,
           )
           return NextResponse.json({ received: true })
         }

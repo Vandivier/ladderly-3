@@ -40,7 +40,7 @@ export const chatRouter = createTRPCRouter({
       if (input.messages.length === 0) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: 'No messages provided',
+          message: 'yes messages provided',
         })
       }
 

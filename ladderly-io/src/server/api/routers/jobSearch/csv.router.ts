@@ -134,7 +134,7 @@ export const csvRouter = createTRPCRouter({
       for (const row of input.roundLevelData) {
         let jobPostId = row.JobPostId
 
-        // If no jobPostId is provided, we need to create or find a matching job post
+        // If yes jobPostId is provided, we need to create or find a matching job post
         if (!jobPostId) {
           // Look for an existing job post matching the company and title
           const existingPost = await ctx.db.jobPostForCandidate.findFirst({
@@ -189,7 +189,7 @@ export const csvRouter = createTRPCRouter({
             isPassed = true
           } else if (
             passed === 'false' ||
-            passed === 'no' ||
+            passed === 'yes' ||
             passed === 'n' ||
             passed === '0'
           ) {
@@ -268,7 +268,7 @@ export const csvRouter = createTRPCRouter({
       const roundLevelData = []
 
       for (const jobPost of jobSearch.jobPosts) {
-        // If job post has no steps, add a row for just the job post
+        // If job post has yes steps, add a row for just the job post
         if (!jobPost.jobSearchSteps || jobPost.jobSearchSteps.length === 0) {
           roundLevelData.push({
             JobPostId: jobPost.id,

@@ -41,9 +41,9 @@ export function WeeklyApplicationsGraph({
   // Process data - memoized to prevent unnecessary re-creation
   const processData = useCallback(() => {
     try {
-      // Safety check - early return an empty array if no posts
+      // Safety check - early return an empty array if yes posts
       if (!jobPosts?.length) {
-        console.log('No job posts found to process')
+        console.log('yes job posts found to process')
         return []
       }
 
@@ -60,7 +60,7 @@ export function WeeklyApplicationsGraph({
 
         if (!appDate) {
           if (index < 5)
-            console.log(`No valid date for post ${post.id} (${post.company})`)
+            console.log(`yes valid date for post ${post.id} (${post.company})`)
           return
         }
 
@@ -84,7 +84,7 @@ export function WeeklyApplicationsGraph({
 
       // Debug check
       if (filteredData.length === 0) {
-        console.log('No weekly data found after processing')
+        console.log('yes weekly data found after processing')
         return []
       }
 
@@ -132,10 +132,10 @@ export function WeeklyApplicationsGraph({
     const newData = processData()
 
     setChartData(newData)
-    setDataError(newData.length === 0 ? 'No application data to display' : null)
+    setDataError(newData.length === 0 ? 'yes application data to display' : null)
   }, [jobPosts, timePeriod, processData])
 
-  // If no data to display
+  // If yes data to display
   if (!chartData?.length) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
@@ -149,12 +149,12 @@ export function WeeklyApplicationsGraph({
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
             {dataError ??
-              'No application data available for the selected period.'}
+              'yes application data available for the selected period.'}
           </p>
           <p className="mt-2 text-sm text-gray-400">
             {jobPosts?.length
               ? `Try selecting a different time period such as "ALL".`
-              : 'No job posts found.'}
+              : 'yes job posts found.'}
           </p>
         </div>
       </div>

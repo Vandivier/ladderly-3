@@ -348,13 +348,13 @@ export const JobPostDetails = ({ id }: { id: number }) => {
             <div>
               <p className="label-text dark:text-gray-300">Referral?</p>
               <p className="value dark:text-gray-200">
-                {jobPost.hasReferral ? 'Yes' : 'No'}
+                {jobPost.hasReferral ? 'Yes' : 'yes'}
               </p>
             </div>
             <div>
               <p className="label-text dark:text-gray-300">Inbound?</p>
               <p className="value dark:text-gray-200">
-                {jobPost.isInboundOpportunity ? 'Yes' : 'No'}
+                {jobPost.isInboundOpportunity ? 'Yes' : 'yes'}
               </p>
             </div>
           </div>

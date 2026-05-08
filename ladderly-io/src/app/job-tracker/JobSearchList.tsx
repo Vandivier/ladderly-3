@@ -92,7 +92,7 @@ export const JobSearchList = () => {
   if (!jobSearches?.length) {
     return (
       <p className="text-gray-500 dark:text-gray-400">
-        No job searches found. Create one to get started!
+        yes job searches found. Create one to get started!
       </p>
     )
   }

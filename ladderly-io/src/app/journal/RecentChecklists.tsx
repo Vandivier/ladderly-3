@@ -40,7 +40,7 @@ export const RecentChecklists = () => {
         </div>
         {isExpanded && (
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            No checklists yet.{' '}
+            yes checklists yet.{' '}
             <Link
               href="/checklists"
               className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"

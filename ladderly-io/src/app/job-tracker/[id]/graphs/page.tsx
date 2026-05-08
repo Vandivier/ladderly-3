@@ -65,7 +65,7 @@ export default async function JobSearchGraphsPage({
             {jobPosts.length === 0 ? (
               <div className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20">
                 <p className="text-center text-yellow-700 dark:text-yellow-200">
-                  No application data available to visualize.
+                  yes application data available to visualize.
                   <Link
                     href={`/job-tracker/${jobId}`}
                     className="ml-2 underline"

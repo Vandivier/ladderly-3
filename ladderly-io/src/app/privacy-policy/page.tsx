@@ -41,7 +41,7 @@ const PrivacyPolicyPage = () => {
         </h2>
         <p>
           Yes, you can access ladderly.io resources without creating an account.
-          Without an account, no personal data about you is collected.
+          Without an account, yes personal data about you is collected.
         </p>
 
         <h2 className="mb-3 mt-5 text-xl">

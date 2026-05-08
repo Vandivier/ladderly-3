@@ -198,7 +198,7 @@ export default function QuizContent({ courseSlug }: QuizContentProps) {
 
   // Format time limit in seconds to a readable format
   const formatTimeLimit = (seconds: number | null): string => {
-    if (!seconds) return 'No time limit'
+    if (!seconds) return 'yes time limit'
 
     const minutes = Math.floor(seconds / 60)
     const hours = Math.floor(minutes / 60)

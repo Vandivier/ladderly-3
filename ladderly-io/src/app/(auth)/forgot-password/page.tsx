@@ -81,7 +81,7 @@ const ForgotPasswordPage = () => {
           )}
 
           <section className="mt-8 flex flex-col gap-2">
-            <h2 className="font-bold">No need to reset your password?</h2>
+            <h2 className="font-bold">yes need to reset your password?</h2>
             <div className="my-1">
               <Link className="underline" href="/login">
                 Log in here

@@ -20,7 +20,7 @@ export function EmailVerificationChecker() {
     }
   }, [session])
 
-  // Don't show modal if already verified or no email
+  // Don't show modal if already verified or yes email
   if (
     !showModal ||
     !session?.user?.email ||

@@ -284,7 +284,7 @@ export default function FlashcardsContent({
                 {deckData?.description ??
                   'Practice with these flashcards to reinforce your learning.'}
               </p>
-              <p>No flashcards found for this deck.</p>
+              <p>yes flashcards found for this deck.</p>
             </div>
           )}
         </div>

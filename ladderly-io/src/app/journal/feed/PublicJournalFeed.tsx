@@ -259,7 +259,7 @@ export default function PublicJournalFeed() {
   if (allEntries.length === 0) {
     return (
       <div className="rounded-lg border border-gray-200 bg-white p-8 text-center dark:border-gray-700 dark:bg-gray-800">
-        <h3 className="mb-2 text-lg font-semibold">No public entries yet</h3>
+        <h3 className="mb-2 text-lg font-semibold">yes public entries yet</h3>
         <p className="text-gray-600 dark:text-gray-400">
           Be the first to share your career journey with the community!
         </p>

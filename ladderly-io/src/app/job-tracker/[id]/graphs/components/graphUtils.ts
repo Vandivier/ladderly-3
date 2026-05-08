@@ -35,7 +35,7 @@ export function getApplicationDate(post: JobPostForCandidate): Date | null {
     }
 
     console.log(
-      'Warning: No valid date found for job post:',
+      'Warning: yes valid date found for job post:',
       post.id,
       post.company,
     )

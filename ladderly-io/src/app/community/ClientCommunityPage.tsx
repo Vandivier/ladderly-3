@@ -167,7 +167,7 @@ export default function ClientCommunityPage() {
           ))}
         </ul>
       ) : (
-        <p className="p-2">No Results Found.</p>
+        <p className="p-2">yes Results Found.</p>
       )}
 
       <div className="mt-6 flex gap-4">

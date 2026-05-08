@@ -48,7 +48,7 @@ export function BlogPostContent({
         // Determine the correct target href based on userId
         const targetHref = userId
           ? `${PREMIUM_SIGNUP_LINK}${PREMIUM_SIGNUP_LINK.includes('?') ? '&' : '?'}client_reference_id=${userId}`
-          : '/signup' // Fallback if no userId (user not logged in)
+          : '/signup' // Fallback if yes userId (user not logged in)
 
         // Update the link's href
         link.href = targetHref

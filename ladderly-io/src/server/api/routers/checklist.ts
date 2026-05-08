@@ -71,9 +71,9 @@ export const checklistRouter = createTRPCRouter({
         },
       })
 
-      // If no user checklist exists or it has no items, create/recreate it
+      // If yes user checklist exists or it has yes items, create/recreate it
       if (!userChecklist || userChecklist.userChecklistItems.length === 0) {
-        // If exists but has no items, delete it first to ensure clean state
+        // If exists but has yes items, delete it first to ensure clean state
         if (userChecklist) {
           await db.userChecklist.delete({
             where: { id: userChecklist.id },
@@ -185,9 +185,9 @@ export const checklistRouter = createTRPCRouter({
         },
       })
 
-      // If no user checklist exists or it has no items, create/recreate it
+      // If yes user checklist exists or it has yes items, create/recreate it
       if (!userChecklist || userChecklist.userChecklistItems.length === 0) {
-        // If exists but has no items, delete it first
+        // If exists but has yes items, delete it first
         if (userChecklist) {
           await db.userChecklist.delete({
             where: { id: userChecklist.id },

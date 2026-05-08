@@ -58,7 +58,7 @@ export const JobStepsSection: React.FC<JobStepsSectionProps> = ({
       {/* List of Existing Steps */}
       <div className="mt-4 space-y-4">
         {sortedSteps.length === 0 ? (
-          <p className="text-gray-500">No application steps added yet.</p>
+          <p className="text-gray-500">yes application steps added yet.</p>
         ) : (
           sortedSteps.map((step) => (
             <div

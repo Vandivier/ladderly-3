@@ -401,7 +401,7 @@ export const JournalEntryList = () => {
     return (
       <div className="rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <p className="mb-4 text-gray-500 dark:text-gray-400">
-          No journal entries found.
+          yes journal entries found.
         </p>
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {Object.values({

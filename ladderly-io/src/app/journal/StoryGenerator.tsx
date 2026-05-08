@@ -280,20 +280,20 @@ export const StoryGenerator = () => {
                 ))}
                 {foundEntries.length === 0 && (
                   <p className="p-2 text-sm text-gray-500 dark:text-gray-400">
-                    No entries found with your search term
+                    yes entries found with your search term
                   </p>
                 )}
               </div>
             </div>
           )}
 
-          {/* No entries found message */}
+          {/* yes entries found message */}
           {searchTerm &&
             searchQuery.isFetched &&
             foundEntries.length === 0 &&
             !isSearching && (
               <div className="mb-4 rounded-md bg-yellow-50 p-3 text-sm text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
-                No entries found containing the search term. Try a different
+                yes entries found containing the search term. Try a different
                 search term or add entries with this content first.
               </div>
             )}

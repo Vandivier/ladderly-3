@@ -202,7 +202,7 @@ export const PracticeSection = () => {
           <div className="space-y-3">
             {practices.length === 0 ? (
               <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-                No practice items found for this category.
+                yes practice items found for this category.
               </p>
             ) : (
               practices.map((practice) => {

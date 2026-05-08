@@ -136,7 +136,7 @@ export function RoundPerformanceGraph({
   const processData = useCallback((): RoundType[] => {
     try {
       if (!jobPosts?.length) {
-        console.log('No job posts found for round analysis')
+        console.log('yes job posts found for round analysis')
         return []
       }
 
@@ -157,9 +157,9 @@ export function RoundPerformanceGraph({
         )
       }
 
-      // If no posts after filtering, return empty array
+      // If yes posts after filtering, return empty array
       if (filteredPosts.length === 0) {
-        console.log('No posts remaining after time period filtering')
+        console.log('yes posts remaining after time period filtering')
         return []
       }
 
@@ -218,9 +218,9 @@ export function RoundPerformanceGraph({
         `Processed ${processedSteps} steps from ${filteredPosts.length} job posts`,
       )
 
-      // If no steps were processed, show a more helpful message
+      // If yes steps were processed, show a more helpful message
       if (processedSteps === 0) {
-        console.log('No interview steps found in the job posts')
+        console.log('yes interview steps found in the job posts')
         return []
       }
 
@@ -285,7 +285,7 @@ export function RoundPerformanceGraph({
 
       setChartData(formattedData)
       setDataError(
-        formattedData.length === 0 ? 'No interview round data found' : null,
+        formattedData.length === 0 ? 'yes interview round data found' : null,
       )
     } catch (error) {
       console.error('Error processing round performance data:', error)
@@ -294,7 +294,7 @@ export function RoundPerformanceGraph({
     }
   }, [jobPosts, timePeriod, processData])
 
-  // If no data to display
+  // If yes data to display
   if (!chartData?.length) {
     return (
       <div className="rounded-lg border bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
@@ -307,7 +307,7 @@ export function RoundPerformanceGraph({
         </div>
         <div className="flex h-64 flex-col items-center justify-center">
           <p className="text-gray-500">
-            {dataError ?? 'No interview round data available.'}
+            {dataError ?? 'yes interview round data available.'}
           </p>
           {jobPosts?.length > 0 && (
             <p className="mt-2 text-sm text-gray-400">

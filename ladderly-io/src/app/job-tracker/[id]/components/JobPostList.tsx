@@ -130,7 +130,7 @@ export const JobPostList: React.FC<JobPostListProps> = ({
 
       {jobPosts.length === 0 ? (
         <div className="rounded-md border border-gray-200 p-4 text-center text-gray-500 dark:border-gray-700 dark:text-gray-400">
-          No job applications found. Add one to get started!
+          yes job applications found. Add one to get started!
         </div>
       ) : (
         <>
