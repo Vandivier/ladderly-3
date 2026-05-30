@@ -2,7 +2,6 @@ import { z } from 'zod'
 import {
   createTRPCRouter,
   protectedProcedure,
-  protectedProcedureWithVerifiedEmail,
   publicProcedure,
   isAuthedOrInternalMiddleware,
 } from '~/server/api/trpc'
@@ -34,7 +33,7 @@ export const checklistRouter = createTRPCRouter({
       })
     }),
 
-  getChecklistForUser: protectedProcedureWithVerifiedEmail
+  getChecklistForUser: protectedProcedure
     .input(z.object({ checklistId: z.number() }))
     .query(async ({ input, ctx }) => {
       const checklist = await db.checklist.findUnique({
@@ -134,7 +133,7 @@ export const checklistRouter = createTRPCRouter({
       return userChecklist
     }),
 
-  getLatestByName: protectedProcedureWithVerifiedEmail
+  getLatestByName: protectedProcedure
     .input(z.object({ name: z.string() }))
     .query(async ({ input, ctx }) => {
       const latestChecklist = await db.checklist.findFirst({
@@ -243,7 +242,7 @@ export const checklistRouter = createTRPCRouter({
       }
     }),
 
-  createAsClone: protectedProcedureWithVerifiedEmail
+  createAsClone: protectedProcedure
     .input(z.object({ checklistId: z.number() }))
     .mutation(async ({ input, ctx }) => {
       const checklist = await db.checklist.findUnique({
@@ -306,7 +305,7 @@ export const checklistRouter = createTRPCRouter({
       }
     }),
 
-  toggleItem: protectedProcedureWithVerifiedEmail
+  toggleItem: protectedProcedure
     .input(
       z.object({
         userChecklistItemId: z.number(),

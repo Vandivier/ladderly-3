@@ -2,7 +2,7 @@ import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
   createTRPCRouter,
-  protectedProcedureWithVerifiedEmail,
+  protectedProcedure,
 } from '~/server/api/trpc'
 import {
   JobSearchCreateSchema,
@@ -17,7 +17,7 @@ export const jobSearchRouter = createTRPCRouter({
   // --- Job Search CRUD ---
 
   // Get all job searches for the current user
-  getUserJobSearches: protectedProcedureWithVerifiedEmail
+  getUserJobSearches: protectedProcedure
     .input(
       z
         .object({
@@ -72,7 +72,7 @@ export const jobSearchRouter = createTRPCRouter({
     }),
 
   // Get a single job search by ID (including paginated job posts)
-  getJobSearch: protectedProcedureWithVerifiedEmail
+  getJobSearch: protectedProcedure
     .input(GetJobSearchInputSchema) // Use imported schema
     .query(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -130,7 +130,7 @@ export const jobSearchRouter = createTRPCRouter({
     }),
 
   // Create a new job search
-  createJobSearch: protectedProcedureWithVerifiedEmail
+  createJobSearch: protectedProcedure
     .input(JobSearchCreateSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -146,7 +146,7 @@ export const jobSearchRouter = createTRPCRouter({
     }),
 
   // Update an existing job search
-  updateJobSearch: protectedProcedureWithVerifiedEmail
+  updateJobSearch: protectedProcedure
     .input(JobSearchUpdateSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -180,7 +180,7 @@ export const jobSearchRouter = createTRPCRouter({
     }),
 
   // Delete a job search
-  deleteJobSearch: protectedProcedureWithVerifiedEmail
+  deleteJobSearch: protectedProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -226,7 +226,7 @@ export const jobSearchRouter = createTRPCRouter({
       return { success: true }
     }),
 
-  getJobSearchAnalytics: protectedProcedureWithVerifiedEmail
+  getJobSearchAnalytics: protectedProcedure
     .input(
       z.object({
         id: z.number(),

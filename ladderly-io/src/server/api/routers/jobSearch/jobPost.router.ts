@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
   createTRPCRouter,
-  protectedProcedureWithVerifiedEmail,
+  protectedProcedure,
 } from '~/server/api/trpc'
 import {
   JobPostForCandidateCreateSchema,
@@ -13,7 +13,7 @@ import {
 
 export const jobPostRouter = createTRPCRouter({
   // Create a new job post for candidate
-  create: protectedProcedureWithVerifiedEmail
+  create: protectedProcedure
     .input(JobPostForCandidateCreateSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -62,7 +62,7 @@ export const jobPostRouter = createTRPCRouter({
     }),
 
   // Delete a job post
-  delete: protectedProcedureWithVerifiedEmail
+  delete: protectedProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -106,7 +106,7 @@ export const jobPostRouter = createTRPCRouter({
     }),
 
   // Get a single job post by ID
-  get: protectedProcedureWithVerifiedEmail
+  get: protectedProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -144,7 +144,7 @@ export const jobPostRouter = createTRPCRouter({
     }),
 
   // Update job application status
-  updateStatus: protectedProcedureWithVerifiedEmail
+  updateStatus: protectedProcedure
     .input(UpdateJobPostStatusSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -184,7 +184,7 @@ export const jobPostRouter = createTRPCRouter({
     }),
 
   // Update Job Post (general fields)
-  update: protectedProcedureWithVerifiedEmail
+  update: protectedProcedure
     .input(JobPostForCandidateUpdateSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)

@@ -231,13 +231,3 @@ export const protectedProcedureWithoutEmailVerification = t.procedure
     })
   })
 
-/**
- * Protected (authenticated) procedure WITH email verification requirement
- *
- * This is now an alias for `protectedProcedure` since all protected procedures
- * require email verification by default.
- *
- * @deprecated Use `protectedProcedure` instead - it now requires email verification.
- * @see https://trpc.io/docs/procedures
- */
-export const protectedProcedureWithVerifiedEmail = protectedProcedure

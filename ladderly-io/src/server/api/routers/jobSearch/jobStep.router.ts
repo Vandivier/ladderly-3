@@ -2,13 +2,13 @@ import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
   createTRPCRouter,
-  protectedProcedureWithVerifiedEmail,
+  protectedProcedure,
 } from '~/server/api/trpc'
 import { JobSearchStepCreateSchema, JobSearchStepUpdateSchema } from './schemas'
 
 export const jobStepRouter = createTRPCRouter({
   // Create a job search step
-  create: protectedProcedureWithVerifiedEmail
+  create: protectedProcedure
     .input(JobSearchStepCreateSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -59,7 +59,7 @@ export const jobStepRouter = createTRPCRouter({
     }),
 
   // Update a job search step
-  update: protectedProcedureWithVerifiedEmail
+  update: protectedProcedure
     .input(JobSearchStepUpdateSchema) // Use imported schema
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -105,7 +105,7 @@ export const jobStepRouter = createTRPCRouter({
     }),
 
   // Delete a job search step
-  delete: protectedProcedureWithVerifiedEmail
+  delete: protectedProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
