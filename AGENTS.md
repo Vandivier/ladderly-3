@@ -1064,6 +1064,7 @@ node_modules/
 - **Project skills** for this repository live under **`.claude/skills/<skill-name>/SKILL.md`**. The team can commit them so everyone shares the same agent workflows; Cursor (and compatible tools) also load these paths.
 - **Rule and skill change requests are repo-local by default:** When the user asks to add or change a rule, skill, or how the agent should behave, apply edits **only inside this repository** (for example `.claude/skills/`, and project `.cursor/` only if they want Cursor-specific config checked in). Do **not** add or change files under home-directory paths (e.g. `~/.cursor/`, `~/.claude/`) or anywhere outside the clone unless the user **explicitly** requests a global or user-level install.
 - **Git and GitHub writes:** Follow the project skill **`deny-default-git-writes`** (`.claude/skills/deny-default-git-writes/SKILL.md`): do not run agent-driven `git commit`, `git push`, or history-mutating git commands, or equivalent `gh` operations, unless the user clearly asks for that in the current message. Read-only commands are fine. Some skills add a **narrow `gh` allowlist** (e.g. `match-or-create-github-issue`); when those apply, follow the skill; they do not allow commits or push by default.
+- **GitHub MCP preferred over gh CLI:** Use the `mcp__github__*` MCP tools (e.g. `mcp__github__issue_read`, `mcp__github__list_pull_requests`) for reading GitHub data instead of the `gh` CLI. The GitHub MCP is available in Claude Code and does not require local CLI installation or PATH configuration.
 
 Other Rules:
 
