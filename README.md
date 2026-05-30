@@ -19,11 +19,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## AI Development
 
-`gemini-cli` is the officially recommended agent for this repository. It is the only agent that supports `.gemini/settings.json`, which we consider the gold standard for agent configuration in this project.
+**Claude Code** is the recommended agent for this repository. See [AGENTS.md](./AGENTS.md) for detailed instructions.
 
-The use of Gemini aligns with Ladderly.io's mission for low-cost and accessible software development education, thanks to its generous free tier. While Claude users are welcome, they may not benefit from the predefined lists of allowed and denied agent commands provided in our `.gemini/settings.json`.
-
-For more detailed instructions for AI assistants, see [AGENTS.md](./AGENTS.md).
+`gemini-cli` is supported as a secondary option. It aligns with Ladderly.io's mission for low-cost and accessible software development education thanks to its generous free tier, though it is below the standard bar set by Claude Code. Gemini users can find predefined allowed and denied agent commands in `.gemini/settings.json`.
 
 ## Tests
 
