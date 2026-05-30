@@ -2,7 +2,7 @@ import {
   JournalEntryType,
   PracticeCategory,
   ReminderFrequency,
-  Prisma,
+  type Prisma,
 } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
