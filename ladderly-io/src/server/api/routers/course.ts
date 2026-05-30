@@ -3,7 +3,7 @@ import { TRPCError } from '@trpc/server'
 
 import {
   createTRPCRouter,
-  protectedProcedureWithVerifiedEmail,
+  protectedProcedure,
   publicProcedure,
 } from '~/server/api/trpc'
 
@@ -166,7 +166,7 @@ export const courseRouter = createTRPCRouter({
     }),
 
   // For admin/protected operations
-  create: protectedProcedureWithVerifiedEmail
+  create: protectedProcedure
     .input(
       z.object({
         slug: z.string(),

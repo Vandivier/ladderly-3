@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { TRPCError } from '@trpc/server'
 import {
   createTRPCRouter,
-  protectedProcedureWithVerifiedEmail,
+  protectedProcedure,
   publicProcedure,
 } from '~/server/api/trpc'
 
@@ -111,7 +111,7 @@ export const certificateRouter = createTRPCRouter({
     }),
 
   // Get the current user's certificates (protected route)
-  getMyCurrentCertificates: protectedProcedureWithVerifiedEmail.query(
+  getMyCurrentCertificates: protectedProcedure.query(
     async ({ ctx }) => {
       const userId = +ctx.session.user.id
 

@@ -5,7 +5,7 @@ import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
   createTRPCRouter,
-  protectedProcedureWithVerifiedEmail,
+  protectedProcedure,
   publicProcedure,
 } from '~/server/api/trpc'
 import { NULL_RESULT_TRPC_INT } from '~/server/constants'
@@ -44,7 +44,7 @@ export const userRouter = createTRPCRouter({
     },
   ),
 
-  getSubscriptionLevel: protectedProcedureWithVerifiedEmail.query(
+  getSubscriptionLevel: protectedProcedure.query(
     async ({ ctx }) => {
       const user = await ctx.db.user.findUnique({
         where: {
@@ -295,7 +295,7 @@ export const userRouter = createTRPCRouter({
       return user
     }),
 
-  getSettings: protectedProcedureWithVerifiedEmail.query(async ({ ctx }) => {
+  getSettings: protectedProcedure.query(async ({ ctx }) => {
     const id = parseInt(ctx.session.user.id)
 
     const result = await ctx.db.$transaction(async (tx) => {
@@ -369,7 +369,7 @@ export const userRouter = createTRPCRouter({
     return result
   }),
 
-  updateSettings: protectedProcedureWithVerifiedEmail
+  updateSettings: protectedProcedure
     .input(UpdateUserSettingsSchema)
     .mutation(async ({ ctx, input }) => {
       const userId = parseInt(ctx.session.user.id)
@@ -447,7 +447,7 @@ export const userRouter = createTRPCRouter({
       return GetUserSettingsSchema.parse(settings)
     }),
 
-  getLeadEmailPreferences: protectedProcedureWithVerifiedEmail.query(
+  getLeadEmailPreferences: protectedProcedure.query(
     async ({ ctx }) => {
       const userId = parseInt(ctx.session.user.id)
       const email = ctx.session.user.email
@@ -481,7 +481,7 @@ export const userRouter = createTRPCRouter({
     },
   ),
 
-  updateEmailPreferences: protectedProcedureWithVerifiedEmail
+  updateEmailPreferences: protectedProcedure
     .input(
       z.object({
         isRecruiter: z.boolean(),
@@ -516,7 +516,7 @@ export const userRouter = createTRPCRouter({
     }),
 
   // Get user profile - includes the deep journaling interest flag
-  getUserProfile: protectedProcedureWithVerifiedEmail.query(async ({ ctx }) => {
+  getUserProfile: protectedProcedure.query(async ({ ctx }) => {
     const userId = parseInt(ctx.session.user.id)
 
     const user = await ctx.db.user.findUnique({
@@ -539,7 +539,7 @@ export const userRouter = createTRPCRouter({
   }),
 
   // Update user profile with minimal fields
-  updateUserProfile: protectedProcedureWithVerifiedEmail
+  updateUserProfile: protectedProcedure
     .input(
       z.object({
         hasDeepJournalingInterest: z.boolean().optional(),
