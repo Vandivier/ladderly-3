@@ -163,13 +163,13 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
               type="text"
               id={`edit-taskname-${id}`}
               value={taskName}
-              maxLength={20}
+              maxLength={50}
               onChange={(e) => onChangeTaskName(e.target.value)}
               className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               disabled={isUpdating}
             />
             <div className="mt-0.5 text-right text-xs text-gray-400">
-              {taskName.length}/20
+              {taskName.length}/50
             </div>
           </div>
         )}
@@ -652,7 +652,7 @@ export const JournalEntryList = () => {
                 ) : (
                   <div className="mt-2">
                     {entry.entryType === 'TASK' && entry.taskName && (
-                      <p className="mb-1 text-sm font-semibold text-blue-700 dark:text-blue-400">
+                      <p className="mb-1 text-sm text-gray-600 dark:text-gray-400">
                         {entry.taskName}
                       </p>
                     )}

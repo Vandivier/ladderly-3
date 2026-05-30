@@ -524,7 +524,7 @@ export const userRouter = createTRPCRouter({
       select: {
         id: true,
         hasDeepJournalingInterest: true,
-        // Add any other profile fields needed
+        hasCustomChecklistsInterest: true,
       },
     })
 
@@ -543,7 +543,7 @@ export const userRouter = createTRPCRouter({
     .input(
       z.object({
         hasDeepJournalingInterest: z.boolean().optional(),
-        // Add any other fields that can be updated
+        hasCustomChecklistsInterest: z.boolean().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -553,11 +553,12 @@ export const userRouter = createTRPCRouter({
         where: { id: userId },
         data: {
           hasDeepJournalingInterest: input.hasDeepJournalingInterest,
-          // Update other fields as needed
+          hasCustomChecklistsInterest: input.hasCustomChecklistsInterest,
         },
         select: {
           id: true,
           hasDeepJournalingInterest: true,
+          hasCustomChecklistsInterest: true,
         },
       })
 

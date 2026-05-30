@@ -2,7 +2,7 @@ import {
   JournalEntryType,
   PracticeCategory,
   ReminderFrequency,
-  type Prisma,
+  Prisma,
 } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
@@ -14,7 +14,7 @@ import {
 } from '~/server/api/trpc'
 
 const createJournalEntrySchema = z.object({
-  content: z.string().max(500),
+  content: z.string().max(500).default(''),
   entryType: z.nativeEnum(JournalEntryType),
   isCareerRelated: z.boolean().default(true),
   isPublic: z.boolean().default(false),
@@ -22,7 +22,7 @@ const createJournalEntrySchema = z.object({
   mintedFromHashtag: z.string().optional(),
   mintedFromDateRange: z.array(z.date()).optional(),
   happiness: z.number().min(1).max(10).optional(),
-  taskName: z.string().max(20).optional(),
+  taskName: z.string().max(50).optional(),
   taskMetadata: z.record(z.string(), z.unknown()).optional(),
 })
 
@@ -33,12 +33,12 @@ const updateReminderSchema = z.object({
 
 const updateJournalEntrySchema = z.object({
   id: z.number(),
-  content: z.string().max(500),
+  content: z.string().max(500).default(''),
   entryType: JournalEntryEnum.optional(),
   isCareerRelated: z.boolean().optional(),
   isPublic: z.boolean().optional(),
   happiness: z.number().min(1).max(10).optional(),
-  taskName: z.string().max(20).optional(),
+  taskName: z.string().max(50).optional(),
   taskMetadata: z.record(z.string(), z.unknown()).optional(),
 })
 
@@ -215,7 +215,7 @@ export const journalRouter = createTRPCRouter({
           mintedFromDateRange: input.mintedFromDateRange ?? [],
           happiness: input.happiness,
           taskName: input.taskName,
-          taskMetadata: input.taskMetadata,
+          taskMetadata: input.taskMetadata as Prisma.InputJsonValue | undefined,
           userId,
         },
       })
@@ -254,10 +254,26 @@ export const journalRouter = createTRPCRouter({
           isPublic: input.isPublic ?? entry.isPublic,
           happiness: input.happiness ?? entry.happiness,
           taskName: input.taskName ?? entry.taskName,
-          taskMetadata: input.taskMetadata ?? entry.taskMetadata ?? undefined,
+          taskMetadata: (input.taskMetadata ?? entry.taskMetadata ?? undefined) as Prisma.InputJsonValue | undefined,
         },
       })
     }),
+
+  // Get all tasks for the current user (no pagination — task lists are bounded)
+  getUserTasks: protectedProcedureWithVerifiedEmail.query(async ({ ctx }) => {
+    const userId = Number(ctx.session.user.id)
+    return ctx.db.journalEntry.findMany({
+      where: { userId, entryType: 'TASK' },
+      orderBy: [{ createdAt: 'desc' }],
+      select: {
+        id: true,
+        createdAt: true,
+        content: true,
+        taskName: true,
+        taskMetadata: true,
+      },
+    })
+  }),
 
   // Delete a journal entry
   deleteEntry: protectedProcedureWithVerifiedEmail

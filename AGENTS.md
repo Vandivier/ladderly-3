@@ -1068,3 +1068,5 @@ node_modules/
 Other Rules:
 
 - Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible.
+- **React component exports:** Use `export const MyComponent = () => {}` — not `export function MyComponent()`. The latter exists in some legacy files but is not the preferred pattern.
+- **Schema design — avoid obligate sparse columns:** When a field is only meaningful for a subset of rows (e.g. task-specific fields on a general `JournalEntry` table), prefer a JSON metadata column or a separate table over adding a nullable boolean/column that most rows will never use. Dedicated columns are appropriate when the field is queried or indexed at the DB level across the full table.

@@ -9,6 +9,8 @@ import RecentChecklists from './RecentChecklists'
 import PracticeSection from './PracticeSection'
 import StoryGenerator from './StoryGenerator'
 import { DeepJournalingWaitlist } from './DeepJournalingWaitlist'
+import { CustomChecklistsInterest } from './CustomChecklistsInterest'
+import { MyTasksWidget } from './MyTasksWidget'
 import { auth, type LadderlyServerSession } from '~/server/better-auth'
 import { headers } from 'next/headers'
 import Link from 'next/link'
@@ -66,6 +68,10 @@ export default async function JournalPage() {
               <RecentChecklists />
             </Suspense>
 
+            <Suspense fallback={<div>Loading tasks...</div>}>
+              <MyTasksWidget />
+            </Suspense>
+
             <Suspense fallback={<div>Loading reminders...</div>}>
               <ReminderSettings />
             </Suspense>
@@ -78,9 +84,13 @@ export default async function JournalPage() {
               <StoryGenerator />
             </Suspense>
 
-            {/* Premium feature teaser */}
+            {/* Premium feature teasers */}
             <Suspense fallback={<div>Loading waitlist...</div>}>
               <DeepJournalingWaitlist />
+            </Suspense>
+
+            <Suspense fallback={<div>Loading...</div>}>
+              <CustomChecklistsInterest />
             </Suspense>
           </div>
         </div>
