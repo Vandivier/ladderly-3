@@ -72,15 +72,15 @@
         "detailText": "",
         "displayText": "I have studied flash cards for coding ###LINK### for at least half an hour.",
         "isRequired": false,
-        "linkText": "using Rect",
-        "linkUri": "https://rect-alpha.vercel.app/"
+        "linkText": "on Ladderly",
+        "linkUri": "https://ladderly.io/courses/front-end-development/flashcards"
       },
       {
         "detailText": "",
         "displayText": "I have passed at least ###LINK###.",
         "isRequired": false,
-        "linkText": "one skill quiz using Rect",
-        "linkUri": "https://rect-alpha.vercel.app/"
+        "linkText": "one Ladderly skill quiz",
+        "linkUri": "https://ladderly.io/courses/front-end-development/quiz"
       },
       {
         "detailText": "",
