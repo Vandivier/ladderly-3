@@ -1068,3 +1068,6 @@ node_modules/
 Other Rules:
 
 - Prefer `getServerAuthSession` on server components over using `useSession` on client components where possible.
+- **React component exports:** Use `export const MyComponent = () => {}` — not `export function MyComponent()`. The latter exists in some legacy files but is not the preferred pattern.
+- **Schema design — avoid obligate sparse columns:** When a field is only meaningful for a subset of rows (e.g. task-specific fields on a general `JournalEntry` table), prefer a JSON metadata column or a separate table over adding a nullable boolean/column that most rows will never use. Dedicated columns are appropriate when the field is queried or indexed at the DB level across the full table.
+- **New features must have unit tests.** Every new non-trivial function or behaviour should have a corresponding test in `ladderly-io/tests/`. Use `vitest`. Extract logic into importable module-level functions (e.g. in a `utils.ts`) before testing — do not leave testable logic as anonymous closures inside components or mutation callbacks. Run `npm test` and `npm run check-types` before considering a feature complete. See `tests/app/journal/utils.test.ts` for an example covering async functions with mocked `fetch` and simple dependency-injection patterns for testing side-effects.

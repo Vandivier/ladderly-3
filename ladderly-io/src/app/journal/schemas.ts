@@ -5,6 +5,7 @@ export const JournalEntryEnum = z.enum([
   'PAIN_POINT',
   'LEARNING',
   'OTHER',
+  'TASK',
 ])
 
 export type JournalEntryEnumType = z.infer<typeof JournalEntryEnum>

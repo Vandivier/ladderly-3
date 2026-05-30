@@ -33,8 +33,9 @@ model User {
   hasOpenToRelocation       Boolean @default(false)
   hasPublicProfileEnabled   Boolean @default(false)
   hasShoutOutsEnabled       Boolean @default(false)
-  hasSmallGroupInterest     Boolean @default(false)
-  hasDeepJournalingInterest Boolean @default(false)
+  hasSmallGroupInterest          Boolean @default(false)
+  hasDeepJournalingInterest      Boolean @default(false)
+  hasCustomChecklistsInterest    Boolean @default(false)
 
   // Journal reminder fields
   journalReminderFrequency    ReminderFrequency @default(NONE)
@@ -551,6 +552,8 @@ model JournalEntry {
   isMarkdown      Boolean          @default(false)
   happiness       Int?
   isPublic        Boolean          @default(false)
+  taskName        String?          @db.VarChar(50)
+  taskMetadata    Json?
 
   // Fields for minted entries
   mintedFromDateRange DateTime[] @default([])
@@ -568,6 +571,7 @@ enum JournalEntryType {
   MINTED
   OTHER
   PAIN_POINT
+  TASK
   WIN
 }
 

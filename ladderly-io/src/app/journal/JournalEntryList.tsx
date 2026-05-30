@@ -8,6 +8,9 @@ import type { JournalEntryEnumType } from '~/app/journal/schemas'
 import { api } from '~/trpc/react'
 import { HappinessSlider } from './HappinessSlider'
 
+const isTaskCompleted = (meta: unknown): boolean =>
+  (meta as { isCompleted?: boolean })?.isCompleted === true
+
 // Component to display entry type icon
 const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
   let iconClass = ''
@@ -31,6 +34,12 @@ const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
       bgClass =
         'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
       label = 'Learning'
+      break
+    case 'TASK':
+      iconClass = '✅'
+      bgClass =
+        'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+      label = 'Task'
       break
     default:
       iconClass = '📝'
@@ -79,12 +88,14 @@ interface JournalEntryEditFormProps {
   isCareerRelated: boolean
   isPublic: boolean
   happiness?: number
+  taskName: string
   isUpdating: boolean
   onChangeContent: (v: string) => void
   onChangeEntryType: (v: JournalEntryEnumType) => void
   onChangeIsCareerRelated: (v: boolean) => void
   onChangeIsPublic: (v: boolean) => void
   onChangeHappiness: (v: number | undefined) => void
+  onChangeTaskName: (v: string) => void
   onCancel: () => void
   onSave: () => void
 }
@@ -96,12 +107,14 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
   isCareerRelated,
   isPublic,
   happiness,
+  taskName,
   isUpdating,
   onChangeContent,
   onChangeEntryType,
   onChangeIsCareerRelated,
   onChangeIsPublic,
   onChangeHappiness,
+  onChangeTaskName,
   onCancel,
   onSave,
 }) => {
@@ -137,8 +150,32 @@ const JournalEntryEditForm: React.FC<JournalEntryEditFormProps> = ({
             <option value="PAIN_POINT">Pain Point</option>
             <option value="LEARNING">Learning</option>
             <option value="OTHER">Other</option>
+            <option value="TASK">Task</option>
           </select>
         </div>
+
+        {entryType === 'TASK' && (
+          <div>
+            <label
+              htmlFor={`edit-taskname-${id}`}
+              className="mb-1 block text-sm font-medium dark:text-gray-300"
+            >
+              Task Name
+            </label>
+            <input
+              type="text"
+              id={`edit-taskname-${id}`}
+              value={taskName}
+              maxLength={50}
+              onChange={(e) => onChangeTaskName(e.target.value)}
+              className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              disabled={isUpdating}
+            />
+            <div className="mt-0.5 text-right text-xs text-gray-400">
+              {taskName.length}/50
+            </div>
+          </div>
+        )}
 
         {/* Happiness slider */}
         <div>
@@ -234,6 +271,7 @@ export const JournalEntryList = () => {
   const [editHappiness, setEditHappiness] = useState<number | undefined>(
     undefined,
   )
+  const [editTaskName, setEditTaskName] = useState<string>('')
   const utils = api.useUtils()
 
   // Memoize query parameters to prevent unnecessary re-renders and API calls
@@ -275,6 +313,7 @@ export const JournalEntryList = () => {
         setEditIsCareerRelated(true)
         setEditIsPublic(false)
         setEditHappiness(undefined)
+        setEditTaskName('')
       },
     })
 
@@ -297,6 +336,7 @@ export const JournalEntryList = () => {
       isCareerRelated: boolean
       isPublic: boolean
       happiness?: number | null
+      taskName?: string | null
     }) => {
       setEditingEntryId(entry.id)
       setEditContent(entry.content)
@@ -304,6 +344,7 @@ export const JournalEntryList = () => {
       setEditIsCareerRelated(entry.isCareerRelated)
       setEditIsPublic(entry.isPublic)
       setEditHappiness(entry.happiness === null ? undefined : entry.happiness)
+      setEditTaskName(entry.taskName ?? '')
     },
     [],
   )
@@ -318,6 +359,8 @@ export const JournalEntryList = () => {
         isCareerRelated: editIsCareerRelated,
         isPublic: editIsPublic,
         happiness: editHappiness,
+        taskName:
+          editEntryType === 'TASK' ? editTaskName || undefined : undefined,
       })
     },
     [
@@ -327,6 +370,7 @@ export const JournalEntryList = () => {
       editIsCareerRelated,
       editIsPublic,
       editHappiness,
+      editTaskName,
     ],
   )
 
@@ -338,6 +382,7 @@ export const JournalEntryList = () => {
     setEditIsCareerRelated(true)
     setEditIsPublic(false)
     setEditHappiness(undefined)
+    setEditTaskName('')
   }, [])
 
   // Apply filters when the submit button is clicked
@@ -461,6 +506,7 @@ export const JournalEntryList = () => {
               <option value="PAIN_POINT">Pain Point</option>
               <option value="LEARNING">Learning</option>
               <option value="OTHER">Other</option>
+              <option value="TASK">Task</option>
             </select>
           </div>
 
@@ -571,6 +617,13 @@ export const JournalEntryList = () => {
                   )}
                   <EntryTypeIcon type={entry.entryType} />
 
+                  {entry.entryType === 'TASK' &&
+                    isTaskCompleted(entry.taskMetadata) && (
+                      <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                        ✓ Done
+                      </span>
+                    )}
+
                   {entry.isCareerRelated ? (
                     <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
                       💼 Career
@@ -595,19 +648,28 @@ export const JournalEntryList = () => {
                     isCareerRelated={editIsCareerRelated}
                     isPublic={editIsPublic}
                     happiness={editHappiness ?? undefined}
+                    taskName={editTaskName}
                     isUpdating={isUpdating}
                     onChangeContent={setEditContent}
                     onChangeEntryType={setEditEntryType}
                     onChangeIsCareerRelated={setEditIsCareerRelated}
                     onChangeIsPublic={setEditIsPublic}
                     onChangeHappiness={setEditHappiness}
+                    onChangeTaskName={setEditTaskName}
                     onCancel={handleCancelEdit}
                     onSave={() => handleSaveEdit(entry.id)}
                   />
                 ) : (
-                  <p className="mt-2 whitespace-pre-wrap text-gray-800 dark:text-gray-200">
-                    {formatContentWithHashtags(entry.content)}
-                  </p>
+                  <div className="mt-2">
+                    {entry.entryType === 'TASK' && entry.taskName && (
+                      <p className="mb-1 text-sm text-gray-600 dark:text-gray-400">
+                        {entry.taskName}
+                      </p>
+                    )}
+                    <p className="whitespace-pre-wrap text-gray-800 dark:text-gray-200">
+                      {formatContentWithHashtags(entry.content)}
+                    </p>
+                  </div>
                 )}
               </div>
 
