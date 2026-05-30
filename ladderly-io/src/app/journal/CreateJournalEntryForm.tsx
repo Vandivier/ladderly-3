@@ -23,6 +23,7 @@ const journalEntrySchema = z.object({
   isCareerRelated: z.boolean().default(true),
   isPublic: z.boolean().default(false),
   happiness: z.number().min(1).max(10).optional(),
+  taskName: z.string().max(20).optional(),
 })
 
 type JournalEntryFormValues = z.infer<typeof journalEntrySchema>
@@ -44,6 +45,7 @@ export const CreateJournalEntryForm = ({
   const [isPublic, setIsPublic] = useState(false)
   const [entryType, setEntryType] = useState<JournalEntryEnumType>('WIN')
   const [happiness, setHappiness] = useState<number | undefined>(undefined)
+  const [taskName, setTaskName] = useState('')
 
   // Get the date from a week ago - memoize to prevent recreating on every render
   const oneWeekAgo = useMemo(() => {
@@ -79,6 +81,7 @@ export const CreateJournalEntryForm = ({
       // Reset form after successful submission
       setCharacterCount(0)
       setContentValue('')
+      setTaskName('')
       setError(null)
     },
     onError: (error) => {
@@ -93,6 +96,7 @@ export const CreateJournalEntryForm = ({
       values.content = contentValue ?? values.content
       values.isCareerRelated = isCareerRelated
       values.isPublic = isPublic
+      values.taskName = entryType === 'TASK' ? taskName || undefined : undefined
 
       // Validate form with schema
       const valid = journalEntrySchema.safeParse(values)
@@ -170,7 +174,11 @@ export const CreateJournalEntryForm = ({
             name="content"
             value={contentValue}
             className="w-full rounded-md border border-gray-300 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-            placeholder="What happened recently? Use hashtags like #newjob to mark special achievements."
+            placeholder={
+              entryType === 'TASK'
+                ? 'Describe the task...'
+                : 'What happened recently? Use hashtags like #newjob to mark special achievements.'
+            }
             rows={3}
             maxLength={500}
             required
@@ -221,6 +229,7 @@ export const CreateJournalEntryForm = ({
               <option value="PAIN_POINT">Pain Point</option>
               <option value="LEARNING">Learning</option>
               <option value="OTHER">Other</option>
+              <option value="TASK">Task</option>
             </select>
           </div>
 
@@ -289,6 +298,36 @@ export const CreateJournalEntryForm = ({
             </span>
           </div>
         </div>
+
+        {/* Task name row — only shown for Task entry type */}
+        {entryType === 'TASK' && (
+          <div className="mb-4 w-full sm:w-1/2">
+            <label
+              htmlFor="taskName"
+              className="mb-1 block text-sm font-medium dark:text-gray-300"
+            >
+              Task Name
+            </label>
+            <input
+              type="text"
+              id="taskName"
+              name="taskName"
+              value={taskName}
+              maxLength={20}
+              placeholder="Task name (max 20)"
+              onChange={(e) => setTaskName(e.target.value)}
+              className="w-full rounded-md border border-gray-300 p-2 text-base dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              disabled={
+                isLoading ||
+                isWeeklyLoadingData ||
+                weeklyEntryCount >= weeklyLimit
+              }
+            />
+            <div className="mt-0.5 text-right text-xs text-gray-400">
+              {taskName.length}/20
+            </div>
+          </div>
+        )}
 
         {error && (
           <div className="mb-4 rounded bg-red-100 p-2 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">

@@ -22,6 +22,8 @@ const createJournalEntrySchema = z.object({
   mintedFromHashtag: z.string().optional(),
   mintedFromDateRange: z.array(z.date()).optional(),
   happiness: z.number().min(1).max(10).optional(),
+  taskName: z.string().max(20).optional(),
+  taskMetadata: z.record(z.string(), z.unknown()).optional(),
 })
 
 const updateReminderSchema = z.object({
@@ -36,6 +38,8 @@ const updateJournalEntrySchema = z.object({
   isCareerRelated: z.boolean().optional(),
   isPublic: z.boolean().optional(),
   happiness: z.number().min(1).max(10).optional(),
+  taskName: z.string().max(20).optional(),
+  taskMetadata: z.record(z.string(), z.unknown()).optional(),
 })
 
 export const journalRouter = createTRPCRouter({
@@ -210,6 +214,8 @@ export const journalRouter = createTRPCRouter({
           mintedFromHashtag: input.mintedFromHashtag,
           mintedFromDateRange: input.mintedFromDateRange ?? [],
           happiness: input.happiness,
+          taskName: input.taskName,
+          taskMetadata: input.taskMetadata,
           userId,
         },
       })
@@ -247,6 +253,8 @@ export const journalRouter = createTRPCRouter({
           isCareerRelated: input.isCareerRelated ?? entry.isCareerRelated,
           isPublic: input.isPublic ?? entry.isPublic,
           happiness: input.happiness ?? entry.happiness,
+          taskName: input.taskName ?? entry.taskName,
+          taskMetadata: input.taskMetadata ?? entry.taskMetadata ?? undefined,
         },
       })
     }),

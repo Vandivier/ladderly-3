@@ -551,6 +551,8 @@ model JournalEntry {
   isMarkdown      Boolean          @default(false)
   happiness       Int?
   isPublic        Boolean          @default(false)
+  taskName        String?          @db.VarChar(20)
+  taskMetadata    Json?
 
   // Fields for minted entries
   mintedFromDateRange DateTime[] @default([])
@@ -568,6 +570,7 @@ enum JournalEntryType {
   MINTED
   OTHER
   PAIN_POINT
+  TASK
   WIN
 }
 
