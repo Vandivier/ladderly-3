@@ -8,6 +8,9 @@ import type { JournalEntryEnumType } from '~/app/journal/schemas'
 import { api } from '~/trpc/react'
 import { HappinessSlider } from './HappinessSlider'
 
+const isTaskCompleted = (meta: unknown): boolean =>
+  (meta as { isCompleted?: boolean })?.isCompleted === true
+
 // Component to display entry type icon
 const EntryTypeIcon: React.FC<{ type: JournalEntryType }> = ({ type }) => {
   let iconClass = ''
@@ -613,6 +616,13 @@ export const JournalEntryList = () => {
                     <LockIcon className="size-4" />
                   )}
                   <EntryTypeIcon type={entry.entryType} />
+
+                  {entry.entryType === 'TASK' &&
+                    isTaskCompleted(entry.taskMetadata) && (
+                      <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                        ✓ Done
+                      </span>
+                    )}
 
                   {entry.isCareerRelated ? (
                     <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">

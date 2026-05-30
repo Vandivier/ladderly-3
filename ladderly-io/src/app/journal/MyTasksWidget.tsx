@@ -1,15 +1,48 @@
 'use client'
 
-import React, { useState } from 'react'
+import { CheckCircle } from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react'
 import { api } from '~/trpc/react'
 
-type TaskMeta = { isCompleted?: boolean } & Record<string, unknown>
+type TaskMeta = { isCompleted?: boolean; issueUrl?: string } & Record<
+  string,
+  unknown
+>
 
 const getIsCompleted = (meta: unknown): boolean =>
   (meta as TaskMeta)?.isCompleted === true
 
+const getIssueUrl = (meta: unknown): string | undefined =>
+  (meta as TaskMeta)?.issueUrl
+
+const TaskNameDisplay = ({
+  name,
+  issueUrl,
+  strikethrough = false,
+}: {
+  name: string
+  issueUrl?: string
+  strikethrough?: boolean
+}) => {
+  const cls = `text-sm font-medium dark:text-gray-100${strikethrough ? ' line-through' : ''}`
+  if (issueUrl) {
+    return (
+      <a
+        href={issueUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${cls} underline hover:text-blue-600 dark:hover:text-blue-400`}
+      >
+        {name}
+      </a>
+    )
+  }
+  return <p className={cls}>{name}</p>
+}
+
 export const MyTasksWidget = () => {
   const [showCompleted, setShowCompleted] = useState(false)
+  const [showNudge, setShowNudge] = useState(false)
   const utils = api.useUtils()
 
   const { data: tasks, isLoading } = api.journal.getUserTasks.useQuery(
@@ -17,12 +50,32 @@ export const MyTasksWidget = () => {
     { refetchOnWindowFocus: false, staleTime: 30_000 },
   )
 
+  // Show nudge when a task is created from the form above (count changes)
+  const initialCountRef = useRef<number | null>(null)
+  useEffect(() => {
+    if (!tasks) return
+    if (initialCountRef.current === null) {
+      initialCountRef.current = tasks.length
+      return
+    }
+    if (tasks.length !== initialCountRef.current) {
+      initialCountRef.current = tasks.length
+      setShowNudge(true)
+    }
+  }, [tasks])
+
   const { mutate: updateEntry } = api.journal.updateEntry.useMutation({
-    onSuccess: () => utils.journal.getUserTasks.invalidate(),
+    onSuccess: () => {
+      void utils.journal.getUserTasks.invalidate()
+      setShowNudge(true)
+    },
   })
 
   const { mutate: deleteEntry } = api.journal.deleteEntry.useMutation({
-    onSuccess: () => utils.journal.getUserTasks.invalidate(),
+    onSuccess: () => {
+      void utils.journal.getUserTasks.invalidate()
+      setShowNudge(true)
+    },
   })
 
   const toggleComplete = (
@@ -50,6 +103,23 @@ export const MyTasksWidget = () => {
         My Tasks
       </h3>
 
+      {showNudge && (
+        <div className="mb-3 flex items-start justify-between gap-2 rounded-md bg-blue-50 px-3 py-2 text-sm text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+          <span>
+            Task list updated — consider logging a{' '}
+            <strong>Win</strong>, <strong>Learning</strong>, or{' '}
+            <strong>Other</strong> journal entry!
+          </span>
+          <button
+            onClick={() => setShowNudge(false)}
+            aria-label="Dismiss"
+            className="mt-0.5 shrink-0 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200"
+          >
+            <CheckCircle className="size-4" />
+          </button>
+        </div>
+      )}
+
       {isLoading && (
         <p className="text-sm text-gray-500 dark:text-gray-400">Loading...</p>
       )}
@@ -74,9 +144,10 @@ export const MyTasksWidget = () => {
             />
             <div className="min-w-0 flex-1">
               {task.taskName && (
-                <p className="text-sm font-medium dark:text-gray-100">
-                  {task.taskName}
-                </p>
+                <TaskNameDisplay
+                  name={task.taskName}
+                  issueUrl={getIssueUrl(task.taskMetadata)}
+                />
               )}
               {task.content && (
                 <p className="truncate text-xs text-gray-500 dark:text-gray-400">
@@ -132,9 +203,11 @@ export const MyTasksWidget = () => {
                   />
                   <div className="min-w-0 flex-1">
                     {task.taskName && (
-                      <p className="text-sm line-through dark:text-gray-400">
-                        {task.taskName}
-                      </p>
+                      <TaskNameDisplay
+                        name={task.taskName}
+                        issueUrl={getIssueUrl(task.taskMetadata)}
+                        strikethrough
+                      />
                     )}
                     {task.content && (
                       <p className="truncate text-xs text-gray-400 line-through dark:text-gray-500">

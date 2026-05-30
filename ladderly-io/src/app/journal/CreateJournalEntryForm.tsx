@@ -11,6 +11,7 @@ import {
 } from '~/app/journal/schemas'
 import { api } from '~/trpc/react'
 import { HappinessSlider } from './HappinessSlider'
+import { invalidateJournalCaches, resolveGitHubIssueUrl } from './utils'
 import { WeeklyEntryCountIndicator } from './WeeklyEntryCountIndicator'
 
 // Zod schema for validating journal entry form
@@ -75,9 +76,8 @@ export const CreateJournalEntryForm = ({
   // Create journal entry mutation
   const createEntryMutation = api.journal.createEntry.useMutation({
     onSuccess: async () => {
-      await utils.journal.getUserEntries.invalidate()
+      await invalidateJournalCaches(utils)
       router.refresh()
-      // Reset form after successful submission
       setCharacterCount(0)
       setContentValue('')
       setTaskName('')
@@ -91,13 +91,24 @@ export const CreateJournalEntryForm = ({
   // Handle form submission
   const handleSubmit = async (values: JournalEntryFormValues) => {
     try {
-      // Ensure content is included from our tracked state
       values.content = contentValue ?? values.content
       values.isCareerRelated = isCareerRelated
       values.isPublic = isPublic
-      values.taskName = entryType === 'TASK' ? taskName || undefined : undefined
 
-      // Validate form with schema
+      let resolvedTaskName =
+        entryType === 'TASK' ? taskName || undefined : undefined
+      let resolvedTaskMetadata: Record<string, unknown> | undefined = undefined
+
+      if (resolvedTaskName) {
+        const github = await resolveGitHubIssueUrl(resolvedTaskName)
+        if (github) {
+          resolvedTaskName = github.taskName
+          resolvedTaskMetadata = { issueUrl: github.issueUrl }
+        }
+      }
+
+      values.taskName = resolvedTaskName
+
       const valid = journalEntrySchema.safeParse(values)
       if (!valid.success) {
         const firstError = valid.error.errors[0]?.message ?? 'Invalid form data'
@@ -105,7 +116,7 @@ export const CreateJournalEntryForm = ({
         return
       }
 
-      createEntryMutation.mutate(values)
+      createEntryMutation.mutate({ ...values, taskMetadata: resolvedTaskMetadata })
     } catch {
       setError('An unexpected error occurred')
     }
