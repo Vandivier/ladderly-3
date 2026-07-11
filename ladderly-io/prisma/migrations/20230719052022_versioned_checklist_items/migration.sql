@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "ChecklistItem" ADD COLUMN     "version" TEXT NOT NULL DEFAULT '2023-07-18T00:00:00.517Z';
