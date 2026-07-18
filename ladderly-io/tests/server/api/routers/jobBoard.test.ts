@@ -310,6 +310,34 @@ describe('jobBoardRouter', () => {
       )
     })
 
+    it('searches company name and job title case-insensitively', async () => {
+      mockDb.jobBoardPost.findMany.mockResolvedValue([])
+
+      const caller = createCaller({
+        db: mockDb,
+        session: null,
+        headers: new Headers(),
+      })
+
+      await caller.getPosts({
+        skip: 0,
+        take: 10,
+        searchTerm: 'acme',
+        sortBy: 'newest',
+      })
+
+      expect(mockDb.jobBoardPost.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            OR: [
+              { companyName: { contains: 'acme', mode: 'insensitive' } },
+              { jobTitle: { contains: 'acme', mode: 'insensitive' } },
+            ],
+          }),
+        }),
+      )
+    })
+
     it('applies contactType and introJobFamily filters', async () => {
       mockDb.jobBoardPost.findMany.mockResolvedValue([])
 
@@ -340,7 +368,46 @@ describe('jobBoardRouter', () => {
     })
   })
 
+  describe('getMyPosts', () => {
+    it('returns all of the current user posts, including expired', async () => {
+      const myPosts = [{ id: 1 }, { id: 2 }]
+      mockDb.jobBoardPost.findMany.mockResolvedValue(myPosts)
+
+      const caller = createCaller({
+        db: mockDb,
+        session: mockSession,
+        headers: new Headers(),
+      })
+
+      const result = await caller.getMyPosts()
+      expect(result).toEqual(myPosts)
+      expect(mockDb.jobBoardPost.findMany).toHaveBeenCalledWith({
+        where: { authorId: 1 },
+        orderBy: { createdAt: 'desc' },
+      })
+    })
+  })
+
   describe('getPost', () => {
+    it('returns unexpired posts to anonymous visitors', async () => {
+      const livePost = {
+        id: 2,
+        authorId: 9,
+        expiresAt: new Date(Date.now() + 86_400_000),
+        author: { id: 9, nameFirst: 'Test', nameLast: 'User' },
+      }
+      mockDb.jobBoardPost.findUnique.mockResolvedValue(livePost)
+
+      const caller = createCaller({
+        db: mockDb,
+        session: null,
+        headers: new Headers(),
+      })
+
+      const result = await caller.getPost({ id: 2 })
+      expect(result).toEqual(livePost)
+    })
+
     const expiredPost = {
       id: 1,
       authorId: 1,
@@ -409,6 +476,97 @@ describe('jobBoardRouter', () => {
         caller.update({ id: 1, jobTitle: 'New Title' }),
       ).rejects.toThrow('permission')
       expect(mockDb.jobBoardPost.update).not.toHaveBeenCalled()
+    })
+
+    it('clears intro families when switching a post to direct contact', async () => {
+      mockDb.jobBoardPost.findUnique.mockResolvedValue({
+        id: 1,
+        authorId: 1,
+        contactType: JobBoardContactType.NETWORK_INTRO,
+        introJobFamilies: [IntroJobFamily.ENGINEERING_MANAGER],
+      })
+      mockDb.jobBoardPost.update.mockResolvedValue({ id: 1 })
+
+      const caller = createCaller({
+        db: mockDb,
+        session: mockSession,
+        headers: new Headers(),
+      })
+
+      await caller.update({
+        id: 1,
+        contactType: JobBoardContactType.POSTER,
+        introJobFamilies: [IntroJobFamily.ENGINEERING_MANAGER],
+      })
+
+      expect(mockDb.jobBoardPost.update).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 1 },
+          data: expect.objectContaining({
+            contactType: JobBoardContactType.POSTER,
+            introJobFamilies: [],
+          }),
+        }),
+      )
+    })
+
+    it('keeps existing families when an update omits them', async () => {
+      mockDb.jobBoardPost.findUnique.mockResolvedValue({
+        id: 1,
+        authorId: 1,
+        contactType: JobBoardContactType.NETWORK_INTRO,
+        introJobFamilies: [IntroJobFamily.TECHNICAL_RECRUITER],
+      })
+      mockDb.jobBoardPost.update.mockResolvedValue({ id: 1 })
+
+      const caller = createCaller({
+        db: mockDb,
+        session: mockSession,
+        headers: new Headers(),
+      })
+
+      await caller.update({ id: 1, jobTitle: 'Staff Engineer' })
+
+      expect(mockDb.jobBoardPost.update).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            jobTitle: 'Staff Engineer',
+            contactType: JobBoardContactType.NETWORK_INTRO,
+            introJobFamilies: [IntroJobFamily.TECHNICAL_RECRUITER],
+          }),
+        }),
+      )
+    })
+
+    it('rejects renew from non-owners', async () => {
+      mockDb.jobBoardPost.findUnique.mockResolvedValue({
+        id: 1,
+        authorId: 2,
+      })
+
+      const caller = createCaller({
+        db: mockDb,
+        session: mockSession,
+        headers: new Headers(),
+      })
+
+      await expect(caller.renew({ id: 1 })).rejects.toThrow('permission')
+      expect(mockDb.jobBoardPost.update).not.toHaveBeenCalled()
+    })
+
+    it('throws NOT_FOUND when deleting a missing post', async () => {
+      mockDb.jobBoardPost.findUnique.mockResolvedValue(null)
+
+      const caller = createCaller({
+        db: mockDb,
+        session: mockSession,
+        headers: new Headers(),
+      })
+
+      await expect(caller.delete({ id: 999 })).rejects.toThrow(
+        'Job post not found',
+      )
+      expect(mockDb.jobBoardPost.delete).not.toHaveBeenCalled()
     })
 
     it('deletes an owned post', async () => {
