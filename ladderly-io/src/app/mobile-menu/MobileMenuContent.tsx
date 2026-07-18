@@ -107,6 +107,11 @@ export default function MobileMenuContent({
               </Link>
             </li>
             <li>
+              <Link href="/jobs" className={MOBILE_LINK_CLASSES}>
+                Jobs
+              </Link>
+            </li>
+            <li>
               <Link href="/perks" className={MOBILE_LINK_CLASSES}>
                 Perks
               </Link>

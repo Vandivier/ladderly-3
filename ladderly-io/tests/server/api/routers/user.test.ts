@@ -13,6 +13,12 @@ const mockDb = {
   subscription: {
     create: vi.fn(),
   },
+  lead: {
+    findUnique: vi.fn(),
+    create: vi.fn(),
+    update: vi.fn(),
+    upsert: vi.fn(),
+  },
   $transaction: vi.fn(async (callback) => await callback(mockDb)),
   $queryRaw: vi.fn().mockResolvedValue([]),
 }
@@ -501,6 +507,7 @@ describe('userRouter', () => {
         hasOpenToRelocation: false,
         hasShoutOutsEnabled: false,
         hasSmallGroupInterest: false,
+        isRecruiter: false,
         profileBlurb: '',
         profileContactEmail: '',
         profileCurrentJobCompany: 'Test Company',
@@ -561,6 +568,7 @@ describe('userRouter', () => {
         hasOpenToRelocation: false,
         hasShoutOutsEnabled: false,
         hasSmallGroupInterest: false,
+        isRecruiter: false,
         profileBlurb: '',
         profileContactEmail: '',
         profileCurrentJobCompany: 'Test Company',
@@ -630,6 +638,7 @@ describe('userRouter', () => {
         hasOpenToRelocation: false,
         hasShoutOutsEnabled: false,
         hasSmallGroupInterest: false,
+        isRecruiter: false,
         profileBlurb: '',
         profileContactEmail: '',
         profileCurrentJobCompany: 'Test Company',
@@ -660,6 +669,7 @@ describe('userRouter', () => {
       }
 
       mockDb.user.update.mockResolvedValue(mockUpdatedUser)
+      mockDb.lead.upsert.mockResolvedValue({})
 
       const caller = createCaller({
         db: mockDb,
@@ -690,9 +700,80 @@ describe('userRouter', () => {
             nameLast: 'User',
             hasOpenToWork: true,
             profileTopSkills: ['TypeScript', 'React'],
+            isRecruiter: false,
           }),
         }),
       )
+
+      // Lead flag stays in sync with the User recruiter flag
+      expect(mockDb.lead.upsert).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { email: 'updated@example.com' },
+          create: expect.objectContaining({ isRecruiter: false }),
+          update: expect.objectContaining({ isRecruiter: false }),
+        }),
+      )
+    })
+
+    it('syncs isRecruiter to the Lead record', async () => {
+      const updateData = {
+        email: 'recruiter@example.com',
+        emailBackup: '',
+        emailStripe: '',
+        nameFirst: 'Rec',
+        nameLast: 'Ruiter',
+        hasOpenToWork: false,
+        hasPublicProfileEnabled: true,
+        hasInPersonEventInterest: false,
+        hasLiveStreamInterest: false,
+        hasOnlineEventInterest: false,
+        hasOpenToRelocation: false,
+        hasShoutOutsEnabled: false,
+        hasSmallGroupInterest: false,
+        isRecruiter: true,
+        profileBlurb: '',
+        profileContactEmail: '',
+        profileCurrentJobCompany: '',
+        profileCurrentJobTitle: '',
+        profileDiscordHandle: '',
+        profileGitHubUri: '',
+        profileHighestDegree: '',
+        profileHomepageUri: '',
+        profileLinkedInUri: '',
+        profileTopNetworkingReasons: [],
+        profileTopServices: [],
+        profileTopSkills: [],
+        profileYearsOfExperience: 0,
+        residenceCountry: '',
+        residenceUSState: '',
+      }
+
+      mockDb.user.update.mockResolvedValue({
+        id: 1,
+        ...updateData,
+        emailVerified: true,
+        subscriptions: [],
+      })
+      mockDb.lead.upsert.mockResolvedValue({})
+
+      const caller = createCaller({
+        db: mockDb,
+        session: mockSession,
+        headers: new Headers(),
+      })
+
+      const result = await caller.updateSettings(updateData)
+      expect(result).toMatchObject({ isRecruiter: true })
+
+      expect(mockDb.lead.upsert).toHaveBeenCalledWith({
+        where: { email: 'recruiter@example.com' },
+        create: expect.objectContaining({
+          email: 'recruiter@example.com',
+          userId: 1,
+          isRecruiter: true,
+        }),
+        update: { isRecruiter: true, userId: 1 },
+      })
     })
 
     it('throws error for invalid email format', async () => {
@@ -710,6 +791,7 @@ describe('userRouter', () => {
         hasOpenToRelocation: false,
         hasShoutOutsEnabled: false,
         hasSmallGroupInterest: false,
+        isRecruiter: false,
         profileBlurb: '',
         profileContactEmail: '',
         profileCurrentJobCompany: '',
@@ -737,6 +819,40 @@ describe('userRouter', () => {
         'Invalid email format',
       )
       expect(mockDb.user.update).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('updateEmailPreferences', () => {
+    it('updates the Lead and syncs isRecruiter to the User', async () => {
+      const input = {
+        isRecruiter: true,
+        hasOptOutMarketing: false,
+        hasOptOutFeatureUpdates: false,
+        hasOptOutEventAnnouncements: false,
+        hasOptOutNewsletterAndBlog: true,
+      }
+
+      const mockLead = { id: 1, email: 'test@example.com', ...input }
+      mockDb.lead.update.mockResolvedValue(mockLead)
+      mockDb.user.update.mockResolvedValue({ id: 1, isRecruiter: true })
+
+      const caller = createCaller({
+        db: mockDb,
+        session: mockSession,
+        headers: new Headers(),
+      })
+
+      const result = await caller.updateEmailPreferences(input)
+      expect(result).toEqual(mockLead)
+
+      expect(mockDb.lead.update).toHaveBeenCalledWith({
+        where: { email: 'test@example.com' },
+        data: input,
+      })
+      expect(mockDb.user.update).toHaveBeenCalledWith({
+        where: { id: 1 },
+        data: { isRecruiter: true },
+      })
     })
   })
 })

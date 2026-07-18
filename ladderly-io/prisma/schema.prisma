@@ -36,6 +36,7 @@ model User {
   hasSmallGroupInterest          Boolean @default(false)
   hasDeepJournalingInterest      Boolean @default(false)
   hasCustomChecklistsInterest    Boolean @default(false)
+  isRecruiter                    Boolean @default(false)
 
   // Journal reminder fields
   journalReminderFrequency    ReminderFrequency @default(NONE)
@@ -60,6 +61,7 @@ model User {
 
   accounts            Account[]
   authoredVotables    Votable[]                       @relation("AuthoredVotables")
+  jobBoardPosts       JobBoardPost[]                  @relation("JobBoardPosts")
   jobSearches         JobSearch[]
   quizResults         QuizResult[]
   role                RoleEnum                        @default(USER)
@@ -539,6 +541,47 @@ model JobSearchStep {
   // Relations
   jobPost   JobPostForCandidate @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
   jobPostId Int
+}
+
+// Public job board: jobs posted by members, transparently attached to a real person.
+// Distinct from JobPostForCandidate, which is the personal candidate-side tracker.
+enum JobBoardContactType {
+  POSTER // the poster is the direct contact
+  NETWORK_INTRO // the poster is a connector offering intros at the company
+}
+
+enum IntroJobFamily {
+  INDIVIDUAL_CONTRIBUTOR
+  ENGINEERING_MANAGER
+  TECHNICAL_RECRUITER
+}
+
+model JobBoardPost {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  companyName String
+  jobTitle    String
+  description String?
+  jobPostUrl  String?
+  location    String  @default("")
+  isRemote    Boolean @default(false)
+
+  // optional annual base salary range, whole currency units
+  baseSalaryMin Int?
+  baseSalaryMax Int?
+
+  contactType      JobBoardContactType @default(POSTER)
+  // only meaningful when contactType is NETWORK_INTRO
+  introJobFamilies IntroJobFamily[]    @default([])
+  expiresAt        DateTime
+
+  authorId Int
+  author   User @relation("JobBoardPosts", fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+  @@index([authorId])
 }
 
 model JournalEntry {

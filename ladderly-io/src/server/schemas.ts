@@ -48,6 +48,7 @@ export const UpdateUserSettingsSchema = z.object({
   hasPublicProfileEnabled: z.boolean(),
   hasShoutOutsEnabled: z.boolean(),
   hasSmallGroupInterest: z.boolean(),
+  isRecruiter: z.boolean(),
   nameFirst: optionalNameSchema,
   nameLast: optionalNameSchema,
   profileBlurb: z.string().nullable(),

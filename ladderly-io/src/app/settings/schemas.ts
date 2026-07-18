@@ -73,6 +73,7 @@ export const UpdateSettingsFormSchema = z.object({
   hasPublicProfileEnabled: z.boolean().default(false),
   hasShoutOutsEnabled: z.boolean().default(false),
   hasSmallGroupInterest: z.boolean().default(false),
+  isRecruiter: z.boolean().default(false),
 
   nameFirst: optionalNameValidator,
   nameLast: optionalNameValidator,
