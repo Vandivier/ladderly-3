@@ -339,6 +339,7 @@ export const userRouter = createTRPCRouter({
         hasPublicProfileEnabled: user.hasPublicProfileEnabled,
         hasShoutOutsEnabled: user.hasShoutOutsEnabled,
         hasSmallGroupInterest: user.hasSmallGroupInterest,
+        isRecruiter: user.isRecruiter,
         id: user.id,
         nameFirst: user.nameFirst,
         nameLast: user.nameLast,
@@ -408,6 +409,7 @@ export const userRouter = createTRPCRouter({
           hasPublicProfileEnabled: input.hasPublicProfileEnabled,
           hasShoutOutsEnabled: input.hasShoutOutsEnabled,
           hasSmallGroupInterest: input.hasSmallGroupInterest,
+          isRecruiter: input.isRecruiter,
           nameFirst: input.nameFirst?.trim() ?? '',
           nameLast: input.nameLast?.trim() ?? '',
           profileBlurb: input.profileBlurb?.trim() ?? null,
@@ -432,6 +434,21 @@ export const userRouter = createTRPCRouter({
             select: { tier: true, type: true },
           },
         },
+      })
+
+      // keep the marketing Lead flag in sync with the User recruiter flag
+      await ctx.db.lead.upsert({
+        where: { email },
+        create: {
+          email,
+          userId,
+          isRecruiter: input.isRecruiter,
+          hasOptOutMarketing: false,
+          hasOptOutFeatureUpdates: false,
+          hasOptOutEventAnnouncements: false,
+          hasOptOutNewsletterAndBlog: false,
+        },
+        update: { isRecruiter: input.isRecruiter, userId },
       })
 
       const subscription = user.subscriptions[0] ?? {
@@ -492,6 +509,7 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const userId = parseInt(ctx.session.user.id)
       const email = ctx.session.user.email
 
       if (!email) {
@@ -510,6 +528,12 @@ export const userRouter = createTRPCRouter({
           hasOptOutEventAnnouncements: input.hasOptOutEventAnnouncements,
           hasOptOutNewsletterAndBlog: input.hasOptOutNewsletterAndBlog,
         },
+      })
+
+      // keep the User recruiter flag in sync with the Lead flag
+      await ctx.db.user.update({
+        where: { id: userId },
+        data: { isRecruiter: input.isRecruiter },
       })
 
       return lead

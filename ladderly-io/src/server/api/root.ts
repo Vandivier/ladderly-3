@@ -3,6 +3,7 @@ import { userRouter } from './routers/user'
 import { authRouter } from './routers/auth'
 import { checklistRouter } from './routers/checklist'
 import { chatRouter } from './routers/chat'
+import { jobBoardRouter } from './routers/jobBoard/router'
 import { jobSearchRouter } from './routers/jobSearch/router'
 import { courseRouter } from './routers/course'
 import { quizRouter } from './routers/quiz'
@@ -19,6 +20,7 @@ export const appRouter = createTRPCRouter({
   auth: authRouter,
   checklist: checklistRouter,
   chat: chatRouter,
+  jobBoard: jobBoardRouter,
   jobSearch: jobSearchRouter,
   course: courseRouter,
   quiz: quizRouter,

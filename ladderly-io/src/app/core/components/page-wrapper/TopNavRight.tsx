@@ -101,6 +101,9 @@ export const TopNavRight = () => {
 
   return (
     <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
+      <Link href="/jobs" className={TOP_NAV_STANDARD_CLASSES}>
+        Jobs
+      </Link>
       <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
         Perks
       </Link>
@@ -142,6 +145,9 @@ export const TopNavRight = () => {
 
 export const TopNavRightSkeleton = () => (
   <div className={TOP_NAV_RIGHT_SECTION_CLASSES}>
+    <Link href="/jobs" className={TOP_NAV_STANDARD_CLASSES}>
+      Jobs
+    </Link>
     <Link href="/perks" className={TOP_NAV_STANDARD_CLASSES}>
       Perks
     </Link>

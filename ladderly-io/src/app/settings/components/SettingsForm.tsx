@@ -67,6 +67,7 @@ export function SettingsForm({ initialValues, onSubmit }: SettingsFormProps) {
         />
 
         <LabeledCheckboxField name="hasOpenToWork" label="Open To Work" />
+        <LabeledCheckboxField name="isRecruiter" label="I am a Recruiter" />
         <LabeledCheckboxField
           label="Enable Shout Outs"
           name="hasShoutOutsEnabled"
