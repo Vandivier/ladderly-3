@@ -1,13 +1,13 @@
 ---
-title: '39. 9 Ways to Get Code Reviewed Quickly'
+title: '39. Nine Ways to Get Code Reviewed Quickly'
 author: John Vandivier
 ---
 
-_Originally published at [Current Tech](https://currenttech.substack.com/p/9-ways-to-get-code-reviewed-quickly) on November 11, 2026._
+_Originally published at [Current Tech](https://currenttech.substack.com/p/9-ways-to-get-code-reviewed-quickly)._
 
 ![9 Ways to Get Code Reviewed Quickly](https://substack-post-media.s3.amazonaws.com/public/images/35cbabe5-3e10-4e35-81ca-0e6180e07495_3016x1612.png)
 
-This article covers seven techniques that will help reduce cycle time, the time between a pull request (PR) or code change is marked ready for review and the time at which it merges.
+This article covers nine techniques that will help reduce cycle time, the time between a pull request (PR) or code change is marked ready for review and the time at which it merges.
 
 Many of these techniques can be lightly adapted to any kind of draft-review workflow for non-code deliverables such as documents and presentations.
 
