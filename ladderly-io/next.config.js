@@ -3,6 +3,7 @@
  * for Docker builds.
  */
 await import('./src/env.js')
+import { getVanityRedirects } from './src/vanity-redirects.js'
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -16,6 +17,9 @@ const config = {
     ],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+  async redirects() {
+    return getVanityRedirects()
   },
   // Security headers to prevent clickjacking and other attacks
   async headers() {
