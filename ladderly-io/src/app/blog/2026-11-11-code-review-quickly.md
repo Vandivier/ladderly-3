@@ -109,7 +109,7 @@ You can also take the lead, sewing seeds of generosity by reviewing others unpro
 
 Do a meeting.
 
-It can be a 1:1 or a group meeting. You can review a single PR or multiple PRs (that’s the batch review idea).
+It can be a one-on-one meeting or a group meeting. You can review a single PR or multiple PRs (that’s the batch review idea).
 
 You can also implement this in pre-existing meeting, basically exploiting a portion of the meeting time for a quick code review.
 
