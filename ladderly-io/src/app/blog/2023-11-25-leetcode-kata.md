@@ -266,6 +266,8 @@ Here is the list of code challenges in The Ladderly Expanded Kata:
 
 While this makes up the labeled region of the pie chart the total here is only 78.4%. Other groups like tries and greedy algorithms took up some small and unlabeled slices in the analysis across companies, but they sometimes made significant contributions to company-specific question pools.
 
+For a company-level companion to these overall estimates, [PracHub's analysis of 2,818 coding-question records](https://prachub.com/resources/most-common-coding-interview-patterns-by-company-analysis-of-prachub-question-data) compares pattern frequencies across companies. The candidate-reported dataset uses its own pattern taxonomy, so its percentages describe that sample rather than universal interview probabilities.
+
 The Ladderly Expanded Kata covers all of these except:
 
 1. Dynamic Programming (Technically there's one DP problem but let's consider it not covered)
